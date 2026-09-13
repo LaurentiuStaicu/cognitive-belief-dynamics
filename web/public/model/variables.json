@@ -1,0 +1,121 @@
+[
+  {
+    "id": "VAR.FAMILIARITY.CLAIM",
+    "short_name": "F",
+    "ontology_type": "STATE_SLOW",
+    "entity_type": "HumanAgent",
+    "conceptual_module": "MOD.04",
+    "label": {
+      "en": "Claim familiarity",
+      "ro": "Familiaritatea afirmației"
+    },
+    "definition": "Accessibility/familiarity of a claim for an agent after exposure.",
+    "what_it_is_not": "Truth, source reliability, or factual evidence.",
+    "range": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "VAR.CORRECTION.ACCESS",
+    "short_name": "C",
+    "ontology_type": "STATE_SLOW",
+    "entity_type": "HumanAgent",
+    "conceptual_module": "MOD.04",
+    "label": {
+      "en": "Corrective-context accessibility",
+      "ro": "Accesibilitatea contextului corectiv"
+    },
+    "definition": "Current accessibility of corrective information for a claim.",
+    "what_it_is_not": "Guaranteed belief correction.",
+    "range": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "VAR.RELIABILITY.ESTIMATE",
+    "short_name": "T",
+    "ontology_type": "STATE_SLOW",
+    "entity_type": "HumanAgent",
+    "conceptual_module": "MOD.02",
+    "label": {
+      "en": "Estimated source reliability",
+      "ro": "Fiabilitatea estimată a sursei"
+    },
+    "definition": "Agent's task-relevant estimate of a source's reliability.",
+    "what_it_is_not": "Actual source reliability.",
+    "range": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "VAR.BELIEF.CLAIM",
+    "short_name": "B",
+    "ontology_type": "STATE_FAST",
+    "entity_type": "HumanAgent",
+    "conceptual_module": "MOD.02",
+    "label": {
+      "en": "Claim plausibility",
+      "ro": "Plausibilitatea afirmației"
+    },
+    "definition": "Latent propensity to judge a claim as true at a given time.",
+    "what_it_is_not": "Knowledge, ideology, or identity commitment.",
+    "range": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "VAR.ACCURACY.SALIENCE",
+    "short_name": "W",
+    "ontology_type": "STATE_FAST",
+    "entity_type": "HumanAgent",
+    "conceptual_module": "MOD.07",
+    "label": {
+      "en": "Accuracy salience",
+      "ro": "Saliența acurateții"
+    },
+    "definition": "Contextual decision weight placed on accuracy when acting/sharing.",
+    "what_it_is_not": "General rationality or System 2 activation.",
+    "range": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "VAR.EXPOSURE.COUNT",
+    "short_name": "Nexp",
+    "ontology_type": "EXOGENOUS_INPUT",
+    "entity_type": "InformationItem",
+    "conceptual_module": "MOD.03",
+    "label": {
+      "en": "Exposure count",
+      "ro": "Numărul de expuneri"
+    },
+    "definition": "Count or history of exposures of an agent to an information item.",
+    "what_it_is_not": "Familiarity itself.",
+    "range": [
+      0,
+      1000000
+    ]
+  },
+  {
+    "id": "VAR.ACTION.SHARE",
+    "short_name": "Share",
+    "ontology_type": "OBSERVABLE",
+    "entity_type": "HumanAgent",
+    "conceptual_module": "MOD.07",
+    "label": {
+      "en": "Share action",
+      "ro": "Acțiunea de distribuire"
+    },
+    "definition": "Observed or simulated action indicating whether an item is shared.",
+    "what_it_is_not": "Belief or endorsement.",
+    "range": [
+      0,
+      1
+    ]
+  }
+]

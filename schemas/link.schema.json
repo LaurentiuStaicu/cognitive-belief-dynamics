@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/link.schema.json",
+  "type": "object",
+  "required": ["id","source","target","relation_type","polarity","mechanism_evidence_status","functional_form_status"],
+  "properties": {
+    "id": {"type":"string","pattern":"^LINK\\.[A-Z0-9_.-]+$"},
+    "source": {"type":"string","pattern":"^VAR\\.[A-Z0-9_.-]+$"},
+    "target": {"type":"string","pattern":"^VAR\\.[A-Z0-9_.-]+$"},
+    "relation_type": {"enum":["CAUSAL","MODERATING","MEDIATING","MEASUREMENT","OBSERVATIONAL_ASSOCIATION","COMPOSITIONAL","INFORMATION_FLOW","INTERPRETIVE_MAPPING"]},
+    "polarity": {"enum":["positive","negative","non_monotonic","context_dependent","unknown"]},
+    "mechanism_evidence_status": {"enum":["REPLICATED_EXPERIMENTAL","EXPERIMENTAL","OBSERVATIONAL","META_ANALYTIC","THEORETICAL","MODEL_DERIVED","CANDIDATE","INTERPRETIVE"]},
+    "functional_form_status": {"enum":["EMPIRICALLY_ESTIMATED","SUPPORTED_CANDIDATE","REFERENCE_CANDIDATE","UNSPECIFIED"]}
+  },
+  "additionalProperties": true
+}

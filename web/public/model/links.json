@@ -1,0 +1,5 @@
+[
+ {"id":"LINK.EXPOSURE.FAMILIARITY","source":"VAR.EXPOSURE.COUNT","target":"VAR.FAMILIARITY.CLAIM","relation_type":"CAUSAL","polarity":"positive","mechanism_evidence_status":"EXPERIMENTAL","functional_form_status":"REFERENCE_CANDIDATE"},
+ {"id":"LINK.FAMILIARITY.BELIEF","source":"VAR.FAMILIARITY.CLAIM","target":"VAR.BELIEF.CLAIM","relation_type":"CAUSAL","polarity":"context_dependent","mechanism_evidence_status":"META_ANALYTIC","functional_form_status":"REFERENCE_CANDIDATE"},
+ {"id":"LINK.ACCURACY.ACTION","source":"VAR.ACCURACY.SALIENCE","target":"VAR.ACTION.SHARE","relation_type":"MODERATING","polarity":"context_dependent","mechanism_evidence_status":"EXPERIMENTAL","functional_form_status":"REFERENCE_CANDIDATE"}
+]
