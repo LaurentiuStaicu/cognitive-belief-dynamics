@@ -10,9 +10,13 @@ model (M0) and a Romanian / English browser interface.
 
 ## Browser application
 
+[![Deschide aplicația / Open app](https://img.shields.io/badge/Deschide_aplica%C8%9Bia_%2F_Open_app-087F73?style=for-the-badge)](https://laurentiustaicu.github.io/cognitive-epistemic-model/)
+
+**[https://laurentiustaicu.github.io/cognitive-epistemic-model/](https://laurentiustaicu.github.io/cognitive-epistemic-model/)**
+
 The interface runs in a modern browser on Linux, Windows and macOS. No Flatpak or
-Windows installation is required. Public hosting awaits GitHub Pages activation;
-this repository does not yet claim a live application URL.
+Windows installation is required. The public alpha is hosted on GitHub Pages.
+Choose RO or EN in the application header.
 
 - **Scenarios:** four Python-generated reference runs, play/pause, step selection,
   exact values in a table and JSON export.
@@ -83,9 +87,9 @@ runs, TypeScript/build and browser interactions at desktop/mobile sizes. A succe
 run provides a downloadable static web artifact. Deployment uses only that verified
 artifact.
 
-One-time setup: repository **Settings → Pages → Build and deployment → Source →
-GitHub Actions**. Then run **Verify model and web** from Actions. The dependent
-**Publish web application** workflow deploys the verified build.
+GitHub Pages is configured with **GitHub Actions** as its source. The dependent
+**Publish web application** workflow deploys the verified build after successful
+checks. The initial live deployment was confirmed on 2026-09-13.
 
 ## License status
 
