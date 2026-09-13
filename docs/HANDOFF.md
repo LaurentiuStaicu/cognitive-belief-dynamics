@@ -77,3 +77,14 @@ TypeScript production build and browser regression including planner interaction
 mobile and 200% text reflow. Next scientific work is broader mechanism coverage,
 empirical parameter/cost calibration and external validation, not extrapolation of
 these synthetic scores to populations.
+
+## User priority and elementary OS continuation — 2026-09-13
+
+Read PROJECT_PRIORITIES.md before choosing further development work. Understanding
+mechanisms is first, prioritization second and action planning third. Added a
+default bilingual learning view with seven detailed variables and four selectable
+mechanism paths, explanations, mathematical details and scenario navigation.
+Applied system typography, shared light/dark colors, chart line patterns and
+keyboard/scaling behavior. Native elementary OS Flatpak is a near-v1 requirement;
+current web styling is not a substitute for GTK/Granite and installation testing.
+Model equations, parameters and saved outcomes are unchanged.

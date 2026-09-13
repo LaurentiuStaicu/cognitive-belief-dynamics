@@ -24,7 +24,13 @@ try {
  const page=await browser.newPage({viewport:{width:1440,height:1050},reducedMotion:'reduce'});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
- await page.goto(url);await page.locator('#bestBundle').waitFor();
+ await page.goto(url);await page.locator('#mechanismReading').waitFor();
+ assert.equal(await page.locator('[data-view="learning"]').getAttribute('aria-pressed'),'true');
+ assert.equal(await page.locator('.learning-factors article').count(),7);
+ await page.locator('[data-mechanism="source"]').click();
+ assert.match(await page.locator('#mechanismReading').textContent(),/2T − 1/);
+ await page.locator('#exploreMechanism').click();assert.equal(await page.locator('#scenario').inputValue(),'source');
+ await page.locator('[data-view="planning"]').click();await page.locator('#bestBundle').waitFor();
  const plans=JSON.parse(await readFile(path.join(dist,'model/interventions.json'),'utf8'));
  const score=b=>50*(1-b.false_share+b.true_share);
  const expected=plans.profiles.find(p=>p.id==='reference').bundles.filter(b=>b.start===2&&b.mask.toString(2).replaceAll('0','').length<=3).sort((a,b)=>score(b)-score(a))[0];
@@ -66,10 +72,20 @@ try {
  await page.setViewportSize({width:390,height:844});
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile horizontal overflow');
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'mobile.png'),fullPage:true});
- for(const v of ['structure','reference','process','planning']){await page.locator(`[data-view="${v}"]`).click();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: mobile overflow`);}
+ for(const v of ['structure','reference','process','planning','learning']){await page.locator(`[data-view="${v}"]`).click();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: mobile overflow`);}
  await page.evaluate(()=>document.documentElement.style.fontSize='200%');
  if(!(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth))) console.log(await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth).map(e=>({tag:e.tagName,cls:e.className,w:e.getBoundingClientRect().width})).slice(0,15)));
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Text enlargement overflow');
+ await page.evaluate(()=>document.documentElement.style.fontSize='');
+ await page.setViewportSize({width:1440,height:1050});
+ for(const colorScheme of ['light','dark']){
+  await page.emulateMedia({colorScheme});
+  for(const v of ['learning','runs','structure','planning']){
+   await page.locator(`[data-view="${v}"]`).click();
+   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: ${colorScheme} overflow`);
+   if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,`${v}-${colorScheme}.png`),fullPage:true});
+  }
+ }
  assert.deepEqual(errors,[]);
  console.log('PASS: 4 Python reference runs, replay controls, JSON download, RO/EN, graph selection, registry, process, subpath assets, mobile and enlarged text; no browser errors.');
 } finally {await browser?.close();await new Promise(resolve=>server.close(resolve));}

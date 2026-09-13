@@ -8,6 +8,16 @@ model (M0) and a Romanian / English browser interface.
 > **Alpha 0.2.0a0.** Demonstration coefficients are not empirically calibrated.
 > Software tests do not establish psychological validity or population prevalence.
 
+## Project priorities
+
+1. Understand mechanisms through visual interactions and detailed explanations.
+2. Prioritize factors to address under explicit objectives and assumptions.
+3. Plan necessary actions and timing.
+
+[Project priorities and elementary OS / Flatpak v1 direction](docs/PROJECT_PRIORITIES.md)
+are persistent requirements. The web interface already follows a system-font,
+light/dark, keyboard-accessible visual foundation for the future native app.
+
 ## Browser application
 
 [![Deschide aplicația / Open app](https://img.shields.io/badge/Deschide_aplica%C8%9Bia_%2F_Open_app-087F73?style=for-the-badge)](https://laurentiustaicu.github.io/cognitive-epistemic-model/)
@@ -18,6 +28,8 @@ The interface runs in a modern browser on Linux, Windows and macOS. No Flatpak o
 Windows installation is required. The public alpha is hosted on GitHub Pages.
 Choose RO or EN in the application header.
 
+- **Understanding (start here):** seven explained variables, four selectable mechanism
+  paths, interactions, mathematical details and direct scenario exploration.
 - **Interventions:** compare all 16 bundles under an effort budget, adjust objective
   weights and timing, inspect interactions and conditional factor priorities, test
   three response assumptions and export the analysis. See [scope and calculation](docs/INTERVENTIONS.md).
