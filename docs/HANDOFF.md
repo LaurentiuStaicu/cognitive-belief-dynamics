@@ -55,3 +55,13 @@ App has no administration capability for changing that setting.
 Remaining scientific work: per-link citations, reviewed evidence labels, complete
 ODD specification, empirically grounded calibration and out-of-sample validation.
 Remaining release work: final license files and a verified application access link.
+
+## Evidence continuation — 2026-09-13
+
+Added `model/references.json`, a reference schema and bilingual evidence summaries
+for all three registered links. See `docs/EVIDENCE.md` for access limits and the
+rationale for separating phenomenon evidence from candidate M0 mechanisms.
+References and limitations appear in graph-link details and the accessible registry.
+Validators reject unresolved/duplicate references, DOI URL mismatches and missing
+required bilingual limitations. Model equations, coefficients and saved numerical
+runs are unchanged. README retains the live Pages launch button.

@@ -5,3 +5,5 @@
 /* Preserve reflow when text is enlarged independently of viewport size. */
 .panel,.process-list,.process-list li>div,.intro>div,.brand>span,.metrics>div{min-width:0;overflow-wrap:anywhere}.process-layout{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}.metrics{display:flex;flex-wrap:wrap}.metrics>div{flex:1 1 100px}.brand-mark{flex-shrink:0}.chart-wrap{overflow-x:auto}
 @media(max-width:760px){.process-layout{grid-template-columns:minmax(0,1fr)}.settings{grid-template-columns:repeat(2,minmax(0,1fr))}.chart-wrap svg{min-width:590px}.process-list li{gap:.7rem}.process-list li>div{flex:1}.section-heading{flex-wrap:wrap}}
+
+.evidence-assessment{border-top:1px solid #d5deea;margin-top:1.2rem;padding-top:.2rem}.evidence-assessment h4,h4{font-size:.9rem;margin:.9rem 0 .4rem}.sources{padding-left:1.1rem;font-size:.875rem}.sources a{color:#126079;text-underline-offset:3px}.sources li{padding-bottom:.7rem}.sources .meta{margin:.5rem 0 0;font-size:.8rem}

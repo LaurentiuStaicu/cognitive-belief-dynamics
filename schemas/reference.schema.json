@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "citation",
+    "doi",
+    "url",
+    "access_url",
+    "study_type",
+    "checked_on",
+    "review_scope"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^REF\\.[A-Z0-9_.-]+$"
+    },
+    "citation": {
+      "type": "string",
+      "minLength": 20
+    },
+    "doi": {
+      "type": "string",
+      "pattern": "^10\\.\\d{4,9}/\\S+$"
+    },
+    "url": {
+      "type": "string",
+      "pattern": "^https://doi\\.org/\\S+$"
+    },
+    "access_url": {
+      "type": "string",
+      "pattern": "^https://\\S+$"
+    },
+    "study_type": {
+      "enum": [
+        "EXPERIMENTAL",
+        "META_ANALYTIC",
+        "OBSERVATIONAL"
+      ]
+    },
+    "checked_on": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "review_scope": {
+      "enum": [
+        "ABSTRACT",
+        "ABSTRACT_AND_SELECTED_SECTIONS",
+        "FULL_TEXT"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

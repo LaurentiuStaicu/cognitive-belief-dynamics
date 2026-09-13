@@ -34,12 +34,14 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     modules = load_json(model_dir / "modules.json")
     variables = load_json(model_dir / "variables.json")
     links = load_json(model_dir / "links.json")
+    references = load_json(model_dir / "references.json")
 
     validate_items(modules, load_json(schema_dir / "module.schema.json"))
     validate_items(variables, load_json(schema_dir / "variable.schema.json"))
     validate_items(links, load_json(schema_dir / "link.schema.json"))
+    validate_items(references, load_json(schema_dir / "reference.schema.json"))
 
-    for name, items in (("modules", modules), ("variables", variables), ("links", links)):
+    for name, items in (("modules", modules), ("variables", variables), ("links", links), ("references", references)):
         duplicates = sorted(key for key, count in Counter(x["id"] for x in items).items() if count > 1)
         if duplicates:
             raise RegistryError(f"duplicate {name} IDs: {duplicates}")
@@ -60,4 +62,13 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     if unresolved:
         raise RegistryError(f"unresolved variable references: {unresolved}")
 
-    return {"modules": len(modules), "variables": len(variables), "links": len(links)}
+    reference_ids = {ref["id"] for ref in references}
+    for link in links:
+        missing = set(link["evidence_refs"]) - reference_ids
+        if missing:
+            raise RegistryError(f"unresolved evidence references in {link['id']}: {sorted(missing)}")
+    for ref in references:
+        if ref["url"] != "https://doi.org/" + ref["doi"]:
+            raise RegistryError(f"DOI URL mismatch: {ref['id']}")
+
+    return {"modules": len(modules), "variables": len(variables), "links": len(links), "references": len(references)}

@@ -29,7 +29,7 @@ def reference_run(kind):
 
 def export():
     DEST.mkdir(parents=True, exist_ok=True)
-    for name in ('variables', 'links', 'modules', 'validation_tests'):
+    for name in ('variables', 'links', 'modules', 'validation_tests', 'references'):
         (DEST / f'{name}.json').write_bytes((ROOT / 'model' / f'{name}.json').read_bytes())
     (DEST / 'runs.json').write_text(json.dumps({'model_version':'0.2.0a0','runs':[reference_run(k) for k in ('repetition','correction','source','accuracy')]}, indent=2)+'\n')
 

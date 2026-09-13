@@ -1,5 +1,65 @@
 [
- {"id":"LINK.EXPOSURE.FAMILIARITY","source":"VAR.EXPOSURE.COUNT","target":"VAR.FAMILIARITY.CLAIM","relation_type":"CAUSAL","polarity":"positive","mechanism_evidence_status":"EXPERIMENTAL","functional_form_status":"REFERENCE_CANDIDATE"},
- {"id":"LINK.FAMILIARITY.BELIEF","source":"VAR.FAMILIARITY.CLAIM","target":"VAR.BELIEF.CLAIM","relation_type":"CAUSAL","polarity":"context_dependent","mechanism_evidence_status":"META_ANALYTIC","functional_form_status":"REFERENCE_CANDIDATE"},
- {"id":"LINK.ACCURACY.ACTION","source":"VAR.ACCURACY.SALIENCE","target":"VAR.ACTION.SHARE","relation_type":"MODERATING","polarity":"context_dependent","mechanism_evidence_status":"EXPERIMENTAL","functional_form_status":"REFERENCE_CANDIDATE"}
+  {
+    "id": "LINK.EXPOSURE.FAMILIARITY",
+    "source": "VAR.EXPOSURE.COUNT",
+    "target": "VAR.FAMILIARITY.CLAIM",
+    "relation_type": "CAUSAL",
+    "polarity": "positive",
+    "mechanism_evidence_status": "CANDIDATE",
+    "functional_form_status": "REFERENCE_CANDIDATE",
+    "phenomenon_evidence_status": "EXPERIMENTAL",
+    "evidence_refs": [
+      "REF.HASHER.1977"
+    ],
+    "evidence_summary": {
+      "ro": "Afirmațiile repetate au primit evaluări de adevăr mai mari decât cele nerepetate.",
+      "en": "Repeated statements received higher truth ratings than unrepeated statements."
+    },
+    "evidence_limitations": {
+      "ro": "Sprijin indirect pentru familiaritate; studiul citat nu estimează starea F din M0.",
+      "en": "Indirect support for familiarity; the cited study does not estimate M0 state F."
+    }
+  },
+  {
+    "id": "LINK.FAMILIARITY.BELIEF",
+    "source": "VAR.FAMILIARITY.CLAIM",
+    "target": "VAR.BELIEF.CLAIM",
+    "relation_type": "CAUSAL",
+    "polarity": "context_dependent",
+    "mechanism_evidence_status": "CANDIDATE",
+    "functional_form_status": "REFERENCE_CANDIDATE",
+    "phenomenon_evidence_status": "META_ANALYTIC",
+    "evidence_refs": [
+      "REF.DECHENE.2010"
+    ],
+    "evidence_summary": {
+      "ro": "Meta-analiza sintetizează efectul repetiției asupra evaluărilor de adevăr și diferențele dintre contexte de evaluare.",
+      "en": "The meta-analysis synthesizes repetition effects on truth ratings and differences between judgment contexts."
+    },
+    "evidence_limitations": {
+      "ro": "Nu identifică în mod unic starea F sau coeficientul beta_f al acestei implementări.",
+      "en": "It does not uniquely identify state F or this implementation’s beta_f coefficient."
+    }
+  },
+  {
+    "id": "LINK.ACCURACY.ACTION",
+    "source": "VAR.ACCURACY.SALIENCE",
+    "target": "VAR.ACTION.SHARE",
+    "relation_type": "MODERATING",
+    "polarity": "context_dependent",
+    "mechanism_evidence_status": "CANDIDATE",
+    "functional_form_status": "REFERENCE_CANDIDATE",
+    "phenomenon_evidence_status": "EXPERIMENTAL",
+    "evidence_refs": [
+      "REF.PENNYCOOK.2021"
+    ],
+    "evidence_summary": {
+      "ro": "Experimentele de sondaj și de teren arată îmbunătățirea calității știrilor distribuite după orientarea atenției spre acuratețe.",
+      "en": "Survey and field experiments show improved quality of shared news after attention is directed toward accuracy."
+    },
+    "evidence_limitations": {
+      "ro": "Indiciul experimental nu măsoară direct W; ecuația distribuirii din M0 rămâne o alegere de modelare.",
+      "en": "The experimental cue does not directly measure W; M0’s sharing equation remains a modelling choice."
+    }
+  }
 ]

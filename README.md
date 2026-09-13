@@ -27,8 +27,10 @@ Choose RO or EN in the application header.
 
 Scenarios replay saved output from the Python simulator; the browser does not
 recalculate arbitrary parameter combinations. The graph shows registered links,
-not every dependency in the equations. Initial evidence labels still need
-per-link bibliographic references and independent review.
+not every dependency in the equations. Each registered link now includes a DOI source, a bilingual finding/limitation
+summary and the scope of the bibliographic check. Phenomenon-level evidence is
+separated from the candidate mechanism and uncalibrated functional form in M0.
+See the [initial evidence audit](docs/EVIDENCE.md); this is not a systematic review.
 
 ### Pentru utilizatorii din România
 
