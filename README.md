@@ -18,6 +18,9 @@ The interface runs in a modern browser on Linux, Windows and macOS. No Flatpak o
 Windows installation is required. The public alpha is hosted on GitHub Pages.
 Choose RO or EN in the application header.
 
+- **Interventions:** compare all 16 bundles under an effort budget, adjust objective
+  weights and timing, inspect interactions and conditional factor priorities, test
+  three response assumptions and export the analysis. See [scope and calculation](docs/INTERVENTIONS.md).
 - **Scenarios:** four Python-generated reference runs, play/pause, step selection,
   exact values in a table and JSON export.
 - **Structure:** interactive variable/link graph and keyboard-accessible inspection.

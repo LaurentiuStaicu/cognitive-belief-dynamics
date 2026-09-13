@@ -1,5 +1,6 @@
 import cytoscape, {type Core} from 'cytoscape';
 import './style.css';
+import {mountPlanner,type PlanningData} from './planner';
 
 type Lang = 'ro' | 'en';
 type Variable = {id:string; short_name:string; label:Record<Lang,string>; definition:string; what_it_is_not:string; conceptual_module:string; ontology_type:string};
@@ -9,7 +10,8 @@ type Run = {id:string; seed:number; prior:number; parameters:Record<string,numbe
 type Reference = {id:string; citation:string; url:string; access_url:string; checked_on:string; review_scope:string};
 type Module = {id:string;label:Record<Lang,string>};
 let lang:Lang = 'ro';
-let view = 'runs';
+let view = 'planning';
+let planning:PlanningData;
 let selected = 'correction';
 let step = 0;
 let playing:ReturnType<typeof setInterval> | undefined;
@@ -51,11 +53,12 @@ function shell() {
  graph?.destroy(); graph=undefined;
  document.documentElement.lang=lang;
  app.innerHTML=`<header class="topbar"><a class="brand" href="#" aria-label="Cognitive Epistemic Model"><span class="brand-mark">CE</span><span>Cognitive Epistemic Model<small>${tr('Laborator de explorare','Exploration lab')}</small></span></a><div class="top-actions"><span class="version">M0 · ALPHA</span><button id="language" aria-label="${tr('Switch to English','Schimbă în română')}">${lang==='ro'?'EN':'RO'}</button><a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model" target="_blank" rel="noopener">GitHub ↗</a></div></header>
- <div class="workspace"><div class="intro"><div><p class="eyebrow">${tr('FORMAREA CONVINGERILOR','BELIEF FORMATION')}</p><h1>${tr('De la expunere la decizie.','From exposure to decision.')}</h1><p>${tr('Explorează mecanismele unui model minimal și urmărește ce se schimbă la fiecare pas.','Explore a minimal model and follow what changes at each step.')}</p></div><div class="scope"><strong>07</strong><span>${tr('variabile înregistrate','registered variables')}</span><strong>04</strong><span>${tr('scenarii de referință','reference scenarios')}</span></div></div>
- <nav class="views" aria-label="${tr('Vederile modelului','Model views')}">${[['runs',tr('01 · Scenarii','01 · Scenarios')],['structure',tr('02 · Structură','02 · Structure')],['process',tr('03 · Proces','03 · Process')],['reference',tr('04 · Registru','04 · Registry')]].map(([id,label])=>`<button data-view="${id}" aria-pressed="${view===id}">${label}</button>`).join('')}</nav>
+ <div class="workspace"><div class="intro"><div><p class="eyebrow">${tr('FORMAREA CONVINGERILOR','BELIEF FORMATION')}</p><h1>${tr('Mecanisme, intervenții, priorități.','Mechanisms, interventions, priorities.')}</h1><p>${tr('Înțelege relațiile dintre factori și compară efectele măsurilor, separat și împreună.','Understand relationships between factors and compare measures, individually and together.')}</p></div><div class="scope"><strong>07</strong><span>${tr('variabile înregistrate','registered variables')}</span><strong>04</strong><span>${tr('scenarii de referință','reference scenarios')}</span></div></div>
+ <nav class="views" aria-label="${tr('Vederile modelului','Model views')}">${[['planning',tr('Intervenții','Interventions')],['runs',tr('01 · Scenarii','01 · Scenarios')],['structure',tr('02 · Structură','02 · Structure')],['process',tr('03 · Proces','03 · Process')],['reference',tr('04 · Registru','04 · Registry')]].map(([id,label])=>`<button data-view="${id}" aria-pressed="${view===id}">${label}</button>`).join('')}</nav>
  <main id="content"></main><footer><span>${tr('Model demonstrativ · coeficienți necalibrați','Demonstration model · uncalibrated coefficients')}</span><span>${tr('Nu estimează proporții Track A/B sau diagnostice individuale.','Does not estimate Track A/B prevalence or individual diagnoses.')}</span></footer></div>`;
  document.getElementById('language')!.onclick=()=>{stop();lang=lang==='ro'?'en':'ro';shell();};
  document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.onclick=()=>{stop();view=b.dataset.view!;shell();});
+ if(view==='planning') mountPlanner(document.getElementById('content')!,planning,lang);
  if(view==='runs') renderRuns();
  if(view==='structure') renderStructure();
  if(view==='process') renderProcess();
@@ -116,5 +119,5 @@ function renderProcess(){
  content(`<div class="section-heading"><div><h2>${tr('Procesul executabil M0','The executable M0 process')}</h2><p>${tr('O vedere de ansamblu a procesului, inspirată de ODD. Nu reprezintă încă o specificație ODD completă.','An ODD-inspired process overview. This is not yet a complete ODD specification.')}</p></div></div><div class="process-layout"><ol class="process-list">${steps.map(([title,body],i)=>`<li><span class="process-number">0${i+1}</span><div><h3>${title}</h3><p>${body}</p></div></li>`).join('')}</ol><aside class="panel interpretive"><p class="eyebrow">${tr('NIVELURI DE INTERPRETARE','LEVELS OF INTERPRETATION')}</p><h2>${tr('Ce nu codifică M0','What M0 does not encode')}</h2><h3>Track A / Track B</h3><p>${tr('Descrieri conceptuale ale procesării reactive și adaptive. Nu sunt clase fixe de persoane sau stări impuse agenților.','Conceptual descriptions of reactive and adaptive processing. They are not fixed classes of people or hard-coded agent states.')}</p><h3>${tr('Extensia jungiană','Jungian extension')}</h3><p>${tr('Individuația și Axa Eu–Sine rămân un nivel interpretativ distinct. Creația poate fi o consecință posibilă, nu un rezultat garantat sau o variabilă calculată de M0.','Individuation and the ego–Self axis remain a separate interpretive layer. Creativity is a possible consequence, not a guaranteed result or a variable computed by M0.')}</p><div class="boundary"><strong>${tr('Limita inferenței','Inference boundary')}</strong><p>${tr('Reproducerea unui tipar nu demonstrează un mecanism psihologic unic. Testele de software nu constituie validare empirică.','Reproducing a pattern does not establish a unique psychological mechanism. Software tests do not constitute empirical validation.')}</p></div></aside></div>`);
 }
 async function load<T>(name:string):Promise<T>{const r=await fetch(`./model/${name}.json`);if(!r.ok)throw new Error(`${name}: HTTP ${r.status}`);return r.json();}
-async function init(){[variables,links,modules,references]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references')]);runs=(await load<{runs:Run[]}>('runs')).runs;shell();}
+async function init(){[variables,links,modules,references]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references')]);runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');shell();}
 init().catch(e=>{app.replaceChildren();const p=document.createElement('p');p.className='loading';p.textContent=`Nu se poate încărca modelul / Unable to load model: ${String(e)}`;app.append(p);});

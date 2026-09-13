@@ -65,3 +65,15 @@ References and limitations appear in graph-link details and the accessible regis
 Validators reject unresolved/duplicate references, DOI URL mismatches and missing
 required bilingual limitations. Model equations, coefficients and saved numerical
 runs are unchanged. README retains the live Pages launch button.
+
+## Intervention planning continuation — 2026-09-13
+
+Added the default RO/EN intervention laboratory: four model-linked measures,
+96 paired-claim evaluations, budget/objective/timing controls, exhaustive subset
+ranking, nonadditivity and leave-one-out factor contributions, limited sensitivity
+and JSON export. Existing model equations and four reference scenarios are unchanged.
+See INTERVENTIONS.md for assumptions and scope. Local verification: 25 Python tests,
+TypeScript production build and browser regression including planner interactions,
+mobile and 200% text reflow. Next scientific work is broader mechanism coverage,
+empirical parameter/cost calibration and external validation, not extrapolation of
+these synthetic scores to populations.

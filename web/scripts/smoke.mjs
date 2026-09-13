@@ -24,7 +24,22 @@ try {
  const page=await browser.newPage({viewport:{width:1440,height:1050},reducedMotion:'reduce'});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
- await page.goto(url);await page.locator('#scenario').waitFor();
+ await page.goto(url);await page.locator('#bestBundle').waitFor();
+ const plans=JSON.parse(await readFile(path.join(dist,'model/interventions.json'),'utf8'));
+ const score=b=>50*(1-b.false_share+b.true_share);
+ const expected=plans.profiles.find(p=>p.id==='reference').bundles.filter(b=>b.start===2&&b.mask.toString(2).replaceAll('0','').length<=3).sort((a,b)=>score(b)-score(a))[0];
+ assert.equal(Number(await page.locator('#bestBundle').getAttribute('data-mask')),expected.mask);
+ await page.locator('#budget').fill('0');await page.locator('#budget').dispatchEvent('change');
+ assert.equal(await page.locator('#bestBundle').getAttribute('data-mask'),'0');
+ await page.locator('#budget').fill('3');await page.locator('#budget').dispatchEvent('change');
+ await page.locator('[data-lever="1"]').uncheck();
+ assert.equal(Number(await page.locator('#bestBundle').getAttribute('data-mask'))&2,0);
+ await page.locator('[data-lever="1"]').check();
+ await page.selectOption('#timing','5');await page.selectOption('#assumption','low');
+ const planDownload=page.waitForEvent('download');await page.locator('#exportPlan').click();assert.equal((await planDownload).suggestedFilename(),'cem-intervention-plan.json');
+ await page.selectOption('#timing','2');await page.selectOption('#assumption','reference');
+ if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'planning.png'),fullPage:true});}
+ await page.locator('[data-view="runs"]').click();await page.locator('#scenario').waitFor();
  const data=JSON.parse(await readFile(path.join(dist,'model/runs.json'),'utf8'));
  for(const run of data.runs){
   await page.selectOption('#scenario',run.id);
@@ -38,7 +53,7 @@ try {
  await page.locator('#play').click();await page.waitForFunction(()=>document.querySelector('#stepBadge').textContent.includes('2 / 12'));
  await page.locator('#play').click();await page.locator('#reset').click();
  const download=page.waitForEvent('download');await page.locator('#download').click();assert.equal((await download).suggestedFilename(),'cem-m0-correction.json');
- await page.locator('#language').click();assert.equal(await page.locator('html').getAttribute('lang'),'en');assert.match(await page.locator('h1').textContent(),/From exposure/);
+ await page.locator('#language').click();assert.equal(await page.locator('html').getAttribute('lang'),'en');assert.match(await page.locator('h1').textContent(),/Mechanisms/);
  await page.locator('[data-view="structure"]').click();await page.selectOption('#variable','VAR.CORRECTION.ACCESS');assert.match(await page.locator('#detail').textContent(),/Corrective-context/);
  await page.locator('[data-view="reference"]').click();assert.equal(await page.locator('.reference-grid article').count(),10);
  assert.equal(await page.locator('.citation-link').count(),3);
@@ -51,7 +66,7 @@ try {
  await page.setViewportSize({width:390,height:844});
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile horizontal overflow');
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'mobile.png'),fullPage:true});
- for(const v of ['structure','reference','process']){await page.locator(`[data-view="${v}"]`).click();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: mobile overflow`);}
+ for(const v of ['structure','reference','process','planning']){await page.locator(`[data-view="${v}"]`).click();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: mobile overflow`);}
  await page.evaluate(()=>document.documentElement.style.fontSize='200%');
  if(!(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth))) console.log(await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth).map(e=>({tag:e.tagName,cls:e.className,w:e.getBoundingClientRect().width})).slice(0,15)));
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Text enlargement overflow');
