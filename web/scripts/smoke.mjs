@@ -61,6 +61,14 @@ try {
  const download=page.waitForEvent('download');await page.locator('#download').click();assert.equal((await download).suggestedFilename(),'cem-m0-correction.json');
  await page.locator('#language').click();assert.equal(await page.locator('html').getAttribute('lang'),'en');assert.match(await page.locator('h1').textContent(),/Mechanisms/);
  await page.locator('[data-view="structure"]').click();await page.selectOption('#variable','VAR.CORRECTION.ACCESS');assert.match(await page.locator('#detail').textContent(),/Corrective-context/);
+ assert.match(await page.locator('#graphCount').textContent(),/8 nodes · 7/);
+ await page.selectOption('#dependency','c-b');assert.match(await page.locator('#detail').textContent(),/direction/);
+ await page.selectOption('#graphMode','inputs');assert.equal(await page.locator('#dependency option').count(),18);
+ await page.selectOption('#dependency','prior-b');assert.match(await page.locator('#detail').textContent(),/does not automatically replace/);
+ await page.selectOption('#graphFocus','source');assert.match(await page.locator('#graphCount').textContent(),/6 nodes/);
+ await page.selectOption('#dependency','t-b');assert.match(await page.locator('#detail').textContent(),/0.5/);
+ await page.selectOption('#graphMode','registered');assert.equal(await page.locator('#variable option').count(),7);
+ await page.selectOption('#graphMode','core');
  await page.locator('[data-view="reference"]').click();assert.equal(await page.locator('.reference-grid article').count(),10);
  assert.equal(await page.locator('.citation-link').count(),3);
  for(const a of await page.locator('.citation-link').all()) assert.match(await a.getAttribute('href'),/^https:\/\/doi\.org\/10\./);

@@ -88,3 +88,13 @@ Applied system typography, shared light/dark colors, chart line patterns and
 keyboard/scaling behavior. Native elementary OS Flatpak is a near-v1 requirement;
 current web styling is not a substitute for GTK/Granite and installation testing.
 Model equations, parameters and saved outcomes are unchanged.
+
+## Computational-map continuation — 2026-09-13
+
+Continued priority 1: the graph now defaults to eight core nodes and seven
+dependencies, with optional contextual inputs (18 nodes / 17 dependencies),
+four mechanism filters, keyboard node/edge inspection, formulas and links to
+implementation. The original evidence registry is a separate selectable view.
+See COMPUTATIONAL_MAP.md for scope, code mapping and inference boundaries.
+No numerical model or evidence-rating changes. Next development must continue
+PROJECT_PRIORITIES.md: explanatory depth before expanding intervention rankings.

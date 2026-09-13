@@ -35,14 +35,16 @@ Choose RO or EN in the application header.
   three response assumptions and export the analysis. See [scope and calculation](docs/INTERVENTIONS.md).
 - **Scenarios:** four Python-generated reference runs, play/pause, step selection,
   exact values in a table and JSON export.
-- **Structure:** interactive variable/link graph and keyboard-accessible inspection.
+- **Structure:** a computational map of core dependencies and optional contextual
+  inputs, four mechanism focus views, keyboard-accessible node/link inspection,
+  formulas and code provenance. The original evidence-registry map remains selectable.
 - **Process:** an ODD-inspired overview of event scheduling, state updates,
   judgments and decisions; not yet a complete ODD specification.
 - **Registry:** seven variables, three registered links and twenty conceptual modules.
 
 Scenarios replay saved output from the Python simulator; the browser does not
-recalculate arbitrary parameter combinations. The graph shows registered links,
-not every dependency in the equations. Each registered link now includes a DOI source, a bilingual finding/limitation
+recalculate arbitrary parameter combinations. The computational map explains 17 dependencies, with coefficients in the details
+  and contextual inputs optionally visible. It is separate from the evidence registry. Each registered link now includes a DOI source, a bilingual finding/limitation
 summary and the scope of the bibliographic check. Phenomenon-level evidence is
 separated from the candidate mechanism and uncalibrated functional form in M0.
 See the [initial evidence audit](docs/EVIDENCE.md); this is not a systematic review.
