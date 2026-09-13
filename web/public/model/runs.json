@@ -1,0 +1,2327 @@
+{
+  "model_version": "0.2.0a0",
+  "runs": [
+    {
+      "id": "repetition",
+      "seed": 7,
+      "prior": 0.3,
+      "parameters": {
+        "alpha_f": 0.35,
+        "alpha_c": 0.7,
+        "lambda_c": 0.08,
+        "alpha_t": 0.25,
+        "beta_f": 0.8,
+        "beta_source_evidence": 1.2,
+        "beta_correction": 1.6,
+        "beta_accuracy_cue": 1.0,
+        "beta_reward": 1.0
+      },
+      "frames": [
+        {
+          "time": 0,
+          "familiarity": 0.0,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 0,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.3,
+                "latent_log_odds": -0.8472978603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5124973964842103,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.3,
+          "latent_log_odds": -0.8472978603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5124973964842103,
+          "share": false
+        },
+        {
+          "time": 1,
+          "familiarity": 0.35,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 1,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.0
+                },
+                "after": {
+                  "familiarity": 0.35
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 1,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.361860562960689,
+                "latent_log_odds": -0.5672978603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5279360170307656,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.361860562960689,
+          "latent_log_odds": -0.5672978603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5279360170307656,
+          "share": false
+        },
+        {
+          "time": 2,
+          "familiarity": 0.5774999999999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 2,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.35
+                },
+                "after": {
+                  "familiarity": 0.5774999999999999
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 2,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.40484975570307974,
+                "latent_log_odds": -0.3852978603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5386352686163322,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.40484975570307974,
+          "latent_log_odds": -0.3852978603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5386352686163322,
+          "share": false
+        },
+        {
+          "time": 3,
+          "familiarity": 0.7253749999999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 3,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.5774999999999999
+                },
+                "after": {
+                  "familiarity": 0.7253749999999999
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 3,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.43364426386122906,
+                "latent_log_odds": -0.26699786038720363,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5457824695919137,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.43364426386122906,
+          "latent_log_odds": -0.26699786038720363,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5457824695919137,
+          "share": true
+        },
+        {
+          "time": 4,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 4,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.7253749999999999
+                },
+                "after": {
+                  "familiarity": 0.8214937499999999
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 4,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.55048163800236,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.55048163800236,
+          "share": true
+        },
+        {
+          "time": 5,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 5,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.55048163800236,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.55048163800236,
+          "share": false
+        },
+        {
+          "time": 6,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 6,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.55048163800236,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.55048163800236,
+          "share": true
+        },
+        {
+          "time": 7,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 7,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.55048163800236,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.55048163800236,
+          "share": false
+        },
+        {
+          "time": 8,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 8,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.55048163800236,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.55048163800236,
+          "share": false
+        },
+        {
+          "time": 9,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 9,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.55048163800236,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.55048163800236,
+          "share": true
+        },
+        {
+          "time": 10,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 10,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.55048163800236,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.55048163800236,
+          "share": true
+        },
+        {
+          "time": 11,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 11,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.55048163800236,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.55048163800236,
+          "share": true
+        },
+        {
+          "time": 12,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 12,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.55048163800236,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.55048163800236,
+          "share": true
+        }
+      ]
+    },
+    {
+      "id": "correction",
+      "seed": 7,
+      "prior": 0.3,
+      "parameters": {
+        "alpha_f": 0.35,
+        "alpha_c": 0.7,
+        "lambda_c": 0.08,
+        "alpha_t": 0.25,
+        "beta_f": 0.8,
+        "beta_source_evidence": 1.2,
+        "beta_correction": 1.6,
+        "beta_accuracy_cue": 1.0,
+        "beta_reward": 1.0
+      },
+      "frames": [
+        {
+          "time": 0,
+          "familiarity": 0.0,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 0,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.3,
+                "latent_log_odds": -0.8472978603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5124973964842103,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.3,
+          "latent_log_odds": -0.8472978603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5124973964842103,
+          "share": false
+        },
+        {
+          "time": 1,
+          "familiarity": 0.35,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 1,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.0
+                },
+                "after": {
+                  "familiarity": 0.35
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 1,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.361860562960689,
+                "latent_log_odds": -0.5672978603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5279360170307656,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.361860562960689,
+          "latent_log_odds": -0.5672978603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5279360170307656,
+          "share": false
+        },
+        {
+          "time": 2,
+          "familiarity": 0.5774999999999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 2,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.35
+                },
+                "after": {
+                  "familiarity": 0.5774999999999999
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 2,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.40484975570307974,
+                "latent_log_odds": -0.3852978603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5386352686163322,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.40484975570307974,
+          "latent_log_odds": -0.3852978603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5386352686163322,
+          "share": false
+        },
+        {
+          "time": 3,
+          "familiarity": 0.7253749999999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 3,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.5774999999999999
+                },
+                "after": {
+                  "familiarity": 0.7253749999999999
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 3,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.43364426386122906,
+                "latent_log_odds": -0.26699786038720363,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5457824695919137,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.43364426386122906,
+          "latent_log_odds": -0.26699786038720363,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5457824695919137,
+          "share": true
+        },
+        {
+          "time": 4,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 4,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.7253749999999999
+                },
+                "after": {
+                  "familiarity": 0.8214937499999999
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 4,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.55048163800236,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.55048163800236,
+          "share": true
+        },
+        {
+          "time": 5,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.7,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 5,
+              "event_type": "CorrectionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "direction": -1.0
+              },
+              "state_change": {
+                "before": {
+                  "correction_access": 0.0
+                },
+                "after": {
+                  "correction_access": 0.7
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 5,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.21246963236676736,
+                "latent_log_odds": -1.3101028603872034,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.4906185092405969,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.21246963236676736,
+          "latent_log_odds": -1.3101028603872034,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.4906185092405969,
+          "share": false
+        },
+        {
+          "time": 6,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.646181442470645,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 6,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.22723449065702667,
+                "latent_log_odds": -1.2239931683402356,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.49430886845661093,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.22723449065702667,
+          "latent_log_odds": -1.2239931683402356,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.49430886845661093,
+          "share": true
+        },
+        {
+          "time": 7,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.5965006522763479,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 7,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.24149439877396425,
+                "latent_log_odds": -1.14450390402936,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.49787361251297885,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.24149439877396425,
+          "latent_log_odds": -1.14450390402936,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.49787361251297885,
+          "share": false
+        },
+        {
+          "time": 8,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.5506395027465872,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 8,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.25518899677725126,
+                "latent_log_odds": -1.071126064781743,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5012972462835434,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.25518899677725126,
+          "latent_log_odds": -1.071126064781743,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5012972462835434,
+          "share": false
+        },
+        {
+          "time": 9,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.5083043259515835,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 9,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.2682754720300911,
+                "latent_log_odds": -1.0033897819097373,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5045687408476552,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.2682754720300911,
+          "latent_log_odds": -1.0033897819097373,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5045687408476552,
+          "share": true
+        },
+        {
+          "time": 10,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.46922403222494735,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 10,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.2807263944209682,
+                "latent_log_odds": -0.9408613119471194,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5076809943052818,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.2807263944209682,
+          "latent_log_odds": -0.9408613119471194,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5076809943052818,
+          "share": true
+        },
+        {
+          "time": 11,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.4331483742642984,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 11,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.29252746294412785,
+                "latent_log_odds": -0.8831402592100811,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5106302636396172,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.29252746294412785,
+          "latent_log_odds": -0.8831402592100811,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5106302636396172,
+          "share": true
+        },
+        {
+          "time": 12,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.39984634469417024,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 12,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.30367530510729895,
+                "latent_log_odds": -0.829857011897876,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5134156055252744,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.30367530510729895,
+          "latent_log_odds": -0.829857011897876,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5134156055252744,
+          "share": true
+        }
+      ]
+    },
+    {
+      "id": "source",
+      "seed": 7,
+      "prior": 0.3,
+      "parameters": {
+        "alpha_f": 0.35,
+        "alpha_c": 0.7,
+        "lambda_c": 0.08,
+        "alpha_t": 0.25,
+        "beta_f": 0.8,
+        "beta_source_evidence": 1.2,
+        "beta_correction": 1.6,
+        "beta_accuracy_cue": 1.0,
+        "beta_reward": 1.0
+      },
+      "frames": [
+        {
+          "time": 0,
+          "familiarity": 0.0,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 0,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.6,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.3,
+                "latent_log_odds": -0.8472978603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5124973964842103,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.3,
+          "latent_log_odds": -0.8472978603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5124973964842103,
+          "share": false
+        },
+        {
+          "time": 1,
+          "familiarity": 0.35,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 1,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.0
+                },
+                "after": {
+                  "familiarity": 0.35
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 1,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.6,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.361860562960689,
+                "latent_log_odds": -0.5672978603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5279360170307656,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.361860562960689,
+          "latent_log_odds": -0.5672978603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5279360170307656,
+          "share": false
+        },
+        {
+          "time": 2,
+          "familiarity": 0.5774999999999999,
+          "correction": 0.0,
+          "reliability": 0.375,
+          "events": [
+            {
+              "time": 2,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.35
+                },
+                "after": {
+                  "familiarity": 0.5774999999999999
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 2,
+              "event_type": "SourceFeedbackEvent",
+              "agent_id": "A1",
+              "payload": {
+                "source_id": "S1",
+                "confirmed": false
+              },
+              "state_change": {
+                "before": {
+                  "reliability_estimate": 0.5
+                },
+                "after": {
+                  "reliability_estimate": 0.375
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 2,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.6,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.3623225254290411,
+                "latent_log_odds": -0.5652978603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.528051145634793,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.3623225254290411,
+          "latent_log_odds": -0.5652978603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.528051145634793,
+          "share": false
+        },
+        {
+          "time": 3,
+          "familiarity": 0.7253749999999999,
+          "correction": 0.0,
+          "reliability": 0.375,
+          "events": [
+            {
+              "time": 3,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.5774999999999999
+                },
+                "after": {
+                  "familiarity": 0.7253749999999999
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 3,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.6,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.3900747882719855,
+                "latent_log_odds": -0.4469978603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5349615508603951,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.3900747882719855,
+          "latent_log_odds": -0.4469978603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5349615508603951,
+          "share": true
+        },
+        {
+          "time": 4,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.28125,
+          "events": [
+            {
+              "time": 4,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.7253749999999999
+                },
+                "after": {
+                  "familiarity": 0.8214937499999999
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 4,
+              "event_type": "SourceFeedbackEvent",
+              "agent_id": "A1",
+              "payload": {
+                "source_id": "S1",
+                "confirmed": false
+              },
+              "state_change": {
+                "before": {
+                  "reliability_estimate": 0.375
+                },
+                "after": {
+                  "reliability_estimate": 0.28125
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 4,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.6,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.376342229161222,
+                "latent_log_odds": -0.5051028603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5315436092479574,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.376342229161222,
+          "latent_log_odds": -0.5051028603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5315436092479574,
+          "share": true
+        },
+        {
+          "time": 5,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.28125,
+          "events": [
+            {
+              "time": 5,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.6,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.376342229161222,
+                "latent_log_odds": -0.5051028603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5315436092479574,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.376342229161222,
+          "latent_log_odds": -0.5051028603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5315436092479574,
+          "share": false
+        },
+        {
+          "time": 6,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.2109375,
+          "events": [
+            {
+              "time": 6,
+              "event_type": "SourceFeedbackEvent",
+              "agent_id": "A1",
+              "payload": {
+                "source_id": "S1",
+                "confirmed": false
+              },
+              "state_change": {
+                "before": {
+                  "reliability_estimate": 0.28125
+                },
+                "after": {
+                  "reliability_estimate": 0.2109375
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 6,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.6,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.3528916079841062,
+                "latent_log_odds": -0.6063528603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5257002326442892,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.3528916079841062,
+          "latent_log_odds": -0.6063528603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5257002326442892,
+          "share": true
+        },
+        {
+          "time": 7,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.2109375,
+          "events": [
+            {
+              "time": 7,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.6,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.3528916079841062,
+                "latent_log_odds": -0.6063528603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5257002326442892,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.3528916079841062,
+          "latent_log_odds": -0.6063528603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5257002326442892,
+          "share": false
+        },
+        {
+          "time": 8,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.158203125,
+          "events": [
+            {
+              "time": 8,
+              "event_type": "SourceFeedbackEvent",
+              "agent_id": "A1",
+              "payload": {
+                "source_id": "S1",
+                "confirmed": false
+              },
+              "state_change": {
+                "before": {
+                  "reliability_estimate": 0.2109375
+                },
+                "after": {
+                  "reliability_estimate": 0.158203125
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 8,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.6,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.3357503097439486,
+                "latent_log_odds": -0.6822903603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5214244510057915,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.3357503097439486,
+          "latent_log_odds": -0.6822903603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5214244510057915,
+          "share": false
+        },
+        {
+          "time": 9,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.158203125,
+          "events": [
+            {
+              "time": 9,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.6,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.3357503097439486,
+                "latent_log_odds": -0.6822903603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5214244510057915,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.3357503097439486,
+          "latent_log_odds": -0.6822903603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5214244510057915,
+          "share": true
+        },
+        {
+          "time": 10,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.158203125,
+          "events": [
+            {
+              "time": 10,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.6,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.3357503097439486,
+                "latent_log_odds": -0.6822903603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5214244510057915,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.3357503097439486,
+          "latent_log_odds": -0.6822903603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5214244510057915,
+          "share": true
+        },
+        {
+          "time": 11,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.158203125,
+          "events": [
+            {
+              "time": 11,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.6,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.3357503097439486,
+                "latent_log_odds": -0.6822903603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5214244510057915,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.3357503097439486,
+          "latent_log_odds": -0.6822903603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5214244510057915,
+          "share": true
+        },
+        {
+          "time": 12,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.158203125,
+          "events": [
+            {
+              "time": 12,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.6,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.3357503097439486,
+                "latent_log_odds": -0.6822903603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5214244510057915,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.3357503097439486,
+          "latent_log_odds": -0.6822903603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5214244510057915,
+          "share": true
+        }
+      ]
+    },
+    {
+      "id": "accuracy",
+      "seed": 7,
+      "prior": 0.3,
+      "parameters": {
+        "alpha_f": 0.35,
+        "alpha_c": 0.7,
+        "lambda_c": 0.08,
+        "alpha_t": 0.25,
+        "beta_f": 0.8,
+        "beta_source_evidence": 1.2,
+        "beta_correction": 1.6,
+        "beta_accuracy_cue": 1.0,
+        "beta_reward": 1.0
+      },
+      "frames": [
+        {
+          "time": 0,
+          "familiarity": 0.0,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 0,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.3,
+                "latent_log_odds": -0.8472978603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5124973964842103,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.3,
+          "latent_log_odds": -0.8472978603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5124973964842103,
+          "share": false
+        },
+        {
+          "time": 1,
+          "familiarity": 0.35,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 1,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.0
+                },
+                "after": {
+                  "familiarity": 0.35
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 1,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.361860562960689,
+                "latent_log_odds": -0.5672978603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5279360170307656,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.361860562960689,
+          "latent_log_odds": -0.5672978603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5279360170307656,
+          "share": false
+        },
+        {
+          "time": 2,
+          "familiarity": 0.5774999999999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 2,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.35
+                },
+                "after": {
+                  "familiarity": 0.5774999999999999
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 2,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.40484975570307974,
+                "latent_log_odds": -0.3852978603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5386352686163322,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.40484975570307974,
+          "latent_log_odds": -0.3852978603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5386352686163322,
+          "share": false
+        },
+        {
+          "time": 3,
+          "familiarity": 0.7253749999999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 3,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.5774999999999999
+                },
+                "after": {
+                  "familiarity": 0.7253749999999999
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 3,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.43364426386122906,
+                "latent_log_odds": -0.26699786038720363,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.5457824695919137,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.43364426386122906,
+          "latent_log_odds": -0.26699786038720363,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.5457824695919137,
+          "share": true
+        },
+        {
+          "time": 4,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 4,
+              "event_type": "ExposureEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1"
+              },
+              "state_change": {
+                "before": {
+                  "familiarity": 0.7253749999999999
+                },
+                "after": {
+                  "familiarity": 0.8214937499999999
+                }
+              },
+              "observation": null
+            },
+            {
+              "time": 4,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": false
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.5,
+                "share_probability": 0.55048163800236,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.5,
+          "share_probability": 0.55048163800236,
+          "share": true
+        },
+        {
+          "time": 5,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 5,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": true
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.7310585786300049,
+                "share_probability": 0.5162919964124468,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.7310585786300049,
+          "share_probability": 0.5162919964124468,
+          "share": false
+        },
+        {
+          "time": 6,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 6,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": true
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.7310585786300049,
+                "share_probability": 0.5162919964124468,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.7310585786300049,
+          "share_probability": 0.5162919964124468,
+          "share": true
+        },
+        {
+          "time": 7,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 7,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": true
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.7310585786300049,
+                "share_probability": 0.5162919964124468,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.7310585786300049,
+          "share_probability": 0.5162919964124468,
+          "share": false
+        },
+        {
+          "time": 8,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 8,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": true
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.7310585786300049,
+                "share_probability": 0.5162919964124468,
+                "share": false
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.7310585786300049,
+          "share_probability": 0.5162919964124468,
+          "share": false
+        },
+        {
+          "time": 9,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 9,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": true
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.7310585786300049,
+                "share_probability": 0.5162919964124468,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.7310585786300049,
+          "share_probability": 0.5162919964124468,
+          "share": true
+        },
+        {
+          "time": 10,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 10,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": true
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.7310585786300049,
+                "share_probability": 0.5162919964124468,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.7310585786300049,
+          "share_probability": 0.5162919964124468,
+          "share": true
+        },
+        {
+          "time": 11,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 11,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": true
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.7310585786300049,
+                "share_probability": 0.5162919964124468,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.7310585786300049,
+          "share_probability": 0.5162919964124468,
+          "share": true
+        },
+        {
+          "time": 12,
+          "familiarity": 0.8214937499999999,
+          "correction": 0.0,
+          "reliability": 0.5,
+          "events": [
+            {
+              "time": 12,
+              "event_type": "DecisionEvent",
+              "agent_id": "A1",
+              "payload": {
+                "claim_id": "C1",
+                "source_id": "S1",
+                "evidence_signal": 0.0,
+                "reward_context": 0.5,
+                "accuracy_cue": true
+              },
+              "state_change": {
+                "before": {},
+                "after": {}
+              },
+              "observation": {
+                "belief": 0.45261689757378776,
+                "latent_log_odds": -0.1901028603872036,
+                "accuracy_weight": 0.7310585786300049,
+                "share_probability": 0.5162919964124468,
+                "share": true
+              }
+            }
+          ],
+          "belief": 0.45261689757378776,
+          "latent_log_odds": -0.1901028603872036,
+          "accuracy_weight": 0.7310585786300049,
+          "share_probability": 0.5162919964124468,
+          "share": true
+        }
+      ]
+    }
+  ]
+}

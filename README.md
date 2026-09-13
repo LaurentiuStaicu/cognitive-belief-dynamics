@@ -1,47 +1,94 @@
 # Cognitive Epistemic Model
 
-An evidence-bound, falsifiable computational model of how people construct, revise, and act on beliefs inside modern information ecosystems.
+**Explore how exposure, correction and source feedback shape beliefs and sharing.**
 
-> **Status:** pre-release staging for `v0.2.0 — First Public Executable Model`.
+An interactive, evidence-aware research prototype with a minimal Python reference
+model (M0) and a Romanian / English browser interface.
 
-The project separates empirical phenomena, candidate mechanisms, functional forms, observables, and interpretive layers. The current executable core (`M0`) is intentionally minimal: familiarity, correction accessibility, source-reliability learning, belief formation, accuracy salience, and action/sharing.
+> **Alpha 0.2.0a0.** Demonstration coefficients are not empirically calibrated.
+> Software tests do not establish psychological validity or population prevalence.
 
-## Scientific guardrails
+## Browser application
 
-- Ground truth exists in the simulated world but is never passed directly into the human belief-update function.
-- `Track A/Track B`, “critical thinking”, and Jungian individuation are not hard-coded agent states.
-- A reproduced pattern is not treated as proof of a unique psychological mechanism.
-- Every public claim is scoped to the model purpose, validation evidence, and known limitations.
+The interface runs in a modern browser on Linux, Windows and macOS. No Flatpak or
+Windows installation is required. Public hosting awaits GitHub Pages activation;
+this repository does not yet claim a live application URL.
 
-## Planned public interface
+- **Scenarios:** four Python-generated reference runs, play/pause, step selection,
+  exact values in a table and JSON export.
+- **Structure:** interactive variable/link graph and keyboard-accessible inspection.
+- **Process:** an ODD-inspired overview of event scheduling, state updates,
+  judgments and decisions; not yet a complete ODD specification.
+- **Registry:** seven variables, three registered links and twenty conceptual modules.
 
-The first public release will include an interactive web presentation with:
+Scenarios replay saved output from the Python simulator; the browser does not
+recalculate arbitrary parameter combinations. The graph shows registered links,
+not every dependency in the equations. Initial evidence labels still need
+per-link bibliographic references and independent review.
 
-- **Open application** button (browser-based; OS independent)
-- structure view of variables/links/evidence
-- Visual ODD process view
-- animated run/replay view
-- bilingual RO/EN explanations
-- accessible structured HTML alternative to the graph
+### Pentru utilizatorii din România
 
-## Local quick start
+Interfața pornește în română; butonul **EN / RO** schimbă limba. Poți selecta un
+scenariu, urmări fiecare pas și compara convingerea cu probabilitatea de distribuire.
+Pașii reprezintă unități abstracte, nu ani sau zile. Rulările sunt demonstrații ale
+modelului, nu estimări despre persoane sau despre populația României.
+
+## Scientific scope
+
+M0 contains familiarity, correction accessibility, source-reliability estimation,
+belief formation, accuracy salience and a sharing policy. Functional forms are
+reference candidates, not established unique psychological laws.
+
+- Simulated ground truth is never passed directly into the belief-update function.
+- Track A/B are conceptual descriptions, not fixed classes or hard-coded agent states.
+- Jungian individuation and the ego–Self axis remain a separate interpretive layer.
+- A reproduced pattern is not proof of a unique mechanism.
+- No Track A/B population estimates, individual diagnoses or Romania forecasts.
+
+See [claim boundaries](docs/CLAIMS.md), [modelling decisions](docs/TRACE.md) and
+[development handoff](docs/HANDOFF.md).
+
+## Run locally
+
+Python 3.12+ and Node.js 24 are used by CI.
 
 ```bash
 python -m pip install -e '.[test]'
-pytest
+python -m pytest
 cemodel validate --root .
 cemodel demo
+python scripts/export_web.py
+cd web
+npm ci
+npm run build
+npm run preview
 ```
 
-Installed wheels include the model registries and schemas. After installing a
-wheel, `cemodel validate` works independently of the current directory.
+For browser regression checks:
 
-## Current handoff
+```bash
+npx playwright install chromium
+npm run test:browser
+```
 
-The recovered staging source and verification results are documented in
-[docs/HANDOFF.md](docs/HANDOFF.md). This is an alpha development snapshot;
-the public browser application is not yet deployed.
+Installed Python wheels contain registries and schemas: `cemodel validate` works
+outside the source checkout. Web builds copy canonical registries automatically;
+`python scripts/export_web.py` regenerates deterministic reference runs.
 
-## License
+## Verification and hosting
 
-Software code: MIT. Scientific registries/documentation: intended for CC BY 4.0 in the public release; final file-level licensing metadata will be added before tagging `v0.2.0`.
+[GitHub Actions](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/actions)
+checks Python tests, installed package resources, exact regeneration of the saved
+runs, TypeScript/build and browser interactions at desktop/mobile sizes. A successful
+run provides a downloadable static web artifact. Deployment uses only that verified
+artifact.
+
+One-time setup: repository **Settings → Pages → Build and deployment → Source →
+GitHub Actions**. Then run **Verify model and web** from Actions. The dependent
+**Publish web application** workflow deploys the verified build.
+
+## License status
+
+The staging metadata designates code as MIT. Documentation/registries are intended
+for CC BY 4.0; final license texts and file-level notices remain a release gate
+before tagging a public release.
