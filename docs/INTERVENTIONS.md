@@ -82,3 +82,19 @@ Methodological background: government MCDA guidance emphasizes explicit trade-of
 and sensitivity analysis, and distinguishes formal MCDA from simple weighted scoring.
 Our tool is the latter, an exploratory demonstration, not a claim of MCDA compliance.
 https://www.gov.uk/government/publications/green-book-supplementary-guidance-use-of-multi-criteria-decision-analysis/use-of-multi-criteria-decision-analysis-in-options-appraisal-of-economic-cases
+
+## Selected schedule (Alpha 0.3.4a0)
+
+bundle_schedule(mask, start) is the canonical 13-step schedule. The evaluator consumes
+it and the exporter publishes 32 schedules (16 bundles × two activation times).
+Response profiles share schedules; only coefficients differ.
+
+At each step: exposure if scheduled, correction if selected, source feedback if
+selected, then decision with the scheduled accuracy cue. Prevented exposure is
+bookkeeping, not an executed event. Early repetition reduction prevents steps 2–4;
+late activation at step 5 prevents none. Source feedback occurs at start + 0/2/4/6.
+The UI shows only selected measures and exports the exact inspected schedule.
+
+Steps remain abstract. This is a simulation calendar, not a population deployment
+plan or an empirically justified intervention timetable. Tables use captions and
+row/column headers: https://www.w3.org/WAI/tutorials/tables/two-headers/
