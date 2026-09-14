@@ -1,5 +1,12 @@
 # Changelog
 
+## Alpha 0.3.3a0 — Explain intervention priorities
+
+- Objective gain decomposition, inspected rank and feasible-alternative gap.
+- Per-profile top choices and gaps using the same decision constraints.
+- Signed standalone and conditional removal gains for selected factors.
+- Decision audit included in JSON exports; numerical model unchanged.
+
 ## Alpha 0.3.2a0 — Explanations along the graph
 
 - Explain eight core factors using canonical step values and exported score terms.

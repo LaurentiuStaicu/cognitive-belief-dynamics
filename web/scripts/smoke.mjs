@@ -38,8 +38,37 @@ try {
  const score=b=>50*(1-b.false_share+b.true_share);
  const expected=plans.profiles.find(p=>p.id==='reference').bundles.filter(b=>b.start===2&&b.mask.toString(2).replaceAll('0','').length<=3).sort((a,b)=>score(b)-score(a))[0];
  assert.equal(Number(await page.locator('#bestBundle').getAttribute('data-mask')),expected.mask);
+ // Verify exported score decomposition and profile gaps independently of rendered rounding.
+ await page.locator('#budget').fill('4');await page.locator('#budget').dispatchEvent('change');
+ for(const weight of [0,50,100]){
+  await page.locator('#objective').fill(String(weight));
+  await page.locator('[data-inspect="15"]').click();
+  const pending=page.waitForEvent('download');await page.locator('#exportPlan').click();
+  const saved=await pending;const analysis=JSON.parse(await readFile(await saved.path(),'utf8'));
+  const audit=analysis.decision_audit;
+  assert(Math.abs(audit.criteria.false_score_contribution+audit.criteria.true_score_contribution-analysis.gain)<1e-10);
+  const reference=plans.profiles.find(p=>p.id==='reference').bundles.filter(b=>b.start===2);
+  const baseline=reference.find(b=>b.mask===0),bundle=reference.find(b=>b.mask===15);
+  assert(Math.abs(audit.criteria.false_sharing_reduction-100*(baseline.false_share-bundle.false_share))<1e-10);
+  const value=b=>weight*(1-b.false_share)+(100-weight)*b.true_share;
+  for(const profile of plans.profiles){
+   const rows=profile.bundles.filter(b=>b.start===2);
+   const top=Math.max(...rows.map(value));
+   const entry=audit.profiles.find(p=>p.id===profile.id);
+   assert(Math.abs(entry.gap_to_best-(top-value(rows.find(b=>b.mask===15))))<1e-10);
+  }
+  for(const factor of audit.factors){
+   const expected=value(bundle)-value(reference.find(b=>b.mask===(15&~factor.bit)));
+   assert(Math.abs(factor.loss_if_removed-expected)<1e-10);
+  }
+  assert.equal(await page.locator('#factorAudit tbody tr').count(),4);
+  assert.equal(await page.locator('#profileAudit tbody tr').count(),3);
+ }
+ await page.locator('#objective').fill('50');
  await page.locator('#budget').fill('0');await page.locator('#budget').dispatchEvent('change');
  assert.equal(await page.locator('#bestBundle').getAttribute('data-mask'),'0');
+ assert.match(await page.locator('#inspectedRank').textContent(),/1 \/ 1/);
+ assert.equal(await page.locator('#alternativeGap').count(),0);
  await page.locator('#budget').fill('3');await page.locator('#budget').dispatchEvent('change');
  await page.locator('[data-lever="1"]').uncheck();
  assert.equal(Number(await page.locator('#bestBundle').getAttribute('data-mask'))&2,0);

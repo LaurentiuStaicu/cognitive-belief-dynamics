@@ -154,3 +154,14 @@ priorities. Preserve the elementary text hierarchy and explicit scientific bound
 
 Validation: 31 Python tests, TypeScript/Vite, browser regression and contextual
 term checks across four scenarios passed locally; mobile/light/dark checks passed.
+
+## Alpha 0.3.3a0 — Intervention priority transparency
+
+Planner audit explains the existing ranking, not a new optimizer. It separates
+probability percentage-point changes from weighted score contributions, compares
+the inspected bundle across all three profiles and shows signed standalone versus
+removal contributions. Audit values are exported as decision_audit. See INTERVENTIONS.md.
+
+Validation: 31 Python tests and TypeScript/Vite passed. Browser checks verify gain
+decomposition, profile gaps and removal effects at objective weights 0/50/100,
+plus the single-feasible-option case, exports and existing responsive/theme flows.

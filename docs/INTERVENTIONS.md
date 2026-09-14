@@ -58,3 +58,27 @@ The design separates objectives, options and sensitivity following public guidan
 
 This weighted prototype is not a complete validated MCDA or an empirical evaluation.
 JSON export records settings, selected results and the full selected profile.
+
+## Decision transparency (Alpha 0.3.3a0)
+
+The inspector decomposes gain using mean probabilities: the false-sharing reduction
+is 100 × (baseline false − bundle false), and true-sharing change is
+100 × (bundle true − baseline true). These are probability percentage points.
+Multiplying them by the respective fractional objective weights yields score-point
+contributions whose sum is the original gain, before display rounding.
+
+For every response profile, identical budget, availability, effort, timing and
+objective settings define the feasible set. The audit reports its top choice and
+score(best feasible) − score(inspected). Zero can denote a tie; sorting remains by
+score, lower effort and mask order. The displayed alternative excludes the inspected
+bundle; if it is the only feasible bundle no alternative is claimed.
+
+Factor contributions distinguish standalone gain from loss when removed from the
+inspected bundle. Removal loss is signed, conditional and not necessarily additive;
+a negative value means removing that measure improves this objective. Exports include
+all audit values. No change to simulation, ranking or uncertainty assumptions.
+
+Methodological background: government MCDA guidance emphasizes explicit trade-offs
+and sensitivity analysis, and distinguishes formal MCDA from simple weighted scoring.
+Our tool is the latter, an exploratory demonstration, not a claim of MCDA compliance.
+https://www.gov.uk/government/publications/green-book-supplementary-guidance-use-of-multi-criteria-decision-analysis/use-of-multi-criteria-decision-analysis-in-options-appraisal-of-economic-cases
