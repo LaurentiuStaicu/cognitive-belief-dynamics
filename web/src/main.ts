@@ -2,6 +2,7 @@ import cytoscape, {type Core} from 'cytoscape';
 import './style.css';
 import './elementary.css';
 import {mountLearning} from './learning';
+import {mountComparison} from './comparison';
 import {renderExplanation,type ExplanationData} from './explanation';
 let explanations:ExplanationData;
 import {dependencies,extraNodes} from './dependencies';
@@ -61,13 +62,14 @@ function shell() {
  document.documentElement.lang=lang;
  app.innerHTML=`<header class="topbar"><a class="brand" href="#" aria-label="Cognitive Epistemic Model"><span class="brand-mark">CE</span><span>Cognitive Epistemic Model<small>${tr('Laborator de explorare','Exploration lab')}</small></span></a><div class="top-actions"><span class="version">M0 · ALPHA</span><button id="language" aria-label="${tr('Switch to English','Schimbă în română')}">${lang==='ro'?'EN':'RO'}</button><a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model" target="_blank" rel="noopener">GitHub ↗</a></div></header>
  <div class="workspace"><div class="intro"><div><p class="eyebrow">${tr('FORMAREA CONVINGERILOR','BELIEF FORMATION')}</p><h1>${tr('Mecanisme, intervenții, priorități.','Mechanisms, interventions, priorities.')}</h1><p>${tr('Înțelege relațiile dintre factori și compară efectele măsurilor, separat și împreună.','Understand relationships between factors and compare measures, individually and together.')}</p></div><div class="scope"><strong>07</strong><span>${tr('variabile înregistrate','registered variables')}</span><strong>04</strong><span>${tr('scenarii de referință','reference scenarios')}</span></div></div>
- <nav class="views" aria-label="${tr('Vederile modelului','Model views')}">${[['learning',tr('1 · Înțelegere','1 · Understanding')],['planning',tr('2–3 · Priorități și acțiuni','2–3 · Priorities and actions')],['structure',tr('Hartă','Graph')],['runs',tr('Scenarii','Scenarios')],['process',tr('Proces','Process')],['reference',tr('Registru','Registry')]].map(([id,label])=>`<button data-view="${id}" aria-pressed="${view===id}">${label}</button>`).join('')}</nav>
+ <nav class="views" aria-label="${tr('Vederile modelului','Model views')}">${[['learning',tr('1 · Înțelegere','1 · Understanding')],['planning',tr('2–3 · Priorități și acțiuni','2–3 · Priorities and actions')],['structure',tr('Hartă','Graph')],['runs',tr('Scenarii','Scenarios')],['comparison',tr('Comparații','Comparisons')],['process',tr('Proces','Process')],['reference',tr('Registru','Registry')]].map(([id,label])=>`<button data-view="${id}" aria-pressed="${view===id}">${label}</button>`).join('')}</nav>
  <main id="content"></main><footer><span>${tr('Model demonstrativ · coeficienți necalibrați','Demonstration model · uncalibrated coefficients')}</span><span>${tr('Nu estimează proporții Track A/B sau diagnostice individuale.','Does not estimate Track A/B prevalence or individual diagnoses.')}</span></footer></div>`;
  document.getElementById('language')!.onclick=()=>{stop();lang=lang==='ro'?'en':'ro';shell();};
  document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.onclick=()=>{stop();view=b.dataset.view!;shell();});
  if(view==='learning') mountLearning(document.getElementById('content')!,lang,target=>{stop();const [next,id]=target.split(':');view=next;if(id){selected=id;step=0;}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
  if(view==='planning') mountPlanner(document.getElementById('content')!,planning,lang);
  if(view==='runs') renderRuns();
+ if(view==='comparison') mountComparison(document.getElementById('content')!,runs,lang,(id,time)=>{selected=id;step=time;view='runs';shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
  if(view==='structure') renderStructure();
  if(view==='process') renderProcess();
  if(view==='reference') renderReference();

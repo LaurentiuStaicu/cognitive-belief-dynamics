@@ -60,6 +60,19 @@ try {
   assert.equal(await page.locator('#beliefTerms tbody tr').count(),4);
   assert.equal(await page.locator('#sharingTerms tbody tr').count(),3);
  }
+ await page.locator('[data-view="comparison"]').click();
+ for(const comparison of data.runs){
+  await page.selectOption('#comparisonScenario',comparison.id);await page.locator('#compareTimeline').fill('12');
+  const baseline=data.runs.find(r=>r.id==='repetition');
+  const delta=comparison.frames[12].belief-baseline.frames[12].belief;
+  const formatted=(delta>0?'+':delta<0?'−':'')+Math.abs(delta).toLocaleString('ro-RO',{minimumFractionDigits:3,maximumFractionDigits:3});
+  assert.equal(await page.locator('#deltaBelief').textContent(),'ΔB = '+formatted);
+  assert.equal(await page.locator('#comparisonRows tr').count(),13);
+ }
+ await page.selectOption('#comparisonScenario','source');assert.match(await page.locator('#comparisonContext').textContent(),/două intrări/);
+ const comparisonDownload=page.waitForEvent('download');await page.locator('#downloadComparison').click();assert.equal((await comparisonDownload).suggestedFilename(),'cem-scenario-comparison.json');
+ await page.selectOption('#comparisonScenario','correction');await page.locator('#compareTimeline').fill('5');await page.locator('#inspectCompared').click();
+ assert.equal(await page.locator('#scenario').inputValue(),'correction');assert.equal(await page.locator('#timeline').inputValue(),'5');
  await page.selectOption('#scenario','accuracy');await page.locator('#timeline').fill('5');
  assert.match(await page.locator('.step-story').textContent(),/Convingerea rămâne neschimbată/);
  await page.locator('#previous').click();assert.match(await page.locator('#stepBadge').textContent(),/4 \/ 12/);
@@ -89,7 +102,7 @@ try {
  await page.setViewportSize({width:390,height:844});
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile horizontal overflow');
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'mobile.png'),fullPage:true});
- for(const v of ['structure','reference','process','planning','learning']){await page.locator(`[data-view="${v}"]`).click();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: mobile overflow`);}
+ for(const v of ['structure','reference','process','planning','learning','comparison']){await page.locator(`[data-view="${v}"]`).click();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: mobile overflow`);}
  await page.evaluate(()=>document.documentElement.style.fontSize='200%');
  if(!(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth))) console.log(await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth).map(e=>({tag:e.tagName,cls:e.className,w:e.getBoundingClientRect().width})).slice(0,15)));
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Text enlargement overflow');
@@ -97,7 +110,7 @@ try {
  await page.setViewportSize({width:1440,height:1050});
  for(const colorScheme of ['light','dark']){
   await page.emulateMedia({colorScheme});
-  for(const v of ['learning','runs','structure','planning']){
+  for(const v of ['learning','runs','structure','planning','comparison']){
    await page.locator(`[data-view="${v}"]`).click();
    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: ${colorScheme} overflow`);
    if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,`${v}-${colorScheme}.png`),fullPage:true});

@@ -108,3 +108,12 @@ pointer readout and explanations in scenario JSON export. Original runs.json is
 byte-identical (git blob 4ba45465066e2265aab9260d619c9ffe29a99242).
 See STEP_EXPLANATIONS.md. This is mathematical decomposition, not causal factor
 importance. Local verification: 30 Python tests plus production/browser checks.
+
+## Scenario comparison continuation — 2026-09-14
+
+Added Comparisons with two synchronized plots, fixed repetition-only reference,
+all four scenario contrasts, step-specific/mean differences, exact table and
+JSON export. Detail navigation preserves selected scenario and step. Source
+contrast explicitly changes feedback AND evidence; no isolated feedback effect
+is claimed. See SCENARIO_COMPARISON.md. Existing model data are unchanged.
+Production build and browser regression passed locally.
