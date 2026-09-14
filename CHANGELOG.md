@@ -1,5 +1,12 @@
 # Changelog
 
+## Alpha 0.3.4a0 — Selected intervention schedule
+
+- Canonical Python schedule shared by the evaluator and exported calendar.
+- Selected measures, effective times and event-order ledger in RO/EN.
+- Explicit no-action case for late repetition reduction and empty bundles.
+- Calendar included in plan export; equations and numerical outcomes preserved.
+
 ## Alpha 0.3.3a0 — Explain intervention priorities
 
 - Objective gain decomposition, inspected rank and feasible-alternative gap.

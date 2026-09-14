@@ -17,9 +17,22 @@ LEVERS = [
      'action':{'ro':'Patru confirmări corecte la interval de doi pași ajută agentul să recunoască sursa informativă.','en':'Four correct confirmations two steps apart help the agent recognize the informative source.'}},
 ]
 
-def evaluate_bundle(mask: int, start: int, params: ModelParams) -> dict:
+def bundle_schedule(mask: int, start: int) -> dict:
+    """Canonical abstract-step schedule shared by evaluator and exported UI."""
     if mask not in range(16) or start not in (2,5):
         raise ValueError('mask must be 0..15 and start must be 2 or 5')
+    frames=[]
+    for time in range(13):
+        blocked=bool(mask & 1 and time in (2,3,4) and time >= start)
+        frames.append({'time':time, 'exposure':time in (1,2,3,4) and not blocked,
+                       'exposure_prevented':blocked, 'correction':bool(mask & 2 and time == start),
+                       'source_feedback':bool(mask & 8 and time in (start,start+2,start+4,start+6)),
+                       'accuracy_cue':bool(mask & 4 and time >= start)})
+    return {'mask':mask, 'start':start, 'frames':frames}
+
+
+def evaluate_bundle(mask: int, start: int, params: ModelParams) -> dict:
+    schedule=bundle_schedule(mask,start)
     outcomes = {}
     for claim_type, direction in [('false', -1.0), ('true', 1.0)]:
         # The evaluator defines a synthetic world. The agent receives evidence and
@@ -28,14 +41,15 @@ def evaluate_bundle(mask: int, start: int, params: ModelParams) -> dict:
         sim = Simulator({'A':agent}, params=params, seed=7)
         shares=[]
         beliefs=[]
-        for time in range(13):
-            if time in (1,2,3,4) and not (mask & 1 and time >= start and time > 1):
+        for frame in schedule['frames']:
+            time=frame['time']
+            if frame['exposure']:
                 sim.step(ExposureEvent(time,'A','C','S'))
-            if mask & 2 and time == start:
+            if frame['correction']:
                 sim.step(CorrectionEvent(time,'A','C',direction))
-            if mask & 8 and time in (start,start+2,start+4,start+6):
+            if frame['source_feedback']:
                 sim.step(SourceFeedbackEvent(time,'A','S',True))
-            result=sim.step(DecisionEvent(time,'A','C','S',direction*0.6,reward_context=0.5,accuracy_cue=bool(mask & 4 and time>=start)))
+            result=sim.step(DecisionEvent(time,'A','C','S',direction*0.6,reward_context=0.5,accuracy_cue=frame['accuracy_cue']))
             shares.append(result.share_probability)
             beliefs.append(result.belief)
         outcomes[claim_type+'_share']=mean(shares)
@@ -51,4 +65,4 @@ def export_interventions() -> dict:
         profiles.append({'id':name,'scale':scale,'parameters':asdict(p),'bundles':[evaluate_bundle(mask,start,p) for start in (2,5) for mask in range(16)]})
     return {'model_version':__version__,'purpose':'ILLUSTRATIVE_DECISION_SUPPORT','horizon':[0,12],
             'evaluation':'Expected sharing probabilities averaged over all 13 steps, separately for one false and one true synthetic claim; no population extrapolation.',
-            'levers':LEVERS,'profiles':profiles}
+            'levers':LEVERS,'schedules':[bundle_schedule(mask,start) for start in (2,5) for mask in range(16)],'profiles':profiles}

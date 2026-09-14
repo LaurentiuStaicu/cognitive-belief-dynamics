@@ -165,3 +165,13 @@ removal contributions. Audit values are exported as decision_audit. See INTERVEN
 Validation: 31 Python tests and TypeScript/Vite passed. Browser checks verify gain
 decomposition, profile gaps and removal effects at objective weights 0/50/100,
 plus the single-feasible-option case, exports and existing responsive/theme flows.
+
+## Alpha 0.3.4a0 — Selected intervention calendar
+
+The generic calendar is replaced by selected actions, effective times and an event
+ledger, with schedules exported by Python and consumed by both evaluator and UI.
+See INTERVENTIONS.md and web/src/plan-schedule.ts. Empty/late interventions are explicit.
+Local compilation passed before the workspace became unavailable. Changes were
+recovered from the published parent and conversation into a review branch; GitHub CI
+is required before integration. Added schedule/event-order tests, exact 96-outcome
+reproduction and browser checks for early/late/no-measure cases and exported schedules.

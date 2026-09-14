@@ -45,6 +45,7 @@ try {
   await page.locator('[data-inspect="15"]').click();
   const pending=page.waitForEvent('download');await page.locator('#exportPlan').click();
   const saved=await pending;const analysis=JSON.parse(await readFile(await saved.path(),'utf8'));
+  assert.deepEqual(analysis.schedule,plans.schedules.find(s=>s.mask===15&&s.start===2));
   const audit=analysis.decision_audit;
   assert(Math.abs(audit.criteria.false_score_contribution+audit.criteria.true_score_contribution-analysis.gain)<1e-10);
   const reference=plans.profiles.find(p=>p.id==='reference').bundles.filter(b=>b.start===2);
@@ -64,11 +65,30 @@ try {
   assert.equal(await page.locator('#factorAudit tbody tr').count(),4);
   assert.equal(await page.locator('#profileAudit tbody tr').count(),3);
  }
+ if(process.env.CEM_SCREENSHOTS)await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});
+ // Scheduling UI follows the inspected bundle and the activation time.
+ for(const start of [2,5]){
+  await page.selectOption('#timing',String(start));
+  await page.locator('[data-inspect="15"]').click();
+  assert.equal(await page.locator('#actionSchedule [data-action]').count(),4);
+  assert.equal(await page.locator('#eventSchedule tbody tr').count(),13);
+  assert.equal(await page.locator('#actionSchedule [data-action="8"] td').first().textContent(),start===2?'2, 4, 6, 8':'5, 7, 9, 11');
+  assert.equal(await page.locator('#actionSchedule [data-action="1"] td').first().textContent(),start===2?'2, 3, 4':'Niciunul');
+  if(start===5)assert.match(await page.locator('#actionSchedule [data-action="1"]').textContent(),/prea târzie/);
+  await page.locator('#schedulePanel details summary').click();
+  if(process.env.CEM_SCREENSHOTS)await page.locator('#schedulePanel').screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'schedule-'+start+'.png')});
+  const pending=page.waitForEvent('download');await page.locator('#exportPlan').click();
+  const file=await pending;const exported=JSON.parse(await readFile(await file.path(),'utf8'));
+  assert.deepEqual(exported.schedule,plans.schedules.find(s=>s.mask===15&&s.start===start));
+ }
+ await page.selectOption('#timing','2');
  await page.locator('#objective').fill('50');
  await page.locator('#budget').fill('0');await page.locator('#budget').dispatchEvent('change');
  assert.equal(await page.locator('#bestBundle').getAttribute('data-mask'),'0');
  assert.match(await page.locator('#inspectedRank').textContent(),/1 \/ 1/);
  assert.equal(await page.locator('#alternativeGap').count(),0);
+ assert.equal(await page.locator('#actionSchedule [data-action]').count(),0);
+ assert.match(await page.locator('#actionSchedule').textContent(),/Fără măsuri/);
  await page.locator('#budget').fill('3');await page.locator('#budget').dispatchEvent('change');
  await page.locator('[data-lever="1"]').uncheck();
  assert.equal(Number(await page.locator('#bestBundle').getAttribute('data-mask'))&2,0);
