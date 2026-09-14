@@ -65,6 +65,7 @@ try {
   assert.equal(await page.locator('#factorAudit tbody tr').count(),4);
   assert.equal(await page.locator('#profileAudit tbody tr').count(),3);
  }
+ if(process.env.CEM_SCREENSHOTS)await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});
  // Scheduling UI follows the inspected bundle and the activation time.
  for(const start of [2,5]){
   await page.selectOption('#timing',String(start));
