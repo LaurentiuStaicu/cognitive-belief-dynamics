@@ -15,3 +15,14 @@ h1,h2,h3,.brand,.scope strong,.metrics strong,.process-number{font-family:inheri
 .top-actions .version{display:inline-block;font-size:.8rem;letter-spacing:normal}.top-actions{flex-wrap:wrap}
 
 .brand-icon{width:2.6rem;height:2.6rem;flex-shrink:0}
+
+/* M0 Visual Stage: native controls and theme tokens, no automatic motion. */
+.visual-controls { margin-block: 1rem; padding: 1rem; }
+.stage-options { display:flex; flex-wrap:wrap; gap:.7rem; align-items:center; margin-block:.8rem; }
+.stage-options label { display:flex; align-items:center; gap:.4rem; }
+.stage-options input[type=checkbox] { width:auto; }
+.stage-options input[type=range] { width: min(220px, 100%); }
+.stage-options select { width:auto; max-width:100%; }
+.stage-bands { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+#stageReadout { font-variant-numeric:tabular-nums; line-height:1.8; overflow-wrap:anywhere; }
+#stageNeighbours { border-top:1px solid var(--border); margin-top:1rem; }

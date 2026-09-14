@@ -1,5 +1,13 @@
 # Changelog
 
+## Alpha 0.3.1a0 — M0 Visual Stage
+
+- Functional bands, selection focus and navigable upstream/downstream dependencies.
+- Context-sensitive edge markers and manual guided tours for repetition, correction and sharing.
+- Graph snapshots use logged exposure counts and actual sampled actions; open the same scenario step for full explanations.
+- Adapted the supplied React proposal to the existing TypeScript/Cytoscape architecture.
+- M0 equations and reference trajectories unchanged; see docs/INTEGRATION_ALPHA_0.3.1a0.md.
+
 ## 0.3.0a0 — 2026-09-14
 
 First GitHub pre-release. Adds the mechanism learning view, computational map,

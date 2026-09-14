@@ -132,3 +132,13 @@ the verified web archive and checksum. Already published tags are not overwritte
 README presentation follows the user's World3 reference: centered icon, title,
 description, version/stage/platform/license badges and centered launch button.
 Flatpak is labelled planned, not available. The same SVG is the web icon/favicon.
+
+## M0 Visual Stage — Alpha 0.3.1a0
+
+Adapted the user-supplied Gemini/Antigravity visual proposal to Cytoscape; see
+INTEGRATION_ALPHA_0.3.1a0.md for architectural decisions and semantic corrections.
+Functional bands, neighbourhood focus/navigation, contextual edge markers, manual
+guided routes and graph snapshots are implemented in web/src/visual-stage.ts.
+Keep exposure-event counts distinct from time and sampled Share distinct from P.
+No model-equation change. Version metadata and release notes synchronized.
+Local Python (31 tests), TypeScript/Vite and expanded browser checks pass.

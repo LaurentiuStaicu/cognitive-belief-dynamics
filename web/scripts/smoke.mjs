@@ -13,7 +13,7 @@ const server=createServer(async(req,res)=>{
   const file=path.resolve(dist,decodeURIComponent(pathname.slice(prefix.length))||'index.html');
   if(!file.startsWith(dist)){res.writeHead(403).end();return;}
   const data=await readFile(file);
-  res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json'})[path.extname(file)]||'application/octet-stream');res.end(data);
+  res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml'})[path.extname(file)]||'application/octet-stream');res.end(data);
  }catch{res.writeHead(404).end();}
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
@@ -88,6 +88,26 @@ try {
  await page.locator('[data-view="structure"]').click();await page.selectOption('#variable','VAR.CORRECTION.ACCESS');assert.match(await page.locator('#detail').textContent(),/Corrective-context/);
  assert.match(await page.locator('#graphCount').textContent(),/8 nodes · 7/);
  await page.selectOption('#dependency','c-b');assert.match(await page.locator('#detail').textContent(),/direction/);
+ // M0 Visual Stage: exported events and stochastic outcomes, not time or a probability threshold.
+ for(const reference of data.runs){
+  await page.selectOption('#stageRun',reference.id);
+  for(const index of [0,4,5,12]){
+   await page.locator('#stageTime').fill(String(index));
+   const count=reference.frames.slice(0,index+1).flatMap(f=>f.events).filter(e=>e.event_type==='ExposureEvent').length;
+   const readout=await page.locator('#stageReadout').textContent();
+   assert(readout.includes('Nexp: '+count+' ·'));
+   assert(readout.endsWith('Share: '+Number(reference.frames[index].share)));
+  }
+ }
+ await page.locator('#stageBands').check();assert.equal(await page.locator('.stage-bands rect').count(),4);
+ await page.locator('#stageFocus').check();
+ await page.selectOption('#stageTour','correction');await page.locator('#stageStart').click();
+ assert.equal(await page.locator('#stageTime').inputValue(),'5');
+ assert.match(await page.locator('#stageNeighbours').textContent(),/Outputs/);
+ if(process.env.CEM_SCREENSHOTS)await page.locator('.graph-layout').screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'stage-bands.png')});
+ await page.locator('#stageNext').click();assert.match(await page.locator('#stageTourText').textContent(),/Selected factor: B/);
+ await page.locator('#stageOpen').click();assert.equal(await page.locator('#scenario').inputValue(),'correction');assert.equal(await page.locator('#timeline').inputValue(),'5');
+ await page.locator('[data-view="structure"]').click();
  await page.selectOption('#graphMode','inputs');assert.equal(await page.locator('#dependency option').count(),18);
  await page.selectOption('#dependency','prior-b');assert.match(await page.locator('#detail').textContent(),/does not automatically replace/);
  await page.selectOption('#graphFocus','source');assert.match(await page.locator('#graphCount').textContent(),/6 nodes/);

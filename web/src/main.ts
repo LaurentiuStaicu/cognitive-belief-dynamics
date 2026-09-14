@@ -6,6 +6,7 @@ import {mountLearning} from './learning';
 import {mountComparison} from './comparison';
 import {renderExplanation,type ExplanationData} from './explanation';
 let explanations:ExplanationData;
+import {mountVisualStage} from './visual-stage';
 import {dependencies,extraNodes} from './dependencies';
 let graphMode='core';
 let graphFocus='all';
@@ -108,7 +109,7 @@ function updateFrame(){
  svg.onpointermove=e=>{const point=new DOMPoint(e.clientX,e.clientY).matrixTransform(svg.getScreenCTM()!.inverse());readout(Math.max(0,Math.min(step,Math.round((point.x-50)/55))));};
  svg.onpointerleave=()=>readout(step);
 }
-function variableDetail(v:Variable){return `<p class="eyebrow">${text(v.short_name)} · ${text(v.ontology_type)}</p><h2>${text(v.label[lang])}</h2><p>${text(lang==='ro'?definitions[v.short_name][0]:v.definition)}</p><div class="boundary"><strong>${tr('Delimitare','Boundary')}</strong><p>${text(lang==='ro'?definitions[v.short_name][1]:v.what_it_is_not)}</p></div><p class="meta">${text(v.conceptual_module)} · ${text(modules.find(m=>m.id===v.conceptual_module)!.label[lang])}</p><code>${text(v.id)}</code>`;}
+function variableDetail(v:Variable){return `<p class="eyebrow">${text(v.short_name)} · ${text(v.ontology_type)}</p><h2>${text(v.label[lang])}</h2><p>${text(lang==='ro'?definitions[v.short_name][0]:v.definition)}</p><div class="boundary"><strong>${tr('Ce nu reprezintă','What this is not')}</strong><p>${text(lang==='ro'?definitions[v.short_name][1]:v.what_it_is_not)}</p></div><p class="meta">${text(v.conceptual_module)} · ${text(modules.find(m=>m.id===v.conceptual_module)!.label[lang])}</p><code>${text(v.id)}</code>`;}
 function renderStructure(){
  if(graphMode==='registered')renderRegisteredStructure();else renderComputationalStructure();
  const host=document.getElementById('content')!;
@@ -133,6 +134,7 @@ function renderComputationalStructure(){
  document.getElementById('dependency')!.onchange=e=>{const id=(e.target as HTMLSelectElement).value;if(id)edgeDetail(id);};
  document.getElementById('graphFocus')!.onchange=e=>{graphFocus=(e.target as HTMLSelectElement).value;shell();};
  document.getElementById('fit')!.onclick=()=>graph!.fit(undefined,45);show(nodes[0].id);
+ mountVisualStage(graph!,lang,runs,selected,step,show,edgeDetail,(id,time)=>{selected=id;step=time;view='runs';shell();},(id,time)=>{selected=id;step=time;});
 }
 
 function renderRegisteredStructure(){
