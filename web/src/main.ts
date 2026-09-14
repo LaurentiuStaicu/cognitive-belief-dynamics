@@ -134,7 +134,7 @@ function renderComputationalStructure(){
  document.getElementById('dependency')!.onchange=e=>{const id=(e.target as HTMLSelectElement).value;if(id)edgeDetail(id);};
  document.getElementById('graphFocus')!.onchange=e=>{graphFocus=(e.target as HTMLSelectElement).value;shell();};
  document.getElementById('fit')!.onclick=()=>graph!.fit(undefined,45);show(nodes[0].id);
- mountVisualStage(graph!,lang,runs,selected,step,show,edgeDetail,(id,time)=>{selected=id;step=time;view='runs';shell();},(id,time)=>{selected=id;step=time;});
+ mountVisualStage(graph!,lang,runs,explanations,selected,step,show,edgeDetail,(id,time)=>{selected=id;step=time;view='runs';shell();},(id,time)=>{selected=id;step=time;});
 }
 
 function renderRegisteredStructure(){

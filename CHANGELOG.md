@@ -1,5 +1,12 @@
 # Changelog
 
+## Alpha 0.3.2a0 — Explanations along the graph
+
+- Explain eight core factors using canonical step values and exported score terms.
+- Add source/evidence tour, previous-factor navigation and manual-selection cancellation.
+- Keep explanations synchronized when changing the timeline.
+- Equations and numerical trajectories unchanged.
+
 ## Alpha 0.3.1a0 — M0 Visual Stage
 
 - Functional bands, selection focus and navigable upstream/downstream dependencies.

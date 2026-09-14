@@ -106,6 +106,30 @@ try {
  assert.match(await page.locator('#stageNeighbours').textContent(),/Outputs/);
  if(process.env.CEM_SCREENSHOTS)await page.locator('.graph-layout').screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'stage-bands.png')});
  await page.locator('#stageNext').click();assert.match(await page.locator('#stageTourText').textContent(),/Selected factor: B/);
+ await page.locator('#stageBack').click();assert.match(await page.locator('#stageTourText').textContent(),/Selected factor: C/);
+ assert.equal(await page.locator('#stageBack').isDisabled(),true);
+ assert.match(await page.locator('#stageReading').textContent(),/direction −1.000/);
+ await page.locator('#stageTime').fill('12');assert.match(await page.locator('#stageReading').textContent(),/C = 0.400/);
+ await page.locator('#stageTime').fill('5');
+ await page.selectOption('#stageTour','source');await page.locator('#stageStart').click();
+ assert.equal(await page.locator('#stageTime').inputValue(),'8');
+ assert.match(await page.locator('#stageReading').textContent(),/changes both feedback and signal/);
+ for(const reference of data.runs){
+  await page.selectOption('#stageRun',reference.id);
+  assert.equal(await page.locator('#stageNext').isDisabled(),true);
+  for(const index of [0,5,12]){
+   await page.locator('#stageTime').fill(String(index));
+   await page.selectOption('#variable','VAR.CORRECTION.ACCESS');
+   const term=explanations.runs.find(r=>r.id===reference.id).frames[index].belief_terms.correction;
+   const formatted=(term<0?'−':term>0?'+':'')+Math.abs(term).toLocaleString('en-GB',{minimumFractionDigits:3,maximumFractionDigits:3});
+   assert((await page.locator('#stageReading').textContent()).includes('Term in the belief score: '+formatted));
+  }
+ }
+ await page.selectOption('#stageTour','correction');await page.locator('#stageStart').click();
+ await page.selectOption('#variable','VAR.BELIEF.CLAIM');
+ assert.equal(await page.locator('#stageNext').isDisabled(),true);
+ assert.match(await page.locator('#stageReading').textContent(),/combines prior belief/);
+ if(process.env.CEM_SCREENSHOTS)await page.locator('.visual-controls').screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'graph-explanation.png')});
  await page.locator('#stageOpen').click();assert.equal(await page.locator('#scenario').inputValue(),'correction');assert.equal(await page.locator('#timeline').inputValue(),'5');
  await page.locator('[data-view="structure"]').click();
  await page.selectOption('#graphMode','inputs');assert.equal(await page.locator('#dependency option').count(),18);

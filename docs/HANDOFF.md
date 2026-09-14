@@ -142,3 +142,15 @@ guided routes and graph snapshots are implemented in web/src/visual-stage.ts.
 Keep exposure-event counts distinct from time and sampled Share distinct from P.
 No model-equation change. Version metadata and release notes synchronized.
 Local Python (31 tests), TypeScript/Vite and expanded browser checks pass.
+
+## Alpha 0.3.2a0 — Guided mechanism explanations
+
+web/src/graph-reading.ts interprets canonical Python frame decompositions without
+re-running the model. Eight core factors have bilingual contextual explanations,
+previous-step differences and expandable formulas. Source tour starts at step 8;
+previous-factor navigation and manual cancellation maintain consistent tour state.
+The graph timeline refreshes explanations. Mathematical terms are not intervention
+priorities. Preserve the elementary text hierarchy and explicit scientific boundaries.
+
+Validation: 31 Python tests, TypeScript/Vite, browser regression and contextual
+term checks across four scenarios passed locally; mobile/light/dark checks passed.
