@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">Cognitive Epistemic Model</title>
+  <defs><linearGradient id="tile" x2="1" y2="1"><stop stop-color="#3689e6"/><stop offset="1" stop-color="#0e9a91"/></linearGradient></defs>
+  <rect x="6" y="6" width="116" height="116" rx="28" fill="url(#tile)" stroke="#176aa2" stroke-width="2"/>
+  <path d="M34 39 65 63 94 33M65 63 96 91M65 63 31 94" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="34" cy="39" r="9" fill="#fff"/>
+  <circle cx="94" cy="33" r="9" fill="#fff"/>
+  <circle cx="31" cy="94" r="9" fill="#fff"/>
+  <circle cx="96" cy="91" r="9" fill="#fff"/>
+  <circle cx="65" cy="63" r="14" fill="#ffe16b" stroke="#fff" stroke-width="4"/>
+</svg>

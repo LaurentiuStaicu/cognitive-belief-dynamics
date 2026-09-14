@@ -1,0 +1,15 @@
+# Changelog
+
+## 0.3.0a0 — 2026-09-14
+
+First GitHub pre-release. Adds the mechanism learning view, computational map,
+evidence-registry explanations, intervention bundle planning, per-step score
+explanations and paired scenario comparisons. Adopts system typography and
+light/dark themes in preparation for elementary OS. Adds visible versioning,
+consistent export metadata, release notes, licenses and verified web release assets.
+M0 equations, coefficients and numerical trajectories are unchanged.
+
+## 0.2.0a0 — initial development stage
+
+Python M0 reference simulator and initial web explorer. Work was published as
+commits and GitHub Pages deployments, without a separate GitHub Release.

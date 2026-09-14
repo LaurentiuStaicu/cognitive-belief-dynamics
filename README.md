@@ -1,11 +1,29 @@
-# Cognitive Epistemic Model
+<p align="center">
+  <img src="web/public/icon.svg" width="96" height="96" alt="Cognitive Epistemic Model icon">
+</p>
 
-**Explore how exposure, correction and source feedback shape beliefs and sharing.**
+<h1 align="center">Cognitive Epistemic Model</h1>
 
-An interactive, evidence-aware research prototype with a minimal Python reference
-model (M0) and a Romanian / English browser interface.
+<p align="center">
+  Understand belief-formation mechanisms, explore how factors interact, and compare priorities and actions through an evidence-aware research prototype.
+</p>
 
-> **Alpha 0.2.0a0.** Demonstration coefficients are not empirically calibrated.
+<p align="center">
+  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.3.0a0"><img alt="Alpha 0.3.0a0" src="https://img.shields.io/badge/version-0.3.0a0-4e9a06"></a>
+  <img alt="Development stage: alpha" src="https://img.shields.io/badge/stage-alpha-e5a50a">
+  <img alt="Available application: Web" src="https://img.shields.io/badge/app-Web-4a90d9">
+  <img alt="elementary OS Flatpak: planned" src="https://img.shields.io/badge/elementary_OS_Flatpak-planned-64baff">
+  <a href="LICENSE"><img alt="Code license: MIT" src="https://img.shields.io/badge/code_license-MIT-blue"></a>
+  <a href="LICENSING.md"><img alt="Documentation license: CC BY 4.0" src="https://img.shields.io/badge/docs-CC_BY_4.0-blue"></a>
+</p>
+
+<p align="center">
+  <a href="https://laurentiustaicu.github.io/cognitive-epistemic-model/">
+    <img alt="Deschide aplicația / Open app" src="https://img.shields.io/badge/Deschide_aplica%C8%9Bia_%2F_Open_app-087F73?style=for-the-badge">
+  </a>
+</p>
+
+> **Alpha 0.3.0a0.** Demonstration coefficients are not empirically calibrated.
 > Software tests do not establish psychological validity or population prevalence.
 
 ## Project priorities
@@ -19,10 +37,6 @@ are persistent requirements. The web interface already follows a system-font,
 light/dark, keyboard-accessible visual foundation for the future native app.
 
 ## Browser application
-
-[![Deschide aplicația / Open app](https://img.shields.io/badge/Deschide_aplica%C8%9Bia_%2F_Open_app-087F73?style=for-the-badge)](https://laurentiustaicu.github.io/cognitive-epistemic-model/)
-
-**[https://laurentiustaicu.github.io/cognitive-epistemic-model/](https://laurentiustaicu.github.io/cognitive-epistemic-model/)**
 
 The interface runs in a modern browser on Linux, Windows and macOS. No Flatpak or
 Windows installation is required. The public alpha is hosted on GitHub Pages.
@@ -113,8 +127,12 @@ GitHub Pages is configured with **GitHub Actions** as its source. The dependent
 **Publish web application** workflow deploys the verified build after successful
 checks. The initial live deployment was confirmed on 2026-09-13.
 
-## License status
+## Releases and licensing
 
-The staging metadata designates code as MIT. Documentation/registries are intended
-for CC BY 4.0; final license texts and file-level notices remain a release gate
-before tagging a public release.
+[Alpha 0.3.0a0 — release notes and downloads](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.3.0a0).
+See [CHANGELOG.md](CHANGELOG.md). Releases attach the CI-verified web build and its
+SHA-256 checksum; GitHub also provides source archives. The native elementary OS
+Flatpak remains a near-v1 goal. This alpha has no native installer.
+
+Original code: MIT. Original documentation and registries: CC BY 4.0.
+See [LICENSING.md](LICENSING.md) for scope and third-party exclusions.

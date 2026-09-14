@@ -1,4 +1,5 @@
 """Illustrative intervention bundles evaluated with M0, not calibrated policy effects."""
+from . import __version__
 from dataclasses import asdict, replace
 from statistics import mean
 from .events import CorrectionEvent, DecisionEvent, ExposureEvent, SourceFeedbackEvent
@@ -48,6 +49,6 @@ def export_interventions() -> dict:
         p=ModelParams()
         p=replace(p,beta_f=p.beta_f*scale,beta_correction=p.beta_correction*scale,beta_accuracy_cue=p.beta_accuracy_cue*scale)
         profiles.append({'id':name,'scale':scale,'parameters':asdict(p),'bundles':[evaluate_bundle(mask,start,p) for start in (2,5) for mask in range(16)]})
-    return {'model_version':'0.2.0a0','purpose':'ILLUSTRATIVE_DECISION_SUPPORT','horizon':[0,12],
+    return {'model_version':__version__,'purpose':'ILLUSTRATIVE_DECISION_SUPPORT','horizon':[0,12],
             'evaluation':'Expected sharing probabilities averaged over all 13 steps, separately for one false and one true synthetic claim; no population extrapolation.',
             'levers':LEVERS,'profiles':profiles}

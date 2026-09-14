@@ -117,3 +117,18 @@ JSON export. Detail navigation preserves selected scenario and step. Source
 contrast explicitly changes feedback AND evidence; no isolated feedback effect
 is claimed. See SCENARIO_COMPARISON.md. Existing model data are unchanged.
 Production build and browser regression passed locally.
+
+## Version/release correction — 2026-09-14
+
+Release target Alpha 0.3.0a0 (tag v0.3.0a0), first GitHub pre-release. User explicitly
+requires version numbers in progress/final reports. __init__.__version__ is the
+Python version source; Hatch reads it dynamically and web/version/export metadata
+are checked for agreement. M0 equations/results are unchanged; model_version in
+exports identifies the software distribution. Added changelog, release notes,
+MIT/CC BY license texts and scope, CLI --version and a visible release link.
+The release workflow publishes only after successful exact-commit CI, attaching
+the verified web archive and checksum. Already published tags are not overwritten.
+
+README presentation follows the user's World3 reference: centered icon, title,
+description, version/stage/platform/license badges and centered launch button.
+Flatpak is labelled planned, not available. The same SVG is the web icon/favicon.

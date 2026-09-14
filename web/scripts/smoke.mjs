@@ -25,6 +25,9 @@ try {
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
  await page.goto(url);await page.locator('#mechanismReading').waitFor();
+ const version=JSON.parse(await readFile(path.join(dist,'model/version.json'),'utf8'));
+ assert.match(await page.locator('#releaseVersion').textContent(),new RegExp(version.version.replaceAll('.', '\\.')));
+ assert((await page.locator('#releaseVersion').getAttribute('href')).endsWith('/'+version.release_tag));
  assert.equal(await page.locator('[data-view="learning"]').getAttribute('aria-pressed'),'true');
  assert.equal(await page.locator('.learning-factors article').count(),7);
  await page.locator('[data-mechanism="source"]').click();

@@ -4,6 +4,7 @@ import argparse
 import json
 from dataclasses import asdict
 
+from . import __version__
 from .events import DecisionEvent, ExposureEvent
 from .simulation import Simulator
 from .state import AgentState
@@ -11,6 +12,7 @@ from .state import AgentState
 
 def main() -> None:
     parser = argparse.ArgumentParser(prog="cemodel")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     sub = parser.add_subparsers(dest="cmd", required=True)
     sub.add_parser("demo")
     val = sub.add_parser("validate")

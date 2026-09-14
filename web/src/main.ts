@@ -1,3 +1,4 @@
+import release from '../public/model/version.json';
 import cytoscape, {type Core} from 'cytoscape';
 import './style.css';
 import './elementary.css';
@@ -60,7 +61,7 @@ const stop = () => { if(playing!==undefined) clearInterval(playing); playing=und
 function shell() {
  graph?.destroy(); graph=undefined;
  document.documentElement.lang=lang;
- app.innerHTML=`<header class="topbar"><a class="brand" href="#" aria-label="Cognitive Epistemic Model"><span class="brand-mark">CE</span><span>Cognitive Epistemic Model<small>${tr('Laborator de explorare','Exploration lab')}</small></span></a><div class="top-actions"><span class="version">M0 · ALPHA</span><button id="language" aria-label="${tr('Switch to English','Schimbă în română')}">${lang==='ro'?'EN':'RO'}</button><a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model" target="_blank" rel="noopener">GitHub ↗</a></div></header>
+ app.innerHTML=`<header class="topbar"><a class="brand" href="#" aria-label="Cognitive Epistemic Model"><img class="brand-icon" src="./icon.svg" width="42" height="42" alt=""><span>Cognitive Epistemic Model<small>${tr('Laborator de explorare','Exploration lab')}</small></span></a><div class="top-actions"><a class="version" id="releaseVersion" href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/${release.release_tag}" target="_blank" rel="noopener">${release.channel} ${release.version} · ${release.model}</a><button id="language" aria-label="${tr('Switch to English','Schimbă în română')}">${lang==='ro'?'EN':'RO'}</button><a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model" target="_blank" rel="noopener">GitHub ↗</a></div></header>
  <div class="workspace"><div class="intro"><div><p class="eyebrow">${tr('FORMAREA CONVINGERILOR','BELIEF FORMATION')}</p><h1>${tr('Mecanisme, intervenții, priorități.','Mechanisms, interventions, priorities.')}</h1><p>${tr('Înțelege relațiile dintre factori și compară efectele măsurilor, separat și împreună.','Understand relationships between factors and compare measures, individually and together.')}</p></div><div class="scope"><strong>07</strong><span>${tr('variabile înregistrate','registered variables')}</span><strong>04</strong><span>${tr('scenarii de referință','reference scenarios')}</span></div></div>
  <nav class="views" aria-label="${tr('Vederile modelului','Model views')}">${[['learning',tr('1 · Înțelegere','1 · Understanding')],['planning',tr('2–3 · Priorități și acțiuni','2–3 · Priorities and actions')],['structure',tr('Hartă','Graph')],['runs',tr('Scenarii','Scenarios')],['comparison',tr('Comparații','Comparisons')],['process',tr('Proces','Process')],['reference',tr('Registru','Registry')]].map(([id,label])=>`<button data-view="${id}" aria-pressed="${view===id}">${label}</button>`).join('')}</nav>
  <main id="content"></main><footer><span>${tr('Model demonstrativ · coeficienți necalibrați','Demonstration model · uncalibrated coefficients')}</span><span>${tr('Nu estimează proporții Track A/B sau diagnostice individuale.','Does not estimate Track A/B prevalence or individual diagnoses.')}</span></footer></div>`;
@@ -84,7 +85,7 @@ function renderRuns() {
  document.getElementById('next')!.onclick=()=>{stop();step=Math.min(12,step+1);updateFrame();};
  document.getElementById('reset')!.onclick=()=>{stop();step=0;updateFrame();};
  document.getElementById('timeline')!.oninput=e=>{stop();step=Number((e.target as HTMLInputElement).value);updateFrame();};
- document.getElementById('download')!.onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify({model_version:'0.2.0a0',...run(),explanation:explanations.runs.find(r=>r.id===selected)},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=`cem-m0-${selected}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+ document.getElementById('download')!.onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify({model_version:release.version,...run(),explanation:explanations.runs.find(r=>r.id===selected)},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=`cem-m0-${selected}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
  updateFrame();
 }
 function updateFrame(){

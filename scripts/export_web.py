@@ -1,4 +1,5 @@
 """Export canonical registries and deterministic reference runs for the static viewer."""
+from cognitive_epistemic_model import __version__
 from dataclasses import asdict
 import json
 from pathlib import Path
@@ -31,12 +32,13 @@ def reference_run(kind):
 
 def export():
     DEST.mkdir(parents=True, exist_ok=True)
+    (DEST / 'version.json').write_text(json.dumps({'version':__version__, 'channel':'Alpha', 'model':'M0', 'release_tag':'v'+__version__}, indent=2)+'\n')
     for name in ('variables', 'links', 'modules', 'validation_tests', 'references'):
         (DEST / f'{name}.json').write_bytes((ROOT / 'model' / f'{name}.json').read_bytes())
     (DEST / 'interventions.json').write_text(json.dumps(export_interventions(), separators=(',', ':'))+'\n')
     runs = [reference_run(k) for k in ('repetition','correction','source','accuracy')]
-    (DEST / 'explanations.json').write_text(json.dumps({'model_version':'0.2.0a0', 'scope':'Latent-score decomposition, not causal attribution', 'runs':[explain_reference_run(r) for r in runs]}, indent=2)+'\n')
-    (DEST / 'runs.json').write_text(json.dumps({'model_version':'0.2.0a0','runs':runs}, indent=2)+'\n')
+    (DEST / 'explanations.json').write_text(json.dumps({'model_version':__version__, 'scope':'Latent-score decomposition, not causal attribution', 'runs':[explain_reference_run(r) for r in runs]}, indent=2)+'\n')
+    (DEST / 'runs.json').write_text(json.dumps({'model_version':__version__,'runs':runs}, indent=2)+'\n')
 
 if __name__ == '__main__':
     export()

@@ -1,0 +1,92 @@
+name: Publish alpha release
+on:
+  workflow_run:
+    workflows: ['Verify model and web']
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: alpha-release
+  cancel-in-progress: false
+jobs:
+  release:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event != 'pull_request' && github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - name: Read verified version
+        id: version
+        env:
+          PYTHONPATH: src
+        run: |
+          python - <<'PY'
+          import os, re
+          from pathlib import Path
+          from cognitive_epistemic_model import __version__
+          assert re.fullmatch(r'\d+\.\d+\.\d+a\d+', __version__)
+          tag = 'v' + __version__
+          assert Path('releases', tag + '.md').is_file()
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write('tag=' + tag + '\nversion=' + __version__ + '\n')
+          PY
+      - name: Check existing release
+        id: existing
+        uses: actions/github-script@v7
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+          VERIFIED_SHA: ${{ github.event.workflow_run.head_sha }}
+        with:
+          script: |
+            try {
+              const {data} = await github.rest.repos.getReleaseByTag({...context.repo, tag:process.env.TAG});
+              if (data.draft && data.target_commitish !== process.env.VERIFIED_SHA) throw new Error('Draft belongs to another commit');
+              core.setOutput('status', data.draft ? 'draft' : 'published');
+            } catch(e) {
+              if (e.status !== 404) throw e;
+              core.setOutput('status', 'missing');
+            }
+      - uses: actions/download-artifact@v4
+        if: steps.existing.outputs.status != 'published'
+        with:
+          name: cognitive-epistemic-model-web
+          path: dist
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+      - name: Package verified web build
+        if: steps.existing.outputs.status != 'published'
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          python - <<'PY'
+          import hashlib, os, zipfile
+          from pathlib import Path
+          name = 'cognitive-epistemic-model-' + os.environ['TAG'] + '-web.zip'
+          Path('release-assets').mkdir()
+          archive = Path('release-assets', name)
+          with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as z:
+              for p in sorted(Path('dist').rglob('*')):
+                  if p.is_file(): z.write(p, p.relative_to('dist'))
+          Path('release-assets/SHA256SUMS.txt').write_text(hashlib.sha256(archive.read_bytes()).hexdigest() + '  ' + name + '\n')
+          PY
+      - name: Create draft and attach verified files
+        if: steps.existing.outputs.status != 'published'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ steps.version.outputs.tag }}
+          VERSION: ${{ steps.version.outputs.version }}
+          VERIFIED_SHA: ${{ github.event.workflow_run.head_sha }}
+          RELEASE_STATUS: ${{ steps.existing.outputs.status }}
+        run: |
+          if [ "$RELEASE_STATUS" = missing ]; then
+            gh release create "$TAG" --target "$VERIFIED_SHA" --title "Alpha $VERSION" --notes-file "releases/$TAG.md" --draft --prerelease
+          fi
+          gh release upload "$TAG" release-assets/* --clobber
+          gh release edit "$TAG" --draft=false --prerelease
