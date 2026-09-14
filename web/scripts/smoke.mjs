@@ -47,13 +47,22 @@ try {
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'planning.png'),fullPage:true});}
  await page.locator('[data-view="runs"]').click();await page.locator('#scenario').waitFor();
  const data=JSON.parse(await readFile(path.join(dist,'model/runs.json'),'utf8'));
+ const explanations=JSON.parse(await readFile(path.join(dist,'model/explanations.json'),'utf8'));
  for(const run of data.runs){
   await page.selectOption('#scenario',run.id);
   await page.locator('#timeline').fill('12');
   const expected=run.frames[12].belief.toLocaleString('ro-RO',{minimumFractionDigits:3,maximumFractionDigits:3});
   assert.equal(await page.locator('#metrics strong').first().textContent(),expected);
-  assert.equal(await page.locator('tbody tr').count(),13);
+  assert.equal(await page.locator('.results tbody tr').count(),13);
+  const detail=explanations.runs.find(r=>r.id===run.id).frames[12];
+  const formatted=Math.abs(detail.belief_logit).toLocaleString('ro-RO',{minimumFractionDigits:3,maximumFractionDigits:3});
+  assert.match(await page.locator('#beliefLogit').textContent(),new RegExp(formatted.replace('.', '\\.')));
+  assert.equal(await page.locator('#beliefTerms tbody tr').count(),4);
+  assert.equal(await page.locator('#sharingTerms tbody tr').count(),3);
  }
+ await page.selectOption('#scenario','accuracy');await page.locator('#timeline').fill('5');
+ assert.match(await page.locator('.step-story').textContent(),/Convingerea rămâne neschimbată/);
+ await page.locator('#previous').click();assert.match(await page.locator('#stepBadge').textContent(),/4 \/ 12/);
  await page.selectOption('#scenario','correction');
  await page.locator('#next').click();assert.match(await page.locator('#stepBadge').textContent(),/1 \/ 12/);
  await page.locator('#play').click();await page.waitForFunction(()=>document.querySelector('#stepBadge').textContent.includes('2 / 12'));

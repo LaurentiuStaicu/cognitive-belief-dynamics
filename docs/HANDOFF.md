@@ -98,3 +98,13 @@ implementation. The original evidence registry is a separate selectable view.
 See COMPUTATIONAL_MAP.md for scope, code mapping and inference boundaries.
 No numerical model or evidence-rating changes. Next development must continue
 PROJECT_PRIORITIES.md: explanatory depth before expanding intervention rankings.
+
+## Scenario-explanation continuation — 2026-09-14
+
+Completed the interrupted step-explanation work. Four scenarios now show signed
+latent-score contributions, contextual inputs, changes from the previous step
+and narrative mechanism explanations. Added previous-step control, exact chart
+pointer readout and explanations in scenario JSON export. Original runs.json is
+byte-identical (git blob 4ba45465066e2265aab9260d619c9ffe29a99242).
+See STEP_EXPLANATIONS.md. This is mathematical decomposition, not causal factor
+importance. Local verification: 30 Python tests plus production/browser checks.

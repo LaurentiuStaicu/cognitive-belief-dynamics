@@ -34,7 +34,8 @@ Choose RO or EN in the application header.
   weights and timing, inspect interactions and conditional factor priorities, test
   three response assumptions and export the analysis. See [scope and calculation](docs/INTERVENTIONS.md).
 - **Scenarios:** four Python-generated reference runs, play/pause, step selection,
-  exact values in a table and JSON export.
+  exact values in a table and JSON export. Each step now explains state changes
+  and decomposes belief/sharing latent scores into signed contributions.
 - **Structure:** a computational map of core dependencies and optional contextual
   inputs, four mechanism focus views, keyboard-accessible node/link inspection,
   formulas and code provenance. The original evidence-registry map remains selectable.
