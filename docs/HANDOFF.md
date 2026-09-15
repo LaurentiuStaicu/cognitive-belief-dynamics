@@ -175,3 +175,36 @@ Local compilation passed before the workspace became unavailable. Changes were
 recovered from the published parent and conversation into a review branch; GitHub CI
 is required before integration. Added schedule/event-order tests, exact 96-outcome
 reproduction and browser checks for early/late/no-measure cases and exported schedules.
+
+## Alpha 0.3.5a0 — Interface wording consistency
+
+Presentation-layer release. No Python equation, coefficient, intervention outcome
+or exported trajectory changed: `runs.json`, `interventions.json` and
+`explanations.json` regenerate byte-identical to 0.3.4a0 apart from the version
+string, and this is the check to repeat for any future text-only release.
+
+The four reference scenarios were previously named independently in `main.ts`,
+`comparison.ts` and `visual-stage.ts`, so one run appeared under three different
+Romanian names as the user moved between views. Scenario, short-form and guided-tour
+names now live in `web/src/labels.ts`.
+
+**Convention for future work.** Any user-facing name for an object that appears in
+more than one view belongs in `web/src/labels.ts`, not in the view. Intervention
+lever labels remain canonical in `src/cognitive_epistemic_model/interventions.py`;
+views must not restate them — `plan-schedule.ts` previously kept its own copy of the
+source-feedback label and drifted out of sync with the planner. Moving that file to
+read lever labels from the planner's data instead of its own literals is the next
+step in the same direction and remains open.
+
+Also fixed: untranslated English inside Romanian labels (`MOD.12` "reliance",
+`MOD.13` "deskilling"), the Romanian spelling `plauzibilitatea`, gender agreement
+in the standalone-gain column header, mixed en-GB/en-US spelling, `Initial belief`
+versus `Prior belief` for the same quantity, an empty-schedule message that
+described exposures for measures other than repetition reduction, a
+language-switch `aria-label` written in the language the user was leaving, and the
+Roman numeral Ⅱ used as a pause glyph.
+
+Validation: 35 Python tests, `cemodel validate`, TypeScript and Vite build passed
+locally; the export-identity check above passed. Browser smoke tests were not run
+locally (Playwright browser download unavailable in the working environment) and
+must pass in CI before integration.

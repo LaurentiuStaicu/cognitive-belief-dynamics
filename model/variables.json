@@ -57,8 +57,8 @@
     "entity_type": "HumanAgent",
     "conceptual_module": "MOD.02",
     "label": {
-      "en": "Claim plausibility",
-      "ro": "Plausibilitatea afirmației"
+      "en": "Belief (claim plausibility)",
+      "ro": "Convingere (plauzibilitatea afirmației)"
     },
     "definition": "Latent propensity to judge a claim as true at a given time.",
     "what_it_is_not": "Knowledge, ideology, or identity commitment.",

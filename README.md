@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.3.4a0"><img alt="Alpha 0.3.4a0" src="https://img.shields.io/badge/version-0.3.4a0-4e9a06"></a>
+  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.3.5a0"><img alt="Alpha 0.3.5a0" src="https://img.shields.io/badge/version-0.3.5a0-4e9a06"></a>
   <img alt="Development stage: alpha" src="https://img.shields.io/badge/stage-alpha-e5a50a">
   <img alt="Available application: Web" src="https://img.shields.io/badge/app-Web-4a90d9">
   <img alt="elementary OS Flatpak: planned" src="https://img.shields.io/badge/elementary_OS_Flatpak-planned-64baff">
@@ -23,7 +23,7 @@
   </a>
 </p>
 
-> **Alpha 0.3.4a0.** Demonstration coefficients are not empirically calibrated.
+> **Alpha 0.3.5a0.** Demonstration coefficients are not empirically calibrated.
 > Software tests do not establish psychological validity or population prevalence.
 
 ## Project priorities
@@ -129,7 +129,7 @@ checks. The initial live deployment was confirmed on 2026-09-13.
 
 ## Releases and licensing
 
-[Alpha 0.3.4a0 — release notes and downloads](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.3.4a0).
+[Alpha 0.3.5a0 — release notes and downloads](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.3.5a0).
 See [CHANGELOG.md](CHANGELOG.md). Releases attach the CI-verified web build and its
 SHA-256 checksum; GitHub also provides source archives. The native elementary OS
 Flatpak remains a near-v1 goal. This alpha has no native installer.

@@ -1,4 +1,5 @@
 import release from '../public/model/version.json';
+import {scenarioName} from './labels';
 type Lang='ro'|'en';
 type Frame={time:number;belief:number;share_probability:number;correction:number;familiarity:number;reliability:number;accuracy_weight:number};
 type Run={id:string;seed:number;prior:number;parameters:Record<string,number>;frames:Frame[]};
@@ -7,7 +8,7 @@ export function mountComparison(host:HTMLElement,runs:Run[],lang:Lang,onInspect:
  const t=(ro:string,en:string)=>lang==='ro'?ro:en;
  const n=(v:number)=>v.toLocaleString(lang==='ro'?'ro-RO':'en-GB',{minimumFractionDigits:3,maximumFractionDigits:3});
  const signed=(v:number)=>(v>0?'+':v<0?'−':'')+n(Math.abs(v));
- const names:Record<string,string>={repetition:t('Repetiție simplă','Repetition only'),correction:t('Corecție și uitare','Correction and decay'),source:t('Feedback despre sursă','Source feedback'),accuracy:t('Indiciu de acuratețe','Accuracy cue')};
+ const names:Record<string,string>=Object.fromEntries(runs.map(r=>[r.id,scenarioName(r.id,lang)]));
  const descriptions:Record<string,string>={
  repetition:t('Ambele curbe reprezintă aceeași rulare. Diferențele trebuie să fie zero la fiecare pas.','Both curves represent the same run. Differences must be zero at every step.'),
  correction:t('Față de repetiția simplă, la pasul 5 este introdusă o corecție negativă. Ulterior, accesibilitatea ei scade. Programul expunerilor și celelalte intrări rămân aceleași.','Relative to repetition only, a negative correction is introduced at step 5. Its accessibility subsequently decays. Exposure timing and other inputs remain the same.'),

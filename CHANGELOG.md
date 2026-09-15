@@ -1,5 +1,14 @@
 # Changelog
 
+## Alpha 0.3.5a0 — Consistent interface wording
+
+- Shared label module: one canonical name per scenario across every view.
+- Guided tours named distinctly from reference scenarios.
+- Untranslated English words removed from Romanian labels (MOD.12, MOD.13).
+- Romanian spelling and agreement fixes; unified English terminology and spelling.
+- Accessible language-switch label, non-Roman-numeral pause control, bilingual page metadata.
+- Presentation only: equations, coefficients and exported trajectories unchanged.
+
 ## Alpha 0.3.4a0 — Selected intervention schedule
 
 - Canonical Python schedule shared by the evaluator and exported calendar.
