@@ -10,6 +10,13 @@ from ..model import accuracy_weight, compute_belief, share_probability
 from ..state import ModelParams
 from ..updates import encode_correction, update_familiarity, update_reliability
 
+SERIALIZED_DIGITS = 10
+
+
+def _serial(value: float) -> float:
+    return round(float(value), SERIALIZED_DIGITS)
+
+
 PARAMETER_NAMES = (
     "alpha_f",
     "alpha_c",
@@ -149,7 +156,7 @@ def local_identifiability_report(params: ModelParams | None = None) -> dict:
             pairs.append(
                 {
                     "parameters": [names[i], names[j]],
-                    "absolute_cosine_similarity": float(abs(correlation[i, j])),
+                    "absolute_cosine_similarity": _serial(abs(correlation[i, j])),
                 }
             )
     pairs.sort(key=lambda x: x["absolute_cosine_similarity"], reverse=True)
@@ -162,9 +169,9 @@ def local_identifiability_report(params: ModelParams | None = None) -> dict:
         "parameter_count": int(matrix.shape[1]),
         "active_parameter_count": int(np.sum(active)),
         "normalised_sensitivity_rank": rank,
-        "condition_number": condition,
-        "singular_values": [float(x) for x in singular_values],
-        "column_norms": {name: float(norm) for name, norm in zip(names, norms)},
+        "condition_number": None if condition is None else _serial(condition),
+        "singular_values": [_serial(x) for x in singular_values],
+        "column_norms": {name: _serial(norm) for name, norm in zip(names, norms)},
         "highest_tradeoff_pairs": pairs[:10],
         "interpretation_boundary": (
             "Local finite-difference sensitivity around the demonstrative M0 reference point. "
@@ -195,8 +202,8 @@ def prediction_robustness_report(
         "scope": "LOCAL_PREDICTION_ROBUSTNESS",
         "model_specification": "M0",
         "relative_parameter_perturbation": relative_perturbation,
-        "max_absolute_output_change": max(changes),
-        "median_max_absolute_output_change": float(np.median(changes)),
+        "max_absolute_output_change": _serial(max(changes)),
+        "median_max_absolute_output_change": _serial(np.median(changes)),
         "interpretation_boundary": (
             "Deterministic local perturbation diagnostic. Small output change does not imply "
             "parameter identifiability; large change does not imply empirical validity."
