@@ -44,6 +44,62 @@ def test_theory_contract_has_complete_bilingual_phase_c_corpus():
     assert {"MODEL_EVIDENCE", "BACKGROUND_THEORY", "INTERPRETIVE_SOURCE"} <= roles
 
 
+def test_theory_index_covers_every_declared_conceptual_module():
+    chapters = json.loads((ROOT / "model/theory_index.json").read_text())
+    modules = json.loads((ROOT / "model/modules.json").read_text())
+    covered = {
+        module_id
+        for chapter in chapters
+        for module_id in chapter.get("module_ids", [])
+    }
+    declared = {module["id"] for module in modules}
+    assert covered == declared, f"missing={sorted(declared - covered)} extra={sorted(covered - declared)}"
+
+
+def test_romanian_theory_metadata_avoids_untranslated_editorial_jargon():
+    chapters = json.loads((ROOT / "model/theory_index.json").read_text())
+    discouraged = {
+        "baseline",
+        "pool",
+        "ranking",
+        "framing",
+        "task-specific",
+        "nested",
+        "engagement",
+        "ground truth",
+        "provenance",
+        "pattern-tests",
+    }
+    for chapter in chapters:
+        prose = " ".join(
+            [
+                chapter["label"]["ro"],
+                chapter["summary"]["ro"],
+                chapter["what_it_does_not_claim"]["ro"],
+            ]
+        ).lower()
+        found = sorted(term for term in discouraged if term in prose)
+        assert not found, f"{chapter['id']}: untranslated editorial jargon {found}"
+
+
+def test_bilingual_chapter_titles_and_section_structure_match_index():
+    chapters = json.loads((ROOT / "model/theory_index.json").read_text())
+    for chapter in chapters:
+        texts = {}
+        for lang in ("ro", "en"):
+            path = ROOT / chapter["source_paths"][lang]
+            text = path.read_text()
+            texts[lang] = text
+            first_heading = next(line[2:] for line in text.splitlines() if line.startswith("# "))
+            assert first_heading == chapter["label"][lang], (
+                f"{chapter['id']} {lang}: index label {chapter['label'][lang]!r} "
+                f"!= chapter H1 {first_heading!r}"
+            )
+        assert texts["ro"].count("\n## ") == texts["en"].count("\n## "), (
+            f"{chapter['id']}: Romanian/English section counts diverge"
+        )
+
+
 def test_token_extractor_supports_all_phase_a_reference_kinds():
     sample = " ".join(
         [

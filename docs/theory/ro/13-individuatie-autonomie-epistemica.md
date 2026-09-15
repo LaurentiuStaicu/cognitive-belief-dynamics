@@ -2,37 +2,37 @@
 
 ## Ideea centrală
 
-CEM păstrează individuația jungiană ca strat interpretativ despre integrarea sinelui, nu ca mecanism neurocognitiv validat sau variabilă numerică. O punte mai prudentă către știința cognitivă contemporană este ideea de distanță reflexivă: capacitatea de a observa un gând, afect sau rol fără a-l trata imediat ca identic cu sinele sau cu realitatea.
+CEM păstrează individuația jungiană ca strat interpretativ despre integrarea sinelui, nu ca mecanism neurocognitiv validat sau variabilă numerică. O punte mai prudentă către știința cognitivă contemporană este ideea de distanță reflexivă: capacitatea de a observa un gând, o emoție sau un rol fără a le trata imediat ca fiind identice cu sinele sau cu realitatea.
 
 [[CONCEPT:individuation]] · [[CONCEPT:reflective-distance]] · [[MODULE:MOD.17]] · [[VIEW:process]]
 
 ## Individuația în psihologia analitică
 
-În tradiția lui Jung, individuația descrie procesul de diferențiere și integrare prin care persoana dezvoltă o relație mai conștientă cu părți ale psihicului care nu sunt cuprinse de identitatea ego-ului sau de persona socială. Sursele jungiene descriu scopul ca o formă de realizare a unei potențiale totalități psihice.
+În tradiția lui Jung, individuația descrie un proces de diferențiere și integrare prin care persoana dezvoltă o relație mai conștientă cu aspecte ale psihicului care nu sunt cuprinse de identitatea conștientă sau de persona socială. Sursele jungiene descriu scopul în termenii unei posibile integrări mai ample a vieții psihice.
 
-Acesta este un cadru clinic și interpretativ din psihologia analitică. Nu este echivalent cu un construct experimental contemporan unic și nu trebuie prezentat ca fapt neuroștiințific.
+Acesta este un cadru clinic și interpretativ din psihologia analitică. Nu este echivalent cu un singur construct experimental contemporan și nu trebuie prezentat drept fapt neuroștiințific.
 
 ## De ce apare în CEM
 
-Un model epistemic preocupat doar de stimuli și răspunsuri poate omite relația agentului cu propriile reprezentări. Dacă o credință este complet fuzionată cu identitatea, costul revizuirii poate fi mai mare decât dacă este tratată drept ipoteză revizuibilă. Această idee este relevantă pentru autonomie epistemică: capacitatea de a examina propriile modele, surse și reacții fără a confunda revizuirea cu pierderea sinelui.
+Un model epistemic preocupat doar de stimuli și răspunsuri poate omite relația agentului cu propriile reprezentări. Dacă o convingere este strâns fuzionată cu identitatea, revizuirea ei poate deveni mai costisitoare decât atunci când este reprezentată drept ipoteză revizuibilă. Ideea este relevantă pentru autonomia epistemică: capacitatea de a examina propriile modele, surse și reacții fără a echivala revizuirea unei convingeri cu pierderea identității.
 
-CEM numește această punte conceptuală [[CONCEPT:reflective-distance]]. Ea nu este o traducere empirică directă a individuației, ci o ipoteză de integrare între tradiția interpretativă și constructe mai măsurabile.
+CEM numește această punte conceptuală [[CONCEPT:reflective-distance]]. Ea nu este o traducere empirică directă a individuației, ci o ipoteză de integrare între o tradiție interpretativă și constructe contemporane mai ușor de măsurat.
 
 ## Puntea către metacogniție și decentering
 
-Literatura despre decentering descrie procese precum meta-awareness, disidentificarea de experiența internă și reducerea reactivității la conținutul gândurilor. Review-urile despre psychological distancing discută schimbarea perspectivei ca strategie de reglare. Literatura despre reflecția metacognitivă accentuează observarea, monitorizarea și reglarea propriilor cunoștințe, experiențe și emoții.
+Literatura despre decentering descrie trei procese recurente: conștientizarea metacognitivă a propriei experiențe, reducerea identificării cu acea experiență și scăderea reactivității față de conținutul gândurilor. Cercetările despre distanțarea psihologică discută schimbarea perspectivei, iar literatura despre metacogniție analizează monitorizarea și reglarea propriilor cunoștințe și judecăți.
 
-Aceste literaturi nu validează individuația jungiană. Ele oferă doar concepte contemporane cu care poate fi formulată o întrebare testabilă: dacă o persoană poate reprezenta un gând ca „un gând pe care îl am” în loc de „realitatea însăși”, crește probabilitatea de revizuire când apare informație contradictorie?
+Aceste literaturi nu validează individuația jungiană. Ele permit doar formularea unei întrebări contemporane și testabile: dacă o persoană poate reprezenta un gând drept „un gând pe care îl am”, în loc de „realitatea însăși”, crește probabilitatea ca acel gând să fie revizuit atunci când apar informații contradictorii?
 
-Aceasta ar necesita măsurare și experiment, nu doar analogie.
+Răspunsul ar necesita măsurare și experiment, nu doar analogie.
 
 ## MOD.17 și viitorul modelului
 
-[[MODULE:MOD.17]] poate organiza ipoteze despre self-model, metacogniție și autonomie. Pentru a deveni executabil, o componentă trebuie să aibă un construct operațional, o manipulare sau măsură, un outcome și o predicție diferențială. „Reflective Distance = 0.7” fără instrument validat ar fi pseudo-precizie.
+[[MODULE:MOD.17]] poate organiza ipoteze despre modelul de sine, metacogniție și autonomie. Pentru a deveni executabilă, o componentă trebuie să aibă un construct operațional, o manipulare sau măsură, un rezultat observabil și o predicție diferențială. Atribuirea unei valori numerice de tip „Reflective Distance = 0.7” fără un instrument validat ar crea o precizie aparentă, nu una reală.
 
 ## Ce nu afirmă acest capitol
 
-Nu afirmă că arhetipurile sau inconștientul colectiv sunt mecanisme computaționale demonstrate. Nu diagnostichează „nivelul de individuație” al unei persoane. Nu echivalează decentering, distancing, mindfulness și individuație. Nu susține că autonomia epistemică elimină emoția sau identitatea.
+Nu afirmă că arhetipurile sau inconștientul colectiv sunt mecanisme computaționale demonstrate. Nu diagnostichează „nivelul de individuație” al unei persoane. Nu echivalează decentering, distanțarea psihologică, mindfulness și individuația. Nu susține că autonomia epistemică elimină emoția sau identitatea.
 
 ## Statut epistemic
 

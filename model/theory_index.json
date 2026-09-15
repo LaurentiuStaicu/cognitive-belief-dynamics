@@ -8,7 +8,7 @@
     },
     "summary": {
       "en": "Orientation to the problem CEM studies, the retained M0 baseline, the M1 extensions, and the model's current scientific limits.",
-      "ro": "Orientare asupra problemei studiate de CEM, baseline-ului M0, extensiilor M1 și limitelor științifice actuale ale modelului."
+      "ro": "Orientare asupra problemei studiate de CEM, modelului executabil de referință M0, extensiilor M1 și limitelor științifice actuale ale modelului."
     },
     "source_paths": {
       "en": "docs/theory/en/00-what-is-cem.md",
@@ -136,7 +136,7 @@
     },
     "summary": {
       "en": "Introduces cautious Type 1/Type 2 distinctions, working-memory demands and metacognitive control without turning them into two literal brains.",
-      "ro": "Introduce prudent distincțiile de tip Type 1/Type 2, cerințele de memorie de lucru și controlul metacognitiv fără a le transforma în două creiere literale."
+      "ro": "Introduce prudent distincțiile Type 1/Type 2, rolul memoriei de lucru, al atenției și al metacontrolului, fără a le transforma în două sisteme cognitive literale."
     },
     "source_paths": {
       "en": "docs/theory/en/02-processing-metacontrol.md",
@@ -150,7 +150,8 @@
     ],
     "module_ids": [
       "MOD.02",
-      "MOD.09"
+      "MOD.09",
+      "MOD.15"
     ],
     "variable_ids": [
       "VAR.ACCURACY.SALIENCE"
@@ -162,6 +163,10 @@
       {
         "role": "BACKGROUND_THEORY",
         "ref": "https://doi.org/10.1177/1745691612460685"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1038/s44159-025-00466-6"
       }
     ],
     "code_refs": [],
@@ -185,7 +190,7 @@
     "order": 3,
     "label": {
       "en": "Uncertainty, need for closure, seizing and freezing",
-      "ro": "Incertitudine, nevoie de închidere, seizing și freezing"
+      "ro": "Incertitudine și nevoia de închidere cognitivă"
     },
     "summary": {
       "en": "Recovers the project's conceptual distinction between closure pressure, rapid commitment and later maintenance of an interpretation.",
@@ -287,7 +292,7 @@
     "order": 5,
     "label": {
       "en": "Repetition, familiarity and judged truth",
-      "ro": "Repetiție, familiaritate și adevăr judecat"
+      "ro": "Repetiție, familiaritate și adevăr perceput"
     },
     "summary": {
       "en": "Explains the executable M0 path from repeated exposure to familiarity and its contribution to claim plausibility.",
@@ -460,7 +465,7 @@
     },
     "summary": {
       "en": "Separates actual source quality from the agent's task-relevant reliability estimate and its influence on evidence weighting.",
-      "ro": "Separă calitatea reală a sursei de estimarea de fiabilitate relevantă sarcinii și de influența acesteia asupra ponderării dovezilor."
+      "ro": "Separă performanța reală a sursei de estimarea agentului privind fiabilitatea ei și extinde discuția către expertiză, autoritate și instituții epistemice."
     },
     "source_paths": {
       "en": "docs/theory/en/07-sources-feedback-reliability.md",
@@ -474,7 +479,8 @@
       "EXECUTABLE"
     ],
     "module_ids": [
-      "MOD.02"
+      "MOD.02",
+      "MOD.20"
     ],
     "variable_ids": [
       "VAR.RELIABILITY.ESTIMATE",
@@ -491,6 +497,14 @@
       {
         "role": "BACKGROUND_THEORY",
         "ref": "https://doi.org/10.1016/j.cognition.2025.106090"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1093/oso/9780198877301.003.0004"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://academic.oup.com/edited-volume/59903/chapter/512423974"
       }
     ],
     "code_refs": [
@@ -521,15 +535,15 @@
     ],
     "what_it_does_not_claim": {
       "en": "T is the agent's estimate, not objective source reliability or ground truth.",
-      "ro": "T este estimarea agentului, nu fiabilitatea obiectivă a sursei și nici ground truth."
+      "ro": "T este estimarea agentului, nu fiabilitatea obiectivă a sursei și nici adevărul cunoscut de mediul simulat."
     }
   },
   {
     "id": "THEORY.08.BELIEF_ACCURACY_ACTION",
     "order": 8,
     "label": {
-      "en": "Belief, accuracy salience and action",
-      "ro": "Convingere, saliența acurateții și acțiune"
+      "en": "Belief, accuracy attention and action",
+      "ro": "Convingere, atenție la acuratețe și acțiune"
     },
     "summary": {
       "en": "Separates latent truth judgment, contextual accuracy weight, sharing probability and sampled sharing action.",
@@ -612,11 +626,11 @@
     "order": 9,
     "label": {
       "en": "Editorial selection and the observed world",
-      "ro": "Selecția editorială și lumea observată"
+      "ro": "Selecție editorială și lumea observată"
     },
     "summary": {
       "en": "Explains M1.E1: the factual pool stays fixed while editorial emphasis changes the selected sample and issue appraisal.",
-      "ro": "Explică M1.E1: pool-ul factual rămâne fix, iar accentul editorial schimbă eșantionul selectat și evaluarea subiectului."
+      "ro": "Explică M1.E1: setul factual rămâne fix, iar accentul editorial schimbă eșantionul selectat și evaluarea subiectului."
     },
     "source_paths": {
       "en": "docs/theory/en/09-editorial-selection-observed-world.md",
@@ -684,19 +698,19 @@
     ],
     "what_it_does_not_claim": {
       "en": "Negative information is not false information, and Eedit is not an empirically measured newsroom-bias score.",
-      "ro": "Informația negativă nu este informație falsă, iar Eedit nu este un scor de bias editorial măsurat empiric."
+      "ro": "Informația negativă nu este informație falsă, iar Eedit nu este un scor de orientare editorială măsurat empiric."
     }
   },
   {
     "id": "THEORY.10.PRESENTATION_CONGRUENCE",
     "order": 10,
     "label": {
-      "en": "Presentation framing and prior-attitude congruence",
-      "ro": "Framing de prezentare și congruență cu atitudinea anterioară"
+      "en": "Presentation framing, attitudinal congruence and identity",
+      "ro": "Încadrare de prezentare, congruență atitudinală și identitate"
     },
     "summary": {
       "en": "Explains M1.E2: semantic content remains fixed while confirmation/refutation framing and task-specific congruence discriminate nested engagement models.",
-      "ro": "Explică M1.E2: conținutul semantic rămâne fix, iar framingul confirmation/refutation și congruența task-specifică discriminează modele nested de engagement."
+      "ro": "Explică M1.E2: conținutul semantic rămâne fix, iar forma de confirmare sau infirmare și congruența specifică sarcinii diferențiază modele incluse unul în altul; identitatea și polarizarea rămân extensii conceptuale."
     },
     "source_paths": {
       "en": "docs/theory/en/10-framing-congruence.md",
@@ -712,7 +726,8 @@
     "module_ids": [
       "MOD.15",
       "MOD.16",
-      "MOD.07"
+      "MOD.07",
+      "MOD.05"
     ],
     "variable_ids": [
       "VAR.PRESENTATION.FRAME",
@@ -741,6 +756,14 @@
       {
         "role": "MODEL_EVIDENCE",
         "ref": "REF.ALVARADO.2026"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://www.cambridge.org/core/journals/american-political-science-review/article/new-measure-of-affective-polarization/DEF7FCC26D4F09BDE5603BCC02B4765D"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://www.cambridge.org/core/journals/european-political-science-review/article/affective-polarization-in-europe/36BDBF804365FE0B350E610E9E7C714E"
       }
     ],
     "code_refs": [
@@ -779,12 +802,12 @@
     "id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
     "order": 11,
     "label": {
-      "en": "Algorithms, ranking and social feedback",
-      "ro": "Algoritmi, ranking și feedback social"
+      "en": "Algorithms, networks, cross-platform dynamics and social feedback",
+      "ro": "Algoritmi, rețele, ecosistem multiplatformă și feedback social"
     },
     "summary": {
-      "en": "Separates ranking from exposure, processing and downstream belief while recovering closure, familiarity and social-reinforcement loops as distinct mechanisms.",
-      "ro": "Separă rankingul de expunere, procesare și convingerea ulterioară, recuperând buclele de closure, familiaritate și întărire socială ca mecanisme distincte."
+      "en": "Separates ranking from downstream cognition while adding conceptual coverage for exposure heterogeneity, network structure, cross-platform transmission, social feedback and strategic amplification.",
+      "ro": "Separă ordonarea algoritmică de procesele cognitive ulterioare și acoperă conceptual eterogenitatea expunerii, structura rețelei, transmiterea între platforme, feedbackul social și amplificarea strategică."
     },
     "source_paths": {
       "en": "docs/theory/en/11-algorithms-social-feedback.md",
@@ -801,7 +824,9 @@
     "module_ids": [
       "MOD.03",
       "MOD.10",
-      "MOD.18"
+      "MOD.18",
+      "MOD.08",
+      "MOD.19"
     ],
     "variable_ids": [
       "VAR.EXPOSURE.COUNT"
@@ -821,6 +846,14 @@
       {
         "role": "BACKGROUND_THEORY",
         "ref": "https://doi.org/10.1038/s41586-026-10098-2"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://www.nature.com/articles/s41586-024-07417-w"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://academic.oup.com/anncom/article/49/1/45/8078344"
       }
     ],
     "code_refs": [],
@@ -843,12 +876,12 @@
     "id": "THEORY.12.INTERVENTIONS",
     "order": 12,
     "label": {
-      "en": "Interventions and where they act",
-      "ro": "Intervenții și locul lor în lanțul cauzal"
+      "en": "Interventions, human–AI mediation and causal location",
+      "ro": "Intervenții, intermediere om–AI și localizare cauzală"
     },
     "summary": {
-      "en": "Organizes corrections, source evaluation, accuracy prompts and future interventions by the causal stage they modify.",
-      "ro": "Organizează corecțiile, evaluarea sursei, prompturile de acuratețe și intervențiile viitoare după etapa cauzală pe care o modifică."
+      "en": "Locates executable interventions in the causal chain and extends the conceptual map to human–AI intermediation, appropriate reliance, skill dynamics and effective oversight.",
+      "ro": "Plasează intervențiile executabile în lanțul cauzal și extinde harta conceptuală către intermedierea om–AI, utilizarea adecvată a automatizării, dinamica competenței și supravegherea eficientă."
     },
     "source_paths": {
       "en": "docs/theory/en/12-interventions.md",
@@ -866,7 +899,10 @@
     "module_ids": [
       "MOD.02",
       "MOD.07",
-      "MOD.09"
+      "MOD.09",
+      "MOD.11",
+      "MOD.12",
+      "MOD.13"
     ],
     "variable_ids": [
       "VAR.CORRECTION.ACCESS",
@@ -899,6 +935,22 @@
       {
         "role": "BACKGROUND_THEORY",
         "ref": "https://doi.org/10.1038/s41467-022-30073-5"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1016/j.chb.2024.108352"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1016/j.cogsys.2025.101357"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://pubmed.ncbi.nlm.nih.gov/15151155/"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://pubmed.ncbi.nlm.nih.gov/21685142/"
       }
     ],
     "code_refs": [],
@@ -978,12 +1030,12 @@
     "id": "THEORY.14.VALIDATION",
     "order": 14,
     "label": {
-      "en": "How CEM is validated",
-      "ro": "Cum este validat CEM"
+      "en": "How an epistemic model is validated",
+      "ro": "Cum validăm un model epistemic"
     },
     "summary": {
       "en": "Explains implementation tests, pattern tests, empirical targets, nested nulls, model discrimination, diagnostics, ODD, reproducibility and provenance.",
-      "ro": "Explică testele de implementare, pattern-tests, țintele empirice, null-urile nested, discriminarea modelelor, diagnosticele, ODD, reproductibilitatea și provenance."
+      "ro": "Explică testele de implementare, testele de tipar, țintele empirice, modelele nule incluse, discriminarea între modele, diagnosticele, ODD, reproductibilitatea și proveniența datelor."
     },
     "source_paths": {
       "en": "docs/theory/en/14-validation.md",
@@ -1041,8 +1093,8 @@
     "id": "THEORY.15.USING_CEM",
     "order": 15,
     "label": {
-      "en": "How to use CEM",
-      "ro": "Cum folosesc CEM"
+      "en": "How to use CEM without confusing the map with the territory",
+      "ro": "Cum folosesc CEM fără să confund harta cu teritoriul"
     },
     "summary": {
       "en": "Connects understanding, mechanism exploration, evidence inspection, prioritization and action planning into one coherent workflow.",

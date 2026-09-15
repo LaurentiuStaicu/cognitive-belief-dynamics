@@ -1,45 +1,65 @@
-# Algoritmi, ranking și feedback social
+# Algoritmi, rețele, ecosistem multiplatformă și feedback social
 
 ## Ideea centrală
 
-Un algoritm de ranking poate influența ce informație este văzută, cât de des este văzută și în ce ordine, dar acesta este un alt nivel cauzal decât formarea directă a unei convingeri. CEM separă deliberat ranking → expunere de expunere → procesare → convingere → acțiune.
+Un algoritm de ordonare și recomandare poate influența ce informație este văzută, cât de des și în ce ordine, dar aceasta este o etapă cauzală diferită de formarea directă a unei convingeri. CEM separă deliberat traseul ordonare → expunere de traseul expunere → procesare → convingere → acțiune.
 
-[[CONCEPT:algorithm-stage]] · [[VAR:Nexp]] · [[MECH:repetition]] · [[MODULE:MOD.18]] · [[VIEW:structure]]
+[[CONCEPT:algorithm-stage]] · [[VAR:Nexp]] · [[MECH:repetition]] · [[MODULE:MOD.08]] · [[MODULE:MOD.10]] · [[MODULE:MOD.18]] · [[MODULE:MOD.19]] · [[VIEW:structure]]
 
-## De ce „algoritmul m-a făcut să cred” este prea scurt
+## De ce afirmația „algoritmul m-a făcut să cred” comprimă prea mult lanțul cauzal
 
-Sistemele de recomandare selectează și ordonează conținut pe baza unor obiective, semnale și constrângeri. Această selecție poate modifica distribuția expunerilor. Dar efectul asupra credințelor depinde apoi de conținut, atenție, cunoaștere anterioară, sursă, repetiție, congruență și context social.
+Sistemele de recomandare selectează și ordonează conținutul pe baza unor obiective, semnale și constrângeri. Această selecție poate modifica distribuția expunerilor. Efectul asupra convingerilor depinde apoi de conținut, atenție, cunoaștere anterioară, sursă, repetiție, congruență și context social.
 
-Prin urmare, o săgeată directă algorithm → belief ar ascunde mai multe etape observabile. În CEM, viitorul mecanism de ranking trebuie să producă mai întâi o schimbare explicită în informația observată sau în [[VAR:Nexp]], după care mecanismele cognitive existente pot procesa acea intrare.
+O legătură directă algoritm → convingere ar ascunde, prin urmare, mai multe etape observabile. În CEM, un viitor mecanism de ordonare ar trebui să producă mai întâi o modificare explicită a informației observate sau a [[VAR:Nexp]], după care mecanismele cognitive existente să proceseze acea intrare.
 
-## Ce spune cercetarea platformelor
+## Ce arată experimentele pe platforme
 
-Dovezile experimentale nu susțin o singură poveste universală. Studiile Facebook/Instagram din 2023 au arătat că modificări mari ale feedului pot schimba expunerea și engagementul fără să producă efecte detectabile asupra polarizării ori multor atitudini politice în perioada studiată. Acest rezultat avertizează împotriva deducției automate de la „feed diferit” la „opinie diferită”.
+Dovezile experimentale nu susțin o singură poveste universală. Studiile Facebook/Instagram publicate în 2023 au arătat că modificări importante ale fluxului de conținut pot schimba expunerea și interacțiunea fără efecte detectabile asupra polarizării sau asupra multor atitudini politice în intervalul studiat. Rezultatul avertizează împotriva deducției automate „flux diferit → opinie diferită”.
 
-În schimb, un experiment de teren publicat în Nature în 2026 pe platforma X, cu randomizare între feed algoritmic și cronologic timp de șapte săptămâni, a găsit că activarea feedului algoritmic a crescut engagementul și a deplasat unele atitudini politice în direcția conținutului promovat. Autorii au observat și modificări ale conturilor urmărite, oferind o cale intermediară plauzibilă. Efectele nu au fost însă universale: nu s-au găsit schimbări semnificative în partizanat sau polarizare afectivă.
+În schimb, un experiment de teren publicat în Nature în 2026 pe platforma X, cu randomizare între un flux algoritmic și unul cronologic timp de șapte săptămâni, a găsit că activarea fluxului algoritmic a crescut interacțiunea și a deplasat unele atitudini politice în direcția conținutului promovat. Autorii au observat și schimbări în conturile urmărite, ceea ce oferă o cale intermediară plauzibilă. Efectele nu au fost universale: nu au fost detectate schimbări semnificative în partizanatul declarat sau în polarizarea afectivă.
 
-Luate împreună, aceste rezultate susțin exact arhitectura etapizată: algoritmii pot schimba expunerea și uneori pot avea efecte downstream, dar magnitudinea și direcția depind de platformă, intervenție, populație și outcome.
+Împreună, aceste rezultate susțin o arhitectură etapizată: algoritmii pot modifica expunerea și uneori pot produce efecte ulterioare asupra atitudinilor, dar direcția și amploarea depind de platformă, intervenție, populație și rezultatul măsurat.
+
+## Expunerea este eterogenă, nu distribuită uniform
+
+Mediile populaționale pot ascunde cozi de distribuție foarte concentrate. Cercetările asupra dezinformării online arată că materialele problematice sunt adesea consumate disproporționat de un subset relativ restrâns de utilizatori, nu uniform de întreaga populație. Un model ajustat doar la o medie populațională poate rata tocmai utilizatorii și pozițiile de rețea în care expunerea repetată este cea mai mare.
+
+[[MODULE:MOD.08]] rezervă eterogenitatea populațională și de rețea. Un model executabil viitor ar trebui să poată reprezenta diferențe de activitate, conectivitate, surse urmărite și oportunități de expunere, în loc să presupună agenți interschimbabili. Eterogenitatea trebuie măsurată sau definită explicit în scenariu, nu introdusă doar pentru a face simularea să pară realistă.
 
 ## Feedbackul social ca buclă
 
-Un utilizator vede conținut, reacționează, sistemul observă reacția și poate modifica selecția ulterioară. În paralel, reacțiile altor persoane pot deveni indicii sociale. Astfel apare o buclă:
+Un utilizator vede conținut, reacționează, sistemul observă reacția și poate modifica selecția ulterioară. În paralel, reacțiile altor persoane pot deveni indicii sociale. Astfel poate apărea o buclă:
 
-ranking → exposure → action → platform signal → ranking.
+ordonare → expunere → acțiune → semnal pentru platformă → ordonare.
 
 O altă buclă posibilă este:
 
-source/content exposure → familiarity or appraisal → action → social feedback → future exposure.
+expunere la sursă/conținut → familiaritate sau evaluare → acțiune → feedback social → expunere viitoare.
 
-MOD.18 rezervă acest nivel în harta conceptuală, dar Alpha 0.4.1a1 nu execută încă un recommender system sau o rețea socială.
+[[MODULE:MOD.18]] rezervă normele sociale și dovezile colective. Numărul de aprecieri, distribuiri, comentarii sau aprobări poate funcționa ca indiciu, dar nu este o măsură directă a adevărului sau a unui consens autentic. Un viitor mecanism de „dovadă socială” trebuie să separe indiciul observat de starea populației care l-a generat.
+
+## Ecosistemul multiplatformă
+
+Informația rareori rămâne într-o singură platformă. O afirmație poate trece dintr-o emisiune de televiziune într-un ziar online, apoi într-o rețea socială, o aplicație de mesagerie, un motor de căutare, o platformă video sau un asistent AI, dobândind la fiecare trecere alte formulări și alte audiențe. Utilizatorii se deplasează și ei între servicii, iar conținutul creat într-un loc poate fi amplificat în altul.
+
+[[MODULE:MOD.10]] rezervă acest ecosistem multiplatformă. Consecința pentru modelare este că platformele nu sunt containere independente de expunere. Transferul dintre platforme poate crea repetiție, poate modifica impresia de diversitate a surselor și poate schimba audiența la care ajung intervențiile. Un viitor mecanism are nevoie, prin urmare, de reguli explicite de transfer, nu de presupunerea că o expunere pe un serviciu este echivalentă cu o expunere oriunde.
+
+## Influența strategică nu este același lucru cu difuzia obișnuită
+
+Unele informații se răspândesc pentru că mulți utilizatori aleg independent să le distribuie. Alte informații sunt produse, țintite sau amplificate deliberat de actori coordonați. Literatura despre propaganda computațională separă actorii, producția de conținut, metodele de distribuție și amplificarea, inclusiv automatizarea, campaniile coordonate și microtargetarea.
+
+[[MODULE:MOD.19]] rezervă influența strategică și producția adversarială. Acest nivel nu trebuie redus la „dezinformare”. Influența strategică poate folosi materiale false, înșelătoare, selectiv adevărate sau complet factuale. Elementul suplimentar relevant este intervenția intenționată sau coordonată asupra producției și distribuției, nu doar factualitatea conținutului.
+
+Un viitor mecanism executabil ar trebui, prin urmare, să distingă difuzia organică de producția ori amplificarea coordonată și să se bazeze pe semnături observabile sau pe scenarii definite extern. CEM nu trebuie să deducă intenția ostilă doar din popularitatea sau distribuția unui conținut.
 
 ## Legătura cu repetarea
 
-Dacă rankingul crește frecvența unui conținut, poate modifica [[VAR:Nexp]], iar mecanismul [[MECH:repetition]] poate apoi schimba familiaritatea. Acest lucru nu înseamnă că orice amplificare algoritmică produce adevăr iluzoriu: conținutul trebuie văzut, procesat și să se afle în domeniul în care efectul de repetiție este relevant.
+Dacă ordonarea algoritmică, feedbackul social, transferul între platforme sau amplificarea coordonată cresc frecvența unui conținut, ele pot modifica [[VAR:Nexp]], după care [[MECH:repetition]] poate influența familiaritatea. Aceasta nu înseamnă că orice amplificare produce adevăr iluzoriu: conținutul trebuie să fie efectiv observat și procesat, iar efectul de repetiție trebuie să fie relevant pentru acel tip de conținut.
 
 ## Ce nu afirmă acest capitol
 
-Nu afirmă că algoritmii sunt neutri, dar nici că sunt cauza unică a polarizării. Nu extrapolează rezultatele de pe X la Facebook, TikTok sau orice altă platformă. Nu atribuie intenții politice unui algoritm doar din distribuția conținutului și nu tratează engagementul ca sinonim cu convingerea.
+Nu afirmă că algoritmii sunt neutri și nici că sunt cauza unică a polarizării. Nu extrapolează rezultatele de pe X la Facebook, TikTok sau la orice altă platformă. Nu presupune că media expunerii descrie fiecare utilizator, nu echivalează aprobarea socială cu adevărul, nu deduce intenția strategică din popularitate și nu tratează interacțiunea cu un conținut drept sinonimă cu convingerea.
 
-## Implicație pentru M1 viitor
+## Implicație pentru viitorul modelului
 
-[[CONCEPT:algorithm-stage]] rămâne CONCEPTUAL. Pentru a deveni executabil, trebuie să aibă o politică de ranking explicită, o intrare observabilă, un output de expunere, un nested null și un pattern diferențial care nu poate fi produs de modelul fără ranking.
+Etapa de ordonare și modulele pentru eterogenitate de rețea, transmitere între platforme, feedback social și influență strategică rămân CONCEPTUAL. Pentru a deveni executabile, fiecare are nevoie de intrări și ieșiri explicite, un model nul, ipoteze măsurabile sau definite prin scenariu și un pattern diferențial pe care un model mai simplu nu îl poate reproduce.
