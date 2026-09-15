@@ -84,15 +84,13 @@ export function mountUnderstanding(
 
  if(mode==='mechanisms'){
   mountLearning(sub,lang,runs,m1Editorial,m1Presentation,m1Access,m1Targets,navigate);
-  if(current.detail){
+  if(current.detail==='access'){
+   const stage=sub.querySelector<HTMLElement>('#m1AccessStage');
+   stage?.scrollIntoView({block:'start'});
+   stage?.focus({preventScroll:true});
+  }else if(current.detail){
    requestAnimationFrame(()=>{
-    if(current.detail==='access'){
-     const stage=sub.querySelector<HTMLElement>('#m1AccessStage');
-     stage?.scrollIntoView({block:'start'});
-     stage?.focus({preventScroll:true});
-    }else{
-     sub.querySelector<HTMLButtonElement>(`[data-mechanism="${CSS.escape(current.detail!)}"]`)?.click();
-    }
+    sub.querySelector<HTMLButtonElement>(`[data-mechanism="${CSS.escape(current.detail!)}"]`)?.click();
    });
   }
   return;
