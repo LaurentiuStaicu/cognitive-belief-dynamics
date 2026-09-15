@@ -8,18 +8,40 @@
     "semantic_proposition_id": "P1",
     "semantic_signature": "P1:semantic-equivalent",
     "fact_compatible": true,
-    "frames": ["confirmation", "refutation"],
+    "frames": [
+      "confirmation",
+      "refutation"
+    ],
     "illustrative_engage_intent_draw": 0.45,
-    "parameters": {"intercept": -0.4, "beta_frame": 0.15, "beta_congruence": 0.35, "beta_interaction": 0.15},
+    "parameters": {
+      "intercept": -0.4,
+      "beta_frame": 0.15,
+      "beta_congruence": 0.35,
+      "beta_interaction": 0.15
+    },
     "conditions": {
       "congruent": {
         "prior_stance": 1.0,
         "message_stance": 1.0,
         "congruence": 1.0,
         "models": {
-          "null": {"confirmation": 0.401312339887548, "refutation": 0.401312339887548, "contrast": 0.0},
-          "frame_only": {"confirmation": 0.43782349911420193, "refutation": 0.36586440898919936, "contrast": 0.07195909012500257},
-          "frame_congruence": {"confirmation": 0.5621765008857981, "refutation": 0.41338242108267, "contrast": 0.1487940798031281, "confirmation_engage_intent": true, "refutation_engage_intent": false}
+          "null": {
+            "confirmation": 0.401312339887548,
+            "refutation": 0.401312339887548,
+            "contrast": 0.0
+          },
+          "frame_only": {
+            "confirmation": 0.43782349911420193,
+            "refutation": 0.36586440898919936,
+            "contrast": 0.07195909012500257
+          },
+          "frame_congruence": {
+            "confirmation": 0.5621765008857981,
+            "refutation": 0.41338242108267,
+            "contrast": 0.1487940798031281,
+            "confirmation_engage_intent": true,
+            "refutation_engage_intent": false
+          }
         }
       },
       "counter_attitudinal": {
@@ -27,13 +49,30 @@
         "message_stance": 1.0,
         "congruence": -1.0,
         "models": {
-          "null": {"confirmation": 0.401312339887548, "refutation": 0.401312339887548, "contrast": 0.0},
-          "frame_only": {"confirmation": 0.43782349911420193, "refutation": 0.36586440898919936, "contrast": 0.07195909012500257},
-          "frame_congruence": {"confirmation": 0.320821300824607, "refutation": 0.320821300824607, "contrast": 0.0, "confirmation_engage_intent": false, "refutation_engage_intent": false}
+          "null": {
+            "confirmation": 0.401312339887548,
+            "refutation": 0.401312339887548,
+            "contrast": 0.0
+          },
+          "frame_only": {
+            "confirmation": 0.43782349911420193,
+            "refutation": 0.36586440898919936,
+            "contrast": 0.07195909012500257
+          },
+          "frame_congruence": {
+            "confirmation": 0.320821300824607,
+            "refutation": 0.320821300824607,
+            "contrast": 0.0,
+            "confirmation_engage_intent": false,
+            "refutation_engage_intent": false
+          }
         }
       }
     },
-    "empirical_target_ids": ["TARGET.M1.E2.ARUGUETE_2024", "TARGET.M1.E2.ALVARADO_2026"],
+    "empirical_target_ids": [
+      "TARGET.M1.E2.ARUGUETE_2024",
+      "TARGET.M1.E2.ALVARADO_2026"
+    ],
     "interpretation_boundary": "Reference model comparison only. The studies support a confirmation/refutation engagement pattern and a congruence interaction, but do not identify these specific coefficients or this logistic functional form."
   }
 }
