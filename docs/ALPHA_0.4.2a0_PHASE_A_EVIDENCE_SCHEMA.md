@@ -12,7 +12,7 @@ Parent planning contract:
 Machine-readable Phase A contract:
 
 - `model/contracts/m1_e3_evidence_contract.json`
-- validated by `schemas/evidence_contract.schema.json`
+- validated by `schemas/m1_e3_evidence_contract.schema.json`
 
 ## 1. Phase A purpose
 
