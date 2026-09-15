@@ -1,54 +1,71 @@
-# Intervenții: unde acționăm în lanțul causal
+# Intervenții: unde acționăm în lanțul cauzal
 
 ## Ideea centrală
 
-O intervenție este mai ușor de înțeles când este plasată la etapa pe care încearcă să o modifice. CEM separă intervenții asupra ofertei informaționale, corecției, evaluării sursei, atenției la acuratețe și, în versiuni viitoare, atenției/consumului sau ordonarea algoritmicăui.
+O intervenție este mai ușor de înțeles atunci când este plasată exact în etapa pe care încearcă să o modifice. CEM separă intervențiile asupra ofertei informaționale, corecției, evaluării sursei și atenției acordate acurateții. În versiuni viitoare pot fi adăugate intervenții asupra atenției și consumului, dovezilor sociale, intermedierii AI sau ordonării algoritmice, dar numai după operaționalizare și testare.
 
 [[VAR:C]] · [[VAR:W]] · [[MECH:correction]] · [[MECH:accuracy]] · [[VIEW:planning]]
 
-## Intervențiile executabile M0
+## Intervențiile executabile în M0
 
-Modulul de planificare actual compară patru măsuri: reducerea repetării, context corectiv, indicii de orientare către acuratețe și feedback verificat despre sursă. Fiecare are un loc diferit în mecanism.
+Modulul actual de planificare compară patru măsuri: reducerea repetării, introducerea unui context corectiv, orientarea atenției către acuratețe și feedback verificat despre sursă. Fiecare intervine într-un punct diferit al mecanismului.
 
-Reducerea repetării acționează asupra expunerilor programate și, indirect, asupra familiarității. Contextul corectiv encodează [[VAR:C]]. Accuracy cue modifică [[VAR:W]] în politica de acțiune. Feedbackul de sursă actualizează estimarea fiabilității.
+Reducerea repetării modifică expunerile programate și, indirect, familiaritatea. Contextul corectiv actualizează [[VAR:C]]. Indiciul de orientare către acuratețe modifică [[VAR:W]] în politica de acțiune. Feedbackul despre sursă actualizează estimarea fiabilității.
 
-Această separare este mai informativă decât un singur scor „anti-dezinformare”, deoarece două intervenții pot produce același rezultat final prin căi diferite și pot interacționa neliniar.
+Separarea este mai informativă decât un singur scor „anti-dezinformare”, deoarece două intervenții pot produce același rezultat final prin căi diferite, iar combinațiile lor pot avea efecte neliniare.
 
-## Ce spune literatura despre corectarea informației false și inoculare informațională
+## Corectare și inoculare informațională
 
-Sintezele contemporane arată că corectarea informației false poate reduce influența dezinformării și că teama de backfire generalizat a fost adesea exagerată. Totuși, corecțiile nu ajung întotdeauna la aceeași audiență și influența reziduală poate persista.
+Sintezele contemporane arată că dezmințirea și corectarea informației false pot reduce influența dezinformării, iar teama că o corecție produce în mod obișnuit un efect invers a fost exagerată. Corecțiile nu ajung însă întotdeauna la aceeași audiență ca informația inițială, iar o parte din influența acesteia poate persista.
 
-Prebunkingul sau inocularea încearcă să pregătească oamenii înaintea expunerii, de exemplu explicând tehnici de manipulare. Experimente pe scară largă au găsit îmbunătățiri ale discernământului față de tehnici de dezinformare. Aceste intervenții sunt relevante ca BACKGROUND_THEORY, dar nu există încă un mecanism inoculare informațională executabil separat în CEM.
+Inocularea informațională, numită adesea *prebunking* în literatura internațională, încearcă să pregătească oamenii înainte de expunere, de exemplu prin explicarea tehnicilor de manipulare. Experimente și sinteze recente indică îmbunătățiri ale discernământului în anumite condiții. În CEM, aceste rezultate sunt deocamdată BACKGROUND_THEORY: nu există încă un mecanism executabil separat pentru inoculare.
 
-Indiciile de orientare către acuratețe au un suport experimental și meta-analitic mai direct pentru discernământul de distribuire, motiv pentru care M0 are un mecanism [[MECH:accuracy]].
+Orientarea atenției către acuratețe are o legătură experimentală mai directă cu discernământul privind distribuirea și este de aceea reprezentată în M0 prin [[MECH:accuracy]].
 
-## Fricțiune și verificare
+## Fricțiune, verificare și educație informațională
 
-Intervențiile de fricțiune pot introduce un cost sau o pauză înaintea distribuirii: citirea articolului, confirmarea intenției, verificarea sursei sau un pas suplimentar. CEM nu are încă o variabilă generică de fricțiune. O implementare viitoare trebuie să specifice dacă fricțiunea schimbă atenția, probabilitatea de acțiune, timpul disponibil sau alt mecanism.
+Unele intervenții introduc o mică pauză sau un cost suplimentar înainte de distribuire: deschiderea articolului, confirmarea intenției, verificarea sursei ori un pas suplimentar. CEM nu are încă o variabilă generică pentru acest tip de fricțiune. O implementare viitoare trebuie să precizeze dacă intervenția modifică atenția, timpul de deliberare, probabilitatea acțiunii sau alt mecanism.
 
-La fel, instruirea în evaluarea credibilității surselor, inclusiv verificare laterală a surselor, are o bază empirică în educația informațională, dar nu trebuie confundată cu delta-rule-ul M0.
+În mod similar, instruirea pentru evaluarea credibilității surselor, inclusiv verificarea laterală a unei surse prin consultarea independentă a altor resurse, are suport în literatura de educație informațională. Ea nu trebuie însă confundată cu regula delta simplificată prin care M0 actualizează T.
 
-## Ce optimizează modulul de planificare actual
+## Intervențiile asupra ecosistemului
 
-Modulul de planificare evaluează toate subseturile fezabile ale celor patru măsuri pe un orizont sintetic de 13 pași și un obiectiv ponderat între reducerea probabilității de distribuire fals și menținerea distribuirii adevărat. Costurile de efort sunt introduse de utilizator. Profilurile scăzut/referință/ridicat sunt analize de sensibilitate, nu intervale de încredere.
+Capitolul 11 arată că unele intervenții nu vizează direct procesarea individuală. Ele pot modifica producția conținutului, selecția editorială, politica de recomandare, vizibilitatea dovezilor sociale, proiectarea interfeței sau felul în care un sistem AI prezintă incertitudinea și sursele.
 
-[[VIEW:planning]] nu estimează cost-beneficiu real, efecte populaționale, acoperirea audienței, implementare sau equity. „Best combinație” înseamnă doar cel mai bun în setul finit și sub ipotezele selectate.
+Această diferență este importantă pentru politici publice. O intervenție asupra platformei și una asupra utilizatorului pot avea același obiectiv final, dar costuri, mecanisme, efecte adverse și distribuții ale beneficiilor foarte diferite.
 
-## Principiul causal-location
+CEM nu le compară încă numeric. Ele trebuie mai întâi să primească un loc cauzal clar și un rezultat observabil.
 
-Pentru orice intervenție nouă trebuie întrebat:
-1. Ce etapă modifică?
-2. Care este variabila observabilă sau latentă?
-3. Ce tipar se schimbă față de null?
-4. Ce efect advers sau compromis trebuie urmărit?
-5. Ce date ar putea falsifica mecanismul?
+## Ce optimizează modulul actual de planificare
 
-Această disciplină împiedică introducerea măsurilor doar pentru că „sună utile”.
+Modulul de planificare evaluează toate combinațiile fezabile ale celor patru măsuri executabile pe un orizont sintetic de 13 pași. Obiectivul ponderat încearcă să reducă probabilitatea distribuirii unei afirmații false fără să reducă excesiv distribuirea unei afirmații adevărate. Costurile de efort sunt introduse de utilizator.
+
+Profilurile scăzut/referință/ridicat sunt analize de sensibilitate, nu intervale de încredere. [[VIEW:planning]] nu estimează raporturi cost–beneficiu reale, efecte populaționale, acoperirea audienței, fezabilitatea implementării sau echitatea distribuirii costurilor și beneficiilor.
+
+„Cea mai bună combinație” înseamnă numai cea mai bună dintre opțiunile finite evaluate, sub ipotezele și ponderile alese.
+
+## Principiul localizării cauzale
+
+Pentru orice intervenție nouă trebuie puse cel puțin cinci întrebări:
+
+1. Ce etapă a lanțului modifică?
+2. Care este variabila observabilă sau latentă afectată?
+3. Ce tipar trebuie să se schimbe față de modelul nul?
+4. Ce efect advers, compromis sau efect distributiv trebuie urmărit?
+5. Ce date ar putea contrazice mecanismul propus?
+
+Această disciplină împiedică introducerea unor măsuri în model doar pentru că „sună utile”.
+
+## Efect cumulativ nu înseamnă simplă adunare
+
+Două intervenții pot acționa asupra aceleiași etape, asupra unor etape succesive sau asupra unor ramuri diferite. Efectul lor combinat poate fi subaditiv, aproximativ aditiv sau supra-aditiv. De aceea, obiectivul de a obține un impact cumulat mare nu justifică însumarea directă a efectelor estimate în studii diferite.
+
+CEM poate explora interacțiuni în interiorul propriului model, dar pentru recomandări reale sunt necesare dovezi despre implementare, context, costuri, efecte adverse și generalizare.
 
 ## Ce nu afirmă acest capitol
 
-Nu afirmă că o intervenție demonstrativă CEM este recomandare de politică. Nu presupune că efectele se adună liniar în lumea reală și nu compară rezultate experimentale din populații diferite ca și cum ar fi aceiași parametri.
+Nu afirmă că o intervenție demonstrativă CEM este o recomandare de politică. Nu presupune că efectele se adună liniar în lumea reală și nu tratează rezultate experimentale obținute în populații diferite ca și cum ar fi parametri direct comparabili.
 
 ## În aplicație
 
-Folosește [[VIEW:planning]] după ce ai inspectat mecanismele. Modulul de planificare trebuie citit ca un laborator de scenarii: explică dependențele și compromisurile înainte de a sugera ce ar merita măsurat într-o evaluare reală.
+Folosește [[VIEW:planning]] numai după ce ai inspectat mecanismele și dovezile. Modulul de planificare trebuie citit ca un laborator de scenarii: arată dependențe și compromisuri și ajută la formularea întrebărilor pentru o evaluare reală; nu substituie acea evaluare.
