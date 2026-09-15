@@ -180,3 +180,18 @@ sharing remain separate constructs. In particular, `Access=0` does not erase
 the prior headline impression.
 
 The evidence snapshot advances to `EVIDENCE.M1.2026-09-16.r1`.
+
+
+### Phase C evidence-display rule
+
+The Phase C Theory/Understanding layer introduces no new source, empirical target
+or effect estimate. It renders the evidence already frozen in
+`EVIDENCE.M1.2026-09-16.r1`, so the snapshot does **not** advance for the UI
+work alone.
+
+The comparator may display Robertson et al.'s published coefficient, confidence
+interval, archive-native counts and approximate CTR magnitude only as registered
+empirical context. It must continue to state that CEM's binary `Hneg`,
+`b0=-2.0` and `beta_hneg=0.20` are demonstrative and uncalibrated. The
+registered Upworthy integrity correction and Nickl counterevidence remain part of
+the displayed limitation boundary.
