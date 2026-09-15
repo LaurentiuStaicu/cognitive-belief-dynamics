@@ -13,9 +13,11 @@ def test_registry_schema_and_semantic_validation():
     assert counts["modules"] == 20
     assert counts["variables"] >= 7
     assert counts["links"] >= 3
+    assert counts["subsystems"] == 8
+    assert counts["processes"] >= 10
 
 
-@pytest.mark.parametrize("registry", ["modules", "variables", "links"])
+@pytest.mark.parametrize("registry", ["modules", "variables", "links", "subsystems", "processes"])
 def test_duplicate_ids_are_rejected(tmp_path, registry):
     model = tmp_path / "model"
     shutil.copytree(ROOT / "model", model)

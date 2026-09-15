@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "stage",
+    "label",
+    "description",
+    "code_ref",
+    "status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^ODD\\.[A-Z0-9_.]+$"
+    },
+    "stage": {
+      "enum": [
+        "initialisation",
+        "submodel",
+        "observation",
+        "scale"
+      ]
+    },
+    "label": {
+      "type": "object",
+      "required": [
+        "en",
+        "ro"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ro": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "description": {
+      "type": "object",
+      "required": [
+        "en",
+        "ro"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ro": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "code_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "implemented_m0",
+        "candidate",
+        "future"
+      ]
+    }
+  }
+}

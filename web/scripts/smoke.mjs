@@ -30,6 +30,24 @@ try {
  assert((await page.locator('#releaseVersion').getAttribute('href')).endsWith('/'+version.release_tag));
  assert.equal(await page.locator('[data-view="learning"]').getAttribute('aria-pressed'),'true');
  assert.equal(await page.locator('.learning-factors article').count(),7);
+ // Alpha 0.4 Narrative Laboratory: explanation state is local until the user explicitly opens the full scenario.
+ await page.locator('#narrativeStage').waitFor();
+ assert.match(await page.locator('#narrativeStage').textContent(),/Repetiție și familiaritate/);
+ assert.equal(await page.locator('[data-narrative-step]').count(),13);
+ await page.locator('[data-mechanism="correction"]').click();
+ assert.match(await page.locator('#narrativeStage').textContent(),/Corecție și diminuarea accesibilității/);
+ assert.equal(await page.locator('[data-narrative-step="5"]').getAttribute('aria-current'),'step');
+ await page.locator('[data-narrative-step="7"]').click();
+ assert.equal(await page.locator('[data-narrative-step="7"]').getAttribute('aria-current'),'step');
+ await page.locator('[data-inspect-variable="C"]').click();
+ assert.match(await page.locator('#narrativeStage').textContent(),/Valoare la pasul 7/);
+ assert.match(await page.locator('#narrativeStage').textContent(),/nu garantează schimbarea convingerii/i);
+ await page.locator('#narrativeBack').click();
+ await page.locator('[data-narrative-step="7"]').click();
+ await page.locator('#narrativeOpenRun').click();
+ assert.equal(await page.locator('#scenario').inputValue(),'correction');
+ assert.equal(await page.locator('#timeline').inputValue(),'7');
+ await page.locator('[data-view="learning"]').click();
  await page.locator('[data-mechanism="source"]').click();
  assert.match(await page.locator('#mechanismReading').textContent(),/2T − 1/);
  await page.locator('#exploreMechanism').click();assert.equal(await page.locator('#scenario').inputValue(),'source');
@@ -192,7 +210,11 @@ try {
  for(const a of await page.locator('.citation-link').all()) assert.match(await a.getAttribute('href'),/^https:\/\/doi\.org\/10\./);
  assert.match(await page.locator('.reference-grid').last().textContent(),/Candidate mechanism/);
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.locator('.reference-grid').last().screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'evidence.png')});}
- await page.locator('[data-view="process"]').click();assert.equal(await page.locator('.process-list li').count(),5);
+ await page.locator('[data-view="process"]').click();
+ assert.equal(await page.locator('[data-odd-stage]').count(),4);
+ assert.equal(await page.locator('.subsystem-grid article').count(),8);
+ assert.match(await page.locator('[data-odd-stage="submodel"]').textContent(),/Belief update|Actualizarea convingerii/);
+ assert.match(await page.locator('.vodd-extension').textContent(),/MOD\.14/);
  await page.locator('[data-view="runs"]').click();await page.locator('#language').click();await page.locator('#timeline').fill('8');
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'desktop.png'),fullPage:true});}
  await page.setViewportSize({width:390,height:844});
