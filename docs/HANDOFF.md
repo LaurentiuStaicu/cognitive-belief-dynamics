@@ -331,3 +331,63 @@ the selected cue encoding, Paccess/Access/PreviewImpression, validation patterns
 VAL.M1.004 / VAL.M1.N04 / VAL.M1.N05 / VAL.M1.N06, and comparator invariants are
 registered. The existing M0, M1.E1 and M1.E2 outputs remain the scientific
 regression baseline.
+
+
+## Alpha 0.4.2a0 Phase A — M1.E3 evidence/schema contract
+
+Phase A is intentionally **non-executable**. It selects the first bounded cue for
+the later Headline Access Gate while keeping the active M0/M1 registry, equations,
+evidence snapshot and UI unchanged.
+
+Selected for the next phase:
+
+- Candidate N: `Hneg` — headline negativity.
+
+Deferred, not rejected:
+
+- Candidate S: `Hsimp` — headline simplicity.
+
+This is a model-development decision rather than a claim that negativity is a
+universal or larger human effect. The selection trades stronger open provenance
+and a narrower reproducible comparator against the broader but more operationally
+complex simplicity evidence.
+
+The machine-readable contract is
+`model/contracts/m1_e3_evidence_contract.json`, validated by
+`schemas/evidence_contract.schema.json` and dedicated regression tests.
+
+The selected reference operationalisation is
+`PRECOMPUTED_CONTROLLED_CUE` with binary `Hneg ∈ {0,1}`. It is explicitly not
+the published LIWC proportion, and it carries no empirical coefficient.
+
+Phase A records:
+
+- the Robertson et al. 2023 directional access target and native platform A/B
+  counts/effect metrics;
+- the 2024 Upworthy randomization correction and the archive maintainers'
+  reliable-test reanalysis report;
+- same-dataset independence groups so Upworthy analyses are not double-counted;
+- Nickl 2025/APS 2026 as one preliminary counterevidence project;
+- Shulman Washington Post / Upworthy / signal-detection evidence as distinct
+  evidence units with their actual dependence structure;
+- LIWC, NRC and Washington Post redistribution/data-access constraints;
+- planned quantities `Hneg`, `Paccess`, `Access`, `PreviewImpression`;
+- planned validations `VAL.M1.004`, `VAL.M1.N04`, `VAL.M1.N05`,
+  `VAL.M1.N06`.
+
+The current participant-centric empirical-target schema is not reused falsely for
+platform A/B evidence. Phase A documents the required backward-compatible future
+extension for experiment/variant/impression/click counts and metric-specific
+effect context.
+
+Promotion remains blocked:
+
+- no `beta_neg`;
+- no `logit(Paccess)` implementation;
+- no active M1.E3 variables, target, validation or link;
+- no evidence-snapshot bump;
+- no M1.E3 UI.
+
+The next approved implementation phase must promote these objects explicitly,
+extend the active schemas/registry as required, and preserve all retained M0,
+M1.E1 and M1.E2 outputs.
