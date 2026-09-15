@@ -2,7 +2,7 @@
 
 ## Active candidate M1
 
-| Claim | Alpha 0.4.1 / M1 status |
+| Claim | M1 status |
 |---|---|
 | Keep one fact-compatible information pool fixed across M1.E1 editorial conditions | In scope |
 | Reproduce directional selective factual-emphasis pattern and nested null | In scope |
@@ -26,7 +26,8 @@
 | Treat headline negativity as a universal human constant | Out of scope |
 | Infer attention, comprehension or belief from a click/open outcome | Out of scope |
 | Integrate M1.E3 Access into downstream belief/sharing in this phase | Out of scope |
-| Add an M1.E3 web UI in this phase | Out of scope |
+| Expose a bounded bilingual M1.E3 NULL-vs-Hneg comparator without adding downstream coupling | In scope |
+| Treat the M1.E3 comparator as a calibrated CTR predictor or temporal simulation | Out of scope |
 
 ## Retained M0 baseline
 
