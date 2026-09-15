@@ -22,7 +22,7 @@ F' = clamp01(F + alpha_f × (1 - F)).
 
 Aceasta înseamnă că fiecare expunere suplimentară poate crește F, dar câștigul marginal scade când familiaritatea se apropie de 1. Funcția poate fi inspectată în [[CODE:m0.update_familiarity]].
 
-În calculul convingerii, familiaritatea contribuie prin termenul beta_f × F la log-odds. Convingerea [[VAR:B]] rezultă după transformarea logistică, împreună cu priorul, semnalul ponderat de sursă și contextul corectiv. Ground truth nu intră în această funcție.
+În calculul convingerii, familiaritatea contribuie prin termenul beta_f × F la log-odds. Convingerea [[VAR:B]] rezultă după transformarea logistică, împreună cu priorul, semnalul ponderat de sursă și contextul corectiv. Ground adevăr nu intră în această funcție.
 
 Forma saturantă este o alegere de modelare REFERENCE_CANDIDATE. Literatura susține fenomenul de repetiție/familiaritate, nu parametrul alpha_f sau forma exactă a saturației.
 
@@ -32,9 +32,9 @@ F este o stare internă despre cât de familiară este afirmația. Nu reprezint�
 
 Această separare este una dintre cele mai importante reguli epistemice din CEM: un mecanism care influențează judecata nu trebuie reinterpretat ca proprietate a lumii.
 
-## Testul de pattern
+## Testul de tipar
 
-[[VAL:VAL.M0.001]] cere ca, în condiții comparabile, expunerea repetată să poată crește evaluarea de adevăr. Testul verifică un pattern calitativ, nu reproduce mărimea unui efect populațional. Deschide [[VIEW:runs:repetition:4]] pentru traiectoria publicată.
+[[VAL:VAL.M0.001]] cere ca, în condiții comparabile, expunerea repetată să poată crește evaluarea de adevăr. Testul verifică un tipar calitativ, nu reproduce mărimea unui efect populațional. Deschide [[VIEW:runs:repetition:4]] pentru traiectoria publicată.
 
 ## Ce nu afirmă acest capitol
 
