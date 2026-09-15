@@ -109,6 +109,13 @@ try {
  await page.waitForURL(/#understanding\/mechanisms\/repetition$/);
  await page.locator('#mechanismReading').waitFor();
  assert.equal(await page.locator('.learning-factors article').count(),7);
+ await page.evaluate(()=>{location.hash='#understanding/theory/algorithms-social-feedback';});
+ await waitTheory();
+ await page.locator('[data-theory-token-kind="MECH"][data-theory-token-value="access"]').first().click();
+ await page.locator('#theoryInspector [data-theory-open-mechanism="access"]').click();
+ await page.waitForURL(/#understanding\/mechanisms\/access$/);
+ await page.locator('#m1AccessStage').waitFor();
+ assert.equal(await page.locator('#m1AccessStage').evaluate(el=>document.activeElement===el),true);
  // Alpha 0.4 Narrative Laboratory: explanation state is local until the user explicitly opens the full scenario.
  await page.locator('#narrativeStage').waitFor();
  assert.match(await page.locator('#narrativeStage').textContent(),/Repetiție și familiaritate/);
@@ -145,6 +152,17 @@ try {
  const counterText=await page.locator('#m1PresentationStage').textContent();
  assert.notEqual(congruentText,counterText);
  assert.match(counterText,/Gatt/);
+ await page.locator('#m1AccessStage').waitFor();
+ const accessText=await page.locator('#m1AccessStage').textContent();
+ assert.match(accessText,/Hneg/);
+ assert.match(accessText,/PreviewImpression/);
+ assert.match(accessText,/0[.,]119203/);
+ assert.match(accessText,/0[.,]141851/);
+ assert.match(accessText,/12[.,\s]?448/);
+ assert.match(accessText,/53[.,\s]?699/);
+ assert.match(accessText,/PreviewImpression ≠ Access/);
+ assert.match(accessText,/M1\.E3-NULL/);
+ assert.match(accessText,/M1\.E3-A/);
  await page.locator('[data-mechanism="source"]').click();
  assert.match(await page.locator('#mechanismReading').textContent(),/2T − 1/);
  await page.locator('#exploreMechanism').click();assert.equal(await page.locator('#scenario').inputValue(),'source');
@@ -331,6 +349,10 @@ try {
  assert.equal(await page.locator('.guided-tour-steps ol').isVisible(),false);
  assert.equal(await page.locator('#guidedTourSelect').inputValue(),'planning');
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'guided-tour-mobile.png'),fullPage:true});
+ await page.evaluate(()=>{location.hash='#understanding/mechanisms/access';});
+ await page.locator('#m1AccessStage').waitFor();
+ assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'M1.E3 mobile horizontal overflow');
+ if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'m1-access-mobile.png'),fullPage:true});
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile horizontal overflow');
  await page.evaluate(()=>{location.hash='#understanding/theory/repetition-familiarity-truth';});
  await waitTheory();
