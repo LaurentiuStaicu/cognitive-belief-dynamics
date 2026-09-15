@@ -4,6 +4,7 @@ import './style.css';
 import './elementary.css';
 import {mountLearning} from './learning';
 import {type M1EditorialData,type EmpiricalTarget} from './editorial-stage';
+import {type M1PresentationData} from './presentation-stage';
 import {mountComparison} from './comparison';
 import {renderExplanation,type ExplanationData} from './explanation';
 let explanations:ExplanationData;
@@ -37,6 +38,7 @@ let references:Reference[] = [];
 let oddProcesses:OddProcess[] = [];
 let subsystems:Subsystem[] = [];
 let m1Editorial:M1EditorialData;
+let m1Presentation:M1PresentationData;
 let m1Targets:EmpiricalTarget[] = [];
 const app = document.getElementById('app')!;
 const tr = (ro:string,en:string) => lang === 'ro' ? ro : en;
@@ -55,7 +57,11 @@ const definitions:Record<string,[string,string]> = {
  Vcontent:['Valența semnată atribuită unei unități informaționale relevante pentru eveniment în sarcina M1.','Nu este valoarea de adevăr, factualitatea, ideologia politică sau starea emoțională a unei persoane.'],
  Eedit:['Politica de referință care controlează ce unități informaționale sunt selectate preferențial dintr-un pool factual fix.','Nu este un scor măsurat de bias al unei redacții, o rată de dezinformare sau un parametru de ranking al platformei.'],
  Sobs:['Media valenței semnate a unităților informaționale efectiv observate după selecția editorială.','Nu este adevărul evenimentului, valența totală a lumii sau opinia unei persoane.'],
- Aissue:['Starea M1 mărginită care reprezintă evaluarea curentă a unui eveniment sau subiect după eșantionul informațional observat.','Nu este convingerea B despre adevărul unei afirmații, cunoaștere, ideologie sau diagnostic afectiv.']
+ Aissue:['Starea M1 mărginită care reprezintă evaluarea curentă a unui eveniment sau subiect după eșantionul informațional observat.','Nu este convingerea B despre adevărul unei afirmații, cunoaștere, ideologie sau diagnostic afectiv.'],
+ Fpres:['Codarea de referință a cadrului de prezentare confirmation versus refutation pentru același sens semantic.','Nu este valoare de adevăr, factualitate, selecție editorială sau valență emoțională.'],
+ Gatt:['Relația task-specifică dintre atitudinea anterioară relevantă și poziția semantică a mesajului curent.','Nu este ideologie stabilă, identitate de partid, personalitate sau scor global de confirmation bias.'],
+ Pengage:['Probabilitatea latentă M1.E2 a unui răspuns de engagement activ în sarcina de referință.','Nu este probabilitatea M0 Share, CTR observat, endorsement sau rată populațională calibrată.'],
+ EngageIntent:['Outcome observabil de referință pentru un răspuns activ declarat versus ignore.','Nu este M0 Share, comportament real pe platformă sau endorsement.']
 };
 const scenarioDescription = () => ({
  repetition:tr('Patru expuneri la pașii 1–4 cresc familiaritatea. Nu se adaugă dovezi sau corecții.','Four exposures at steps 1–4 increase familiarity. No evidence or corrections are added.'),
@@ -71,12 +77,12 @@ function shell() {
  graph?.destroy(); graph=undefined;
  document.documentElement.lang=lang;
  app.innerHTML=`<header class="topbar"><a class="brand" href="#" aria-label="Cognitive Epistemic Model"><img class="brand-icon" src="./icon.svg" width="42" height="42" alt=""><span>Cognitive Epistemic Model<small>${tr('Laborator de explorare','Exploration lab')}</small></span></a><div class="top-actions"><a class="version" id="releaseVersion" href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/${release.release_tag}" target="_blank" rel="noopener">${release.channel} ${release.version} · ${release.model}</a><button id="language" aria-label="${tr('Schimbă limba interfeței în engleză','Switch the interface language to Romanian')}">${lang==='ro'?'EN':'RO'}</button><a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model" target="_blank" rel="noopener">GitHub ↗</a></div></header>
- <div class="workspace"><div class="intro"><div><p class="eyebrow">${tr('FORMAREA CONVINGERILOR','BELIEF FORMATION')}</p><h1>${tr('Mecanisme, intervenții, priorități.','Mechanisms, interventions, priorities.')}</h1><p>${tr('Înțelege relațiile dintre factori și compară efectele măsurilor, separat și împreună.','Understand relationships between factors and compare measures, individually and together.')}</p></div><div class="scope"><strong>07</strong><span>${tr('variabile înregistrate','registered variables')}</span><strong>04</strong><span>${tr('scenarii de referință','reference scenarios')}</span></div></div>
+ <div class="workspace"><div class="intro"><div><p class="eyebrow">${tr('FORMAREA CONVINGERILOR','BELIEF FORMATION')}</p><h1>${tr('Mecanisme, intervenții, priorități.','Mechanisms, interventions, priorities.')}</h1><p>${tr('Înțelege relațiile dintre factori și compară efectele măsurilor, separat și împreună.','Understand relationships between factors and compare measures, individually and together.')}</p></div><div class="scope"><strong>${variables.length}</strong><span>${tr('variabile înregistrate','registered variables')}</span><strong>04</strong><span>${tr('scenarii de referință','reference scenarios')}</span></div></div>
  <nav class="views" aria-label="${tr('Vederile modelului','Model views')}">${[['learning',tr('1 · Înțelegere','1 · Understanding')],['planning',tr('2–3 · Priorități și acțiuni','2–3 · Priorities and actions')],['structure',tr('Hartă','Graph')],['runs',tr('Scenarii','Scenarios')],['comparison',tr('Comparații','Comparisons')],['process',tr('Visual ODD','Visual ODD')],['reference',tr('Registru','Registry')]].map(([id,label])=>`<button data-view="${id}" aria-pressed="${view===id}">${label}</button>`).join('')}</nav>
  <main id="content"></main><footer><span>${tr('Model demonstrativ · coeficienți necalibrați','Demonstration model · uncalibrated coefficients')}</span><span>${tr('Nu estimează proporții Track A/B sau diagnostice individuale.','Does not estimate Track A/B prevalence or individual diagnoses.')}</span></footer></div>`;
  document.getElementById('language')!.onclick=()=>{stop();lang=lang==='ro'?'en':'ro';shell();};
  document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.onclick=()=>{stop();view=b.dataset.view!;shell();});
- if(view==='learning') mountLearning(document.getElementById('content')!,lang,runs,m1Editorial,m1Targets,target=>{stop();const [next,id,time]=target.split(':');view=next;if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
+ if(view==='learning') mountLearning(document.getElementById('content')!,lang,runs,m1Editorial,m1Presentation,m1Targets,target=>{stop();const [next,id,time]=target.split(':');view=next;if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
  if(view==='planning') mountPlanner(document.getElementById('content')!,planning,lang);
  if(view==='runs') renderRuns();
  if(view==='comparison') mountComparison(document.getElementById('content')!,runs,lang,(id,time)=>{selected=id;step=time;view='runs';shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
@@ -169,6 +175,6 @@ function renderProcess(){
  mountVisualOdd(document.getElementById('content')!,lang,oddProcesses,subsystems);
 }
 async function load<T>(name:string):Promise<T>{const r=await fetch(`./model/${name}.json`);if(!r.ok)throw new Error(`${name}: HTTP ${r.status}`);return r.json();}
-async function init(){[variables,links,modules,references,oddProcesses,subsystems,m1Targets,m1Editorial]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems'),load<EmpiricalTarget[]>('empirical_targets'),load<M1EditorialData>('m1_editorial')]);runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
+async function init(){[variables,links,modules,references,oddProcesses,subsystems,m1Targets,m1Editorial,m1Presentation]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems'),load<EmpiricalTarget[]>('empirical_targets'),load<M1EditorialData>('m1_editorial'),load<M1PresentationData>('m1_presentation')]);runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(view==='structure'){stop();shell();}});
 init().catch(e=>{app.replaceChildren();const p=document.createElement('p');p.className='loading';p.textContent=`Nu se poate încărca modelul / Unable to load model: ${String(e)}`;app.append(p);});
