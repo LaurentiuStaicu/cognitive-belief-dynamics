@@ -1,0 +1,986 @@
+[
+  {
+    "id": "THEORY.00.WHAT_IS_CEM",
+    "order": 0,
+    "label": {
+      "en": "What is the Cognitive Epistemic Model?",
+      "ro": "Ce este Cognitive Epistemic Model?"
+    },
+    "summary": {
+      "en": "Orientation to the problem CEM studies, the retained M0 baseline, the M1 extensions, and the model's current scientific limits.",
+      "ro": "Orientare asupra problemei studiate de CEM, baseline-ului M0, extensiilor M1 și limitelor științifice actuale ale modelului."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/00-what-is-cem.md",
+      "ro": "docs/theory/ro/00-ce-este-cem.md"
+    },
+    "prerequisites": [],
+    "epistemic_status": [
+      "CONCEPTUAL",
+      "EXECUTABLE"
+    ],
+    "module_ids": [
+      "MOD.02",
+      "MOD.14"
+    ],
+    "variable_ids": [],
+    "mechanism_ids": [],
+    "validation_ids": [],
+    "evidence_refs": [],
+    "sources": [],
+    "code_refs": [],
+    "related_views": [
+      "process",
+      "reference"
+    ],
+    "anchors": [
+      "central-idea",
+      "current-model",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "CEM is not an empirically calibrated population model and does not diagnose individuals.",
+      "ro": "CEM nu este un model populațional calibrat empiric și nu diagnostichează persoane."
+    }
+  },
+  {
+    "id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+    "order": 1,
+    "label": {
+      "en": "World, information and internal representation",
+      "ro": "Lume, informație și reprezentare internă"
+    },
+    "summary": {
+      "en": "Separates world state, available information, selected and presented information, observed information, internal representation, judgment and action.",
+      "ro": "Separă starea lumii, informația disponibilă, informația selectată și prezentată, informația observată, reprezentarea internă, judecata și acțiunea."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/01-world-information-representation.md",
+      "ro": "docs/theory/ro/01-lume-informatie-reprezentare.md"
+    },
+    "prerequisites": [
+      "THEORY.00.WHAT_IS_CEM"
+    ],
+    "epistemic_status": [
+      "CONCEPTUAL",
+      "EXECUTABLE"
+    ],
+    "module_ids": [
+      "MOD.03",
+      "MOD.14",
+      "MOD.16"
+    ],
+    "variable_ids": [
+      "VAR.OBSERVED.SAMPLE.BALANCE",
+      "VAR.ISSUE.APPRAISAL"
+    ],
+    "mechanism_ids": [
+      "editorial",
+      "presentation"
+    ],
+    "validation_ids": [
+      "VAL.M1.001",
+      "VAL.M1.002"
+    ],
+    "evidence_refs": [
+      "REF.TOHIDI.2025",
+      "REF.ARUGUETE.2024"
+    ],
+    "sources": [],
+    "code_refs": [],
+    "related_views": [
+      "learning",
+      "process",
+      "reference"
+    ],
+    "anchors": [
+      "central-idea",
+      "causal-stages",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "The current CEM does not implement a neural predictive-coding model or a complete internal world model.",
+      "ro": "CEM actual nu implementează un model neuronal de predictive coding și nici un model intern complet al lumii."
+    }
+  },
+  {
+    "id": "THEORY.02.PROCESSING_METACONTROL",
+    "order": 2,
+    "label": {
+      "en": "Fast processing, deliberation and metacontrol",
+      "ro": "Procesare rapidă, deliberare și metacontrol"
+    },
+    "summary": {
+      "en": "Introduces cautious Type 1/Type 2 distinctions, working-memory demands and metacognitive control without turning them into two literal brains.",
+      "ro": "Introduce prudent distincțiile de tip Type 1/Type 2, cerințele de memorie de lucru și controlul metacognitiv fără a le transforma în două creiere literale."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/02-processing-metacontrol.md",
+      "ro": "docs/theory/ro/02-procesare-metacontrol.md"
+    },
+    "prerequisites": [
+      "THEORY.00.WHAT_IS_CEM"
+    ],
+    "epistemic_status": [
+      "CONCEPTUAL"
+    ],
+    "module_ids": [
+      "MOD.02",
+      "MOD.09"
+    ],
+    "variable_ids": [
+      "VAR.ACCURACY.SALIENCE"
+    ],
+    "mechanism_ids": [],
+    "validation_ids": [],
+    "evidence_refs": [],
+    "sources": [],
+    "code_refs": [],
+    "related_views": [
+      "learning",
+      "reference"
+    ],
+    "anchors": [
+      "central-idea",
+      "theory",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "Accuracy salience W is not System 2 activation and CEM does not model two discrete cognitive systems.",
+      "ro": "Saliența acurateții W nu este activarea Sistemului 2, iar CEM nu modelează două sisteme cognitive discrete."
+    }
+  },
+  {
+    "id": "THEORY.03.UNCERTAINTY_CLOSURE",
+    "order": 3,
+    "label": {
+      "en": "Uncertainty, need for closure, seizing and freezing",
+      "ro": "Incertitudine, nevoie de închidere, seizing și freezing"
+    },
+    "summary": {
+      "en": "Recovers the project's conceptual distinction between closure pressure, rapid commitment and later maintenance of an interpretation.",
+      "ro": "Recuperează distincția conceptuală a proiectului dintre presiunea pentru închidere, angajarea rapidă și menținerea ulterioară a unei interpretări."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/03-uncertainty-closure.md",
+      "ro": "docs/theory/ro/03-incertitudine-closure.md"
+    },
+    "prerequisites": [
+      "THEORY.02.PROCESSING_METACONTROL"
+    ],
+    "epistemic_status": [
+      "CONCEPTUAL"
+    ],
+    "module_ids": [
+      "MOD.02",
+      "MOD.06"
+    ],
+    "variable_ids": [],
+    "mechanism_ids": [],
+    "validation_ids": [],
+    "evidence_refs": [],
+    "sources": [],
+    "code_refs": [],
+    "related_views": [
+      "learning"
+    ],
+    "anchors": [
+      "central-idea",
+      "seizing-freezing",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "Track A and Track B are not measured population classes or biological types.",
+      "ro": "Track A și Track B nu sunt clase populaționale măsurate și nici tipuri biologice."
+    }
+  },
+  {
+    "id": "THEORY.04.STRESS_RESOURCES_FLEXIBILITY",
+    "order": 4,
+    "label": {
+      "en": "Stress, executive resources and flexibility",
+      "ro": "Stres, resurse executive și flexibilitate"
+    },
+    "summary": {
+      "en": "Explains how stress can affect working memory and flexibility while avoiding simplistic claims that stress switches off the prefrontal cortex.",
+      "ro": "Explică modul în care stresul poate afecta memoria de lucru și flexibilitatea, evitând afirmația simplistă că stresul oprește cortexul prefrontal."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/04-stress-resources-flexibility.md",
+      "ro": "docs/theory/ro/04-stres-resurse-flexibilitate.md"
+    },
+    "prerequisites": [
+      "THEORY.02.PROCESSING_METACONTROL"
+    ],
+    "epistemic_status": [
+      "EMPIRICAL",
+      "CONCEPTUAL"
+    ],
+    "module_ids": [
+      "MOD.01",
+      "MOD.02",
+      "MOD.06"
+    ],
+    "variable_ids": [],
+    "mechanism_ids": [],
+    "validation_ids": [],
+    "evidence_refs": [],
+    "sources": [],
+    "code_refs": [],
+    "related_views": [
+      "learning"
+    ],
+    "anchors": [
+      "central-idea",
+      "evidence",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "Alpha 0.4.1a1 introduces no stress coefficient and no stress-driven transition equation.",
+      "ro": "Alpha 0.4.1a1 nu introduce niciun coeficient de stres și nicio ecuație de tranziție determinată de stres."
+    }
+  },
+  {
+    "id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+    "order": 5,
+    "label": {
+      "en": "Repetition, familiarity and judged truth",
+      "ro": "Repetiție, familiaritate și adevăr judecat"
+    },
+    "summary": {
+      "en": "Explains the executable M0 path from repeated exposure to familiarity and its contribution to claim plausibility.",
+      "ro": "Explică traseul executabil M0 de la expunerea repetată la familiaritate și contribuția acesteia la plauzibilitatea afirmației."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/05-repetition-familiarity-truth.md",
+      "ro": "docs/theory/ro/05-repetitie-familiaritate-adevar.md"
+    },
+    "prerequisites": [
+      "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+    ],
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "module_ids": [
+      "MOD.03",
+      "MOD.04",
+      "MOD.02"
+    ],
+    "variable_ids": [
+      "VAR.EXPOSURE.COUNT",
+      "VAR.FAMILIARITY.CLAIM",
+      "VAR.BELIEF.CLAIM"
+    ],
+    "mechanism_ids": [
+      "repetition"
+    ],
+    "validation_ids": [
+      "VAL.M0.001"
+    ],
+    "evidence_refs": [
+      "REF.HASHER.1977",
+      "REF.DECHENE.2010"
+    ],
+    "sources": [
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.HASHER.1977"
+      },
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.DECHENE.2010"
+      }
+    ],
+    "code_refs": [
+      {
+        "id": "m0.update_familiarity",
+        "path": "src/cognitive_epistemic_model/updates.py",
+        "symbol": "update_familiarity",
+        "language": "PYTHON",
+        "release_pin_required": true
+      },
+      {
+        "id": "m0.compute_belief",
+        "path": "src/cognitive_epistemic_model/model.py",
+        "symbol": "compute_belief",
+        "language": "PYTHON",
+        "release_pin_required": true
+      }
+    ],
+    "related_views": [
+      "runs:repetition:4",
+      "reference"
+    ],
+    "anchors": [
+      "central-idea",
+      "equation",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "Familiarity is not truth, evidence or source reliability, and the reference coefficients are not population estimates.",
+      "ro": "Familiaritatea nu este adevăr, dovadă sau fiabilitate a sursei, iar coeficienții de referință nu sunt estimări populaționale."
+    }
+  },
+  {
+    "id": "THEORY.06.CORRECTION_ACCESS_MEMORY",
+    "order": 6,
+    "label": {
+      "en": "Corrections, accessibility and memory",
+      "ro": "Corecții, accesibilitate și memorie"
+    },
+    "summary": {
+      "en": "Explains correction encoding, corrective-context accessibility and decay without describing decay as deletion of memory.",
+      "ro": "Explică encodarea corecției, accesibilitatea contextului corectiv și diminuarea acesteia fără a descrie procesul ca ștergere a memoriei."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/06-corrections-accessibility-memory.md",
+      "ro": "docs/theory/ro/06-corectii-accesibilitate-memorie.md"
+    },
+    "prerequisites": [
+      "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+    ],
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "module_ids": [
+      "MOD.04",
+      "MOD.02"
+    ],
+    "variable_ids": [
+      "VAR.CORRECTION.ACCESS",
+      "VAR.BELIEF.CLAIM"
+    ],
+    "mechanism_ids": [
+      "correction"
+    ],
+    "validation_ids": [
+      "VAL.M0.002"
+    ],
+    "evidence_refs": [],
+    "sources": [],
+    "code_refs": [
+      {
+        "id": "m0.encode_correction",
+        "path": "src/cognitive_epistemic_model/updates.py",
+        "symbol": "encode_correction",
+        "language": "PYTHON",
+        "release_pin_required": true
+      },
+      {
+        "id": "m0.decay_correction",
+        "path": "src/cognitive_epistemic_model/updates.py",
+        "symbol": "decay_correction",
+        "language": "PYTHON",
+        "release_pin_required": true
+      }
+    ],
+    "related_views": [
+      "runs:correction:5",
+      "reference"
+    ],
+    "anchors": [
+      "central-idea",
+      "decay",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "A correction does not guarantee belief correction, and declining accessibility is not modeled as memory erasure.",
+      "ro": "O corecție nu garantează corectarea convingerii, iar scăderea accesibilității nu este modelată ca ștergere a memoriei."
+    }
+  },
+  {
+    "id": "THEORY.07.SOURCE_RELIABILITY",
+    "order": 7,
+    "label": {
+      "en": "Sources, feedback and estimated reliability",
+      "ro": "Surse, feedback și fiabilitate estimată"
+    },
+    "summary": {
+      "en": "Separates actual source quality from the agent's task-relevant reliability estimate and its influence on evidence weighting.",
+      "ro": "Separă calitatea reală a sursei de estimarea de fiabilitate relevantă sarcinii și de influența acesteia asupra ponderării dovezilor."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/07-sources-feedback-reliability.md",
+      "ro": "docs/theory/ro/07-surse-feedback-fiabilitate.md"
+    },
+    "prerequisites": [
+      "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+    ],
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "module_ids": [
+      "MOD.02"
+    ],
+    "variable_ids": [
+      "VAR.RELIABILITY.ESTIMATE",
+      "VAR.BELIEF.CLAIM"
+    ],
+    "mechanism_ids": [
+      "source"
+    ],
+    "validation_ids": [
+      "VAL.M0.003"
+    ],
+    "evidence_refs": [],
+    "sources": [],
+    "code_refs": [
+      {
+        "id": "m0.update_reliability",
+        "path": "src/cognitive_epistemic_model/updates.py",
+        "symbol": "update_reliability",
+        "language": "PYTHON",
+        "release_pin_required": true
+      },
+      {
+        "id": "m0.source_weight",
+        "path": "src/cognitive_epistemic_model/updates.py",
+        "symbol": "source_weight",
+        "language": "PYTHON",
+        "release_pin_required": true
+      }
+    ],
+    "related_views": [
+      "runs:source:6",
+      "reference"
+    ],
+    "anchors": [
+      "central-idea",
+      "feedback",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "T is the agent's estimate, not objective source reliability or ground truth.",
+      "ro": "T este estimarea agentului, nu fiabilitatea obiectivă a sursei și nici ground truth."
+    }
+  },
+  {
+    "id": "THEORY.08.BELIEF_ACCURACY_ACTION",
+    "order": 8,
+    "label": {
+      "en": "Belief, accuracy salience and action",
+      "ro": "Convingere, saliența acurateții și acțiune"
+    },
+    "summary": {
+      "en": "Separates latent truth judgment, contextual accuracy weight, sharing probability and sampled sharing action.",
+      "ro": "Separă judecata latentă de adevăr, ponderea contextuală a acurateții, probabilitatea de distribuire și acțiunea de distribuire eșantionată."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/08-belief-accuracy-action.md",
+      "ro": "docs/theory/ro/08-convingere-acuratete-actiune.md"
+    },
+    "prerequisites": [
+      "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+    ],
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "module_ids": [
+      "MOD.02",
+      "MOD.07"
+    ],
+    "variable_ids": [
+      "VAR.BELIEF.CLAIM",
+      "VAR.ACCURACY.SALIENCE",
+      "VAR.ACTION.SHARE"
+    ],
+    "mechanism_ids": [
+      "accuracy"
+    ],
+    "validation_ids": [
+      "VAL.M0.004",
+      "VAL.M0.N01"
+    ],
+    "evidence_refs": [
+      "REF.PENNYCOOK.2021"
+    ],
+    "sources": [
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.PENNYCOOK.2021"
+      }
+    ],
+    "code_refs": [
+      {
+        "id": "m0.accuracy_weight",
+        "path": "src/cognitive_epistemic_model/model.py",
+        "symbol": "accuracy_weight",
+        "language": "PYTHON",
+        "release_pin_required": true
+      },
+      {
+        "id": "m0.share_probability",
+        "path": "src/cognitive_epistemic_model/model.py",
+        "symbol": "share_probability",
+        "language": "PYTHON",
+        "release_pin_required": true
+      }
+    ],
+    "related_views": [
+      "runs:accuracy:5",
+      "planning",
+      "reference"
+    ],
+    "anchors": [
+      "central-idea",
+      "belief-vs-action",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "Belief, endorsement and sharing are not synonyms, and W is not a measure of general rationality.",
+      "ro": "Convingerea, aprobarea și distribuirea nu sunt sinonime, iar W nu este o măsură a raționalității generale."
+    }
+  },
+  {
+    "id": "THEORY.09.EDITORIAL_SELECTION",
+    "order": 9,
+    "label": {
+      "en": "Editorial selection and the observed world",
+      "ro": "Selecția editorială și lumea observată"
+    },
+    "summary": {
+      "en": "Explains M1.E1: the factual pool stays fixed while editorial emphasis changes the selected sample and issue appraisal.",
+      "ro": "Explică M1.E1: pool-ul factual rămâne fix, iar accentul editorial schimbă eșantionul selectat și evaluarea subiectului."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/09-editorial-selection-observed-world.md",
+      "ro": "docs/theory/ro/09-selectie-editoriala-lume-observata.md"
+    },
+    "prerequisites": [
+      "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+    ],
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "module_ids": [
+      "MOD.14",
+      "MOD.16"
+    ],
+    "variable_ids": [
+      "VAR.CONTENT.VALENCE",
+      "VAR.EDITORIAL.EMPHASIS",
+      "VAR.OBSERVED.SAMPLE.BALANCE",
+      "VAR.ISSUE.APPRAISAL"
+    ],
+    "mechanism_ids": [
+      "editorial"
+    ],
+    "validation_ids": [
+      "VAL.M1.001",
+      "VAL.M1.N01"
+    ],
+    "evidence_refs": [
+      "REF.TOHIDI.2025"
+    ],
+    "sources": [
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.TOHIDI.2025"
+      }
+    ],
+    "code_refs": [
+      {
+        "id": "m1e1.editorial_select",
+        "path": "src/cognitive_epistemic_model/editorial.py",
+        "symbol": "editorial_select",
+        "language": "PYTHON",
+        "release_pin_required": true
+      },
+      {
+        "id": "m1e1.update_issue_appraisal",
+        "path": "src/cognitive_epistemic_model/editorial.py",
+        "symbol": "update_issue_appraisal",
+        "language": "PYTHON",
+        "release_pin_required": true
+      }
+    ],
+    "related_views": [
+      "learning",
+      "reference",
+      "process"
+    ],
+    "anchors": [
+      "central-idea",
+      "fixed-world",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "Negative information is not false information, and Eedit is not an empirically measured newsroom-bias score.",
+      "ro": "Informația negativă nu este informație falsă, iar Eedit nu este un scor de bias editorial măsurat empiric."
+    }
+  },
+  {
+    "id": "THEORY.10.PRESENTATION_CONGRUENCE",
+    "order": 10,
+    "label": {
+      "en": "Presentation framing and prior-attitude congruence",
+      "ro": "Framing de prezentare și congruență cu atitudinea anterioară"
+    },
+    "summary": {
+      "en": "Explains M1.E2: semantic content remains fixed while confirmation/refutation framing and task-specific congruence discriminate nested engagement models.",
+      "ro": "Explică M1.E2: conținutul semantic rămâne fix, iar framingul confirmation/refutation și congruența task-specifică discriminează modele nested de engagement."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/10-framing-congruence.md",
+      "ro": "docs/theory/ro/10-framing-congruenta.md"
+    },
+    "prerequisites": [
+      "THEORY.09.EDITORIAL_SELECTION"
+    ],
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "module_ids": [
+      "MOD.15",
+      "MOD.16",
+      "MOD.07"
+    ],
+    "variable_ids": [
+      "VAR.PRESENTATION.FRAME",
+      "VAR.ATTITUDE.CONGRUENCE",
+      "VAR.ENGAGEMENT.PROBABILITY",
+      "VAR.ENGAGEMENT.INTENT"
+    ],
+    "mechanism_ids": [
+      "presentation"
+    ],
+    "validation_ids": [
+      "VAL.M1.002",
+      "VAL.M1.003",
+      "VAL.M1.N02",
+      "VAL.M1.N03"
+    ],
+    "evidence_refs": [
+      "REF.ARUGUETE.2024",
+      "REF.ALVARADO.2026"
+    ],
+    "sources": [
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.ARUGUETE.2024"
+      },
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.ALVARADO.2026"
+      }
+    ],
+    "code_refs": [
+      {
+        "id": "m1e2.prior_attitude_congruence",
+        "path": "src/cognitive_epistemic_model/presentation.py",
+        "symbol": "prior_attitude_congruence",
+        "language": "PYTHON",
+        "release_pin_required": true
+      },
+      {
+        "id": "m1e2.active_engagement_probability",
+        "path": "src/cognitive_epistemic_model/presentation.py",
+        "symbol": "active_engagement_probability",
+        "language": "PYTHON",
+        "release_pin_required": true
+      }
+    ],
+    "related_views": [
+      "learning",
+      "reference",
+      "process"
+    ],
+    "anchors": [
+      "central-idea",
+      "nested-models",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "Gatt is not stable ideology, and EngageIntent is not the retained M0 Share process.",
+      "ro": "Gatt nu este ideologie stabilă, iar EngageIntent nu este procesul M0 Share reținut."
+    }
+  },
+  {
+    "id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+    "order": 11,
+    "label": {
+      "en": "Algorithms, ranking and social feedback",
+      "ro": "Algoritmi, ranking și feedback social"
+    },
+    "summary": {
+      "en": "Separates ranking from exposure, processing and downstream belief while recovering closure, familiarity and social-reinforcement loops as distinct mechanisms.",
+      "ro": "Separă rankingul de expunere, procesare și convingerea ulterioară, recuperând buclele de closure, familiaritate și întărire socială ca mecanisme distincte."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/11-algorithms-social-feedback.md",
+      "ro": "docs/theory/ro/11-algoritmi-feedback-social.md"
+    },
+    "prerequisites": [
+      "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+    ],
+    "epistemic_status": [
+      "EMPIRICAL",
+      "CONCEPTUAL"
+    ],
+    "module_ids": [
+      "MOD.03",
+      "MOD.10",
+      "MOD.18"
+    ],
+    "variable_ids": [
+      "VAR.EXPOSURE.COUNT"
+    ],
+    "mechanism_ids": [
+      "repetition"
+    ],
+    "validation_ids": [
+      "VAL.M0.001"
+    ],
+    "evidence_refs": [],
+    "sources": [],
+    "code_refs": [],
+    "related_views": [
+      "structure",
+      "process"
+    ],
+    "anchors": [
+      "central-idea",
+      "three-loops",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "CEM does not currently implement a direct algorithm-to-belief mechanism or a validated network-amplification model.",
+      "ro": "CEM nu implementează în prezent un mecanism direct algoritm-convingere și nici un model validat de amplificare în rețea."
+    }
+  },
+  {
+    "id": "THEORY.12.INTERVENTIONS",
+    "order": 12,
+    "label": {
+      "en": "Interventions and where they act",
+      "ro": "Intervenții și locul lor în lanțul cauzal"
+    },
+    "summary": {
+      "en": "Organizes corrections, source evaluation, accuracy prompts and future interventions by the causal stage they modify.",
+      "ro": "Organizează corecțiile, evaluarea sursei, prompturile de acuratețe și intervențiile viitoare după etapa cauzală pe care o modifică."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/12-interventions.md",
+      "ro": "docs/theory/ro/12-interventii.md"
+    },
+    "prerequisites": [
+      "THEORY.08.BELIEF_ACCURACY_ACTION",
+      "THEORY.09.EDITORIAL_SELECTION"
+    ],
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE",
+      "CONCEPTUAL"
+    ],
+    "module_ids": [
+      "MOD.02",
+      "MOD.07",
+      "MOD.09"
+    ],
+    "variable_ids": [
+      "VAR.CORRECTION.ACCESS",
+      "VAR.ACCURACY.SALIENCE"
+    ],
+    "mechanism_ids": [
+      "correction",
+      "accuracy"
+    ],
+    "validation_ids": [
+      "VAL.M0.002",
+      "VAL.M0.004"
+    ],
+    "evidence_refs": [
+      "REF.PENNYCOOK.2021"
+    ],
+    "sources": [
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.PENNYCOOK.2021"
+      }
+    ],
+    "code_refs": [],
+    "related_views": [
+      "planning",
+      "learning"
+    ],
+    "anchors": [
+      "central-idea",
+      "causal-location",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "Demonstrative intervention rankings are not policy-effect estimates for a real population.",
+      "ro": "Clasamentele demonstrative ale intervențiilor nu sunt estimări ale efectelor de politică pentru o populație reală."
+    }
+  },
+  {
+    "id": "THEORY.13.INDIVIDUATION_AUTONOMY",
+    "order": 13,
+    "label": {
+      "en": "Individuation, self-integration and epistemic autonomy",
+      "ro": "Individuație, integrarea sinelui și autonomie epistemică"
+    },
+    "summary": {
+      "en": "Preserves Jungian individuation and Reflective Distance as an interpretive layer linked cautiously to metacognition and autonomy.",
+      "ro": "Păstrează individuația jungiană și Reflective Distance ca strat interpretativ, legat prudent de metacogniție și autonomie."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/13-individuation-epistemic-autonomy.md",
+      "ro": "docs/theory/ro/13-individuatie-autonomie-epistemica.md"
+    },
+    "prerequisites": [
+      "THEORY.02.PROCESSING_METACONTROL"
+    ],
+    "epistemic_status": [
+      "INTERPRETIVE"
+    ],
+    "module_ids": [
+      "MOD.17"
+    ],
+    "variable_ids": [],
+    "mechanism_ids": [],
+    "validation_ids": [],
+    "evidence_refs": [],
+    "sources": [],
+    "code_refs": [],
+    "related_views": [
+      "process"
+    ],
+    "anchors": [
+      "central-idea",
+      "interpretive-layer",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "Reflective Distance is not a calibrated numerical state and Jungian individuation is not an executable M1 mechanism.",
+      "ro": "Reflective Distance nu este o stare numerică calibrată, iar individuația jungiană nu este un mecanism M1 executabil."
+    }
+  },
+  {
+    "id": "THEORY.14.VALIDATION",
+    "order": 14,
+    "label": {
+      "en": "How CEM is validated",
+      "ro": "Cum este validat CEM"
+    },
+    "summary": {
+      "en": "Explains implementation tests, pattern tests, empirical targets, nested nulls, model discrimination, diagnostics, ODD, reproducibility and provenance.",
+      "ro": "Explică testele de implementare, pattern-tests, țintele empirice, null-urile nested, discriminarea modelelor, diagnosticele, ODD, reproductibilitatea și provenance."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/14-validation.md",
+      "ro": "docs/theory/ro/14-validare.md"
+    },
+    "prerequisites": [
+      "THEORY.00.WHAT_IS_CEM"
+    ],
+    "epistemic_status": [
+      "EXECUTABLE"
+    ],
+    "module_ids": [
+      "MOD.02",
+      "MOD.20"
+    ],
+    "variable_ids": [],
+    "mechanism_ids": [],
+    "validation_ids": [
+      "VAL.M0.001",
+      "VAL.M1.001",
+      "VAL.M1.003"
+    ],
+    "evidence_refs": [],
+    "sources": [],
+    "code_refs": [
+      {
+        "id": "registry.validate_model_dir",
+        "path": "src/cognitive_epistemic_model/registry.py",
+        "symbol": "validate_model_dir",
+        "language": "PYTHON",
+        "release_pin_required": true
+      }
+    ],
+    "related_views": [
+      "process",
+      "reference"
+    ],
+    "anchors": [
+      "central-idea",
+      "tests-vs-evidence",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "Passing software tests does not prove empirical calibration, structural identifiability or population validity.",
+      "ro": "Trecerea testelor software nu dovedește calibrarea empirică, identificabilitatea structurală sau validitatea populațională."
+    }
+  },
+  {
+    "id": "THEORY.15.USING_CEM",
+    "order": 15,
+    "label": {
+      "en": "How to use CEM",
+      "ro": "Cum folosesc CEM"
+    },
+    "summary": {
+      "en": "Connects understanding, mechanism exploration, evidence inspection, prioritization and action planning into one coherent workflow.",
+      "ro": "Leagă înțelegerea, explorarea mecanismelor, inspectarea dovezilor, prioritizarea și planificarea acțiunilor într-un singur flux coerent."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/15-using-cem.md",
+      "ro": "docs/theory/ro/15-cum-folosesc-cem.md"
+    },
+    "prerequisites": [
+      "THEORY.00.WHAT_IS_CEM"
+    ],
+    "epistemic_status": [
+      "EXECUTABLE"
+    ],
+    "module_ids": [
+      "MOD.07",
+      "MOD.20"
+    ],
+    "variable_ids": [],
+    "mechanism_ids": [],
+    "validation_ids": [],
+    "evidence_refs": [],
+    "sources": [],
+    "code_refs": [],
+    "related_views": [
+      "learning",
+      "planning",
+      "reference",
+      "process"
+    ],
+    "anchors": [
+      "central-idea",
+      "workflow",
+      "application",
+      "limits"
+    ],
+    "what_it_does_not_claim": {
+      "en": "The guided workflow does not replace scientific judgment or turn demonstrative outputs into real-world causal estimates.",
+      "ro": "Fluxul ghidat nu înlocuiește judecata științifică și nu transformă outputurile demonstrative în estimări cauzale reale."
+    }
+  }
+]

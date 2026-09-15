@@ -1,0 +1,468 @@
+[
+  {
+    "id": "GLOSS.MECH.REPETITION",
+    "kind": "MECHANISM",
+    "token": "repetition",
+    "label": {
+      "en": "Repetition / familiarity",
+      "ro": "Repetiție / familiaritate"
+    },
+    "short_definition": {
+      "en": "Executable M0 mechanism in which repeated exposure increases claim familiarity.",
+      "ro": "Mecanism M0 executabil în care expunerea repetată crește familiaritatea afirmației."
+    },
+    "what_it_is_not": {
+      "en": "A direct truth detector.",
+      "ro": "Nu este un detector direct al adevărului."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "runs:repetition",
+    "related_chapters": [
+      "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+    ]
+  },
+  {
+    "id": "GLOSS.MECH.CORRECTION",
+    "kind": "MECHANISM",
+    "token": "correction",
+    "label": {
+      "en": "Correction accessibility",
+      "ro": "Accesibilitatea corecției"
+    },
+    "short_definition": {
+      "en": "Executable M0 mechanism for encoding and decay of corrective-context accessibility.",
+      "ro": "Mecanism M0 executabil pentru encodarea și diminuarea accesibilității contextului corectiv."
+    },
+    "what_it_is_not": {
+      "en": "Memory deletion or guaranteed belief correction.",
+      "ro": "Nu este ștergerea memoriei și nici corectare garantată a convingerii."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "runs:correction",
+    "related_chapters": [
+      "THEORY.06.CORRECTION_ACCESS_MEMORY"
+    ]
+  },
+  {
+    "id": "GLOSS.MECH.SOURCE",
+    "kind": "MECHANISM",
+    "token": "source",
+    "label": {
+      "en": "Source reliability learning",
+      "ro": "Învățarea fiabilității sursei"
+    },
+    "short_definition": {
+      "en": "Executable M0 mechanism updating the agent's estimate of source reliability from feedback.",
+      "ro": "Mecanism M0 executabil care actualizează estimarea agentului privind fiabilitatea sursei din feedback."
+    },
+    "what_it_is_not": {
+      "en": "Objective source reliability.",
+      "ro": "Nu este fiabilitatea obiectivă a sursei."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "runs:source",
+    "related_chapters": [
+      "THEORY.07.SOURCE_RELIABILITY"
+    ]
+  },
+  {
+    "id": "GLOSS.MECH.ACCURACY",
+    "kind": "MECHANISM",
+    "token": "accuracy",
+    "label": {
+      "en": "Accuracy salience and action",
+      "ro": "Saliența acurateții și acțiune"
+    },
+    "short_definition": {
+      "en": "Executable M0 decision mechanism separating belief from contextual accuracy weighting and sharing action.",
+      "ro": "Mecanism decizional M0 executabil care separă convingerea de ponderea contextuală a acurateții și acțiunea de distribuire."
+    },
+    "what_it_is_not": {
+      "en": "General rationality or automatic truthfulness.",
+      "ro": "Nu este raționalitate generală sau adevăr automat."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "runs:accuracy",
+    "related_chapters": [
+      "THEORY.08.BELIEF_ACCURACY_ACTION",
+      "THEORY.12.INTERVENTIONS"
+    ]
+  },
+  {
+    "id": "GLOSS.MECH.EDITORIAL",
+    "kind": "MECHANISM",
+    "token": "editorial",
+    "label": {
+      "en": "Editorial emphasis",
+      "ro": "Accent editorial"
+    },
+    "short_definition": {
+      "en": "Executable M1.E1 candidate mechanism selecting a factual subset from a fixed information pool.",
+      "ro": "Mecanism candidat M1.E1 executabil care selectează un subset factual dintr-un pool informațional fix."
+    },
+    "what_it_is_not": {
+      "en": "A measured newsroom-bias score or misinformation rate.",
+      "ro": "Nu este un scor măsurat de bias editorial și nici o rată de dezinformare."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "learning:m1e1",
+    "related_chapters": [
+      "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "THEORY.09.EDITORIAL_SELECTION"
+    ]
+  },
+  {
+    "id": "GLOSS.MECH.PRESENTATION",
+    "kind": "MECHANISM",
+    "token": "presentation",
+    "label": {
+      "en": "Presentation framing × congruence",
+      "ro": "Framing de prezentare × congruență"
+    },
+    "short_definition": {
+      "en": "Executable M1.E2 candidate mechanism comparing semantic-equivalent framing models under task-specific congruence.",
+      "ro": "Mecanism candidat M1.E2 executabil care compară modele de framing semantic echivalent sub congruență task-specifică."
+    },
+    "what_it_is_not": {
+      "en": "Stable ideology or the M0 Share process.",
+      "ro": "Nu este ideologie stabilă și nici procesul M0 Share."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "learning:m1e2",
+    "related_chapters": [
+      "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "THEORY.10.PRESENTATION_CONGRUENCE"
+    ]
+  },
+  {
+    "id": "GLOSS.CONCEPT.TYPE1_TYPE2",
+    "kind": "CONCEPT",
+    "token": "type1-type2",
+    "label": {
+      "en": "Type 1 / Type 2 processing",
+      "ro": "Procesare Type 1 / Type 2"
+    },
+    "short_definition": {
+      "en": "A theoretical distinction between relatively autonomous processing and deliberative processing with working-memory demands.",
+      "ro": "Distincție teoretică între procesare relativ autonomă și procesare deliberativă cu cerințe de memorie de lucru."
+    },
+    "what_it_is_not": {
+      "en": "Two literal brains or a direct CEM state variable.",
+      "ro": "Nu sunt două creiere literale și nici o variabilă CEM directă."
+    },
+    "epistemic_status": [
+      "CONCEPTUAL"
+    ],
+    "executable": false,
+    "target": "MOD.02",
+    "related_chapters": [
+      "THEORY.02.PROCESSING_METACONTROL"
+    ]
+  },
+  {
+    "id": "GLOSS.CONCEPT.NEED_FOR_CLOSURE",
+    "kind": "CONCEPT",
+    "token": "need-for-closure",
+    "label": {
+      "en": "Need for closure",
+      "ro": "Nevoie de închidere cognitivă"
+    },
+    "short_definition": {
+      "en": "Conceptual pressure toward definite answers under ambiguity, linked historically to seizing and freezing processes.",
+      "ro": "Presiune conceptuală către răspunsuri definite în ambiguitate, legată istoric de procesele de seizing și freezing."
+    },
+    "what_it_is_not": {
+      "en": "A current executable CEM coefficient.",
+      "ro": "Nu este un coeficient CEM executabil în prezent."
+    },
+    "epistemic_status": [
+      "CONCEPTUAL"
+    ],
+    "executable": false,
+    "target": "MOD.02",
+    "related_chapters": [
+      "THEORY.03.UNCERTAINTY_CLOSURE"
+    ]
+  },
+  {
+    "id": "GLOSS.CONCEPT.STRESS_RESOURCES",
+    "kind": "CONCEPT",
+    "token": "stress-resources",
+    "label": {
+      "en": "Stress and executive resources",
+      "ro": "Stres și resurse executive"
+    },
+    "short_definition": {
+      "en": "Background theoretical layer concerning how acute or chronic stress can alter working-memory and flexibility demands.",
+      "ro": "Strat teoretic de fundal privind modul în care stresul acut sau cronic poate modifica cerințele de memorie de lucru și flexibilitate."
+    },
+    "what_it_is_not": {
+      "en": "A stress coefficient in the current simulator.",
+      "ro": "Nu este un coeficient de stres în simulatorul actual."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "CONCEPTUAL"
+    ],
+    "executable": false,
+    "target": "MOD.01",
+    "related_chapters": [
+      "THEORY.04.STRESS_RESOURCES_FLEXIBILITY"
+    ]
+  },
+  {
+    "id": "GLOSS.CONCEPT.WORLD_MODEL",
+    "kind": "CONCEPT",
+    "token": "world-model",
+    "label": {
+      "en": "World-model construction",
+      "ro": "Construirea modelului realității"
+    },
+    "short_definition": {
+      "en": "Conceptual distinction between external world state, information reaching the agent, and the internal representation built from it.",
+      "ro": "Distincție conceptuală între starea externă a lumii, informația care ajunge la agent și reprezentarea internă construită din aceasta."
+    },
+    "what_it_is_not": {
+      "en": "A complete neural predictive-coding implementation.",
+      "ro": "Nu este o implementare neuronală completă de predictive coding."
+    },
+    "epistemic_status": [
+      "CONCEPTUAL",
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "MOD.14",
+    "related_chapters": [
+      "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "THEORY.09.EDITORIAL_SELECTION"
+    ]
+  },
+  {
+    "id": "GLOSS.CONCEPT.ALGORITHM_STAGE",
+    "kind": "CONCEPT",
+    "token": "algorithm-stage",
+    "label": {
+      "en": "Ranking versus downstream cognition",
+      "ro": "Ranking versus cogniție ulterioară"
+    },
+    "short_definition": {
+      "en": "Causal-stage distinction separating recommendation ranking from exposure, processing, internal representation and later judgment.",
+      "ro": "Distincție de etapă cauzală care separă rankingul de recomandare de expunere, procesare, reprezentare internă și judecată ulterioară."
+    },
+    "what_it_is_not": {
+      "en": "A direct algorithm-to-belief arrow in the current model.",
+      "ro": "Nu este o săgeată directă algoritm-convingere în modelul actual."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "CONCEPTUAL"
+    ],
+    "executable": false,
+    "target": "MOD.03",
+    "related_chapters": [
+      "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+    ]
+  },
+  {
+    "id": "GLOSS.CONCEPT.INDIVIDUATION",
+    "kind": "CONCEPT",
+    "token": "individuation",
+    "label": {
+      "en": "Individuation",
+      "ro": "Individuație"
+    },
+    "short_definition": {
+      "en": "Jungian interpretive concept concerning integration of conscious and less-conscious aspects of the self.",
+      "ro": "Concept interpretativ jungian privind integrarea aspectelor conștiente și mai puțin conștiente ale sinelui."
+    },
+    "what_it_is_not": {
+      "en": "An empirically calibrated M1 variable.",
+      "ro": "Nu este o variabilă M1 calibrată empiric."
+    },
+    "epistemic_status": [
+      "INTERPRETIVE"
+    ],
+    "executable": false,
+    "target": "MOD.17",
+    "related_chapters": [
+      "THEORY.13.INDIVIDUATION_AUTONOMY"
+    ]
+  },
+  {
+    "id": "GLOSS.CONCEPT.REFLECTIVE_DISTANCE",
+    "kind": "CONCEPT",
+    "token": "reflective-distance",
+    "label": {
+      "en": "Reflective Distance",
+      "ro": "Reflective Distance"
+    },
+    "short_definition": {
+      "en": "Project-level integrative label for reflective distance from immediate thoughts, affect and identity commitments.",
+      "ro": "Etichetă integrativă la nivel de proiect pentru distanța reflexivă față de gânduri, afect și angajamente identitare imediate."
+    },
+    "what_it_is_not": {
+      "en": "A settled single-school construct or numerical CEM state.",
+      "ro": "Nu este un construct stabilit într-o singură școală și nici o stare numerică CEM."
+    },
+    "epistemic_status": [
+      "INTERPRETIVE"
+    ],
+    "executable": false,
+    "target": "MOD.17",
+    "related_chapters": [
+      "THEORY.13.INDIVIDUATION_AUTONOMY"
+    ]
+  },
+  {
+    "id": "GLOSS.CONCEPT.ODD",
+    "kind": "CONCEPT",
+    "token": "odd",
+    "label": {
+      "en": "ODD protocol",
+      "ro": "Protocol ODD"
+    },
+    "short_definition": {
+      "en": "Formal model-description structure used to document purpose, entities, processes, initialization, inputs and submodels.",
+      "ro": "Structură formală de descriere a modelului folosită pentru scop, entități, procese, inițializare, inputuri și submodele."
+    },
+    "what_it_is_not": {
+      "en": "A substitute for explanatory theory or empirical validation.",
+      "ro": "Nu este un substitut pentru teoria explicativă sau validarea empirică."
+    },
+    "epistemic_status": [
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "process",
+    "related_chapters": [
+      "THEORY.14.VALIDATION"
+    ]
+  },
+  {
+    "id": "GLOSS.CONCEPT.M0",
+    "kind": "CONCEPT",
+    "token": "m0",
+    "label": {
+      "en": "M0 baseline",
+      "ro": "Baseline M0"
+    },
+    "short_definition": {
+      "en": "Retained executable baseline containing repetition, correction, source-reliability, belief and action mechanisms.",
+      "ro": "Baseline executabil reținut care conține mecanismele de repetiție, corecție, fiabilitate a sursei, convingere și acțiune."
+    },
+    "what_it_is_not": {
+      "en": "A calibrated population model.",
+      "ro": "Nu este un model populațional calibrat."
+    },
+    "epistemic_status": [
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "M0",
+    "related_chapters": [
+      "THEORY.00.WHAT_IS_CEM",
+      "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+    ]
+  },
+  {
+    "id": "GLOSS.CONCEPT.M1_E1",
+    "kind": "CONCEPT",
+    "token": "m1-e1",
+    "label": {
+      "en": "M1.E1 Editorial Emphasis",
+      "ro": "M1.E1 Accent editorial"
+    },
+    "short_definition": {
+      "en": "First executable M1 extension separating a fixed factual pool from the editorial sample observed.",
+      "ro": "Prima extensie M1 executabilă care separă un pool factual fix de eșantionul editorial observat."
+    },
+    "what_it_is_not": {
+      "en": "A calibrated media-bias model.",
+      "ro": "Nu este un model calibrat de bias media."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "M1.E1",
+    "related_chapters": [
+      "THEORY.09.EDITORIAL_SELECTION"
+    ]
+  },
+  {
+    "id": "GLOSS.CONCEPT.M1_E2",
+    "kind": "CONCEPT",
+    "token": "m1-e2",
+    "label": {
+      "en": "M1.E2 Presentation Framing",
+      "ro": "M1.E2 Framing de prezentare"
+    },
+    "short_definition": {
+      "en": "Second executable M1 extension discriminating semantic-equivalent framing models with task-specific congruence.",
+      "ro": "A doua extensie M1 executabilă care discriminează modele de framing semantic echivalent cu congruență task-specifică."
+    },
+    "what_it_is_not": {
+      "en": "A stable ideology model or platform-behavior model.",
+      "ro": "Nu este un model de ideologie stabilă sau de comportament pe platformă."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "M1.E2",
+    "related_chapters": [
+      "THEORY.10.PRESENTATION_CONGRUENCE"
+    ]
+  },
+  {
+    "id": "GLOSS.CONCEPT.VALIDATION",
+    "kind": "CONCEPT",
+    "token": "model-validation",
+    "label": {
+      "en": "Model validation",
+      "ro": "Validarea modelului"
+    },
+    "short_definition": {
+      "en": "Layered checks separating implementation correctness, pattern reproduction, empirical targets, model discrimination and reproducibility.",
+      "ro": "Verificări pe niveluri care separă corectitudinea implementării, reproducerea patternurilor, țintele empirice, discriminarea modelelor și reproductibilitatea."
+    },
+    "what_it_is_not": {
+      "en": "Proof that every model relation is uniquely causal or calibrated.",
+      "ro": "Nu este dovada că fiecare relație din model este cauzală în mod unic sau calibrată."
+    },
+    "epistemic_status": [
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "process",
+    "related_chapters": [
+      "THEORY.14.VALIDATION"
+    ]
+  }
+]
