@@ -14,11 +14,11 @@ M1.E2 construiește o SemanticProposition și două obiecte PresentedMessage car
 
 Invarianța este esențială. Dacă semnificația s-ar schimba între condiții, diferența observată nu ar mai putea fi atribuită curat formei de prezentare.
 
-Manipularea trebuie citită, așadar, ca un contrast lingvistic controlat, nu ca un model general al framingului jurnalistic. Capitolul 9 folosește noțiunea de încadrare într-un sens mai larg, în care se pot schimba selecția, accentul, exemplele, titlurile și organizarea narațiunii.
+Manipularea trebuie citită, așadar, ca un contrast lingvistic controlat, nu ca un model general al încadrării jurnalistice. Capitolul 9 folosește noțiunea de încadrare într-un sens mai larg, în care se pot schimba selecția, accentul, exemplele, titlurile și organizarea narațiunii.
 
 ## Congruența este relațională și specifică sarcinii
 
-[[VAR:Gatt]] este calculată ca prior_stance × message_stance și rămâne în intervalul [-1,1]. Nu este ideologie, identitate de partid, personalitate sau un scor global de „confirmation bias”. Spune numai dacă, în această sarcină, poziția anterioară și sensul mesajului sunt aliniate sau opuse.
+[[VAR:Gatt]] este calculată ca prior_stance × message_stance și rămâne în intervalul [-1,1]. Nu este ideologie, identitate de partid, personalitate sau un scor global al tendinței de confirmare. Spune numai dacă, în această sarcină, poziția anterioară și sensul mesajului sunt aliniate sau opuse.
 
 Designul permite testarea unei interacțiuni fără să transforme o relație experimentală locală într-o identitate psihologică stabilă. Aceeași persoană poate fi congruentă cu un mesaj, incongruentă cu altul și neutră față de un al treilea.
 
@@ -60,7 +60,7 @@ CEM modelează de aceea mai întâi **tiparul** și lasă mediatorii neexecutaț
 
 [[VAR:Pengage]] este probabilitatea latentă pentru rezultatul M1.E2. [[VAR:EngageIntent]] este observabilul obținut prin compararea probabilității cu o extragere aleatorie explicită. Niciuna dintre ele nu este [[VAR:Share]] din M0. Menținerea rezultatelor separate împiedică folosirea unui efect despre interacțiune agregată drept dovadă nejustificată pentru distribuirea comportamentală.
 
-Distincția este importantă și deoarece „engagement” poate combina comportamente cu sensuri diferite: aprecierea, comentarea, accesarea sau intenția de a interacționa nu reflectă neapărat aceeași convingere sau motivație.
+Distincția este importantă și deoarece „interacțiunea” poate combina comportamente cu sensuri diferite: aprecierea, comentarea, accesarea sau intenția de a interacționa nu reflectă neapărat aceeași convingere sau motivație.
 
 ## Ce nu afirmă acest capitol
 
