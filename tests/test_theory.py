@@ -32,9 +32,9 @@ def test_theory_contract_has_complete_bilingual_phase_c_corpus():
             assert "Schelet Alpha 0.4.1a1" not in text
             assert "Phase A. Conținutul teoretic complet nu este încă redactat." not in text
             assert "Phase A. Full theoretical content has not yet been drafted." not in text
-            words = re.findall(r"\\b[\\w’'-]+\\b", text, flags=re.UNICODE)
+            words = re.findall(r"\b[\w’'-]+\b", text, flags=re.UNICODE)
             assert len(words) >= 250, f"{path}: only {len(words)} words"
-            assert text.count("\\n## ") >= 5, f"{path}: insufficient explanatory structure"
+            assert text.count("\n## ") >= 5, f"{path}: insufficient explanatory structure"
 
     roles = {
         source["role"]
