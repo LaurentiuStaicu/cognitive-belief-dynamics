@@ -39,7 +39,7 @@ try {
  await page.locator('[data-theory-token-kind="VAR"][data-theory-token-value="F"]').click();
  assert.match(await page.locator('#theoryInspector').textContent(),/Familiaritatea afirmației/);
  await page.locator('#theoryInspector [data-theory-open-view="reference"]').click();
- await page.locator('.reference-grid').waitFor();
+ await page.locator('.reference-grid').first().waitFor();
  await page.goBack();
  await page.locator('#theoryArticle').waitFor();
  assert.match(await page.locator('#theoryArticle').textContent(),/Repetiție, familiaritate și adevăr judecat/);
