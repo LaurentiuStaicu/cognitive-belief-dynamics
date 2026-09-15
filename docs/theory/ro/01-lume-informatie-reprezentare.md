@@ -14,7 +14,7 @@ lume → informație disponibilă → selecție și prezentare → informație o
 
 Dacă o analiză sare direct de la „ce există în lume” la „ce crede persoana”, orice diferență intermediară riscă să fie atribuită greșit psihologiei individului. În practică, mediul informațional filtrează, ordonează și formatează informația înainte ca agentul să o proceseze. Apoi memoria, așteptările, cunoștințele și contextul contribuie la o reprezentare internă care poate fi incompletă.
 
-Această separare permite întrebări cauzale diferite. M1.E1 întreabă ce se întâmplă când același pool factual este selectat diferit. M1.E2 întreabă ce se întâmplă când aceeași propoziție semantică este formulată prin confirmare sau infirmare. Un viitor mecanism de ranking ar trebui să întrebe separat ce conținut ajunge în expunere. Niciuna dintre aceste intervenții asupra fluxului nu implică automat o schimbare de convingere.
+Această separare permite întrebări cauzale diferite. M1.E1 întreabă ce se întâmplă când același set de informații factual este selectat diferit. M1.E2 întreabă ce se întâmplă când aceeași propoziție semantică este formulată prin confirmare sau infirmare. Un viitor mecanism de ordonare algoritmică ar trebui să întrebe separat ce conținut ajunge în expunere. Niciuna dintre aceste intervenții asupra fluxului nu implică automat o schimbare de convingere.
 
 ## Relația cu teoriile despre creierul predictiv
 
@@ -24,17 +24,17 @@ CEM nu implementează predictive coding neuronal și nu pretinde că MOD.14 este
 
 Acesta este motivul pentru care [[CONCEPT:world-model]] este simultan conceptual și legat de componente executabile, fără a fi prezentat ca o „teorie unificată a creierului”.
 
-## Ground truth și ceea ce știe agentul
+## Ground adevăr și ceea ce știe agentul
 
 În M0, adevărul sintetic aparține mediului de simulare. El este folosit pentru a construi și verifica scenarii, dar nu este transmis direct actualizării convingerii. Aceasta este o frontieră epistemică importantă: un observator extern al simulării poate ști că o afirmație este adevărată sau falsă, în timp ce agentul trebuie să lucreze cu expuneri, dovezi, corecții și estimări de fiabilitate.
 
-Dacă am trece ground truth direct în belief update, am confunda evaluarea modelului cu informația disponibilă agentului și am elimina tocmai problema epistemică pe care modelul încearcă să o studieze.
+Dacă am trece adevărul de referință al simulării direct în actualizarea convingerii, am confunda evaluarea modelului cu informația disponibilă agentului și am elimina tocmai problema epistemică pe care modelul încearcă să o studieze.
 
 ## Selecția și prezentarea sunt mecanisme diferite
 
-[[MECH:editorial]] schimbă subsetul factual observat dintr-un pool fix. [[MECH:presentation]] păstrează semnificația propoziției și compară forma de confirmare cu forma de infirmare. În realitate, selecția, tonul, titlul, ordinea și rankingul pot apărea împreună. CEM le separă intenționat pentru a putea testa ce predicție aparține fiecărei etape.
+[[MECH:editorial]] schimbă subsetul factual observat dintr-un set de informații fix. [[MECH:presentation]] păstrează semnificația propoziției și compară forma de confirmare cu forma de infirmare. În realitate, selecția, tonul, titlul, ordinea și ordonarea algoritmică pot apărea împreună. CEM le separă intenționat pentru a putea testa ce predicție aparține fiecărei etape.
 
-Aceasta este o regulă generală a proiectului: dacă două mecanisme pot fi confundate, modelul ar trebui să încerce să le separe prin condiții controlate și nested nulls, nu să le ascundă într-un coeficient global.
+Aceasta este o regulă generală a proiectului: dacă două mecanisme pot fi confundate, modelul ar trebui să încerce să le separe prin condiții controlate și modele nule imbricate, nu să le ascundă într-un coeficient global.
 
 ## Ce nu afirmă acest capitol
 
