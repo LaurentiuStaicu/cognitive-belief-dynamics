@@ -120,4 +120,4 @@ Phase C.1 does **not**:
 
 Theory Reader metadata is now reconciled with the expanded module coverage and source roles, the Romanian index prose has received the same editorial cleanup, the canonical index is synchronized to the web copy, and the temporary source-registration TODO has been removed.
 
-The remaining gates are a green full repository workflow on the final state and a rendered bilingual Theory Reader spot-check. Phase D — Guided Tour should begin only after those gates pass.
+The full repository workflow is green, including Python tests, reproducibility checks, Vite build and Playwright browser tests. Dedicated Romanian and English Theory Reader screenshots were inspected for layout, title consistency, source rendering and language separation. All Phase C.1 quality gates are therefore complete; merge still requires the final CI run on this checklist-only state.
