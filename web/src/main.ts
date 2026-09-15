@@ -12,6 +12,7 @@ let graphMode='core';
 let graphFocus='all';
 import {mountPlanner,type PlanningData} from './planner';
 import {scenarioName} from './labels';
+import {mountVisualOdd,type OddProcess,type Subsystem} from './odd';
 
 type Lang = 'ro' | 'en';
 type Variable = {id:string; short_name:string; label:Record<Lang,string>; definition:string; what_it_is_not:string; conceptual_module:string; ontology_type:string};
@@ -32,6 +33,8 @@ let links:Link[] = [];
 let modules:Module[] = [];
 let runs:Run[] = [];
 let references:Reference[] = [];
+let oddProcesses:OddProcess[] = [];
+let subsystems:Subsystem[] = [];
 const app = document.getElementById('app')!;
 const tr = (ro:string,en:string) => lang === 'ro' ? ro : en;
 const num = (n:number) => n.toLocaleString(lang === 'ro' ? 'ro-RO' : 'en-GB', {minimumFractionDigits:3,maximumFractionDigits:3});
@@ -156,16 +159,9 @@ function renderReference(){
  content(`<div class="section-heading"><div><h2>${tr('Registrul variabilelor și relațiilor','Variable and link registry')}</h2><p>${tr('Aceleași date ca în hartă, într-o formă navigabilă cu tastatura.','The same data as the graph, in a keyboard-accessible form.')}</p></div></div><div class="reference-grid">${variables.map(v=>`<article class="panel">${variableDetail(v)}</article>`).join('')}</div><h2 class="section-title">${tr('Relații și statutul dovezilor','Links and evidence status')}</h2><div class="reference-grid">${links.map(l=>`<article class="panel">${linkDetail(l)}</article>`).join('')}</div><details class="panel modules"><summary>${tr('Cele 20 de module conceptuale','The 20 conceptual modules')}</summary><p>${tr('Inventar conceptual, nu 20 de module executabile validate.','Conceptual inventory, not 20 validated executable modules.')}</p><ol>${modules.map(m=>`<li><code>${m.id}</code> ${text(m.label[lang])}</li>`).join('')}</ol></details>`);
 }
 function renderProcess(){
- const steps=[
- [tr('Entități și stare','Entities and state'),tr('Un agent, o afirmație și o sursă. Familiaritatea, corecția și fiabilitatea estimată persistă între evenimente.','One agent, one claim and one source. Familiarity, correction accessibility and estimated reliability persist between events.')],
- [tr('Programarea evenimentelor','Event scheduling'),tr('Evenimentele se ordonează după timp. La același moment, se păstrează ordinea de intrare.','Events are sorted by time. Input order is preserved for simultaneous events.')],
- [tr('Actualizarea stării','State update'),tr('Expunerea crește familiaritatea; corecția adaugă context corectiv; feedbackul schimbă estimarea sursei. Accesibilitatea corecției se diminuează cu timpul.','Exposure increases familiarity; correction encodes corrective context; feedback updates source estimates. Correction accessibility decays with time.')],
- [tr('Formarea judecății','Judgment formation'),tr('Convingerea inițială, familiaritatea, semnalul de evidență ponderat de sursă și corecția intră într-o transformare logistică. Adevărul din lumea simulată nu intră direct în ecuație.','Prior belief, familiarity, source-weighted evidence and correction enter a logistic transform. Simulated ground truth is not passed directly to this equation.')],
- [tr('Decizie și jurnal','Decision and log'),tr('Ponderea acurateții și recompensa contextuală determină probabilitatea de distribuire. O extragere aleatoare generează acțiunea, iar jurnalul păstrează rezultatul.','Accuracy weight and contextual reward determine sharing probability. A random draw generates the action, and the log records the outcome.')]
- ];
- content(`<div class="section-heading"><div><h2>${tr('Procesul executabil M0','The executable M0 process')}</h2><p>${tr('O vedere de ansamblu a procesului, inspirată de ODD. Nu reprezintă încă o specificație ODD completă.','An ODD-inspired process overview. This is not yet a complete ODD specification.')}</p></div></div><div class="process-layout"><ol class="process-list">${steps.map(([title,body],i)=>`<li><span class="process-number">0${i+1}</span><div><h3>${title}</h3><p>${body}</p></div></li>`).join('')}</ol><aside class="panel interpretive"><p class="eyebrow">${tr('NIVELURI DE INTERPRETARE','LEVELS OF INTERPRETATION')}</p><h2>${tr('Ce nu codifică M0','What M0 does not encode')}</h2><h3>Track A / Track B</h3><p>${tr('Descrieri conceptuale ale procesării reactive și adaptive. Nu sunt clase fixe de persoane sau stări impuse agenților.','Conceptual descriptions of reactive and adaptive processing. They are not fixed classes of people or hard-coded agent states.')}</p><h3>${tr('Extensia jungiană','Jungian extension')}</h3><p>${tr('Individuația și Axa Eu–Sine rămân un nivel interpretativ distinct. Creația poate fi o consecință posibilă, nu un rezultat garantat sau o variabilă calculată de M0.','Individuation and the ego–Self axis remain a separate interpretive layer. Creativity is a possible consequence, not a guaranteed result or a variable computed by M0.')}</p><div class="boundary"><strong>${tr('Limita inferenței','Inference boundary')}</strong><p>${tr('Reproducerea unui tipar nu demonstrează un mecanism psihologic unic. Testele de software nu constituie validare empirică.','Reproducing a pattern does not establish a unique psychological mechanism. Software tests do not constitute empirical validation.')}</p></div></aside></div>`);
+ mountVisualOdd(document.getElementById('content')!,lang,oddProcesses,subsystems);
 }
 async function load<T>(name:string):Promise<T>{const r=await fetch(`./model/${name}.json`);if(!r.ok)throw new Error(`${name}: HTTP ${r.status}`);return r.json();}
-async function init(){[variables,links,modules,references]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references')]);runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
+async function init(){[variables,links,modules,references,oddProcesses,subsystems]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems')]);runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(view==='structure'){stop();shell();}});
 init().catch(e=>{app.replaceChildren();const p=document.createElement('p');p.className='loading';p.textContent=`Nu se poate încărca modelul / Unable to load model: ${String(e)}`;app.append(p);});
