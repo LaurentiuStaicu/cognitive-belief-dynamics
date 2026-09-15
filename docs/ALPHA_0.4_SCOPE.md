@@ -1,6 +1,6 @@
 # Alpha 0.4.0a0 — scientific and UX scope
 
-Status: implementation contract for the `alpha-0.4-narrative-laboratory` branch.
+Status: forward scientific contract for the future Alpha 0.4 / M1 series. Alpha 0.3.6a0 is the scientific-readiness bridge that must pass before this contract becomes executable.
 
 ## Why this document exists
 
@@ -8,7 +8,7 @@ The project history fixes the scientific meaning of v0.4 as:
 
 `world model + heuristics + editorial media`
 
-The UX work started from v0.3.5a0 is therefore a foundation for Alpha 0.4, not the complete scientific release by itself.
+The UX work started from v0.3.5a0 and consolidated in v0.3.6a0 is therefore a foundation for Alpha 0.4, not the scientific M1 release by itself.
 
 ## Non-negotiable project order
 
@@ -127,16 +127,16 @@ This follows the 2024 Visual ODD structure while preserving the project's own sc
 
 ## Release rule
 
-Alpha 0.4.0a0 is not complete merely when the UI redesign is complete.
+Alpha 0.4.0a0 must not be declared merely because the UX/registry foundation is complete.
 
 The release requires:
 
-- Narrative Laboratory foundation;
-- registry-driven Visual ODD;
-- eight-subsystem architecture recorded and validated;
-- MOD.14–16 scientific scope recorded;
-- no untested numerical mechanism introduced;
-- explicit pattern-test contract for every future executable MOD.14–16 extension;
-- all M0 regression, registry, build and browser tests passing.
+- the Alpha 0.3.6 scientific-readiness gate has passed;
+- Narrative Laboratory and registry-driven Visual ODD remain intact;
+- the eight-subsystem architecture remains validated;
+- at least one MOD.14–16 mechanism has an observable target, operationalisation, differential prediction and rejection criterion;
+- that mechanism is executable as an M1 candidate rather than documentation only;
+- the new M1 target pattern is tested while all retained M0 regression patterns still pass;
+- no population, diagnostic or causal claims are strengthened beyond the available evidence.
 
 Native GTK4/Granite/Flatpak remains a later v1-oriented implementation target; the web architecture should remain mappable to native patterns without binding the web code to a specific GTK widget.

@@ -50,3 +50,13 @@ def test_evidence_integrity(tmp_path, case):
     (model / 'references.json').write_text(json.dumps(references))
     with pytest.raises(RegistryError, match=message):
         validate_model_dir(model, ROOT / 'schemas')
+
+
+def test_evidence_snapshot_schema_is_enforced(tmp_path):
+    model = tmp_path / "model"
+    shutil.copytree(ROOT / "model", model)
+    snapshot = json.loads((model / "evidence_snapshot.json").read_text())
+    snapshot["id"] = "EVIDENCE.INVALID"
+    (model / "evidence_snapshot.json").write_text(json.dumps(snapshot))
+    with pytest.raises(RegistryError, match="evidence snapshot"):
+        validate_model_dir(model, ROOT / "schemas")

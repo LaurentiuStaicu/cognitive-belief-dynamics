@@ -15,11 +15,30 @@ def test_release_versions_are_consistent():
     lock = json.loads((ROOT / 'web/package-lock.json').read_text())
     assert lock['version'] == lock['packages']['']['version'] == npm
     version = json.loads((ROOT / 'web/public/model/version.json').read_text())
-    assert version['version'] == __version__
+    assert version['version'] == version['software_version'] == __version__
+    assert version['model'] == version['model_specification'] == 'M0'
+    assert version['evidence_snapshot'].startswith('EVIDENCE.M0.')
     assert version['release_tag'] == 'v' + __version__
-    for name in ['runs', 'interventions', 'explanations']:
-        assert json.loads((ROOT / f'web/public/model/{name}.json').read_text())['model_version'] == __version__
+    runs = json.loads((ROOT / 'web/public/model/runs.json').read_text())
+    assert runs['model_version'] == __version__
+    assert runs['model_specification'] == 'M0'
+    assert runs['purpose'] == 'MECHANISM_TEST_DEMONSTRATION'
+    assert all(run['purpose'] == 'MECHANISM_TEST_DEMONSTRATION' for run in runs['runs'])
+    interventions = json.loads((ROOT / 'web/public/model/interventions.json').read_text())
+    assert interventions['model_version'] == __version__
+    assert interventions['purpose'] == 'ILLUSTRATIVE_DECISION_SUPPORT'
+    explanations = json.loads((ROOT / 'web/public/model/explanations.json').read_text())
+    assert explanations['model_version'] == __version__
+    assert explanations['model_specification'] == 'M0'
+    assert explanations['purpose'] == 'EXPLANATION_OF_REFERENCE_RUNS'
+    diagnostics = json.loads((ROOT / 'web/public/model/diagnostics.json').read_text())
+    assert diagnostics['software_version'] == __version__
+    assert diagnostics['model_specification'] == 'M0'
+    snapshot = json.loads((ROOT / 'model/evidence_snapshot.json').read_text())
+    assert snapshot['id'] == version['evidence_snapshot']
     assert f'Alpha {__version__}' in (ROOT / 'README.md').read_text()
     assert (ROOT / f'releases/v{__version__}.md').is_file()
+    assert (ROOT / 'CITATION.cff').is_file()
+    assert (ROOT / 'docs/ODD_MAIN.md').is_file()
     assert (ROOT / 'LICENSE').is_file()
     assert (ROOT / 'LICENSES/CC-BY-4.0.txt').is_file()

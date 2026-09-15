@@ -37,6 +37,7 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     references = load_json(model_dir / "references.json")
     subsystems = load_json(model_dir / "subsystems.json")
     processes = load_json(model_dir / "processes.json")
+    evidence_snapshot = load_json(model_dir / "evidence_snapshot.json")
 
     validate_items(modules, load_json(schema_dir / "module.schema.json"))
     validate_items(variables, load_json(schema_dir / "variable.schema.json"))
@@ -44,6 +45,10 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     validate_items(references, load_json(schema_dir / "reference.schema.json"))
     validate_items(subsystems, load_json(schema_dir / "subsystem.schema.json"))
     validate_items(processes, load_json(schema_dir / "process.schema.json"))
+    snapshot_validator = Draft202012Validator(load_json(schema_dir / "evidence_snapshot.schema.json"))
+    snapshot_errors = sorted(snapshot_validator.iter_errors(evidence_snapshot), key=lambda err: list(err.path))
+    if snapshot_errors:
+        raise RegistryError("\n".join(f"evidence snapshot: {err.message}" for err in snapshot_errors))
 
     for name, items in (("modules", modules), ("variables", variables), ("links", links), ("references", references), ("subsystems", subsystems), ("processes", processes)):
         duplicates = sorted(key for key, count in Counter(x["id"] for x in items).items() if count > 1)

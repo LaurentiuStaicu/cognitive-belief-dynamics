@@ -208,3 +208,12 @@ Validation: 35 Python tests, `cemodel validate`, TypeScript and Vite build passe
 locally; the export-identity check above passed. Browser smoke tests were not run
 locally (Playwright browser download unavailable in the working environment) and
 must pass in CI before integration.
+
+
+## Alpha 0.3.6a0 — Scientific readiness and reproducibility
+
+The version contract is corrected before M1: 0.3.6 is the methodological bridge, while the later 0.4 series remains reserved for the first executable world-model / heuristic-policy / editorial-media extension. M0 numerical equations and coefficients are unchanged.
+
+Added a full ODD document, local sensitivity/SVD practical-identifiability diagnostics, a distinct prediction-robustness diagnostic, explicit run-purpose metadata, separate software/model/evidence version metadata, deterministic reproducibility metadata and CITATION.cff. The existing Narrative Laboratory and registry-driven Visual ODD remain the explanatory architecture for the future M1 extension.
+
+Do not interpret the new diagnostics as structural-identifiability proof, empirical calibration or parameter uncertainty. The next scientific gate is a minimal falsifiable M1 experiment with an observable target, operationalisation, differential prediction and rejection criterion while retaining the M0 scientific regression patterns.

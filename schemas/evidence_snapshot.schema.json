@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "model_specification",
+    "as_of",
+    "registry",
+    "scope"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^EVIDENCE\\.M0\\.\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "model_specification": {
+      "const": "M0"
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date"
+    },
+    "registry": {
+      "const": "model/references.json"
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

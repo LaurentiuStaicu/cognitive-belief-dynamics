@@ -1,6 +1,9 @@
 {
-  "version": "0.3.5a0",
+  "version": "0.3.6a0",
+  "software_version": "0.3.6a0",
   "channel": "Alpha",
   "model": "M0",
-  "release_tag": "v0.3.5a0"
+  "model_specification": "M0",
+  "evidence_snapshot": "EVIDENCE.M0.2026-09-15",
+  "release_tag": "v0.3.6a0"
 }
