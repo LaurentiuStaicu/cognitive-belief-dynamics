@@ -16,4 +16,4 @@
 - [x] Perform final rendered Theory Reader spot-check in both languages.
 - [x] Remove temporary source-registration TODO after all metadata items are complete.
 
-Phase D must not begin until all unchecked items are complete and the Phase C.1 PR is green.
+Completion record: all items passed, the Phase C.1 PR was integrated, post-merge CI was green, and Phase D was subsequently completed and published in Alpha 0.4.1a1.
