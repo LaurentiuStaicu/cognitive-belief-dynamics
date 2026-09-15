@@ -1,7 +1,44 @@
 [
- {"id":"VAL.M0.001","name":"Illusory truth","pattern":"Repeated exposure increases average truth judgment under comparable conditions.","claim_scope":"DESCRIPTIVE_PATTERN"},
- {"id":"VAL.M0.002","name":"Correction and belief regression","pattern":"Correction can reduce belief initially and partial regression can occur as corrective accessibility decays.","claim_scope":"DESCRIPTIVE_PATTERN"},
- {"id":"VAL.M0.003","name":"Source reliability weighting","pattern":"Learned source reliability changes the weight given to otherwise comparable evidence.","claim_scope":"DESCRIPTIVE_PATTERN"},
- {"id":"VAL.M0.004","name":"Accuracy salience and sharing","pattern":"Accuracy salience can improve sharing discernment, with heterogeneous effect size.","claim_scope":"DESCRIPTIVE_PATTERN"},
- {"id":"VAL.M0.N01","name":"Belief is not action","pattern":"Belief and sharing can dissociate.","claim_scope":"NEGATIVE_CONSTRAINT"}
+  {
+    "id": "VAL.M0.001",
+    "name": "Illusory truth",
+    "pattern": "Repeated exposure increases average truth judgment under comparable conditions.",
+    "claim_scope": "DESCRIPTIVE_PATTERN"
+  },
+  {
+    "id": "VAL.M0.002",
+    "name": "Correction and belief regression",
+    "pattern": "Correction can reduce belief initially and partial regression can occur as corrective accessibility decays.",
+    "claim_scope": "DESCRIPTIVE_PATTERN"
+  },
+  {
+    "id": "VAL.M0.003",
+    "name": "Source reliability weighting",
+    "pattern": "Learned source reliability changes the weight given to otherwise comparable evidence.",
+    "claim_scope": "DESCRIPTIVE_PATTERN"
+  },
+  {
+    "id": "VAL.M0.004",
+    "name": "Accuracy salience and sharing",
+    "pattern": "Accuracy salience can improve sharing discernment, with heterogeneous effect size.",
+    "claim_scope": "DESCRIPTIVE_PATTERN"
+  },
+  {
+    "id": "VAL.M0.N01",
+    "name": "Belief is not action",
+    "pattern": "Belief and sharing can dissociate.",
+    "claim_scope": "NEGATIVE_CONSTRAINT"
+  },
+  {
+    "id": "VAL.M1.001",
+    "name": "Selective factual emphasis",
+    "pattern": "Holding the underlying fact-compatible information pool fixed, negative editorial emphasis can produce a more negative observed sample and issue appraisal than a neutral selection policy.",
+    "claim_scope": "DESCRIPTIVE_PATTERN"
+  },
+  {
+    "id": "VAL.M1.N01",
+    "name": "Editorial mediation is necessary for the M1.E1 condition difference",
+    "pattern": "When editorial selection is disabled and conditions receive the same full fact-compatible pool, the editorial-emphasis condition difference disappears.",
+    "claim_scope": "NEGATIVE_CONSTRAINT"
+  }
 ]
