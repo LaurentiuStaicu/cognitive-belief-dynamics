@@ -86,3 +86,37 @@
 **What would change the decision.** Replace or revise M1.E3 if independent evidence contradicts the bounded access direction, if the comparator cannot preserve its invariants, if a smaller alternative cue discriminates the model more cleanly, or if the access stage fails to remain separable from downstream cognition/action.
 
 **Release boundary.** This Phase B implementation remains on an unreleased feature branch until the Alpha 0.4.2a0 explanatory/UI layer and release audit are complete.
+
+
+## 2026-09 — Alpha 0.4.2a0 Phase C explanatory-surface decision
+
+**Question.** How should the already approved M1.E3 runtime become inspectable without
+silently turning access into attention, belief, sharing or a second implementation
+of the model?
+
+**Candidates.** (A) add a new top-level application tab; (B) add a temporal access
+trajectory; (C) extend Understanding → Mechanisms with one between-condition
+comparator that reads the canonical M1.E3 export and links back to Theory and the
+Evidence Registry.
+
+**Decision.** Choose C. The UI holds story, source, image, factual compatibility
+and PreviewImpression fixed, exposes lower/higher Hneg, shows exact NULL and
+Hneg-sensitive Paccess values, and displays the empirical target with its
+limitations. Theory chapter 11 registers the same stage distinction and deep-links
+to the comparator.
+
+**Rejected presentation shortcuts.** A new top-level tab would fragment the existing
+Understanding architecture. A temporal curve would imply a longitudinal empirical
+design that M1.E3 does not have. Recomputing the logistic equation in TypeScript
+would create an avoidable second source of scientific truth.
+
+**Outcome boundary.** The UI explicitly preserves
+`PreviewImpression != Access != Attention != Encoding != Belief != EngageIntent != Share`.
+The illustrative binary Access draw is shown only as a demonstration; model
+discrimination uses Paccess.
+
+**Evidence boundary.** Phase C adds no new empirical evidence and therefore does not
+advance the evidence snapshot beyond `EVIDENCE.M1.2026-09-16.r1`.
+
+**Release boundary.** Phase C remains stacked and unreleased. Version metadata stays
+at 0.4.1a1 until the dedicated Alpha 0.4.2a0 release-preparation audit.
