@@ -116,8 +116,8 @@ Phase C.1 does **not**:
 - validate Jungian individuation through contemporary metacognition research;
 - treat a green CI workflow as scientific validation.
 
-## Remaining merge gate
+## Final gate result
 
 Theory Reader metadata is now reconciled with the expanded module coverage and source roles, the Romanian index prose has received the same editorial cleanup, the canonical index is synchronized to the web copy, and the temporary source-registration TODO has been removed.
 
-The full repository workflow is green, including Python tests, reproducibility checks, Vite build and Playwright browser tests. Dedicated Romanian and English Theory Reader screenshots were inspected for layout, title consistency, source rendering and language separation. All Phase C.1 quality gates are therefore complete; merge still requires the final CI run on this checklist-only state.
+The full repository workflow passed, including Python tests, reproducibility checks, Vite build and Playwright browser tests. Dedicated Romanian and English Theory Reader screenshots were inspected for layout, title consistency, source rendering and language separation. Phase C.1 was then merged successfully, followed by green post-merge CI. Its audited corpus is part of the published Alpha 0.4.1a1 release.

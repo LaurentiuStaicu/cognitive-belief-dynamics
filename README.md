@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases"><img alt="Latest alpha release" src="https://img.shields.io/github/v/release/LaurentiuStaicu/cognitive-epistemic-model?display_name=tag&include_prereleases&sort=semver"></a>
+  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.1a1"><img alt="Version 0.4.1a1" src="https://img.shields.io/badge/version-0.4.1a1-4e9a06"></a>
   <img alt="Development stage: alpha" src="https://img.shields.io/badge/stage-alpha-e5a50a">
   <img alt="Available application: Web" src="https://img.shields.io/badge/app-Web-4a90d9">
   <img alt="elementary OS Flatpak: planned" src="https://img.shields.io/badge/elementary_OS_Flatpak-planned-64baff">
