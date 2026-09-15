@@ -1,5 +1,17 @@
 # Changelog
 
+## Alpha 0.4.1a0 — M1.E2 Presentation Framing × Prior-Attitude Congruence
+
+- Add semantically equivalent confirmation/refutation presentation as a distinct stage after M1.E1 editorial selection.
+- Add task-specific prior-attitude congruence Gatt; it is relational and not a stable ideology or party-identity trait.
+- Compare three nested models: presentation-normalized NULL, frame-only, and frame×congruence.
+- Add Pengage and EngageIntent, explicitly separated from the retained M0 Share process.
+- Register Aruguete et al. (2024) four-country engagement effects and Alvarado et al. (2026) confirmation×congruence interaction targets.
+- Add VAL.M1.002, VAL.M1.003, VAL.M1.N02 and VAL.M1.N03.
+- Add M1.E2 ODD, Visual ODD processes, Understanding comparator and immutable evidence snapshot revision EVIDENCE.M1.2026-09-15.r2.
+- Published effects remain validation targets; reference logistic coefficients are demonstrative and uncalibrated.
+- M1.E1 and all retained M0 outputs remain regression gates.
+
 ## Alpha 0.4.0a0 — M1 Editorial Emphasis
 
 - First executable M1 mechanism: fixed fact-compatible information pool → editorial emphasis → observed sample → issue appraisal.
