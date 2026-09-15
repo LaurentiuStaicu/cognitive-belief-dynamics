@@ -47,7 +47,7 @@
     "access_url": "https://www.nature.com/articles/s41598-024-53337-0",
     "study_type": "EXPERIMENTAL",
     "checked_on": "2026-09-15",
-    "review_scope": "FULL_TEXT_AND_SELECTED_SUPPLEMENT"
+    "review_scope": "FULL_TEXT"
   },
   {
     "id": "REF.ALVARADO.2026",
@@ -57,6 +57,6 @@
     "access_url": "https://www.nature.com/articles/s41599-026-08888-0",
     "study_type": "EXPERIMENTAL",
     "checked_on": "2026-09-15",
-    "review_scope": "FULL_TEXT_AND_SUPPLEMENT"
+    "review_scope": "FULL_TEXT"
   }
 ]
