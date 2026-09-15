@@ -217,3 +217,14 @@ The version contract is corrected before M1: 0.3.6 is the methodological bridge,
 Added a full ODD document, local sensitivity/SVD practical-identifiability diagnostics, a distinct prediction-robustness diagnostic, explicit run-purpose metadata, separate software/model/evidence version metadata, deterministic reproducibility metadata and CITATION.cff. The existing Narrative Laboratory and registry-driven Visual ODD remain the explanatory architecture for the future M1 extension.
 
 Do not interpret the new diagnostics as structural-identifiability proof, empirical calibration or parameter uncertainty. The next scientific gate is a minimal falsifiable M1 experiment with an observable target, operationalisation, differential prediction and rejection criterion while retaining the M0 scientific regression patterns.
+
+
+## Alpha 0.4.0a0 — M1 Editorial Emphasis
+
+The first executable M1 mechanism is now implemented without replacing M0. M1.E1 holds a fact-compatible event information pool fixed, applies a transparent editorial-emphasis policy, derives observed-sample balance Sobs, and updates a separate issue-appraisal state Aissue. Negative valence is not treated as falsehood, and Aissue remains distinct from M0 truth-belief B.
+
+REF.TOHIDI.2025 and TARGET.M1.E1.TOHIDI_2025 provide the empirical anchor. Published treatment effects are stored as directional validation context only; the reference gain is not fitted to them. VAL.M1.N01 disables editorial selection and requires the condition difference to disappear.
+
+The Understanding page contains a separate between-condition M1 laboratory. Do not force M1.E1 into the 13-step M0 timeline: the target experiment is between subjects, not a temporal process study.
+
+Future Alpha 0.4.x work should separate presentation/equivalence framing, attention/consumption gates, richer situation/world representations and heuristic-policy fit only through distinct registered empirical targets and rejection criteria. Platform ranking remains separate from editorial selection.
