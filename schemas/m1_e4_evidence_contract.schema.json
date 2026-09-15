@@ -181,10 +181,10 @@
         "notes"
       ],
       "properties": {
-        "id": {"type": "string", "pattern": "^SRC\.M1\.E4\.[A-Z0-9_.-]+$"},
+        "id": {"type": "string", "pattern": "^SRC\\.M1\\.E4\\.[A-Z0-9_.-]+$"},
         "citation": {"type": "string", "minLength": 20},
-        "doi": {"type": "string", "pattern": "^10\.\d{4,9}/\S+$"},
-        "url": {"type": "string", "pattern": "^https://\S+$"},
+        "doi": {"type": "string", "pattern": "^10\\.\\d{4,9}/\\S+$"},
+        "url": {"type": "string", "pattern": "^https://\\S+$"},
         "source_type": {"const": "PEER_REVIEWED_ARTICLE"},
         "study_type": {"enum": ["EXPERIMENTAL", "OBSERVATIONAL"]},
         "evidence_role": {
@@ -208,7 +208,7 @@
       "additionalProperties": false,
       "required": ["id", "short_name", "ontology_type", "status", "definition", "what_it_is_not"],
       "properties": {
-        "id": {"type": "string", "pattern": "^PLANNED\.(VAR|OBS)\.[A-Z0-9_.-]+$"},
+        "id": {"type": "string", "pattern": "^PLANNED\\.(VAR|OBS)\\.[A-Z0-9_.-]+$"},
         "short_name": {"type": "string", "minLength": 1},
         "ontology_type": {"enum": ["CONTENT_ATTRIBUTE", "DERIVED_METRIC", "OBSERVABLE"]},
         "status": {"const": "PLANNED_ONLY"},
@@ -304,7 +304,7 @@
       "additionalProperties": false,
       "required": ["id", "name", "claim_scope", "status", "pattern"],
       "properties": {
-        "id": {"type": "string", "pattern": "^VAL\.M1\.(005|N07|N08|N09|N10)$"},
+        "id": {"type": "string", "pattern": "^VAL\\.M1\\.(005|N07|N08|N09|N10)$"},
         "name": {"type": "string", "minLength": 5},
         "claim_scope": {"enum": ["DESCRIPTIVE_PATTERN", "NEGATIVE_CONSTRAINT"]},
         "status": {"const": "PLANNED_ONLY"},
