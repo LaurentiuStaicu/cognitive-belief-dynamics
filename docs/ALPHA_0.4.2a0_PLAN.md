@@ -176,20 +176,27 @@ This source therefore strengthens the case for testing Hneg while simultaneously
 
 The cue-selection gate must consider evidence that the headline effects are not universal.
 
-### APS 2026 two-stage headline experiment — preliminary counterevidence for negativity
+### Nickl, Hills & Lorenz-Spreen — preliminary experimental counterevidence
 
-Nickl, Hills & Lorenz-Spreen presented “How an Attention Economy Affects News Headlines” at the 2026 APS Annual Convention.
+Preprint:
 
-Conference abstract:
+Nickl, P. L., Hills, T. & Lorenz-Spreen, P. (2025). “The effects of an experimental attention economy on the production and consumption of news headlines.”
+
+DOI: https://doi.org/10.31234/osf.io/ntsg9_v1
+
+The same project was later presented as “How an Attention Economy Affects News Headlines” at the 2026 APS Annual Convention:
 https://www.psychologicalscience.org/conventions/archive/2026annual/paper/61983/
 
-The reported two-stage experiment (N=1,495) found that click-based incentives changed headline production and reduced information quality, but unexpectedly found **no negativity-bias effect**.
+These are **not independent studies** and must be registered as one underlying experimental project.
+
+The two-stage design used N=599 headline producers and N=896 consumers. Click-based incentives led producers to create more informationally incomplete and incongruent headlines, but those features did not receive more clicks. The APS abstract additionally reports that the expected negativity-bias effect was not observed. Headlines rated as more informative were more likely to be clicked in the preprint results.
 
 Interpretation boundary:
 
-- this is a conference abstract, not yet equivalent to a peer-reviewed full article;
+- this remains preprint / conference-level evidence rather than a peer-reviewed final article;
 - it does not invalidate the much larger registered Upworthy analyses;
-- it is sufficient to reject any claim that the negativity effect is already known to be universal across contemporary headline environments.
+- it is sufficient to reject any claim that the negativity effect is already known to be universal across contemporary headline environments;
+- the preprint also shows why “attention economy incentives” and “consumer cue preference” must not be treated as the same mechanism.
 
 ### 2025 news-aggregator field experiment — context boundary for simplicity
 
@@ -571,7 +578,8 @@ Exposure/access/engagement stage separation:
 
 Recent counterevidence / context boundaries:
 
-- Nickl, Hills & Lorenz-Spreen (2026), APS Annual Convention abstract:
+- Nickl, Hills & Lorenz-Spreen (2025 preprint; same project presented at APS 2026):
+  https://doi.org/10.31234/osf.io/ntsg9_v1
   https://www.psychologicalscience.org/conventions/archive/2026annual/paper/61983/
 - Journal of Communication (2025), news-aggregator field experiment:
   https://doi.org/10.1093/joc/jqaf030
