@@ -258,7 +258,7 @@ try {
  await page.locator('[data-view="runs"]').click();await page.locator('#language').click();await page.locator('#timeline').fill('8');
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'desktop.png'),fullPage:true});}
  await page.setViewportSize({width:390,height:844});
- location.hash='#understanding/theory/repetition-familiarity-truth';
+ await page.evaluate(()=>{location.hash='#understanding/theory/repetition-familiarity-truth';});
  await waitTheory();
  assert.equal(await page.locator('#theoryChapterSelect').isVisible(),true);
  assert.equal(await page.locator('.theory-chapter-list').isVisible(),false);
@@ -266,7 +266,7 @@ try {
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile horizontal overflow');
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'mobile.png'),fullPage:true});
  for(const v of ['structure','reference','process','planning','learning','comparison']){await page.locator(`[data-view="${v}"]`).click();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: mobile overflow`);}
- location.hash='#understanding/theory/repetition-familiarity-truth';
+ await page.evaluate(()=>{location.hash='#understanding/theory/repetition-familiarity-truth';});
  await waitTheory();
  await page.evaluate(()=>document.documentElement.style.fontSize='200%');
  if(!(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth))) console.log(await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth).map(e=>({tag:e.tagName,cls:e.className,w:e.getBoundingClientRect().width})).slice(0,15)));
