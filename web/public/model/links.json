@@ -103,5 +103,70 @@
       "ro": "Sobs este un proxy derivat de model; experimentul nu identifică această stare și nici actualizarea liniară mărginită folosită în M1.",
       "en": "Sobs is a model-derived proxy; the experiment does not identify this state or the bounded linear update used in M1."
     }
+  },
+  {
+    "id": "LINK.PRESENTATION.ENGAGEMENT",
+    "source": "VAR.PRESENTATION.FRAME",
+    "target": "VAR.ENGAGEMENT.PROBABILITY",
+    "relation_type": "CAUSAL",
+    "polarity": "context_dependent",
+    "mechanism_evidence_status": "CANDIDATE",
+    "functional_form_status": "REFERENCE_CANDIDATE",
+    "phenomenon_evidence_status": "EXPERIMENTAL",
+    "evidence_refs": [
+      "REF.ARUGUETE.2024",
+      "REF.ALVARADO.2026"
+    ],
+    "evidence_summary": {
+      "ro": "Experimentele cu formulări semantic echivalente TRUE/FALSE arată diferențe de engagement între confirmation și refutation, iar studiul 2026 arată că avantajul confirmation depinde de congruența cu atitudinea anterioară.",
+      "en": "Experiments using semantically equivalent TRUE/FALSE formulations show engagement differences between confirmation and refutation, and the 2026 study shows that the confirmation advantage depends on prior-attitude congruence."
+    },
+    "evidence_limitations": {
+      "ro": "Studiile nu identifică funcția logistică sau coeficienții de referință ai modelului; outcome-ul principal este engagement agregat, nu M0 Share.",
+      "en": "The studies do not identify the model's logistic functional form or reference coefficients; the primary outcome is aggregate engagement, not M0 Share."
+    }
+  },
+  {
+    "id": "LINK.CONGRUENCE.ENGAGEMENT",
+    "source": "VAR.ATTITUDE.CONGRUENCE",
+    "target": "VAR.ENGAGEMENT.PROBABILITY",
+    "relation_type": "MODERATING",
+    "polarity": "context_dependent",
+    "mechanism_evidence_status": "EXPERIMENTAL",
+    "functional_form_status": "REFERENCE_CANDIDATE",
+    "phenomenon_evidence_status": "EXPERIMENTAL",
+    "evidence_refs": [
+      "REF.ALVARADO.2026"
+    ],
+    "evidence_summary": {
+      "ro": "În studiul 2026, interacțiunea Confirmation × Partisan Congruence este pozitivă și semnificativă pentru engagement, likes și shares, iar efectul confirmation pentru audiența counter-attitudinal este aproape nul.",
+      "en": "In the 2026 study, the Confirmation × Partisan Congruence interaction is positive and significant for engagement, likes, and shares, while the confirmation main effect for counter-attitudinal audiences is near zero."
+    },
+    "evidence_limitations": {
+      "ro": "Congruența publicată este definită prin potrivirea cu votul din 2023; M1 o generalizează numai ca relație task-specifică, nu ca trăsătură ideologică stabilă.",
+      "en": "Published congruence is defined through matching the respondent's 2023 runoff vote; M1 generalizes it only as a task-specific relation, not a stable ideological trait."
+    }
+  },
+  {
+    "id": "LINK.ENGAGEMENT.PROBABILITY.INTENT",
+    "source": "VAR.ENGAGEMENT.PROBABILITY",
+    "target": "VAR.ENGAGEMENT.INTENT",
+    "relation_type": "MEASUREMENT",
+    "polarity": "positive",
+    "mechanism_evidence_status": "MODEL_DERIVED",
+    "functional_form_status": "REFERENCE_CANDIDATE",
+    "phenomenon_evidence_status": "EXPERIMENTAL",
+    "evidence_refs": [
+      "REF.ARUGUETE.2024",
+      "REF.ALVARADO.2026"
+    ],
+    "evidence_summary": {
+      "ro": "Studiile măsoară răspunsuri declarate de tip like/share/comment versus ignore; M1 păstrează un outcome separat de procesul M0 Share.",
+      "en": "The studies measure stated like/share/comment versus ignore responses; M1 keeps this outcome separate from the M0 Share process."
+    },
+    "evidence_limitations": {
+      "ro": "EngageIntent este un proxy de sarcină și nu reprezintă comportament observat pe platformă.",
+      "en": "EngageIntent is a task proxy and does not represent observed platform behavior."
+    }
   }
 ]
