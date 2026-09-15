@@ -37,7 +37,7 @@ try {
  await page.locator('[data-theory-chapter="repetition-familiarity-truth"]').click();
  await page.waitForURL(/#understanding\/theory\/repetition-familiarity-truth$/);
  await page.locator('#theoryArticle').getByText('Repetiție, familiaritate și adevăr judecat',{exact:true}).waitFor();
- await page.locator('[data-theory-token-kind="VAR"][data-theory-token-value="F"]').click();
+ await page.locator('[data-theory-token-kind="VAR"][data-theory-token-value="F"]').first().click();
  assert.match(await page.locator('#theoryInspector').textContent(),/Familiaritatea afirmației/);
  await page.locator('#theoryInspector [data-theory-open-view^="reference:"]').click();
  const registryItem=page.locator('[data-registry-id="VAR.FAMILIARITY.CLAIM"]');
@@ -51,7 +51,7 @@ try {
  assert.equal(await registryItem.evaluate(el=>document.activeElement===el),true);
  await page.goBack();
  await waitTheory();
- await page.locator('[data-theory-token-kind="MECH"][data-theory-token-value="repetition"]').click();
+ await page.locator('[data-theory-token-kind="MECH"][data-theory-token-value="repetition"]').first().click();
  await page.locator('#theoryInspector [data-theory-open-mechanism="repetition"]').click();
  await page.waitForURL(/#understanding\/mechanisms\/repetition$/);
  await page.locator('#mechanismReading').waitFor();
