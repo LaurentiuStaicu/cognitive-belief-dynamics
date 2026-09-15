@@ -27,7 +27,12 @@
     "mechanism_ids": [],
     "validation_ids": [],
     "evidence_refs": [],
-    "sources": [],
+    "sources": [
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://www.jasss.org/23/2/7.html"
+      }
+    ],
     "code_refs": [],
     "related_views": [
       "process",
@@ -87,7 +92,24 @@
       "REF.TOHIDI.2025",
       "REF.ARUGUETE.2024"
     ],
-    "sources": [],
+    "sources": [
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.TOHIDI.2025"
+      },
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.ARUGUETE.2024"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1016/j.neuron.2018.10.003"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7187369/"
+      }
+    ],
     "code_refs": [],
     "related_views": [
       "learning",
@@ -136,7 +158,12 @@
     "mechanism_ids": [],
     "validation_ids": [],
     "evidence_refs": [],
-    "sources": [],
+    "sources": [
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1177/1745691612460685"
+      }
+    ],
     "code_refs": [],
     "related_views": [
       "learning",
@@ -182,7 +209,12 @@
     "mechanism_ids": [],
     "validation_ids": [],
     "evidence_refs": [],
-    "sources": [],
+    "sources": [
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1037/0033-295X.103.2.263"
+      }
+    ],
     "code_refs": [],
     "related_views": [
       "learning"
@@ -229,7 +261,12 @@
     "mechanism_ids": [],
     "validation_ids": [],
     "evidence_refs": [],
-    "sources": [],
+    "sources": [
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5003767/"
+      }
+    ],
     "code_refs": [],
     "related_views": [
       "learning"
@@ -295,6 +332,14 @@
       {
         "role": "MODEL_EVIDENCE",
         "ref": "REF.DECHENE.2010"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://pubmed.ncbi.nlm.nih.gov/41760614/"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1016/j.concog.2026.104119"
       }
     ],
     "code_refs": [
@@ -365,7 +410,16 @@
       "VAL.M0.002"
     ],
     "evidence_refs": [],
-    "sources": [],
+    "sources": [
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1038/s44159-021-00006-y"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11117543/"
+      }
+    ],
     "code_refs": [
       {
         "id": "m0.encode_correction",
@@ -433,7 +487,12 @@
       "VAL.M0.003"
     ],
     "evidence_refs": [],
-    "sources": [],
+    "sources": [
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1016/j.cognition.2025.106090"
+      }
+    ],
     "code_refs": [
       {
         "id": "m0.update_reliability",
@@ -510,6 +569,10 @@
       {
         "role": "MODEL_EVIDENCE",
         "ref": "REF.PENNYCOOK.2021"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1038/s41467-022-30073-5"
       }
     ],
     "code_refs": [
@@ -750,7 +813,16 @@
       "VAL.M0.001"
     ],
     "evidence_refs": [],
-    "sources": [],
+    "sources": [
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1038/s41586-023-06297-w"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1038/s41586-026-10098-2"
+      }
+    ],
     "code_refs": [],
     "related_views": [
       "structure",
@@ -815,6 +887,18 @@
       {
         "role": "MODEL_EVIDENCE",
         "ref": "REF.PENNYCOOK.2021"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1038/s44159-021-00006-y"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1126/sciadv.abo6254"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1038/s41467-022-30073-5"
       }
     ],
     "code_refs": [],
@@ -861,7 +945,20 @@
     "mechanism_ids": [],
     "validation_ids": [],
     "evidence_refs": [],
-    "sources": [],
+    "sources": [
+      {
+        "role": "INTERPRETIVE_SOURCE",
+        "ref": "https://iaap.org/resources/academic-resources/collected-works-abstracts/volume-7-two-essays-analytical-psychology/"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5103165/"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1007/s10459-023-10310-2"
+      }
+    ],
     "code_refs": [],
     "related_views": [
       "process"
@@ -910,7 +1007,12 @@
       "VAL.M1.003"
     ],
     "evidence_refs": [],
-    "sources": [],
+    "sources": [
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://www.jasss.org/23/2/7.html"
+      }
+    ],
     "code_refs": [
       {
         "id": "registry.validate_model_dir",

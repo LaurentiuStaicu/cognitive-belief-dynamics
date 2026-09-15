@@ -157,12 +157,35 @@ function renderMarkdown(source:string,ctx:Context){
  return out.join('');
 }
 
+function chapterSources(chapter:TheoryChapter,ctx:Context){
+ const t=(ro:string,en:string)=>ctx.lang==='ro'?ro:en;
+ if(!chapter.sources.length) return '';
+ const roleLabel=(role:string)=>{
+  const labels:Record<string,[string,string]>={
+   MODEL_EVIDENCE:['Dovadă a modelului','Model evidence'],
+   BACKGROUND_THEORY:['Teorie de fundal','Background theory'],
+   INTERPRETIVE_SOURCE:['Sursă interpretativă','Interpretive source']
+  };
+  const pair=labels[role]??[role,role];
+  return ctx.lang==='ro'?pair[0]:pair[1];
+ };
+ const items=chapter.sources.map(source=>{
+  const value=esc(source.ref);
+  const rendered=/^https?:\/\//.test(source.ref)
+   ? '<a href="'+value+'" target="_blank" rel="noopener">'+value+' ↗</a>'
+   : '<code>'+value+'</code>';
+  return '<li><strong>'+esc(roleLabel(source.role))+'</strong> '+rendered+'</li>';
+ }).join('');
+ return '<div class="theory-sources"><strong>'+t('Surse ale capitolului','Chapter sources')+'</strong><ul>'+items+'</ul></div>';
+}
+
 function inspectorDefault(chapter:TheoryChapter,ctx:Context){
  const t=(ro:string,en:string)=>ctx.lang==='ro'?ro:en;
  return `<p class="eyebrow">${t('CAPITOL ACTIV','ACTIVE CHAPTER')}</p>
  <h2>${esc(chapter.label[ctx.lang])}</h2>
  <p>${esc(chapter.summary[ctx.lang])}</p>
  <div class="theory-statuses">${chapter.epistemic_status.map(status=>`<span data-status="${esc(status)}">${esc(statusLabel(status,ctx.lang))}</span>`).join('')}</div>
+ ${chapterSources(chapter,ctx)}
  <div class="boundary"><strong>${t('Ce nu afirmă','What it does not claim')}</strong><p>${esc(chapter.what_it_does_not_claim[ctx.lang])}</p></div>
  <p class="note">${t('Selectează un termen din text pentru definiție, statut, dovadă și legătura către aplicație sau cod.','Select a term in the text for its definition, status, evidence and link to the application or code.')}</p>`;
 }
