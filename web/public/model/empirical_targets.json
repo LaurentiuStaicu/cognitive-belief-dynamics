@@ -1,0 +1,47 @@
+[
+  {
+    "id": "TARGET.M1.E1.TOHIDI_2025",
+    "pattern_id": "VAL.M1.001",
+    "evidence_ref": "REF.TOHIDI.2025",
+    "use": "DIRECTIONAL_VALIDATION_ONLY",
+    "study": {
+      "randomized": true,
+      "preregistered": true,
+      "n_recruited": 2141,
+      "n_analyzed": 1910,
+      "event_count": 7
+    },
+    "effects": [
+      {
+        "outcome": "feeling toward main subject",
+        "comparison": "negative_vs_neutral",
+        "estimate_pp": -18.5,
+        "ci95": [
+          -21.2,
+          -15.8
+        ],
+        "cohens_d": -0.73
+      },
+      {
+        "outcome": "feeling toward main subject",
+        "comparison": "positive_vs_neutral",
+        "estimate_pp": 3.2,
+        "ci95": [
+          0.45,
+          5.96
+        ]
+      },
+      {
+        "outcome": "opinion first principal component",
+        "comparison": "negative_vs_neutral",
+        "estimate_pp": -17.94,
+        "ci95": [
+          -21.76,
+          -14.11
+        ]
+      }
+    ],
+    "model_match": "Alpha 0.4 uses the negative-versus-neutral direction and nested-null contrast as validation targets. Published magnitudes are context only and are not used to set the appraisal gain.",
+    "limitations": "The experiment varies sentence selection by tone and therefore combines information-selection and tone variation. The M1 scalar variables and bounded linear appraisal update are model constructs, not measured states from the study."
+  }
+]
