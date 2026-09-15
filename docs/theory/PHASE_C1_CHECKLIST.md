@@ -12,8 +12,8 @@
 - [x] Add a reproducible audit report and source list.
 - [x] Reconcile `model/theory_index.json` with expanded module coverage and Romanian labels/summaries.
 - [x] Synchronize `web/public/model/theory_index.json` from canonical metadata.
-- [ ] Re-run full automated tests and browser checks on the final metadata state.
-- [ ] Perform final rendered Theory Reader spot-check in both languages.
+- [x] Re-run full automated tests and browser checks on the final metadata state.
+- [x] Perform final rendered Theory Reader spot-check in both languages.
 - [x] Remove temporary source-registration TODO after all metadata items are complete.
 
 Phase D must not begin until all unchecked items are complete and the Phase C.1 PR is green.
