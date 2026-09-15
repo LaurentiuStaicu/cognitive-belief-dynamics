@@ -35,13 +35,17 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     variables = load_json(model_dir / "variables.json")
     links = load_json(model_dir / "links.json")
     references = load_json(model_dir / "references.json")
+    subsystems = load_json(model_dir / "subsystems.json")
+    processes = load_json(model_dir / "processes.json")
 
     validate_items(modules, load_json(schema_dir / "module.schema.json"))
     validate_items(variables, load_json(schema_dir / "variable.schema.json"))
     validate_items(links, load_json(schema_dir / "link.schema.json"))
     validate_items(references, load_json(schema_dir / "reference.schema.json"))
+    validate_items(subsystems, load_json(schema_dir / "subsystem.schema.json"))
+    validate_items(processes, load_json(schema_dir / "process.schema.json"))
 
-    for name, items in (("modules", modules), ("variables", variables), ("links", links), ("references", references)):
+    for name, items in (("modules", modules), ("variables", variables), ("links", links), ("references", references), ("subsystems", subsystems), ("processes", processes)):
         duplicates = sorted(key for key, count in Counter(x["id"] for x in items).items() if count > 1)
         if duplicates:
             raise RegistryError(f"duplicate {name} IDs: {duplicates}")
@@ -71,4 +75,4 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
         if ref["url"] != "https://doi.org/" + ref["doi"]:
             raise RegistryError(f"DOI URL mismatch: {ref['id']}")
 
-    return {"modules": len(modules), "variables": len(variables), "links": len(links), "references": len(references)}
+    return {"modules": len(modules), "variables": len(variables), "links": len(links), "references": len(references), "subsystems": len(subsystems), "processes": len(processes)}
