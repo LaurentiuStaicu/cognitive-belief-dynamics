@@ -18,15 +18,15 @@ Această separare este mai informativă decât un singur scor generic „anti-de
 
 Sintezele contemporane arată că mesajele de corectare pot reduce influența dezinformării și că teama de un efect general de tip backfire a fost adesea exagerată. Totuși, corecțiile pot să nu ajungă la aceeași audiență, iar influența reziduală poate persista. Corecțiile detaliate și explicațiile alternative tind adesea să funcționeze mai bine decât o simplă negare, dar eficiența variază în funcție de subiect, populație și context.
 
-Prebunkingul sau inocularea psihologică încearcă să pregătească oamenii înaintea expunerii, de exemplu prin explicarea unor tehnici de manipulare. Experimentele de amploare au arătat îmbunătățiri în recunoașterea unor astfel de tehnici, dar cercetări mai recente arată și că aceste câștiguri nu se traduc automat într-un discernământ mai bun între adevărat și fals pentru orice tip de conținut. CEM tratează, prin urmare, prebunkingul ca BACKGROUND_THEORY relevant, nu ca pe un coeficient generic deja validat.
+Prebunkingul, numit și inoculare psihologică, încearcă să pregătească oamenii înaintea expunerii, de exemplu prin explicarea unor tehnici de manipulare. Experimentele de amploare au arătat îmbunătățiri în recunoașterea unor astfel de tehnici, dar cercetări mai recente arată și că aceste câștiguri nu se traduc automat într-un discernământ mai bun între adevărat și fals pentru orice tip de conținut. CEM tratează, prin urmare, prebunkingul ca BACKGROUND_THEORY relevant, nu ca pe un coeficient generic deja validat.
 
 Indiciile care readuc atenția asupra acurateții au suport experimental și meta-analitic mai direct pentru discernământul privind distribuirea, motiv pentru care M0 conține [[MECH:accuracy]]. Nici aici nu trebuie dedusă o creștere generală a inteligenței sau raționalității.
 
 ## Fricțiune și verificare
 
-Intervențiile de tip fricțiune introduc un cost sau o pauză înaintea distribuiri: deschiderea articolului, confirmarea intenției, verificarea sursei sau un pas suplimentar. CEM nu are încă o variabilă generică pentru fricțiune. O implementare viitoare trebuie să precizeze dacă intervenția schimbă atenția, probabilitatea acțiunii, timpul disponibil sau alt mecanism.
+Intervențiile de tip fricțiune introduc un cost sau o pauză înaintea distribuirii: deschiderea articolului, confirmarea intenției, verificarea sursei sau un pas suplimentar. CEM nu are încă o variabilă generică pentru fricțiune. O implementare viitoare trebuie să precizeze dacă intervenția schimbă atenția, probabilitatea acțiunii, timpul disponibil sau alt mecanism.
 
-La fel, instruirea în evaluarea credibilității surselor, inclusiv tehnici precum lateral reading, are o bază empirică în educația informațională, dar nu trebuie confundată cu regula delta din M0.
+La fel, instruirea în evaluarea credibilității surselor, inclusiv tehnici precum verificarea laterală a surselor (lateral reading), are o bază empirică în educația informațională, dar nu trebuie confundată cu regula delta din M0.
 
 ## Intermedierea epistemică om–AI
 
@@ -38,9 +38,9 @@ Modelul trebuie să separe și calitatea rezultatului produs de AI de gradul în
 
 ## Încredere, utilizare și supraîncredere în automatizare
 
-Literatura de factori umani distinge între încredere și reliance, adică între atitudinea față de sistem și comportamentul efectiv de a urma recomandarea lui. Utilizarea adecvată înseamnă să te bazezi pe automatizare atunci când este probabil să ajute și să o verifici sau să o respingi atunci când limitele ei sunt relevante.
+Literatura de factori umani distinge între încredere și utilizarea efectivă a recomandării, denumită frecvent reliance. Utilizarea adecvată înseamnă să te bazezi pe automatizare atunci când este probabil să ajute și să o verifici sau să o respingi atunci când limitele ei sunt relevante.
 
-[[MODULE:MOD.12]] rezervă delegarea și utilizarea adecvată a automatizării. Cercetările asupra automation bias arată că oamenii se pot baza excesiv pe sisteme de suport decizional, mai ales atunci când verificarea este dificilă sau încărcarea cognitivă este mare. Experimente mai recente cu sisteme AI documentează și situații în care participanții urmează recomandări AI chiar dacă acestea intră în conflict cu informații contextuale disponibile. Aceste rezultate justifică modelarea utilizării recomandării ca rezultat distinct, fără a presupune că încrederea, acceptarea și corectitudinea sunt aceeași variabilă.
+[[MODULE:MOD.12]] rezervă delegarea și utilizarea adecvată a automatizării. Cercetările asupra supraîncrederii în automatizare (automation bias) arată că oamenii se pot baza excesiv pe sisteme de suport decizional, mai ales atunci când verificarea este dificilă sau încărcarea cognitivă este mare. Experimente mai recente cu sisteme AI documentează și situații în care participanții urmează recomandări AI chiar dacă acestea intră în conflict cu informații contextuale disponibile. Aceste rezultate justifică modelarea utilizării recomandării ca rezultat distinct, fără a presupune că încrederea, acceptarea și corectitudinea sunt aceeași variabilă.
 
 Un viitor mecanism CEM ar trebui să includă cel puțin fiabilitatea percepută, performanța reală a sistemului, costul verificării și decizia utilizatorului de a accepta, inspecta sau respinge recomandarea.
 
@@ -48,22 +48,22 @@ Un viitor mecanism CEM ar trebui să includă cel puțin fiabilitatea percepută
 
 Delegarea repetată poate schimba ceea ce utilizatorul continuă să exerseze. În unele domenii, automatizarea poate sprijini învățarea sau poate elibera resurse pentru activități mai complexe; în altele, reducerea practicii poate slăbi capacitatea de a executa sau verifica independent o sarcină. Dovezile depind de domeniu, iar literatura recentă cea mai directă privind pierderea competenței este concentrată în contexte profesionale, inclusiv sănătate și alte forme de suport decizional.
 
-[[MODULE:MOD.13]] rezervă dobândirea competenței, pierderea competenței și supravegherea umană. CEM nu trebuie să introducă o regulă generică de tip „AI produce deskilling”. O versiune executabilă ar avea nevoie de o stare a competenței specifică sarcinii, de dinamica practicii și feedbackului, de teste ale performanței independente și de un model al modului în care calitatea supravegherii se schimbă în timp.
+[[MODULE:MOD.13]] rezervă dobândirea competenței, pierderea competenței și supravegherea umană. CEM nu trebuie să introducă o regulă generică de tip „AI produce pierderea competenței”. O versiune executabilă ar avea nevoie de o stare a competenței specifică sarcinii, de dinamica practicii și feedbackului, de teste ale performanței independente și de un model al modului în care calitatea supravegherii se schimbă în timp.
 
-Supravegherea umană este semnificativă numai dacă persoana păstrează informația, timpul și competența necesare pentru a contesta sistemul. O formulare administrativă de tip „human in the loop” nu este echivalentă cu o verificare eficientă.
+Supravegherea umană este semnificativă numai dacă persoana păstrează informația, timpul și competența necesare pentru a contesta sistemul. Simpla prezență formală a unui „om în buclă” (human in the loop) nu este echivalentă cu o verificare eficientă.
 
 ## Ce optimizează planificatorul actual
 
-Planificatorul evaluează toate subseturile fezabile ale celor patru măsuri M0 pe un orizont sintetic de 13 pași și folosește un obiectiv ponderat între reducerea probabilității de distribuire a informației false și păstrarea distribuirii informației adevărate. Costurile de efort sunt introduse de utilizator. Profilurile low/reference/high sunt verificări de sensibilitate, nu intervale de încredere.
+Planificatorul evaluează toate subseturile fezabile ale celor patru măsuri M0 pe un orizont sintetic de 13 pași și folosește un obiectiv ponderat între reducerea probabilității de distribuire a informației false și păstrarea distribuirii informației adevărate. Costurile de efort sunt introduse de utilizator. Profilurile scăzut/de referință/ridicat (low/reference/high) sunt verificări de sensibilitate, nu intervale de încredere.
 
-[[VIEW:planning]] nu estimează raporturi reale cost–eficiență, efecte populaționale, acoperire, implementare sau echitate. „Best bundle” înseamnă doar cea mai bună combinație din setul finit analizat și în condițiile ipotezelor alese. Intervențiile om–AI nu fac încă parte din planificatorul executabil.
+[[VIEW:planning]] nu estimează raporturi reale cost–eficiență, efecte populaționale, acoperire, implementare sau echitate. „Cea mai bună combinație” (best bundle) înseamnă doar cea mai bună opțiune din setul finit analizat și în condițiile ipotezelor alese. Intervențiile om–AI nu fac încă parte din planificatorul executabil.
 
 ## Principiul localizării cauzale
 
 Pentru orice intervenție nouă trebuie întrebat:
 1. Ce etapă modifică?
 2. Ce variabilă observabilă sau latentă se schimbă?
-3. Ce pattern diferă față de modelul nul?
+3. Ce tipar diferă față de modelul nul?
 4. Ce efect advers sau compromis trebuie urmărit?
 5. Ce date ar putea respinge mecanismul?
 6. Intervenția modifică și competența viitoare, nu doar decizia imediată?
