@@ -183,7 +183,8 @@ function inspectorFor(kind:string,value:string,chapter:TheoryChapter,ctx:Context
   return item?`<p class="eyebrow">${esc(item.id)}</p><h2>${esc(item.label[ctx.lang])}</h2><p class="note">${t('Modul conceptual. Deschide Visual ODD pentru a vedea ce părți sunt executabile și ce părți rămân arhitecturale.','Conceptual module. Open Visual ODD to see which parts are executable and which remain architectural.')}</p><button type="button" data-theory-open-view="process">${t('Deschide Visual ODD','Open Visual ODD')}</button>`:inspectorDefault(chapter,ctx);
  }
  if(kind==='MECH'||kind==='CONCEPT'){
-  const item=ctx.glossary.find(g=>g.token===value&&g.kind===kind);
+  const glossaryKind=kind==='MECH'?'MECHANISM':'CONCEPT';
+  const item=ctx.glossary.find(g=>g.token===value&&g.kind===glossaryKind);
   if(!item) return inspectorDefault(chapter,ctx);
   return `<p class="eyebrow">${kind}</p><h2>${esc(item.label[ctx.lang])}</h2><p>${esc(item.short_definition[ctx.lang])}</p>
   <div class="theory-statuses">${item.epistemic_status.map(status=>`<span data-status="${esc(status)}">${esc(statusLabel(status,ctx.lang))}</span>`).join('')}</div>
