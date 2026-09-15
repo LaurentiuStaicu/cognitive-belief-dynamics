@@ -176,7 +176,7 @@ function inspectorFor(kind:string,value:string,chapter:TheoryChapter,ctx:Context
   return `<p class="eyebrow">VAR · ${esc(item.ontology_type)}</p><h2><code>${esc(item.short_name)}</code> ${esc(item.label[ctx.lang])}</h2>
   <p>${esc(item.definition)}</p><dl class="theory-meta"><dt>${t('Domeniu','Range')}</dt><dd>${esc(range)}</dd><dt>${t('Modul','Module')}</dt><dd>${esc(item.conceptual_module)}</dd></dl>
   <div class="boundary"><strong>${t('Nu reprezintă','What it is not')}</strong><p>${esc(item.what_it_is_not)}</p></div>
-  <button type="button" data-theory-open-view="reference">${t('Deschide în Registru','Open in Registry')}</button>`;
+  <button type="button" data-theory-open-view="reference:${esc(item.id)}">${t('Deschide în Registru','Open in Registry')}</button>`;
  }
  if(kind==='MODULE'){
   const item=ctx.modules.find(m=>m.id===value);
