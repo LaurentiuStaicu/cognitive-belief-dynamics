@@ -61,5 +61,47 @@
       "ro": "Indiciul experimental nu măsoară direct W; ecuația distribuirii din M0 rămâne o alegere de modelare.",
       "en": "The experimental cue does not directly measure W; M0’s sharing equation remains a modelling choice."
     }
+  },
+  {
+    "id": "LINK.EDITORIAL.OBSERVED_SAMPLE",
+    "source": "VAR.EDITORIAL.EMPHASIS",
+    "target": "VAR.OBSERVED.SAMPLE.BALANCE",
+    "relation_type": "INFORMATION_FLOW",
+    "polarity": "context_dependent",
+    "mechanism_evidence_status": "CANDIDATE",
+    "functional_form_status": "REFERENCE_CANDIDATE",
+    "phenomenon_evidence_status": "EXPERIMENTAL",
+    "evidence_refs": [
+      "REF.TOHIDI.2025"
+    ],
+    "evidence_summary": {
+      "ro": "Experimentul randomizat a construit articole pozitive, neutre și negative prin selectarea informațiilor după ton, păstrând acuratețea factuală și o compoziție comparabilă; condițiile au produs răspunsuri diferite.",
+      "en": "The randomized experiment constructed positive, neutral, and negative articles by selecting information by tone while preserving factual accuracy and comparable composition; the conditions produced different responses."
+    },
+    "evidence_limitations": {
+      "ro": "Studiul combină selecția informației cu variația de ton și nu estimează variabilele scalare Eedit sau Sobs din M1.",
+      "en": "The study combines information selection with tone variation and does not estimate the scalar M1 variables Eedit or Sobs."
+    }
+  },
+  {
+    "id": "LINK.OBSERVED_SAMPLE.APPRAISAL",
+    "source": "VAR.OBSERVED.SAMPLE.BALANCE",
+    "target": "VAR.ISSUE.APPRAISAL",
+    "relation_type": "CAUSAL",
+    "polarity": "context_dependent",
+    "mechanism_evidence_status": "CANDIDATE",
+    "functional_form_status": "REFERENCE_CANDIDATE",
+    "phenomenon_evidence_status": "EXPERIMENTAL",
+    "evidence_refs": [
+      "REF.TOHIDI.2025"
+    ],
+    "evidence_summary": {
+      "ro": "În experiment, prezentările factual corecte cu accente diferite au modificat evaluările afective și opiniile participanților, cu efecte negative mai robuste decât cele pozitive.",
+      "en": "In the experiment, factually accurate presentations with different emphases changed participants' affective evaluations and opinions, with more robust negative than positive effects."
+    },
+    "evidence_limitations": {
+      "ro": "Sobs este un proxy derivat de model; experimentul nu identifică această stare și nici actualizarea liniară mărginită folosită în M1.",
+      "en": "Sobs is a model-derived proxy; the experiment does not identify this state or the bounded linear update used in M1."
+    }
   }
 ]
