@@ -158,7 +158,9 @@ export function mountGuidedTour(
 ){
  const t=(copy:Copy)=>copy[lang];
  let current=steps.find(step=>step.slug===requestedSlug)??steps[0];
- const visited=new Set<string>(JSON.parse(localStorage.getItem('cem-guided-tour-visited')??'[]'));
+ let storedVisited:string[]=[];
+ try{storedVisited=JSON.parse(localStorage.getItem('cem-guided-tour-visited')??'[]');}catch{storedVisited=[];}
+ const visited=new Set<string>(Array.isArray(storedVisited)?storedVisited:[]);
  visited.add(current.slug);
 
  const persist=()=>{
