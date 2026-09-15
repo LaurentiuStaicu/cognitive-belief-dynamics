@@ -10,9 +10,9 @@ Repetiția poate crește probabilitatea ca o afirmație să fie evaluată drept 
 
 Meta-analiza lui Dechêne și colaboratorii a sintetizat 51 de studii și a confirmat că repetarea poate crește evaluările subiective de adevăr. Literatura ulterioară arată că efectul poate apărea chiar și atunci când participanții dețin cunoștințe relevante, dar nu este nelimitat și depinde de tipul afirmației, de instrucțiuni, de indicii privind veridicitatea și de context.
 
-O meta-analiză publicată în 2026, bazată pe 182 de studii și 366 de mărimi ale efectului, estimează un efect mediu mic după corecția pentru efectele studiilor mici, cu eterogenitate importantă între studii. Tocmai această variație împiedică transformarea formulei „repetiția crește adevărul perceput” într-o lege universală. citeturn731885search6
+O meta-analiză publicată în 2026, bazată pe 182 de studii și 366 de mărimi ale efectului, estimează un efect mediu mic după corecția pentru efectele studiilor mici, cu eterogenitate importantă între studii. Tocmai această variație împiedică transformarea formulei „repetiția crește adevărul perceput” într-o lege universală.
 
-Un studiu publicat în 2026 asupra afirmațiilor evaluative social-politice a găsit efecte neglijabile ale repetării în condițiile testate. CEM tratează această limită ca motiv pentru a nu extrapola automat mecanismul M0 de la afirmații factuale la opinii normative sau identitare. citeturn794308search0turn794308search1
+Un studiu publicat în 2026 asupra afirmațiilor evaluative social-politice a găsit efecte neglijabile ale repetării în condițiile testate. CEM tratează această limită ca motiv pentru a nu extrapola automat mecanismul M0 de la afirmații factuale la opinii normative sau identitare.
 
 ## Cum este implementat în M0
 
