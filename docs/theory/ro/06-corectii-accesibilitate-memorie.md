@@ -8,9 +8,9 @@ O corecție poate reduce influența informației greșite fără să o „ștear
 
 ## Ce spune cercetarea
 
-Review-ul Ecker și colaboratorii din Nature Reviews Psychology sintetizează mecanismele propuse pentru rezistența dezinformării la corecție și diferențiază probleme de integrare, recuperare și coerență mentală. Meta-analizele citate în acel review arată că fenomenul continued influence este robust, deși corecțiile sunt în general utile și pot reduce substanțial influența informației greșite.
+Review-ul Ecker și colaboratorii din Nature Reviews Psychology sintetizează mecanismele propuse pentru rezistența dezinformării la corecție și diferențiază probleme de integrare, recuperare și coerență mentală. Meta-analizele citate în acel sinteză arată că fenomenul continued influence este robust, deși corecțiile sunt în general utile și pot reduce substanțial influența informației greșite.
 
-Un review din 2024 dedicat memoriei subliniază că durabilitatea corecției poate scădea în timp și că amintirea sursei și a corecției contează. Aceasta susține ideea de accesibilitate dinamică, dar nu identifică ecuația CEM.
+Un sinteză din 2024 dedicat memoriei subliniază că durabilitatea corecției poate scădea în timp și că amintirea sursei și a corecției contează. Aceasta susține ideea de accesibilitate dinamică, dar nu identifică ecuația CEM.
 
 ## Cum este implementat în M0
 
@@ -28,18 +28,18 @@ Această reprezentare separă două lucruri: existența istorică a corecției �
 
 ## De ce C nu este „memorie”
 
-[[VAR:C]] nu este o măsură completă a memoriei episodice sau semantice. Nu are interferență, reconsolidare, surse multiple, retrieval cues ori reprezentări narative. Este o stare simplificată de accesibilitate a contextului corectiv, introdusă pentru a testa un pattern.
+[[VAR:C]] nu este o măsură completă a memoriei episodice sau semantice. Nu are interferență, reconsolidare, surse multiple, indicii de recuperare ori reprezentări narative. Este o stare simplificată de accesibilitate a contextului corectiv, introdusă pentru a testa un tipar.
 
 Această limită împiedică afirmații de tip „după X pași persoana uită corecția”. Pașii sunt abstracți, iar lambda_c este demonstrativ, nu o constantă psihologică estimată.
 
 ## Patternul M0
 
-[[VAL:VAL.M0.002]] urmărește două componente: corecția reduce convingerea în condiția de referință, iar o recuperare parțială a convingerii poate apărea pe măsură ce accesibilitatea corecției scade. [[VIEW:runs:correction:5]] arată traiectoria, nu un forecast temporal real.
+[[VAL:VAL.M0.002]] urmărește două componente: corecția reduce convingerea în condiția de referință, iar o recuperare parțială a convingerii poate apărea pe măsură ce accesibilitatea corecției scade. [[VIEW:runs:correction:5]] arată traiectoria, nu un prognoză temporal real.
 
 ## Ce nu afirmă acest capitol
 
-Nu afirmă că o corecție repetă inevitabil mitul și îl întărește; literatura contemporană arată că astfel de backfire effects sunt mult mai puțin generale decât se presupunea uneori. Nu afirmă nici că toate corecțiile funcționează egal. Credibilitatea sursei, formularea, explicația alternativă, momentul și atingerea audienței pot conta.
+Nu afirmă că o corecție repetă inevitabil mitul și îl întărește; literatura contemporană arată că astfel de efecte inverse sunt mult mai puțin generale decât se presupunea uneori. Nu afirmă nici că toate corecțiile funcționează egal. Credibilitatea sursei, formularea, explicația alternativă, momentul și atingerea audienței pot conta.
 
 ## Implicație pentru intervenții
 
-În CEM, „corrective context” este o intervenție demonstrativă asupra unei stări specifice. În lumea reală, o strategie de corectare trebuie evaluată și pentru reach, comprehensibilitate, sursă, repetare și persistență. Capitolul 12 separă aceste niveluri.
+În CEM, „corrective context” este o intervenție demonstrativă asupra unei stări specifice. În lumea reală, o strategie de corectare trebuie evaluată și pentru acoperirea audienței, comprehensibilitate, sursă, repetare și persistență. Capitolul 12 separă aceste niveluri.
