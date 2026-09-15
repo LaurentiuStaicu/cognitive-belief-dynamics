@@ -16,7 +16,7 @@ Studiile asupra stresului cronic și acut arată de asemenea interacțiuni: nive
 
 Memoria de lucru menține temporar informația relevantă pentru o sarcină; flexibilitatea permite schimbarea regulii, perspectivei sau strategiei atunci când contextul se schimbă. Dacă resursele sunt reduse sau ocupate de o amenințare, verificarea alternativelor poate deveni mai costisitoare. Totuși, aceasta nu dovedește că un răspuns automat este inevitabil și nici că orice decizie luată sub stres este mai slabă.
 
-În unele contexte, reacțiile rapide și focalizate pot fi funcționale. De aceea, CEM ar trebui să modeleze, dacă va executa acest domeniu, relații task-specific și condiții de activare, nu o penalizare morală pentru „stres”.
+În unele contexte, reacțiile rapide și focalizate pot fi funcționale. De aceea, CEM ar trebui să modeleze, dacă va executa acest domeniu, relații specific sarcinii și condiții de activare, nu o penalizare morală pentru „stres”.
 
 ## Relația cu closure și metacontrol
 
@@ -24,7 +24,7 @@ Stresul poate crește costul deliberării, iar presiunea pentru closure poate fa
 
 ## De ce modulul rămâne conceptual
 
-MOD.01 și MOD.02 există în harta științifică, dar M0 și M1 nu conțin o variabilă de cortizol, o măsură de stres perceput sau o funcție executivă latentă. Nu există o calibrare care să lege niveluri reale de stres de coeficienții modelului. Introducerea unui „stress slider” numeric fără ținte empirice ar crea o aparență de mecanism înaintea unei măsurări valide.
+MOD.01 și MOD.02 există în harta științifică, dar M0 și M1 nu conțin o variabilă de cortizol, o măsură de stres perceput sau o funcție executivă latentă. Nu există o calibrare care să lege niveluri reale de stres de coeficienții modelului. Introducerea unui „control numeric pentru stres” numeric fără ținte empirice ar crea o aparență de mecanism înaintea unei măsurări valide.
 
 ## Ce nu afirmă acest capitol
 
