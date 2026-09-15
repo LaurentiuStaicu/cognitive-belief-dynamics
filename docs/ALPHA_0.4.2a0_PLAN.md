@@ -149,7 +149,25 @@ This study supports the idea that **access selection is cue-sensitive** and that
 
 However, Alpha 0.4.2a0 should not add a “simplicity coefficient.” Simplicity is retained as an external architecture check demonstrating that the access gate should not be defined as “the negativity mechanism.”
 
-## 7. Background architecture evidence — exposure is not engagement
+## 7. Cross-context predictive support — Qiu & Golman 2024
+
+Reference:
+
+Qiu, J. & Golman, R. (2024). “Curiosity in news consumption.” *Applied Cognitive Psychology*, 38(2), e4195.
+
+DOI: https://doi.org/10.1002/acp.4195
+
+The study analyzes more than 100,000 WeChat news articles and constructs measures of headline salience, importance, surprisingness and valence. Lower headline valence predicts more clicks alongside information-gap features.
+
+Use in CEM:
+
+- this is useful cross-platform / cross-cultural support that the Upworthy negativity direction is not obviously unique to one U.S. publisher;
+- it is **not** registered as the primary causal target because the click analysis is predictive/observational rather than a randomized manipulation of negativity;
+- its curiosity interpretation should not be encoded as a required latent mediator in M1.E3.
+
+This source therefore strengthens the case for testing Hneg while simultaneously strengthening the boundary against assuming a unique psychological explanation.
+
+## 8. Background architecture evidence — exposure is not engagement
 
 Two large-scale studies support preserving multiple stages in the information funnel.
 
@@ -165,7 +183,7 @@ The study distinguishes URLs shown in Google Search from URLs users select.
 
 These sources are **BACKGROUND_THEORY** for stage separation. They do not calibrate the headline-access mechanism and must not be used to infer political behavior in CEM.
 
-## 8. Descriptive ecosystem evidence — not a causal target
+## 9. Descriptive ecosystem evidence — not a causal target
 
 Nickl, Moussaïd & Lorenz-Spreen (2025), “The evolution of online news headlines,” *Humanities and Social Sciences Communications*:
 https://doi.org/10.1057/s41599-025-04514-7
@@ -174,7 +192,7 @@ Across roughly 40 million headlines, the authors find long-run increases in seve
 
 This is descriptive production-side evidence. It should not be registered as causal evidence that negativity increases individual clicking.
 
-## 9. Proposed entities and quantities
+## 10. Proposed entities and quantities
 
 ### HeadlinePreview
 
@@ -253,7 +271,7 @@ Important boundary:
 
 An impression means only that the preview is available/visible under the reference task. It does not prove visual fixation, reading, encoding or recall.
 
-## 10. Minimal candidate model
+## 11. Minimal candidate model
 
 ### M1.E3-NULL — access insensitive to headline negativity
 
@@ -283,7 +301,7 @@ No additional mediator is required for Alpha 0.4.2a0.
 
 In particular, the model must not introduce hidden states called “threat,” “arousal,” “interest” or “attention” merely to explain the sign of beta_neg. Those are candidate explanations in the broader literature, not uniquely identified mediators in the headline experiments.
 
-## 11. Required invariants in the reference comparator
+## 12. Required invariants in the reference comparator
 
 To attribute the difference to the candidate headline cue, the comparator must hold fixed:
 
@@ -300,7 +318,7 @@ To attribute the difference to the candidate headline cue, the comparator must h
 
 The negative and comparison headline variants do **not** need to be claimed as perfectly semantically identical unless the stimuli actually satisfy that stronger constraint.
 
-## 12. Registered validation patterns to add during implementation
+## 13. Registered validation patterns to add during implementation
 
 ### VAL.M1.004 — Headline negativity access differential
 
@@ -327,7 +345,7 @@ When Access = 0, the model must not erase the PreviewImpression or imply that th
 
 This prevents the access gate from silently becoming an all-or-none exposure gate.
 
-## 13. Model-discrimination question
+## 14. Model-discrimination question
 
 The scientific question for Alpha 0.4.2a0 is intentionally narrow:
 
@@ -335,7 +353,7 @@ The scientific question for Alpha 0.4.2a0 is intentionally narrow:
 
 The release is justified only if the answer is yes while M0, M1.E1 and M1.E2 remain unchanged in their own reference tests.
 
-## 14. Rejection or revision criteria
+## 15. Rejection or revision criteria
 
 Reject or revise M1.E3 if any of the following occurs:
 
@@ -350,7 +368,7 @@ Reject or revise M1.E3 if any of the following occurs:
 - the reference comparator cannot keep the underlying story and other registered conditions invariant;
 - empirical review shows that the negativity direction is too platform-specific to support even a bounded candidate demonstration.
 
-## 15. Mechanisms explicitly deferred
+## 16. Mechanisms explicitly deferred
 
 Alpha 0.4.2a0 should not implement:
 
@@ -370,7 +388,7 @@ Alpha 0.4.2a0 should not implement:
 
 Each of these requires a distinct observable target and rejection criterion.
 
-## 16. Proposed causal placement
+## 17. Proposed causal placement
 
 The explanatory chain should become:
 
@@ -386,7 +404,7 @@ M1.E2 should remain a separate presentation/engagement experiment rather than be
 
 This is important: Alpha 0.4.2a0 adds a separable experiment, not a claim that every current M1 comparator is already one fully integrated causal pipeline.
 
-## 17. UI / explanatory design
+## 18. UI / explanatory design
 
 Do not add a new top-level tab.
 
@@ -408,7 +426,7 @@ The comparator should show:
 
 No temporal curve should be introduced unless a later empirical design is explicitly temporal.
 
-## 18. Evidence-registration rule
+## 19. Evidence-registration rule
 
 The evidence registry must distinguish:
 
@@ -431,7 +449,7 @@ https://doi.org/10.1038/s41597-021-00934-7
 
 No source should be counted twice as if two analyses of the same archive were independent replications.
 
-## 19. Evidence snapshot rule
+## 20. Evidence snapshot rule
 
 Implementation of Alpha 0.4.2a0 will change the evidence set and therefore must not reuse:
 
@@ -441,7 +459,7 @@ A new immutable evidence snapshot must be generated when references and empirica
 
 Planning documents alone do not change the evidence snapshot.
 
-## 20. Release acceptance criteria
+## 21. Release acceptance criteria
 
 Alpha 0.4.2a0 is releasable only when:
 
@@ -461,7 +479,7 @@ Alpha 0.4.2a0 is releasable only when:
 - Python, registry validation, TypeScript/Vite and Playwright pass;
 - release artifact provenance remains valid.
 
-## 21. What would come after M1.E3
+## 22. What would come after M1.E3
 
 Only after the access gate is stable should the project consider an internal attention/encoding mechanism.
 
@@ -473,7 +491,7 @@ Such a later mechanism would need to answer a different question:
 
 That is not the question answered by Alpha 0.4.2a0.
 
-## 22. Planning sources
+## 23. Planning sources
 
 Primary causal target:
 
@@ -497,6 +515,11 @@ Exposure/access/engagement stage separation:
 - Robertson et al. (2023), *Nature*:
   https://doi.org/10.1038/s41586-023-06078-5
 
+Cross-context predictive support:
+
+- Qiu & Golman (2024), *Applied Cognitive Psychology*:
+  https://doi.org/10.1002/acp.4195
+
 Descriptive ecosystem context:
 
 - Nickl, Moussaïd & Lorenz-Spreen (2025):
@@ -507,7 +530,7 @@ Dataset provenance:
 - Matias et al. (2021), *Scientific Data*:
   https://doi.org/10.1038/s41597-021-00934-7
 
-## 23. Immediate next step after approval of this contract
+## 24. Immediate next step after approval of this contract
 
 Do **not** implement the mechanism immediately.
 
