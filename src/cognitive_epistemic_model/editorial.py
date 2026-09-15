@@ -130,3 +130,59 @@ def reference_information_pool(event_id: str = "E1") -> tuple[InformationUnit, .
         InformationUnit(f"{event_id}.{i}", event_id, valence)
         for i, valence in enumerate((-1.0, -0.6, -0.2, 0.0, 0.2, 0.6, 1.0), start=1)
     )
+
+
+def reference_editorial_experiment() -> dict:
+    """Deterministic M1.E1 reference experiment for export and regression tests."""
+    pool = reference_information_pool()
+    conditions = {}
+    for name, emphasis in (("negative", -1.0), ("neutral", 0.0), ("positive", 1.0)):
+        observed = editorial_select(pool, EditorialPolicy(emphasis=emphasis, budget=3))
+        conditions[name] = {
+            "emphasis": emphasis,
+            "selected_unit_ids": [unit.unit_id for unit in observed.units],
+            "all_selected_fact_compatible": all(
+                unit.compatible_with_facts for unit in observed.units
+            ),
+            "observed_balance": observed.balance,
+            "issue_appraisal": update_issue_appraisal(
+                prior_appraisal=0.0,
+                observed_balance=observed.balance,
+            ),
+        }
+
+    null_observed = editorial_select(
+        pool,
+        EditorialPolicy(emphasis=-1.0, budget=3),
+        enabled=False,
+    )
+    return {
+        "id": "M1.E1",
+        "purpose": "MECHANISM_TEST_DEMONSTRATION",
+        "information_pool": [
+            {
+                "unit_id": unit.unit_id,
+                "event_id": unit.event_id,
+                "valence": unit.valence,
+                "compatible_with_facts": unit.compatible_with_facts,
+            }
+            for unit in pool
+        ],
+        "selection_budget": 3,
+        "appraisal_gain": 0.25,
+        "conditions": conditions,
+        "nested_null": {
+            "selected_unit_ids": [unit.unit_id for unit in null_observed.units],
+            "observed_balance": null_observed.balance,
+            "issue_appraisal": update_issue_appraisal(
+                prior_appraisal=0.0,
+                observed_balance=null_observed.balance,
+            ),
+        },
+        "empirical_target_id": "TARGET.M1.E1.TOHIDI_2025",
+        "interpretation_boundary": (
+            "Directional demonstration only. The study supports downstream framing "
+            "effects but does not identify this selection rule, scalar sample balance, "
+            "or bounded linear appraisal gain."
+        ),
+    }
