@@ -16,11 +16,11 @@ Studiile asupra stresului cronic și acut arată de asemenea interacțiuni: nive
 
 Memoria de lucru menține temporar informația relevantă pentru o sarcină; flexibilitatea permite schimbarea regulii, perspectivei sau strategiei atunci când contextul se schimbă. Dacă resursele sunt reduse sau ocupate de o amenințare, verificarea alternativelor poate deveni mai costisitoare. Totuși, aceasta nu dovedește că un răspuns automat este inevitabil și nici că orice decizie luată sub stres este mai slabă.
 
-În unele contexte, reacțiile rapide și focalizate pot fi funcționale. De aceea, CEM ar trebui să modeleze, dacă va executa acest domeniu, relații specific sarcinii și condiții de activare, nu o penalizare morală pentru „stres”.
+În unele contexte, reacțiile rapide și focalizate pot fi funcționale. De aceea, CEM ar trebui să modeleze, dacă va executa acest domeniu, relații specifice sarcinii și condiții de activare, nu o penalizare morală pentru „stres”.
 
-## Relația cu closure și metacontrol
+## Relația cu închiderea cognitivă și metacontrolul
 
-Stresul poate crește costul deliberării, iar presiunea pentru closure poate face un răspuns rapid mai atractiv. Dar sunt constructe distincte. Un viitor model ar putea testa dacă resursele executive moderează probabilitatea de verificare sau de schimbare a strategiei, în timp ce closure ar reprezenta motivația pentru stabilitate. Astfel de relații sunt ipoteze de arhitectură, nu rezultate ale simulatorului actual.
+Stresul poate crește costul deliberării, iar presiunea pentru închidere cognitivă poate face un răspuns rapid mai atractiv. Dar sunt constructe distincte. Un viitor model ar putea testa dacă resursele executive moderează probabilitatea de verificare sau de schimbare a strategiei, în timp ce nevoia de închidere ar reprezenta motivația pentru stabilitate. Astfel de relații sunt ipoteze de arhitectură, nu rezultate ale simulatorului actual.
 
 ## De ce modulul rămâne conceptual
 
