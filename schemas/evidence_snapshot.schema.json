@@ -12,10 +12,11 @@
   "properties": {
     "id": {
       "type": "string",
-      "pattern": "^EVIDENCE\\.M0\\.\\d{4}-\\d{2}-\\d{2}$"
+      "pattern": "^EVIDENCE\\.M[0-9]+\\.\\d{4}-\\d{2}-\\d{2}$"
     },
     "model_specification": {
-      "const": "M0"
+      "type": "string",
+      "pattern": "^M[0-9]+$"
     },
     "as_of": {
       "type": "string",
