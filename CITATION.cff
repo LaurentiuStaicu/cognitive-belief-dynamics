@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this research software, please cite this repository."
 type: software
 title: "Cognitive Epistemic Model"
-version: 0.4.0a0
+version: 0.4.1a0
 date-released: 2026-09-15
 authors:
   - family-names: "Staicu"
@@ -20,6 +20,7 @@ keywords:
 abstract: >-
   Evidence-tracked research software for exploring candidate mechanisms of
   belief formation, information processing, editorial information selection,
-  intervention priorities and epistemic-system dynamics. The current M1
+  presentation framing, prior-attitude congruence, intervention priorities and
+  epistemic-system dynamics. The current M1
   specification is an uncalibrated candidate extension retaining the M0 baseline
   and does not provide population prevalence estimates or individual diagnoses.
