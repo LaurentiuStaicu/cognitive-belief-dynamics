@@ -19,6 +19,7 @@ def test_release_versions_are_consistent():
     assert version['model'] == version['model_specification'] == 'M1'
     assert version['baseline_model_specification'] == 'M0'
     assert version['evidence_snapshot'].startswith('EVIDENCE.M1.')
+    assert '.r' in version['evidence_snapshot']
     assert version['release_tag'] == 'v' + __version__
     runs = json.loads((ROOT / 'web/public/model/runs.json').read_text())
     assert runs['model_version'] == __version__
@@ -43,6 +44,17 @@ def test_release_versions_are_consistent():
     assert m1['experiment']['purpose'] == 'MECHANISM_TEST_DEMONSTRATION'
     assert m1['experiment']['conditions']['negative']['observed_balance'] < m1['experiment']['conditions']['neutral']['observed_balance']
     assert m1['experiment']['nested_null']['observed_balance'] == 0.0
+    m1e2 = json.loads((ROOT / 'web/public/model/m1_presentation.json').read_text())
+    assert m1e2['model_version'] == __version__
+    assert m1e2['model_specification'] == 'M1'
+    assert m1e2['baseline_model_specification'] == 'M0'
+    assert m1e2['experiment']['id'] == 'M1.E2'
+    assert m1e2['experiment']['purpose'] == 'MODEL_DISCRIMINATION_DEMONSTRATION'
+    assert m1e2['experiment']['semantic_signature']
+    congruent = m1e2['experiment']['conditions']['congruent']['models']['frame_congruence']
+    counter = m1e2['experiment']['conditions']['counter_attitudinal']['models']['frame_congruence']
+    assert congruent['contrast'] > counter['contrast']
+    assert abs(counter['contrast']) < 1e-12
     snapshot = json.loads((ROOT / 'model/evidence_snapshot.json').read_text())
     assert snapshot['id'] == version['evidence_snapshot']
     assert f'Alpha {__version__}' in (ROOT / 'README.md').read_text()
@@ -50,5 +62,7 @@ def test_release_versions_are_consistent():
     assert (ROOT / 'CITATION.cff').is_file()
     assert (ROOT / 'docs/ODD_MAIN.md').is_file()
     assert (ROOT / 'docs/ODD_M1.md').is_file()
+    assert (ROOT / 'docs/ODD_M1_E2.md').is_file()
+    assert (ROOT / 'docs/ALPHA_0.4.1_PLAN.md').is_file()
     assert (ROOT / 'LICENSE').is_file()
     assert (ROOT / 'LICENSES/CC-BY-4.0.txt').is_file()
