@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.3.5a0"><img alt="Alpha 0.3.5a0" src="https://img.shields.io/badge/version-0.3.5a0-4e9a06"></a>
+  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases"><img alt="Latest alpha release" src="https://img.shields.io/github/v/release/LaurentiuStaicu/cognitive-epistemic-model?display_name=tag&include_prereleases&sort=semver"></a>
   <img alt="Development stage: alpha" src="https://img.shields.io/badge/stage-alpha-e5a50a">
   <img alt="Available application: Web" src="https://img.shields.io/badge/app-Web-4a90d9">
   <img alt="elementary OS Flatpak: planned" src="https://img.shields.io/badge/elementary_OS_Flatpak-planned-64baff">
@@ -23,7 +23,7 @@
   </a>
 </p>
 
-> **Alpha 0.3.5a0.** Demonstration coefficients are not empirically calibrated.
+> **Alpha 0.3.6a0.** Demonstration coefficients are not empirically calibrated.
 > Software tests do not establish psychological validity or population prevalence.
 
 ## Project priorities
@@ -42,8 +42,9 @@ The interface runs in a modern browser on Linux, Windows and macOS. No Flatpak o
 Windows installation is required. The public alpha is hosted on GitHub Pages.
 Choose RO or EN in the application header.
 
-- **Understanding (start here):** seven explained variables, four selectable mechanism
-  paths, interactions, mathematical details and direct scenario exploration.
+- **Understanding (start here):** a Narrative Laboratory combines the full explanatory
+  prose with a contextual inspector, four selectable mechanism paths, variable inspection,
+  mathematical details and explicit navigation to the matching scenario step.
 - **Interventions:** compare all 16 bundles under an effort budget, adjust objective
   weights and timing, inspect interactions and conditional factor priorities, test
   three response assumptions and export the analysis. See [scope and calculation](docs/INTERVENTIONS.md).
@@ -55,8 +56,8 @@ Choose RO or EN in the application header.
 - **Structure:** a computational map of core dependencies and optional contextual
   inputs, four mechanism focus views, keyboard-accessible node/link inspection,
   formulas and code provenance. The original evidence-registry map remains selectable.
-- **Process:** an ODD-inspired overview of event scheduling, state updates,
-  judgments and decisions; not yet a complete ODD specification.
+- **Visual ODD:** a registry-driven view of Initialisation, Submodels, Observation and
+  Scales, complemented by the full textual [ODD description](docs/ODD_MAIN.md).
 - **Registry:** seven variables, three registered links and twenty conceptual modules.
 
 Scenarios replay saved output from the Python simulator; the browser does not
@@ -85,8 +86,9 @@ reference candidates, not established unique psychological laws.
 - A reproduced pattern is not proof of a unique mechanism.
 - No Track A/B population estimates, individual diagnoses or Romania forecasts.
 
-See [claim boundaries](docs/CLAIMS.md), [modelling decisions](docs/TRACE.md) and
-[development handoff](docs/HANDOFF.md).
+See [claim boundaries](docs/CLAIMS.md), [modelling decisions](docs/TRACE.md),
+[ODD description](docs/ODD_MAIN.md), [Alpha 0.4 scientific scope](docs/ALPHA_0.4_SCOPE.md)
+and [development handoff](docs/HANDOFF.md).
 
 ## Run locally
 
@@ -113,7 +115,9 @@ npm run test:browser
 
 Installed Python wheels contain registries and schemas: `cemodel validate` works
 outside the source checkout. Web builds copy canonical registries automatically;
-`python scripts/export_web.py` regenerates deterministic reference runs.
+`python scripts/export_web.py` regenerates deterministic reference runs, explicit
+run-purpose metadata, local M0 diagnostics and a reproducibility manifest. Software
+version, model specification (M0) and evidence snapshot are recorded separately.
 
 ## Verification and hosting
 
@@ -129,9 +133,9 @@ checks. The initial live deployment was confirmed on 2026-09-13.
 
 ## Releases and licensing
 
-[Alpha 0.3.5a0 — release notes and downloads](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.3.5a0).
+[Alpha 0.3.6a0 — release notes and downloads](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.3.6a0).
 See [CHANGELOG.md](CHANGELOG.md). Releases attach the CI-verified web build and its
-SHA-256 checksum; GitHub also provides source archives. The native elementary OS
+SHA-256 checksum and release provenance attestation; GitHub also provides source archives. The native elementary OS
 Flatpak remains a near-v1 goal. This alpha has no native installer.
 
 Original code: MIT. Original documentation and registries: CC BY 4.0.
