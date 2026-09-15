@@ -1,29 +1,45 @@
 # Corecții, accesibilitate și memorie
 
-> Schelet Alpha 0.4.1a1 · Phase A. Conținutul teoretic complet nu este încă redactat.
-
 ## Ideea centrală
 
-Explică encodarea corecției, accesibilitatea contextului corectiv și diminuarea acesteia fără a descrie procesul ca ștergere a memoriei.
-
-## Ce spune CEM acum
-
-Acest capitol va separa explicit ceea ce este susținut de literatură, ceea ce este executabil în model și ceea ce rămâne conceptual sau interpretativ.
+O corecție poate reduce influența informației greșite fără să o „șteargă” din memorie. Literatura despre continued influence effect arată că informația retractată poate continua să afecteze raționamentul, iar eficiența corecției depinde în parte de cât de bine este integrată și recuperată informația corectivă.
 
 [[VAR:C]] · [[VAR:B]] · [[MECH:correction]] · [[VAL:VAL.M0.002]] · [[CODE:m0.decay_correction]] · [[VIEW:runs:correction:5]]
 
 ## Ce spune cercetarea
 
-Phase A rezervă această secțiune pentru sinteza argumentată și sursele verificate din etapa de redactare completă. Nu se introduc aici concluzii noi.
+Review-ul Ecker și colaboratorii din Nature Reviews Psychology sintetizează mecanismele propuse pentru rezistența dezinformării la corecție și diferențiază probleme de integrare, recuperare și coerență mentală. Meta-analizele citate în acel review arată că fenomenul continued influence este robust, deși corecțiile sunt în general utile și pot reduce substanțial influența informației greșite.
 
-## În aplicație
+Un review din 2024 dedicat memoriei subliniază că durabilitatea corecției poate scădea în timp și că amintirea sursei și a corecției contează. Aceasta susține ideea de accesibilitate dinamică, dar nu identifică ecuația CEM.
 
-Referințele interactive de mai sus vor deschide inspectorul contextual, mecanismul, registrul, scenariul sau codul relevant fără a pierde poziția de lectură.
+## Cum este implementat în M0
+
+O corecție encodează accesibilitatea contextului corectiv prin:
+
+C' = clamp01(C + alpha_c × (1 - C)).
+
+Între evenimente, M0 folosește o scădere exponențială:
+
+C(t + dt) = clamp01(C(t) × exp(-lambda_c × dt)).
+
+Poți inspecta funcția de decădere în [[CODE:m0.decay_correction]]. În calculul convingerii, contribuția corecției este beta_correction × C × direction, unde direction poate fi negativă pentru o corecție care reduce susținerea afirmației sau pozitivă pentru un context corectiv care o susține.
+
+Această reprezentare separă două lucruri: existența istorică a corecției și accesibilitatea ei curentă. O corecție poate fi „primită” în scenariu, dar influența ei asupra unei judecăți ulterioare poate scădea.
+
+## De ce C nu este „memorie”
+
+[[VAR:C]] nu este o măsură completă a memoriei episodice sau semantice. Nu are interferență, reconsolidare, surse multiple, retrieval cues ori reprezentări narative. Este o stare simplificată de accesibilitate a contextului corectiv, introdusă pentru a testa un pattern.
+
+Această limită împiedică afirmații de tip „după X pași persoana uită corecția”. Pașii sunt abstracți, iar lambda_c este demonstrativ, nu o constantă psihologică estimată.
+
+## Patternul M0
+
+[[VAL:VAL.M0.002]] urmărește două componente: corecția reduce convingerea în condiția de referință, iar o recuperare parțială a convingerii poate apărea pe măsură ce accesibilitatea corecției scade. [[VIEW:runs:correction:5]] arată traiectoria, nu un forecast temporal real.
 
 ## Ce nu afirmă acest capitol
 
-O corecție nu garantează corectarea convingerii, iar scăderea accesibilității nu este modelată ca ștergere a memoriei.
+Nu afirmă că o corecție repetă inevitabil mitul și îl întărește; literatura contemporană arată că astfel de backfire effects sunt mult mai puțin generale decât se presupunea uneori. Nu afirmă nici că toate corecțiile funcționează egal. Credibilitatea sursei, formularea, explicația alternativă, momentul și atingerea audienței pot conta.
 
-## Dovezi și statut epistemic
+## Implicație pentru intervenții
 
-Statuturile și rolurile surselor sunt definite în theory_index.json și theory_glossary.json și vor fi afișate explicit în interfață.
+În CEM, „corrective context” este o intervenție demonstrativă asupra unei stări specifice. În lumea reală, o strategie de corectare trebuie evaluată și pentru reach, comprehensibilitate, sursă, repetare și persistență. Capitolul 12 separă aceste niveluri.
