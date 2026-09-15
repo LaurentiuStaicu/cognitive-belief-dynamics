@@ -1,0 +1,377 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/evidence_contract.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "model_extension",
+    "scope",
+    "candidate_decision",
+    "sources",
+    "planned_quantities",
+    "empirical_target",
+    "validation_contract",
+    "invariants",
+    "operationalization",
+    "promotion_gate",
+    "forbidden_changes"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^CONTRACT\\.M[0-9]+\\.E[0-9]+\\.\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "status": {
+      "const": "PHASE_A_EVIDENCE_SCHEMA_ONLY"
+    },
+    "model_extension": {
+      "type": "string",
+      "pattern": "^M[0-9]+\\.E[0-9]+$"
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 20
+    },
+    "candidate_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["selected", "deferred"],
+      "properties": {
+        "selected": {"$ref": "#/$defs/candidate"},
+        "deferred": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/candidate"}
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 6,
+      "items": {"$ref": "#/$defs/source"}
+    },
+    "planned_quantities": {
+      "type": "array",
+      "minItems": 4,
+      "items": {"$ref": "#/$defs/plannedQuantity"}
+    },
+    "empirical_target": {"$ref": "#/$defs/empiricalTarget"},
+    "validation_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["planned_patterns"],
+      "properties": {
+        "planned_patterns": {
+          "type": "array",
+          "minItems": 4,
+          "items": {"$ref": "#/$defs/validationPattern"}
+        }
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "minItems": 6,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 3}
+    },
+    "operationalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selected_strategy",
+        "cue_id",
+        "reference_encoding",
+        "runtime_lexicon_dependency",
+        "exact_replication_claim",
+        "divergence_from_source",
+        "restricted_resources_not_redistributed"
+      ],
+      "properties": {
+        "selected_strategy": {
+          "const": "PRECOMPUTED_CONTROLLED_CUE"
+        },
+        "cue_id": {
+          "const": "HNEG"
+        },
+        "reference_encoding": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "control", "treatment"],
+          "properties": {
+            "type": {"const": "BINARY"},
+            "control": {"const": 0},
+            "treatment": {"const": 1}
+          }
+        },
+        "runtime_lexicon_dependency": {"const": false},
+        "exact_replication_claim": {"const": false},
+        "divergence_from_source": {"type": "string", "minLength": 20},
+        "restricted_resources_not_redistributed": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 2}
+        }
+      }
+    },
+    "promotion_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirements",
+        "active_registry_mutation_allowed",
+        "executable_equation_allowed",
+        "ui_allowed"
+      ],
+      "properties": {
+        "requirements": {
+          "type": "array",
+          "minItems": 8,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 5}
+        },
+        "active_registry_mutation_allowed": {"const": false},
+        "executable_equation_allowed": {"const": false},
+        "ui_allowed": {"const": false}
+      }
+    },
+    "forbidden_changes": {
+      "type": "array",
+      "minItems": 4,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 5}
+    }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "cue", "decision", "basis", "limitations"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^CANDIDATE_[A-Z]$"},
+        "label": {"type": "string", "minLength": 5},
+        "cue": {"type": "string", "pattern": "^H[A-Za-z0-9_]+$"},
+        "decision": {
+          "enum": ["SELECTED_FOR_NEXT_PHASE", "DEFERRED_NOT_REJECTED", "REJECTED"]
+        },
+        "basis": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"type": "string", "minLength": 10}
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 10}
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "publication_key",
+        "citation",
+        "url",
+        "source_type",
+        "study_type",
+        "evidence_role",
+        "candidate_scope",
+        "independence_group",
+        "data_access",
+        "checked_on",
+        "review_scope",
+        "notes"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^SRC\\.M1\\.E3\\.[A-Z0-9_.-]+$"},
+        "publication_key": {"type": "string", "minLength": 3},
+        "citation": {"type": "string", "minLength": 15},
+        "doi": {
+          "type": ["string", "null"],
+          "pattern": "^10\\.\\d{4,9}/\\S+$"
+        },
+        "url": {"type": "string", "pattern": "^https://\\S+$"},
+        "source_type": {
+          "enum": [
+            "PEER_REVIEWED_ARTICLE",
+            "DATA_DESCRIPTOR",
+            "CORRECTION",
+            "PREPRINT",
+            "CONFERENCE_ABSTRACT",
+            "POLICY_PAGE"
+          ]
+        },
+        "study_type": {
+          "enum": [
+            "EXPERIMENTAL",
+            "OBSERVATIONAL",
+            "DATA_PROVENANCE",
+            "CORRECTION",
+            "METHODS_OR_POLICY"
+          ]
+        },
+        "evidence_role": {
+          "enum": [
+            "PRIMARY_SELECTED_CUE",
+            "CONVERGENT_SAME_DATASET",
+            "CROSS_CONTEXT_PREDICTIVE",
+            "ALTERNATIVE_CUE_EVIDENCE",
+            "COUNTEREVIDENCE",
+            "CONTEXT_BOUNDARY",
+            "DATA_PROVENANCE",
+            "INTEGRITY_CORRECTION",
+            "IMPLEMENTATION_CONSTRAINT",
+            "BACKGROUND_ARCHITECTURE"
+          ]
+        },
+        "candidate_scope": {
+          "enum": [
+            "SELECTED_CUE",
+            "DEFERRED_CUE",
+            "BOTH",
+            "ARCHITECTURE",
+            "IMPLEMENTATION_CONSTRAINT"
+          ]
+        },
+        "independence_group": {"type": "string", "minLength": 3},
+        "data_access": {
+          "enum": ["OPEN", "RESTRICTED", "PARTIAL", "NOT_APPLICABLE"]
+        },
+        "data_license_note": {"type": "string"},
+        "checked_on": {"type": "string", "format": "date"},
+        "review_scope": {
+          "enum": ["ABSTRACT", "ABSTRACT_AND_SELECTED_SECTIONS", "FULL_TEXT"]
+        },
+        "notes": {"type": "string", "minLength": 20},
+        "supplemental_urls": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^https://\\S+$"}
+        }
+      }
+    },
+    "plannedQuantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "short_name",
+        "ontology_type",
+        "status",
+        "definition",
+        "what_it_is_not"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^PLANNED\\.VAR\\.[A-Z0-9_.-]+$"},
+        "short_name": {"type": "string", "minLength": 1},
+        "ontology_type": {
+          "enum": ["CONTENT_ATTRIBUTE", "DERIVED_METRIC", "OBSERVABLE"]
+        },
+        "status": {"const": "PLANNED_ONLY"},
+        "definition": {"type": "string", "minLength": 10},
+        "what_it_is_not": {"type": "string", "minLength": 10},
+        "reference_values": {
+          "type": "array",
+          "minItems": 1,
+          "items": {}
+        }
+      }
+    },
+    "empiricalTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "pattern_id",
+        "source_id",
+        "use",
+        "outcome",
+        "comparison",
+        "direction",
+        "design",
+        "effect_context",
+        "model_match",
+        "limitations"
+      ],
+      "properties": {
+        "id": {"const": "PLANNED.TARGET.M1.E3.ROBERTSON_2023"},
+        "pattern_id": {"const": "VAL.M1.004"},
+        "source_id": {"const": "SRC.M1.E3.ROBERTSON.2023"},
+        "use": {"const": "DIRECTIONAL_VALIDATION_ONLY"},
+        "outcome": {"const": "click/access propensity"},
+        "comparison": {"type": "string", "minLength": 10},
+        "direction": {"const": "HIGHER_CUE_HIGHER_ACCESS"},
+        "design": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "design_family",
+            "randomized_assignment",
+            "preregistered_analysis",
+            "n_experiments",
+            "n_variants",
+            "n_impressions_min",
+            "n_clicks"
+          ],
+          "properties": {
+            "design_family": {"const": "PLATFORM_AB_TEST_ARCHIVE"},
+            "randomized_assignment": {"const": true},
+            "preregistered_analysis": {"const": true},
+            "n_experiments": {"type": "integer", "minimum": 1},
+            "n_variants": {"type": "integer", "minimum": 1},
+            "n_impressions_min": {"type": "integer", "minimum": 1},
+            "n_clicks": {"type": "integer", "minimum": 1},
+            "count_note": {"type": "string"}
+          }
+        },
+        "effect_context": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["metric", "value", "scale_note", "use"],
+            "properties": {
+              "metric": {
+                "enum": [
+                  "LOG_ODDS_COEFFICIENT",
+                  "RELATIVE_CHANGE_PERCENT",
+                  "DIRECTION_ONLY"
+                ]
+              },
+              "value": {"type": "number"},
+              "ci": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {"type": "number"}
+              },
+              "scale_note": {"type": "string", "minLength": 10},
+              "use": {"const": "MAGNITUDE_CONTEXT_ONLY"}
+            }
+          }
+        },
+        "model_match": {"type": "string", "minLength": 20},
+        "limitations": {"type": "string", "minLength": 20}
+      }
+    },
+    "validationPattern": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "claim_scope", "status", "pattern"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^VAL\\.M1\\.(004|N04|N05|N06)$"},
+        "name": {"type": "string", "minLength": 5},
+        "claim_scope": {
+          "enum": ["DESCRIPTIVE_PATTERN", "NEGATIVE_CONSTRAINT"]
+        },
+        "status": {"const": "PLANNED_ONLY"},
+        "pattern": {"type": "string", "minLength": 15}
+      }
+    }
+  }
+}
