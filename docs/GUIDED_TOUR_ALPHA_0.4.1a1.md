@@ -69,6 +69,6 @@ The merge gate requires:
 - screenshots for both languages in CI;
 - no regression to the Phase B placeholder.
 
-## Completion condition
+## Completion result
 
-Phase D is complete only when the final PR CI is green, the bilingual screenshots are reviewed, browser-history behavior is verified, and the merged `main` workflow is green.
+Phase D passed the final PR CI, bilingual desktop/mobile screenshot review, browser-history regression checks and the merged `main` workflow. The Guided Tour was integrated and published as part of Alpha 0.4.1a1.
