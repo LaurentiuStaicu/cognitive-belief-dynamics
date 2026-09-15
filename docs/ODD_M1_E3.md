@@ -279,8 +279,7 @@ This phase does not implement:
 - linguistic simplicity Hsimp;
 - platform ranking;
 - network amplification;
-- integration of Access into downstream belief or sharing;
-- an M1.E3 web UI.
+- integration of Access into downstream belief or sharing.
 
 ## 12. Rejection / revision criteria
 
@@ -298,11 +297,28 @@ Revise or reject the candidate if:
 
 ## 13. Phase boundary
 
-This Phase B branch promotes the evidence/schema contract into an executable
-backend and generated artifact only.
+Phase B promoted the evidence/schema contract into an executable backend and
+generated artifact while intentionally omitting user-facing M1.E3 presentation.
 
-It remains **unreleased and unmerged** until the Alpha 0.4.2a0 package has a
-coherent user-facing explanatory/UI layer and release audit.
+Phase C is stacked on that exact Phase B head and adds the bounded explanatory
+surface required by the planning contract:
 
-This prevents the public Pages build from exposing new active-registry content
-under the old Alpha 0.4.1a1 release label.
+- Theory chapter 11 distinguishes preview impression, access and downstream
+  cognition;
+- the theory glossary exposes an executable `access` mechanism;
+- Understanding → Mechanisms renders a bilingual NULL-versus-Hneg comparator;
+- the comparator reads the deterministic `m1_access.json` export and does not
+  introduce a second implementation of the equations;
+- no temporal curve is introduced because the reference experiment is
+  between-condition rather than longitudinal;
+- no Access → belief / EngageIntent / Share propagation is added.
+
+The comparator must display the fixed story, source, image and preview
+opportunity, exact Paccess values, registered empirical target and limitations,
+and the boundary:
+
+`PreviewImpression != Access != Attention != Encoding != Belief != EngageIntent != Share`.
+
+Phase C remains **unreleased and unmerged**. The public software metadata stays
+at Alpha 0.4.1a1 until a separate Alpha 0.4.2a0 release-preparation branch
+synchronizes version metadata and passes the complete scientific/software audit.
