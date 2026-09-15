@@ -18,7 +18,7 @@ M0 folosește o regulă delta simplă:
 
 T' = clamp01(T + alpha_t × (outcome - T)),
 
-unde outcome este 1 pentru feedback corect și 0 pentru feedback incorect în sarcina sintetică. Implementarea poate fi inspectată în [[CODE:m0.update_reliability]].
+unde variabila din cod `outcome` este 1 pentru feedback corect și 0 pentru feedback incorect în sarcina sintetică. Implementarea poate fi inspectată în [[CODE:m0.update_reliability]].
 
 Când dovada intră în calculul convingerii, M0 transformă T din intervalul [0,1] într-o pondere a sursei în [-1,1] prin 2T - 1. Astfel, dovezi comparabile pot avea un efect diferit în funcție de fiabilitatea estimată.
 
