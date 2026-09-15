@@ -12,7 +12,7 @@
   "properties": {
     "id": {
       "type": "string",
-      "pattern": "^EVIDENCE\\.M[0-9]+\\.\\d{4}-\\d{2}-\\d{2}$"
+      "pattern": "^EVIDENCE\\.M[0-9]+\\.\\d{4}-\\d{2}-\\d{2}\\.r[1-9][0-9]*$"
     },
     "model_specification": {
       "type": "string",
