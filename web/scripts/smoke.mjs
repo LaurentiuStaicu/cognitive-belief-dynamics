@@ -323,7 +323,14 @@ try {
  assert.equal(await page.locator('#theoryChapterSelect').isVisible(),true);
  assert.equal(await page.locator('.theory-chapter-list').isVisible(),false);
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Theory mobile horizontal overflow');
+ await page.evaluate(()=>{location.hash='#understanding/tour/planning';});
+ await page.locator('#guidedTourTitle').getByText('9. Planifică numai după ce ai înțeles mecanismele',{exact:true}).waitFor();
+ assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Guided Tour mobile horizontal overflow');
+ assert.equal(await page.locator('.guided-tour-layout').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length),1);
+ if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'guided-tour-mobile.png'),fullPage:true});
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile horizontal overflow');
+ await page.evaluate(()=>{location.hash='#understanding/theory/repetition-familiarity-truth';});
+ await waitTheory();
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'mobile.png'),fullPage:true});
  for(const v of ['structure','reference','process','planning','learning','comparison']){await page.locator(`[data-view="${v}"]`).click();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: mobile overflow`);}
  await page.locator('[data-view="learning"]').click();
