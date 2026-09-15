@@ -23,8 +23,9 @@ try {
  browser=await chromium.launch({headless:true, ...(process.env.CEM_BROWSER_PATH ? {executablePath:process.env.CEM_BROWSER_PATH, args:['--no-sandbox','--disable-gpu']} : {})});
  const page=await browser.newPage({viewport:{width:1440,height:1050},reducedMotion:'reduce'});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const waitTheory=()=>page.waitForFunction(()=>document.querySelector('#theoryArticle')?.getAttribute('aria-busy')==='false');
  page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
- await page.goto(url);await page.locator('#theoryArticle').waitFor();
+ await page.goto(url);await waitTheory();
  const version=JSON.parse(await readFile(path.join(dist,'model/version.json'),'utf8'));
  assert.match(await page.locator('#releaseVersion').textContent(),new RegExp(version.version.replaceAll('.', '\\.')));
  assert((await page.locator('#releaseVersion').getAttribute('href')).endsWith('/'+version.release_tag));
@@ -41,7 +42,7 @@ try {
  await page.locator('#theoryInspector [data-theory-open-view="reference"]').click();
  await page.locator('.reference-grid').first().waitFor();
  await page.goBack();
- await page.locator('#theoryArticle').waitFor();
+ await waitTheory();
  assert.match(await page.locator('#theoryArticle').textContent(),/Repetiție, familiaritate și adevăr judecat/);
  await page.locator('[data-theory-token-kind="MECH"][data-theory-token-value="repetition"]').click();
  await page.locator('#theoryInspector [data-theory-open-mechanism="repetition"]').click();
@@ -258,7 +259,7 @@ try {
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'desktop.png'),fullPage:true});}
  await page.setViewportSize({width:390,height:844});
  location.hash='#understanding/theory/repetition-familiarity-truth';
- await page.locator('#theoryArticle').waitFor();
+ await waitTheory();
  assert.equal(await page.locator('#theoryChapterSelect').isVisible(),true);
  assert.equal(await page.locator('.theory-chapter-list').isVisible(),false);
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Theory mobile horizontal overflow');
@@ -266,7 +267,7 @@ try {
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'mobile.png'),fullPage:true});
  for(const v of ['structure','reference','process','planning','learning','comparison']){await page.locator(`[data-view="${v}"]`).click();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: mobile overflow`);}
  location.hash='#understanding/theory/repetition-familiarity-truth';
- await page.locator('#theoryArticle').waitFor();
+ await waitTheory();
  await page.evaluate(()=>document.documentElement.style.fontSize='200%');
  if(!(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth))) console.log(await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth).map(e=>({tag:e.tagName,cls:e.className,w:e.getBoundingClientRect().width})).slice(0,15)));
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Text enlargement overflow');
