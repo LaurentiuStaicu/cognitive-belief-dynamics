@@ -43,6 +43,19 @@ def test_theory_contract_has_complete_bilingual_phase_c_corpus():
     }
     assert {"MODEL_EVIDENCE", "BACKGROUND_THEORY", "INTERPRETIVE_SOURCE"} <= roles
 
+    # Phase C.1 completeness gate: every conceptual module in the scientific map
+    # must have at least one explanatory home in Theory. This does not make the
+    # module executable; it prevents the twenty-module map from silently
+    # outgrowing the explanatory corpus.
+    modules = json.loads((ROOT / "model/modules.json").read_text())
+    declared_module_ids = {module["id"] for module in modules}
+    theory_module_ids = {
+        module_id
+        for chapter in chapters
+        for module_id in chapter["module_ids"]
+    }
+    assert theory_module_ids == declared_module_ids
+
 
 def test_token_extractor_supports_all_phase_a_reference_kinds():
     sample = " ".join(
