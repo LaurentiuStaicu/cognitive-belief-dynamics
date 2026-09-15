@@ -2,18 +2,21 @@
 
 ## Active candidate M1
 
-| Claim | Alpha 0.4 / M1 status |
+| Claim | Alpha 0.4.1 / M1 status |
 |---|---|
-| Keep one fact-compatible information pool fixed across editorial conditions | In scope |
-| Reproduce a directional negative-vs-neutral selective-presentation pattern | In scope |
-| Require the condition difference to disappear when editorial selection is disabled | In scope |
-| Represent observed information separately from the available factual pool | In scope |
-| Represent issue appraisal separately from M0 claim-belief B | In scope |
-| Match the published -18.5 pp or -17.94 pp treatment effects quantitatively | Out of scope / not calibrated |
-| Prove that information selection alone, rather than tone plus selection, is the unique mechanism | Out of scope |
-| Estimate a real newsroom's editorial-bias score | Out of scope |
-| Infer that negative information is false information | Out of scope |
-| Attribute the M1.E1 pattern to platform ranking or recommendation algorithms | Out of scope |
+| Keep one fact-compatible information pool fixed across M1.E1 editorial conditions | In scope |
+| Reproduce directional selective factual-emphasis pattern and nested null | In scope |
+| Keep semantic proposition and factual compatibility fixed across M1.E2 confirmation/refutation frames | In scope |
+| Reproduce confirmation > refutation active engagement in the frame-only candidate | In scope |
+| Reproduce a larger confirmation advantage for congruent than counter-attitudinal messages in the interaction candidate | In scope |
+| Require confirmation/refutation to converge when presentation-frame variation is normalized | In scope |
+| Keep EngageIntent/Pengage distinct from M0 Share/sharing probability | In scope |
+| Treat Gatt as task-specific message–prior-attitude congruence | In scope |
+| Fit model coefficients to the published 18.2 pp or 12.4 pp effects | Out of scope / not calibrated |
+| Infer a stable ideology, party identity or global confirmation-bias trait from Gatt | Out of scope |
+| Claim cognitive difficulty or affect as the unique mediator | Out of scope |
+| Attribute M1.E2 to platform ranking or recommendation algorithms | Out of scope |
+| Estimate real population engagement rates | Out of scope |
 
 ## Retained M0 baseline
 
@@ -28,7 +31,6 @@
 | Make quantitative predictions for Romania | Out of scope |
 | Recommend national media policy | Out of scope |
 
-Passing software or pattern tests does not turn either M0 or M1 into an empirically
-calibrated population model. Registered causal/information-flow links are candidate
-model relationships and must be read together with their evidence status and
-limitations.
+Passing software or pattern tests does not make M0 or M1 an empirically calibrated
+population model. Registered causal/information-flow links remain candidate model
+relationships and must be read together with evidence status and limitations.
