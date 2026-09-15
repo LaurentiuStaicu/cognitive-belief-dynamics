@@ -28,5 +28,15 @@
     "study_type": "EXPERIMENTAL",
     "checked_on": "2026-09-13",
     "review_scope": "ABSTRACT"
+  },
+  {
+    "id": "REF.TOHIDI.2025",
+    "citation": "Tohidi, A., Haider, S., & Watts, D. J. (2025). Rethinking news framing with large language models. Scientific Reports, 15, 45592.",
+    "doi": "10.1038/s41598-025-29519-9",
+    "url": "https://doi.org/10.1038/s41598-025-29519-9",
+    "access_url": "https://www.nature.com/articles/s41598-025-29519-9",
+    "study_type": "EXPERIMENTAL",
+    "checked_on": "2026-09-15",
+    "review_scope": "ABSTRACT_AND_SELECTED_SECTIONS"
   }
 ]
