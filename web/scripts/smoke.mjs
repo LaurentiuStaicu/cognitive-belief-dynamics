@@ -115,6 +115,7 @@ try {
  await page.locator('#theoryInspector [data-theory-open-mechanism="access"]').click();
  await page.waitForURL(/#understanding\/mechanisms\/access$/);
  await page.locator('#m1AccessStage').waitFor();
+ await page.waitForFunction(()=>document.activeElement?.id==='m1AccessStage');
  assert.equal(await page.locator('#m1AccessStage').evaluate(el=>document.activeElement===el),true);
  // Alpha 0.4 Narrative Laboratory: explanation state is local until the user explicitly opens the full scenario.
  await page.locator('#narrativeStage').waitFor();
