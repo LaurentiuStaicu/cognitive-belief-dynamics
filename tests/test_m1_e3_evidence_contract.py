@@ -7,7 +7,7 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_PATH = ROOT / "model/contracts/m1_e3_evidence_contract.json"
-SCHEMA_PATH = ROOT / "schemas/evidence_contract.schema.json"
+SCHEMA_PATH = ROOT / "schemas/m1_e3_evidence_contract.schema.json"
 
 
 def load_contract() -> dict:
