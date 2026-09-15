@@ -222,7 +222,7 @@ export async function mountTheoryReader(host:HTMLElement,context:Context,request
    <ol>${ordered.map(item=>`<li><button type="button" data-theory-chapter="${esc(theoryChapterSlug(item))}" aria-current="${item.id===chapter.id?'page':'false'}"><span>${String(item.order).padStart(2,'0')}</span>${esc(item.label[ctx.lang])}</button></li>`).join('')}</ol>
   </nav>
   <article class="panel theory-reader" id="theoryArticle" aria-busy="true"><p class="loading">${t('Se încarcă teoria…','Loading theory…')}</p></article>
-  <aside class="panel theory-inspector" id="theoryInspector" aria-label="${t('Inspector contextual','Contextual inspector')}" aria-live="polite"></aside>
+  <aside class="panel theory-inspector" id="theoryInspector" tabindex="-1" aria-label="${t('Inspector contextual','Contextual inspector')}" aria-live="polite"></aside>
  </div>`;
 
  const article=host.querySelector<HTMLElement>('#theoryArticle')!;
