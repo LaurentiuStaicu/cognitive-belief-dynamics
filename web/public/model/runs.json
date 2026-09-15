@@ -1,8 +1,11 @@
 {
   "model_version": "0.3.6a0",
+  "model_specification": "M0",
+  "purpose": "MECHANISM_TEST_DEMONSTRATION",
   "runs": [
     {
       "id": "repetition",
+      "purpose": "MECHANISM_TEST_DEMONSTRATION",
       "seed": 7,
       "prior": 0.3,
       "parameters": {
@@ -13,14 +16,14 @@
         "beta_f": 0.8,
         "beta_source_evidence": 1.2,
         "beta_correction": 1.6,
-        "beta_accuracy_cue": 1,
-        "beta_reward": 1
+        "beta_accuracy_cue": 1.0,
+        "beta_reward": 1.0
       },
       "frames": [
         {
           "time": 0,
-          "familiarity": 0,
-          "correction": 0,
+          "familiarity": 0.0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -30,7 +33,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -56,7 +59,7 @@
         {
           "time": 1,
           "familiarity": 0.35,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -69,7 +72,7 @@
               },
               "state_change": {
                 "before": {
-                  "familiarity": 0
+                  "familiarity": 0.0
                 },
                 "after": {
                   "familiarity": 0.35
@@ -84,7 +87,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -110,7 +113,7 @@
         {
           "time": 2,
           "familiarity": 0.5774999999999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -138,7 +141,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -164,7 +167,7 @@
         {
           "time": 3,
           "familiarity": 0.7253749999999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -192,7 +195,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -218,7 +221,7 @@
         {
           "time": 4,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -246,7 +249,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -272,7 +275,7 @@
         {
           "time": 5,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -282,7 +285,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -308,7 +311,7 @@
         {
           "time": 6,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -318,7 +321,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -344,7 +347,7 @@
         {
           "time": 7,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -354,7 +357,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -380,7 +383,7 @@
         {
           "time": 8,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -390,7 +393,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -416,7 +419,7 @@
         {
           "time": 9,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -426,7 +429,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -452,7 +455,7 @@
         {
           "time": 10,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -462,7 +465,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -488,7 +491,7 @@
         {
           "time": 11,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -498,7 +501,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -524,7 +527,7 @@
         {
           "time": 12,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -534,7 +537,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -557,11 +560,11 @@
           "share_probability": 0.55048163800236,
           "share": true
         }
-      ],
-      "purpose": "MECHANISM_TEST_DEMONSTRATION"
+      ]
     },
     {
       "id": "correction",
+      "purpose": "MECHANISM_TEST_DEMONSTRATION",
       "seed": 7,
       "prior": 0.3,
       "parameters": {
@@ -572,14 +575,14 @@
         "beta_f": 0.8,
         "beta_source_evidence": 1.2,
         "beta_correction": 1.6,
-        "beta_accuracy_cue": 1,
-        "beta_reward": 1
+        "beta_accuracy_cue": 1.0,
+        "beta_reward": 1.0
       },
       "frames": [
         {
           "time": 0,
-          "familiarity": 0,
-          "correction": 0,
+          "familiarity": 0.0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -589,7 +592,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -615,7 +618,7 @@
         {
           "time": 1,
           "familiarity": 0.35,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -628,7 +631,7 @@
               },
               "state_change": {
                 "before": {
-                  "familiarity": 0
+                  "familiarity": 0.0
                 },
                 "after": {
                   "familiarity": 0.35
@@ -643,7 +646,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -669,7 +672,7 @@
         {
           "time": 2,
           "familiarity": 0.5774999999999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -697,7 +700,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -723,7 +726,7 @@
         {
           "time": 3,
           "familiarity": 0.7253749999999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -751,7 +754,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -777,7 +780,7 @@
         {
           "time": 4,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -805,7 +808,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -840,11 +843,11 @@
               "agent_id": "A1",
               "payload": {
                 "claim_id": "C1",
-                "direction": -1
+                "direction": -1.0
               },
               "state_change": {
                 "before": {
-                  "correction_access": 0
+                  "correction_access": 0.0
                 },
                 "after": {
                   "correction_access": 0.7
@@ -859,7 +862,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -895,7 +898,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -931,7 +934,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -967,7 +970,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -1003,7 +1006,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -1039,7 +1042,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -1075,7 +1078,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -1111,7 +1114,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -1134,11 +1137,11 @@
           "share_probability": 0.5134156055252744,
           "share": true
         }
-      ],
-      "purpose": "MECHANISM_TEST_DEMONSTRATION"
+      ]
     },
     {
       "id": "source",
+      "purpose": "MECHANISM_TEST_DEMONSTRATION",
       "seed": 7,
       "prior": 0.3,
       "parameters": {
@@ -1149,14 +1152,14 @@
         "beta_f": 0.8,
         "beta_source_evidence": 1.2,
         "beta_correction": 1.6,
-        "beta_accuracy_cue": 1,
-        "beta_reward": 1
+        "beta_accuracy_cue": 1.0,
+        "beta_reward": 1.0
       },
       "frames": [
         {
           "time": 0,
-          "familiarity": 0,
-          "correction": 0,
+          "familiarity": 0.0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -1192,7 +1195,7 @@
         {
           "time": 1,
           "familiarity": 0.35,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -1205,7 +1208,7 @@
               },
               "state_change": {
                 "before": {
-                  "familiarity": 0
+                  "familiarity": 0.0
                 },
                 "after": {
                   "familiarity": 0.35
@@ -1246,7 +1249,7 @@
         {
           "time": 2,
           "familiarity": 0.5774999999999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.375,
           "events": [
             {
@@ -1318,7 +1321,7 @@
         {
           "time": 3,
           "familiarity": 0.7253749999999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.375,
           "events": [
             {
@@ -1372,7 +1375,7 @@
         {
           "time": 4,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.28125,
           "events": [
             {
@@ -1444,7 +1447,7 @@
         {
           "time": 5,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.28125,
           "events": [
             {
@@ -1480,7 +1483,7 @@
         {
           "time": 6,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.2109375,
           "events": [
             {
@@ -1534,7 +1537,7 @@
         {
           "time": 7,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.2109375,
           "events": [
             {
@@ -1570,7 +1573,7 @@
         {
           "time": 8,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.158203125,
           "events": [
             {
@@ -1624,7 +1627,7 @@
         {
           "time": 9,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.158203125,
           "events": [
             {
@@ -1660,7 +1663,7 @@
         {
           "time": 10,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.158203125,
           "events": [
             {
@@ -1696,7 +1699,7 @@
         {
           "time": 11,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.158203125,
           "events": [
             {
@@ -1732,7 +1735,7 @@
         {
           "time": 12,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.158203125,
           "events": [
             {
@@ -1765,11 +1768,11 @@
           "share_probability": 0.5214244510057915,
           "share": true
         }
-      ],
-      "purpose": "MECHANISM_TEST_DEMONSTRATION"
+      ]
     },
     {
       "id": "accuracy",
+      "purpose": "MECHANISM_TEST_DEMONSTRATION",
       "seed": 7,
       "prior": 0.3,
       "parameters": {
@@ -1780,14 +1783,14 @@
         "beta_f": 0.8,
         "beta_source_evidence": 1.2,
         "beta_correction": 1.6,
-        "beta_accuracy_cue": 1,
-        "beta_reward": 1
+        "beta_accuracy_cue": 1.0,
+        "beta_reward": 1.0
       },
       "frames": [
         {
           "time": 0,
-          "familiarity": 0,
-          "correction": 0,
+          "familiarity": 0.0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -1797,7 +1800,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -1823,7 +1826,7 @@
         {
           "time": 1,
           "familiarity": 0.35,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -1836,7 +1839,7 @@
               },
               "state_change": {
                 "before": {
-                  "familiarity": 0
+                  "familiarity": 0.0
                 },
                 "after": {
                   "familiarity": 0.35
@@ -1851,7 +1854,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -1877,7 +1880,7 @@
         {
           "time": 2,
           "familiarity": 0.5774999999999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -1905,7 +1908,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -1931,7 +1934,7 @@
         {
           "time": 3,
           "familiarity": 0.7253749999999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -1959,7 +1962,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -1985,7 +1988,7 @@
         {
           "time": 4,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -2013,7 +2016,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": false
               },
@@ -2039,7 +2042,7 @@
         {
           "time": 5,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -2049,7 +2052,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": true
               },
@@ -2075,7 +2078,7 @@
         {
           "time": 6,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -2085,7 +2088,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": true
               },
@@ -2111,7 +2114,7 @@
         {
           "time": 7,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -2121,7 +2124,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": true
               },
@@ -2147,7 +2150,7 @@
         {
           "time": 8,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -2157,7 +2160,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": true
               },
@@ -2183,7 +2186,7 @@
         {
           "time": 9,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -2193,7 +2196,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": true
               },
@@ -2219,7 +2222,7 @@
         {
           "time": 10,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -2229,7 +2232,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": true
               },
@@ -2255,7 +2258,7 @@
         {
           "time": 11,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -2265,7 +2268,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": true
               },
@@ -2291,7 +2294,7 @@
         {
           "time": 12,
           "familiarity": 0.8214937499999999,
-          "correction": 0,
+          "correction": 0.0,
           "reliability": 0.5,
           "events": [
             {
@@ -2301,7 +2304,7 @@
               "payload": {
                 "claim_id": "C1",
                 "source_id": "S1",
-                "evidence_signal": 0,
+                "evidence_signal": 0.0,
                 "reward_context": 0.5,
                 "accuracy_cue": true
               },
@@ -2324,10 +2327,7 @@
           "share_probability": 0.5162919964124468,
           "share": true
         }
-      ],
-      "purpose": "MECHANISM_TEST_DEMONSTRATION"
+      ]
     }
-  ],
-  "model_specification": "M0",
-  "purpose": "MECHANISM_TEST_DEMONSTRATION"
+  ]
 }
