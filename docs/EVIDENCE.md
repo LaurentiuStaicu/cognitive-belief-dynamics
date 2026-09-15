@@ -48,3 +48,42 @@ The current graph remains incomplete relative to the executable model. Correctio
 source learning and the full sharing equation need additional registered links and
 separate evidence reviews. A complete ODD description, measurement mapping and
 out-of-sample calibration remain future work.
+
+
+## Alpha 0.4 M1 evidence extension — 2026-09-15
+
+The evidence registry now includes `REF.TOHIDI.2025` and two candidate M1 links:
+`Eedit → Sobs` and `Sobs → Aissue`. The empirical benchmark is stored separately
+in `model/empirical_targets.json` so published treatment effects cannot silently
+become simulator parameters.
+
+Tohidi, Haider & Watts (2025), DOI 10.1038/s41598-025-29519-9, report a
+preregistered randomized experiment with 2,141 recruited participants and seven
+events. Their synthetic positive, neutral and negative articles were constructed
+by selecting factually accurate information according to tone while preserving
+comparable content composition. Negative framing produced substantially more
+negative feelings and opinions than neutral framing.
+
+For the Cognitive Epistemic Model this source supports the **phenomenon-level
+directional target**: factually accurate presentations with different emphases can
+produce different downstream evaluations. It does **not** directly validate the
+scalar `Eedit`, `Sobs` or `Aissue` states, the deterministic reference
+selection rule, or the bounded linear appraisal gain.
+
+The paper explicitly notes that its treatment effect combines information
+selection with tone variation. Consequently, Alpha 0.4.0a0 must not describe
+`LINK.EDITORIAL.OBSERVED_SAMPLE` or `LINK.OBSERVED_SAMPLE.APPRAISAL` as uniquely
+identified psychological mechanisms. Their exact mechanism status remains
+`CANDIDATE` and their functional forms remain `REFERENCE_CANDIDATE`.
+
+Published magnitudes such as the negative-vs-neutral feeling effect (-18.5
+percentage points; 95% CI [-21.2, -15.8]) and the opinion-index effect (-17.94
+percentage points; 95% CI [-21.76, -14.11]) are validation context only. The M1
+appraisal gain is not fitted to those values.
+
+The registered nested-null constraint is part of the evidence-to-model mapping:
+when editorial selection is disabled, all model conditions receive the same full
+fact-compatible pool and the simulated condition difference must disappear. This
+is a model-discrimination constraint, not a claim made by the cited authors.
+
+The M0 evidence audit above remains applicable to the retained M0 baseline.
