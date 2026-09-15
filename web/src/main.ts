@@ -2,7 +2,8 @@ import release from '../public/model/version.json';
 import cytoscape, {type Core} from 'cytoscape';
 import './style.css';
 import './elementary.css';
-import {mountLearning} from './learning';
+import {mountUnderstanding} from './understanding';
+import {type TheoryChapter,type TheoryGlossaryEntry,type TheoryValidation} from './theory-reader';
 import {type M1EditorialData,type EmpiricalTarget} from './editorial-stage';
 import {type M1PresentationData} from './presentation-stage';
 import {mountComparison} from './comparison';
@@ -40,6 +41,10 @@ let subsystems:Subsystem[] = [];
 let m1Editorial:M1EditorialData;
 let m1Presentation:M1PresentationData;
 let m1Targets:EmpiricalTarget[] = [];
+let theoryIndex:TheoryChapter[] = [];
+let theoryGlossary:TheoryGlossaryEntry[] = [];
+let validationTests:TheoryValidation[] = [];
+let registryFocus = '';
 const app = document.getElementById('app')!;
 const tr = (ro:string,en:string) => lang === 'ro' ? ro : en;
 const num = (n:number) => n.toLocaleString(lang === 'ro' ? 'ro-RO' : 'en-GB', {minimumFractionDigits:3,maximumFractionDigits:3});
@@ -81,8 +86,8 @@ function shell() {
  <nav class="views" aria-label="${tr('Vederile modelului','Model views')}">${[['learning',tr('1 · Înțelegere','1 · Understanding')],['planning',tr('2–3 · Priorități și acțiuni','2–3 · Priorities and actions')],['structure',tr('Hartă','Graph')],['runs',tr('Scenarii','Scenarios')],['comparison',tr('Comparații','Comparisons')],['process',tr('Visual ODD','Visual ODD')],['reference',tr('Registru','Registry')]].map(([id,label])=>`<button data-view="${id}" aria-pressed="${view===id}">${label}</button>`).join('')}</nav>
  <main id="content"></main><footer><span>${tr('Model demonstrativ · coeficienți necalibrați','Demonstration model · uncalibrated coefficients')}</span><span>${tr('Nu estimează proporții Track A/B sau diagnostice individuale.','Does not estimate Track A/B prevalence or individual diagnoses.')}</span></footer></div>`;
  document.getElementById('language')!.onclick=()=>{stop();lang=lang==='ro'?'en':'ro';shell();};
- document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.onclick=()=>{stop();view=b.dataset.view!;shell();});
- if(view==='learning') mountLearning(document.getElementById('content')!,lang,runs,m1Editorial,m1Presentation,m1Targets,target=>{stop();const [next,id,time]=target.split(':');view=next;if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
+ document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.onclick=()=>{stop();const next=b.dataset.view!;if(next==='reference')registryFocus='';view=next;shell();});
+ if(view==='learning') mountUnderstanding(document.getElementById('content')!,lang,runs,m1Editorial,m1Presentation,m1Targets,{chapters:theoryIndex,glossary:theoryGlossary,variables,modules,references,validations:validationTests,releaseTag:release.release_tag},target=>{stop();const [next,id,time]=target.split(':');if(location.hash.startsWith('#understanding/')&&!target.startsWith('learning'))history.pushState({cemView:next,cemId:id??null,cemTime:time??null},'',location.href);view=next;if(next==='reference'){registryFocus=id??'';}else if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
  if(view==='planning') mountPlanner(document.getElementById('content')!,planning,lang);
  if(view==='runs') renderRuns();
  if(view==='comparison') mountComparison(document.getElementById('content')!,runs,lang,(id,time)=>{selected=id;step=time;view='runs';shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
@@ -169,12 +174,38 @@ function evidenceStatus(status:string):string {
 function safeSource(url:string):string {try{return new URL(url).protocol==='https:'?escape(url):'#';}catch{return '#';}}
 function linkDetail(l:Link){return `<p class="eyebrow">${tr('RELAȚIE ÎN REGISTRU','REGISTERED LINK')}</p><h3>${text(variables.find(v=>v.id===l.source)!.label[lang])} → ${text(variables.find(v=>v.id===l.target)!.label[lang])}</h3><dl class="link-data"><dt>${tr('Tip','Type')}</dt><dd>${text(l.relation_type)}</dd><dt>${tr('Polaritate','Polarity')}</dt><dd>${text(l.polarity)}</dd><dt>${tr('Dovezi despre fenomen','Evidence for the phenomenon')}</dt><dd>${text(evidenceStatus(l.phenomenon_evidence_status))}</dd><dt>${tr('Mecanismul exact din model','Exact model mechanism')}</dt><dd>${text(evidenceStatus(l.mechanism_evidence_status))}</dd><dt>${tr('Formă funcțională','Functional form')}</dt><dd>${text(evidenceStatus(l.functional_form_status))}</dd></dl><div class="evidence-assessment"><h4>${tr('Ce susține sursa','What the source supports')}</h4><p>${text(l.evidence_summary[lang])}</p><h4>${tr('Limita pentru acest model','Limit for this model')}</h4><p>${text(l.evidence_limitations[lang])}</p></div><h4>${tr('Surse și nivel de verificare','Sources and review scope')}</h4><ul class="sources">${l.evidence_refs.map(id=>{const ref=references.find(r=>r.id===id)!;return `<li><a class="citation-link" href="${safeSource(ref.url)}" target="_blank" rel="noopener noreferrer">${text(ref.citation)}</a><div><a href="${safeSource(ref.access_url)}" target="_blank" rel="noopener noreferrer">${tr('Pagina consultată ↗','Consulted source ↗')}</a></div><p class="meta">${ref.checked_on} · ${ref.review_scope==='ABSTRACT'?tr('Rezumat consultat','Abstract consulted'):ref.review_scope==='ABSTRACT_AND_SELECTED_SECTIONS'?tr('Rezumat și secțiuni selectate','Abstract and selected sections'):tr('Text integral','Full text')}</p></li>`;}).join('')}</ul><p class="note">${tr('Verificare bibliografică inițială, nu revizuire sistematică sau replicare independentă. Coeficienții nu au fost calibrați din aceste surse.','Initial bibliographic check, not a systematic review or independent replication. Coefficients were not calibrated from these sources.')}</p>`;}
 function renderReference(){
- content(`<div class="section-heading"><div><h2>${tr('Registrul variabilelor și relațiilor','Variable and link registry')}</h2><p>${tr('Aceleași date ca în hartă, într-o formă navigabilă cu tastatura.','The same data as the graph, in a keyboard-accessible form.')}</p></div></div><div class="reference-grid">${variables.map(v=>`<article class="panel">${variableDetail(v)}</article>`).join('')}</div><h2 class="section-title">${tr('Relații și statutul dovezilor','Links and evidence status')}</h2><div class="reference-grid">${links.map(l=>`<article class="panel">${linkDetail(l)}</article>`).join('')}</div><details class="panel modules"><summary>${tr('Cele 20 de module conceptuale','The 20 conceptual modules')}</summary><p>${tr('Inventar conceptual, nu 20 de module executabile validate.','Conceptual inventory, not 20 validated executable modules.')}</p><ol>${modules.map(m=>`<li><code>${m.id}</code> ${text(m.label[lang])}</li>`).join('')}</ol></details>`);
+ content(`<div class="section-heading"><div><h2>${tr('Registrul variabilelor și relațiilor','Variable and link registry')}</h2><p>${tr('Aceleași date ca în hartă, într-o formă navigabilă cu tastatura.','The same data as the graph, in a keyboard-accessible form.')}</p></div></div><div class="reference-grid">${variables.map(v=>`<article class="panel" data-registry-id="${v.id}">${variableDetail(v)}</article>`).join('')}</div><h2 class="section-title">${tr('Relații și statutul dovezilor','Links and evidence status')}</h2><div class="reference-grid">${links.map(l=>`<article class="panel" data-registry-id="${l.id}">${linkDetail(l)}</article>`).join('')}</div><details class="panel modules"><summary>${tr('Cele 20 de module conceptuale','The 20 conceptual modules')}</summary><p>${tr('Inventar conceptual, nu 20 de module executabile validate.','Conceptual inventory, not 20 validated executable modules.')}</p><ol>${modules.map(m=>`<li><code>${m.id}</code> ${text(m.label[lang])}</li>`).join('')}</ol></details>`);
+ if(registryFocus){
+  const target=document.querySelector<HTMLElement>(`[data-registry-id="${CSS.escape(registryFocus)}"]`);
+  if(target){target.tabIndex=-1;target.focus({preventScroll:true});target.scrollIntoView({block:'center'});}
+ }
 }
 function renderProcess(){
  mountVisualOdd(document.getElementById('content')!,lang,oddProcesses,subsystems);
 }
 async function load<T>(name:string):Promise<T>{const r=await fetch(`./model/${name}.json`);if(!r.ok)throw new Error(`${name}: HTTP ${r.status}`);return r.json();}
-async function init(){[variables,links,modules,references,oddProcesses,subsystems,m1Targets,m1Editorial,m1Presentation]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems'),load<EmpiricalTarget[]>('empirical_targets'),load<M1EditorialData>('m1_editorial'),load<M1PresentationData>('m1_presentation')]);runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
+async function init(){[variables,links,modules,references,oddProcesses,subsystems,m1Targets,m1Editorial,m1Presentation,theoryIndex,theoryGlossary,validationTests]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems'),load<EmpiricalTarget[]>('empirical_targets'),load<M1EditorialData>('m1_editorial'),load<M1PresentationData>('m1_presentation'),load<TheoryChapter[]>('theory_index'),load<TheoryGlossaryEntry[]>('theory_glossary'),load<TheoryValidation[]>('validation_tests')]);runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(view==='structure'){stop();shell();}});
+let understandingRouteRefresh=false;
+const refreshUnderstandingRoute=()=>{
+ if(understandingRouteRefresh)return;
+ understandingRouteRefresh=true;
+ queueMicrotask(()=>{
+  understandingRouteRefresh=false;
+  if(location.hash.startsWith('#understanding/')){stop();view='learning';shell();}
+ });
+};
+addEventListener('hashchange',refreshUnderstandingRoute);
+addEventListener('popstate',event=>{
+ const state=event.state as {cemView?:string;cemId?:string|null;cemTime?:string|null}|null;
+ if(state?.cemView){
+  stop();
+  view=state.cemView;
+  if(view==='reference')registryFocus=state.cemId??'';
+  else if(state.cemId){selected=state.cemId;step=state.cemTime===null||state.cemTime===undefined?0:Number(state.cemTime);}
+  shell();
+  return;
+ }
+ refreshUnderstandingRoute();
+});
 init().catch(e=>{app.replaceChildren();const p=document.createElement('p');p.className='loading';p.textContent=`Nu se poate încărca modelul / Unable to load model: ${String(e)}`;app.append(p);});

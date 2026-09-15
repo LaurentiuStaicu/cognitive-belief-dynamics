@@ -23,12 +23,38 @@ try {
  browser=await chromium.launch({headless:true, ...(process.env.CEM_BROWSER_PATH ? {executablePath:process.env.CEM_BROWSER_PATH, args:['--no-sandbox','--disable-gpu']} : {})});
  const page=await browser.newPage({viewport:{width:1440,height:1050},reducedMotion:'reduce'});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const waitTheory=()=>page.waitForFunction(()=>document.querySelector('#theoryArticle')?.getAttribute('aria-busy')==='false');
  page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
- await page.goto(url);await page.locator('#mechanismReading').waitFor();
+ await page.goto(url);await waitTheory();
  const version=JSON.parse(await readFile(path.join(dist,'model/version.json'),'utf8'));
  assert.match(await page.locator('#releaseVersion').textContent(),new RegExp(version.version.replaceAll('.', '\\.')));
  assert((await page.locator('#releaseVersion').getAttribute('href')).endsWith('/'+version.release_tag));
  assert.equal(await page.locator('[data-view="learning"]').getAttribute('aria-pressed'),'true');
+ assert.equal(await page.locator('[data-understanding-mode]').count(),3);
+ assert.equal(await page.locator('[data-understanding-mode="theory"]').getAttribute('aria-pressed'),'true');
+ assert.equal(await page.locator('[data-theory-chapter]').count(),16);
+ assert.match(await page.locator('#theoryArticle').textContent(),/Ce este Cognitive Epistemic Model/);
+ await page.locator('[data-theory-chapter="repetition-familiarity-truth"]').click();
+ await page.waitForURL(/#understanding\/theory\/repetition-familiarity-truth$/);
+ await page.locator('#theoryArticle').getByText('Repetiție, familiaritate și adevăr judecat',{exact:true}).waitFor();
+ await page.locator('[data-theory-token-kind="VAR"][data-theory-token-value="F"]').click();
+ assert.match(await page.locator('#theoryInspector').textContent(),/Familiaritatea afirmației/);
+ await page.locator('#theoryInspector [data-theory-open-view^="reference:"]').click();
+ const registryItem=page.locator('[data-registry-id="VAR.FAMILIARITY.CLAIM"]');
+ await registryItem.waitFor();
+ assert.equal(await registryItem.evaluate(el=>document.activeElement===el),true);
+ await page.goBack();
+ await waitTheory();
+ assert.match(await page.locator('#theoryArticle').textContent(),/Repetiție, familiaritate și adevăr judecat/);
+ await page.goForward();
+ await registryItem.waitFor();
+ assert.equal(await registryItem.evaluate(el=>document.activeElement===el),true);
+ await page.goBack();
+ await waitTheory();
+ await page.locator('[data-theory-token-kind="MECH"][data-theory-token-value="repetition"]').click();
+ await page.locator('#theoryInspector [data-theory-open-mechanism="repetition"]').click();
+ await page.waitForURL(/#understanding\/mechanisms\/repetition$/);
+ await page.locator('#mechanismReading').waitFor();
  assert.equal(await page.locator('.learning-factors article').count(),7);
  // Alpha 0.4 Narrative Laboratory: explanation state is local until the user explicitly opens the full scenario.
  await page.locator('#narrativeStage').waitFor();
@@ -239,9 +265,16 @@ try {
  await page.locator('[data-view="runs"]').click();await page.locator('#language').click();await page.locator('#timeline').fill('8');
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'desktop.png'),fullPage:true});}
  await page.setViewportSize({width:390,height:844});
+ await page.evaluate(()=>{location.hash='#understanding/theory/repetition-familiarity-truth';});
+ await waitTheory();
+ assert.equal(await page.locator('#theoryChapterSelect').isVisible(),true);
+ assert.equal(await page.locator('.theory-chapter-list').isVisible(),false);
+ assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Theory mobile horizontal overflow');
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile horizontal overflow');
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'mobile.png'),fullPage:true});
  for(const v of ['structure','reference','process','planning','learning','comparison']){await page.locator(`[data-view="${v}"]`).click();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: mobile overflow`);}
+ await page.locator('[data-view="learning"]').click();
+ await waitTheory();
  await page.evaluate(()=>document.documentElement.style.fontSize='200%');
  if(!(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth))) console.log(await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth).map(e=>({tag:e.tagName,cls:e.className,w:e.getBoundingClientRect().width})).slice(0,15)));
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Text enlargement overflow');

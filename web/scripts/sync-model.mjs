@@ -1,4 +1,4 @@
-import {copyFileSync, mkdirSync} from 'node:fs';
+import {copyFileSync, cpSync, mkdirSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 const root = new URL('../../', import.meta.url);
 const target = new URL('../public/model/', import.meta.url);
@@ -10,3 +10,8 @@ for (const name of ['variables','links','modules','validation_tests','references
 const licenses=new URL('../public/licenses/',import.meta.url);
 mkdirSync(licenses,{recursive:true});
 for(const [source,dest] of [['LICENSE','MIT.txt'],['LICENSES/CC-BY-4.0.txt','CC-BY-4.0.txt'],['LICENSING.md','LICENSING.md']])copyFileSync(new URL(source,root),new URL(dest,licenses));
+
+const theorySource=new URL('../../docs/theory/',import.meta.url);
+const theoryTarget=new URL('../public/theory/',import.meta.url);
+mkdirSync(theoryTarget,{recursive:true});
+cpSync(theorySource,theoryTarget,{recursive:true,force:true});
