@@ -293,3 +293,35 @@ The next causal-stage extension remains outside 0.4.1a1. Attention/consumption
 gating is a candidate for later Alpha 0.4.x work, but it requires its own
 operationalisation, empirical target, differential prediction and rejection
 criterion.
+
+
+## Alpha 0.4.2a0 planning — M1.E3 Headline Access Gate
+
+Planning contract: `docs/ALPHA_0.4.2a0_PLAN.md`.
+
+The next scientific extension is now defined as a distinct **preview impression →
+access/click** gate rather than a generic “attention” coefficient. The primary
+candidate cue is headline negativity, anchored in Robertson et al. (2023)
+randomized headline experiments. Click-through rate is treated as an access
+observable, not as gaze, reading completion, belief, endorsement or sharing.
+
+Gligorić et al. (2023) is convergent registered analysis of the same Upworthy
+archive and must not be counted as an independent replication. Shulman,
+Markowitz & Rogers (2024) adds independent Washington Post field-experiment
+evidence that headline simplicity also affects clicking, plus a separate
+signal-detection result relevant to attention/recognition. This supports a
+cue-sensitive access stage while arguing against defining the gate itself as
+“negativity.”
+
+The minimal candidate is M1.E3-NULL versus M1.E3-A:
+`logit(Paccess) = b0` versus
+`logit(Paccess) = b0 + beta_neg * Hneg`.
+
+Planning explicitly preserves:
+`PreviewImpression != Access != Attention != Belief != EngageIntent != Share`.
+
+No Alpha 0.4.2 executable code should be added until the evidence/schema contract
+registers source roles, Hneg encoding, Paccess/Access/PreviewImpression,
+validation patterns VAL.M1.004 / VAL.M1.N04 / VAL.M1.N05 / VAL.M1.N06, and
+comparator invariants. The existing M0, M1.E1 and M1.E2 outputs remain the
+scientific regression baseline.
