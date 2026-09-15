@@ -34,4 +34,4 @@ Nu afirmă că nevoia de closure este patologică, că duce inevitabil la dezinf
 
 ## Implicație pentru proiect
 
-[[CONCEPT:need-for-closure]] rămâne CONCEPTUAL, susținut de BACKGROUND_THEORY. O eventuală extensie executabilă trebuie să demonstreze ce pattern nou poate reproduce față de modelul mai simplu și cum va fi măsurat acel pattern.
+[[CONCEPT:need-for-closure]] rămâne CONCEPTUAL, susținut de BACKGROUND_THEORY. O eventuală extensie executabilă trebuie să demonstreze ce tipar nou poate reproduce față de modelul mai simplu și cum va fi măsurat acel tipar.
