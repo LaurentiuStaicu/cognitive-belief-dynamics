@@ -481,3 +481,36 @@ Release status: **stacked / unreleased / do not merge into main yet**. The next
 gate is a complete branch CI plus rendered bilingual audit. Only after that should
 a separate Alpha 0.4.2a0 release-preparation branch synchronize version metadata,
 CHANGELOG/README/CITATION/release notes and perform the final pre-publication audit.
+
+
+## Alpha 0.4.2a0 release-preparation gate
+
+Release preparation is stacked on the completed Phase C head and is isolated on
+branch `alpha-0.4.2a0-release-prep`.
+
+Release-only changes:
+
+- software/package metadata advances to `0.4.2a0`;
+- npm metadata advances to `0.4.2-alpha.0`;
+- README, CHANGELOG, CITATION and `releases/v0.4.2a0.md` are synchronized;
+- deterministic static exports carry the new software version;
+- the evidence snapshot remains `EVIDENCE.M1.2026-09-16.r1`;
+- the release reproducibility manifest now lists M1.E1, M1.E2 and M1.E3;
+- `tests/test_version.py` now validates the M1.E3 export, its nested NULL,
+  directional contrast and uncalibrated status.
+
+A structural release-diff audit compared the Phase C base with release-prep for
+runs, interventions, explanations, diagnostics, M1.E1, M1.E2 and M1.E3 exports.
+After removing only `model_version` / `software_version` fields, all seven
+JSON structures were identical. No scientific numerical output changed during
+release preparation.
+
+GitHub Actions run #129 passed Python tests, installed-resource validation,
+byte-for-byte export reproduction, npm install, TypeScript/Vite build, Playwright
+browser regression and artifact upload.
+
+Release-prep remains **Draft / unmerged**. The next gate is a final integration
+branch targeting current `main`, containing the complete Phase B + Phase C +
+release-preparation stack. That integration candidate must receive a fresh full
+CI and a final `main...integration` diff audit before any merge/publication is
+authorized.
