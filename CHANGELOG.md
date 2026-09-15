@@ -1,5 +1,16 @@
 # Changelog
 
+## Alpha 0.4.1a1 — Theory Reader, scientific/editorial audit and Guided Tour
+
+- Add a complete 16-chapter Romanian/English Theory Reader under Understanding, with deep links, validated theory tokens and a persistent contextual inspector.
+- Map all 20 conceptual modules into the explanatory corpus while preserving explicit EMPIRICAL / EXECUTABLE / CONCEPTUAL / INTERPRETIVE boundaries.
+- Complete the Phase C.1 scientific/editorial audit: Romanian terminology cleanup, bilingual title/section parity, background-source registration and regression gates for theory metadata.
+- Add a ten-step bilingual Guided Tour linking directly to the real Theory, Mechanisms, Scenarios, Registry, Visual ODD and Planning surfaces rather than duplicating them in a tutorial model.
+- Preserve browser Back/Forward conceptual paths, local tour progress, keyboard operation, native progress semantics, desktop navigation and a compact mobile step selector.
+- Expand browser regression coverage with dedicated RO/EN Theory and Guided Tour screenshots, mobile reflow checks and route/history assertions.
+- No M0/M1 equation, coefficient, empirical target, evidence snapshot or numerical scientific output changes; generated artifacts differ only in software-version metadata where applicable.
+- M1 remains an uncalibrated candidate specification retaining M0 as the explicit baseline.
+
 ## Alpha 0.4.1a0 — M1.E2 Presentation Framing × Prior-Attitude Congruence
 
 - Add semantically equivalent confirmation/refutation presentation as a distinct stage after M1.E1 editorial selection.
