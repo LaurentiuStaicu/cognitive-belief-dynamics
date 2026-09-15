@@ -8,7 +8,7 @@ O corecție poate reduce influența informației greșite fără să o „ștear
 
 ## Ce spune cercetarea
 
-Sinteza realizată de Ecker și colaboratorii în Nature Reviews Psychology sintetizează mecanismele propuse pentru rezistența dezinformării la corecție și diferențiază probleme de integrare, recuperare și coerență mentală. Meta-analizele citate în acea sinteză arată că fenomenul continued influence este robust, deși corecțiile sunt în general utile și pot reduce substanțial influența informației greșite.
+Sinteza realizată de Ecker și colaboratorii în Nature Reviews Psychology sintetizează mecanismele propuse pentru rezistența dezinformării la corecție și diferențiază probleme de integrare, recuperare și coerență mentală. Meta-analizele citate în acea sinteză arată că efectul de influență persistentă (continued influence effect) este robust, deși corecțiile sunt în general utile și pot reduce substanțial influența informației greșite.
 
 O sinteză din 2024 dedicat memoriei subliniază că durabilitatea corecției poate scădea în timp și că amintirea sursei și a corecției contează. Aceasta susține ideea de accesibilitate dinamică, dar nu identifică ecuația CEM.
 
