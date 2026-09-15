@@ -158,6 +158,18 @@ def test_m1_e3_phase_a_keeps_evidence_snapshot_and_executable_surface_frozen():
     assert gate["executable_equation_allowed"] is False
     assert gate["ui_allowed"] is False
 
-    serialized = CONTRACT_PATH.read_text()
-    assert "beta_neg" not in serialized
-    assert "logit(Paccess)" not in serialized
+    assert "no_beta_neg_value" in contract["forbidden_changes"]
+
+    def all_keys(value):
+        if isinstance(value, dict):
+            for key, item in value.items():
+                yield key
+                yield from all_keys(item)
+        elif isinstance(value, list):
+            for item in value:
+                yield from all_keys(item)
+
+    keys = set(all_keys(contract))
+    assert "beta_neg" not in keys
+    assert "equation" not in keys
+    assert "functional_form" not in keys
