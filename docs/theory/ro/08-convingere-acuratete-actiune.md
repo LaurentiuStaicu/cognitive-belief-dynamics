@@ -8,27 +8,27 @@ A crede o afirmație și a decide să o distribui sunt rezultate diferite. Distr
 
 ## De la convingere la probabilitatea de acțiune
 
-M0 calculează mai întâi B fără acces direct la ground truth. Apoi un accuracy cue poate deplasa ponderea W printr-o transformare logistică a baseline-ului de acuratețe.
+M0 calculează mai întâi B fără acces direct la adevărul de referință al simulării. Apoi un indiciu de orientare către acuratețe poate deplasa ponderea W printr-o transformare logistică a baseline-ului de acuratețe.
 
 Probabilitatea de distribuire este:
 
-P(Share) = logistic(sharing_bias + W × (2B - 1) + beta_reward × (1 - W) × reward_context).
+P(Share) = logistic(distribuire_distorsiune + W × (2B - 1) + beta_reward × (1 - W) × reward_context).
 
 Inspectează [[CODE:m0.share_probability]].
 
 Ecuația arată de ce B și Share nu sunt sinonime. Când W este mare, acuratețea/convingerea cântărește mai mult în utilitatea acțiunii. Când W este mai mic, reward_context poate avea pondere mai mare. În final, Share este o realizare stocastică din probabilitate; două rulări pot avea aceeași probabilitate latentă și acțiuni observate diferite dacă seed-ul diferă.
 
-## Ce spune literatura despre accuracy prompts
+## Ce spune literatura despre indiciile de orientare către acuratețe
 
-Pennycook și colaboratorii au arătat experimental că mutarea atenției către acuratețe poate îmbunătăți discernământul în intenția de distribuire. O meta-analiză internă ulterioară a 20 de experimente, cu N total 26.863, a găsit o creștere a sharing discernment, în principal prin reducerea intenției de a distribui titluri false.
+Pennycook și colaboratorii au arătat experimental că mutarea atenției către acuratețe poate îmbunătăți discernământul în intenția de distribuire. O meta-analiză internă ulterioară a 20 de experimente, cu N total 26.863, a găsit o creștere a distribuire discernment, în principal prin reducerea intenției de a distribui titluri false.
 
-Această literatură sprijină ideea că acuratețea poate fi subponderată în momentul deciziei de sharing și că un cue poate modifica alegerea. Nu identifică însă W ca stare latentă literală și nu estimează ecuația M0.
+Această literatură sprijină ideea că acuratețea poate fi subponderată în momentul deciziei de distribuire și că un cue poate modifica alegerea. Nu identifică însă W ca stare latentă literală și nu estimează ecuația M0.
 
 ## De ce separarea este epistemic importantă
 
 Dacă observăm că cineva distribuie un conținut, nu putem deduce în mod sigur că îl crede. Sharingul poate fi o acțiune socială cu utilități multiple. Invers, cineva poate crede o afirmație și să nu o distribuie. Această disociere limitează inferențele făcute din comportamentul platformei către credințe private.
 
-[[VAL:VAL.M0.N01]] păstrează o frontieră de tip nested-null/ground-truth isolation: decizia trebuie să decurgă din stările agentului și contextul acțiunii, nu din adevărul ascuns al simulatorului.
+[[VAL:VAL.M0.N01]] păstrează o frontieră de tip nested-null/ground-adevăr isolation: decizia trebuie să decurgă din stările agentului și contextul acțiunii, nu din adevărul ascuns al simulatorului.
 
 ## Atenție, nu „inteligență”
 
@@ -36,8 +36,8 @@ Dacă observăm că cineva distribuie un conținut, nu putem deduce în mod sigu
 
 ## Ce nu afirmă acest capitol
 
-Nu afirmă că toate distribuirile de misinformation sunt produse de neatenție și nici că accuracy prompts rezolvă dezinformarea. Efectele reale depind de design, populație, conținut și platformă. De asemenea, intențiile de sharing din experimente nu sunt identice cu comportamentul observat pe platforme.
+Nu afirmă că toate distribuirile de dezinformare sunt produse de neatenție și nici că indiciile de orientare către acuratețe rezolvă dezinformarea. Efectele reale depind de design, populație, conținut și platformă. De asemenea, intențiile de distribuire din experimente nu sunt identice cu comportamentul observat pe platforme.
 
 ## În aplicație
 
-Folosește [[VIEW:runs:accuracy:5]] pentru scenariul M0 și [[VIEW:planning]] pentru combinațiile demonstrative de intervenții. Capitolul 10 va introduce un alt outcome, EngageIntent, care trebuie păstrat separat de Share.
+Folosește [[VIEW:runs:accuracy:5]] pentru scenariul M0 și [[VIEW:planning]] pentru combinațiile demonstrative de intervenții. Capitolul 10 va introduce un alt rezultat, EngageIntent, care trebuie păstrat separat de Share.
