@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["id","kind","token","label","short_definition","what_it_is_not","epistemic_status","executable","target","related_chapters"],
+  "properties": {
+    "id":{"type":"string","pattern":"^GLOSS\\.[A-Z0-9_.-]+$"},
+    "kind":{"enum":["MECHANISM","CONCEPT"]},
+    "token":{"type":"string","pattern":"^[a-z][a-z0-9_.-]*$"},
+    "label":{
+      "type":"object","required":["en","ro"],
+      "properties":{"en":{"type":"string","minLength":2},"ro":{"type":"string","minLength":2}},
+      "additionalProperties":false
+    },
+    "short_definition":{
+      "type":"object","required":["en","ro"],
+      "properties":{"en":{"type":"string","minLength":10},"ro":{"type":"string","minLength":10}},
+      "additionalProperties":false
+    },
+    "what_it_is_not":{
+      "type":"object","required":["en","ro"],
+      "properties":{"en":{"type":"string","minLength":5},"ro":{"type":"string","minLength":5}},
+      "additionalProperties":false
+    },
+    "epistemic_status":{
+      "type":"array","minItems":1,"uniqueItems":true,
+      "items":{"enum":["EMPIRICAL","EXECUTABLE","CONCEPTUAL","INTERPRETIVE"]}
+    },
+    "executable":{"type":"boolean"},
+    "target":{"type":"string","minLength":1},
+    "related_chapters":{"type":"array","items":{"type":"string","pattern":"^THEORY\\.[0-9]{2}\\.[A-Z0-9_.-]+$"},"uniqueItems":true}
+  },
+  "additionalProperties":false
+}
