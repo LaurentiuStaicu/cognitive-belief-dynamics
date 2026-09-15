@@ -6,6 +6,7 @@ import {mountUnderstanding} from './understanding';
 import {type TheoryChapter,type TheoryGlossaryEntry,type TheoryValidation} from './theory-reader';
 import {type M1EditorialData,type EmpiricalTarget} from './editorial-stage';
 import {type M1PresentationData} from './presentation-stage';
+import {type M1AccessData} from './access-stage';
 import {mountComparison} from './comparison';
 import {renderExplanation,type ExplanationData} from './explanation';
 let explanations:ExplanationData;
@@ -40,6 +41,7 @@ let oddProcesses:OddProcess[] = [];
 let subsystems:Subsystem[] = [];
 let m1Editorial:M1EditorialData;
 let m1Presentation:M1PresentationData;
+let m1Access:M1AccessData;
 let m1Targets:EmpiricalTarget[] = [];
 let theoryIndex:TheoryChapter[] = [];
 let theoryGlossary:TheoryGlossaryEntry[] = [];
@@ -66,7 +68,11 @@ const definitions:Record<string,[string,string]> = {
  Fpres:['Codarea de referință a cadrului de prezentare confirmation versus refutation pentru același sens semantic.','Nu este valoare de adevăr, factualitate, selecție editorială sau valență emoțională.'],
  Gatt:['Relația task-specifică dintre atitudinea anterioară relevantă și poziția semantică a mesajului curent.','Nu este ideologie stabilă, identitate de partid, personalitate sau scor global de confirmation bias.'],
  Pengage:['Probabilitatea latentă M1.E2 a unui răspuns de engagement activ în sarcina de referință.','Nu este probabilitatea M0 Share, CTR observat, endorsement sau rată populațională calibrată.'],
- EngageIntent:['Outcome observabil de referință pentru un răspuns activ declarat versus ignore.','Nu este M0 Share, comportament real pe platformă sau endorsement.']
+ EngageIntent:['Outcome observabil de referință pentru un răspuns activ declarat versus ignore.','Nu este M0 Share, comportament real pe platformă sau endorsement.'],
+ Hneg:['Indiciu binar precomputat care separă condiția de titlu cu negativitate mai redusă de cea cu negativitate mai ridicată în M1.E3.','Nu este scor de sentiment calculat la runtime, proporție LIWC, adevăr, etichetă de dezinformare sau mărime de efect calibrată.'],
+ PreviewImpression:['Eveniment înregistrat că preview-ul titlului a fost randat sau disponibil în sarcina M1.E3.','Nu dovedește fixație vizuală, lectură, encodare, reamintire sau acces la conținutul complet.'],
+ Paccess:['Probabilitatea latentă M1.E3 de click/deschidere a conținutului complet, condiționată de o impresie de preview.','Nu este CTR populațional observat, atenție, durată de lectură, convingere, Pengage sau probabilitatea M0 Share.'],
+ Access:['Rezultatul binar M1.E3 care indică dacă elementul complet este deschis după impresia preview-ului.','Nu este atenție, finalizarea lecturii, endorsement, convingere, EngageIntent sau distribuire.']
 };
 const scenarioDescription = () => ({
  repetition:tr('Patru expuneri la pașii 1–4 cresc familiaritatea. Nu se adaugă dovezi sau corecții.','Four exposures at steps 1–4 increase familiarity. No evidence or corrections are added.'),
@@ -87,7 +93,7 @@ function shell() {
  <main id="content"></main><footer><span>${tr('Model demonstrativ · coeficienți necalibrați','Demonstration model · uncalibrated coefficients')}</span><span>${tr('Nu estimează proporții Track A/B sau diagnostice individuale.','Does not estimate Track A/B prevalence or individual diagnoses.')}</span></footer></div>`;
  document.getElementById('language')!.onclick=()=>{stop();lang=lang==='ro'?'en':'ro';shell();};
  document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.onclick=()=>{stop();const next=b.dataset.view!;if(next==='reference')registryFocus='';view=next;shell();});
- if(view==='learning') mountUnderstanding(document.getElementById('content')!,lang,runs,m1Editorial,m1Presentation,m1Targets,{chapters:theoryIndex,glossary:theoryGlossary,variables,modules,references,validations:validationTests,releaseTag:release.release_tag},target=>{stop();const [next,id,time]=target.split(':');if(location.hash.startsWith('#understanding/')&&!target.startsWith('learning'))history.pushState({cemView:next,cemId:id??null,cemTime:time??null},'',location.href);view=next;if(next==='reference'){registryFocus=id??'';}else if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
+ if(view==='learning') mountUnderstanding(document.getElementById('content')!,lang,runs,m1Editorial,m1Presentation,m1Access,m1Targets,{chapters:theoryIndex,glossary:theoryGlossary,variables,modules,references,validations:validationTests,releaseTag:release.release_tag},target=>{stop();const [next,id,time]=target.split(':');if(location.hash.startsWith('#understanding/')&&!target.startsWith('learning'))history.pushState({cemView:next,cemId:id??null,cemTime:time??null},'',location.href);view=next;if(next==='reference'){registryFocus=id??'';}else if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
  if(view==='planning') mountPlanner(document.getElementById('content')!,planning,lang);
  if(view==='runs') renderRuns();
  if(view==='comparison') mountComparison(document.getElementById('content')!,runs,lang,(id,time)=>{selected=id;step=time;view='runs';shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
@@ -184,7 +190,7 @@ function renderProcess(){
  mountVisualOdd(document.getElementById('content')!,lang,oddProcesses,subsystems);
 }
 async function load<T>(name:string):Promise<T>{const r=await fetch(`./model/${name}.json`);if(!r.ok)throw new Error(`${name}: HTTP ${r.status}`);return r.json();}
-async function init(){[variables,links,modules,references,oddProcesses,subsystems,m1Targets,m1Editorial,m1Presentation,theoryIndex,theoryGlossary,validationTests]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems'),load<EmpiricalTarget[]>('empirical_targets'),load<M1EditorialData>('m1_editorial'),load<M1PresentationData>('m1_presentation'),load<TheoryChapter[]>('theory_index'),load<TheoryGlossaryEntry[]>('theory_glossary'),load<TheoryValidation[]>('validation_tests')]);runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
+async function init(){[variables,links,modules,references,oddProcesses,subsystems,m1Targets,m1Editorial,m1Presentation,m1Access,theoryIndex,theoryGlossary,validationTests]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems'),load<EmpiricalTarget[]>('empirical_targets'),load<M1EditorialData>('m1_editorial'),load<M1PresentationData>('m1_presentation'),load<M1AccessData>('m1_access'),load<TheoryChapter[]>('theory_index'),load<TheoryGlossaryEntry[]>('theory_glossary'),load<TheoryValidation[]>('validation_tests')]);runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(view==='structure'){stop();shell();}});
 let understandingRouteRefresh=false;
 const refreshUnderstandingRoute=()=>{
