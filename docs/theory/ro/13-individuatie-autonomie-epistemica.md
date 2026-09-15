@@ -20,7 +20,7 @@ CEM numește această punte conceptuală [[CONCEPT:reflective-distance]]. Ea nu 
 
 ## Puntea către metacogniție și decentering
 
-Literatura despre decentering descrie procese precum meta-awareness, disidentificarea de experiența internă și reducerea reactivității la conținutul gândurilor. Review-urile despre psychological distancing discută schimbarea perspectivei ca strategie de reglare. Literatura despre reflecția metacognitivă accentuează observarea, monitorizarea și reglarea propriilor cunoștințe, experiențe și emoții.
+Literatura despre decentering descrie procese precum conștientizare metacognitivă, disidentificarea de experiența internă și reducerea reactivității la conținutul gândurilor. Sintezele despre psychological distancing discută schimbarea perspectivei ca strategie de reglare. Literatura despre reflecția metacognitivă accentuează observarea, monitorizarea și reglarea propriilor cunoștințe, experiențe și emoții.
 
 Aceste literaturi nu validează individuația jungiană. Ele oferă doar concepte contemporane cu care poate fi formulată o întrebare testabilă: dacă o persoană poate reprezenta un gând ca „un gând pe care îl am” în loc de „realitatea însăși”, crește probabilitatea de revizuire când apare informație contradictorie?
 
@@ -28,7 +28,7 @@ Aceasta ar necesita măsurare și experiment, nu doar analogie.
 
 ## MOD.17 și viitorul modelului
 
-[[MODULE:MOD.17]] poate organiza ipoteze despre self-model, metacogniție și autonomie. Pentru a deveni executabil, o componentă trebuie să aibă un construct operațional, o manipulare sau măsură, un outcome și o predicție diferențială. „Reflective Distance = 0.7” fără instrument validat ar fi pseudo-precizie.
+[[MODULE:MOD.17]] poate organiza ipoteze despre model al sinelui, metacogniție și autonomie. Pentru a deveni executabil, o componentă trebuie să aibă un construct operațional, o manipulare sau măsură, un rezultat și o predicție diferențială. „Reflective Distance = 0.7” fără instrument validat ar fi falsă precizie.
 
 ## Ce nu afirmă acest capitol
 
