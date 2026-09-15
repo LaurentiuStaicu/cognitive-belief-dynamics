@@ -20,6 +20,7 @@
 .guided-tour-steps button[aria-current=step]{border-color:var(--accent);box-shadow:inset .2rem 0 var(--accent);font-weight:700}
 .tour-visited{font-weight:700;color:var(--accent)}
 .guided-tour-stage{min-width:0;line-height:1.65}
+.guided-tour-stage h2[tabindex="-1"]:focus{outline:none}
 .tour-progress{display:grid;grid-template-columns:auto minmax(7rem,1fr) auto;gap:.75rem;align-items:center;margin-bottom:1.25rem;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .tour-progress progress{width:100%;height:.6rem;accent-color:var(--accent)}
 .tour-purpose{font-size:1.05rem;max-width:68ch}
