@@ -6,6 +6,7 @@ import {
  type TheoryModule,type TheoryReference,type TheoryValidation
 } from './theory-reader';
 import {type NarrativeRun} from './narrative-stage';
+import {mountGuidedTour} from './guided-tour';
 
 type Lang='ro'|'en';
 type Mode='theory'|'mechanisms'|'tour';
@@ -89,11 +90,5 @@ export function mountUnderstanding(
   return;
  }
 
- sub.innerHTML=`<section class="panel guided-tour-placeholder">
-  <p class="eyebrow">${t('PHASE D','PHASE D')}</p>
-  <h2>${t('Turul ghidat este următoarea etapă, nu o simulare paralelă','The guided tour is a later phase, not a parallel toy model')}</h2>
-  <p>${t('Phase B construiește reader-ul și navigarea teorie ↔ aplicație. Turul de aproximativ 10 pași va reutiliza aceleași scenarii M0 și comparatoare M1 după ce reader-ul trece testele de accesibilitate și deep-linking.','Phase B builds the reader and theory ↔ application navigation. The roughly 10-step tour will reuse the same M0 scenarios and M1 comparators after the reader passes accessibility and deep-linking tests.')}</p>
-  <button type="button" data-go-theory>${t('Începe cu teoria','Start with theory')}</button>
- </section>`;
- sub.querySelector<HTMLButtonElement>('[data-go-theory]')!.onclick=()=>{location.hash='#understanding/theory';};
+ mountGuidedTour(sub,lang,current.detail,navigate);
 }
