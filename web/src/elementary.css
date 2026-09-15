@@ -139,3 +139,52 @@ h1,h2,h3,.brand,.scope strong,.metrics strong,.process-number{font-family:inheri
 .m1-model-bars progress{width:100%}
 @media(max-width:900px){.m1-model-grid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:620px){.m1-semantic-pair{grid-template-columns:minmax(0,1fr)}.m1-model-bars>div{grid-template-columns:minmax(0,1fr)}}
+
+
+/* Alpha 0.4.1a1 Phase B — Theory Reader */
+.understanding-heading{align-items:flex-end;gap:1rem}
+.understanding-modes{display:flex;gap:.375rem;flex-wrap:wrap}
+.understanding-modes button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-text);font-weight:700}
+.theory-layout{display:grid;grid-template-columns:minmax(13rem,17rem) minmax(0,72ch) minmax(17rem,22rem);gap:1rem;align-items:start}
+.theory-chapters,.theory-inspector{position:sticky;top:1rem;max-height:calc(100vh - 2rem);overflow:auto}
+.theory-chapters ol{list-style:none;margin:0;padding:0;display:grid;gap:.25rem}
+.theory-chapters li{min-width:0}
+.theory-chapters button{width:100%;display:grid;grid-template-columns:2.25rem minmax(0,1fr);gap:.5rem;text-align:start;padding:.55rem .65rem;line-height:1.35}
+.theory-chapters button span{font-variant-numeric:tabular-nums;color:var(--muted)}
+.theory-chapters button[aria-current=page]{border-color:var(--accent);box-shadow:inset .2rem 0 var(--accent);font-weight:700}
+.theory-reader{max-width:72ch;line-height:1.8;overflow-wrap:anywhere}
+.theory-reader>h2:first-child{margin-top:0}
+.theory-reader h2,.theory-reader h3,.theory-reader h4,.theory-reader h5{scroll-margin-top:1rem}
+.theory-reader blockquote{margin:1rem 0;padding:.75rem 1rem;border-inline-start:.25rem solid var(--accent);background:var(--soft)}
+.theory-reader ul,.theory-reader ol{padding-inline-start:1.5rem}
+.theory-token{display:inline;border:0;border-bottom:1px dotted currentColor;border-radius:0;background:none;color:var(--accent);padding:0 .1rem;font:inherit;font-weight:650;text-align:inherit}
+.theory-token:hover,.theory-token:focus-visible{background:var(--soft)}
+.theory-inspector{line-height:1.65}
+.theory-inspector:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.theory-inspector h2{overflow-wrap:anywhere}
+.theory-meta{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.35rem .75rem}
+.theory-meta dt{color:var(--muted)}
+.theory-meta dd{margin:0;overflow-wrap:anywhere}
+.theory-statuses{display:flex;gap:.35rem;flex-wrap:wrap;margin:.75rem 0}
+.theory-statuses span{border:1px solid var(--border);border-radius:999px;padding:.15rem .55rem;font-size:.78rem;font-weight:700}
+.theory-statuses [data-status=EXECUTABLE]{border-style:solid}
+.theory-statuses [data-status=EMPIRICAL]{border-style:double}
+.theory-statuses [data-status=CONCEPTUAL]{border-style:dashed}
+.theory-statuses [data-status=INTERPRETIVE]{border-style:dotted}
+.button-link{display:inline-block;border:1px solid var(--border);border-radius:.35rem;padding:.45rem .7rem;text-decoration:none;color:var(--text)}
+.guided-tour-placeholder{max-width:75ch}
+@media(max-width:1180px){
+ .theory-layout{grid-template-columns:minmax(12rem,16rem) minmax(0,1fr)}
+ .theory-inspector{grid-column:1/-1;position:static;max-height:none}
+}
+@media(max-width:760px){
+ .understanding-heading{align-items:stretch}
+ .theory-layout{grid-template-columns:minmax(0,1fr)}
+ .theory-chapters,.theory-inspector{position:static;max-height:none}
+ .theory-chapters ol{grid-template-columns:minmax(0,1fr)}
+ .theory-reader{max-width:none}
+}
+@media(forced-colors:active){
+ .theory-token{border-bottom:1px solid LinkText;color:LinkText}
+ .theory-chapters button[aria-current=page]{outline:2px solid Highlight}
+}
