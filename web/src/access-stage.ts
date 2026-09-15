@@ -90,6 +90,15 @@ export function mountAccessStage(
  const delta=higher.models.headline_negativity.p_access-lower.models.headline_negativity.p_access;
  const logOdds=target.effects.find(effect=>effect.metric==='LOG_ODDS_COEFFICIENT');
  const relative=target.effects.find(effect=>effect.metric==='RELATIVE_CHANGE_PERCENT');
+ const registeredLimitations=t(
+  'Dovezile cauzale principale provin din experimentele istorice Upworthy. O corecție a arhivei din 2024 identifică o perioadă cu probleme probabile de randomizare; administratorii arhivei raportează că rezultatele Robertson rămân aproape identice când analiza este restrânsă la testele fiabile. Cercetări experimentale preliminare recente nu găsesc efectul așteptat al negativității într-un alt context, astfel că CEM tratează direcția ca mecanism candidat delimitat, nu ca o constantă universală.',
+  target.limitations
+ );
+ const registeredCountNote=t(
+  'Textul principal al secțiunii Results raportează 53.699 de titluri în eșantionul confirmator filtrat, în timp ce două legende de figură raportează 53.669. CEM păstrează cifra din textul principal și documentează explicit discrepanța de 30 de titluri ca informație de proveniență.',
+  target.study.count_note
+ );
+ const ci=(values:number[])=>values.map(value=>value.toLocaleString(locale,{minimumFractionDigits:3,maximumFractionDigits:3})).join(', ');
 
  host.innerHTML=`<div class="narrative-stage-heading">
   <div><p class="eyebrow">M1 · ${data.experiment.id}</p><h3>${t('Poarta de acces la titlu: NULL vs Hneg','Headline access gate: NULL vs Hneg')}</h3></div>
@@ -125,7 +134,7 @@ export function mountAccessStage(
 
  <div class="table-scroll m1-access-table"><table>
   <caption>${t('Comparație exactă între modelul NULL și poarta sensibilă la Hneg','Exact comparison of the NULL model and the Hneg-sensitive gate')}</caption>
-  <thead><tr><th>${t('Condiție','Condition')}</th><th>Hneg</th><th>NULL · Paccess</th><th>Hneg gate · Paccess</th><th>${t('Access ilustrativ','Illustrative Access')}</th></tr></thead>
+  <thead><tr><th>${t('Condiție','Condition')}</th><th>Hneg</th><th>NULL · Paccess</th><th>${t('Poartă Hneg · Paccess','Hneg gate · Paccess')}</th><th>${t('Access ilustrativ','Illustrative Access')}</th></tr></thead>
   <tbody>
    <tr><td>${t('Negativitate mai redusă','Lower negativity')}</td><td>${lower.hneg}</td><td>${p(lower.models.null.p_access)}</td><td>${p(lower.models.headline_negativity.p_access)}</td><td>${lower.models.headline_negativity.access?t('da','yes'):t('nu','no')}</td></tr>
    <tr><td>${t('Negativitate mai ridicată','Higher negativity')}</td><td>${higher.hneg}</td><td>${p(higher.models.null.p_access)}</td><td>${p(higher.models.headline_negativity.p_access)}</td><td>${higher.models.headline_negativity.access?t('da','yes'):t('nu','no')}</td></tr>
@@ -146,14 +155,14 @@ export function mountAccessStage(
   <h4>${t('Țintă empirică pentru direcție, nu calibrare','Empirical target for direction, not calibration')}</h4>
   <p><strong>${target.id}</strong> · ${integer(target.study.n_experiments)} ${t('experimente','experiments')} · ${integer(target.study.n_variants)} ${t('variante de titlu','headline variants')} · &gt;${integer(target.study.n_impressions_min)} ${t('impresii','impressions')} · ${integer(target.study.n_clicks)} ${t('clickuri','clicks')}.</p>
   <ul>
-   ${logOdds?`<li>${t('Coeficient publicat pentru proporția standardizată de cuvinte negative','Published coefficient for standardized negative-word proportion')}: β=${logOdds.estimate.toLocaleString(locale,{maximumFractionDigits:3})}${logOdds.ci?` · 99% CI [${logOdds.ci[0]}, ${logOdds.ci[1]}]`:''}.</li>`:''}
+   ${logOdds?`<li>${t('Coeficient publicat pentru proporția standardizată de cuvinte negative','Published coefficient for standardized negative-word proportion')}: β=${logOdds.estimate.toLocaleString(locale,{maximumFractionDigits:3})}${logOdds.ci?` · 99% CI [${ci(logOdds.ci)}]`:''}.</li>`:''}
    ${relative?`<li>${t('Context de magnitudine raportat de autori pentru un cuvânt negativ suplimentar într-un titlu de lungime medie','Source-reported magnitude context for one additional negative word in an average-length headline')}: ~${relative.estimate.toLocaleString(locale,{maximumFractionDigits:1})}% ${t('creștere relativă a CTR','relative CTR increase')}.</li>`:''}
   </ul>
   <p class="note">${t(
    'Aceste valori nu sunt copiate în beta_hneg. CEM verifică numai predicția direcțională higher Hneg → higher Paccess și contrastul cu NULL.',
    'These values are not copied into beta_hneg. CEM checks only the directional higher Hneg → higher Paccess prediction and the contrast with NULL.'
   )}</p>
-  <details><summary>${t('Limitări și proveniență','Limitations and provenance')}</summary><p>${target.limitations}</p><p class="note">${target.study.count_note}</p></details>
+  <details><summary>${t('Limitări și proveniență','Limitations and provenance')}</summary><p>${registeredLimitations}</p><p class="note">${registeredCountNote}</p></details>
  </section>
 
  <div class="boundary"><strong>${t('Delimitare științifică','Scientific boundary')}</strong><p>${t(
