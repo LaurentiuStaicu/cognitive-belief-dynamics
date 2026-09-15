@@ -25,3 +25,22 @@
 **What would change the decision.** If a tested MOD.14–16 mechanism with an observable target, operationalisation, differential prediction and rejection criterion is available and preserves the M0 regression patterns, the project may advance to the 0.4/M1 series.
 
 **Version introduced.** 0.3.6a0.
+
+
+## 2026-09 — Alpha 0.4 M1.E1 editorial-emphasis gate
+
+**Question.** What is the smallest empirically anchored extension that can make the distinction between available information and observed information executable without introducing platform algorithms, a generic media-bias score or an unvalidated cognitive super-variable?
+
+**Candidates.** (A) add platform ranking and polarization immediately; (B) implement a generic media-bias coefficient; (C) implement one fixed fact-compatible information pool plus an explicit editorial-selection policy and a separate issue-appraisal state.
+
+**Evidence.** Tohidi, Haider & Watts (2025) ran a preregistered randomized experiment across seven news events. Positive, neutral and negative synthetic articles preserved factual accuracy while selecting information by tone. Negative framing produced a -18.5 percentage-point effect on feelings relative to neutral and a -17.94 percentage-point effect on the opinion index. The study explicitly notes that its treatment combines information selection and tone variation.
+
+**Decision.** Choose C as M1.E1. Register Eedit, Sobs and Aissue; keep negative valence distinct from falsehood; retain B as the M0 truth-belief state. Use the published magnitudes as validation context only and do not fit the demonstrative M1 gain to them.
+
+**Nested null.** With editorial selection disabled, all conditions receive the same full fact-compatible pool and the condition difference must disappear.
+
+**Alternative rejected.** A generic media-bias coefficient would conflate selection, tone, platform distribution and downstream response. Adding platform ranking now would prevent discrimination between editorial selection and algorithmic exposure effects.
+
+**What would change the decision.** Replace or expand M1.E1 if a rival model produces a differential empirical prediction, better out-of-sample pattern reproduction, or evidence allows selection and presentation/tone mechanisms to be identified separately.
+
+**Version introduced.** 0.4.0a0.
