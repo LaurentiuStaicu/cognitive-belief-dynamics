@@ -1,8 +1,8 @@
 # ODD description — Cognitive Epistemic Model M0
 
-Software version described: Alpha 0.3.6a0  
+Baseline retained in software: Alpha 0.4.0a0  
 Model specification: M0  
-Status: uncalibrated reference model
+Status: retained uncalibrated baseline; active candidate extension is M1 (see `ODD_M1.md`)
 
 This document follows the Overview, Design concepts and Details (ODD) structure.
 The registry-driven Visual ODD in the web application is complementary: it shows
@@ -103,9 +103,7 @@ general-purpose optimizer or an explicit long-term agent objective.
 ### 2.4 Sensing and information
 
 The agent receives only event payloads and evidence signals exposed by the
-simulation. M0 does not yet explicitly represent editorial sampling, world-model
-construction or heuristic-policy selection; these are the scientific target of
-the later M1 / Alpha 0.4 extension.
+simulation. M0 itself does not represent editorial sampling, world-model construction or heuristic-policy selection. Alpha 0.4 adds the separate M1.E1 editorial-emphasis candidate described in `ODD_M1.md`; it does not retrofit those constructs into M0.
 
 ### 2.5 Interaction
 
@@ -183,7 +181,7 @@ A functional form should be replaced when a rival produces materially better
 out-of-sample pattern reproduction or when identifiability/diagnostics show the
 reference form is inadequate.
 
-## 5. Planned M1 extension gate
+## 5. Extension gate retained for future M1 additions
 
 No new world-model, heuristic or editorial-media variable becomes executable
 only because it enriches the conceptual story. Each addition must specify:
