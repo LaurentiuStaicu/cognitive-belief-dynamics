@@ -139,7 +139,7 @@ def local_identifiability_report(params: ModelParams | None = None) -> dict:
     condition = (
         float(singular_values[0] / singular_values[-1])
         if singular_values.size and singular_values[-1] > 1e-12
-        else float("inf")
+        else None
     )
     correlation = normalised.T @ normalised
 
