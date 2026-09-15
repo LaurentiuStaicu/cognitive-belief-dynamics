@@ -35,7 +35,7 @@
     },
     "short_definition": {
       "en": "Executable M0 mechanism for encoding and decay of corrective-context accessibility.",
-      "ro": "Mecanism M0 executabil pentru encodarea și diminuarea accesibilității contextului corectiv."
+      "ro": "Mecanism M0 executabil pentru codificarea și diminuarea accesibilității contextului corectiv."
     },
     "what_it_is_not": {
       "en": "Memory deletion or guaranteed belief correction.",
@@ -83,11 +83,11 @@
     "token": "accuracy",
     "label": {
       "en": "Accuracy salience and action",
-      "ro": "Saliența acurateții și acțiune"
+      "ro": "Atenție la acuratețe și acțiune"
     },
     "short_definition": {
       "en": "Executable M0 decision mechanism separating belief from contextual accuracy weighting and sharing action.",
-      "ro": "Mecanism decizional M0 executabil care separă convingerea de ponderea contextuală a acurateții și acțiunea de distribuire."
+      "ro": "Mecanism decizional M0 executabil care separă convingerea de ponderea contextuală acordată acurateții și de acțiunea de distribuire."
     },
     "what_it_is_not": {
       "en": "General rationality or automatic truthfulness.",
@@ -110,15 +110,15 @@
     "token": "editorial",
     "label": {
       "en": "Editorial emphasis",
-      "ro": "Accent editorial"
+      "ro": "Selecție / accent editorial"
     },
     "short_definition": {
       "en": "Executable M1.E1 candidate mechanism selecting a factual subset from a fixed information pool.",
-      "ro": "Mecanism candidat M1.E1 executabil care selectează un subset factual dintr-un pool informațional fix."
+      "ro": "Mecanism candidat M1.E1 executabil care selectează un subset factual dintr-un set informațional fix."
     },
     "what_it_is_not": {
       "en": "A measured newsroom-bias score or misinformation rate.",
-      "ro": "Nu este un scor măsurat de bias editorial și nici o rată de dezinformare."
+      "ro": "Nu este un scor măsurat al orientării unei redacții și nici o rată de dezinformare."
     },
     "epistemic_status": [
       "EMPIRICAL",
@@ -137,11 +137,11 @@
     "token": "presentation",
     "label": {
       "en": "Presentation framing × congruence",
-      "ro": "Framing de prezentare × congruență"
+      "ro": "Formulare de prezentare × congruență"
     },
     "short_definition": {
       "en": "Executable M1.E2 candidate mechanism comparing semantic-equivalent framing models under task-specific congruence.",
-      "ro": "Mecanism candidat M1.E2 executabil care compară modele de framing semantic echivalent sub congruență task-specifică."
+      "ro": "Mecanism candidat M1.E2 executabil care compară formulări semantic echivalente în funcție de congruența specifică sarcinii."
     },
     "what_it_is_not": {
       "en": "Stable ideology or the M0 Share process.",
@@ -193,7 +193,7 @@
     },
     "short_definition": {
       "en": "Conceptual pressure toward definite answers under ambiguity, linked historically to seizing and freezing processes.",
-      "ro": "Presiune conceptuală către răspunsuri definite în ambiguitate, legată istoric de procesele de seizing și freezing."
+      "ro": "Presiune motivațională către o concluzie definită în condiții de ambiguitate, asociată cu adoptarea rapidă („seizing”) și menținerea concluziei („freezing”)."
     },
     "what_it_is_not": {
       "en": "A current executable CEM coefficient.",
@@ -248,7 +248,7 @@
     },
     "what_it_is_not": {
       "en": "A complete neural predictive-coding implementation.",
-      "ro": "Nu este o implementare neuronală completă de predictive coding."
+      "ro": "Nu este o implementare neuronală completă de codare predictivă (predictive coding)."
     },
     "epistemic_status": [
       "CONCEPTUAL",
@@ -267,15 +267,15 @@
     "token": "algorithm-stage",
     "label": {
       "en": "Ranking versus downstream cognition",
-      "ro": "Ranking versus cogniție ulterioară"
+      "ro": "Ordonare algoritmică și cogniție ulterioară"
     },
     "short_definition": {
       "en": "Causal-stage distinction separating recommendation ranking from exposure, processing, internal representation and later judgment.",
-      "ro": "Distincție de etapă cauzală care separă rankingul de recomandare de expunere, procesare, reprezentare internă și judecată ulterioară."
+      "ro": "Distincție de etapă cauzală care separă ordonarea și recomandarea conținutului de expunere, procesare, reprezentare internă și judecată ulterioară."
     },
     "what_it_is_not": {
       "en": "A direct algorithm-to-belief arrow in the current model.",
-      "ro": "Nu este o săgeată directă algoritm-convingere în modelul actual."
+      "ro": "Nu este o legătură directă algoritm → convingere în modelul actual."
     },
     "epistemic_status": [
       "EMPIRICAL",
@@ -318,18 +318,19 @@
     "token": "reflective-distance",
     "label": {
       "en": "Reflective Distance",
-      "ro": "Reflective Distance"
+      "ro": "Distanță reflexivă (Reflective Distance)"
     },
     "short_definition": {
       "en": "Project-level integrative label for reflective distance from immediate thoughts, affect and identity commitments.",
-      "ro": "Etichetă integrativă la nivel de proiect pentru distanța reflexivă față de gânduri, afect și angajamente identitare imediate."
+      "ro": "Etichetă integratoare a proiectului pentru capacitatea de a lua distanță reflexivă față de gânduri, afect și angajamente identitare imediate."
     },
     "what_it_is_not": {
       "en": "A settled single-school construct or numerical CEM state.",
       "ro": "Nu este un construct stabilit într-o singură școală și nici o stare numerică CEM."
     },
     "epistemic_status": [
-      "INTERPRETIVE"
+      "INTERPRETIVE",
+      "CONCEPTUAL"
     ],
     "executable": false,
     "target": "MOD.17",
@@ -368,11 +369,11 @@
     "token": "m0",
     "label": {
       "en": "M0 baseline",
-      "ro": "Baseline M0"
+      "ro": "Modelul M0 de referință"
     },
     "short_definition": {
       "en": "Retained executable baseline containing repetition, correction, source-reliability, belief and action mechanisms.",
-      "ro": "Baseline executabil reținut care conține mecanismele de repetiție, corecție, fiabilitate a sursei, convingere și acțiune."
+      "ro": "Model executabil de referință care conține mecanismele de repetiție, corecție, fiabilitate a sursei, convingere și acțiune."
     },
     "what_it_is_not": {
       "en": "A calibrated population model.",
@@ -398,11 +399,11 @@
     },
     "short_definition": {
       "en": "First executable M1 extension separating a fixed factual pool from the editorial sample observed.",
-      "ro": "Prima extensie M1 executabilă care separă un pool factual fix de eșantionul editorial observat."
+      "ro": "Prima extensie M1 executabilă, care separă un set factual fix de eșantionul selectat editorial."
     },
     "what_it_is_not": {
       "en": "A calibrated media-bias model.",
-      "ro": "Nu este un model calibrat de bias media."
+      "ro": "Nu este un model calibrat al orientării sau al distorsiunii media."
     },
     "epistemic_status": [
       "EMPIRICAL",
@@ -420,11 +421,11 @@
     "token": "m1-e2",
     "label": {
       "en": "M1.E2 Presentation Framing",
-      "ro": "M1.E2 Framing de prezentare"
+      "ro": "M1.E2 Formulare de prezentare"
     },
     "short_definition": {
       "en": "Second executable M1 extension discriminating semantic-equivalent framing models with task-specific congruence.",
-      "ro": "A doua extensie M1 executabilă care discriminează modele de framing semantic echivalent cu congruență task-specifică."
+      "ro": "A doua extensie M1 executabilă, care discriminează modele de formulare semantic echivalentă în funcție de congruența specifică sarcinii."
     },
     "what_it_is_not": {
       "en": "A stable ideology model or platform-behavior model.",
@@ -450,7 +451,7 @@
     },
     "short_definition": {
       "en": "Layered checks separating implementation correctness, pattern reproduction, empirical targets, model discrimination and reproducibility.",
-      "ro": "Verificări pe niveluri care separă corectitudinea implementării, reproducerea patternurilor, țintele empirice, discriminarea modelelor și reproductibilitatea."
+      "ro": "Verificări pe mai multe niveluri care separă corectitudinea implementării, reproducerea tiparelor, țintele empirice, discriminarea între modele și reproductibilitatea."
     },
     "what_it_is_not": {
       "en": "Proof that every model relation is uniquely causal or calibrated.",
