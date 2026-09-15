@@ -1,0 +1,170 @@
+[
+  {
+    "id": "ODD.INIT.AGENT",
+    "stage": "initialisation",
+    "label": {
+      "en": "Agent and task state",
+      "ro": "Agent și starea sarcinii"
+    },
+    "description": {
+      "en": "Create the HumanAgent state, prior belief and default memory/reliability states used by M0.",
+      "ro": "Creează starea HumanAgent, convingerea inițială și stările implicite de memorie/fiabilitate folosite de M0."
+    },
+    "code_ref": "src/cognitive_epistemic_model/state.py",
+    "status": "implemented_m0"
+  },
+  {
+    "id": "ODD.INIT.PARAMS",
+    "stage": "initialisation",
+    "label": {
+      "en": "Reference parameters",
+      "ro": "Parametri de referință"
+    },
+    "description": {
+      "en": "Load demonstrative ModelParams. They are not population estimates.",
+      "ro": "Încarcă ModelParams demonstrativi. Nu sunt estimări populaționale."
+    },
+    "code_ref": "src/cognitive_epistemic_model/state.py",
+    "status": "implemented_m0"
+  },
+  {
+    "id": "ODD.PROCESS.SCHEDULE",
+    "stage": "submodel",
+    "label": {
+      "en": "Event scheduling",
+      "ro": "Programarea evenimentelor"
+    },
+    "description": {
+      "en": "Order events by abstract time while preserving input order for simultaneous events.",
+      "ro": "Ordonează evenimentele după timpul abstract, păstrând ordinea de intrare pentru evenimente simultane."
+    },
+    "code_ref": "src/cognitive_epistemic_model/simulation.py",
+    "status": "implemented_m0"
+  },
+  {
+    "id": "ODD.PROCESS.EXPOSURE",
+    "stage": "submodel",
+    "label": {
+      "en": "Exposure / familiarity update",
+      "ro": "Expunere / actualizarea familiarității"
+    },
+    "description": {
+      "en": "Exposure events update claim familiarity with bounded saturation.",
+      "ro": "Evenimentele de expunere actualizează familiaritatea afirmației cu saturație mărginită."
+    },
+    "code_ref": "src/cognitive_epistemic_model/updates.py",
+    "status": "implemented_m0"
+  },
+  {
+    "id": "ODD.PROCESS.CORRECTION",
+    "stage": "submodel",
+    "label": {
+      "en": "Corrective-context update",
+      "ro": "Actualizarea contextului corectiv"
+    },
+    "description": {
+      "en": "Correction events increase corrective-context accessibility; accessibility then decays with abstract elapsed time.",
+      "ro": "Evenimentele de corecție cresc accesibilitatea contextului corectiv; accesibilitatea se diminuează apoi cu timpul abstract scurs."
+    },
+    "code_ref": "src/cognitive_epistemic_model/updates.py",
+    "status": "implemented_m0"
+  },
+  {
+    "id": "ODD.PROCESS.SOURCE",
+    "stage": "submodel",
+    "label": {
+      "en": "Source-reliability learning",
+      "ro": "Învățarea fiabilității sursei"
+    },
+    "description": {
+      "en": "Feedback updates the agent's task-relevant estimate of source reliability.",
+      "ro": "Feedbackul actualizează estimarea agentului privind fiabilitatea sursei relevantă pentru sarcină."
+    },
+    "code_ref": "src/cognitive_epistemic_model/updates.py",
+    "status": "implemented_m0"
+  },
+  {
+    "id": "ODD.PROCESS.BELIEF",
+    "stage": "submodel",
+    "label": {
+      "en": "Belief update",
+      "ro": "Actualizarea convingerii"
+    },
+    "description": {
+      "en": "Prior belief, familiarity, source-weighted evidence and corrective context enter the M0 belief transform. Ground truth is not passed directly into this update.",
+      "ro": "Convingerea inițială, familiaritatea, evidența ponderată de sursă și contextul corectiv intră în transformarea M0 a convingerii. Adevărul nu este introdus direct în această actualizare."
+    },
+    "code_ref": "src/cognitive_epistemic_model/model.py",
+    "status": "implemented_m0"
+  },
+  {
+    "id": "ODD.PROCESS.ACTION",
+    "stage": "submodel",
+    "label": {
+      "en": "Action policy",
+      "ro": "Politica de acțiune"
+    },
+    "description": {
+      "en": "Accuracy weight, belief and contextual reward determine sharing probability; a seeded stochastic draw generates Share.",
+      "ro": "Ponderea acurateții, convingerea și recompensa contextuală determină probabilitatea de distribuire; o extragere stochastică cu seed generează Share."
+    },
+    "code_ref": "src/cognitive_epistemic_model/model.py",
+    "status": "implemented_m0"
+  },
+  {
+    "id": "ODD.OBS.LOG",
+    "stage": "observation",
+    "label": {
+      "en": "Event and outcome log",
+      "ro": "Jurnal de evenimente și rezultate"
+    },
+    "description": {
+      "en": "Record the realised events, latent outputs and stochastic sharing outcome for replay and validation.",
+      "ro": "Înregistrează evenimentele realizate, ieșirile latente și rezultatul stochastic al distribuirii pentru replay și validare."
+    },
+    "code_ref": "src/cognitive_epistemic_model/simulation.py",
+    "status": "implemented_m0"
+  },
+  {
+    "id": "ODD.OBS.PATTERNS",
+    "stage": "observation",
+    "label": {
+      "en": "Scientific pattern tests",
+      "ro": "Teste de pattern științific"
+    },
+    "description": {
+      "en": "Evaluate the four M0 target patterns separately from software correctness.",
+      "ro": "Evaluează cele patru patternuri-țintă M0 separat de corectitudinea software."
+    },
+    "code_ref": "tests/test_patterns.py",
+    "status": "implemented_m0"
+  },
+  {
+    "id": "ODD.SCALE.TIME",
+    "stage": "scale",
+    "label": {
+      "en": "Time",
+      "ro": "Timp"
+    },
+    "description": {
+      "en": "Discrete abstract event steps; not days, months or years.",
+      "ro": "Pași discreți abstracți ai evenimentelor; nu zile, luni sau ani."
+    },
+    "code_ref": "src/cognitive_epistemic_model/events.py",
+    "status": "implemented_m0"
+  },
+  {
+    "id": "ODD.SCALE.LEVELS",
+    "stage": "scale",
+    "label": {
+      "en": "Entity levels",
+      "ro": "Niveluri de entitate"
+    },
+    "description": {
+      "en": "Current M0 reference runs operate at agent, claim/item and source levels.",
+      "ro": "Rulările de referință M0 actuale operează la nivel de agent, afirmație/item și sursă."
+    },
+    "code_ref": "scripts/export_web.py",
+    "status": "implemented_m0"
+  }
+]
