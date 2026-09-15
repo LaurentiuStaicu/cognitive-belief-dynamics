@@ -22,3 +22,20 @@ For Alpha 0.4.2a0:
 
 Contract schemas and tests are merge gates intended to prevent planning metadata
 from silently becoming executable scientific claims.
+
+
+For Alpha 0.4.3a0:
+
+- `m1_e4_evidence_contract.json` is the Phase A evidence/schema contract for the
+  planned Headline Recognition Gate.
+- the selected validation construct is `Drecog` (signal-detection recognition
+  sensitivity), not a directly observed attention state;
+- `Aattn` and event-level `Pencode` are explicitly deferred;
+- `Hsimp` is reserved as precomputed controlled stimulus metadata, with no
+  runtime LIWC dependency;
+- the first comparator is conditioned on the existing `PreviewImpression`
+  event and does not require M1.E3 `Access`;
+- Shulman Study 4 and Mattis et al. 2025 are mandatory context boundaries;
+- no M1.E4 object enters the active variable, validation, target or evidence
+  registries in Phase A;
+- the active evidence snapshot and public Alpha 0.4.2a0 release remain unchanged.
