@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this research software, please cite this repository."
+type: software
+title: "Cognitive Epistemic Model"
+version: 0.3.6a0
+date-released: 2026-09-15
+authors:
+  - family-names: "Staicu"
+    given-names: "Laurentiu"
+repository-code: "https://github.com/LaurentiuStaicu/cognitive-epistemic-model"
+url: "https://laurentiustaicu.github.io/cognitive-epistemic-model/"
+license: MIT
+keywords:
+  - computational modeling
+  - epistemic cognition
+  - belief formation
+  - agent-based modeling
+  - misinformation
+  - research software
+abstract: >-
+  Evidence-tracked research software for exploring candidate mechanisms of
+  belief formation, information processing, intervention priorities and
+  epistemic-system dynamics. The current M0 specification is an uncalibrated
+  reference model and does not provide population prevalence estimates or
+  individual diagnoses.
