@@ -142,7 +142,7 @@ const steps:TourStep[]=[
   checkpoint:{ro:'Poți explica traseul unui rezultat din interfață până la variabilă, ecuație, sursă și limită?',en:'Can you trace an interface result back to its variable, equation, source and limitation?'},
   boundary:{ro:'Modelul este o hartă pentru explicare și testare; nu este teritoriul social însuși.',en:'The model is a map for explanation and testing; it is not the social territory itself.'},
   status:{ro:'TOUR COMPLETE',en:'TOUR COMPLETE'},
-  action:{kind:'hash',target:'#understanding/theory/how-to-use-cem',label:{ro:'Deschide capitolul final',en:'Open the final chapter'}}
+  action:{kind:'hash',target:'#understanding/theory/using-cem',label:{ro:'Deschide capitolul final',en:'Open the final chapter'}}
  }
 ];
 
