@@ -40,5 +40,29 @@
     "name": "Editorial mediation is necessary for the M1.E1 condition difference",
     "pattern": "When editorial selection is disabled and conditions receive the same full fact-compatible pool, the editorial-emphasis condition difference disappears.",
     "claim_scope": "NEGATIVE_CONSTRAINT"
+  },
+  {
+    "id": "VAL.M1.002",
+    "name": "Semantic-equivalent presentation framing",
+    "pattern": "Holding proposition meaning, truth compatibility and selected content fixed, confirmation framing produces higher active-engagement propensity than refutation framing in the frame-only reference model.",
+    "claim_scope": "DESCRIPTIVE_PATTERN"
+  },
+  {
+    "id": "VAL.M1.003",
+    "name": "Frame by prior-attitude congruence",
+    "pattern": "The confirmation-refutation engagement contrast is larger for congruent messages than for counter-attitudinal messages in the frame-by-congruence model.",
+    "claim_scope": "DESCRIPTIVE_PATTERN"
+  },
+  {
+    "id": "VAL.M1.N02",
+    "name": "Presentation-frame null",
+    "pattern": "When presentation-frame variation is removed, otherwise identical confirmation and refutation conditions converge.",
+    "claim_scope": "NEGATIVE_CONSTRAINT"
+  },
+  {
+    "id": "VAL.M1.N03",
+    "name": "Engagement intent is not M0 Share",
+    "pattern": "An M1.E2 effect on active-engagement intent must remain separate from the retained M0 Share process and may not silently modify M0 sharing outputs.",
+    "claim_scope": "NEGATIVE_CONSTRAINT"
   }
 ]
