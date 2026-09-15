@@ -7,8 +7,8 @@
       "ro": "Ce este Cognitive Epistemic Model?"
     },
     "summary": {
-      "en": "Orientation to the problem CEM studies, the retained M0 baseline, the M1 extensions, and the model's current scientific limits.",
-      "ro": "Orientare asupra problemei studiate de CEM, baseline-ului M0, extensiilor M1 și limitelor științifice actuale ale modelului."
+      "en": "Introduces the problem CEM studies, the M0 reference model, M1 extensions, the twenty-module scientific map and current scientific limits.",
+      "ro": "Prezintă problema studiată de CEM, modelul M0 de referință, extensiile M1, harta celor douăzeci de module și limitele științifice actuale."
     },
     "source_paths": {
       "en": "docs/theory/en/00-what-is-cem.md",
@@ -131,12 +131,12 @@
     "id": "THEORY.02.PROCESSING_METACONTROL",
     "order": 2,
     "label": {
-      "en": "Fast processing, deliberation and metacontrol",
-      "ro": "Procesare rapidă, deliberare și metacontrol"
+      "en": "Fast processing, heuristics, deliberation and metacontrol",
+      "ro": "Procesare rapidă, euristici, deliberare și metacontrol"
     },
     "summary": {
-      "en": "Introduces cautious Type 1/Type 2 distinctions, working-memory demands and metacognitive control without turning them into two literal brains.",
-      "ro": "Introduce prudent distincțiile de tip Type 1/Type 2, cerințele de memorie de lucru și controlul metacognitiv fără a le transforma în două creiere literale."
+      "en": "Separates Type 1/Type 2 processing, heuristic policies, working-memory demands and metacontrol without equating fast or heuristic processing with irrationality.",
+      "ro": "Separă procesarea Type 1/Type 2, strategiile euristice, cerințele de memorie de lucru și metacontrolul fără a echivala procesarea rapidă sau euristică cu iraționalitatea."
     },
     "source_paths": {
       "en": "docs/theory/en/02-processing-metacontrol.md",
@@ -150,7 +150,8 @@
     ],
     "module_ids": [
       "MOD.02",
-      "MOD.09"
+      "MOD.09",
+      "MOD.15"
     ],
     "variable_ids": [
       "VAR.ACCURACY.SALIENCE"
@@ -162,6 +163,10 @@
       {
         "role": "BACKGROUND_THEORY",
         "ref": "https://doi.org/10.1177/1745691612460685"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1146/annurev-psych-120709-145346"
       }
     ],
     "code_refs": [],
@@ -185,11 +190,11 @@
     "order": 3,
     "label": {
       "en": "Uncertainty, need for closure, seizing and freezing",
-      "ro": "Incertitudine, nevoie de închidere, seizing și freezing"
+      "ro": "Incertitudine, nevoie de închidere cognitivă, seizing și freezing"
     },
     "summary": {
       "en": "Recovers the project's conceptual distinction between closure pressure, rapid commitment and later maintenance of an interpretation.",
-      "ro": "Recuperează distincția conceptuală a proiectului dintre presiunea pentru închidere, angajarea rapidă și menținerea ulterioară a unei interpretări."
+      "ro": "Explică presiunea pentru închidere cognitivă, adoptarea rapidă a unei interpretări și menținerea ei ulterioară, fără a transforma constructul într-un tip fix de persoană."
     },
     "source_paths": {
       "en": "docs/theory/en/03-uncertainty-closure.md",
@@ -382,7 +387,7 @@
     },
     "summary": {
       "en": "Explains correction encoding, corrective-context accessibility and decay without describing decay as deletion of memory.",
-      "ro": "Explică encodarea corecției, accesibilitatea contextului corectiv și diminuarea acesteia fără a descrie procesul ca ștergere a memoriei."
+      "ro": "Explică codificarea corecției, accesibilitatea contextului corectiv și diminuarea acesteia fără a descrie procesul ca ștergere a memoriei."
     },
     "source_paths": {
       "en": "docs/theory/en/06-corrections-accessibility-memory.md",
@@ -455,12 +460,12 @@
     "id": "THEORY.07.SOURCE_RELIABILITY",
     "order": 7,
     "label": {
-      "en": "Sources, feedback and estimated reliability",
-      "ro": "Surse, feedback și fiabilitate estimată"
+      "en": "Sources, epistemic authority and estimated reliability",
+      "ro": "Surse, autoritate epistemică și fiabilitate estimată"
     },
     "summary": {
-      "en": "Separates actual source quality from the agent's task-relevant reliability estimate and its influence on evidence weighting.",
-      "ro": "Separă calitatea reală a sursei de estimarea de fiabilitate relevantă sarcinii și de influența acesteia asupra ponderării dovezilor."
+      "en": "Separates actual source quality, the agent's reliability estimate, credibility cues and the broader conceptual role of epistemic institutions.",
+      "ro": "Separă calitatea reală a sursei, estimarea de fiabilitate a agentului, indiciile de credibilitate și rolul conceptual mai larg al instituțiilor epistemice."
     },
     "source_paths": {
       "en": "docs/theory/en/07-sources-feedback-reliability.md",
@@ -471,10 +476,12 @@
     ],
     "epistemic_status": [
       "EMPIRICAL",
-      "EXECUTABLE"
+      "EXECUTABLE",
+      "CONCEPTUAL"
     ],
     "module_ids": [
-      "MOD.02"
+      "MOD.02",
+      "MOD.20"
     ],
     "variable_ids": [
       "VAR.RELIABILITY.ESTIMATE",
@@ -491,6 +498,10 @@
       {
         "role": "BACKGROUND_THEORY",
         "ref": "https://doi.org/10.1016/j.cognition.2025.106090"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1038/s41598-024-54030-y"
       }
     ],
     "code_refs": [
@@ -528,8 +539,8 @@
     "id": "THEORY.08.BELIEF_ACCURACY_ACTION",
     "order": 8,
     "label": {
-      "en": "Belief, accuracy salience and action",
-      "ro": "Convingere, saliența acurateții și acțiune"
+      "en": "Belief, accuracy attention and action",
+      "ro": "Convingere, atenție la acuratețe și acțiune"
     },
     "summary": {
       "en": "Separates latent truth judgment, contextual accuracy weight, sharing probability and sampled sharing action.",
@@ -611,12 +622,12 @@
     "id": "THEORY.09.EDITORIAL_SELECTION",
     "order": 9,
     "label": {
-      "en": "Editorial selection and the observed world",
-      "ro": "Selecția editorială și lumea observată"
+      "en": "Editorial selection, news media and the observed world",
+      "ro": "Selecție editorială, presă și lumea observată"
     },
     "summary": {
-      "en": "Explains M1.E1: the factual pool stays fixed while editorial emphasis changes the selected sample and issue appraisal.",
-      "ro": "Explică M1.E1: pool-ul factual rămâne fix, iar accentul editorial schimbă eșantionul selectat și evaluarea subiectului."
+      "en": "Explains M1.E1 and distinguishes editorial selection from gatekeeping, agenda setting, broader framing, channel differences and platform ranking.",
+      "ro": "Explică M1.E1 și separă selecția editorială de gatekeeping, stabilirea agendei, încadrarea mai largă, diferențele dintre canale și ordonarea algoritmică."
     },
     "source_paths": {
       "en": "docs/theory/en/09-editorial-selection-observed-world.md",
@@ -653,6 +664,22 @@
       {
         "role": "MODEL_EVIDENCE",
         "ref": "REF.TOHIDI.2025"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1093/acrefore/9780190228613.013.802"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1093/acrefore/9780190228613.013.819"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1146/annurev-publhealth-040218-044017"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1080/23808985.2023.2169953"
       }
     ],
     "code_refs": [
@@ -691,12 +718,12 @@
     "id": "THEORY.10.PRESENTATION_CONGRUENCE",
     "order": 10,
     "label": {
-      "en": "Presentation framing and prior-attitude congruence",
-      "ro": "Framing de prezentare și congruență cu atitudinea anterioară"
+      "en": "Presentation framing, attitudinal congruence and identity context",
+      "ro": "Formularea mesajului, congruența atitudinală și contextul identitar"
     },
     "summary": {
-      "en": "Explains M1.E2: semantic content remains fixed while confirmation/refutation framing and task-specific congruence discriminate nested engagement models.",
-      "ro": "Explică M1.E2: conținutul semantic rămâne fix, iar framingul confirmation/refutation și congruența task-specifică discriminează modele nested de engagement."
+      "en": "Explains M1.E2 under semantic invariance and separates task-specific congruence from broader identity, partisanship and motivated-reasoning hypotheses.",
+      "ro": "Explică M1.E2 cu sensul semantic păstrat constant și separă congruența specifică sarcinii de ipotezele mai largi despre identitate, partizanat și raționament motivat."
     },
     "source_paths": {
       "en": "docs/theory/en/10-framing-congruence.md",
@@ -707,12 +734,14 @@
     ],
     "epistemic_status": [
       "EMPIRICAL",
-      "EXECUTABLE"
+      "EXECUTABLE",
+      "CONCEPTUAL"
     ],
     "module_ids": [
       "MOD.15",
       "MOD.16",
-      "MOD.07"
+      "MOD.07",
+      "MOD.05"
     ],
     "variable_ids": [
       "VAR.PRESENTATION.FRAME",
@@ -741,6 +770,10 @@
       {
         "role": "MODEL_EVIDENCE",
         "ref": "REF.ALVARADO.2026"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1146/annurev-psych-030424-122723"
       }
     ],
     "code_refs": [
@@ -779,12 +812,12 @@
     "id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
     "order": 11,
     "label": {
-      "en": "Algorithms, ranking and social feedback",
-      "ro": "Algoritmi, ranking și feedback social"
+      "en": "Information ecosystems: algorithms, social feedback, AI and strategic influence",
+      "ro": "Ecosisteme informaționale: algoritmi, feedback social, AI și influență strategică"
     },
     "summary": {
-      "en": "Separates ranking from exposure, processing and downstream belief while recovering closure, familiarity and social-reinforcement loops as distinct mechanisms.",
-      "ro": "Separă rankingul de expunere, procesare și convingerea ulterioară, recuperând buclele de closure, familiaritate și întărire socială ca mecanisme distincte."
+      "en": "Separates production, ranking, exposure, networks, social evidence, cross-platform flows, human–AI intermediation, reliance, skill change and strategic influence into distinct causal stages.",
+      "ro": "Separă producerea conținutului, ordonarea, expunerea, rețelele, dovezile sociale, fluxurile dintre platforme, intermedierea om–AI, încrederea în AI, schimbarea competențelor și influența strategică în etape cauzale distincte."
     },
     "source_paths": {
       "en": "docs/theory/en/11-algorithms-social-feedback.md",
@@ -801,7 +834,12 @@
     "module_ids": [
       "MOD.03",
       "MOD.10",
-      "MOD.18"
+      "MOD.18",
+      "MOD.08",
+      "MOD.11",
+      "MOD.12",
+      "MOD.13",
+      "MOD.19"
     ],
     "variable_ids": [
       "VAR.EXPOSURE.COUNT"
@@ -821,6 +859,26 @@
       {
         "role": "BACKGROUND_THEORY",
         "ref": "https://doi.org/10.1038/s41586-026-10098-2"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1038/s41598-024-54030-y"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1080/23808985.2023.2169953"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.3389/fpsyg.2024.1390182"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1145/3706598.3713778"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.2147/JHL.S590498"
       }
     ],
     "code_refs": [],
@@ -848,7 +906,7 @@
     },
     "summary": {
       "en": "Organizes corrections, source evaluation, accuracy prompts and future interventions by the causal stage they modify.",
-      "ro": "Organizează corecțiile, evaluarea sursei, prompturile de acuratețe și intervențiile viitoare după etapa cauzală pe care o modifică."
+      "ro": "Organizează corecțiile, evaluarea sursei, orientarea către acuratețe și intervențiile viitoare după etapa cauzală pe care o modifică."
     },
     "source_paths": {
       "en": "docs/theory/en/12-interventions.md",
@@ -925,8 +983,8 @@
       "ro": "Individuație, integrarea sinelui și autonomie epistemică"
     },
     "summary": {
-      "en": "Preserves Jungian individuation and Reflective Distance as an interpretive layer linked cautiously to metacognition and autonomy.",
-      "ro": "Păstrează individuația jungiană și Reflective Distance ca strat interpretativ, legat prudent de metacogniție și autonomie."
+      "en": "Preserves Jungian individuation as interpretive material while treating reflective distance as a separate conceptual bridge to metacognition and decentering.",
+      "ro": "Păstrează individuația jungiană ca material interpretativ și tratează distanța reflexivă ca punte conceptuală separată către metacogniție și decentrere."
     },
     "source_paths": {
       "en": "docs/theory/en/13-individuation-epistemic-autonomy.md",
@@ -936,7 +994,8 @@
       "THEORY.02.PROCESSING_METACONTROL"
     ],
     "epistemic_status": [
-      "INTERPRETIVE"
+      "INTERPRETIVE",
+      "CONCEPTUAL"
     ],
     "module_ids": [
       "MOD.17"
@@ -979,11 +1038,11 @@
     "order": 14,
     "label": {
       "en": "How CEM is validated",
-      "ro": "Cum este validat CEM"
+      "ro": "Cum validăm CEM"
     },
     "summary": {
-      "en": "Explains implementation tests, pattern tests, empirical targets, nested nulls, model discrimination, diagnostics, ODD, reproducibility and provenance.",
-      "ro": "Explică testele de implementare, pattern-tests, țintele empirice, null-urile nested, discriminarea modelelor, diagnosticele, ODD, reproductibilitatea și provenance."
+      "en": "Separates software verification, empirical pattern tests, calibration, nested nulls, model discrimination, identifiability, external validity, ODD and fitness for purpose.",
+      "ro": "Separă verificarea software, testele de tipar empiric, calibrarea, modelele nule imbricate, discriminarea între modele, identificabilitatea, validitatea externă, ODD și adecvarea la scop."
     },
     "source_paths": {
       "en": "docs/theory/en/14-validation.md",
