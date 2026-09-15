@@ -1,5 +1,7 @@
 {
   "model_version": "0.3.6a0",
+  "model_specification": "M0",
+  "purpose": "EXPLANATION_OF_REFERENCE_RUNS",
   "scope": "Latent-score decomposition, not causal attribution",
   "runs": [
     {
@@ -9,20 +11,20 @@
           "time": 0,
           "belief_terms": {
             "prior": -0.8472978603872036,
-            "familiarity": 0,
-            "evidence": 0,
-            "correction": 0
+            "familiarity": 0.0,
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.8472978603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.2,
             "reward": 0.25
           },
           "sharing_logit": 0.04999999999999999,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
@@ -34,29 +36,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.27999999999999997,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.5672978603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.13813943703931097,
             "reward": 0.25
           },
           "sharing_logit": 0.11186056296068903,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.35,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.061860562960689036,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.015438620546555315
           }
         },
@@ -65,29 +67,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.46199999999999997,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.3852978603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.09515024429692026,
             "reward": 0.25
           },
           "sharing_logit": 0.15484975570307974,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.22749999999999992,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.042989192742390714,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.010699251585566505
           }
         },
@@ -96,29 +98,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.5802999999999999,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.26699786038720363,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.06635573613877094,
             "reward": 0.25
           },
           "sharing_logit": 0.18364426386122906,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.14787499999999998,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.028794508158149323,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.007147200975581525
           }
         },
@@ -127,29 +129,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.04738310242621224,
             "reward": 0.25
           },
           "sharing_logit": 0.20261689757378776,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.09611875000000003,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.018972633712558695,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.004699168410446375
           }
         },
@@ -158,30 +160,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.04738310242621224,
             "reward": 0.25
           },
           "sharing_logit": 0.20261689757378776,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -189,30 +191,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.04738310242621224,
             "reward": 0.25
           },
           "sharing_logit": 0.20261689757378776,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -220,30 +222,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.04738310242621224,
             "reward": 0.25
           },
           "sharing_logit": 0.20261689757378776,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -251,30 +253,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.04738310242621224,
             "reward": 0.25
           },
           "sharing_logit": 0.20261689757378776,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -282,30 +284,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.04738310242621224,
             "reward": 0.25
           },
           "sharing_logit": 0.20261689757378776,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -313,30 +315,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.04738310242621224,
             "reward": 0.25
           },
           "sharing_logit": 0.20261689757378776,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -344,30 +346,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.04738310242621224,
             "reward": 0.25
           },
           "sharing_logit": 0.20261689757378776,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -375,30 +377,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.04738310242621224,
             "reward": 0.25
           },
           "sharing_logit": 0.20261689757378776,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         }
       ]
@@ -410,20 +412,20 @@
           "time": 0,
           "belief_terms": {
             "prior": -0.8472978603872036,
-            "familiarity": 0,
-            "evidence": 0,
-            "correction": 0
+            "familiarity": 0.0,
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.8472978603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.2,
             "reward": 0.25
           },
           "sharing_logit": 0.04999999999999999,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
@@ -435,29 +437,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.27999999999999997,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.5672978603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.13813943703931097,
             "reward": 0.25
           },
           "sharing_logit": 0.11186056296068903,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.35,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.061860562960689036,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.015438620546555315
           }
         },
@@ -466,29 +468,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.46199999999999997,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.3852978603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.09515024429692026,
             "reward": 0.25
           },
           "sharing_logit": 0.15484975570307974,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.22749999999999992,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.042989192742390714,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.010699251585566505
           }
         },
@@ -497,29 +499,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.5802999999999999,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.26699786038720363,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.06635573613877094,
             "reward": 0.25
           },
           "sharing_logit": 0.18364426386122906,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.14787499999999998,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.028794508158149323,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.007147200975581525
           }
         },
@@ -528,29 +530,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.04738310242621224,
             "reward": 0.25
           },
           "sharing_logit": 0.20261689757378776,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.09611875000000003,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.018972633712558695,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.004699168410446375
           }
         },
@@ -559,29 +561,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
+            "evidence": 0.0,
             "correction": -1.1199999999999999
           },
           "belief_logit": -1.3101028603872034,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.28753036763323264,
             "reward": 0.25
           },
           "sharing_logit": -0.03753036763323264,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": -1,
+            "evidence_signal": 0.0,
+            "correction_direction": -1.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
+            "familiarity": 0.0,
             "correction": 0.7,
-            "reliability": 0,
+            "reliability": 0.0,
             "belief": -0.2401472652070204,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": -0.05986312876176314
           }
         },
@@ -590,29 +592,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
+            "evidence": 0.0,
             "correction": -1.0338903079530322
           },
           "belief_logit": -1.2239931683402356,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.27276550934297333,
             "reward": 0.25
           },
           "sharing_logit": -0.022765509342973334,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": -1,
+            "evidence_signal": 0.0,
+            "correction_direction": -1.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
+            "familiarity": 0.0,
             "correction": -0.05381855752935494,
-            "reliability": 0,
+            "reliability": 0.0,
             "belief": 0.014764858290259308,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.0036903592160140164
           }
         },
@@ -621,29 +623,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
+            "evidence": 0.0,
             "correction": -0.9544010436421566
           },
           "belief_logit": -1.14450390402936,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.2585056012260357,
             "reward": 0.25
           },
           "sharing_logit": -0.00850560122603572,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": -1,
+            "evidence_signal": 0.0,
+            "correction_direction": -1.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
+            "familiarity": 0.0,
             "correction": -0.049680790194297164,
-            "reliability": 0,
+            "reliability": 0.0,
             "belief": 0.014259908116937586,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.003564744056367919
           }
         },
@@ -652,29 +654,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
+            "evidence": 0.0,
             "correction": -0.8810232043945396
           },
           "belief_logit": -1.071126064781743,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.24481100322274874,
             "reward": 0.25
           },
           "sharing_logit": 0.005188996777251265,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": -1,
+            "evidence_signal": 0.0,
+            "correction_direction": -1.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
+            "familiarity": 0.0,
             "correction": -0.045861149529760614,
-            "reliability": 0,
+            "reliability": 0.0,
             "belief": 0.013694598003287012,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.0034236337705645936
           }
         },
@@ -683,29 +685,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
+            "evidence": 0.0,
             "correction": -0.8132869215225336
           },
           "belief_logit": -1.0033897819097373,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.2317245279699089,
             "reward": 0.25
           },
           "sharing_logit": 0.01827547203009111,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": -1,
+            "evidence_signal": 0.0,
+            "correction_direction": -1.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
+            "familiarity": 0.0,
             "correction": -0.04233517679500376,
-            "reliability": 0,
+            "reliability": 0.0,
             "belief": 0.013086475252839846,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.0032714945641117987
           }
         },
@@ -714,29 +716,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
+            "evidence": 0.0,
             "correction": -0.7507584515599158
           },
           "belief_logit": -0.9408613119471194,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.2192736055790318,
             "reward": 0.25
           },
           "sharing_logit": 0.030726394420968195,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": -1,
+            "evidence_signal": 0.0,
+            "correction_direction": -1.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
+            "familiarity": 0.0,
             "correction": -0.03908029372663613,
-            "reliability": 0,
+            "reliability": 0.0,
             "belief": 0.012450922390877084,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.003112253457626557
           }
         },
@@ -745,29 +747,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
+            "evidence": 0.0,
             "correction": -0.6930373988228775
           },
           "belief_logit": -0.8831402592100811,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.20747253705587215,
             "reward": 0.25
           },
           "sharing_logit": 0.04252746294412785,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": -1,
+            "evidence_signal": 0.0,
+            "correction_direction": -1.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
+            "familiarity": 0.0,
             "correction": -0.03607565796064893,
-            "reliability": 0,
+            "reliability": 0.0,
             "belief": 0.011801068523159652,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.0029492693343353693
           }
         },
@@ -776,29 +778,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
+            "evidence": 0.0,
             "correction": -0.6397541515106724
           },
           "belief_logit": -0.829857011897876,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.19632469489270105,
             "reward": 0.25
           },
           "sharing_logit": 0.053675305107298954,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": -1,
+            "evidence_signal": 0.0,
+            "correction_direction": -1.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
+            "familiarity": 0.0,
             "correction": -0.03330202957012818,
-            "reliability": 0,
+            "reliability": 0.0,
             "belief": 0.011147842163171107,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.0027853418856572665
           }
         }
@@ -811,20 +813,20 @@
           "time": 0,
           "belief_terms": {
             "prior": -0.8472978603872036,
-            "familiarity": 0,
-            "evidence": 0,
-            "correction": 0
+            "familiarity": 0.0,
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.8472978603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.2,
             "reward": 0.25
           },
           "sharing_logit": 0.04999999999999999,
           "inputs": {
             "evidence_signal": 0.6,
-            "correction_direction": 0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
@@ -836,29 +838,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.27999999999999997,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.5672978603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.13813943703931097,
             "reward": 0.25
           },
           "sharing_logit": 0.11186056296068903,
           "inputs": {
             "evidence_signal": 0.6,
-            "correction_direction": 0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.35,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.061860562960689036,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.015438620546555315
           }
         },
@@ -868,28 +870,28 @@
             "prior": -0.8472978603872036,
             "familiarity": 0.46199999999999997,
             "evidence": -0.18,
-            "correction": 0
+            "correction": 0.0
           },
           "belief_logit": -0.5652978603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.1376774745709589,
             "reward": 0.25
           },
           "sharing_logit": 0.11232252542904109,
           "inputs": {
             "evidence_signal": 0.6,
-            "correction_direction": 0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.22749999999999992,
-            "correction": 0,
+            "correction": 0.0,
             "reliability": -0.125,
             "belief": 0.0004619624683520618,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.00011512860402740355
           }
         },
@@ -899,28 +901,28 @@
             "prior": -0.8472978603872036,
             "familiarity": 0.5802999999999999,
             "evidence": -0.18,
-            "correction": 0
+            "correction": 0.0
           },
           "belief_logit": -0.4469978603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.1099252117280145,
             "reward": 0.25
           },
           "sharing_logit": 0.1400747882719855,
           "inputs": {
             "evidence_signal": 0.6,
-            "correction_direction": 0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.14787499999999998,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.02775226284294441,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.006910405225602045
           }
         },
@@ -930,28 +932,28 @@
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
             "evidence": -0.315,
-            "correction": 0
+            "correction": 0.0
           },
           "belief_logit": -0.5051028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.12365777083877799,
             "reward": 0.25
           },
           "sharing_logit": 0.126342229161222,
           "inputs": {
             "evidence_signal": 0.6,
-            "correction_direction": 0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.09611875000000003,
-            "correction": 0,
+            "correction": 0.0,
             "reliability": -0.09375,
             "belief": -0.013732559110763487,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": -0.0034179416124376916
           }
         },
@@ -961,29 +963,29 @@
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
             "evidence": -0.315,
-            "correction": 0
+            "correction": 0.0
           },
           "belief_logit": -0.5051028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.12365777083877799,
             "reward": 0.25
           },
           "sharing_logit": 0.126342229161222,
           "inputs": {
             "evidence_signal": 0.6,
-            "correction_direction": 0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -992,28 +994,28 @@
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
             "evidence": -0.41625,
-            "correction": 0
+            "correction": 0.0
           },
           "belief_logit": -0.6063528603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.14710839201589382,
             "reward": 0.25
           },
           "sharing_logit": 0.10289160798410618,
           "inputs": {
             "evidence_signal": 0.6,
-            "correction_direction": 0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
+            "familiarity": 0.0,
+            "correction": 0.0,
             "reliability": -0.0703125,
             "belief": -0.023450621177115827,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": -0.005843376603668182
           }
         },
@@ -1023,29 +1025,29 @@
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
             "evidence": -0.41625,
-            "correction": 0
+            "correction": 0.0
           },
           "belief_logit": -0.6063528603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.14710839201589382,
             "reward": 0.25
           },
           "sharing_logit": 0.10289160798410618,
           "inputs": {
             "evidence_signal": 0.6,
-            "correction_direction": 0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -1054,28 +1056,28 @@
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
             "evidence": -0.4921875,
-            "correction": 0
+            "correction": 0.0
           },
           "belief_logit": -0.6822903603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.1642496902560514,
             "reward": 0.25
           },
           "sharing_logit": 0.0857503097439486,
           "inputs": {
             "evidence_signal": 0.6,
-            "correction_direction": 0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
+            "familiarity": 0.0,
+            "correction": 0.0,
             "reliability": -0.052734375,
             "belief": -0.017141298240157588,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": -0.004275781638497733
           }
         },
@@ -1085,29 +1087,29 @@
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
             "evidence": -0.4921875,
-            "correction": 0
+            "correction": 0.0
           },
           "belief_logit": -0.6822903603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.1642496902560514,
             "reward": 0.25
           },
           "sharing_logit": 0.0857503097439486,
           "inputs": {
             "evidence_signal": 0.6,
-            "correction_direction": 0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -1116,29 +1118,29 @@
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
             "evidence": -0.4921875,
-            "correction": 0
+            "correction": 0.0
           },
           "belief_logit": -0.6822903603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.1642496902560514,
             "reward": 0.25
           },
           "sharing_logit": 0.0857503097439486,
           "inputs": {
             "evidence_signal": 0.6,
-            "correction_direction": 0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -1147,29 +1149,29 @@
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
             "evidence": -0.4921875,
-            "correction": 0
+            "correction": 0.0
           },
           "belief_logit": -0.6822903603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.1642496902560514,
             "reward": 0.25
           },
           "sharing_logit": 0.0857503097439486,
           "inputs": {
             "evidence_signal": 0.6,
-            "correction_direction": 0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -1178,29 +1180,29 @@
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
             "evidence": -0.4921875,
-            "correction": 0
+            "correction": 0.0
           },
           "belief_logit": -0.6822903603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.1642496902560514,
             "reward": 0.25
           },
           "sharing_logit": 0.0857503097439486,
           "inputs": {
             "evidence_signal": 0.6,
-            "correction_direction": 0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         }
       ]
@@ -1212,20 +1214,20 @@
           "time": 0,
           "belief_terms": {
             "prior": -0.8472978603872036,
-            "familiarity": 0,
-            "evidence": 0,
-            "correction": 0
+            "familiarity": 0.0,
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.8472978603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.2,
             "reward": 0.25
           },
           "sharing_logit": 0.04999999999999999,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
@@ -1237,29 +1239,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.27999999999999997,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.5672978603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.13813943703931097,
             "reward": 0.25
           },
           "sharing_logit": 0.11186056296068903,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.35,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.061860562960689036,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.015438620546555315
           }
         },
@@ -1268,29 +1270,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.46199999999999997,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.3852978603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.09515024429692026,
             "reward": 0.25
           },
           "sharing_logit": 0.15484975570307974,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.22749999999999992,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.042989192742390714,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.010699251585566505
           }
         },
@@ -1299,29 +1301,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.5802999999999999,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.26699786038720363,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.06635573613877094,
             "reward": 0.25
           },
           "sharing_logit": 0.18364426386122906,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.14787499999999998,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.028794508158149323,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.007147200975581525
           }
         },
@@ -1330,29 +1332,29 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.04738310242621224,
             "reward": 0.25
           },
           "sharing_logit": 0.20261689757378776,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": false,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
             "familiarity": 0.09611875000000003,
-            "correction": 0,
-            "reliability": 0,
+            "correction": 0.0,
+            "reliability": 0.0,
             "belief": 0.018972633712558695,
-            "accuracy_weight": 0,
+            "accuracy_weight": 0.0,
             "share_probability": 0.004699168410446375
           }
         },
@@ -1361,28 +1363,28 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.06927964702157331,
             "reward": 0.13447071068499755
           },
           "sharing_logit": 0.06519106366342424,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": true,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
             "accuracy_weight": 0.2310585786300049,
             "share_probability": -0.03418964158991322
           }
@@ -1392,30 +1394,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.06927964702157331,
             "reward": 0.13447071068499755
           },
           "sharing_logit": 0.06519106366342424,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": true,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -1423,30 +1425,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.06927964702157331,
             "reward": 0.13447071068499755
           },
           "sharing_logit": 0.06519106366342424,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": true,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -1454,30 +1456,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.06927964702157331,
             "reward": 0.13447071068499755
           },
           "sharing_logit": 0.06519106366342424,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": true,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -1485,30 +1487,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.06927964702157331,
             "reward": 0.13447071068499755
           },
           "sharing_logit": 0.06519106366342424,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": true,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -1516,30 +1518,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.06927964702157331,
             "reward": 0.13447071068499755
           },
           "sharing_logit": 0.06519106366342424,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": true,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -1547,30 +1549,30 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.06927964702157331,
             "reward": 0.13447071068499755
           },
           "sharing_logit": 0.06519106366342424,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": true,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         },
         {
@@ -1578,35 +1580,33 @@
           "belief_terms": {
             "prior": -0.8472978603872036,
             "familiarity": 0.657195,
-            "evidence": 0,
-            "correction": 0
+            "evidence": 0.0,
+            "correction": 0.0
           },
           "belief_logit": -0.1901028603872036,
           "sharing_terms": {
-            "bias": 0,
+            "bias": 0.0,
             "belief": -0.06927964702157331,
             "reward": 0.13447071068499755
           },
           "sharing_logit": 0.06519106366342424,
           "inputs": {
-            "evidence_signal": 0,
-            "correction_direction": 0,
+            "evidence_signal": 0.0,
+            "correction_direction": 0.0,
             "accuracy_cue": true,
             "accuracy_baseline": 0.5,
             "reward_context": 0.5
           },
           "changes": {
-            "familiarity": 0,
-            "correction": 0,
-            "reliability": 0,
-            "belief": 0,
-            "accuracy_weight": 0,
-            "share_probability": 0
+            "familiarity": 0.0,
+            "correction": 0.0,
+            "reliability": 0.0,
+            "belief": 0.0,
+            "accuracy_weight": 0.0,
+            "share_probability": 0.0
           }
         }
       ]
     }
-  ],
-  "model_specification": "M0",
-  "purpose": "EXPLANATION_OF_REFERENCE_RUNS"
+  ]
 }
