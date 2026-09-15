@@ -210,10 +210,10 @@ try {
  await page.selectOption('#dependency','prior-b');assert.match(await page.locator('#detail').textContent(),/does not automatically replace/);
  await page.selectOption('#graphFocus','source');assert.match(await page.locator('#graphCount').textContent(),/6 nodes/);
  await page.selectOption('#dependency','t-b');assert.match(await page.locator('#detail').textContent(),/0.5/);
- await page.selectOption('#graphMode','registered');assert.equal(await page.locator('#variable option').count(),7);
+ await page.selectOption('#graphMode','registered');assert.equal(await page.locator('#variable option').count(),11);assert.equal(await page.locator('#variable option[value="VAR.ISSUE.APPRAISAL"]').count(),1);
  await page.selectOption('#graphMode','core');
- await page.locator('[data-view="reference"]').click();assert.equal(await page.locator('.reference-grid article').count(),10);
- assert.equal(await page.locator('.citation-link').count(),3);
+ await page.locator('[data-view="reference"]').click();assert.equal(await page.locator('.reference-grid article').count(),16);
+ assert.equal(await page.locator('.citation-link').count(),5);
  for(const a of await page.locator('.citation-link').all()) assert.match(await a.getAttribute('href'),/^https:\/\/doi\.org\/10\./);
  assert.match(await page.locator('.reference-grid').last().textContent(),/Candidate mechanism/);
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.locator('.reference-grid').last().screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'evidence.png')});}
