@@ -3,6 +3,7 @@ import cytoscape, {type Core} from 'cytoscape';
 import './style.css';
 import './elementary.css';
 import {mountLearning} from './learning';
+import {type M1EditorialData,type EmpiricalTarget} from './editorial-stage';
 import {mountComparison} from './comparison';
 import {renderExplanation,type ExplanationData} from './explanation';
 let explanations:ExplanationData;
@@ -35,6 +36,8 @@ let runs:Run[] = [];
 let references:Reference[] = [];
 let oddProcesses:OddProcess[] = [];
 let subsystems:Subsystem[] = [];
+let m1Editorial:M1EditorialData;
+let m1Targets:EmpiricalTarget[] = [];
 const app = document.getElementById('app')!;
 const tr = (ro:string,en:string) => lang === 'ro' ? ro : en;
 const num = (n:number) => n.toLocaleString(lang === 'ro' ? 'ro-RO' : 'en-GB', {minimumFractionDigits:3,maximumFractionDigits:3});
@@ -69,7 +72,7 @@ function shell() {
  <main id="content"></main><footer><span>${tr('Model demonstrativ · coeficienți necalibrați','Demonstration model · uncalibrated coefficients')}</span><span>${tr('Nu estimează proporții Track A/B sau diagnostice individuale.','Does not estimate Track A/B prevalence or individual diagnoses.')}</span></footer></div>`;
  document.getElementById('language')!.onclick=()=>{stop();lang=lang==='ro'?'en':'ro';shell();};
  document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.onclick=()=>{stop();view=b.dataset.view!;shell();});
- if(view==='learning') mountLearning(document.getElementById('content')!,lang,runs,target=>{stop();const [next,id,time]=target.split(':');view=next;if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
+ if(view==='learning') mountLearning(document.getElementById('content')!,lang,runs,m1Editorial,m1Targets,target=>{stop();const [next,id,time]=target.split(':');view=next;if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
  if(view==='planning') mountPlanner(document.getElementById('content')!,planning,lang);
  if(view==='runs') renderRuns();
  if(view==='comparison') mountComparison(document.getElementById('content')!,runs,lang,(id,time)=>{selected=id;step=time;view='runs';shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
@@ -162,6 +165,6 @@ function renderProcess(){
  mountVisualOdd(document.getElementById('content')!,lang,oddProcesses,subsystems);
 }
 async function load<T>(name:string):Promise<T>{const r=await fetch(`./model/${name}.json`);if(!r.ok)throw new Error(`${name}: HTTP ${r.status}`);return r.json();}
-async function init(){[variables,links,modules,references,oddProcesses,subsystems]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems')]);runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
+async function init(){[variables,links,modules,references,oddProcesses,subsystems,m1Targets,m1Editorial]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems'),load<EmpiricalTarget[]>('empirical_targets'),load<M1EditorialData>('m1_editorial')]);runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(view==='structure'){stop();shell();}});
 init().catch(e=>{app.replaceChildren();const p=document.createElement('p');p.className='loading';p.textContent=`Nu se poate încărca modelul / Unable to load model: ${String(e)}`;app.append(p);});
