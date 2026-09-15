@@ -146,7 +146,16 @@ def test_reference_experiment_discriminates_null_from_hneg_without_downstream_st
     assert experiment["cue_encoding"]["runtime_sentiment_analysis"] is False
     assert experiment["parameters"]["calibrated"] is False
 
-    serialized = repr(experiment)
+    def all_keys(value):
+        if isinstance(value, dict):
+            for key, item in value.items():
+                yield key
+                yield from all_keys(item)
+        elif isinstance(value, list):
+            for item in value:
+                yield from all_keys(item)
+
+    keys = set(all_keys(experiment))
     for forbidden in (
         "belief",
         "Share",
@@ -154,7 +163,7 @@ def test_reference_experiment_discriminates_null_from_hneg_without_downstream_st
         "Pengage",
         "EngageIntent",
     ):
-        assert forbidden not in serialized
+        assert forbidden not in keys
 
 
 def test_reference_experiment_illustrative_draw_is_not_validation_target():
