@@ -48,6 +48,13 @@ try {
  assert.equal(await page.locator('#scenario').inputValue(),'correction');
  assert.equal(await page.locator('#timeline').inputValue(),'7');
  await page.locator('[data-view="learning"]').click();
+ await page.locator('#m1EditorialStage').waitFor();
+ assert.equal(await page.locator('[data-m1-condition]').count(),3);
+ assert.match(await page.locator('#m1EditorialStage').textContent(),/Benchmark empiric|Empirical benchmark/);
+ assert.match(await page.locator('#m1EditorialStage').textContent(),/2\.141|2,141/);
+ await page.locator('[data-m1-condition="neutral"]').click();
+ assert.equal(await page.locator('[data-m1-condition="neutral"]').getAttribute('aria-pressed'),'true');
+ assert.match(await page.locator('#m1EditorialStage').textContent(),/Sobs/);
  await page.locator('[data-mechanism="source"]').click();
  assert.match(await page.locator('#mechanismReading').textContent(),/2T − 1/);
  await page.locator('#exploreMechanism').click();assert.equal(await page.locator('#scenario').inputValue(),'source');
