@@ -223,8 +223,8 @@ try {
  await page.selectOption('#dependency','t-b');assert.match(await page.locator('#detail').textContent(),/0.5/);
  await page.selectOption('#graphMode','registered');assert.equal(await page.locator('#variable option').count(),15);assert.equal(await page.locator('#variable option[value="VAR.ISSUE.APPRAISAL"]').count(),1);assert.equal(await page.locator('#variable option[value="VAR.ATTITUDE.CONGRUENCE"]').count(),1);
  await page.selectOption('#graphMode','core');
- await page.locator('[data-view="reference"]').click();assert.equal(await page.locator('.reference-grid article').count(),16);
- assert.equal(await page.locator('.citation-link').count(),5);
+ await page.locator('[data-view="reference"]').click();assert.equal(await page.locator('.reference-grid article').count(),23);
+ assert.equal(await page.locator('.citation-link').count(),8);
  for(const a of await page.locator('.citation-link').all()) assert.match(await a.getAttribute('href'),/^https:\/\/doi\.org\/10\./);
  assert.match(await page.locator('.reference-grid').last().textContent(),/Candidate mechanism/);
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.locator('.reference-grid').last().screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'evidence.png')});}
