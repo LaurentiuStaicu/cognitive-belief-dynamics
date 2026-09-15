@@ -4,6 +4,7 @@ from cognitive_epistemic_model.calibration.diagnostics import (
     local_identifiability_report,
     prediction_robustness_report,
 )
+from cognitive_epistemic_model.editorial import reference_editorial_experiment
 from cognitive_epistemic_model.events import (
     CorrectionEvent,
     DecisionEvent,
@@ -76,8 +77,9 @@ def export():
         "version": __version__,
         "software_version": __version__,
         "channel": "Alpha",
-        "model": "M0",
-        "model_specification": "M0",
+        "model": "M1",
+        "model_specification": "M1",
+        "baseline_model_specification": "M0",
         "evidence_snapshot": evidence_snapshot,
         "release_tag": "v" + __version__,
     }
@@ -92,6 +94,7 @@ def export():
         "subsystems",
         "processes",
         "evidence_snapshot",
+        "empirical_targets",
     ):
         (DEST / f"{name}.json").write_bytes(
             (ROOT / "model" / f"{name}.json").read_bytes()
@@ -125,6 +128,19 @@ def export():
                 "model_specification": "M0",
                 "purpose": "MECHANISM_TEST_DEMONSTRATION",
                 "runs": runs,
+            },
+            indent=2,
+        )
+        + "\n"
+    )
+
+    (DEST / "m1_editorial.json").write_text(
+        json.dumps(
+            {
+                "model_version": __version__,
+                "model_specification": "M1",
+                "baseline_model_specification": "M0",
+                "experiment": reference_editorial_experiment(),
             },
             indent=2,
         )
