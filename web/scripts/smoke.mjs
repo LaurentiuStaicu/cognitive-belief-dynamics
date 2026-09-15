@@ -300,11 +300,11 @@ try {
  await page.selectOption('#dependency','prior-b');assert.match(await page.locator('#detail').textContent(),/does not automatically replace/);
  await page.selectOption('#graphFocus','source');assert.match(await page.locator('#graphCount').textContent(),/6 nodes/);
  await page.selectOption('#dependency','t-b');assert.match(await page.locator('#detail').textContent(),/0.5/);
- await page.selectOption('#graphMode','registered');assert.equal(await page.locator('#variable option').count(),15);assert.equal(await page.locator('#variable option[value="VAR.ISSUE.APPRAISAL"]').count(),1);assert.equal(await page.locator('#variable option[value="VAR.ATTITUDE.CONGRUENCE"]').count(),1);
- await page.selectOption('#graphMode','core');
- await page.locator('[data-view="reference"]').click();
  const registryVariables=JSON.parse(await readFile(path.join(dist,'model/variables.json'),'utf8'));
  const registryLinks=JSON.parse(await readFile(path.join(dist,'model/links.json'),'utf8'));
+ await page.selectOption('#graphMode','registered');assert.equal(await page.locator('#variable option').count(),registryVariables.length);assert.equal(await page.locator('#variable option[value="VAR.ISSUE.APPRAISAL"]').count(),1);assert.equal(await page.locator('#variable option[value="VAR.ATTITUDE.CONGRUENCE"]').count(),1);assert.equal(await page.locator('#variable option[value="VAR.ACCESS.PROBABILITY"]').count(),1);assert.equal(await page.locator('#variable option[value="VAR.PREVIEW.IMPRESSION"]').count(),1);
+ await page.selectOption('#graphMode','core');
+ await page.locator('[data-view="reference"]').click();
  assert.equal(await page.locator('.reference-grid article').count(),registryVariables.length+registryLinks.length);
  assert.equal(await page.locator('.citation-link').count(),registryLinks.reduce((sum,link)=>sum+link.evidence_refs.length,0));
  for(const a of await page.locator('.citation-link').all()) assert.match(await a.getAttribute('href'),/^https:\/\/doi\.org\/10\./);
