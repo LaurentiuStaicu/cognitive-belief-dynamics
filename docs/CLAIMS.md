@@ -17,6 +17,16 @@
 | Claim cognitive difficulty or affect as the unique mediator | Out of scope |
 | Attribute M1.E2 to platform ranking or recommendation algorithms | Out of scope |
 | Estimate real population engagement rates | Out of scope |
+| Add an explicit PreviewImpression → Access stage for M1.E3 | In scope |
+| Reproduce higher Hneg → higher Paccess under fixed comparator invariants | In scope |
+| Require lower/higher Hneg conditions to converge under the NULL access model | In scope |
+| Keep Access distinct from attention, belief, EngageIntent and Share | In scope |
+| Keep Access=0 from erasing PreviewImpression | In scope |
+| Fit beta_hneg to the published 0.015 coefficient or 2.3% CTR context | Out of scope / not calibrated |
+| Treat headline negativity as a universal human constant | Out of scope |
+| Infer attention, comprehension or belief from a click/open outcome | Out of scope |
+| Integrate M1.E3 Access into downstream belief/sharing in this phase | Out of scope |
+| Add an M1.E3 web UI in this phase | Out of scope |
 
 ## Retained M0 baseline
 
