@@ -43,5 +43,79 @@
     ],
     "model_match": "Alpha 0.4 uses the negative-versus-neutral direction and nested-null contrast as validation targets. Published magnitudes are context only and are not used to set the appraisal gain.",
     "limitations": "The experiment varies sentence selection by tone and therefore combines information-selection and tone variation. The M1 scalar variables and bounded linear appraisal update are model constructs, not measured states from the study."
+  },
+  {
+    "id": "TARGET.M1.E2.ARUGUETE_2024",
+    "pattern_id": "VAL.M1.002",
+    "evidence_ref": "REF.ARUGUETE.2024",
+    "use": "DIRECTIONAL_VALIDATION_ONLY",
+    "study": {
+      "randomized": true,
+      "preregistered": true,
+      "n_recruited": 9512,
+      "n_analyzed": 9512,
+      "event_count": 4
+    },
+    "effects": [
+      {
+        "outcome": "aggregate active engagement",
+        "comparison": "confirmation_vs_refutation_argentina",
+        "estimate_pp": 18.2
+      },
+      {
+        "outcome": "aggregate active engagement",
+        "comparison": "confirmation_vs_refutation_brazil",
+        "estimate_pp": 13
+      },
+      {
+        "outcome": "aggregate active engagement",
+        "comparison": "confirmation_vs_refutation_chile",
+        "estimate_pp": 15
+      },
+      {
+        "outcome": "aggregate active engagement",
+        "comparison": "confirmation_vs_refutation_colombia",
+        "estimate_pp": 14
+      }
+    ],
+    "model_match": "Alpha 0.4.1 uses the cross-country confirmation-greater-than-refutation engagement direction as the target for the frame-only candidate. The published percentage-point effects are context only and do not set beta_frame.",
+    "limitations": "Aggregate engagement combines like, share and comment. Share alone is statistically significant only in Argentina, so the target validates active-engagement intent rather than the retained M0 Share process."
+  },
+  {
+    "id": "TARGET.M1.E2.ALVARADO_2026",
+    "pattern_id": "VAL.M1.003",
+    "evidence_ref": "REF.ALVARADO.2026",
+    "use": "DIRECTIONAL_VALIDATION_ONLY",
+    "study": {
+      "randomized": true,
+      "preregistered": true,
+      "n_recruited": 2075,
+      "n_analyzed": 1901,
+      "event_count": 2
+    },
+    "effects": [
+      {
+        "outcome": "aggregate engagement interaction",
+        "comparison": "confirmation_x_partisan_congruence",
+        "estimate_pp": 12.4
+      },
+      {
+        "outcome": "aggregate engagement main confirmation among counter-attitudinal",
+        "comparison": "confirmation_vs_refutation_counter_attitudinal",
+        "estimate_pp": -1
+      },
+      {
+        "outcome": "like interaction",
+        "comparison": "confirmation_x_partisan_congruence",
+        "estimate_pp": 13
+      },
+      {
+        "outcome": "share interaction",
+        "comparison": "confirmation_x_partisan_congruence",
+        "estimate_pp": 6.8
+      }
+    ],
+    "model_match": "Alpha 0.4.1 uses the positive confirmation-by-congruence interaction and near-zero counter-attitudinal confirmation main effect as the differential target that distinguishes frame×congruence from frame-only.",
+    "limitations": "The published interaction is defined using partisan congruence with 2023 runoff vote choice. M1 generalizes this only to a task-specific message–prior-attitude congruence relation and does not create a stable ideology or party-identity trait."
   }
 ]
