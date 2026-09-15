@@ -111,6 +111,16 @@ Additional robustness relevant to model design:
 - robustness checks excluding image-changing experiments produce nearly identical conclusions;
 - positive wording shows an opposite average association in the registered analysis.
 
+### 2024 Upworthy archive integrity update
+
+The Upworthy Research Archive later published an Author Correction reporting likely randomization problems in tests fielded between 25 June 2013 and 10 January 2014.
+
+This creates a mandatory provenance check for any CEM use of the archive.
+
+Importantly, the archive maintainers report that the Robertson et al. negativity analysis was re-run using only A/B tests they consider reliable after this discovery and that the main findings were nearly identical. Alpha 0.4.2 Phase A must register both the correction and the robust reanalysis rather than citing only the original 2023 paper.
+
+This strengthens confidence in the registered direction while preserving a clear distinction between **original publication evidence** and **post-publication archive-integrity verification**.
+
 Limits:
 
 - Upworthy was an unusual and historically specific click-oriented publisher;
@@ -276,6 +286,22 @@ It is not intelligence, education, comprehension, source quality or article diff
 Hneg and Hsimp are **planning candidates**, not simultaneous executable variables.
 
 Phase A must predeclare the exact encoding of both candidates, audit construct validity and evidence strength, then choose exactly one for the first executable M1.E3 model. The rejected/deferred candidate remains documented rather than silently disappearing.
+
+### Reproducibility and licensing constraint on cue encoding
+
+The published operationalizations cannot simply be copied into CEM runtime without an implementation audit.
+
+- Robertson et al. evaluate sentiment using LIWC and robustness dictionaries.
+- Shulman et al. define headline simplicity from common words, readability, analytic writing and character count; LIWC contributes to some of these measures.
+- LIWC is licensed software and its application/dictionaries cannot be redistributed as open project dependencies.
+- The Upworthy archive is openly available under CC BY 4.0, but the Washington Post Study Set 1 data in Shulman et al. cannot be publicly redistributed under the authors' data-use agreement.
+
+Therefore Phase A must choose one of two reproducible strategies for the selected cue:
+
+1. **precomputed stimulus metadata** with provenance to the published/archived source and no redistribution of restricted dictionaries or data; or
+2. **an open operational proxy** whose definition, divergence from the source study and validation limits are explicitly registered.
+
+An open proxy must never be described as an exact replication of a LIWC-based construct unless equivalence is empirically demonstrated.
 
 ### Paccess — Access probability
 
@@ -621,8 +647,8 @@ First perform a Phase A-style data/evidence contract on a new implementation bra
 
 1. register supporting evidence and explicit counterevidence with distinct source roles;
 2. define candidate encodings for Hneg and Hsimp;
-3. compare Candidate N and Candidate S on construct validity, observable match, causal identification, independence of evidence, context robustness and reproducibility;
-4. select exactly one cue and freeze its empirical target before code;
+3. compare Candidate N and Candidate S on construct validity, observable match, causal identification, independence of evidence, context robustness, data availability, licensing constraints and reproducibility;
+4. select exactly one cue and freeze both its empirical target and reproducible encoding before code;
 5. define Paccess / Access / PreviewImpression schemas;
 6. register the cue-specific differential validation plus the common null/boundary tests;
 7. verify that existing M1.E2 terminology cannot collide with the new access observable;
