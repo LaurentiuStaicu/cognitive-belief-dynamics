@@ -25,6 +25,30 @@
       "type": "string",
       "pattern": "^REF\\.[A-Z0-9_.-]+$"
     },
+    "provenance_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^REF\\.[A-Z0-9_.-]+$"
+      }
+    },
+    "integrity_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^REF\\.[A-Z0-9_.-]+$"
+      }
+    },
+    "counterevidence_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^REF\\.[A-Z0-9_.-]+$"
+      }
+    },
     "use": {
       "enum": [
         "DIRECTIONAL_VALIDATION_ONLY",
@@ -32,47 +56,93 @@
       ]
     },
     "study": {
-      "type": "object",
-      "required": [
-        "randomized",
-        "preregistered",
-        "n_recruited",
-        "n_analyzed",
-        "event_count"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "randomized": {
-          "type": "boolean"
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "randomized",
+            "preregistered",
+            "n_recruited",
+            "n_analyzed",
+            "event_count"
+          ],
+          "properties": {
+            "randomized": {
+              "type": "boolean"
+            },
+            "preregistered": {
+              "type": "boolean"
+            },
+            "n_recruited": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "n_analyzed": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "event_count": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
         },
-        "preregistered": {
-          "type": "boolean"
-        },
-        "n_recruited": {
-          "type": "integer",
-          "minimum": 1
-        },
-        "n_analyzed": {
-          "type": "integer",
-          "minimum": 1
-        },
-        "event_count": {
-          "type": "integer",
-          "minimum": 1
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "design_family",
+            "randomized_assignment",
+            "preregistered_analysis",
+            "n_experiments",
+            "n_variants",
+            "n_impressions_min",
+            "n_clicks"
+          ],
+          "properties": {
+            "design_family": {
+              "const": "PLATFORM_AB_TEST_ARCHIVE"
+            },
+            "randomized_assignment": {
+              "type": "boolean"
+            },
+            "preregistered_analysis": {
+              "type": "boolean"
+            },
+            "n_experiments": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "n_variants": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "n_impressions_min": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "n_clicks": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "count_note": {
+              "type": "string"
+            }
+          }
         }
-      }
+      ]
     },
     "effects": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
+        "additionalProperties": true,
         "required": [
           "outcome",
-          "comparison",
-          "estimate_pp"
+          "comparison"
         ],
-        "additionalProperties": true,
         "properties": {
           "outcome": {
             "type": "string",
@@ -95,8 +165,50 @@
           },
           "cohens_d": {
             "type": "number"
+          },
+          "metric": {
+            "enum": [
+              "LOG_ODDS_COEFFICIENT",
+              "ODDS_RATIO",
+              "RELATIVE_CHANGE_PERCENT",
+              "STANDARDIZED_EFFECT",
+              "DIRECTION_ONLY"
+            ]
+          },
+          "estimate": {
+            "type": "number"
+          },
+          "ci": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "scale_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "magnitude_use": {
+            "const": "MAGNITUDE_CONTEXT_ONLY"
           }
-        }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "estimate_pp"
+            ]
+          },
+          {
+            "required": [
+              "metric",
+              "estimate",
+              "scale_note",
+              "magnitude_use"
+            ]
+          }
+        ]
       }
     },
     "model_match": {
