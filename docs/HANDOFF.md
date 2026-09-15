@@ -354,7 +354,7 @@ complex simplicity evidence.
 
 The machine-readable contract is
 `model/contracts/m1_e3_evidence_contract.json`, validated by
-`schemas/evidence_contract.schema.json` and dedicated regression tests.
+`schemas/m1_e3_evidence_contract.schema.json` and dedicated regression tests.
 
 The selected reference operationalisation is
 `PRECOMPUTED_CONTROLLED_CUE` with binary `Hneg ∈ {0,1}`. It is explicitly not
