@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.1a1"><img alt="Version 0.4.1a1" src="https://img.shields.io/badge/version-0.4.1a1-4e9a06"></a>
+  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.2a0"><img alt="Version 0.4.2a0" src="https://img.shields.io/badge/version-0.4.2a0-4e9a06"></a>
   <img alt="Development stage: alpha" src="https://img.shields.io/badge/stage-alpha-e5a50a">
   <img alt="Available application: Web" src="https://img.shields.io/badge/app-Web-4a90d9">
   <img alt="elementary OS Flatpak: planned" src="https://img.shields.io/badge/elementary_OS_Flatpak-planned-64baff">
@@ -23,7 +23,7 @@
   </a>
 </p>
 
-> **Alpha 0.4.1a1.** M1 is a candidate, uncalibrated extension retaining the M0 baseline.
+> **Alpha 0.4.2a0.** M1 is a candidate, uncalibrated extension retaining the M0 baseline.
 > Software tests do not establish psychological validity or population prevalence.
 
 ## Project priorities
@@ -45,8 +45,8 @@ Choose RO or EN in the application header.
 - **Understanding (start here):** three integrated modes now separate explanation from
   execution without duplicating the model. **Theory** provides a 16-chapter bilingual
   reader with epistemic-status labels, validated cross-links and a contextual inspector.
-  **Mechanisms** retains the M0 Narrative Laboratory plus the M1.E1 editorial-selection
-  and M1.E2 presentation-framing comparators. **Guided tour** leads the reader through
+  **Mechanisms** retains the M0 Narrative Laboratory plus the M1.E1 editorial-selection,
+  M1.E2 presentation-framing and M1.E3 headline-access comparators. **Guided tour** leads the reader through
   ten deep-linked steps spanning theory, executable mechanisms, scenarios, evidence,
   validation and planning, with browser-history return to the exact tour step.
 - **Interventions:** compare all 16 bundles under an effort budget, adjust objective
@@ -62,7 +62,7 @@ Choose RO or EN in the application header.
   formulas and code provenance. The original evidence-registry map remains selectable.
 - **Visual ODD:** a registry-driven view of Initialisation, Submodels, Observation and
   Scales, complemented by the [M0 ODD](docs/ODD_MAIN.md), [M1.E1 ODD](docs/ODD_M1.md) and [M1.E2 ODD](docs/ODD_M1_E2.md).
-- **Registry:** fifteen variables, eight registered evidence-qualified links, three M1 empirical
+- **Registry:** nineteen variables, ten registered evidence-qualified links, four M1 empirical
   targets and twenty conceptual modules.
 
 Scenarios replay saved output from the Python simulator; the browser does not
@@ -87,7 +87,9 @@ belief formation, accuracy salience and a sharing policy. M1.E1 adds a fixed
 fact-compatible information pool, editorial emphasis, observed-sample balance and
 issue appraisal. M1.E2 adds semantic-equivalent presentation framing, task-specific
 prior-attitude congruence and active-engagement intent, explicitly distinct from M0
-Share. Functional forms are reference candidates, not established unique psychological laws.
+Share. M1.E3 adds a separate PreviewImpression → Access gate with a controlled
+binary headline-negativity cue and a nested NULL comparator. Functional forms are
+reference candidates, not established unique psychological laws.
 
 - Simulated ground truth is never passed directly into the M0 belief-update function.
 - Negative information is not equated with false information in M1.
@@ -95,13 +97,15 @@ Share. Functional forms are reference candidates, not established unique psychol
 - Published framing-effect magnitudes and interaction coefficients are empirical context, not fitted M1 parameters.
 - `Gatt` is task-specific congruence, not ideology or party identity.
 - `EngageIntent` and `Pengage` are distinct from M0 `Share` and its probability.
+- `PreviewImpression`, `Access`, attention, belief, `EngageIntent` and `Share` remain distinct stages/constructs.
+- The M1.E3 `Hneg` cue and logistic coefficients are demonstrative; Robertson et al. effect magnitudes are validation context, not fitted parameters.
 - Track A/B are conceptual descriptions, not fixed classes or hard-coded agent states.
 - Jungian individuation and the ego–Self axis remain a separate interpretive layer.
 - A reproduced pattern is not proof of a unique mechanism.
 - No Track A/B population estimates, individual diagnoses or Romania forecasts.
 
 See [claim boundaries](docs/CLAIMS.md), [modelling decisions](docs/TRACE.md),
-[M0 ODD](docs/ODD_MAIN.md), [M1.E1 ODD](docs/ODD_M1.md), [M1.E2 ODD](docs/ODD_M1_E2.md), [Alpha 0.4 scientific scope](docs/ALPHA_0.4_SCOPE.md)
+[M0 ODD](docs/ODD_MAIN.md), [M1.E1 ODD](docs/ODD_M1.md), [M1.E2 ODD](docs/ODD_M1_E2.md), [M1.E3 ODD](docs/ODD_M1_E3.md), [Alpha 0.4 scientific scope](docs/ALPHA_0.4_SCOPE.md)
 and [development handoff](docs/HANDOFF.md).
 
 ## Run locally
@@ -148,7 +152,7 @@ checks. The initial live deployment was confirmed on 2026-09-13.
 
 ## Releases and licensing
 
-[Alpha 0.4.1a1 — release notes and downloads](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.1a1).
+[Alpha 0.4.2a0 — release notes and downloads](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.2a0).
 See [CHANGELOG.md](CHANGELOG.md). Releases attach the CI-verified web build and its
 SHA-256 checksum and release provenance attestation; GitHub also provides source archives. The native elementary OS
 Flatpak remains a near-v1 goal. This alpha has no native installer.
