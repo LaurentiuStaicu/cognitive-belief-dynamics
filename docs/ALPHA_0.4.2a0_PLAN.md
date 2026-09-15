@@ -1,4 +1,4 @@
-# Alpha 0.4.2a0 planning contract — M1.E3 Headline Access Gate
+# Alpha 0.4.2a0 planning contract — M1.E3 Headline Access Gate (cue-selection contract)
 
 Status: planning-only scientific contract. No executable Alpha 0.4.2 mechanism is introduced by this document.
 
@@ -6,7 +6,7 @@ Target software release: **Alpha 0.4.2a0**
 
 Working experiment name:
 
-**M1.E3 — Headline Access Gate (negativity candidate)**
+**M1.E3 — Headline Access Gate (cue-selection candidate)**
 
 ## 1. Decision
 
@@ -16,9 +16,14 @@ The initial executable mechanism should be deliberately narrow:
 
 `headline impression → headline cue → access probability → click/open`
 
-The first cue tested should be **headline negativity**.
+The **gate** is the scientific extension. The first executable cue is not frozen by this planning document.
 
-The gate itself is the scientific extension. Negativity is the first executable predictor because it has a large randomized field-experiment anchor. Other cues, including linguistic simplicity, are important evidence that access selection is not unique to negativity, but they should not be introduced as additional coefficients in the same first implementation.
+Phase A must compare two bounded candidates before any equation is implemented:
+
+- **Candidate N — headline negativity**, anchored primarily in Robertson et al. (2023);
+- **Candidate S — headline simplicity**, anchored primarily in Shulman, Markowitz & Rogers (2024).
+
+Only one cue should enter the first Alpha 0.4.2a0 executable model unless a later explicit contract justifies a multi-cue model. This prevents the release from becoming an unfalsifiable collection of headline features.
 
 This extension remains inside the Alpha 0.4 / M1 family because it adds one separable information-processing stage while retaining M0, M1.E1 and M1.E2 unchanged.
 
@@ -167,7 +172,37 @@ Use in CEM:
 
 This source therefore strengthens the case for testing Hneg while simultaneously strengthening the boundary against assuming a unique psychological explanation.
 
-## 8. Background architecture evidence — exposure is not engagement
+## 8. Recent counterevidence and context dependence
+
+The cue-selection gate must consider evidence that the headline effects are not universal.
+
+### APS 2026 two-stage headline experiment — preliminary counterevidence for negativity
+
+Nickl, Hills & Lorenz-Spreen presented “How an Attention Economy Affects News Headlines” at the 2026 APS Annual Convention.
+
+Conference abstract:
+https://www.psychologicalscience.org/conventions/archive/2026annual/paper/61983/
+
+The reported two-stage experiment (N=1,495) found that click-based incentives changed headline production and reduced information quality, but unexpectedly found **no negativity-bias effect**.
+
+Interpretation boundary:
+
+- this is a conference abstract, not yet equivalent to a peer-reviewed full article;
+- it does not invalidate the much larger registered Upworthy analyses;
+- it is sufficient to reject any claim that the negativity effect is already known to be universal across contemporary headline environments.
+
+### 2025 news-aggregator field experiment — context boundary for simplicity
+
+A seven-day field experiment in a UK news-aggregator app found that prominent positioning/highlighting increased selection, reading time and recall, while automated reduction of **article-text** complexity did not produce significant effects.
+
+Reference:
+https://doi.org/10.1093/joc/jqaf030
+
+This is not a direct replication of headline simplicity because it manipulates article complexity rather than headline complexity. It nevertheless warns against generalizing “simpler text → more access” across all stages and interfaces.
+
+Phase A must therefore treat both Candidate N and Candidate S as **context-bounded candidates**, not universal human constants.
+
+## 9. Background architecture evidence — exposure is not engagement
 
 Two large-scale studies support preserving multiple stages in the information funnel.
 
@@ -183,7 +218,7 @@ The study distinguishes URLs shown in Google Search from URLs users select.
 
 These sources are **BACKGROUND_THEORY** for stage separation. They do not calibrate the headline-access mechanism and must not be used to infer political behavior in CEM.
 
-## 9. Descriptive ecosystem evidence — not a causal target
+## 10. Descriptive ecosystem evidence — not a causal target
 
 Nickl, Moussaïd & Lorenz-Spreen (2025), “The evolution of online news headlines,” *Humanities and Social Sciences Communications*:
 https://doi.org/10.1057/s41599-025-04514-7
@@ -192,7 +227,7 @@ Across roughly 40 million headlines, the authors find long-run increases in seve
 
 This is descriptive production-side evidence. It should not be registered as causal evidence that negativity increases individual clicking.
 
-## 10. Proposed entities and quantities
+## 11. Proposed entities and quantities
 
 ### HeadlinePreview
 
@@ -209,25 +244,31 @@ Minimum fields for the reference experiment:
 
 The initial candidate should not require a realistic natural-language generator.
 
-### Hneg — Headline negativity cue
+### Candidate N: Hneg — Headline negativity cue
 
-Ontology role: CONTENT_ATTRIBUTE.
+Ontology role if selected: CONTENT_ATTRIBUTE.
 
 Reference interpretation:
 
 A bounded or standardized representation of negative wording in the headline.
 
-It is not:
+It is not article truth, factuality, issue valence, editorial-selection score, emotion experienced by the agent, political orientation or misinformation.
 
-- article truth;
-- article factuality;
-- issue valence;
-- editorial-selection score;
-- emotion experienced by the agent;
-- political orientation;
-- misinformation.
+### Candidate S: Hsimp — Headline simplicity cue
 
-The exact numerical encoding must be chosen during implementation and documented. The first model should prefer the simplest encoding that can express the registered differential prediction.
+Ontology role if selected: CONTENT_ATTRIBUTE.
+
+Reference interpretation:
+
+A bounded headline-level representation of linguistic simplicity/readability derived from predeclared features.
+
+It is not intelligence, education, comprehension, source quality or article difficulty.
+
+### Cue-selection rule
+
+Hneg and Hsimp are **planning candidates**, not simultaneous executable variables.
+
+Phase A must predeclare the exact encoding of both candidates, audit construct validity and evidence strength, then choose exactly one for the first executable M1.E3 model. The rejected/deferred candidate remains documented rather than silently disappearing.
 
 ### Paccess — Access probability
 
@@ -271,9 +312,9 @@ Important boundary:
 
 An impression means only that the preview is available/visible under the reference task. It does not prove visual fixation, reading, encoding or recall.
 
-## 11. Minimal candidate model
+## 12. Candidate model-discrimination forms
 
-### M1.E3-NULL — access insensitive to headline negativity
+### M1.E3-NULL — cue-insensitive access
 
 Reference form:
 
@@ -281,27 +322,35 @@ Reference form:
 
 Prediction:
 
-Headline variants converge when the negativity cue is normalized away.
+Headline conditions converge when the selected cue is normalized away.
 
-### M1.E3-A — negativity-sensitive access gate
+### Candidate N model — negativity-sensitive access
 
-Reference form:
+If Phase A selects negativity:
 
 `logit(Paccess) = b0 + beta_neg × Hneg`
 
-Differential prediction:
-
-For the same underlying article and reference impression context:
+Registered direction:
 
 `higher Hneg → higher Paccess`
 
-The coefficient is initially a **demonstrative reference value**, not a fitted estimate of the Robertson effect.
+### Candidate S model — simplicity-sensitive access
 
-No additional mediator is required for Alpha 0.4.2a0.
+If Phase A selects headline simplicity:
 
-In particular, the model must not introduce hidden states called “threat,” “arousal,” “interest” or “attention” merely to explain the sign of beta_neg. Those are candidate explanations in the broader literature, not uniquely identified mediators in the headline experiments.
+`logit(Paccess) = b0 + beta_simp × Hsimp`
 
-## 12. Required invariants in the reference comparator
+Registered direction:
+
+`higher Hsimp → higher Paccess`
+
+Only one cue-specific model should become executable in the first release.
+
+The selected coefficient is a **demonstrative reference value**, not a fitted translation of any published effect magnitude.
+
+No additional mediator is required for Alpha 0.4.2a0. The model must not introduce hidden states called “threat,” “arousal,” “curiosity,” “interest” or “attention” merely to explain a cue effect. Those are candidate explanations in the broader literature, not uniquely identified mediators by the access data.
+
+## 13. Required invariants in the reference comparator
 
 To attribute the difference to the candidate headline cue, the comparator must hold fixed:
 
@@ -318,11 +367,16 @@ To attribute the difference to the candidate headline cue, the comparator must h
 
 The negative and comparison headline variants do **not** need to be claimed as perfectly semantically identical unless the stimuli actually satisfy that stronger constraint.
 
-## 13. Registered validation patterns to add during implementation
+## 14. Registered validation patterns to add during implementation
 
-### VAL.M1.004 — Headline negativity access differential
+### VAL.M1.004 — Selected headline-cue access differential
 
-Holding the underlying article, source, impression opportunity and other registered conditions fixed, a headline with the higher registered negativity cue produces higher Paccess.
+The exact cue-specific form is frozen in Phase A:
+
+- if Candidate N is selected: higher registered Hneg produces higher Paccess;
+- if Candidate S is selected: higher registered Hsimp produces higher Paccess.
+
+The unselected candidate must not be smuggled into the model through stimulus construction or an undocumented composite score.
 
 ### VAL.M1.N04 — Access-gate null
 
@@ -345,7 +399,7 @@ When Access = 0, the model must not erase the PreviewImpression or imply that th
 
 This prevents the access gate from silently becoming an all-or-none exposure gate.
 
-## 14. Model-discrimination question
+## 15. Model-discrimination question
 
 The scientific question for Alpha 0.4.2a0 is intentionally narrow:
 
@@ -353,7 +407,7 @@ The scientific question for Alpha 0.4.2a0 is intentionally narrow:
 
 The release is justified only if the answer is yes while M0, M1.E1 and M1.E2 remain unchanged in their own reference tests.
 
-## 15. Rejection or revision criteria
+## 16. Rejection or revision criteria
 
 Reject or revise M1.E3 if any of the following occurs:
 
@@ -368,7 +422,7 @@ Reject or revise M1.E3 if any of the following occurs:
 - the reference comparator cannot keep the underlying story and other registered conditions invariant;
 - empirical review shows that the negativity direction is too platform-specific to support even a bounded candidate demonstration.
 
-## 16. Mechanisms explicitly deferred
+## 17. Mechanisms explicitly deferred
 
 Alpha 0.4.2a0 should not implement:
 
@@ -388,7 +442,7 @@ Alpha 0.4.2a0 should not implement:
 
 Each of these requires a distinct observable target and rejection criterion.
 
-## 17. Proposed causal placement
+## 18. Proposed causal placement
 
 The explanatory chain should become:
 
@@ -404,7 +458,7 @@ M1.E2 should remain a separate presentation/engagement experiment rather than be
 
 This is important: Alpha 0.4.2a0 adds a separable experiment, not a claim that every current M1 comparator is already one fully integrated causal pipeline.
 
-## 18. UI / explanatory design
+## 19. UI / explanatory design
 
 Do not add a new top-level tab.
 
@@ -426,7 +480,7 @@ The comparator should show:
 
 No temporal curve should be introduced unless a later empirical design is explicitly temporal.
 
-## 19. Evidence-registration rule
+## 20. Evidence-registration rule
 
 The evidence registry must distinguish:
 
@@ -449,7 +503,7 @@ https://doi.org/10.1038/s41597-021-00934-7
 
 No source should be counted twice as if two analyses of the same archive were independent replications.
 
-## 20. Evidence snapshot rule
+## 21. Evidence snapshot rule
 
 Implementation of Alpha 0.4.2a0 will change the evidence set and therefore must not reuse:
 
@@ -459,14 +513,14 @@ A new immutable evidence snapshot must be generated when references and empirica
 
 Planning documents alone do not change the evidence snapshot.
 
-## 21. Release acceptance criteria
+## 22. Release acceptance criteria
 
 Alpha 0.4.2a0 is releasable only when:
 
-- the empirical references and their source roles are registered correctly;
+- the empirical references, counterevidence and their source roles are registered correctly;
 - same-archive analyses are not labeled as independent replication;
-- Hneg, Paccess, Access and PreviewImpression have explicit ontology roles;
-- M1.E3-NULL and M1.E3-A are executable and compared;
+- the selected cue (Hneg or Hsimp), Paccess, Access and PreviewImpression have explicit ontology roles;
+- M1.E3-NULL and exactly one predeclared cue-specific model are executable and compared;
 - VAL.M1.004, VAL.M1.N04, VAL.M1.N05 and VAL.M1.N06 pass;
 - the underlying story, source, impression opportunity and other comparator invariants remain fixed;
 - Paccess is kept separate from Pengage, Share and belief;
@@ -479,7 +533,7 @@ Alpha 0.4.2a0 is releasable only when:
 - Python, registry validation, TypeScript/Vite and Playwright pass;
 - release artifact provenance remains valid.
 
-## 22. What would come after M1.E3
+## 23. What would come after M1.E3
 
 Only after the access gate is stable should the project consider an internal attention/encoding mechanism.
 
@@ -491,7 +545,7 @@ Such a later mechanism would need to answer a different question:
 
 That is not the question answered by Alpha 0.4.2a0.
 
-## 23. Planning sources
+## 24. Planning sources
 
 Primary causal target:
 
@@ -515,6 +569,13 @@ Exposure/access/engagement stage separation:
 - Robertson et al. (2023), *Nature*:
   https://doi.org/10.1038/s41586-023-06078-5
 
+Recent counterevidence / context boundaries:
+
+- Nickl, Hills & Lorenz-Spreen (2026), APS Annual Convention abstract:
+  https://www.psychologicalscience.org/conventions/archive/2026annual/paper/61983/
+- Journal of Communication (2025), news-aggregator field experiment:
+  https://doi.org/10.1093/joc/jqaf030
+
 Cross-context predictive support:
 
 - Qiu & Golman (2024), *Applied Cognitive Psychology*:
@@ -530,17 +591,19 @@ Dataset provenance:
 - Matias et al. (2021), *Scientific Data*:
   https://doi.org/10.1038/s41597-021-00934-7
 
-## 24. Immediate next step after approval of this contract
+## 25. Immediate next step after approval of this contract
 
 Do **not** implement the mechanism immediately.
 
 First perform a Phase A-style data/evidence contract on a new implementation branch:
 
-1. register source roles and the new empirical target;
-2. define the exact Hneg encoding and comparator stimuli;
-3. define Paccess / Access / PreviewImpression schemas;
-4. register the four validation patterns and nulls;
-5. verify that existing M1.E2 terminology cannot collide with the new access observable;
-6. add schema and invariant tests before adding equations or UI.
+1. register supporting evidence and explicit counterevidence with distinct source roles;
+2. define candidate encodings for Hneg and Hsimp;
+3. compare Candidate N and Candidate S on construct validity, observable match, causal identification, independence of evidence, context robustness and reproducibility;
+4. select exactly one cue and freeze its empirical target before code;
+5. define Paccess / Access / PreviewImpression schemas;
+6. register the cue-specific differential validation plus the common null/boundary tests;
+7. verify that existing M1.E2 terminology cannot collide with the new access observable;
+8. add schema and invariant tests before adding equations or UI.
 
-Only after those gates pass should M1.E3-NULL and M1.E3-A be implemented.
+Only after those gates pass should M1.E3-NULL and the selected cue-specific candidate be implemented.
