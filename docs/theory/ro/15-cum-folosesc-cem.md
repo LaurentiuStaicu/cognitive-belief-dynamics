@@ -10,21 +10,21 @@ CEM este cel mai util când este parcurs într-o ordine care păstrează explica
 
 ## 1. Înțelege
 
-Începe în Theory. Capitolele 0–4 explică arhitectura și limitele conceptuale. Capitolele 5–10 descriu mecanismele executabile și dovezile lor. Capitolele 11–13 arată mecanisme viitoare și stratul interpretativ. Capitolul 14 explică validarea.
+Începe în Teorie. Capitolele 0–4 explică arhitectura și limitele conceptuale. Capitolele 5–10 descriu mecanismele executabile și dovezile lor. Capitolele 11–13 arată mecanisme viitoare și stratul interpretativ. Capitolul 14 explică validarea.
 
 Când întâlnești un termen interactiv, selectează-l. Inspectorul trebuie să răspundă la trei întrebări: ce înseamnă, ce statut epistemic are și unde se vede în model.
 
 ## 2. Explorează mecanismul
 
-Folosește [[VIEW:learning]] pentru mecanisme și scenarii. Urmărește întotdeauna variabilele intermediare. Dacă outcome-ul se schimbă, întreabă care stare s-a modificat înainte și prin ce regulă.
+Folosește [[VIEW:learning]] pentru mecanisme și scenarii. Urmărește întotdeauna variabilele intermediare. Dacă rezultatul se schimbă, întreabă care stare s-a modificat înainte și prin ce regulă.
 
-Pentru procesul complet, deschide [[VIEW:process]]. Visual ODD arată ordinea evenimentelor și separarea între mediu, stări ale agentului și observații.
+Pentru procesul complet, deschide [[VIEW:process]]. ODD vizual arată ordinea evenimentelor și separarea între mediu, stări ale agentului și observații.
 
 ## 3. Inspectează dovada
 
 Deschide [[VIEW:reference]]. Verifică dacă sursa este MODEL_EVIDENCE, BACKGROUND_THEORY sau INTERPRETIVE_SOURCE. O referință bibliografică lângă un capitol nu înseamnă automat că validează ecuația executabilă.
 
-Verifică și „ce nu reprezintă” pentru fiecare variabilă. Aceste boundaries sunt parte din model, nu note decorative.
+Verifică și „ce nu reprezintă” pentru fiecare variabilă. Aceste limite sunt parte din model, nu note decorative.
 
 ## 4. Compară factori și scenarii
 
@@ -32,13 +32,13 @@ Folosește scenariile publicate pentru a vedea cum o singură schimbare afecteaz
 
 ## 5. Planifică acțiunea
 
-Abia apoi deschide [[VIEW:planning]]. Alege obiectivul, bugetul și costurile de efort și inspectează de ce un bundle este clasat peste altul. Uită-te la leave-one-out, nonadditivity și sensitivity profiles.
+Abia apoi deschide [[VIEW:planning]]. Alege obiectivul, bugetul și costurile de efort și inspectează de ce un combinație este clasat peste altul. Uită-te la eliminarea pe rând a câte unei componente, non-aditivitate și profiluri de sensibilitate.
 
 Rezultatul este o prioritate în cadrul modelului, nu o recomandare automată de politică.
 
 ## Întrebarea de control
 
-În orice ecran, întreabă: „Privesc un fapt empiric, o implementare executabilă, o ipoteză conceptuală sau o interpretare?” Dacă răspunsul nu este clar, revino la Registry și la Theory.
+În orice ecran, întreabă: „Privesc un fapt empiric, o implementare executabilă, o ipoteză conceptuală sau o interpretare?” Dacă răspunsul nu este clar, revino la Registry și la Teorie.
 
 ## Următorul pas
 
