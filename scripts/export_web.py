@@ -96,6 +96,8 @@ def export():
         "processes",
         "evidence_snapshot",
         "empirical_targets",
+        "theory_index",
+        "theory_glossary",
     ):
         (DEST / f"{name}.json").write_bytes(
             (ROOT / "model" / f"{name}.json").read_bytes()
