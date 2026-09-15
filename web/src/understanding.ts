@@ -1,4 +1,5 @@
-import {mountLearning,type M1EditorialData,type EmpiricalTarget} from './learning';
+import {mountLearning} from './learning';
+import {type M1EditorialData,type EmpiricalTarget} from './editorial-stage';
 import {type M1PresentationData} from './presentation-stage';
 import {
  mountTheoryReader,type TheoryChapter,type TheoryGlossaryEntry,type TheoryVariable,
