@@ -1,6 +1,7 @@
 import {mountLearning} from './learning';
 import {type M1EditorialData,type EmpiricalTarget} from './editorial-stage';
 import {type M1PresentationData} from './presentation-stage';
+import {type M1AccessData} from './access-stage';
 import {
  mountTheoryReader,type TheoryChapter,type TheoryGlossaryEntry,type TheoryVariable,
  type TheoryModule,type TheoryReference,type TheoryValidation
@@ -35,6 +36,7 @@ export function mountUnderstanding(
  runs:NarrativeRun[],
  m1Editorial:M1EditorialData,
  m1Presentation:M1PresentationData,
+ m1Access:M1AccessData,
  m1Targets:EmpiricalTarget[],
  theory:UnderstandingTheoryData,
  navigate:(target:string)=>void
@@ -81,10 +83,16 @@ export function mountUnderstanding(
  }
 
  if(mode==='mechanisms'){
-  mountLearning(sub,lang,runs,m1Editorial,m1Presentation,m1Targets,navigate);
+  mountLearning(sub,lang,runs,m1Editorial,m1Presentation,m1Access,m1Targets,navigate);
   if(current.detail){
    requestAnimationFrame(()=>{
-    sub.querySelector<HTMLButtonElement>(`[data-mechanism="${CSS.escape(current.detail!)}"]`)?.click();
+    if(current.detail==='access'){
+     const stage=sub.querySelector<HTMLElement>('#m1AccessStage');
+     stage?.scrollIntoView({block:'start'});
+     stage?.focus({preventScroll:true});
+    }else{
+     sub.querySelector<HTMLButtonElement>(`[data-mechanism="${CSS.escape(current.detail!)}"]`)?.click();
+    }
    });
   }
   return;
