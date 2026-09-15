@@ -443,3 +443,41 @@ model state under the old release label.
 Next gate after Phase B: explanatory/theory integration and a bounded
 Understanding → Mechanisms comparator, followed by release audit. No downstream
 Access → belief/share integration is authorized.
+
+
+## Alpha 0.4.2a0 Phase C — M1.E3 Theory/Understanding integration
+
+Phase C is stacked on Phase B head
+`7e2a250bdb2fb1992a564249110bf947f97e2e45` on branch
+`alpha-0.4.2a0-phase-c-access-ui-theory`.
+
+Implemented explanatory layer:
+
+- `web/src/access-stage.ts` renders the bounded M1.E3 comparator;
+- `web/src/main.ts` loads the canonical `m1_access.json` export;
+- `web/src/learning.ts` places M1.E3 under Understanding → Mechanisms;
+- `web/src/understanding.ts` supports
+  `#understanding/mechanisms/access`;
+- Theory chapter 11 explains PreviewImpression → Access as a separate stage;
+- the theory glossary registers executable mechanism token `access`;
+- theory metadata links Hneg, PreviewImpression, Paccess, Access, all four M1.E3
+  validations, registered evidence and `access_probability()`;
+- Playwright regression covers exact probabilities, native evidence counts,
+  scientific-boundary text, Theory → comparator routing, focus and mobile
+  overflow;
+- responsive styling is added without a new top-level application tab.
+
+The comparator reads, rather than reimplements, the deterministic backend export.
+It shows `Paccess=0.11920292202211755` for the NULL/control reference and
+`Paccess=0.1418510649004878` for the higher-Hneg candidate condition.
+
+No new evidence was added in Phase C. Evidence snapshot remains
+`EVIDENCE.M1.2026-09-16.r1`.
+
+No downstream integration is authorized or implemented:
+`Access` still cannot mutate B, Share, Aissue, Pengage or EngageIntent.
+
+Release status: **stacked / unreleased / do not merge into main yet**. The next
+gate is a complete branch CI plus rendered bilingual audit. Only after that should
+a separate Alpha 0.4.2a0 release-preparation branch synchronize version metadata,
+CHANGELOG/README/CITATION/release notes and perform the final pre-publication audit.
