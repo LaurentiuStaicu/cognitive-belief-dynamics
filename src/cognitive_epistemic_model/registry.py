@@ -39,6 +39,8 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     processes = load_json(model_dir / "processes.json")
     evidence_snapshot = load_json(model_dir / "evidence_snapshot.json")
     empirical_targets = load_json(model_dir / "empirical_targets.json")
+    theory_index = load_json(model_dir / "theory_index.json")
+    theory_glossary = load_json(model_dir / "theory_glossary.json")
 
     validate_items(modules, load_json(schema_dir / "module.schema.json"))
     validate_items(variables, load_json(schema_dir / "variable.schema.json"))
@@ -47,12 +49,14 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     validate_items(subsystems, load_json(schema_dir / "subsystem.schema.json"))
     validate_items(processes, load_json(schema_dir / "process.schema.json"))
     validate_items(empirical_targets, load_json(schema_dir / "empirical_target.schema.json"))
+    validate_items(theory_index, load_json(schema_dir / "theory_index.schema.json"))
+    validate_items(theory_glossary, load_json(schema_dir / "theory_glossary.schema.json"))
     snapshot_validator = Draft202012Validator(load_json(schema_dir / "evidence_snapshot.schema.json"))
     snapshot_errors = sorted(snapshot_validator.iter_errors(evidence_snapshot), key=lambda err: list(err.path))
     if snapshot_errors:
         raise RegistryError("\n".join(f"evidence snapshot: {err.message}" for err in snapshot_errors))
 
-    for name, items in (("modules", modules), ("variables", variables), ("links", links), ("references", references), ("subsystems", subsystems), ("processes", processes), ("empirical_targets", empirical_targets)):
+    for name, items in (("modules", modules), ("variables", variables), ("links", links), ("references", references), ("subsystems", subsystems), ("processes", processes), ("empirical_targets", empirical_targets), ("theory_index", theory_index), ("theory_glossary", theory_glossary)):
         duplicates = sorted(key for key, count in Counter(x["id"] for x in items).items() if count > 1)
         if duplicates:
             raise RegistryError(f"duplicate {name} IDs: {duplicates}")
@@ -88,4 +92,23 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
         if ref["url"] != "https://doi.org/" + ref["doi"]:
             raise RegistryError(f"DOI URL mismatch: {ref['id']}")
 
-    return {"modules": len(modules), "variables": len(variables), "links": len(links), "references": len(references), "subsystems": len(subsystems), "processes": len(processes), "empirical_targets": len(empirical_targets)}
+    from .theory import validate_theory_contract
+    root = model_dir.parent
+    theory_counts = validate_theory_contract(
+        root=root,
+        model_dir=model_dir,
+        schema_dir=schema_dir,
+        validate_sources=True,
+        validate_code=(root / "src").is_dir(),
+    )
+
+    return {
+        "modules": len(modules),
+        "variables": len(variables),
+        "links": len(links),
+        "references": len(references),
+        "subsystems": len(subsystems),
+        "processes": len(processes),
+        "empirical_targets": len(empirical_targets),
+        **theory_counts,
+    }
