@@ -44,3 +44,24 @@
 **What would change the decision.** Replace or expand M1.E1 if a rival model produces a differential empirical prediction, better out-of-sample pattern reproduction, or evidence allows selection and presentation/tone mechanisms to be identified separately.
 
 **Version introduced.** 0.4.0a0.
+
+
+## 2026-09 — Alpha 0.4.1 M1.E2 presentation-framing gate
+
+**Question.** After separating editorial selection from the available information pool, what is the smallest next mechanism that adds a new empirically discriminable prediction without introducing platform algorithms or a general ideology variable?
+
+**Candidates.** (A) add a universal confirmation-frame coefficient; (B) add confirmation/refutation presentation plus a task-specific frame × prior-attitude congruence interaction; (C) jump directly to attention/CTR or platform ranking.
+
+**Evidence.** Aruguete et al. (2024) randomized 9,512 adults in Argentina, Brazil, Chile and Colombia to semantically equivalent TRUE versus FALSE/refutation frames. Confirmation increased aggregate active engagement in all four countries, while share alone was not a robust universal outcome. Alvarado, Aruguete & Calvo (2026) report that the Confirmation × Partisan Congruence interaction is 0.124 (SE 0.040, p<0.001) for aggregate engagement, while the confirmation main effect among counter-attitudinal respondents is approximately zero (-0.010, SE 0.025).
+
+**Decision.** Choose B as M1.E2. Keep proposition meaning and factual compatibility invariant across frame conditions. Define Fpres, task-specific Gatt, Pengage and EngageIntent. Compare presentation-normalized NULL, frame-only, and frame×congruence models. Do not fit the reference coefficients to published effect sizes.
+
+**Nested null.** When presentation-frame variation is normalized away, confirmation and refutation must converge.
+
+**Outcome boundary.** Aggregate active engagement is not M0 Share. M1.E2 must not silently alter M0 sharing outputs.
+
+**Alternative rejected.** A universal frame coefficient cannot reproduce the 2026 heterogeneity pattern without hidden condition changes. Platform ranking/attention are deferred because they answer a later causal-stage question.
+
+**What would change the decision.** Remove the interaction if a smaller model reproduces the registered heterogeneity target under invariant semantic content, or if out-of-sample evidence contradicts the congruence moderation.
+
+**Version introduced.** 0.4.1a0.

@@ -87,3 +87,43 @@ fact-compatible pool and the simulated condition difference must disappear. This
 is a model-discrimination constraint, not a claim made by the cited authors.
 
 The M0 evidence audit above remains applicable to the retained M0 baseline.
+
+
+## Alpha 0.4.1 M1.E2 evidence extension — 2026-09-15
+
+The evidence registry adds `REF.ARUGUETE.2024` and `REF.ALVARADO.2026`.
+Published results are stored separately in `model/empirical_targets.json` and are
+not used as simulator coefficients.
+
+Aruguete et al. (2024), DOI 10.1038/s41598-024-53337-0, report randomized
+confirmation/refutation fact-check experiments in Argentina, Brazil, Chile and
+Colombia with 9,512 adult respondents. Confirmation and refutation conveyed
+semantically equivalent, factually accurate content. Aggregate active engagement
+was higher under confirmation in all four countries: +18.2 pp in Argentina and
+approximately +13, +15 and +14 pp in Brazil, Chile and Colombia. Likes were
+consistently higher; share alone was statistically significant only in Argentina.
+
+For CEM this supports the phenomenon-level target that presentation frame can
+change active-engagement propensity while semantic content and factual
+compatibility remain fixed. It does not justify replacing M0 Share with an
+aggregate engagement outcome.
+
+Alvarado, Aruguete & Calvo (2026), DOI 10.1057/s41599-026-08888-0, report a
+nationally representative Argentina survey experiment with 2,075 recruited adults.
+The supplemental interaction model uses N=1,901 complete regression cases.
+The Confirmation × Partisan Congruence coefficient for aggregate engagement is
+0.124 (SE 0.040, p<0.001); the confirmation main effect for counter-attitudinal
+respondents is -0.010 (SE 0.025). The interaction is also positive for likes
+(0.130) and shares (0.068).
+
+CEM generalizes this only into a task-specific `Gatt` relation between prior stance
+and message stance. The model does not infer a stable ideology or party identity.
+The reference logistic coefficients are demonstrative and not estimated from the
+published regressions.
+
+The 2024 article reports no evidence for a simple cognitive-difficulty explanation,
+and the 2026 article shows that affective penalties of negation do not reliably map
+onto behavioral engagement. Alpha 0.4.1 therefore does not require either mediator.
+
+The evidence snapshot advances to `EVIDENCE.M1.2026-09-15.r2`; the revision suffix
+prevents one identifier from referring to two different evidence sets on the same date.

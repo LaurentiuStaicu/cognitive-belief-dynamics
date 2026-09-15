@@ -5,6 +5,7 @@ from cognitive_epistemic_model.calibration.diagnostics import (
     prediction_robustness_report,
 )
 from cognitive_epistemic_model.editorial import reference_editorial_experiment
+from cognitive_epistemic_model.presentation import reference_presentation_experiment
 from cognitive_epistemic_model.events import (
     CorrectionEvent,
     DecisionEvent,
@@ -141,6 +142,19 @@ def export():
                 "model_specification": "M1",
                 "baseline_model_specification": "M0",
                 "experiment": reference_editorial_experiment(),
+            },
+            indent=2,
+        )
+        + "\n"
+    )
+
+    (DEST / "m1_presentation.json").write_text(
+        json.dumps(
+            {
+                "model_version": __version__,
+                "model_specification": "M1",
+                "baseline_model_specification": "M0",
+                "experiment": reference_presentation_experiment(),
             },
             indent=2,
         )

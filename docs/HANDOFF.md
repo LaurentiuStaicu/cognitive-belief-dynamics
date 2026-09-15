@@ -239,3 +239,27 @@ The first executable M1 mechanism is implemented without replacing M0. M1.E1 hol
 The Understanding page contains a separate between-condition M1 laboratory. Do not force M1.E1 into the 13-step M0 timeline: the target experiment is between conditions, not a temporal-process study.
 
 Future Alpha 0.4.x work should separate presentation/equivalence framing, attention/consumption gates, richer situation/world representations and heuristic-policy fit only through distinct registered empirical targets and rejection criteria. Platform ranking remains separate from editorial selection.
+
+
+## Alpha 0.4.1a0 — M1.E2 Presentation Framing × Prior-Attitude Congruence
+
+M1.E2 extends the information pathway without modifying M1.E1 or M0. One
+fact-compatible semantic proposition is rendered as confirmation or refutation.
+The comparator evaluates three nested models: presentation-normalized NULL,
+frame-only, and frame×congruence.
+
+New quantities are `Fpres`, `Gatt`, `Pengage` and `EngageIntent`. `Gatt`
+is computed as a task-specific prior-stance × message-stance relation and must not
+be reinterpreted as stable ideology or party identity. `EngageIntent` is distinct
+from the retained M0 Share process.
+
+The 2024 four-country experiment anchors the general confirmation-engagement
+direction. The 2026 Argentina experiment anchors the differential prediction:
+confirmation advantage is concentrated among congruent/pro-attitudinal audiences.
+Published effects remain benchmark metadata; model coefficients are not fitted.
+
+Understanding gains a separate M1.E2 between-condition comparator. Do not use the
+M0 13-step timeline for this experiment. M1.E1 remains visible and unchanged.
+
+The next likely Alpha 0.4.x extension is an attention/consumption gate; do not
+collapse it into presentation framing or platform ranking.

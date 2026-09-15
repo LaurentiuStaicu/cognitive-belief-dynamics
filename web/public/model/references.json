@@ -38,5 +38,25 @@
     "study_type": "EXPERIMENTAL",
     "checked_on": "2026-09-15",
     "review_scope": "ABSTRACT_AND_SELECTED_SECTIONS"
+  },
+  {
+    "id": "REF.ARUGUETE.2024",
+    "citation": "Aruguete, N., Batista, F., Calvo, E., Guizzo-Altube, M., Scartascini, C., & Ventura, T. (2024). Framing fact-checks as a “confirmation” increases engagement with corrections of misinformation: a four-country study. Scientific Reports, 14, 3201.",
+    "doi": "10.1038/s41598-024-53337-0",
+    "url": "https://doi.org/10.1038/s41598-024-53337-0",
+    "access_url": "https://www.nature.com/articles/s41598-024-53337-0",
+    "study_type": "EXPERIMENTAL",
+    "checked_on": "2026-09-15",
+    "review_scope": "FULL_TEXT"
+  },
+  {
+    "id": "REF.ALVARADO.2026",
+    "citation": "Alvarado, J. D., Aruguete, N., & Calvo, E. (2026). Framing and news sharing behavior: the use of confirmation and refutation statements in the election of a right-wing populist leader. Humanities and Social Sciences Communications.",
+    "doi": "10.1057/s41599-026-08888-0",
+    "url": "https://doi.org/10.1057/s41599-026-08888-0",
+    "access_url": "https://www.nature.com/articles/s41599-026-08888-0",
+    "study_type": "EXPERIMENTAL",
+    "checked_on": "2026-09-15",
+    "review_scope": "FULL_TEXT"
   }
 ]

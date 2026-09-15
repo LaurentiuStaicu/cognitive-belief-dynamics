@@ -55,6 +55,17 @@ try {
  await page.locator('[data-m1-condition="neutral"]').click();
  assert.equal(await page.locator('[data-m1-condition="neutral"]').getAttribute('aria-pressed'),'true');
  assert.match(await page.locator('#m1EditorialStage').textContent(),/Sobs/);
+ await page.locator('#m1PresentationStage').waitFor();
+ assert.equal(await page.locator('[data-m1e2-audience]').count(),2);
+ assert.match(await page.locator('#m1PresentationStage').textContent(),/TRUE that p/);
+ assert.match(await page.locator('#m1PresentationStage').textContent(),/FALSE that not-p/);
+ assert.match(await page.locator('#m1PresentationStage').textContent(),/B · frame × congruență|B · frame × congruence/);
+ const congruentText=await page.locator('#m1PresentationStage').textContent();
+ await page.locator('[data-m1e2-audience="counter_attitudinal"]').click();
+ assert.equal(await page.locator('[data-m1e2-audience="counter_attitudinal"]').getAttribute('aria-pressed'),'true');
+ const counterText=await page.locator('#m1PresentationStage').textContent();
+ assert.notEqual(congruentText,counterText);
+ assert.match(counterText,/Gatt/);
  await page.locator('[data-mechanism="source"]').click();
  assert.match(await page.locator('#mechanismReading').textContent(),/2T − 1/);
  await page.locator('#exploreMechanism').click();assert.equal(await page.locator('#scenario').inputValue(),'source');
@@ -210,10 +221,13 @@ try {
  await page.selectOption('#dependency','prior-b');assert.match(await page.locator('#detail').textContent(),/does not automatically replace/);
  await page.selectOption('#graphFocus','source');assert.match(await page.locator('#graphCount').textContent(),/6 nodes/);
  await page.selectOption('#dependency','t-b');assert.match(await page.locator('#detail').textContent(),/0.5/);
- await page.selectOption('#graphMode','registered');assert.equal(await page.locator('#variable option').count(),11);assert.equal(await page.locator('#variable option[value="VAR.ISSUE.APPRAISAL"]').count(),1);
+ await page.selectOption('#graphMode','registered');assert.equal(await page.locator('#variable option').count(),15);assert.equal(await page.locator('#variable option[value="VAR.ISSUE.APPRAISAL"]').count(),1);assert.equal(await page.locator('#variable option[value="VAR.ATTITUDE.CONGRUENCE"]').count(),1);
  await page.selectOption('#graphMode','core');
- await page.locator('[data-view="reference"]').click();assert.equal(await page.locator('.reference-grid article').count(),16);
- assert.equal(await page.locator('.citation-link').count(),5);
+ await page.locator('[data-view="reference"]').click();
+ const registryVariables=JSON.parse(await readFile(path.join(dist,'model/variables.json'),'utf8'));
+ const registryLinks=JSON.parse(await readFile(path.join(dist,'model/links.json'),'utf8'));
+ assert.equal(await page.locator('.reference-grid article').count(),registryVariables.length+registryLinks.length);
+ assert.equal(await page.locator('.citation-link').count(),registryLinks.reduce((sum,link)=>sum+link.evidence_refs.length,0));
  for(const a of await page.locator('.citation-link').all()) assert.match(await a.getAttribute('href'),/^https:\/\/doi\.org\/10\./);
  assert.match(await page.locator('.reference-grid').last().textContent(),/Candidate mechanism/);
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.locator('.reference-grid').last().screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'evidence.png')});}

@@ -208,5 +208,61 @@
     },
     "code_ref": "tests/test_m1_editorial.py",
     "status": "candidate"
+  },
+  {
+    "id": "ODD.M1.PROCESS.PRESENTATION_FRAME",
+    "stage": "submodel",
+    "label": {
+      "en": "Semantic-equivalent presentation framing",
+      "ro": "Framing de prezentare semantic echivalent"
+    },
+    "description": {
+      "en": "Hold proposition meaning and factual compatibility fixed while rendering confirmation versus refutation frames.",
+      "ro": "Menține sensul propoziției și compatibilitatea factuală fixe, schimbând numai cadrul confirmation versus refutation."
+    },
+    "code_ref": "src/cognitive_epistemic_model/presentation.py",
+    "status": "candidate"
+  },
+  {
+    "id": "ODD.M1.PROCESS.CONGRUENCE",
+    "stage": "submodel",
+    "label": {
+      "en": "Prior-attitude congruence",
+      "ro": "Congruența cu atitudinea anterioară"
+    },
+    "description": {
+      "en": "Derive task-specific message–prior-attitude congruence without introducing a stable ideology or party-identity trait.",
+      "ro": "Derivă congruența task-specifică dintre mesaj și atitudinea anterioară fără a introduce o trăsătură stabilă de ideologie sau identitate de partid."
+    },
+    "code_ref": "src/cognitive_epistemic_model/presentation.py",
+    "status": "candidate"
+  },
+  {
+    "id": "ODD.M1.PROCESS.ENGAGEMENT_MODELS",
+    "stage": "submodel",
+    "label": {
+      "en": "Nested engagement models",
+      "ro": "Modele nested de engagement"
+    },
+    "description": {
+      "en": "Compare presentation-normalized NULL, frame-only, and frame×congruence logistic reference models.",
+      "ro": "Compară modelele de referință logistic NULL cu prezentarea normalizată, frame-only și frame×congruence."
+    },
+    "code_ref": "src/cognitive_epistemic_model/presentation.py",
+    "status": "candidate"
+  },
+  {
+    "id": "ODD.M1.OBS.PRESENTATION_PATTERN",
+    "stage": "observation",
+    "label": {
+      "en": "M1 presentation-framing discrimination",
+      "ro": "Discriminarea framingului de prezentare M1"
+    },
+    "description": {
+      "en": "Check semantic-equivalence, framing direction, congruence moderation and separation from M0 Share.",
+      "ro": "Verifică echivalența semantică, direcția framingului, moderarea prin congruență și separarea de M0 Share."
+    },
+    "code_ref": "tests/test_m1_presentation.py",
+    "status": "candidate"
   }
 ]
