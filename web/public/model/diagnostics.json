@@ -1,5 +1,5 @@
 {
-  "software_version": "0.4.1a0",
+  "software_version": "0.4.1a1",
   "model_specification": "M0",
   "identifiability": {
     "scope": "LOCAL_PRACTICAL_IDENTIFIABILITY_DIAGNOSTIC",

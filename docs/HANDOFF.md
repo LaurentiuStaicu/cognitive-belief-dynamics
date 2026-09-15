@@ -263,3 +263,33 @@ M0 13-step timeline for this experiment. M1.E1 remains visible and unchanged.
 
 The next likely Alpha 0.4.x extension is an attention/consumption gate; do not
 collapse it into presentation framing or platform ranking.
+
+
+## Alpha 0.4.1a1 — Theory, audit and Guided Tour completion
+
+Alpha 0.4.1a1 is an explanatory-layer release over the retained M1 candidate
+specification. It does not add a scientific mechanism or change M0/M1 equations,
+coefficients, empirical targets or the evidence snapshot.
+
+Understanding now contains three distinct modes: a 16-chapter bilingual Theory
+Reader, the executable Mechanisms laboratory, and a ten-step Guided Tour. The
+Theory corpus maps all 20 conceptual modules while separating EMPIRICAL,
+EXECUTABLE, CONCEPTUAL and INTERPRETIVE content. The Phase C.1 audit reconciled
+module metadata, Romanian terminology, source roles and bilingual structure.
+
+The Guided Tour reuses the real application surfaces, preserves deep-link and
+browser-history paths, records lightweight progress locally and uses a compact
+mobile selector rather than a modal/tooltip tutorial. Browser regression checks
+cover RO/EN rendering, desktop/mobile reflow and navigation back from linked
+application surfaces.
+
+Release-prep rule: version-only regeneration must leave scientific numerical
+outputs unchanged apart from software-version metadata. A green CI on the exact
+release-prep commit is required before merging to main, because the existing
+release workflow automatically publishes the corresponding prerelease after a
+successful main-branch verification.
+
+The next causal-stage extension remains outside 0.4.1a1. Attention/consumption
+gating is a candidate for later Alpha 0.4.x work, but it requires its own
+operationalisation, empirical target, differential prediction and rejection
+criterion.

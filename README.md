@@ -23,7 +23,7 @@
   </a>
 </p>
 
-> **Alpha 0.4.1a0.** M1 is a candidate, uncalibrated extension retaining the M0 baseline.
+> **Alpha 0.4.1a1.** M1 is a candidate, uncalibrated extension retaining the M0 baseline.
 > Software tests do not establish psychological validity or population prevalence.
 
 ## Project priorities
@@ -42,10 +42,13 @@ The interface runs in a modern browser on Linux, Windows and macOS. No Flatpak o
 Windows installation is required. The public alpha is hosted on GitHub Pages.
 Choose RO or EN in the application header.
 
-- **Understanding (start here):** the M0 Narrative Laboratory combines full explanatory
-  prose with a contextual inspector and four temporal mechanism paths. A separate M1
-  editorial-emphasis laboratory holds one fact-compatible information pool fixed and
-  compares negative, neutral and positive observed samples against a nested null model. A second M1.E2 comparator holds semantic content fixed while comparing confirmation/refutation framing under congruent versus counter-attitudinal conditions.
+- **Understanding (start here):** three integrated modes now separate explanation from
+  execution without duplicating the model. **Theory** provides a 16-chapter bilingual
+  reader with epistemic-status labels, validated cross-links and a contextual inspector.
+  **Mechanisms** retains the M0 Narrative Laboratory plus the M1.E1 editorial-selection
+  and M1.E2 presentation-framing comparators. **Guided tour** leads the reader through
+  ten deep-linked steps spanning theory, executable mechanisms, scenarios, evidence,
+  validation and planning, with browser-history return to the exact tour step.
 - **Interventions:** compare all 16 bundles under an effort budget, adjust objective
   weights and timing, inspect interactions and conditional factor priorities, test
   three response assumptions and export the analysis. See [scope and calculation](docs/INTERVENTIONS.md).
@@ -145,7 +148,7 @@ checks. The initial live deployment was confirmed on 2026-09-13.
 
 ## Releases and licensing
 
-[Alpha 0.4.1a0 — release notes and downloads](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.1a0).
+[Alpha 0.4.1a1 — release notes and downloads](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.1a1).
 See [CHANGELOG.md](CHANGELOG.md). Releases attach the CI-verified web build and its
 SHA-256 checksum and release provenance attestation; GitHub also provides source archives. The native elementary OS
 Flatpak remains a near-v1 goal. This alpha has no native installer.

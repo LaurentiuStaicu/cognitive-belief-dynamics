@@ -1,7 +1,6 @@
 # Alpha 0.4.1a1 planning contract — Theory & Guided Understanding
 
-Status: planning-only contract. No M0 or M1 equation, coefficient, empirical target,
-intervention arithmetic, or scientific pattern is changed by this document.
+Status: implemented and audited as the Alpha 0.4.1a1 release candidate on 2026-09-16. This file is retained as the planning contract and acceptance record. No M0 or M1 equation, coefficient, empirical target, intervention arithmetic, or scientific pattern is changed by this release.
 
 Target software release: **Alpha 0.4.1a1**
 
@@ -902,11 +901,17 @@ Alpha 0.4.1a1 is releasable only when:
 - Python Packaging Version Specifiers:
   https://packaging.python.org/en/latest/specifications/version-specifiers/
 
-## 25. Immediate next step after approval of this planning contract
+## 25. Implementation result
 
-Create a separate implementation branch from the release baseline and implement
-**Phase A only** first: schemas, theory index, glossary, token-resolution contract,
-chapter skeletons and tests.
+The staged contract was completed in order: Phase A data/schema contract, Phase B
+Theory Reader, Phase C complete bilingual theory corpus, Phase C.1 scientific and
+editorial audit, and Phase D Guided Tour.
 
-Do not begin full prose authoring or Guided Tour UI until the content/data contract
-is validated by CI.
+The release candidate satisfies the intended separation between Theory,
+Mechanisms and Guided Tour; retains the executable M0/M1 scientific outputs; and
+adds regression checks for theory metadata, bilingual structure, deep links,
+history navigation and mobile reflow.
+
+The next scientific extension belongs to a later Alpha 0.4.x release and must use
+a new registered empirical target and rejection criterion rather than being folded
+silently into this explanatory release.
