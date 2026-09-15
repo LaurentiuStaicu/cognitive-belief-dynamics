@@ -16,6 +16,9 @@ def test_registry_schema_and_semantic_validation():
     assert counts["subsystems"] == 8
     assert counts["processes"] >= 13
     assert counts["empirical_targets"] >= 1
+    assert counts["theory_chapters"] == 16
+    assert counts["theory_glossary"] >= 15
+    assert counts["theory_tokens"] >= 60
 
 
 @pytest.mark.parametrize("registry", ["modules", "variables", "links", "subsystems", "processes", "empirical_targets"])
