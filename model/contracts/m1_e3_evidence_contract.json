@@ -1,0 +1,426 @@
+{
+  "id": "CONTRACT.M1.E3.2026-09-16",
+  "status": "PHASE_A_EVIDENCE_SCHEMA_ONLY",
+  "model_extension": "M1.E3",
+  "scope": "Evidence, cue-selection, provenance, operationalisation and schema contract for a future headline access gate; no executable mechanism or user interface.",
+  "candidate_decision": {
+    "selected": {
+      "id": "CANDIDATE_N",
+      "label": "Headline negativity",
+      "cue": "Hneg",
+      "decision": "SELECTED_FOR_NEXT_PHASE",
+      "basis": [
+        "Registered Report with large same-story headline field experiments and a clear directional access target.",
+        "Public Upworthy archive supports open provenance and independent reanalysis of the source data.",
+        "Archive maintainers report that the negativity result remained nearly identical after excluding tests affected by the 2024 randomization-integrity concern.",
+        "A binary controlled cue is sufficient for the first model-discrimination experiment and avoids false precision."
+      ],
+      "limitations": [
+        "Primary causal evidence is concentrated in Upworthy 2013-2015 and must not be generalized as a universal negativity effect.",
+        "Recent preliminary experimental work reports no expected negativity-bias effect in a different two-stage design.",
+        "Published sentiment operationalisations use restricted or non-redistributable lexical resources, so runtime scoring must not depend on them."
+      ]
+    },
+    "deferred": [
+      {
+        "id": "CANDIDATE_S",
+        "label": "Headline simplicity",
+        "cue": "Hsimp",
+        "decision": "DEFERRED_NOT_REJECTED",
+        "basis": [
+          "Field experiments from The Washington Post and Upworthy support greater selection of simpler headlines.",
+          "A preregistered follow-up signal-detection study supports a distinct later recognition/processing effect."
+        ],
+        "limitations": [
+          "The published simplicity index is composite and includes LIWC-derived components.",
+          "Washington Post Study Set 1 data are restricted by a data-use agreement.",
+          "Some component behavior differs across publisher datasets, requiring an additional operationalisation audit before executable use."
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "id": "SRC.M1.E3.ROBERTSON.2023",
+      "publication_key": "ROBERTSON_2023_NEGATIVITY",
+      "citation": "Robertson, C. E., Pröllochs, N., Schwarzenegger, K., Pärnamets, P., Van Bavel, J. J., & Feuerriegel, S. (2023). Negativity drives online news consumption. Nature Human Behaviour, 7, 812-822.",
+      "doi": "10.1038/s41562-023-01538-4",
+      "url": "https://doi.org/10.1038/s41562-023-01538-4",
+      "source_type": "PEER_REVIEWED_ARTICLE",
+      "study_type": "EXPERIMENTAL",
+      "evidence_role": "PRIMARY_SELECTED_CUE",
+      "candidate_scope": "SELECTED_CUE",
+      "independence_group": "UPWORTHY_ARCHIVE_2013_2015",
+      "data_access": "OPEN",
+      "data_license_note": "Underlying Upworthy Research Archive is CC BY 4.0; no source lexicon is redistributed by CEM.",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Registered Report. Directional target is higher negative-language content associated with greater click propensity within same-story headline experiments. Published magnitudes are context only.",
+      "supplemental_urls": [
+        "https://upworthy.natematias.com/2024-06-upworthy-archive-update.html"
+      ]
+    },
+    {
+      "id": "SRC.M1.E3.MATIAS_ARCHIVE.2021",
+      "publication_key": "MATIAS_2021_UPWORTHY_ARCHIVE",
+      "citation": "Matias, J. N., Munger, K., Le Quere, M. A., & Ebersole, C. (2021). The Upworthy Research Archive, a time series of 32,487 experiments in U.S. media. Scientific Data, 8, 195.",
+      "doi": "10.1038/s41597-021-00934-7",
+      "url": "https://doi.org/10.1038/s41597-021-00934-7",
+      "source_type": "DATA_DESCRIPTOR",
+      "study_type": "DATA_PROVENANCE",
+      "evidence_role": "DATA_PROVENANCE",
+      "candidate_scope": "ARCHITECTURE",
+      "independence_group": "UPWORTHY_ARCHIVE_2013_2015",
+      "data_access": "OPEN",
+      "data_license_note": "Archive data are available under CC BY 4.0.",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Documents experiment-arm assignment, impressions, clicks, headline/image package structure and open archive provenance.",
+      "supplemental_urls": [
+        "https://upworthy.natematias.com/"
+      ]
+    },
+    {
+      "id": "SRC.M1.E3.MATIAS_CORRECTION.2024",
+      "publication_key": "MATIAS_2024_UPWORTHY_CORRECTION",
+      "citation": "Matias, J. N., Munger, K., Le Quere, M. A., & Ebersole, C. (2024). Author Correction: The Upworthy Research Archive, a time series of 32,487 experiments in U.S. media. Scientific Data, 11, 765.",
+      "doi": "10.1038/s41597-024-03600-w",
+      "url": "https://doi.org/10.1038/s41597-024-03600-w",
+      "source_type": "CORRECTION",
+      "study_type": "CORRECTION",
+      "evidence_role": "INTEGRITY_CORRECTION",
+      "candidate_scope": "ARCHITECTURE",
+      "independence_group": "UPWORTHY_ARCHIVE_2013_2015",
+      "data_access": "OPEN",
+      "data_license_note": "Correction to the open archive documentation.",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Reports likely randomization problems between 25 June 2013 and 10 January 2014. Must accompany any causal use of the archive.",
+      "supplemental_urls": [
+        "https://upworthy.natematias.com/2024-06-upworthy-archive-update.html"
+      ]
+    },
+    {
+      "id": "SRC.M1.E3.GLIGORIC.2023",
+      "publication_key": "GLIGORIC_2023_HEADLINE_SUCCESS",
+      "citation": "Gligorić, K., Lifchits, G., West, R., & Anderson, A. (2023). Linguistic effects on news headline success: Evidence from thousands of online field experiments. PLOS ONE, 18(3), e0281682.",
+      "doi": "10.1371/journal.pone.0281682",
+      "url": "https://doi.org/10.1371/journal.pone.0281682",
+      "source_type": "PEER_REVIEWED_ARTICLE",
+      "study_type": "EXPERIMENTAL",
+      "evidence_role": "CONVERGENT_SAME_DATASET",
+      "candidate_scope": "SELECTED_CUE",
+      "independence_group": "UPWORTHY_ARCHIVE_2013_2015",
+      "data_access": "OPEN",
+      "data_license_note": "Uses the same public Upworthy archive and is not an independent replication population.",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Convergent registered analysis of linguistic features within the same Upworthy archive; same-dataset evidence must not be double-counted as independent replication."
+    },
+    {
+      "id": "SRC.M1.E3.QIU_GOLMAN.2024",
+      "publication_key": "QIU_GOLMAN_2024_CURIOSITY",
+      "citation": "Qiu, J., & Golman, R. (2024). Curiosity in news consumption. Applied Cognitive Psychology, 38(2), e4195.",
+      "doi": "10.1002/acp.4195",
+      "url": "https://doi.org/10.1002/acp.4195",
+      "source_type": "PEER_REVIEWED_ARTICLE",
+      "study_type": "OBSERVATIONAL",
+      "evidence_role": "CROSS_CONTEXT_PREDICTIVE",
+      "candidate_scope": "SELECTED_CUE",
+      "independence_group": "WECHAT_2021_QIU",
+      "data_access": "PARTIAL",
+      "data_license_note": "Article is open access; source-platform data access is not a CEM runtime dependency.",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "More than 100,000 WeChat articles show lower headline valence predicts more reads after controls. Predictive observational support, not randomized causal replication."
+    },
+    {
+      "id": "SRC.M1.E3.SHULMAN_WAPO.2024",
+      "publication_key": "SHULMAN_2024_SIMPLICITY",
+      "citation": "Shulman, H. C., Markowitz, D. M., & Rogers, T. (2024). Reading dies in complexity: Online news consumers prefer simple writing. Science Advances, 10(23), eadn2555. Washington Post field-experiment evidence unit.",
+      "doi": "10.1126/sciadv.adn2555",
+      "url": "https://doi.org/10.1126/sciadv.adn2555",
+      "source_type": "PEER_REVIEWED_ARTICLE",
+      "study_type": "EXPERIMENTAL",
+      "evidence_role": "ALTERNATIVE_CUE_EVIDENCE",
+      "candidate_scope": "DEFERRED_CUE",
+      "independence_group": "SHULMAN_WAPO_2021_2022",
+      "data_access": "RESTRICTED",
+      "data_license_note": "Study Set 1 data cannot be publicly released under the authors' data-use agreement with The Washington Post.",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Independent traditional-newsroom headline experiments supporting greater CTR for simpler headlines; source data are restricted."
+    },
+    {
+      "id": "SRC.M1.E3.SHULMAN_UPWORTHY.2024",
+      "publication_key": "SHULMAN_2024_SIMPLICITY",
+      "citation": "Shulman, H. C., Markowitz, D. M., & Rogers, T. (2024). Reading dies in complexity: Online news consumers prefer simple writing. Science Advances, 10(23), eadn2555. Upworthy evidence unit.",
+      "doi": "10.1126/sciadv.adn2555",
+      "url": "https://doi.org/10.1126/sciadv.adn2555",
+      "source_type": "PEER_REVIEWED_ARTICLE",
+      "study_type": "EXPERIMENTAL",
+      "evidence_role": "ALTERNATIVE_CUE_EVIDENCE",
+      "candidate_scope": "DEFERRED_CUE",
+      "independence_group": "UPWORTHY_ARCHIVE_2013_2015",
+      "data_access": "OPEN",
+      "data_license_note": "Uses the public Upworthy archive and shares its population with other Upworthy analyses.",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Convergent Upworthy evidence for the deferred simplicity cue; not independent of Robertson/Gligoric at the archive-population level."
+    },
+    {
+      "id": "SRC.M1.E3.SHULMAN_SDT.2024",
+      "publication_key": "SHULMAN_2024_SIMPLICITY",
+      "citation": "Shulman, H. C., Markowitz, D. M., & Rogers, T. (2024). Reading dies in complexity: Online news consumers prefer simple writing. Science Advances, 10(23), eadn2555. Preregistered signal-detection evidence unit.",
+      "doi": "10.1126/sciadv.adn2555",
+      "url": "https://doi.org/10.1126/sciadv.adn2555",
+      "source_type": "PEER_REVIEWED_ARTICLE",
+      "study_type": "EXPERIMENTAL",
+      "evidence_role": "ALTERNATIVE_CUE_EVIDENCE",
+      "candidate_scope": "DEFERRED_CUE",
+      "independence_group": "SHULMAN_SDT_2024",
+      "data_access": "OPEN",
+      "data_license_note": "Studies 2-4 data/code/materials are reported as available through OSF/Harvard Dataverse.",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Follow-up experiment separates headline selection from later recognition/sensitivity; relevant to a future attention/encoding stage, not Paccess calibration."
+    },
+    {
+      "id": "SRC.M1.E3.NICKL.2025",
+      "publication_key": "NICKL_2025_ATTENTION_ECONOMY",
+      "citation": "Nickl, P. L., Hills, T., & Lorenz-Spreen, P. (2025). The effects of an experimental attention economy on the production and consumption of news headlines. PsyArXiv preprint.",
+      "doi": "10.31234/osf.io/ntsg9_v1",
+      "url": "https://doi.org/10.31234/osf.io/ntsg9_v1",
+      "source_type": "PREPRINT",
+      "study_type": "EXPERIMENTAL",
+      "evidence_role": "COUNTEREVIDENCE",
+      "candidate_scope": "SELECTED_CUE",
+      "independence_group": "NICKL_ATTENTION_ECONOMY_2025",
+      "data_access": "OPEN",
+      "data_license_note": "Preprint-level evidence; conference presentation is the same project, not a second study.",
+      "checked_on": "2026-09-16",
+      "review_scope": "ABSTRACT_AND_SELECTED_SECTIONS",
+      "notes": "Two-stage producer/consumer experiment. APS 2026 abstract reports no expected negativity-bias effect; preprint reports more informative headlines were more likely to be clicked.",
+      "supplemental_urls": [
+        "https://www.psychologicalscience.org/conventions/archive/2026annual/paper/61983/"
+      ]
+    },
+    {
+      "id": "SRC.M1.E3.MATTIS_HEITZ.2025",
+      "publication_key": "MATTIS_HEITZ_2025_NUDGES",
+      "citation": "Mattis, N., & Heitz, L. (2025). Nudges for news recommenders: prominent article positioning increases selection, engagement, and recall of environmental news, but reducing complexity does not. Journal of Communication, 75(6), 437-450.",
+      "doi": "10.1093/joc/jqaf030",
+      "url": "https://doi.org/10.1093/joc/jqaf030",
+      "source_type": "PEER_REVIEWED_ARTICLE",
+      "study_type": "EXPERIMENTAL",
+      "evidence_role": "CONTEXT_BOUNDARY",
+      "candidate_scope": "DEFERRED_CUE",
+      "independence_group": "INFORMFULLY_UK_2025",
+      "data_access": "OPEN",
+      "data_license_note": "Article and linked research infrastructure/dataset are publicly described; intervention concerns article-text complexity rather than a headline-only simplicity manipulation.",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Preregistered seven-day UK field experiment. Reduced article-text complexity did not significantly affect selection, reading time or recall; not a direct replication of headline simplicity."
+    },
+    {
+      "id": "SRC.M1.E3.LIWC_POLICY.2026",
+      "publication_key": "LIWC_LICENSING_POLICY",
+      "citation": "Pennebaker Conglomerates, Inc. LIWC licensing and End User License Agreement, consulted 2026-09-16.",
+      "doi": null,
+      "url": "https://liwc.app/help/eula",
+      "source_type": "POLICY_PAGE",
+      "study_type": "METHODS_OR_POLICY",
+      "evidence_role": "IMPLEMENTATION_CONSTRAINT",
+      "candidate_scope": "IMPLEMENTATION_CONSTRAINT",
+      "independence_group": "LICENSING_LIWC",
+      "data_access": "NOT_APPLICABLE",
+      "data_license_note": "LIWC software/dictionaries are licensed and may not be redistributed with CEM.",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Implementation constraint only; not scientific evidence for a headline effect.",
+      "supplemental_urls": [
+        "https://liwc.app/buy"
+      ]
+    },
+    {
+      "id": "SRC.M1.E3.NRC_POLICY.2026",
+      "publication_key": "NRC_LEXICON_POLICY",
+      "citation": "National Research Council Canada sentiment/emotion lexicon terms of use, consulted 2026-09-16.",
+      "doi": null,
+      "url": "https://www.saifmohammad.com/WebPages/AccessResource.htm",
+      "source_type": "POLICY_PAGE",
+      "study_type": "METHODS_OR_POLICY",
+      "evidence_role": "IMPLEMENTATION_CONSTRAINT",
+      "candidate_scope": "IMPLEMENTATION_CONSTRAINT",
+      "independence_group": "LICENSING_NRC",
+      "data_access": "NOT_APPLICABLE",
+      "data_license_note": "Lexicons may be used under stated terms but must not be redistributed by CEM.",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Implementation constraint only; reinforces the decision to avoid runtime dependence on redistributable sentiment dictionaries."
+    }
+  ],
+  "planned_quantities": [
+    {
+      "id": "PLANNED.VAR.HNEG",
+      "short_name": "Hneg",
+      "ontology_type": "CONTENT_ATTRIBUTE",
+      "status": "PLANNED_ONLY",
+      "definition": "Controlled headline-negativity condition reserved for the future M1.E3 reference comparator.",
+      "what_it_is_not": "Not truth, factuality, misinformation, article valence, experienced emotion, political orientation or source quality.",
+      "reference_values": [0, 1]
+    },
+    {
+      "id": "PLANNED.VAR.PACCESS",
+      "short_name": "Paccess",
+      "ontology_type": "DERIVED_METRIC",
+      "status": "PLANNED_ONLY",
+      "definition": "Future latent probability of opening/clicking a full item after one registered preview impression.",
+      "what_it_is_not": "Not observed population CTR, attention, reading time, comprehension, belief, Pengage or Share."
+    },
+    {
+      "id": "PLANNED.VAR.ACCESS",
+      "short_name": "Access",
+      "ontology_type": "OBSERVABLE",
+      "status": "PLANNED_ONLY",
+      "definition": "Future reference binary outcome indicating open/click versus no open/click.",
+      "what_it_is_not": "Not attention, reading completion, endorsement, belief or sharing.",
+      "reference_values": [0, 1]
+    },
+    {
+      "id": "PLANNED.VAR.PREVIEW_IMPRESSION",
+      "short_name": "PreviewImpression",
+      "ontology_type": "OBSERVABLE",
+      "status": "PLANNED_ONLY",
+      "definition": "Future registered event that a preview/headline was rendered under the M1.E3 reference task.",
+      "what_it_is_not": "Not proof of fixation, reading, encoding, recall or full-content access.",
+      "reference_values": [1]
+    }
+  ],
+  "empirical_target": {
+    "id": "PLANNED.TARGET.M1.E3.ROBERTSON_2023",
+    "pattern_id": "VAL.M1.004",
+    "source_id": "SRC.M1.E3.ROBERTSON.2023",
+    "use": "DIRECTIONAL_VALIDATION_ONLY",
+    "outcome": "click/access propensity",
+    "comparison": "higher versus lower registered headline-negativity cue within otherwise comparable same-story headline conditions",
+    "direction": "HIGHER_CUE_HIGHER_ACCESS",
+    "design": {
+      "design_family": "PLATFORM_AB_TEST_ARCHIVE",
+      "randomized_assignment": true,
+      "preregistered_analysis": true,
+      "n_experiments": 12448,
+      "n_variants": 53699,
+      "n_impressions_min": 205000000,
+      "n_clicks": 2778124,
+      "count_note": "Confirmatory filtered analysis reported 12,448 RCTs, 53,699 headline variants, over 205 million impressions and 2,778,124 clicks; broader archive context is larger."
+    },
+    "effect_context": [
+      {
+        "metric": "LOG_ODDS_COEFFICIENT",
+        "value": 0.015,
+        "ci": [0.013, 0.018],
+        "scale_note": "Published standardized coefficient for the proportion of negative words; 99% confidence interval.",
+        "use": "MAGNITUDE_CONTEXT_ONLY"
+      },
+      {
+        "metric": "RELATIVE_CHANGE_PERCENT",
+        "value": 2.3,
+        "scale_note": "Approximate reported CTR increase per additional negative word for a headline of average length; context-specific transformation.",
+        "use": "MAGNITUDE_CONTEXT_ONLY"
+      }
+    ],
+    "model_match": "The future M1.E3 candidate may use only the directional higher-Hneg to higher-Paccess target. Published magnitudes do not set the future reference coefficient.",
+    "limitations": "Historical Upworthy context, headline-feature operationalisation and platform-specific selection environment limit generalization. Archive correction and robust reliable-test reanalysis must remain attached to provenance."
+  },
+  "validation_contract": {
+    "planned_patterns": [
+      {
+        "id": "VAL.M1.004",
+        "name": "Headline-negativity access differential",
+        "claim_scope": "DESCRIPTIVE_PATTERN",
+        "status": "PLANNED_ONLY",
+        "pattern": "Higher registered Hneg must correspond to higher future Paccess in the selected controlled M1.E3 reference comparator."
+      },
+      {
+        "id": "VAL.M1.N04",
+        "name": "Access-gate null",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "When the selected headline cue is normalized or disabled, otherwise identical future M1.E3 conditions must converge in Paccess."
+      },
+      {
+        "id": "VAL.M1.N05",
+        "name": "Access is not downstream cognition",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "Changing the future M1.E3 access cue must not directly mutate retained M0 belief or Share, M1.E1 Aissue, or M1.E2 Pengage and EngageIntent."
+      },
+      {
+        "id": "VAL.M1.N06",
+        "name": "Non-click preserves headline exposure",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "A future Access value of zero must not erase the registered PreviewImpression event or imply that the headline preview was never rendered."
+      }
+    ]
+  },
+  "invariants": [
+    "underlying_story_id",
+    "source_identity",
+    "full_article_content",
+    "factual_compatibility",
+    "image_identity_or_absence",
+    "one_preview_opportunity_per_condition",
+    "agent_state",
+    "editorial_selection_condition",
+    "m1_e2_congruence_state",
+    "retained_m0_states_before_access"
+  ],
+  "operationalization": {
+    "selected_strategy": "PRECOMPUTED_CONTROLLED_CUE",
+    "cue_id": "HNEG",
+    "reference_encoding": {
+      "type": "BINARY",
+      "control": 0,
+      "treatment": 1
+    },
+    "runtime_lexicon_dependency": false,
+    "exact_replication_claim": false,
+    "divergence_from_source": "CEM freezes a binary controlled condition for model discrimination rather than reproducing the source paper's continuous LIWC negative-word proportion or its reported effect-size scale.",
+    "restricted_resources_not_redistributed": [
+      "LIWC software and dictionaries",
+      "NRC sentiment/emotion lexicons",
+      "Washington Post Study Set 1 headline data"
+    ]
+  },
+  "promotion_gate": {
+    "requirements": [
+      "contract_schema_valid",
+      "exactly_one_selected_candidate",
+      "deferred_candidate_preserved",
+      "source_independence_groups_explicit",
+      "upworthy_integrity_context_explicit",
+      "runtime_restricted_lexicon_dependency_false",
+      "platform_ab_target_schema_defined_before_active_target_promotion",
+      "non_percentage_point_effect_metric_supported_before_active_target_promotion",
+      "planned_quantities_absent_from_active_variables",
+      "planned_validation_ids_absent_from_active_validation_tests",
+      "retained_m0_m1e1_m1e2_exports_unchanged",
+      "full_ci_green"
+    ],
+    "active_registry_mutation_allowed": false,
+    "executable_equation_allowed": false,
+    "ui_allowed": false
+  },
+  "forbidden_changes": [
+    "no_M1_E3_equation",
+    "no_beta_neg_value",
+    "no_runtime_access_mechanism",
+    "no_UI_comparator",
+    "no_active_M1_E3_variable_registration",
+    "no_active_M1_E3_validation_registration",
+    "no_active_M1_E3_empirical_target",
+    "no_M0_M1_E1_M1_E2_numerical_changes"
+  ]
+}
