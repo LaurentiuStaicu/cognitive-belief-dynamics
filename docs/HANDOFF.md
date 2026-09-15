@@ -391,3 +391,55 @@ Promotion remains blocked:
 The next approved implementation phase must promote these objects explicitly,
 extend the active schemas/registry as required, and preserve all retained M0,
 M1.E1 and M1.E2 outputs.
+
+
+## Alpha 0.4.2a0 Phase B — M1.E3 active-registry promotion and minimal runtime
+
+Phase B promotes the approved Phase A contract into an **unreleased feature
+branch**, not yet into the public Alpha release.
+
+Implemented backend:
+
+- `src/cognitive_epistemic_model/access.py`;
+- M1.E3-NULL versus headline-negativity candidate;
+- binary precomputed `Hneg ∈ {0,1}`;
+- `Paccess` conditional on `PreviewImpression`;
+- illustrative binary `Access` draw;
+- no runtime sentiment analyser;
+- no downstream coupling to M0/M1.E1/M1.E2.
+
+Reference parameters are demonstrative:
+
+- intercept = -2.0;
+- beta_hneg = 0.20.
+
+They are not fitted to Robertson et al. (2023) and must not be reported as
+empirical estimates.
+
+Active registry promotion on the Phase B branch adds:
+
+- Hneg, Paccess, Access and PreviewImpression;
+- VAL.M1.004 / VAL.M1.N04 / VAL.M1.N05 / VAL.M1.N06;
+- TARGET.M1.E3.ROBERTSON_2023;
+- Robertson 2023, Upworthy archive provenance, the 2024 correction and Nickl
+  2025 preliminary counterevidence;
+- evidence snapshot EVIDENCE.M1.2026-09-16.r1;
+- platform A/B empirical-target schema support;
+- ODD/TRACE/CLAIMS evidence-to-model documentation;
+- deterministic `m1_access.json` export.
+
+The target preserves the source-native design instead of fabricating participant
+counts. It records 12,448 RCTs, 53,699 headline variants, >205 million
+impressions and 2,778,124 clicks from the main Results text. It also records the
+publication's 53,699 versus 53,669 headline-count discrepancy as provenance.
+
+Phase B remains intentionally without an M1.E3 UI.
+
+Do not merge this branch into `main` while the public software version is still
+0.4.1a1. GitHub Pages deploys verified `main`, so merging active M1.E3 registry
+content before the 0.4.2a0 presentation/release layer is ready would expose a new
+model state under the old release label.
+
+Next gate after Phase B: explanatory/theory integration and a bounded
+Understanding → Mechanisms comparator, followed by release audit. No downstream
+Access → belief/share integration is authorized.
