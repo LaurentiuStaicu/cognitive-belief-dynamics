@@ -152,7 +152,7 @@ Interpretation for M1.E3:
 
 This study supports the idea that **access selection is cue-sensitive** and that headline features can influence both clicking and, separately, internal processing.
 
-However, Alpha 0.4.2a0 should not add a “simplicity coefficient.” Simplicity is retained as an external architecture check demonstrating that the access gate should not be defined as “the negativity mechanism.”
+Headline simplicity is therefore eligible as Candidate S in Phase A rather than being treated only as background architecture support. Its Washington Post evidence is independent of the Upworthy archive, while the follow-up signal-detection experiment supplies a distinct internal-processing result that must remain separate from the click observable.
 
 ## 7. Cross-context predictive support — Qiu & Golman 2024
 
@@ -244,7 +244,7 @@ Minimum fields for the reference experiment:
 
 - one stable underlying article/story identifier;
 - headline text or abstract feature representation;
-- headline negativity cue;
+- exactly one selected headline cue field (`Hneg` or `Hsimp`) after Phase A;
 - optional fixed image identifier;
 - factual-compatibility flag;
 - one preview impression.
@@ -387,11 +387,11 @@ The unselected candidate must not be smuggled into the model through stimulus co
 
 ### VAL.M1.N04 — Access-gate null
 
-When beta_neg is disabled or Hneg is normalized, the otherwise identical headline conditions converge in Paccess.
+When the selected cue coefficient is disabled or the selected cue is normalized, the otherwise identical headline conditions converge in Paccess.
 
 ### VAL.M1.N05 — Access is not downstream cognition
 
-Changing Hneg or Paccess must not directly mutate:
+Changing the selected headline cue or Paccess must not directly mutate:
 
 - M0 belief B;
 - M0 Share;
@@ -423,11 +423,11 @@ Reject or revise M1.E3 if any of the following occurs:
 - the effect is created through hidden changes in source, agent state, editorial selection or M1.E2 congruence;
 - Access is reported as attention, reading completion, comprehension, belief or endorsement;
 - a non-click is represented as if the headline had never been exposed;
-- beta_neg is presented as empirically calibrated from the reported 2.3% figure without an explicit scale mapping and fitting procedure;
+- the selected cue coefficient is presented as empirically calibrated from a published effect magnitude without an explicit scale mapping and fitting procedure;
 - the same registered differential is already trivially produced by an existing M1.E2 parameter under identical observables, making the new stage non-identifiable;
 - adding M1.E3 alters retained M0, M1.E1 or M1.E2 reference outputs outside a separately approved integration experiment;
 - the reference comparator cannot keep the underlying story and other registered conditions invariant;
-- empirical review shows that the negativity direction is too platform-specific to support even a bounded candidate demonstration.
+- empirical review shows that the selected cue direction is too context-specific to support even a bounded candidate demonstration.
 
 ## 17. Mechanisms explicitly deferred
 
@@ -439,7 +439,7 @@ Alpha 0.4.2a0 should not implement:
 - comprehension;
 - memory/encoding dynamics;
 - curiosity-gap mechanisms;
-- linguistic simplicity as a second executable coefficient;
+- the unselected headline cue as a second executable coefficient;
 - arousal, fear or threat as required mediators;
 - platform recommendation/ranking;
 - social-network amplification;
@@ -477,10 +477,10 @@ The comparator should show:
 - one fixed source;
 - one fixed image or no image in both conditions;
 - two controlled headline variants;
-- Hneg for each variant;
+- the selected cue value (`Hneg` or `Hsimp`) for each variant;
 - one PreviewImpression per condition;
 - exact Paccess values;
-- NULL versus negativity-gate comparison;
+- NULL versus selected cue-gate comparison;
 - the empirical target and its limitations;
 - a stage diagram making `impression → access` explicit;
 - a warning that `Access != attention != belief != sharing`.
@@ -489,19 +489,33 @@ No temporal curve should be introduced unless a later empirical design is explic
 
 ## 20. Evidence-registration rule
 
-The evidence registry must distinguish:
+The evidence registry must preserve source independence and candidate role without pretending that planning labels are empirical conclusions.
 
-- PRIMARY_MODEL_EVIDENCE:
+Required distinctions:
+
+- CANDIDATE_N_PRIMARY_CAUSAL:
   - Robertson et al. 2023 negativity → CTR;
-- CONVERGENT_SAME_DATASET:
+- CANDIDATE_N_CONVERGENT_SAME_DATASET:
   - Gligorić et al. 2023;
-- INDEPENDENT_BACKGROUND / ARCHITECTURE_SUPPORT:
-  - Shulman et al. 2024;
+- CANDIDATE_N_CROSS_CONTEXT_PREDICTIVE:
+  - Qiu & Golman 2024;
+- CANDIDATE_S_PRIMARY_CAUSAL:
+  - Shulman et al. 2024 Washington Post field experiments;
+- CANDIDATE_S_SAME_ARTICLE_SUPPORT:
+  - Shulman et al. 2024 Upworthy analysis;
+- CANDIDATE_S_INTERNAL_PROCESSING_SUPPORT:
+  - Shulman et al. 2024 signal-detection experiment;
+- PRELIMINARY_COUNTEREVIDENCE:
+  - Nickl, Hills & Lorenz-Spreen 2025 preprint / APS 2026 presentation, treated as one project;
+- CONTEXT_BOUNDARY:
+  - Mattis & Heitz 2025 article-complexity field experiment;
 - BACKGROUND_THEORY for stage separation:
   - González-Bailón et al. 2023;
   - Robertson et al. 2023 Google Search;
 - DESCRIPTIVE_CONTEXT:
-  - Nickl et al. 2025.
+  - Nickl, Moussaïd & Lorenz-Spreen 2025.
+
+Phase A must map these planning distinctions onto the **existing allowed evidence-schema vocabulary** rather than adding ad-hoc source roles unless a schema change is explicitly justified and tested.
 
 The Upworthy Scientific Data archive should be registered as data provenance:
 
