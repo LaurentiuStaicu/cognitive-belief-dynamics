@@ -4,7 +4,7 @@
 
 Două relatări pot fi ambele compatibile cu faptele și totuși să construiască mostre foarte diferite din aceeași realitate disponibilă. M1.E1 testează o parte îngustă a acestei probleme: păstrează fix un set de informații compatibile cu faptele, modifică politica de selecție și observă cum se schimbă balanța informației văzute și evaluarea ulterioară.
 
-Problema media este însă mai largă. Organizațiile de presă selectează evenimente, stabilesc importanța relativă a subiectelor, aleg surse, construiesc titluri, ordonează materialele și decid ce este repetat. Televiziunile, ziarele, publicațiile online și jurnalismul distribuit prin platforme funcționează și sub constrângeri tehnice, economice și temporale diferite. CEM trebuie de aceea să separe **selecția editorială**, **stabilirea agendei**, **încadrarea și prezentarea**, **repetarea** și **ordonarea algoritmică**, nu să le comprime într-un singur „bias media”.
+Problema media este însă mai largă. Organizațiile de presă selectează evenimente, stabilesc importanța relativă a subiectelor, aleg surse, construiesc titluri, ordonează materialele și decid ce este repetat. Televiziunile, ziarele, publicațiile online și jurnalismul distribuit prin platforme funcționează și sub constrângeri tehnice, economice și temporale diferite. CEM trebuie de aceea să separe **selecția editorială**, **stabilirea agendei**, **încadrarea și prezentarea**, **repetarea** și **ordonarea algoritmică**, nu să le comprime într-o singură „orientare media”.
 
 [[CONCEPT:m1-e1]] · [[VAR:Eedit]] · [[VAR:Sobs]] · [[VAR:Aissue]] · [[MECH:editorial]] · [[MODULE:MOD.16]] · [[VAL:VAL.M1.001]] · [[REF:REF.TOHIDI.2025]] · [[CODE:m1e1.editorial_select]] · [[VIEW:learning]]
 
@@ -74,7 +74,7 @@ Capitolul 11 tratează separat ordonarea, fluxurile dintre platforme și feedbac
 
 ## Ce nu afirmă acest capitol
 
-Nu afirmă că negativ înseamnă fals, că jurnalismul poate fi rezumat printr-o singură axă de bias, că stabilirea agendei sau încadrarea determină opinia ori că toate canalele media produc aceleași efecte. Nu atribuie efectul Tohidi algoritmilor platformelor și nu îl extrapolează cantitativ la populații reale sau la anumite instituții media din România.
+Nu afirmă că negativ înseamnă fals, că jurnalismul poate fi rezumat printr-o singură axă de orientare, că stabilirea agendei sau încadrarea determină opinia ori că toate canalele media produc aceleași efecte. Nu atribuie efectul Tohidi algoritmilor platformelor și nu îl extrapolează cantitativ la populații reale sau la anumite instituții media din România.
 
 ## În aplicație
 
