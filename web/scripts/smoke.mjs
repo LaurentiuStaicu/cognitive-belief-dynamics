@@ -36,7 +36,7 @@ try {
  assert.match(await page.locator('#theoryArticle').textContent(),/Ce este Cognitive Epistemic Model/);
  await page.locator('[data-theory-chapter="repetition-familiarity-truth"]').click();
  await page.waitForURL(/#understanding\/theory\/repetition-familiarity-truth$/);
- await page.locator('#theoryArticle').getByText('Repetiție, familiaritate și adevăr judecat',{exact:true}).waitFor();
+ await page.locator('#theoryArticle').getByText('Repetiție, familiaritate și adevăr perceput',{exact:true}).waitFor();
  await page.locator('[data-theory-token-kind="VAR"][data-theory-token-value="F"]').first().click();
  assert.match(await page.locator('#theoryInspector').textContent(),/Familiaritatea afirmației/);
  await page.locator('#theoryInspector [data-theory-open-view^="reference:"]').click();
@@ -45,7 +45,7 @@ try {
  assert.equal(await registryItem.evaluate(el=>document.activeElement===el),true);
  await page.goBack();
  await waitTheory();
- assert.match(await page.locator('#theoryArticle').textContent(),/Repetiție, familiaritate și adevăr judecat/);
+ assert.match(await page.locator('#theoryArticle').textContent(),/Repetiție, familiaritate și adevăr perceput/);
  await page.goForward();
  await registryItem.waitFor();
  assert.equal(await registryItem.evaluate(el=>document.activeElement===el),true);
