@@ -23,7 +23,7 @@
   </a>
 </p>
 
-> **Alpha 0.4.0a0.** M1 is a candidate, uncalibrated extension retaining the M0 baseline.
+> **Alpha 0.4.1a0.** M1 is a candidate, uncalibrated extension retaining the M0 baseline.
 > Software tests do not establish psychological validity or population prevalence.
 
 ## Project priorities
@@ -45,7 +45,7 @@ Choose RO or EN in the application header.
 - **Understanding (start here):** the M0 Narrative Laboratory combines full explanatory
   prose with a contextual inspector and four temporal mechanism paths. A separate M1
   editorial-emphasis laboratory holds one fact-compatible information pool fixed and
-  compares negative, neutral and positive observed samples against a nested null model.
+  compares negative, neutral and positive observed samples against a nested null model. A second M1.E2 comparator holds semantic content fixed while comparing confirmation/refutation framing under congruent versus counter-attitudinal conditions.
 - **Interventions:** compare all 16 bundles under an effort budget, adjust objective
   weights and timing, inspect interactions and conditional factor priorities, test
   three response assumptions and export the analysis. See [scope and calculation](docs/INTERVENTIONS.md).
@@ -58,9 +58,9 @@ Choose RO or EN in the application header.
   inputs, four mechanism focus views, keyboard-accessible node/link inspection,
   formulas and code provenance. The original evidence-registry map remains selectable.
 - **Visual ODD:** a registry-driven view of Initialisation, Submodels, Observation and
-  Scales, complemented by the [M0 ODD](docs/ODD_MAIN.md) and [M1 ODD](docs/ODD_M1.md).
-- **Registry:** eleven variables, five registered evidence-qualified links, one M1 empirical
-  target and twenty conceptual modules.
+  Scales, complemented by the [M0 ODD](docs/ODD_MAIN.md), [M1.E1 ODD](docs/ODD_M1.md) and [M1.E2 ODD](docs/ODD_M1_E2.md).
+- **Registry:** fifteen variables, eight registered evidence-qualified links, three M1 empirical
+  targets and twenty conceptual modules.
 
 Scenarios replay saved output from the Python simulator; the browser does not
 recalculate arbitrary parameter combinations. The computational map explains 17 dependencies, with coefficients in the details
@@ -82,20 +82,23 @@ The active candidate specification is **M1**, retaining **M0** as an explicit ba
 M0 contains familiarity, correction accessibility, source-reliability estimation,
 belief formation, accuracy salience and a sharing policy. M1.E1 adds a fixed
 fact-compatible information pool, editorial emphasis, observed-sample balance and
-issue appraisal. Functional forms are reference candidates, not established unique
-psychological laws.
+issue appraisal. M1.E2 adds semantic-equivalent presentation framing, task-specific
+prior-attitude congruence and active-engagement intent, explicitly distinct from M0
+Share. Functional forms are reference candidates, not established unique psychological laws.
 
 - Simulated ground truth is never passed directly into the M0 belief-update function.
 - Negative information is not equated with false information in M1.
 - M1 issue appraisal `Aissue` is distinct from M0 claim-belief `B`.
-- Published framing-effect magnitudes are empirical context, not fitted M1 parameters.
+- Published framing-effect magnitudes and interaction coefficients are empirical context, not fitted M1 parameters.
+- `Gatt` is task-specific congruence, not ideology or party identity.
+- `EngageIntent` and `Pengage` are distinct from M0 `Share` and its probability.
 - Track A/B are conceptual descriptions, not fixed classes or hard-coded agent states.
 - Jungian individuation and the ego–Self axis remain a separate interpretive layer.
 - A reproduced pattern is not proof of a unique mechanism.
 - No Track A/B population estimates, individual diagnoses or Romania forecasts.
 
 See [claim boundaries](docs/CLAIMS.md), [modelling decisions](docs/TRACE.md),
-[M0 ODD](docs/ODD_MAIN.md), [M1 ODD](docs/ODD_M1.md), [Alpha 0.4 scientific scope](docs/ALPHA_0.4_SCOPE.md)
+[M0 ODD](docs/ODD_MAIN.md), [M1.E1 ODD](docs/ODD_M1.md), [M1.E2 ODD](docs/ODD_M1_E2.md), [Alpha 0.4 scientific scope](docs/ALPHA_0.4_SCOPE.md)
 and [development handoff](docs/HANDOFF.md).
 
 ## Run locally
@@ -124,7 +127,7 @@ npm run test:browser
 Installed Python wheels contain registries and schemas: `cemodel validate` works
 outside the source checkout. Web builds copy canonical registries automatically;
 `python scripts/export_web.py` regenerates deterministic M0 reference runs, the M1.E1
-editorial experiment, explicit run-purpose metadata and local M0 diagnostics. Software
+editorial experiment, the M1.E2 nested presentation-model comparison, explicit run-purpose metadata and local M0 diagnostics. Software
 version, active model specification (M1), retained baseline (M0) and evidence snapshot
 are recorded separately.
 
@@ -142,7 +145,7 @@ checks. The initial live deployment was confirmed on 2026-09-13.
 
 ## Releases and licensing
 
-[Alpha 0.4.0a0 — release notes and downloads](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.0a0).
+[Alpha 0.4.1a0 — release notes and downloads](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.1a0).
 See [CHANGELOG.md](CHANGELOG.md). Releases attach the CI-verified web build and its
 SHA-256 checksum and release provenance attestation; GitHub also provides source archives. The native elementary OS
 Flatpak remains a near-v1 goal. This alpha has no native installer.
