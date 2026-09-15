@@ -16,8 +16,9 @@ def test_release_versions_are_consistent():
     assert lock['version'] == lock['packages']['']['version'] == npm
     version = json.loads((ROOT / 'web/public/model/version.json').read_text())
     assert version['version'] == version['software_version'] == __version__
-    assert version['model'] == version['model_specification'] == 'M0'
-    assert version['evidence_snapshot'].startswith('EVIDENCE.M0.')
+    assert version['model'] == version['model_specification'] == 'M1'
+    assert version['baseline_model_specification'] == 'M0'
+    assert version['evidence_snapshot'].startswith('EVIDENCE.M1.')
     assert version['release_tag'] == 'v' + __version__
     runs = json.loads((ROOT / 'web/public/model/runs.json').read_text())
     assert runs['model_version'] == __version__
@@ -34,11 +35,20 @@ def test_release_versions_are_consistent():
     diagnostics = json.loads((ROOT / 'web/public/model/diagnostics.json').read_text())
     assert diagnostics['software_version'] == __version__
     assert diagnostics['model_specification'] == 'M0'
+    m1 = json.loads((ROOT / 'web/public/model/m1_editorial.json').read_text())
+    assert m1['model_version'] == __version__
+    assert m1['model_specification'] == 'M1'
+    assert m1['baseline_model_specification'] == 'M0'
+    assert m1['experiment']['id'] == 'M1.E1'
+    assert m1['experiment']['purpose'] == 'MECHANISM_TEST_DEMONSTRATION'
+    assert m1['experiment']['conditions']['negative']['observed_balance'] < m1['experiment']['conditions']['neutral']['observed_balance']
+    assert m1['experiment']['nested_null']['observed_balance'] == 0.0
     snapshot = json.loads((ROOT / 'model/evidence_snapshot.json').read_text())
     assert snapshot['id'] == version['evidence_snapshot']
     assert f'Alpha {__version__}' in (ROOT / 'README.md').read_text()
     assert (ROOT / f'releases/v{__version__}.md').is_file()
     assert (ROOT / 'CITATION.cff').is_file()
     assert (ROOT / 'docs/ODD_MAIN.md').is_file()
+    assert (ROOT / 'docs/ODD_M1.md').is_file()
     assert (ROOT / 'LICENSE').is_file()
     assert (ROOT / 'LICENSES/CC-BY-4.0.txt').is_file()

@@ -1,5 +1,17 @@
 # Changelog
 
+## Alpha 0.4.0a0 — M1 Editorial Emphasis
+
+- First executable M1 mechanism: fixed fact-compatible information pool → editorial emphasis → observed sample → issue appraisal.
+- New registered quantities Eedit, Sobs and Aissue; Aissue remains distinct from M0 truth-belief B.
+- Tohidi, Haider & Watts (2025) added as the preregistered randomized empirical anchor.
+- Published treatment magnitudes stored in an empirical-target registry for directional validation context, not parameter fitting.
+- VAL.M1.001 tests selective factual emphasis; VAL.M1.N01 requires the condition difference to disappear when editorial selection is disabled.
+- M1 ODD and registry-driven Visual ODD entries added; media subsystem becomes partially executable.
+- Understanding gains a separate between-condition M1 laboratory while the temporal M0 Narrative Laboratory remains intact.
+- Active model specification is M1 with explicit retained baseline M0 and EVIDENCE.M1.2026-09-15.
+- All M0 equations, reference runs and M0 scientific regression patterns remain retained release gates.
+
 ## Alpha 0.3.6a0 — Scientific readiness and reproducibility
 
 - Narrative Laboratory, contextual inspector and registry-driven Visual ODD consolidated as the explanatory foundation for the next scientific model extension.

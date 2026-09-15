@@ -38,6 +38,7 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     subsystems = load_json(model_dir / "subsystems.json")
     processes = load_json(model_dir / "processes.json")
     evidence_snapshot = load_json(model_dir / "evidence_snapshot.json")
+    empirical_targets = load_json(model_dir / "empirical_targets.json")
 
     validate_items(modules, load_json(schema_dir / "module.schema.json"))
     validate_items(variables, load_json(schema_dir / "variable.schema.json"))
@@ -45,12 +46,13 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     validate_items(references, load_json(schema_dir / "reference.schema.json"))
     validate_items(subsystems, load_json(schema_dir / "subsystem.schema.json"))
     validate_items(processes, load_json(schema_dir / "process.schema.json"))
+    validate_items(empirical_targets, load_json(schema_dir / "empirical_target.schema.json"))
     snapshot_validator = Draft202012Validator(load_json(schema_dir / "evidence_snapshot.schema.json"))
     snapshot_errors = sorted(snapshot_validator.iter_errors(evidence_snapshot), key=lambda err: list(err.path))
     if snapshot_errors:
         raise RegistryError("\n".join(f"evidence snapshot: {err.message}" for err in snapshot_errors))
 
-    for name, items in (("modules", modules), ("variables", variables), ("links", links), ("references", references), ("subsystems", subsystems), ("processes", processes)):
+    for name, items in (("modules", modules), ("variables", variables), ("links", links), ("references", references), ("subsystems", subsystems), ("processes", processes), ("empirical_targets", empirical_targets)):
         duplicates = sorted(key for key, count in Counter(x["id"] for x in items).items() if count > 1)
         if duplicates:
             raise RegistryError(f"duplicate {name} IDs: {duplicates}")
@@ -72,12 +74,18 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
         raise RegistryError(f"unresolved variable references: {unresolved}")
 
     reference_ids = {ref["id"] for ref in references}
+    validation_ids = {item["id"] for item in load_json(model_dir / "validation_tests.json")}
     for link in links:
         missing = set(link["evidence_refs"]) - reference_ids
         if missing:
             raise RegistryError(f"unresolved evidence references in {link['id']}: {sorted(missing)}")
+    for target in empirical_targets:
+        if target["evidence_ref"] not in reference_ids:
+            raise RegistryError(f"unresolved target evidence reference: {target['id']}")
+        if target["pattern_id"] not in validation_ids:
+            raise RegistryError(f"unresolved target pattern reference: {target['id']}")
     for ref in references:
         if ref["url"] != "https://doi.org/" + ref["doi"]:
             raise RegistryError(f"DOI URL mismatch: {ref['id']}")
 
-    return {"modules": len(modules), "variables": len(variables), "links": len(links), "references": len(references), "subsystems": len(subsystems), "processes": len(processes)}
+    return {"modules": len(modules), "variables": len(variables), "links": len(links), "references": len(references), "subsystems": len(subsystems), "processes": len(processes), "empirical_targets": len(empirical_targets)}

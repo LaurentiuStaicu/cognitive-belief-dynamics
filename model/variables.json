@@ -117,5 +117,73 @@
       0,
       1
     ]
+  },
+  {
+    "id": "VAR.CONTENT.VALENCE",
+    "short_name": "Vcontent",
+    "ontology_type": "CONTENT_ATTRIBUTE",
+    "entity_type": "InformationUnit",
+    "conceptual_module": "MOD.16",
+    "label": {
+      "en": "Information-unit valence",
+      "ro": "Valența unității informaționale"
+    },
+    "definition": "Signed valence assigned to an event-relevant information unit for the M1 reference selection task.",
+    "what_it_is_not": "Truth value, factuality, political ideology, or emotional state of a person.",
+    "range": [
+      -1,
+      1
+    ]
+  },
+  {
+    "id": "VAR.EDITORIAL.EMPHASIS",
+    "short_name": "Eedit",
+    "ontology_type": "POLICY",
+    "entity_type": "MediaOutlet",
+    "conceptual_module": "MOD.16",
+    "label": {
+      "en": "Editorial emphasis policy",
+      "ro": "Politica de accent editorial"
+    },
+    "definition": "Reference policy controlling which valence-compatible information units are preferentially selected from a fixed event pool.",
+    "what_it_is_not": "A measured newsroom bias score, misinformation rate, ownership effect, or platform ranking parameter.",
+    "range": [
+      -1,
+      1
+    ]
+  },
+  {
+    "id": "VAR.OBSERVED.SAMPLE.BALANCE",
+    "short_name": "Sobs",
+    "ontology_type": "DERIVED_METRIC",
+    "entity_type": "InformationSample",
+    "conceptual_module": "MOD.14",
+    "label": {
+      "en": "Observed information balance",
+      "ro": "Balanța informației observate"
+    },
+    "definition": "Mean signed valence of the information units actually exposed after editorial selection.",
+    "what_it_is_not": "Ground truth, total event valence, or a person's opinion.",
+    "range": [
+      -1,
+      1
+    ]
+  },
+  {
+    "id": "VAR.ISSUE.APPRAISAL",
+    "short_name": "Aissue",
+    "ontology_type": "STATE_FAST",
+    "entity_type": "HumanAgent",
+    "conceptual_module": "MOD.14",
+    "label": {
+      "en": "Issue appraisal",
+      "ro": "Evaluarea subiectului"
+    },
+    "definition": "Bounded M1 reference state representing the current evaluation of an event or issue after the observed information sample.",
+    "what_it_is_not": "Claim truth belief B, knowledge, ideology, affect diagnosis, or a calibrated population attitude.",
+    "range": [
+      -1,
+      1
+    ]
   }
 ]

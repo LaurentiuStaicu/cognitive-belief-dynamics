@@ -1,5 +1,5 @@
 {
-  "model_version": "0.3.6a0",
+  "model_version": "0.4.0a0",
   "model_specification": "M0",
   "purpose": "EXPLANATION_OF_REFERENCE_RUNS",
   "scope": "Latent-score decomposition, not causal attribution",

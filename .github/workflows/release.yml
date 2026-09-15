@@ -91,9 +91,11 @@ jobs:
                       z.write(p, p.relative_to('dist'))
 
           snapshot = json.loads(Path('model/evidence_snapshot.json').read_text())
+          version_meta = json.loads(Path('web/public/model/version.json').read_text())
           manifest = {
               'software_version': os.environ['VERSION'],
-              'model_specification': 'M0',
+              'model_specification': version_meta['model_specification'],
+              'baseline_model_specification': version_meta.get('baseline_model_specification'),
               'evidence_snapshot': snapshot['id'],
               'verified_commit_sha': os.environ['VERIFIED_SHA'],
               'python_version': os.environ['PYTHON_VERSION'],
@@ -101,8 +103,10 @@ jobs:
               'package_lock_sha256': hashlib.sha256(Path('web/package-lock.json').read_bytes()).hexdigest(),
               'references_sha256': hashlib.sha256(Path('model/references.json').read_bytes()).hexdigest(),
               'validation_tests_sha256': hashlib.sha256(Path('model/validation_tests.json').read_bytes()).hexdigest(),
-              'root_seed': 7,
+              'empirical_targets_sha256': hashlib.sha256(Path('model/empirical_targets.json').read_bytes()).hexdigest(),
+              'm0_reference_root_seed': 7,
               'reference_run_purpose': 'MECHANISM_TEST_DEMONSTRATION',
+              'm1_experiment': 'M1.E1',
               'boundary': 'Build provenance and reproducibility metadata; not empirical validation.'
           }
           manifest_path = assets / 'reproducibility-manifest.json'

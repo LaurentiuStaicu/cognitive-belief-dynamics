@@ -3,6 +3,7 @@ import cytoscape, {type Core} from 'cytoscape';
 import './style.css';
 import './elementary.css';
 import {mountLearning} from './learning';
+import {type M1EditorialData,type EmpiricalTarget} from './editorial-stage';
 import {mountComparison} from './comparison';
 import {renderExplanation,type ExplanationData} from './explanation';
 let explanations:ExplanationData;
@@ -35,6 +36,8 @@ let runs:Run[] = [];
 let references:Reference[] = [];
 let oddProcesses:OddProcess[] = [];
 let subsystems:Subsystem[] = [];
+let m1Editorial:M1EditorialData;
+let m1Targets:EmpiricalTarget[] = [];
 const app = document.getElementById('app')!;
 const tr = (ro:string,en:string) => lang === 'ro' ? ro : en;
 const num = (n:number) => n.toLocaleString(lang === 'ro' ? 'ro-RO' : 'en-GB', {minimumFractionDigits:3,maximumFractionDigits:3});
@@ -48,7 +51,11 @@ const definitions:Record<string,[string,string]> = {
  B:['Propensiunea latentă de a judeca afirmația drept adevărată la un moment dat.','Nu reprezintă cunoaștere, ideologie sau angajament identitar.'],
  W:['Ponderea contextuală acordată acurateții în decizia de distribuire.','Nu reprezintă raționalitatea generală sau activarea Sistemului 2.'],
  Nexp:['Numărul expunerilor agentului la o informație.','Nu este familiaritatea în sine.'],
- Share:['Acțiunea observată sau simulată de distribuire.','Nu echivalează cu o convingere sau cu aprobarea conținutului.']
+ Share:['Acțiunea observată sau simulată de distribuire.','Nu echivalează cu o convingere sau cu aprobarea conținutului.'],
+ Vcontent:['Valența semnată atribuită unei unități informaționale relevante pentru eveniment în sarcina M1.','Nu este valoarea de adevăr, factualitatea, ideologia politică sau starea emoțională a unei persoane.'],
+ Eedit:['Politica de referință care controlează ce unități informaționale sunt selectate preferențial dintr-un pool factual fix.','Nu este un scor măsurat de bias al unei redacții, o rată de dezinformare sau un parametru de ranking al platformei.'],
+ Sobs:['Media valenței semnate a unităților informaționale efectiv observate după selecția editorială.','Nu este adevărul evenimentului, valența totală a lumii sau opinia unei persoane.'],
+ Aissue:['Starea M1 mărginită care reprezintă evaluarea curentă a unui eveniment sau subiect după eșantionul informațional observat.','Nu este convingerea B despre adevărul unei afirmații, cunoaștere, ideologie sau diagnostic afectiv.']
 };
 const scenarioDescription = () => ({
  repetition:tr('Patru expuneri la pașii 1–4 cresc familiaritatea. Nu se adaugă dovezi sau corecții.','Four exposures at steps 1–4 increase familiarity. No evidence or corrections are added.'),
@@ -69,7 +76,7 @@ function shell() {
  <main id="content"></main><footer><span>${tr('Model demonstrativ · coeficienți necalibrați','Demonstration model · uncalibrated coefficients')}</span><span>${tr('Nu estimează proporții Track A/B sau diagnostice individuale.','Does not estimate Track A/B prevalence or individual diagnoses.')}</span></footer></div>`;
  document.getElementById('language')!.onclick=()=>{stop();lang=lang==='ro'?'en':'ro';shell();};
  document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.onclick=()=>{stop();view=b.dataset.view!;shell();});
- if(view==='learning') mountLearning(document.getElementById('content')!,lang,runs,target=>{stop();const [next,id,time]=target.split(':');view=next;if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
+ if(view==='learning') mountLearning(document.getElementById('content')!,lang,runs,m1Editorial,m1Targets,target=>{stop();const [next,id,time]=target.split(':');view=next;if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
  if(view==='planning') mountPlanner(document.getElementById('content')!,planning,lang);
  if(view==='runs') renderRuns();
  if(view==='comparison') mountComparison(document.getElementById('content')!,runs,lang,(id,time)=>{selected=id;step=time;view='runs';shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
@@ -110,7 +117,7 @@ function updateFrame(){
  svg.onpointermove=e=>{const point=new DOMPoint(e.clientX,e.clientY).matrixTransform(svg.getScreenCTM()!.inverse());readout(Math.max(0,Math.min(step,Math.round((point.x-50)/55))));};
  svg.onpointerleave=()=>readout(step);
 }
-function variableDetail(v:Variable){return `<p class="eyebrow">${text(v.short_name)} · ${text(v.ontology_type)}</p><h2>${text(v.label[lang])}</h2><p>${text(lang==='ro'?definitions[v.short_name][0]:v.definition)}</p><div class="boundary"><strong>${tr('Ce nu reprezintă','What this is not')}</strong><p>${text(lang==='ro'?definitions[v.short_name][1]:v.what_it_is_not)}</p></div><p class="meta">${text(v.conceptual_module)} · ${text(modules.find(m=>m.id===v.conceptual_module)!.label[lang])}</p><code>${text(v.id)}</code>`;}
+function variableDetail(v:Variable){const localized=definitions[v.short_name];const definition=lang==='ro'&&localized?localized[0]:v.definition;const not=lang==='ro'&&localized?localized[1]:v.what_it_is_not;return `<p class="eyebrow">${text(v.short_name)} · ${text(v.ontology_type)}</p><h2>${text(v.label[lang])}</h2><p>${text(definition)}</p><div class="boundary"><strong>${tr('Ce nu reprezintă','What this is not')}</strong><p>${text(not)}</p></div><p class="meta">${text(v.conceptual_module)} · ${text(modules.find(m=>m.id===v.conceptual_module)!.label[lang])}</p><code>${text(v.id)}</code>`;}
 function renderStructure(){
  if(graphMode==='registered')renderRegisteredStructure();else renderComputationalStructure();
  const host=document.getElementById('content')!;
@@ -118,7 +125,7 @@ function renderStructure(){
  const mode=host.querySelector<HTMLSelectElement>('#graphMode')!;mode.value=graphMode;mode.onchange=()=>{graphMode=mode.value;graphFocus='all';shell();};
 }
 function renderComputationalStructure(){
- const core=variables.map(v=>v.short_name).concat('P');
+ const core=['Nexp','F','C','T','B','W','Share','P'];
  const focusNodes:Record<string,string[]>={all:[],repetition:['Nexp','F','B','P','Share','Prior'],correction:['Correction','Time','C','Direction','B','F','P','Share'],source:['Feedback','T','Evidence','B','P','Share'],decision:['B','W','P','Share','Cue','Baseline','Reward','Random']};
  const visible=(id:string)=>(graphMode==='inputs'||core.includes(id))&&(graphFocus==='all'||focusNodes[graphFocus].includes(id));
  const nodes=[...variables.map(v=>({id:v.short_name,label:v.short_name,name:v.label[lang],kind:'variable'})),...extraNodes.map(v=>({id:v.id,label:v.id==='P'?tr('P(distribuire)','P(share)'):v[lang],name:v[lang],kind:v.kind}))].filter(v=>visible(v.id));
@@ -154,7 +161,7 @@ function evidenceStatus(status:string):string {
  return ({EXPERIMENTAL:tr('Experimental','Experimental'),META_ANALYTIC:tr('Meta-analiză','Meta-analysis'),CANDIDATE:tr('Mecanism candidat','Candidate mechanism'),REFERENCE_CANDIDATE:tr('Formă de referință, necalibrată','Uncalibrated reference form')}[status]??status);
 }
 function safeSource(url:string):string {try{return new URL(url).protocol==='https:'?escape(url):'#';}catch{return '#';}}
-function linkDetail(l:Link){return `<p class="eyebrow">${tr('RELAȚIE ÎN REGISTRU','REGISTERED LINK')}</p><h3>${text(variables.find(v=>v.id===l.source)!.label[lang])} → ${text(variables.find(v=>v.id===l.target)!.label[lang])}</h3><dl class="link-data"><dt>${tr('Tip','Type')}</dt><dd>${text(l.relation_type)}</dd><dt>${tr('Polaritate','Polarity')}</dt><dd>${text(l.polarity)}</dd><dt>${tr('Dovezi despre fenomen','Evidence for the phenomenon')}</dt><dd>${text(evidenceStatus(l.phenomenon_evidence_status))}</dd><dt>${tr('Mecanismul exact din M0','Exact M0 mechanism')}</dt><dd>${text(evidenceStatus(l.mechanism_evidence_status))}</dd><dt>${tr('Formă funcțională','Functional form')}</dt><dd>${text(evidenceStatus(l.functional_form_status))}</dd></dl><div class="evidence-assessment"><h4>${tr('Ce susține sursa','What the source supports')}</h4><p>${text(l.evidence_summary[lang])}</p><h4>${tr('Limita pentru acest model','Limit for this model')}</h4><p>${text(l.evidence_limitations[lang])}</p></div><h4>${tr('Surse și nivel de verificare','Sources and review scope')}</h4><ul class="sources">${l.evidence_refs.map(id=>{const ref=references.find(r=>r.id===id)!;return `<li><a class="citation-link" href="${safeSource(ref.url)}" target="_blank" rel="noopener noreferrer">${text(ref.citation)}</a><div><a href="${safeSource(ref.access_url)}" target="_blank" rel="noopener noreferrer">${tr('Pagina consultată ↗','Consulted source ↗')}</a></div><p class="meta">${ref.checked_on} · ${ref.review_scope==='ABSTRACT'?tr('Rezumat consultat','Abstract consulted'):ref.review_scope==='ABSTRACT_AND_SELECTED_SECTIONS'?tr('Rezumat și secțiuni selectate','Abstract and selected sections'):tr('Text integral','Full text')}</p></li>`;}).join('')}</ul><p class="note">${tr('Verificare bibliografică inițială, nu revizuire sistematică sau replicare independentă. Coeficienții nu au fost calibrați din aceste surse.','Initial bibliographic check, not a systematic review or independent replication. Coefficients were not calibrated from these sources.')}</p>`;}
+function linkDetail(l:Link){return `<p class="eyebrow">${tr('RELAȚIE ÎN REGISTRU','REGISTERED LINK')}</p><h3>${text(variables.find(v=>v.id===l.source)!.label[lang])} → ${text(variables.find(v=>v.id===l.target)!.label[lang])}</h3><dl class="link-data"><dt>${tr('Tip','Type')}</dt><dd>${text(l.relation_type)}</dd><dt>${tr('Polaritate','Polarity')}</dt><dd>${text(l.polarity)}</dd><dt>${tr('Dovezi despre fenomen','Evidence for the phenomenon')}</dt><dd>${text(evidenceStatus(l.phenomenon_evidence_status))}</dd><dt>${tr('Mecanismul exact din model','Exact model mechanism')}</dt><dd>${text(evidenceStatus(l.mechanism_evidence_status))}</dd><dt>${tr('Formă funcțională','Functional form')}</dt><dd>${text(evidenceStatus(l.functional_form_status))}</dd></dl><div class="evidence-assessment"><h4>${tr('Ce susține sursa','What the source supports')}</h4><p>${text(l.evidence_summary[lang])}</p><h4>${tr('Limita pentru acest model','Limit for this model')}</h4><p>${text(l.evidence_limitations[lang])}</p></div><h4>${tr('Surse și nivel de verificare','Sources and review scope')}</h4><ul class="sources">${l.evidence_refs.map(id=>{const ref=references.find(r=>r.id===id)!;return `<li><a class="citation-link" href="${safeSource(ref.url)}" target="_blank" rel="noopener noreferrer">${text(ref.citation)}</a><div><a href="${safeSource(ref.access_url)}" target="_blank" rel="noopener noreferrer">${tr('Pagina consultată ↗','Consulted source ↗')}</a></div><p class="meta">${ref.checked_on} · ${ref.review_scope==='ABSTRACT'?tr('Rezumat consultat','Abstract consulted'):ref.review_scope==='ABSTRACT_AND_SELECTED_SECTIONS'?tr('Rezumat și secțiuni selectate','Abstract and selected sections'):tr('Text integral','Full text')}</p></li>`;}).join('')}</ul><p class="note">${tr('Verificare bibliografică inițială, nu revizuire sistematică sau replicare independentă. Coeficienții nu au fost calibrați din aceste surse.','Initial bibliographic check, not a systematic review or independent replication. Coefficients were not calibrated from these sources.')}</p>`;}
 function renderReference(){
  content(`<div class="section-heading"><div><h2>${tr('Registrul variabilelor și relațiilor','Variable and link registry')}</h2><p>${tr('Aceleași date ca în hartă, într-o formă navigabilă cu tastatura.','The same data as the graph, in a keyboard-accessible form.')}</p></div></div><div class="reference-grid">${variables.map(v=>`<article class="panel">${variableDetail(v)}</article>`).join('')}</div><h2 class="section-title">${tr('Relații și statutul dovezilor','Links and evidence status')}</h2><div class="reference-grid">${links.map(l=>`<article class="panel">${linkDetail(l)}</article>`).join('')}</div><details class="panel modules"><summary>${tr('Cele 20 de module conceptuale','The 20 conceptual modules')}</summary><p>${tr('Inventar conceptual, nu 20 de module executabile validate.','Conceptual inventory, not 20 validated executable modules.')}</p><ol>${modules.map(m=>`<li><code>${m.id}</code> ${text(m.label[lang])}</li>`).join('')}</ol></details>`);
 }
@@ -162,6 +169,6 @@ function renderProcess(){
  mountVisualOdd(document.getElementById('content')!,lang,oddProcesses,subsystems);
 }
 async function load<T>(name:string):Promise<T>{const r=await fetch(`./model/${name}.json`);if(!r.ok)throw new Error(`${name}: HTTP ${r.status}`);return r.json();}
-async function init(){[variables,links,modules,references,oddProcesses,subsystems]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems')]);runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
+async function init(){[variables,links,modules,references,oddProcesses,subsystems,m1Targets,m1Editorial]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems'),load<EmpiricalTarget[]>('empirical_targets'),load<M1EditorialData>('m1_editorial')]);runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(view==='structure'){stop();shell();}});
 init().catch(e=>{app.replaceChildren();const p=document.createElement('p');p.className='loading';p.textContent=`Nu se poate încărca modelul / Unable to load model: ${String(e)}`;app.append(p);});

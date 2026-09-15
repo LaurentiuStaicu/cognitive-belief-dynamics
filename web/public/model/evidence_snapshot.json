@@ -1,7 +1,7 @@
 {
-  "id": "EVIDENCE.M0.2026-09-15",
-  "model_specification": "M0",
+  "id": "EVIDENCE.M1.2026-09-15",
+  "model_specification": "M1",
   "as_of": "2026-09-15",
   "registry": "model/references.json",
-  "scope": "Phenomenon-level evidence and limitations supporting the M0 reference claims; not a systematic review or calibration dataset."
+  "scope": "Phenomenon-level evidence and limitations supporting retained M0 reference claims and the candidate M1 editorial-emphasis mechanism; not a systematic review or calibration dataset."
 }

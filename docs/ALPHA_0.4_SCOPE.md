@@ -1,6 +1,6 @@
 # Alpha 0.4.0a0 — scientific and UX scope
 
-Status: forward scientific contract for the future Alpha 0.4 / M1 series. Alpha 0.3.6a0 is the scientific-readiness bridge that must pass before this contract becomes executable.
+Status: Alpha 0.4.0a0 implements the first candidate M1 mechanism. Alpha 0.3.6a0 remains the completed scientific-readiness bridge.
 
 ## Why this document exists
 
@@ -140,3 +140,25 @@ The release requires:
 - no population, diagnostic or causal claims are strengthened beyond the available evidence.
 
 Native GTK4/Granite/Flatpak remains a later v1-oriented implementation target; the web architecture should remain mappable to native patterns without binding the web code to a specific GTK widget.
+
+
+## Alpha 0.4.0a0 implemented slice
+
+The first executable slice is M1.E1 Editorial Emphasis:
+
+`fixed fact-compatible pool → Eedit → observed sample / Sobs → Aissue`
+
+It operationalises parts of MOD.14 and MOD.16 only. MOD.15 heuristic-policy selection remains a later Alpha 0.4.x target.
+
+The empirical target is REF.TOHIDI.2025 / TARGET.M1.E1.TOHIDI_2025. The target is directional; published treatment magnitudes are not used to calibrate the appraisal gain.
+
+Registered rejection constraints:
+
+- underlying pool remains identical across editorial conditions;
+- selected units remain fact-compatible;
+- negative valence is not falsehood;
+- Aissue remains distinct from B;
+- disabling editorial selection removes the condition difference;
+- all retained M0 scientific pattern tests must continue to pass.
+
+The study combines selection and tone variation, so Alpha 0.4.0a0 does not claim to identify selection as the unique causal psychological mechanism. A later subversion may separate presentation/equivalence framing only after a distinct empirical target is registered.
