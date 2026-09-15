@@ -176,6 +176,7 @@ export function mountGuidedTour(
   host.innerHTML=`<div class="guided-tour-layout">
    <nav class="panel guided-tour-steps" aria-label="${lang==='ro'?'Pașii turului ghidat':'Guided tour steps'}">
     <p class="eyebrow">${lang==='ro'?'TRASEU':'JOURNEY'}</p>
+    <label class="guided-tour-select">${lang==='ro'?'Pasul turului':'Tour step'}<select id="guidedTourSelect">${steps.map((step,i)=>`<option value="${esc(step.slug)}" ${step.slug===current.slug?'selected':''}>${String(i+1).padStart(2,'0')} · ${esc(t(step.title).replace(/^\d+\.\s*/,''))}</option>`).join('')}</select></label>
     <ol>${steps.map((step,i)=>`<li><button type="button" data-tour-step="${esc(step.slug)}" aria-current="${step.slug===current.slug?'step':'false'}"><span>${String(i+1).padStart(2,'0')}</span><span>${esc(t(step.title).replace(/^\d+\.\s*/,''))}</span>${visited.has(step.slug)?'<span class="tour-visited" aria-label="'+(lang==='ro'?'vizitat':'visited')+'">✓</span>':''}</button></li>`).join('')}</ol>
    </nav>
    <section class="panel guided-tour-stage" aria-labelledby="guidedTourTitle">
@@ -200,6 +201,9 @@ export function mountGuidedTour(
   host.querySelectorAll<HTMLButtonElement>('[data-tour-step]').forEach(button=>button.onclick=()=>{
    location.hash=`#understanding/tour/${encodeURIComponent(button.dataset.tourStep!)}`;
   });
+  host.querySelector<HTMLSelectElement>('#guidedTourSelect')!.onchange=event=>{
+   location.hash=`#understanding/tour/${encodeURIComponent((event.currentTarget as HTMLSelectElement).value)}`;
+  };
   host.querySelector<HTMLButtonElement>('[data-tour-prev]')!.onclick=()=>{
    if(index>0) location.hash=`#understanding/tour/${encodeURIComponent(steps[index-1].slug)}`;
   };
