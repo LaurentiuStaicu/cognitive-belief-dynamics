@@ -163,6 +163,15 @@ try {
  assert.match(accessText,/PreviewImpression ≠ Access/);
  assert.match(accessText,/M1\.E3-NULL/);
  assert.match(accessText,/M1\.E3-A/);
+ await page.locator('#language').click();
+ await page.locator('#m1AccessStage').waitFor();
+ const accessEnglish=await page.locator('#m1AccessStage').textContent();
+ assert.match(accessEnglish,/Headline access gate: NULL vs Hneg/);
+ assert.match(accessEnglish,/Limitations and provenance/);
+ assert.match(accessEnglish,/historical Upworthy field experiments/);
+ await page.locator('#language').click();
+ await page.locator('#m1AccessStage').waitFor();
+ assert.match(await page.locator('#m1AccessStage').textContent(),/Limitări și proveniență/);
  await page.locator('[data-mechanism="source"]').click();
  assert.match(await page.locator('#mechanismReading').textContent(),/2T − 1/);
  await page.locator('#exploreMechanism').click();assert.equal(await page.locator('#scenario').inputValue(),'source');
