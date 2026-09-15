@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+import re
 import shutil
 
 import pytest
@@ -9,7 +10,7 @@ from cognitive_epistemic_model.theory import TheoryContractError, extract_tokens
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_theory_contract_has_complete_bilingual_phase_a_skeletons():
+def test_theory_contract_has_complete_bilingual_phase_c_corpus():
     counts = validate_theory_contract(
         root=ROOT,
         model_dir=ROOT / "model",
@@ -26,7 +27,21 @@ def test_theory_contract_has_complete_bilingual_phase_a_skeletons():
         for lang in ("ro", "en"):
             path = ROOT / chapter["source_paths"][lang]
             assert path.is_file()
-            assert path.read_text().lstrip().startswith("# ")
+            text = path.read_text()
+            assert text.lstrip().startswith("# ")
+            assert "Schelet Alpha 0.4.1a1" not in text
+            assert "Phase A. Conținutul teoretic complet nu este încă redactat." not in text
+            assert "Phase A. Full theoretical content has not yet been drafted." not in text
+            words = re.findall(r"\b[\w’'-]+\b", text, flags=re.UNICODE)
+            assert len(words) >= 250, f"{path}: only {len(words)} words"
+            assert text.count("\n## ") >= 5, f"{path}: insufficient explanatory structure"
+
+    roles = {
+        source["role"]
+        for chapter in chapters
+        for source in chapter["sources"]
+    }
+    assert {"MODEL_EVIDENCE", "BACKGROUND_THEORY", "INTERPRETIVE_SOURCE"} <= roles
 
 
 def test_token_extractor_supports_all_phase_a_reference_kinds():

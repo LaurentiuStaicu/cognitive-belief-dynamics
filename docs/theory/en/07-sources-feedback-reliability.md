@@ -1,29 +1,47 @@
 # Sources, feedback and estimated reliability
 
-> Alpha 0.4.1a1 skeleton · Phase A. Full theory prose has not yet been authored.
-
 ## Central idea
 
-Separates actual source quality from the agent's task-relevant reliability estimate and its influence on evidence weighting.
-
-## What CEM currently says
-
-This chapter will explicitly separate what is supported by literature, what is executable in the model, and what remains conceptual or interpretive.
+Information is not evaluated independently of its source. People can use cues about expertise, trustworthiness and prior experience to decide how much weight to place on a claim. M0 represents a minimal version: the agent maintains an estimate of source reliability and updates it after feedback.
 
 [[VAR:T]] · [[VAR:B]] · [[MECH:source]] · [[VAL:VAL.M0.003]] · [[CODE:m0.update_reliability]] · [[VIEW:runs:source:6]]
 
-## What the research says
+## Three things must remain separate
 
-Phase A reserves this section for the argued synthesis and verified sources in the full-authoring phase. No new conclusions are introduced here.
+First is the source's actual quality in the experimental environment. Second is what the agent believes about that source. Third is the truth of the current claim. In CEM, [[VAR:T]] represents only the agent's reliability estimate. T is not truth and is not an objectively universal reputation score.
 
-## In the application
+This prevents circularity: a source should not count as “good” merely because the agent believes it, and a statement does not become true because it came from a positively evaluated source.
 
-The interactive references above will open the contextual inspector, mechanism, registry, scenario, or relevant code without losing reading position.
+## Reference learning rule
+
+M0 uses a simple delta rule:
+
+T' = clamp01(T + alpha_t × (outcome - T)),
+
+where outcome is 1 for correct feedback and 0 for incorrect feedback in the synthetic task. Inspect [[CODE:m0.update_reliability]].
+
+When evidence enters belief computation, M0 maps T from [0,1] to a source weight in [-1,1] using 2T - 1. The same evidence signal can therefore have different impact depending on estimated reliability.
+
+This is a deliberately simple modelling choice. It does not assume optimal Bayesian updating, an empirically fixed alpha_t, or one-dimensional trust.
+
+## What research shows
+
+Credibility experiments show that perceived source credibility can shape belief uptake and maintenance. Recent work on misinformation updating finds that people can incorporate source-reliability information and can revise source evaluations after contradictory feedback.
+
+Research often separates components such as expertise and trustworthiness. CEM currently compresses them into T for the reference mechanism; that compression is a limitation rather than an ontological claim.
+
+## Feedback can create loops
+
+If source evaluation affects evidence interpretation and interpreted outcomes later affect source evaluation, a feedback loop becomes possible. Research suggests such dynamics can depend on initial credibility. M0 does not model all social feedback loops, but source learning provides a base for testing richer versions later.
+
+## M0 pattern
+
+[[VAL:VAL.M0.003]] checks whether source feedback can change T and whether comparable evidence is then weighted differently. Open [[VIEW:runs:source:6]] for the reference scenario.
 
 ## What this chapter does not claim
 
-T is the agent's estimate, not objective source reliability or ground truth.
+It does not claim that trust is fixed, one-dimensional or independent of identity and context. It does not claim that “verified sources” are infallible. It does not treat T as truth or convert social reputation into an intrinsic property of a person or institution.
 
-## Evidence and epistemic status
+## Epistemic status
 
-Statuses and source roles are defined in theory_index.json and theory_glossary.json and will be shown explicitly in the interface.
+The mechanism is EXECUTABLE/CANDIDATE. Research provides BACKGROUND_THEORY and phenomenon-level support for credibility effects; the delta rule and 2T - 1 mapping remain REFERENCE_CANDIDATE until calibration and comparison with alternatives.
