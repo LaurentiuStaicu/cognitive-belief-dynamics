@@ -111,6 +111,14 @@ def active_engagement_probability(
     return logistic(score)
 
 
+def engage_intent(*, probability: float, draw: float) -> bool:
+    """Reference observable for the M1.E2 survey-style active-engagement task."""
+    for name, value in (("probability", probability), ("draw", draw)):
+        if not isfinite(value) or not 0.0 <= value <= 1.0:
+            raise ValueError(f"{name} must be finite and in [0, 1]")
+    return draw < probability
+
+
 def semantic_equivalent_pair(
     proposition_id: str = "P1",
     semantic_stance: float = 1.0,
@@ -165,6 +173,16 @@ def reference_presentation_experiment() -> dict:
             "models": models,
         }
 
+    illustrative_draw = 0.45
+    for audience in conditions.values():
+        reference = audience["models"][PresentationModel.FRAME_CONGRUENCE.value]
+        reference["confirmation_engage_intent"] = engage_intent(
+            probability=reference["confirmation"], draw=illustrative_draw
+        )
+        reference["refutation_engage_intent"] = engage_intent(
+            probability=reference["refutation"], draw=illustrative_draw
+        )
+
     return {
         "id": "M1.E2",
         "purpose": "MODEL_DISCRIMINATION_DEMONSTRATION",
@@ -172,6 +190,7 @@ def reference_presentation_experiment() -> dict:
         "semantic_signature": confirmation.semantic_signature,
         "fact_compatible": confirmation.proposition.fact_compatible,
         "frames": [confirmation.frame.value, refutation.frame.value],
+        "illustrative_engage_intent_draw": illustrative_draw,
         "parameters": {
             "intercept": params.intercept,
             "beta_frame": params.beta_frame,
