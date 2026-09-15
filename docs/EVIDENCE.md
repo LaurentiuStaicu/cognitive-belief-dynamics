@@ -127,3 +127,56 @@ onto behavioral engagement. Alpha 0.4.1 therefore does not require either mediat
 
 The evidence snapshot advances to `EVIDENCE.M1.2026-09-15.r2`; the revision suffix
 prevents one identifier from referring to two different evidence sets on the same date.
+
+
+## Alpha 0.4.2 M1.E3 evidence extension — 2026-09-16
+
+M1.E3 adds a bounded headline-access candidate between a registered preview
+impression and a click/open outcome. The active registry adds
+`REF.ROBERTSON.2023.NEGATIVITY`, the Upworthy archive descriptor and 2024
+correction, plus `REF.NICKL.2025.ATTENTION_ECONOMY` as preliminary
+counterevidence.
+
+Robertson et al. (2023), DOI 10.1038/s41562-023-01538-4, is a Registered Report
+using Upworthy headline A/B tests. In the filtered confirmatory sample the main
+Results text reports 12,448 RCTs, 53,699 headlines, more than 205 million
+impressions and 2,778,124 clicks. The source models clicks conditional on
+impressions with a multilevel binomial logistic model and reports a positive
+standardized coefficient for negative-word proportion (beta=0.015; 99% CI
+0.013–0.018). For an average-length headline the authors report an approximate
+2.3% CTR increase per additional negative word.
+
+CEM uses only the **directional target** `higher Hneg → higher Paccess`.
+The model's `Hneg` is a precomputed binary controlled condition, not the source
+study's continuous LIWC-based predictor. The reference logistic intercept and
+`beta_hneg` are demonstrative and are not fitted to either 0.015 or 2.3%.
+
+The article contains a small internal count discrepancy: the main Results text
+reports 53,699 headlines, while two figure captions report 53,669. The active
+target records the main-text count and preserves the discrepancy in its
+`count_note` rather than silently choosing a different number.
+
+The Upworthy Research Archive Author Correction (Matias et al. 2024,
+DOI 10.1038/s41597-024-03600-w) reports likely randomization problems in tests
+fielded from 25 June 2013 through 10 January 2014 and recommends excluding that
+period from causal analysis. The archive maintainers subsequently report that the
+Robertson analysis was re-run on tests they considered reliable and that the main
+results were nearly indistinguishable. The correction and reanalysis are
+provenance/integrity context, not independent replication.
+
+Nickl, Hills & Lorenz-Spreen (2025 preprint; same project presented at APS 2026)
+is registered as preliminary counterevidence rather than hidden. The APS abstract
+reports no expected negativity-bias effect in its different two-stage experiment.
+This blocks a universality claim even though it does not overturn the much larger
+registered Upworthy result.
+
+The M1.E3 functional form remains a **REFERENCE_CANDIDATE**. Its first comparator
+uses a NULL model versus a cue-sensitive logistic model because the source study
+itself uses a binomial-logit analysis for click probability; CEM does not claim
+that its binary cue, intercept or coefficient reproduces the source model.
+
+`PreviewImpression`, `Access`, attention, belief, active-engagement intent and
+sharing remain separate constructs. In particular, `Access=0` does not erase
+the prior headline impression.
+
+The evidence snapshot advances to `EVIDENCE.M1.2026-09-16.r1`.
