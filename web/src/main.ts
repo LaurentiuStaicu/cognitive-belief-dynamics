@@ -121,7 +121,7 @@ function renderStructure(){
  const mode=host.querySelector<HTMLSelectElement>('#graphMode')!;mode.value=graphMode;mode.onchange=()=>{graphMode=mode.value;graphFocus='all';shell();};
 }
 function renderComputationalStructure(){
- const core=variables.map(v=>v.short_name).concat('P');
+ const core=['Nexp','F','C','T','B','W','Share','P'];
  const focusNodes:Record<string,string[]>={all:[],repetition:['Nexp','F','B','P','Share','Prior'],correction:['Correction','Time','C','Direction','B','F','P','Share'],source:['Feedback','T','Evidence','B','P','Share'],decision:['B','W','P','Share','Cue','Baseline','Reward','Random']};
  const visible=(id:string)=>(graphMode==='inputs'||core.includes(id))&&(graphFocus==='all'||focusNodes[graphFocus].includes(id));
  const nodes=[...variables.map(v=>({id:v.short_name,label:v.short_name,name:v.label[lang],kind:'variable'})),...extraNodes.map(v=>({id:v.id,label:v.id==='P'?tr('P(distribuire)','P(share)'):v[lang],name:v[lang],kind:v.kind}))].filter(v=>visible(v.id));
