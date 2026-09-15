@@ -76,7 +76,7 @@ Un viitor mecanism CEM ar trebui să compare comportamentul de utilizare a recom
 
 Un studiu CHI din 2025, realizat cu 319 lucrători ai cunoașterii și 936 de exemple raportate de utilizare a GenAI, a găsit că o încredere mai mare în GenAI era asociată cu un efort auto-raportat mai mic de gândire critică, în timp ce gândirea critică se deplasa către verificare, integrare și supravegherea sarcinii. Fiind un studiu observațional bazat pe auto-raportare, rezultatul nu demonstrează că AI produce declin cognitiv.
 
-O sinteză sistematică din 2026 în domeniul sănătății raportează, de asemenea, preocupări legate de biasul de automatizare și pierderea competențelor, dar descrie o bază de dovezi eterogenă, dominată de studii observaționale, simulări și lucrări conceptuale. Aceste rezultate justifică un modul conceptual, nu un coeficient numeric de „deskilling”.
+O sinteză sistematică din 2026 în domeniul sănătății raportează, de asemenea, preocupări legate de tendința de a accepta automat recomandarea sistemului (automation bias) și de pierderea competențelor, dar descrie o bază de dovezi eterogenă, dominată de studii observaționale, simulări și lucrări conceptuale. Aceste rezultate justifică un modul conceptual, nu un coeficient numeric de „deskilling”.
 
 Distincția importantă este între **substituire** și **realocare**. AI poate reduce efortul pentru o subsarcină și, în același timp, poate crește nevoia de verificare, supervizare sau integrare în altă parte. CEM trebuie să modeleze competența și sarcina concrete, nu o cantitate globală numită „gândire”.
 
