@@ -185,5 +185,73 @@
       -1,
       1
     ]
+  },
+  {
+    "id": "VAR.PRESENTATION.FRAME",
+    "short_name": "Fpres",
+    "ontology_type": "CONTENT_ATTRIBUTE",
+    "entity_type": "PresentedMessage",
+    "conceptual_module": "MOD.16",
+    "label": {
+      "en": "Presentation frame",
+      "ro": "Cadrul de prezentare"
+    },
+    "definition": "Reference encoding of a semantically equivalent confirmation versus refutation presentation.",
+    "what_it_is_not": "Truth value, factuality, editorial selection, or emotional valence.",
+    "range": [
+      -1,
+      1
+    ]
+  },
+  {
+    "id": "VAR.ATTITUDE.CONGRUENCE",
+    "short_name": "Gatt",
+    "ontology_type": "DERIVED_METRIC",
+    "entity_type": "AgentMessageRelation",
+    "conceptual_module": "MOD.15",
+    "label": {
+      "en": "Prior-attitude congruence",
+      "ro": "Congruența cu atitudinea anterioară"
+    },
+    "definition": "Task-specific relation between an agent's prior stance and the semantic stance of the current message.",
+    "what_it_is_not": "Stable ideology, party identity, personality, or a global confirmation-bias score.",
+    "range": [
+      -1,
+      1
+    ]
+  },
+  {
+    "id": "VAR.ENGAGEMENT.PROBABILITY",
+    "short_name": "Pengage",
+    "ontology_type": "DERIVED_METRIC",
+    "entity_type": "HumanAgent",
+    "conceptual_module": "MOD.07",
+    "label": {
+      "en": "Active-engagement probability",
+      "ro": "Probabilitatea de engagement activ"
+    },
+    "definition": "Latent M1.E2 probability of an active engagement response under the reference presentation task.",
+    "what_it_is_not": "M0 Share probability, platform CTR, endorsement, or a calibrated population engagement rate.",
+    "range": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "VAR.ENGAGEMENT.INTENT",
+    "short_name": "EngageIntent",
+    "ontology_type": "OBSERVABLE",
+    "entity_type": "HumanAgent",
+    "conceptual_module": "MOD.07",
+    "label": {
+      "en": "Active-engagement intent",
+      "ro": "Intenția de engagement activ"
+    },
+    "definition": "Reference observable corresponding to an active stated response such as like, share, or comment versus ignore.",
+    "what_it_is_not": "M0 Share, observed platform behavior, or endorsement.",
+    "range": [
+      0,
+      1
+    ]
   }
 ]
