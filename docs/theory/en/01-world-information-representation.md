@@ -1,29 +1,45 @@
 # World, information and internal representation
 
-> Alpha 0.4.1a1 skeleton · Phase A. Full theory prose has not yet been authored.
-
 ## Central idea
 
-Separates world state, available information, selected and presented information, observed information, internal representation, judgment and action.
+CEM begins with a simple but consequential distinction: a state of the world is not identical to the information available about it; available information is not identical to what an agent observes; and observed information is not identical to the internal representation constructed by that agent.
 
-## What CEM currently says
+The conceptual chain is:
 
-This chapter will explicitly separate what is supported by literature, what is executable in the model, and what remains conceptual or interpretive.
+world → available information → selection and presentation → observed information → internal representation → judgment → action.
 
 [[CONCEPT:world-model]] · [[MODULE:MOD.14]] · [[MECH:editorial]] · [[MECH:presentation]] · [[VIEW:learning]]
 
-## What the research says
+## Why the stages cannot be collapsed
 
-Phase A reserves this section for the argued synthesis and verified sources in the full-authoring phase. No new conclusions are introduced here.
+If an analysis jumps directly from “what exists in the world” to “what a person believes”, intermediate differences can be misattributed to the individual. Information environments filter, order and format information before the agent processes it. Memory, expectations, knowledge and context then contribute to an internal representation that may be incomplete.
 
-## In the application
+The separation supports different causal questions. M1.E1 asks what happens when one factual pool is selected differently. M1.E2 asks what happens when the same semantic proposition is expressed through confirmation or refutation. A future ranking mechanism would separately ask which content reaches exposure. None of these changes in the information pipeline automatically implies a change in belief.
 
-The interactive references above will open the contextual inspector, mechanism, registry, scenario, or relevant code without losing reading position.
+## Relationship to predictive-processing theories
+
+Predictive processing is useful background theory: perception and interpretation can be treated as constructive processes in which expectations interact with incoming signals. Neuroscience literature discusses generative models and prediction-error signals, especially in sensory processing. Yet the framework has several variants, and there is active debate about how strongly available evidence discriminates it from alternative accounts.
+
+CEM does not implement neural predictive coding and does not claim that MOD.14 instantiates a complete brain theory. It uses a smaller and more testable distinction: external information and internal representation should not be treated as the same variable.
+
+This is why [[CONCEPT:world-model]] is a conceptual bridge connected to executable components without being advertised as a unified theory of the brain.
+
+## Ground truth and what the agent knows
+
+In M0, synthetic truth belongs to the simulation environment. It is used to construct and evaluate scenarios but is never passed directly to the belief-update function. This creates an epistemic boundary: the external evaluator can know whether the synthetic claim is true or false, while the agent must work with exposures, evidence, corrections and estimated source reliability.
+
+Passing ground truth directly into belief formation would confuse model evaluation with agent information and remove the very epistemic problem the model is intended to study.
+
+## Selection and presentation are different mechanisms
+
+[[MECH:editorial]] changes the observed factual subset from a fixed pool. [[MECH:presentation]] holds proposition meaning fixed while comparing confirmation and refutation form. In real environments, selection, tone, headlines, ordering and ranking can coexist. CEM separates them deliberately so that each causal stage can make a differential prediction.
+
+This is a general project rule: when two mechanisms can be confounded, the model should try to separate them with controlled conditions and nested nulls rather than hide them inside a global coefficient.
 
 ## What this chapter does not claim
 
-The current CEM does not implement a neural predictive-coding model or a complete internal world model.
+It does not claim that people “hallucinate reality”, that perception is arbitrary, or that every interpretation is equally valid. It does not claim that predictive processing is a definitively established account of all cognition. It does not claim that M1.E1 or M1.E2 exhaust the filters that shape information.
 
-## Evidence and epistemic status
+## In the application
 
-Statuses and source roles are defined in theory_index.json and theory_glossary.json and will be shown explicitly in the interface.
+Use [[VIEW:learning]] to compare M1.E1 and M1.E2. Chapters 9 and 10 connect these distinctions to executable variables and their model-discrimination tests.

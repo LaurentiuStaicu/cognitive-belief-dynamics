@@ -1,29 +1,35 @@
 # Stress, executive resources and flexibility
 
-> Alpha 0.4.1a1 skeleton · Phase A. Full theory prose has not yet been authored.
-
 ## Central idea
 
-Explains how stress can affect working memory and flexibility while avoiding simplistic claims that stress switches off the prefrontal cortex.
-
-## What CEM currently says
-
-This chapter will explicitly separate what is supported by literature, what is executable in the model, and what remains conceptual or interpretive.
+Stress can alter attention, working memory and cognitive flexibility, but its effects are not uniform and cannot be summarized as “stress shuts down the prefrontal cortex”. Direction and magnitude depend on stressor type, timing, intensity, task and individual characteristics.
 
 [[CONCEPT:stress-resources]] · [[MODULE:MOD.01]] · [[MODULE:MOD.02]]
 
-## What the research says
+## What experimental syntheses show
 
-Phase A reserves this section for the argued synthesis and verified sources in the full-authoring phase. No new conclusions are introduced here.
+A meta-analysis of acute stress effects on executive functions found average impairments in working memory and cognitive flexibility, but not one uniform main effect across all forms of inhibition. Some effects varied with timing between the stressor and testing. This pattern is more consistent with context-dependent changes in cognitive resources than with a general shutdown of control.
 
-## In the application
+Work combining chronic and acute stress also indicates interactions: prior perceived chronic stress can modify flexibility responses to an acute stressor. A single stress coefficient applied to every agent and every task would therefore hide moderators that an explanatory model should keep visible.
 
-The interactive references above will open the contextual inspector, mechanism, registry, scenario, or relevant code without losing reading position.
+## Executive resources and rigidity
+
+Working memory temporarily maintains task-relevant information; cognitive flexibility supports switching rules, perspectives or strategies as context changes. When resources are constrained or occupied by threat, evaluating alternatives can become more costly. This does not establish that automatic responding is inevitable or that every decision under stress is worse.
+
+In some settings rapid, focused responding can be adaptive. If CEM eventually executes this domain, it should therefore model task-specific relations and activation conditions rather than a moralized penalty for “stress”.
+
+## Relationship to closure and metacontrol
+
+Stress can raise the cost of deliberation, while closure motivation can make a rapid answer more attractive. They remain different constructs. A future model could test whether executive resources moderate the probability of checking or strategy switching, while closure represents motivation for stability. Such relations are architectural hypotheses, not outputs of the current simulator.
+
+## Why the module remains conceptual
+
+MOD.01 and MOD.02 exist in the scientific map, but M0 and M1 contain no cortisol variable, perceived-stress measure or latent executive-function state. There is no calibration connecting real stress levels to current model coefficients. Adding a numeric “stress slider” without empirical targets would create the appearance of a mechanism before valid measurement.
 
 ## What this chapter does not claim
 
-Alpha 0.4.1a1 introduces no stress coefficient and no stress-driven transition equation.
+It does not claim that stress automatically causes false beliefs, that stressed people are irrational, or that stress explains social polarization. It does not infer the psychological state of a population from economic indicators, medication use or education scores; doing so would risk ecological inference errors.
 
-## Evidence and epistemic status
+## CEM implication
 
-Statuses and source roles are defined in theory_index.json and theory_glossary.json and will be shown explicitly in the interface.
+[[CONCEPT:stress-resources]] is EMPIRICAL at the broad phenomenon level and CONCEPTUAL inside CEM. A future version should define an observable manipulation or measure, a precise task relationship and a falsifiable pattern before allowing stress to enter numerical prioritization.

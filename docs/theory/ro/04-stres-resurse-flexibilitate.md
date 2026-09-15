@@ -1,29 +1,35 @@
 # Stres, resurse executive și flexibilitate
 
-> Schelet Alpha 0.4.1a1 · Phase A. Conținutul teoretic complet nu este încă redactat.
-
 ## Ideea centrală
 
-Explică modul în care stresul poate afecta memoria de lucru și flexibilitatea, evitând afirmația simplistă că stresul oprește cortexul prefrontal.
-
-## Ce spune CEM acum
-
-Acest capitol va separa explicit ceea ce este susținut de literatură, ceea ce este executabil în model și ceea ce rămâne conceptual sau interpretativ.
+Stresul poate modifica atenția, memoria de lucru și flexibilitatea cognitivă, dar efectele nu sunt uniforme și nu pot fi rezumate prin afirmația „stresul oprește cortexul prefrontal”. Magnitudinea și direcția efectelor depind de tipul stresorului, moment, intensitate, sarcină și caracteristicile persoanei.
 
 [[CONCEPT:stress-resources]] · [[MODULE:MOD.01]] · [[MODULE:MOD.02]]
 
-## Ce spune cercetarea
+## Ce arată sintezele experimentale
 
-Phase A rezervă această secțiune pentru sinteza argumentată și sursele verificate din etapa de redactare completă. Nu se introduc aici concluzii noi.
+O meta-analiză a stresului acut asupra funcțiilor executive a găsit, în medie, afectarea memoriei de lucru și a flexibilității cognitive, dar nu un efect global uniform asupra tuturor formelor de inhibiție. Unele efecte s-au modificat în funcție de momentul dintre stresor și testare. Aceste rezultate sunt mai compatibile cu o redistribuire dependentă de context a resurselor decât cu ideea unei „opriri” generale a controlului cognitiv.
 
-## În aplicație
+Studiile asupra stresului cronic și acut arată de asemenea interacțiuni: nivelul de stres perceput anterior poate modifica răspunsul flexibilității la un stresor acut. Prin urmare, un singur coeficient de stres aplicat tuturor agenților și tuturor sarcinilor ar ascunde moderatori pe care teoria trebuie să îi păstreze vizibili.
 
-Referințele interactive de mai sus vor deschide inspectorul contextual, mecanismul, registrul, scenariul sau codul relevant fără a pierde poziția de lectură.
+## Resurse executive și rigiditate
+
+Memoria de lucru menține temporar informația relevantă pentru o sarcină; flexibilitatea permite schimbarea regulii, perspectivei sau strategiei atunci când contextul se schimbă. Dacă resursele sunt reduse sau ocupate de o amenințare, verificarea alternativelor poate deveni mai costisitoare. Totuși, aceasta nu dovedește că un răspuns automat este inevitabil și nici că orice decizie luată sub stres este mai slabă.
+
+În unele contexte, reacțiile rapide și focalizate pot fi funcționale. De aceea, CEM ar trebui să modeleze, dacă va executa acest domeniu, relații task-specific și condiții de activare, nu o penalizare morală pentru „stres”.
+
+## Relația cu closure și metacontrol
+
+Stresul poate crește costul deliberării, iar presiunea pentru closure poate face un răspuns rapid mai atractiv. Dar sunt constructe distincte. Un viitor model ar putea testa dacă resursele executive moderează probabilitatea de verificare sau de schimbare a strategiei, în timp ce closure ar reprezenta motivația pentru stabilitate. Astfel de relații sunt ipoteze de arhitectură, nu rezultate ale simulatorului actual.
+
+## De ce modulul rămâne conceptual
+
+MOD.01 și MOD.02 există în harta științifică, dar M0 și M1 nu conțin o variabilă de cortizol, o măsură de stres perceput sau o funcție executivă latentă. Nu există o calibrare care să lege niveluri reale de stres de coeficienții modelului. Introducerea unui „stress slider” numeric fără ținte empirice ar crea o aparență de mecanism înaintea unei măsurări valide.
 
 ## Ce nu afirmă acest capitol
 
-Alpha 0.4.1a1 nu introduce niciun coeficient de stres și nicio ecuație de tranziție determinată de stres.
+Nu afirmă că stresul produce automat credințe false, că persoanele stresate sunt iraționale sau că stresul explică polarizarea socială. Nu deduce starea psihologică a unei populații din indicatori economici, consum de medicamente sau scoruri educaționale. Astfel de inferențe ar risca eroarea ecologică.
 
-## Dovezi și statut epistemic
+## Implicație pentru CEM
 
-Statuturile și rolurile surselor sunt definite în theory_index.json și theory_glossary.json și vor fi afișate explicit în interfață.
+[[CONCEPT:stress-resources]] are statut EMPIRICAL la nivelul fenomenului general și CONCEPTUAL în CEM. O versiune viitoare ar trebui să definească o manipulare sau măsură observabilă, o relație precisă cu o sarcină și un test care poate respinge mecanismul, înainte de a-l include în prioritizarea numerică.

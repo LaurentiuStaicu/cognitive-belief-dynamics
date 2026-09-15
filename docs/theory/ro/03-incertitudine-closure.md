@@ -1,29 +1,37 @@
-# Incertitudine, nevoie de închidere, seizing și freezing
-
-> Schelet Alpha 0.4.1a1 · Phase A. Conținutul teoretic complet nu este încă redactat.
+# Incertitudine, nevoie de closure, seizing și freezing
 
 ## Ideea centrală
 
-Recuperează distincția conceptuală a proiectului dintre presiunea pentru închidere, angajarea rapidă și menținerea ulterioară a unei interpretări.
-
-## Ce spune CEM acum
-
-Acest capitol va separa explicit ceea ce este susținut de literatură, ceea ce este executabil în model și ceea ce rămâne conceptual sau interpretativ.
+Incertitudinea nu produce un singur răspuns psihologic. Uneori stimulează explorarea; alteori crește motivația pentru un răspuns ferm. Teoria nevoii de închidere cognitivă descrie această presiune pentru certitudine și două tendințe asociate: „seizing”, adoptarea relativ rapidă a unei explicații disponibile, și „freezing”, menținerea ei în fața informației ulterioare.
 
 [[CONCEPT:need-for-closure]] · [[MODULE:MOD.02]] · [[MODULE:MOD.06]]
 
-## Ce spune cercetarea
+## Un construct motivațional, nu o etichetă de inteligență
 
-Phase A rezervă această secțiune pentru sinteza argumentată și sursele verificate din etapa de redactare completă. Nu se introduc aici concluzii noi.
+Kruglanski și Webster definesc nevoia de closure ca dorința pentru cunoaștere definită asupra unei probleme, în contrast cu ambiguitatea sau confuzia. Ei o tratează atât ca diferență individuală, cât și ca stare care poate fi evocată situațional. Presiunea timpului, zgomotul, oboseala sau costul perceput al incertitudinii pot modifica tendința către closure.
 
-## În aplicație
+Acest lucru este important pentru CEM deoarece împiedică o interpretare moralizatoare. A căuta rapid o concluzie nu înseamnă automat „capacitate cognitivă scăzută”; poate fi o adaptare la costuri, timp sau risc. Problema epistemică apare atunci când costul închiderii premature depășește beneficiul și când informația ulterioară relevantă este filtrată sau reinterpretată pentru a conserva concluzia inițială.
 
-Referințele interactive de mai sus vor deschide inspectorul contextual, mecanismul, registrul, scenariul sau codul relevant fără a pierde poziția de lectură.
+## Seizing și freezing ca două momente diferite
+
+Seizing descrie urgența de a obține closure. Un indiciu disponibil devreme, o explicație simplă sau o sursă percepută ca sigură poate căpăta o greutate disproporționată. Freezing descrie tendința de permanență: odată formată concluzia, căutarea scade, iar informația nouă poate întâmpina rezistență.
+
+Separarea celor două este utilă pentru modelare. Un mecanism de selecție inițială a ipotezei nu este același lucru cu un mecanism de actualizare conservatoare după ce ipoteza a fost adoptată. Dacă CEM va face această parte executabilă, fiecare etapă trebuie să aibă o operaționalizare, o predicție diferențială și un criteriu de respingere.
+
+## Legătura cu incertitudinea și resursele
+
+Nevoia de closure este sensibilă la context, dar nu trebuie confundată cu stresul. Stresul, oboseala și presiunea timpului pot modifica costurile procesării și pot crea condiții în care un răspuns rapid este mai atractiv; totuși relațiile nu sunt identități. Capitolul 4 tratează separat efectele stresului asupra resurselor executive.
+
+În CEM, MOD.02 și MOD.06 păstrează aceste idei în harta conceptuală. Nu există în prezent o variabilă numerică „closure” care să fie actualizată în simulator.
+
+## De ce nu folosim Track A / Track B ca populații
+
+O clasificare binară a populației ar cere măsurare directă, praguri validate și dovezi că două clase discrete sunt o reprezentare mai bună decât variația continuă și contextuală. CEM nu are aceste dovezi. Termeni istorici precum Track A/Track B pot fi folosiți cel mult ca metafore de mod de procesare, nu ca prevalențe populaționale sau tipuri fixe de persoane.
 
 ## Ce nu afirmă acest capitol
 
-Track A și Track B nu sunt clase populaționale măsurate și nici tipuri biologice.
+Nu afirmă că nevoia de closure este patologică, că duce inevitabil la dezinformare sau că poate fi dedusă din orientarea politică, educație ori comportamentul online. Nu atribuie un scor de closure agenților CEM și nu o tratează ca o cauză universală a credințelor greșite.
 
-## Dovezi și statut epistemic
+## Implicație pentru proiect
 
-Statuturile și rolurile surselor sunt definite în theory_index.json și theory_glossary.json și vor fi afișate explicit în interfață.
+[[CONCEPT:need-for-closure]] rămâne CONCEPTUAL, susținut de BACKGROUND_THEORY. O eventuală extensie executabilă trebuie să demonstreze ce pattern nou poate reproduce față de modelul mai simplu și cum va fi măsurat acel pattern.
