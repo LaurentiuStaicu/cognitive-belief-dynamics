@@ -220,7 +220,8 @@ export async function mountTheoryReader(host:HTMLElement,context:Context,request
  host.innerHTML=`<div class="theory-layout">
   <nav class="panel theory-chapters" aria-label="${t('Capitole de teorie','Theory chapters')}">
    <p class="eyebrow">${t('CUPRINS','CONTENTS')}</p>
-   <ol>${ordered.map(item=>`<li><button type="button" data-theory-chapter="${esc(theoryChapterSlug(item))}" aria-current="${item.id===chapter.id?'page':'false'}"><span>${String(item.order).padStart(2,'0')}</span>${esc(item.label[ctx.lang])}</button></li>`).join('')}</ol>
+   <label class="theory-chapter-select">${t('Capitol','Chapter')}<select id="theoryChapterSelect">${ordered.map(item=>`<option value="${esc(theoryChapterSlug(item))}" ${item.id===chapter.id?'selected':''}>${String(item.order).padStart(2,'0')} · ${esc(item.label[ctx.lang])}</option>`).join('')}</select></label>
+   <ol class="theory-chapter-list">${ordered.map(item=>`<li><button type="button" data-theory-chapter="${esc(theoryChapterSlug(item))}" aria-current="${item.id===chapter.id?'page':'false'}"><span>${String(item.order).padStart(2,'0')}</span>${esc(item.label[ctx.lang])}</button></li>`).join('')}</ol>
   </nav>
   <article class="panel theory-reader" id="theoryArticle" aria-busy="true"><p class="loading">${t('Se încarcă teoria…','Loading theory…')}</p></article>
   <aside class="panel theory-inspector" id="theoryInspector" tabindex="-1" aria-label="${t('Inspector contextual','Contextual inspector')}" aria-live="polite"></aside>
@@ -263,5 +264,9 @@ export async function mountTheoryReader(host:HTMLElement,context:Context,request
   const slug=button.dataset.theoryChapter!;
   location.hash=`#understanding/theory/${encodeURIComponent(slug)}`;
  });
+ host.querySelector<HTMLSelectElement>('#theoryChapterSelect')!.onchange=event=>{
+  const slug=(event.currentTarget as HTMLSelectElement).value;
+  location.hash=`#understanding/theory/${encodeURIComponent(slug)}`;
+ };
  await loadChapter(chapter);
 }
