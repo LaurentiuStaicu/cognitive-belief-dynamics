@@ -51,7 +51,11 @@ const definitions:Record<string,[string,string]> = {
  B:['Propensiunea latentă de a judeca afirmația drept adevărată la un moment dat.','Nu reprezintă cunoaștere, ideologie sau angajament identitar.'],
  W:['Ponderea contextuală acordată acurateții în decizia de distribuire.','Nu reprezintă raționalitatea generală sau activarea Sistemului 2.'],
  Nexp:['Numărul expunerilor agentului la o informație.','Nu este familiaritatea în sine.'],
- Share:['Acțiunea observată sau simulată de distribuire.','Nu echivalează cu o convingere sau cu aprobarea conținutului.']
+ Share:['Acțiunea observată sau simulată de distribuire.','Nu echivalează cu o convingere sau cu aprobarea conținutului.'],
+ Vcontent:['Valența semnată atribuită unei unități informaționale relevante pentru eveniment în sarcina M1.','Nu este valoarea de adevăr, factualitatea, ideologia politică sau starea emoțională a unei persoane.'],
+ Eedit:['Politica de referință care controlează ce unități informaționale sunt selectate preferențial dintr-un pool factual fix.','Nu este un scor măsurat de bias al unei redacții, o rată de dezinformare sau un parametru de ranking al platformei.'],
+ Sobs:['Media valenței semnate a unităților informaționale efectiv observate după selecția editorială.','Nu este adevărul evenimentului, valența totală a lumii sau opinia unei persoane.'],
+ Aissue:['Starea M1 mărginită care reprezintă evaluarea curentă a unui eveniment sau subiect după eșantionul informațional observat.','Nu este convingerea B despre adevărul unei afirmații, cunoaștere, ideologie sau diagnostic afectiv.']
 };
 const scenarioDescription = () => ({
  repetition:tr('Patru expuneri la pașii 1–4 cresc familiaritatea. Nu se adaugă dovezi sau corecții.','Four exposures at steps 1–4 increase familiarity. No evidence or corrections are added.'),
