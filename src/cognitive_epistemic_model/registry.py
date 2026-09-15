@@ -86,6 +86,12 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     for target in empirical_targets:
         if target["evidence_ref"] not in reference_ids:
             raise RegistryError(f"unresolved target evidence reference: {target['id']}")
+        for field in ("provenance_refs", "integrity_refs", "counterevidence_refs"):
+            missing = set(target.get(field, [])) - reference_ids
+            if missing:
+                raise RegistryError(
+                    f"unresolved target {field} in {target['id']}: {sorted(missing)}"
+                )
         if target["pattern_id"] not in validation_ids:
             raise RegistryError(f"unresolved target pattern reference: {target['id']}")
     for ref in references:
