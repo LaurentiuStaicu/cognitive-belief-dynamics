@@ -1,5 +1,16 @@
 # Changelog
 
+## Alpha 0.3.6a0 — Scientific readiness and reproducibility
+
+- Narrative Laboratory, contextual inspector and registry-driven Visual ODD consolidated as the explanatory foundation for the next scientific model extension.
+- Separate software version, M0 model specification and evidence snapshot metadata.
+- Explicit purpose metadata for reference runs and explanations.
+- Local sensitivity/SVD practical-identifiability diagnostic, kept separate from local prediction robustness.
+- Full textual ODD documentation and expanded TRACE decision record.
+- Deterministic reproducibility metadata and machine-readable CITATION.cff.
+- Dynamic release badge and release-provenance preparation.
+- M0 equations, demonstrative coefficients and registered scientific patterns remain unchanged.
+
 ## Alpha 0.3.5a0 — Consistent interface wording
 
 - Shared label module: one canonical name per scenario across every view.
