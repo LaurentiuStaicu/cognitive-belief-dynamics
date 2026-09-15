@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "pattern_id",
+    "evidence_ref",
+    "use",
+    "study",
+    "effects",
+    "model_match",
+    "limitations"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^TARGET\\.[A-Z0-9_.-]+$"
+    },
+    "pattern_id": {
+      "type": "string",
+      "pattern": "^VAL\\.M1\\.[A-Z0-9.]+$"
+    },
+    "evidence_ref": {
+      "type": "string",
+      "pattern": "^REF\\.[A-Z0-9_.-]+$"
+    },
+    "use": {
+      "enum": [
+        "DIRECTIONAL_VALIDATION_ONLY",
+        "MAGNITUDE_CONTEXT_ONLY"
+      ]
+    },
+    "study": {
+      "type": "object",
+      "required": [
+        "randomized",
+        "preregistered",
+        "n_recruited",
+        "n_analyzed",
+        "event_count"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "randomized": {
+          "type": "boolean"
+        },
+        "preregistered": {
+          "type": "boolean"
+        },
+        "n_recruited": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "n_analyzed": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "event_count": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "effects": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "outcome",
+          "comparison",
+          "estimate_pp"
+        ],
+        "additionalProperties": true,
+        "properties": {
+          "outcome": {
+            "type": "string",
+            "minLength": 1
+          },
+          "comparison": {
+            "type": "string",
+            "minLength": 1
+          },
+          "estimate_pp": {
+            "type": "number"
+          },
+          "ci95": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "cohens_d": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "model_match": {
+      "type": "string",
+      "minLength": 10
+    },
+    "limitations": {
+      "type": "string",
+      "minLength": 10
+    }
+  }
+}
