@@ -190,7 +190,7 @@
     "order": 3,
     "label": {
       "en": "Uncertainty, need for closure, seizing and freezing",
-      "ro": "Incertitudine, nevoie de închidere, seizing și freezing"
+      "ro": "Incertitudine și nevoia de închidere cognitivă"
     },
     "summary": {
       "en": "Recovers the project's conceptual distinction between closure pressure, rapid commitment and later maintenance of an interpretation.",
@@ -542,8 +542,8 @@
     "id": "THEORY.08.BELIEF_ACCURACY_ACTION",
     "order": 8,
     "label": {
-      "en": "Belief, accuracy salience and action",
-      "ro": "Convingere, saliența acurateții și acțiune"
+      "en": "Belief, accuracy attention and action",
+      "ro": "Convingere, atenție la acuratețe și acțiune"
     },
     "summary": {
       "en": "Separates latent truth judgment, contextual accuracy weight, sharing probability and sampled sharing action.",
@@ -626,7 +626,7 @@
     "order": 9,
     "label": {
       "en": "Editorial selection and the observed world",
-      "ro": "Selecția editorială și lumea observată"
+      "ro": "Selecție editorială și lumea observată"
     },
     "summary": {
       "en": "Explains M1.E1: the factual pool stays fixed while editorial emphasis changes the selected sample and issue appraisal.",
@@ -705,7 +705,7 @@
     "id": "THEORY.10.PRESENTATION_CONGRUENCE",
     "order": 10,
     "label": {
-      "en": "Presentation framing and prior-attitude congruence",
+      "en": "Presentation framing, attitudinal congruence and identity",
       "ro": "Încadrare de prezentare, congruență atitudinală și identitate"
     },
     "summary": {
@@ -1030,8 +1030,8 @@
     "id": "THEORY.14.VALIDATION",
     "order": 14,
     "label": {
-      "en": "How CEM is validated",
-      "ro": "Cum este validat CEM"
+      "en": "How an epistemic model is validated",
+      "ro": "Cum validăm un model epistemic"
     },
     "summary": {
       "en": "Explains implementation tests, pattern tests, empirical targets, nested nulls, model discrimination, diagnostics, ODD, reproducibility and provenance.",
@@ -1093,8 +1093,8 @@
     "id": "THEORY.15.USING_CEM",
     "order": 15,
     "label": {
-      "en": "How to use CEM",
-      "ro": "Cum folosesc CEM"
+      "en": "How to use CEM without confusing the map with the territory",
+      "ro": "Cum folosesc CEM fără să confund harta cu teritoriul"
     },
     "summary": {
       "en": "Connects understanding, mechanism exploration, evidence inspection, prioritization and action planning into one coherent workflow.",
