@@ -76,8 +76,12 @@ The following sources were used as background theory or boundary-setting evidenc
 - Budak et al. (2024), review of online misinformation exposure and concentration: https://www.nature.com/articles/s41586-024-07417-w
 - Bernstein et al. (2015/2016), decentering and related metacognitive processes: https://pmc.ncbi.nlm.nih.gov/articles/PMC5103165/
 - Fleming (2024), metacognition and confidence: https://pubmed.ncbi.nlm.nih.gov/37722748/
-- Parasuraman & Riley / Lee & See tradition on appropriate reliance and trust in automation: https://pubmed.ncbi.nlm.nih.gov/15151155/
-- Automation-bias literature and systematic reviews: https://pubmed.ncbi.nlm.nih.gov/21335679/
+- Lee & See (2004), trust in automation and appropriate reliance: https://pubmed.ncbi.nlm.nih.gov/15151155/
+- Goddard, Roudsari & Wyatt (2012), systematic review of automation bias, mediators and mitigators: https://pubmed.ncbi.nlm.nih.gov/21685142/
+- Klingbeil, Grützner & Schreck (2024), experimental evidence on AI overreliance: https://doi.org/10.1016/j.chb.2024.108352
+- Vössing et al. (2025), conceptual clarification of trust, distrust and appropriate reliance in AI: https://doi.org/10.1016/j.cogsys.2025.101357
+- Schünemann et al. (2025), systematic review of computational propaganda as an evolving system: https://academic.oup.com/anncom/article/49/1/45/8078344
+- DeNicola (2024), institutionalized expertise, trust and epistemic authority: https://doi.org/10.1093/oso/9780198877301.003.0004
 - Nature Human Behaviour intervention toolbox: https://www.nature.com/articles/s41562-024-01881-0
 - Inoculation and accuracy-prompt combination evidence: https://www.nature.com/articles/s41562-024-02023-2
 
@@ -114,6 +118,6 @@ Phase C.1 does **not**:
 
 ## Remaining merge gate
 
-Before Phase C.1 is merged, the Theory Reader metadata must be reconciled with the expanded module coverage and source roles, the bilingual index summaries must receive the same Romanian editorial cleanup, and the full repository workflow must remain green.
+Theory Reader metadata is now reconciled with the expanded module coverage and source roles, the Romanian index prose has received the same editorial cleanup, the canonical index is synchronized to the web copy, and the temporary source-registration TODO has been removed.
 
-Phase D — Guided Tour should begin only after those gates pass.
+The remaining gates are a green full repository workflow on the final state and a rendered bilingual Theory Reader spot-check. Phase D — Guided Tour should begin only after those gates pass.
