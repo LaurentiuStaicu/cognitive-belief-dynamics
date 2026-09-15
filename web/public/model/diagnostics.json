@@ -4,25 +4,115 @@
   "identifiability": {
     "scope": "LOCAL_PRACTICAL_IDENTIFIABILITY_DIAGNOSTIC",
     "model_specification": "M0",
-    "parameter_names": ["alpha_f","alpha_c","lambda_c","alpha_t","beta_f","beta_source_evidence","beta_correction","beta_accuracy_cue","beta_reward"],
+    "parameter_names": [
+      "alpha_f",
+      "alpha_c",
+      "lambda_c",
+      "alpha_t",
+      "beta_f",
+      "beta_source_evidence",
+      "beta_correction",
+      "beta_accuracy_cue",
+      "beta_reward"
+    ],
     "observable_count": 32,
     "parameter_count": 9,
     "active_parameter_count": 9,
     "normalised_sensitivity_rank": 9,
     "condition_number": 2.4104223430560587,
-    "singular_values": [1.4340354933839328,1.2239519324437385,1.069269100223135,1.062850419173485,0.9255612304477793,0.9240002748321783,0.8290814851277679,0.6486424976132382,0.5949312150690522],
-    "column_norms": {"alpha_f":0.8586793549973282,"alpha_c":1.0959205229155802,"lambda_c":0.3644664315707929,"alpha_t":0.3201941625403156,"beta_f":0.4862510403934032,"beta_source_evidence":0.10967614538159409,"beta_correction":0.30947348643991496,"beta_accuracy_cue":0.3667654636348641,"beta_reward":0.28707925055904426},
+    "singular_values": [
+      1.4340354933839328,
+      1.2239519324437385,
+      1.069269100223135,
+      1.062850419173485,
+      0.9255612304477793,
+      0.9240002748321783,
+      0.8290814851277679,
+      0.6486424976132382,
+      0.5949312150690522
+    ],
+    "column_norms": {
+      "alpha_f": 0.8586793549973282,
+      "alpha_c": 1.0959205229155802,
+      "lambda_c": 0.3644664315707929,
+      "alpha_t": 0.3201941625403156,
+      "beta_f": 0.4862510403934032,
+      "beta_source_evidence": 0.10967614538159409,
+      "beta_correction": 0.30947348643991496,
+      "beta_accuracy_cue": 0.3667654636348641,
+      "beta_reward": 0.28707925055904426
+    },
     "highest_tradeoff_pairs": [
-      {"parameters":["alpha_c","lambda_c"],"absolute_cosine_similarity":0.600493209183281},
-      {"parameters":["beta_f","beta_correction"],"absolute_cosine_similarity":0.5033736575061422},
-      {"parameters":["alpha_t","beta_source_evidence"],"absolute_cosine_similarity":0.3327569399330782},
-      {"parameters":["beta_f","beta_source_evidence"],"absolute_cosine_similarity":0.32854108600859194},
-      {"parameters":["alpha_f","beta_f"],"absolute_cosine_similarity":0.28683199994528114},
-      {"parameters":["alpha_c","beta_correction"],"absolute_cosine_similarity":0.2823867971892795},
-      {"parameters":["lambda_c","beta_correction"],"absolute_cosine_similarity":0.21191389350762363},
-      {"parameters":["lambda_c","beta_f"],"absolute_cosine_similarity":0.15085464893930867},
-      {"parameters":["beta_accuracy_cue","beta_reward"],"absolute_cosine_similarity":0.14333640869199257},
-      {"parameters":["alpha_c","beta_f"],"absolute_cosine_similarity":0.14214607493266224}
+      {
+        "parameters": [
+          "alpha_c",
+          "lambda_c"
+        ],
+        "absolute_cosine_similarity": 0.600493209183281
+      },
+      {
+        "parameters": [
+          "beta_f",
+          "beta_correction"
+        ],
+        "absolute_cosine_similarity": 0.5033736575061422
+      },
+      {
+        "parameters": [
+          "alpha_t",
+          "beta_source_evidence"
+        ],
+        "absolute_cosine_similarity": 0.3327569399330782
+      },
+      {
+        "parameters": [
+          "beta_f",
+          "beta_source_evidence"
+        ],
+        "absolute_cosine_similarity": 0.32854108600859194
+      },
+      {
+        "parameters": [
+          "alpha_f",
+          "beta_f"
+        ],
+        "absolute_cosine_similarity": 0.28683199994528114
+      },
+      {
+        "parameters": [
+          "alpha_c",
+          "beta_correction"
+        ],
+        "absolute_cosine_similarity": 0.2823867971892795
+      },
+      {
+        "parameters": [
+          "lambda_c",
+          "beta_correction"
+        ],
+        "absolute_cosine_similarity": 0.21191389350762363
+      },
+      {
+        "parameters": [
+          "lambda_c",
+          "beta_f"
+        ],
+        "absolute_cosine_similarity": 0.15085464893930867
+      },
+      {
+        "parameters": [
+          "beta_accuracy_cue",
+          "beta_reward"
+        ],
+        "absolute_cosine_similarity": 0.14333640869199257
+      },
+      {
+        "parameters": [
+          "alpha_c",
+          "beta_f"
+        ],
+        "absolute_cosine_similarity": 0.14214607493266224
+      }
     ],
     "interpretation_boundary": "Local finite-difference sensitivity around the demonstrative M0 reference point. It is not structural-identifiability proof, empirical calibration, or parameter uncertainty."
   },
