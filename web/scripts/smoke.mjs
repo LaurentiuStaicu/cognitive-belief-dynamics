@@ -327,6 +327,9 @@ try {
  await page.locator('#guidedTourTitle').getByText('9. Planifică numai după ce ai înțeles mecanismele',{exact:true}).waitFor();
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Guided Tour mobile horizontal overflow');
  assert.equal(await page.locator('.guided-tour-layout').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length),1);
+ assert.equal(await page.locator('.guided-tour-select').isVisible(),true);
+ assert.equal(await page.locator('.guided-tour-steps ol').isVisible(),false);
+ assert.equal(await page.locator('#guidedTourSelect').inputValue(),'planning');
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'guided-tour-mobile.png'),fullPage:true});
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile horizontal overflow');
  await page.evaluate(()=>{location.hash='#understanding/theory/repetition-familiarity-truth';});
