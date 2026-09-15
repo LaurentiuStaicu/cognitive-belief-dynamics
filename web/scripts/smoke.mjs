@@ -34,6 +34,46 @@ try {
  assert.equal(await page.locator('[data-understanding-mode="theory"]').getAttribute('aria-pressed'),'true');
  assert.equal(await page.locator('[data-theory-chapter]').count(),16);
  assert.match(await page.locator('#theoryArticle').textContent(),/Ce este Cognitive Epistemic Model/);
+
+ // Alpha 0.4.1a1 Phase D: guided journey is deep-linkable, bilingual and returns from real app surfaces.
+ await page.evaluate(()=>{location.hash='#understanding/tour/orientation';});
+ await page.locator('#guidedTourTitle').getByText('1. Începe cu întrebarea modelului',{exact:true}).waitFor();
+ assert.equal(await page.locator('[data-tour-step]').count(),10);
+ assert.equal(await page.locator('[data-tour-step="orientation"]').getAttribute('aria-current'),'step');
+ assert.equal(await page.locator('.tour-progress progress').getAttribute('value'),'1');
+ if(process.env.CEM_SCREENSHOTS){
+  await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});
+  await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'guided-tour-ro.png'),fullPage:true});
+ }
+ await page.locator('[data-tour-next]').click();
+ await page.waitForURL(/#understanding\/tour\/causal-chain$/);
+ assert.equal(await page.locator('.tour-progress progress').getAttribute('value'),'2');
+ await page.locator('[data-tour-step="mechanism"]').click();
+ await page.waitForURL(/#understanding\/tour\/mechanism$/);
+ await page.locator('[data-tour-open]').click();
+ await page.waitForURL(/#understanding\/mechanisms\/repetition$/);
+ await page.locator('#mechanismReading').waitFor();
+ await page.goBack();
+ await page.waitForURL(/#understanding\/tour\/mechanism$/);
+ await page.locator('#guidedTourTitle').getByText('3. Urmărește un mecanism executabil',{exact:true}).waitFor();
+ await page.evaluate(()=>{location.hash='#understanding/tour/scenario';});
+ await page.locator('#guidedTourTitle').getByText('5. Verifică mecanismul într-un scenariu',{exact:true}).waitFor();
+ await page.locator('[data-tour-open]').click();
+ await page.locator('#scenario').waitFor();
+ assert.equal(await page.locator('#scenario').inputValue(),'repetition');
+ assert.equal(await page.locator('#timeline').inputValue(),'4');
+ await page.goBack();
+ await page.waitForURL(/#understanding\/tour\/scenario$/);
+ await page.locator('#guidedTourTitle').getByText('5. Verifică mecanismul într-un scenariu',{exact:true}).waitFor();
+ await page.locator('#language').click();
+ assert.equal(await page.locator('html').getAttribute('lang'),'en');
+ await page.locator('#guidedTourTitle').getByText('5. Check the mechanism in a scenario',{exact:true}).waitFor();
+ if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'guided-tour-en.png'),fullPage:true});
+ await page.locator('#language').click();
+ assert.equal(await page.locator('html').getAttribute('lang'),'ro');
+
+ await page.evaluate(()=>{location.hash='#understanding/theory/repetition-familiarity-truth';});
+ await waitTheory();
  await page.locator('[data-theory-chapter="repetition-familiarity-truth"]').click();
  await page.waitForURL(/#understanding\/theory\/repetition-familiarity-truth$/);
  await page.locator('#theoryArticle').getByText('Repetiție, familiaritate și adevăr perceput',{exact:true}).waitFor();
