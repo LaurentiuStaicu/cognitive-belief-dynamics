@@ -806,8 +806,8 @@
       "ro": "Algoritmi, rețele, ecosistem multiplatformă și feedback social"
     },
     "summary": {
-      "en": "Separates ranking from downstream cognition while adding conceptual coverage for exposure heterogeneity, network structure, cross-platform transmission, social feedback and strategic amplification.",
-      "ro": "Separă ordonarea algoritmică de procesele cognitive ulterioare și acoperă conceptual eterogenitatea expunerii, structura rețelei, transmiterea între platforme, feedbackul social și amplificarea strategică."
+      "en": "Separates ranking, preview impression, access and downstream cognition while combining the executable M1.E3 headline-access gate with conceptual coverage for exposure heterogeneity, network structure, cross-platform transmission, social feedback and strategic amplification.",
+      "ro": "Separă ordonarea, impresia preview-ului, accesarea și procesele cognitive ulterioare, combinând poarta executabilă M1.E3 de acces la titlu cu acoperirea conceptuală a eterogenității expunerii, structurii de rețea, transmiterii între platforme, feedbackului social și amplificării strategice."
     },
     "source_paths": {
       "en": "docs/theory/en/11-algorithms-social-feedback.md",
@@ -819,25 +819,41 @@
     ],
     "epistemic_status": [
       "EMPIRICAL",
-      "CONCEPTUAL"
+      "CONCEPTUAL",
+      "EXECUTABLE"
     ],
     "module_ids": [
       "MOD.03",
       "MOD.10",
       "MOD.18",
       "MOD.08",
-      "MOD.19"
+      "MOD.19",
+      "MOD.07",
+      "MOD.16"
     ],
     "variable_ids": [
-      "VAR.EXPOSURE.COUNT"
+      "VAR.EXPOSURE.COUNT",
+      "VAR.HEADLINE.NEGATIVITY",
+      "VAR.PREVIEW.IMPRESSION",
+      "VAR.ACCESS.PROBABILITY",
+      "VAR.ACCESS"
     ],
     "mechanism_ids": [
-      "repetition"
+      "repetition",
+      "access"
     ],
     "validation_ids": [
-      "VAL.M0.001"
+      "VAL.M0.001",
+      "VAL.M1.004",
+      "VAL.M1.N04",
+      "VAL.M1.N05",
+      "VAL.M1.N06"
     ],
-    "evidence_refs": [],
+    "evidence_refs": [
+      "REF.ROBERTSON.2023.NEGATIVITY",
+      "REF.MATIAS.2024.UPWORTHY_CORRECTION",
+      "REF.NICKL.2025.ATTENTION_ECONOMY"
+    ],
     "sources": [
       {
         "role": "BACKGROUND_THEORY",
@@ -854,22 +870,36 @@
       {
         "role": "BACKGROUND_THEORY",
         "ref": "https://academic.oup.com/anncom/article/49/1/45/8078344"
+      },
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.ROBERTSON.2023.NEGATIVITY"
       }
     ],
-    "code_refs": [],
+    "code_refs": [
+      {
+        "id": "m1e3.access_probability",
+        "path": "src/cognitive_epistemic_model/access.py",
+        "symbol": "access_probability",
+        "language": "PYTHON",
+        "release_pin_required": true
+      }
+    ],
     "related_views": [
       "structure",
-      "process"
+      "process",
+      "learning"
     ],
     "anchors": [
       "central-idea",
       "three-loops",
       "application",
-      "limits"
+      "limits",
+      "headline-access-gate"
     ],
     "what_it_does_not_claim": {
-      "en": "CEM does not currently implement a direct algorithm-to-belief mechanism or a validated network-amplification model.",
-      "ro": "CEM nu implementează în prezent un mecanism direct algoritm-convingere și nici un model validat de amplificare în rețea."
+      "en": "CEM does not infer that every impression produces attention or that every access produces belief, engagement or sharing. M1.E3 is a bounded historical-context candidate, not a universal negativity law or a calibrated platform model.",
+      "ro": "CEM nu deduce că fiecare impresie produce atenție și nici că fiecare accesare produce convingere, interacțiune sau distribuire. M1.E3 este un mecanism candidat limitat contextual, nu o lege universală a negativității și nici un model calibrat al platformelor."
     }
   },
   {
