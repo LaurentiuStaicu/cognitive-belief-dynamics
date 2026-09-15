@@ -1,6 +1,7 @@
 """Export canonical registries and deterministic reference runs for the static viewer."""
 from cognitive_epistemic_model import __version__
 from dataclasses import asdict
+import hashlib
 import json
 from pathlib import Path
 from cognitive_epistemic_model.events import ExposureEvent, CorrectionEvent, DecisionEvent, SourceFeedbackEvent
@@ -8,6 +9,7 @@ from cognitive_epistemic_model.simulation import Simulator
 from cognitive_epistemic_model.state import AgentState, ModelParams
 from cognitive_epistemic_model.interventions import export_interventions
 from cognitive_epistemic_model.explanations import explain_reference_run
+from cognitive_epistemic_model.calibration.diagnostics import local_identifiability_report, prediction_robustness_report
 
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / 'web/public/model'
@@ -28,17 +30,51 @@ def reference_run(kind):
         start = len(sim.log)
         sim.run(events)
         frames.append({'time':time, 'familiarity':agent.f('C1'), 'correction':agent.c('C1'), 'reliability':agent.t('S1'), 'events':[asdict(e) for e in sim.log[start:]], **sim.log[-1].observation})
-    return {'id':kind, 'seed':7, 'prior':0.3, 'parameters':asdict(ModelParams()), 'frames':frames}
+    return {'id':kind, 'purpose':'MECHANISM_TEST_DEMONSTRATION', 'seed':7, 'prior':0.3, 'parameters':asdict(ModelParams()), 'frames':frames}
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
 
 def export():
     DEST.mkdir(parents=True, exist_ok=True)
-    (DEST / 'version.json').write_text(json.dumps({'version':__version__, 'channel':'Alpha', 'model':'M0', 'release_tag':'v'+__version__}, indent=2)+'\n')
+    evidence_sha = _sha256(ROOT / 'model' / 'references.json')
+    lock_sha = _sha256(ROOT / 'web' / 'package-lock.json')
+    version_payload = {
+        'version': __version__,
+        'software_version': __version__,
+        'channel': 'Alpha',
+        'model': 'M0',
+        'model_specification': 'M0',
+        'evidence_snapshot': evidence_sha,
+        'release_tag': 'v' + __version__,
+    }
+    (DEST / 'version.json').write_text(json.dumps(version_payload, indent=2)+'\n')
     for name in ('variables', 'links', 'modules', 'validation_tests', 'references', 'subsystems', 'processes'):
         (DEST / f'{name}.json').write_bytes((ROOT / 'model' / f'{name}.json').read_bytes())
     (DEST / 'interventions.json').write_text(json.dumps(export_interventions(), separators=(',', ':'))+'\n')
     runs = [reference_run(k) for k in ('repetition','correction','source','accuracy')]
-    (DEST / 'explanations.json').write_text(json.dumps({'model_version':__version__, 'scope':'Latent-score decomposition, not causal attribution', 'runs':[explain_reference_run(r) for r in runs]}, indent=2)+'\n')
-    (DEST / 'runs.json').write_text(json.dumps({'model_version':__version__,'runs':runs}, indent=2)+'\n')
+    (DEST / 'explanations.json').write_text(json.dumps({'model_version':__version__, 'model_specification':'M0', 'purpose':'EXPLANATION_OF_REFERENCE_RUNS', 'scope':'Latent-score decomposition, not causal attribution', 'runs':[explain_reference_run(r) for r in runs]}, indent=2)+'\n')
+    (DEST / 'runs.json').write_text(json.dumps({'model_version':__version__, 'model_specification':'M0', 'purpose':'MECHANISM_TEST_DEMONSTRATION', 'runs':runs}, indent=2)+'\n')
+    diagnostics = {
+        'software_version': __version__,
+        'model_specification': 'M0',
+        'identifiability': local_identifiability_report(),
+        'prediction_robustness': prediction_robustness_report(),
+    }
+    (DEST / 'diagnostics.json').write_text(json.dumps(diagnostics, indent=2, allow_nan=False)+'\n')
+    manifest = {
+        'software_version': __version__,
+        'model_specification': 'M0',
+        'evidence_snapshot_sha256': evidence_sha,
+        'package_lock_sha256': lock_sha,
+        'root_seed': 7,
+        'reference_run_purpose': 'MECHANISM_TEST_DEMONSTRATION',
+        'scientific_pattern_registry': 'model/validation_tests.json',
+        'source_commit_binding': 'GitHub release artifact attestation',
+        'interpretation_boundary': 'The manifest records reproducibility inputs; it is not empirical validation.',
+    }
+    (DEST / 'reproducibility.json').write_text(json.dumps(manifest, indent=2)+'\n')
 
 if __name__ == '__main__':
     export()
