@@ -55,6 +55,18 @@ def test_release_versions_are_consistent():
     counter = m1e2['experiment']['conditions']['counter_attitudinal']['models']['frame_congruence']
     assert congruent['contrast'] > counter['contrast']
     assert abs(counter['contrast']) < 1e-12
+    m1e3 = json.loads((ROOT / 'web/public/model/m1_access.json').read_text())
+    assert m1e3['model_version'] == __version__
+    assert m1e3['model_specification'] == 'M1'
+    assert m1e3['baseline_model_specification'] == 'M0'
+    assert m1e3['experiment']['id'] == 'M1.E3'
+    assert m1e3['experiment']['purpose'] == 'MODEL_DISCRIMINATION_DEMONSTRATION'
+    lower = m1e3['experiment']['conditions']['lower_negativity']
+    higher = m1e3['experiment']['conditions']['higher_negativity']
+    assert lower['models']['null']['p_access'] == higher['models']['null']['p_access']
+    assert higher['models']['headline_negativity']['p_access'] > lower['models']['headline_negativity']['p_access']
+    assert m1e3['experiment']['parameters']['calibrated'] is False
+    assert 'belief' in m1e3['experiment']['interpretation_boundary'].lower()
     snapshot = json.loads((ROOT / 'model/evidence_snapshot.json').read_text())
     assert snapshot['id'] == version['evidence_snapshot']
     assert f'Alpha {__version__}' in (ROOT / 'README.md').read_text()
@@ -63,6 +75,7 @@ def test_release_versions_are_consistent():
     assert (ROOT / 'docs/ODD_MAIN.md').is_file()
     assert (ROOT / 'docs/ODD_M1.md').is_file()
     assert (ROOT / 'docs/ODD_M1_E2.md').is_file()
-    assert (ROOT / 'docs/ALPHA_0.4.1_PLAN.md').is_file()
+    assert (ROOT / 'docs/ODD_M1_E3.md').is_file()
+    assert (ROOT / 'docs/ALPHA_0.4.2a0_PLAN.md').is_file()
     assert (ROOT / 'LICENSE').is_file()
     assert (ROOT / 'LICENSES/CC-BY-4.0.txt').is_file()
