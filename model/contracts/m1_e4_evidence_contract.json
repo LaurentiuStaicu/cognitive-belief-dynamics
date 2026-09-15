@@ -1,0 +1,346 @@
+{
+  "id": "CONTRACT.M1.E4.2026-09-16",
+  "status": "PHASE_A_EVIDENCE_SCHEMA_ONLY",
+  "model_extension": "M1.E4",
+  "scope": "Evidence, construct-selection, cue-operationalisation and validation contract for a future headline recognition stage after preview impression; no executable mechanism or UI.",
+  "stage_decision": {
+    "conditioning_event": "PreviewImpression",
+    "requires_access": false,
+    "rationale": "The primary Shulman Study 3 recognition experiment tests later recognition of presented headline stimuli and does not require a full-article click/open before the SDT outcome."
+  },
+  "construct_decision": {
+    "selected": {
+      "id": "CANDIDATE_R",
+      "label": "Recognition sensitivity",
+      "short_name": "Drecog",
+      "ontology_type": "DERIVED_METRIC",
+      "decision": "SELECTED_FOR_NEXT_PHASE",
+      "basis": [
+        "The primary mechanism experiment reports signal-detection sensitivity d-prime directly.",
+        "The selected construct can be validated against the source result without relabeling an inferred attention mechanism as a direct observable."
+      ],
+      "limitations": [
+        "D-prime is a task-level discrimination metric rather than an event-level memory probability.",
+        "The source authors interpret d-prime as evidence about attention and retention, but the measure does not uniquely identify visual attention or neural encoding."
+      ]
+    },
+    "deferred": [
+      {
+        "id": "CANDIDATE_A",
+        "label": "Latent attention allocation",
+        "short_name": "Aattn",
+        "ontology_type": "STATE_FAST",
+        "decision": "DEFERRED_NOT_REJECTED",
+        "basis": [
+          "Attention is a plausible explanation offered by the primary source.",
+          "A later direct-attention study could justify a separate state."
+        ],
+        "limitations": [
+          "Study 3 does not directly measure gaze, fixation, dwell time or a unique latent attention state."
+        ]
+      },
+      {
+        "id": "CANDIDATE_E",
+        "label": "Event-level encoding probability",
+        "short_name": "Pencode",
+        "ontology_type": "DERIVED_METRIC",
+        "decision": "DEFERRED_NOT_REJECTED",
+        "basis": [
+          "An event-level encoding quantity could eventually connect exposure to later memory.",
+          "It would be more suitable for runtime simulation than a group-level d-prime metric if independently justified."
+        ],
+        "limitations": [
+          "The primary source does not provide a unique mapping from condition-level d-prime to item-level encoding probability."
+        ]
+      }
+    ]
+  },
+  "cue_decision": {
+    "selected": {
+      "id": "CUE_S",
+      "label": "Headline simplicity condition",
+      "short_name": "Hsimp",
+      "ontology_type": "CONTENT_ATTRIBUTE",
+      "decision": "SELECTED_FOR_NEXT_PHASE",
+      "reference_encoding": {
+        "type": "BINARY",
+        "control": 0,
+        "treatment": 1,
+        "control_label": "complex_control",
+        "treatment_label": "simpler_headline"
+      },
+      "strategy": "PRECOMPUTED_CONTROLLED_STIMULUS_METADATA",
+      "runtime_liwc_dependency": false,
+      "exact_replication_claim": false,
+      "divergence_from_source": "CEM freezes the experimentally controlled simple-versus-complex condition as metadata instead of reproducing the publication's composite simplicity index or proprietary LIWC-derived components at runtime."
+    }
+  },
+  "sources": [
+    {
+      "id": "SRC.M1.E4.SHULMAN_GENERAL.2024",
+      "citation": "Shulman, H. C., Markowitz, D. M., & Rogers, T. (2024). Reading dies in complexity: Online news consumers prefer simple writing. Science Advances, 10(23), eadn2555. Study 3 general-reader signal-detection experiment.",
+      "doi": "10.1126/sciadv.adn2555",
+      "url": "https://doi.org/10.1126/sciadv.adn2555",
+      "source_type": "PEER_REVIEWED_ARTICLE",
+      "study_type": "EXPERIMENTAL",
+      "evidence_role": "PRIMARY_RECOGNITION_TARGET",
+      "independence_group": "SHULMAN_GENERAL_SDT_2023",
+      "data_access": "OPEN",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Preregistered Study 3. General readers showed higher d-prime recognition sensitivity after simpler versus complex headline conditions."
+    },
+    {
+      "id": "SRC.M1.E4.SHULMAN_PROFESSIONALS.2024",
+      "citation": "Shulman, H. C., Markowitz, D. M., & Rogers, T. (2024). Reading dies in complexity: Online news consumers prefer simple writing. Science Advances, 10(23), eadn2555. Study 4 professional-writer signal-detection experiment.",
+      "doi": "10.1126/sciadv.adn2555",
+      "url": "https://doi.org/10.1126/sciadv.adn2555",
+      "source_type": "PEER_REVIEWED_ARTICLE",
+      "study_type": "EXPERIMENTAL",
+      "evidence_role": "COUNTEREVIDENCE_BOUNDARY",
+      "independence_group": "SHULMAN_PROFESSIONAL_SDT_2023",
+      "data_access": "OPEN",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Distinct professional-writer sample. The simplicity effect on SDT sensitivity was not significant, so expertise/task orientation is a mandatory boundary condition."
+    },
+    {
+      "id": "SRC.M1.E4.SHULMAN_WAPO.2024",
+      "citation": "Shulman, H. C., Markowitz, D. M., & Rogers, T. (2024). Reading dies in complexity: Online news consumers prefer simple writing. Science Advances, 10(23), eadn2555. Washington Post field-experiment component.",
+      "doi": "10.1126/sciadv.adn2555",
+      "url": "https://doi.org/10.1126/sciadv.adn2555",
+      "source_type": "PEER_REVIEWED_ARTICLE",
+      "study_type": "EXPERIMENTAL",
+      "evidence_role": "ACCESS_STAGE_BRIDGE",
+      "independence_group": "SHULMAN_WAPO_2021_2022",
+      "data_access": "RESTRICTED",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Field experiments support greater selection of simpler headlines but do not directly measure recognition sensitivity; used only to connect the simplicity cue to the preceding access literature."
+    },
+    {
+      "id": "SRC.M1.E4.MATTIS.2025",
+      "citation": "Mattis, N., Heitz, L., Masur, P. K., Moeller, J., & van Atteveldt, W. (2025). Nudges for news recommenders: prominent article positioning increases selection, engagement, and recall of environmental news, but reducing complexity does not. Journal of Communication, 75(6), 437-449.",
+      "doi": "10.1093/joc/jqaf019",
+      "url": "https://doi.org/10.1093/joc/jqaf019",
+      "source_type": "PEER_REVIEWED_ARTICLE",
+      "study_type": "EXPERIMENTAL",
+      "evidence_role": "INDEPENDENT_CONTEXT_BOUNDARY",
+      "independence_group": "INFORMFULLY_UK_2025",
+      "data_access": "OPEN",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Preregistered seven-day field experiment. Simplifying article text did not significantly improve factual recall, limiting generalization across stimulus levels and contexts."
+    },
+    {
+      "id": "SRC.M1.E4.ROBERTSON_SEARCH.2023",
+      "citation": "Robertson, R. E., Green, J., Ruck, D. J., Ognyanova, K., Wilson, C., & Lazer, D. (2023). Users choose to engage with more partisan news than they are exposed to on Google Search. Nature, 618, 342-348.",
+      "doi": "10.1038/s41586-023-06078-5",
+      "url": "https://doi.org/10.1038/s41586-023-06078-5",
+      "source_type": "PEER_REVIEWED_ARTICLE",
+      "study_type": "OBSERVATIONAL",
+      "evidence_role": "BACKGROUND_STAGE_ARCHITECTURE",
+      "independence_group": "GOOGLE_SEARCH_EXPOSURE_2018_2020",
+      "data_access": "PARTIAL",
+      "checked_on": "2026-09-16",
+      "review_scope": "FULL_TEXT",
+      "notes": "Separates URLs shown from URLs selected, supporting the distinction between exposure/impression and later engagement. It does not calibrate recognition."
+    },
+    {
+      "id": "SRC.M1.E4.GONZALEZ_BAILON.2023",
+      "citation": "González-Bailón, S., Lazer, D., Barberá, P., et al. (2023). Asymmetric ideological segregation in exposure to political news on Facebook. Science, 381(6656), 392-398.",
+      "doi": "10.1126/science.ade7138",
+      "url": "https://doi.org/10.1126/science.ade7138",
+      "source_type": "PEER_REVIEWED_ARTICLE",
+      "study_type": "OBSERVATIONAL",
+      "evidence_role": "BACKGROUND_STAGE_ARCHITECTURE",
+      "independence_group": "FACEBOOK_EXPOSURE_2020",
+      "data_access": "AGGREGATED",
+      "checked_on": "2026-09-16",
+      "review_scope": "ABSTRACT_AND_METHODS",
+      "notes": "Separates potential exposure, actual exposure after curation and engagement. Used only for funnel-stage architecture, not recognition calibration."
+    }
+  ],
+  "planned_quantities": [
+    {
+      "id": "PLANNED.VAR.HSIMP",
+      "short_name": "Hsimp",
+      "ontology_type": "CONTENT_ATTRIBUTE",
+      "status": "PLANNED_ONLY",
+      "definition": "Binary controlled headline-simplicity condition reserved for the future M1.E4 reference comparator.",
+      "what_it_is_not": "Not intelligence, education, source quality, comprehension ability, article truth or article-level difficulty.",
+      "reference_values": [0, 1]
+    },
+    {
+      "id": "PLANNED.VAR.DRECOG",
+      "short_name": "Drecog",
+      "ontology_type": "DERIVED_METRIC",
+      "status": "PLANNED_ONLY",
+      "definition": "Signal-detection recognition sensitivity d-prime derived from a registered target/foil probe set.",
+      "what_it_is_not": "Not a directly observed attention state, gaze measure, fixation duration, event-level encoding probability, comprehension or belief."
+    },
+    {
+      "id": "PLANNED.OBS.RECOGNITION_RESPONSE",
+      "short_name": "RecognitionResponse",
+      "ontology_type": "OBSERVABLE",
+      "status": "PLANNED_ONLY",
+      "definition": "Binary response to a recognition probe indicating whether the participant/synthetic agent reports that a phrase was previously present.",
+      "what_it_is_not": "Not correctness by itself, not belief, and not proof of conscious recollection.",
+      "reference_values": [0, 1]
+    },
+    {
+      "id": "PLANNED.OBS.PROBE_TRUTH",
+      "short_name": "ProbeTruth",
+      "ontology_type": "OBSERVABLE",
+      "status": "PLANNED_ONLY",
+      "definition": "Registered probe label indicating target versus foil status for computing hit and false-alarm rates.",
+      "what_it_is_not": "Not truth of the news claim or factuality of the headline.",
+      "reference_values": [0, 1]
+    }
+  ],
+  "empirical_target": {
+    "id": "PLANNED.TARGET.M1.E4.SHULMAN_2024",
+    "pattern_id": "VAL.M1.005",
+    "source_id": "SRC.M1.E4.SHULMAN_GENERAL.2024",
+    "use": "DIRECTIONAL_VALIDATION_ONLY",
+    "outcome": "signal-detection recognition sensitivity d-prime",
+    "comparison": "simpler versus complex headline condition after registered preview exposure",
+    "direction": "SIMPLER_HEADLINE_HIGHER_DPRIME",
+    "design": {
+      "design_family": "PREREGISTERED_PARTICIPANT_SDT_EXPERIMENT",
+      "n_recruited": 524,
+      "n_probe_items": 24,
+      "preregistered": true,
+      "source_note": "Study 3 recruited N=524. The published SDT comparison reports t(483)=6.01; CEM does not infer an analyzed-N value beyond what is directly reported."
+    },
+    "effect_context": [
+      {
+        "metric": "DPRIME_MEAN",
+        "condition": "simpler_headline",
+        "value": 1.23,
+        "sd": 0.81,
+        "use": "MAGNITUDE_CONTEXT_ONLY"
+      },
+      {
+        "metric": "DPRIME_MEAN",
+        "condition": "complex_headline",
+        "value": 0.8,
+        "sd": 0.77,
+        "use": "MAGNITUDE_CONTEXT_ONLY"
+      },
+      {
+        "metric": "T_STATISTIC",
+        "value": 6.01,
+        "df": 483,
+        "p_upper_bound": 0.001,
+        "use": "MAGNITUDE_CONTEXT_ONLY"
+      },
+      {
+        "metric": "COHENS_D",
+        "value": 0.55,
+        "use": "MAGNITUDE_CONTEXT_ONLY"
+      }
+    ],
+    "model_match": "A future M1.E4 candidate may use only the directional simpler-Hsimp to higher-Drecog pattern. Published d-prime means and Cohen's d do not set an event-level CEM encoding coefficient.",
+    "limitations": "Recognition sensitivity is a delayed task-level outcome and cannot uniquely identify attention allocation or an event-level encoding probability. The primary sample is crowdsourced U.S. adults, and the same publication reports a professional-writer null boundary."
+  },
+  "boundary_target": {
+    "id": "PLANNED.BOUNDARY.M1.E4.SHULMAN_PROFESSIONALS_2024",
+    "source_id": "SRC.M1.E4.SHULMAN_PROFESSIONALS.2024",
+    "outcome": "signal-detection recognition sensitivity d-prime",
+    "comparison": "simpler versus complex headline condition among professional writers",
+    "expected_interpretation": "NO_UNIVERSAL_SIMPLICITY_EFFECT",
+    "effect_context": {
+      "metric": "T_STATISTIC",
+      "value": -0.44,
+      "df": 165,
+      "p_value": 0.66,
+      "cohens_d": 0.07
+    }
+  },
+  "validation_contract": {
+    "planned_patterns": [
+      {
+        "id": "VAL.M1.005",
+        "name": "Headline-simplicity recognition differential",
+        "claim_scope": "DESCRIPTIVE_PATTERN",
+        "status": "PLANNED_ONLY",
+        "pattern": "Holding the registered M1.E4 comparator conditions fixed, simpler Hsimp must correspond to higher Drecog than the complex/control condition in the selected general-reader reference target."
+      },
+      {
+        "id": "VAL.M1.N07",
+        "name": "Recognition null",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "When Hsimp variation is removed or ignored, otherwise identical conditions must converge in the recognition-sensitivity target."
+      },
+      {
+        "id": "VAL.M1.N08",
+        "name": "Recognition sensitivity is not directly observed attention",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "A Drecog difference must not be represented as a directly measured gaze, fixation, dwell-time or unique latent-attention difference."
+      },
+      {
+        "id": "VAL.M1.N09",
+        "name": "Recognition is not downstream belief or action",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "A future M1.E4 recognition mechanism must not directly mutate retained M0 belief/Share, M1.E1 Aissue, M1.E2 Pengage/EngageIntent or M1.E3 Access."
+      },
+      {
+        "id": "VAL.M1.N10",
+        "name": "Professional-sample boundary",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "Documentation and future implementation must preserve the Shulman Study 4 professional-writer null and must not claim a universal simplicity-to-recognition effect."
+      }
+    ]
+  },
+  "invariants": [
+    "underlying_story_or_semantic_topic",
+    "source_identity",
+    "factual_compatibility",
+    "preview_impression_present",
+    "headline_exposure_count_and_timing",
+    "recognition_probe_format",
+    "recognition_delay",
+    "retained_m0_states",
+    "m1_e1_editorial_condition",
+    "m1_e2_presentation_condition",
+    "m1_e3_access_not_required_as_prerequisite"
+  ],
+  "promotion_gate": {
+    "requirements": [
+      "contract_schema_valid",
+      "exactly_one_selected_construct",
+      "attention_and_event_level_encoding_deferred",
+      "hsimp_precomputed_controlled_metadata",
+      "study3_dprime_target_recorded",
+      "study4_professional_null_recorded",
+      "independent_mattis_context_boundary_recorded",
+      "preview_impression_conditioning_not_access",
+      "planned_quantities_absent_from_active_variables",
+      "planned_validation_ids_absent_from_active_validation_tests",
+      "no_m1_e4_runtime_module",
+      "no_m1_e4_ui",
+      "retained_m0_m1e1_m1e2_m1e3_outputs_unchanged",
+      "full_ci_green"
+    ],
+    "active_registry_mutation_allowed": false,
+    "executable_equation_allowed": false,
+    "ui_allowed": false
+  },
+  "forbidden_changes": [
+    "no_M1_E4_equation",
+    "no_beta_simp_value",
+    "no_Pencode_equation",
+    "no_attention_state",
+    "no_runtime_recognition_mechanism",
+    "no_UI_comparator",
+    "no_active_M1_E4_variable_registration",
+    "no_active_M1_E4_validation_registration",
+    "no_active_M1_E4_empirical_target",
+    "no_M0_M1_E1_M1_E2_M1_E3_numerical_changes"
+  ]
+}
