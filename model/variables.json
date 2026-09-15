@@ -253,5 +253,73 @@
       0,
       1
     ]
+  },
+  {
+    "id": "VAR.HEADLINE.NEGATIVITY",
+    "short_name": "Hneg",
+    "ontology_type": "CONTENT_ATTRIBUTE",
+    "entity_type": "HeadlinePreview",
+    "conceptual_module": "MOD.16",
+    "label": {
+      "en": "Headline-negativity cue",
+      "ro": "Indiciul de negativitate al titlului"
+    },
+    "definition": "Binary precomputed reference cue distinguishing lower-negativity/control from higher-negativity headline conditions in M1.E3.",
+    "what_it_is_not": "A runtime sentiment score, LIWC proportion, truth value, misinformation label, experienced emotion, political orientation, or calibrated effect size.",
+    "range": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "VAR.ACCESS.PROBABILITY",
+    "short_name": "Paccess",
+    "ontology_type": "DERIVED_METRIC",
+    "entity_type": "AgentPreviewRelation",
+    "conceptual_module": "MOD.07",
+    "label": {
+      "en": "Access probability",
+      "ro": "Probabilitatea de acces"
+    },
+    "definition": "Latent M1.E3 probability of opening/clicking the full item conditional on one registered PreviewImpression.",
+    "what_it_is_not": "Observed population CTR, attention, reading duration, comprehension, belief, M1.E2 Pengage, or M0 Share probability.",
+    "range": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "VAR.ACCESS",
+    "short_name": "Access",
+    "ontology_type": "OBSERVABLE",
+    "entity_type": "HumanAgent",
+    "conceptual_module": "MOD.07",
+    "label": {
+      "en": "Access/open action",
+      "ro": "Acțiunea de accesare/deschidere"
+    },
+    "definition": "Reference M1.E3 binary outcome indicating whether the full item is opened/clicked after the preview impression.",
+    "what_it_is_not": "Attention, reading completion, endorsement, belief, active-engagement intent, or sharing.",
+    "range": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "VAR.PREVIEW.IMPRESSION",
+    "short_name": "PreviewImpression",
+    "ontology_type": "OBSERVABLE",
+    "entity_type": "HeadlinePreview",
+    "conceptual_module": "MOD.03",
+    "label": {
+      "en": "Preview impression",
+      "ro": "Impresia preview-ului"
+    },
+    "definition": "Registered event that the headline preview was rendered/available in the M1.E3 reference task.",
+    "what_it_is_not": "Proof of visual fixation, reading, encoding, recall, or full-content access.",
+    "range": [
+      0,
+      1
+    ]
   }
 ]

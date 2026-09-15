@@ -106,7 +106,7 @@ jobs:
               'empirical_targets_sha256': hashlib.sha256(Path('model/empirical_targets.json').read_bytes()).hexdigest(),
               'm0_reference_root_seed': 7,
               'reference_run_purpose': 'MECHANISM_TEST_DEMONSTRATION',
-              'm1_experiments': ['M1.E1', 'M1.E2'],
+              'm1_experiments': ['M1.E1', 'M1.E2', 'M1.E3'],
               'boundary': 'Build provenance and reproducibility metadata; not empirical validation.'
           }
           manifest_path = assets / 'reproducibility-manifest.json'

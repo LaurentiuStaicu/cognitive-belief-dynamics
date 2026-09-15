@@ -1,0 +1,70 @@
+{
+  "model_version": "0.4.2a0",
+  "model_specification": "M1",
+  "baseline_model_specification": "M0",
+  "experiment": {
+    "id": "M1.E3",
+    "purpose": "MODEL_DISCRIMINATION_DEMONSTRATION",
+    "selected_cue": "Hneg",
+    "cue_encoding": {
+      "type": "PRECOMPUTED_CONTROLLED_CUE",
+      "control": 0,
+      "treatment": 1,
+      "runtime_sentiment_analysis": false
+    },
+    "parameters": {
+      "intercept": -2.0,
+      "beta_hneg": 0.2,
+      "calibrated": false
+    },
+    "illustrative_access_draw": 0.13,
+    "conditions": {
+      "lower_negativity": {
+        "headline_id": "HEADLINE.M1.E3.LOWER_NEGATIVITY",
+        "story_id": "STORY.M1.E3.REFERENCE",
+        "source_id": "SOURCE.M1.E3.REFERENCE",
+        "image_id": "IMAGE.M1.E3.FIXED",
+        "fact_compatible": true,
+        "preview_impression": true,
+        "hneg": 0,
+        "models": {
+          "null": {
+            "p_access": 0.11920292202211755,
+            "access": false
+          },
+          "headline_negativity": {
+            "p_access": 0.11920292202211755,
+            "access": false
+          }
+        }
+      },
+      "higher_negativity": {
+        "headline_id": "HEADLINE.M1.E3.HIGHER_NEGATIVITY",
+        "story_id": "STORY.M1.E3.REFERENCE",
+        "source_id": "SOURCE.M1.E3.REFERENCE",
+        "image_id": "IMAGE.M1.E3.FIXED",
+        "fact_compatible": true,
+        "preview_impression": true,
+        "hneg": 1,
+        "models": {
+          "null": {
+            "p_access": 0.11920292202211755,
+            "access": false
+          },
+          "headline_negativity": {
+            "p_access": 0.1418510649004878,
+            "access": true
+          }
+        }
+      }
+    },
+    "empirical_target_id": "TARGET.M1.E3.ROBERTSON_2023",
+    "validation_pattern_ids": [
+      "VAL.M1.004",
+      "VAL.M1.N04",
+      "VAL.M1.N05",
+      "VAL.M1.N06"
+    ],
+    "interpretation_boundary": "Directional model-discrimination demonstration only. Hneg is a binary precomputed condition, not the source study's continuous LIWC score. The reference intercept and beta_hneg are demonstrative and are not fitted to the published coefficient or CTR magnitude. Access is not attention, reading completion, belief, engagement intent, or sharing."
+  }
+}

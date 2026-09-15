@@ -20,6 +20,18 @@ Dovezile experimentale nu susțin o singură poveste universală. Studiile Faceb
 
 Împreună, aceste rezultate susțin o arhitectură etapizată: algoritmii pot modifica expunerea și uneori pot produce efecte ulterioare asupra atitudinilor, dar direcția și amploarea depind de platformă, intervenție, populație și rezultatul măsurat.
 
+## Impresia titlului nu este același lucru cu accesarea conținutului complet
+
+M1.E3 face executabilă o etapă intermediară fără să o reducă la termenul generic „atenție”. [[VAR:PreviewImpression]] înregistrează faptul că preview-ul unui titlu a fost randat sau disponibil. [[VAR:Access]] înregistrează dacă elementul complet a fost deschis sau accesat prin click. Între ele, [[VAR:Paccess]] este probabilitatea de acces calculată de model. Aceste mărimi sunt separate deliberat de atenție, encodare, convingere, [[VAR:EngageIntent]] și [[VAR:Share]].
+
+Comparatorul de referință păstrează fixe povestea, sursa, imaginea, compatibilitatea factuală și impresia preview-ului. Se modifică numai indiciul binar precomputat [[VAR:Hneg]]: 0 pentru condiția de control cu negativitate mai redusă și 1 pentru condiția cu negativitate mai ridicată. Modelul NULL folosește `logit(Paccess) = b0`, iar modelul candidat [[MECH:access]] folosește `logit(Paccess) = b0 + beta_hneg × Hneg`. Coeficienții sunt demonstrativi și nu sunt ajustați la regresia publicată. [[CODE:m1e3.access_probability]] conține forma executabilă.
+
+Ținta direcțională principală, [[REF:REF.ROBERTSON.2023.NEGATIVITY]], provine din experimente randomizate cu variante de titlu pe Upworthy. Eșantionul confirmator filtrat raportat în textul principal al rezultatelor conține 12.448 de experimente, 53.699 de variante de titlu, peste 205 milioane de impresii și 2.778.124 de clickuri. Modelul sursă folosea un predictor continuu standardizat pentru proporția cuvintelor negative într-o regresie binomială multilevel; CEM nu copiază acel predictor și nici coeficientul publicat în indiciul binar de referință.
+
+Arhiva Upworthy a primit ulterior o corecție privind integritatea randomizării. [[REF:REF.MATIAS.2024.UPWORTHY_CORRECTION]] raportează că rezultatul Robertson rămâne aproape neschimbat atunci când analiza este restrânsă la testele considerate fiabile. Aceasta întărește proveniența, dar nu transformă efectul într-o lege universală. [[REF:REF.NICKL.2025.ATTENTION_ECONOMY]] este păstrată drept contra-dovadă preliminară dintr-un alt context experimental, în care efectul așteptat al negativității nu a fost observat.
+
+[[VAL:VAL.M1.004]] cere ca un Hneg înregistrat mai mare să producă un Paccess mai mare. [[VAL:VAL.M1.N04]] cere convergență când indiciul este dezactivat. [[VAL:VAL.M1.N05]] împiedică Paccess să modifice direct procese cognitive ulterioare, iar [[VAL:VAL.M1.N06]] cere ca lipsa clickului să păstreze PreviewImpression. Folosește [[VIEW:learning]] și deschide [[MECH:access]] pentru a inspecta comparatorul delimitat NULL versus Hneg.
+
 ## Expunerea este eterogenă, nu distribuită uniform
 
 Mediile populaționale pot ascunde cozi de distribuție foarte concentrate. Cercetările asupra dezinformării online arată că materialele problematice sunt adesea consumate disproporționat de un subset relativ restrâns de utilizatori, nu uniform de întreaga populație. Un model ajustat doar la o medie populațională poate rata tocmai utilizatorii și pozițiile de rețea în care expunerea repetată este cea mai mare.

@@ -36,7 +36,9 @@
       "enum": [
         "EXPERIMENTAL",
         "META_ANALYTIC",
-        "OBSERVATIONAL"
+        "OBSERVATIONAL",
+        "DATA_PROVENANCE",
+        "CORRECTION"
       ]
     },
     "checked_on": {

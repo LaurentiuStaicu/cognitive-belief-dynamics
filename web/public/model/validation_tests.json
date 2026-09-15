@@ -64,5 +64,29 @@
     "name": "Engagement intent is not M0 Share",
     "pattern": "An M1.E2 effect on active-engagement intent must remain separate from the retained M0 Share process and may not silently modify M0 sharing outputs.",
     "claim_scope": "NEGATIVE_CONSTRAINT"
+  },
+  {
+    "id": "VAL.M1.004",
+    "name": "Headline-negativity access differential",
+    "pattern": "Holding the underlying story, source, image, preview opportunity and other registered conditions fixed, higher Hneg produces higher Paccess in the selected M1.E3 candidate.",
+    "claim_scope": "DESCRIPTIVE_PATTERN"
+  },
+  {
+    "id": "VAL.M1.N04",
+    "name": "Access-gate null",
+    "pattern": "When the headline-negativity cue is ignored by the NULL model, otherwise identical lower- and higher-Hneg conditions converge in Paccess.",
+    "claim_scope": "NEGATIVE_CONSTRAINT"
+  },
+  {
+    "id": "VAL.M1.N05",
+    "name": "Access is not downstream cognition",
+    "pattern": "The M1.E3 access comparator remains separate from retained M0 belief and Share, M1.E1 Aissue, and M1.E2 Pengage/EngageIntent; it must not directly mutate those states.",
+    "claim_scope": "NEGATIVE_CONSTRAINT"
+  },
+  {
+    "id": "VAL.M1.N06",
+    "name": "Non-click preserves headline exposure",
+    "pattern": "An Access outcome of zero does not erase PreviewImpression or imply that the rendered headline preview was never available.",
+    "claim_scope": "NEGATIVE_CONSTRAINT"
   }
 ]

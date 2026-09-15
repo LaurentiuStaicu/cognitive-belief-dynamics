@@ -1,5 +1,18 @@
 # Changelog
 
+## Alpha 0.4.2a0 — M1.E3 Headline Access Gate
+
+- Add a separate `PreviewImpression → Access` stage after the M1.E2 presentation layer, without coupling it to M0 belief/sharing or M1.E2 engagement.
+- Register `Hneg`, `PreviewImpression`, `Paccess` and `Access`, plus two new evidence-qualified links.
+- Compare M1.E3-NULL with exactly one cue-sensitive logistic reference candidate under fixed story/source/image/impression invariants.
+- Use Robertson et al. (2023) Upworthy headline experiments as a directional target only; published beta/CTR magnitudes are not fitted into the demonstrative CEM coefficient.
+- Preserve the 2024 Upworthy randomization correction and Nickl 2025/APS 2026 counterevidence as explicit provenance/limitation context.
+- Add `VAL.M1.004`, `VAL.M1.N04`, `VAL.M1.N05` and `VAL.M1.N06`; a non-click preserves the prior preview impression and Access cannot mutate downstream cognition/action in this release.
+- Add a bilingual, keyboard-focusable, responsive NULL-versus-Hneg comparator under Understanding → Mechanisms and integrate M1.E3 into Theory chapter 11.
+- Keep the evidence snapshot at `EVIDENCE.M1.2026-09-16.r1`; Phase C adds presentation only and no additional evidence.
+- Extend release provenance and version regression tests to include the M1.E3 export.
+- M1 remains an uncalibrated candidate specification retaining M0 as the explicit baseline.
+
 ## Alpha 0.4.1a1 — Theory Reader, scientific/editorial audit and Guided Tour
 
 - Add a complete 16-chapter Romanian/English Theory Reader under Understanding, with deep links, validated theory tokens and a persistent contextual inspector.

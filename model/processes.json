@@ -264,5 +264,47 @@
     },
     "code_ref": "tests/test_m1_presentation.py",
     "status": "candidate"
+  },
+  {
+    "id": "ODD.M1.PROCESS.PREVIEW_IMPRESSION",
+    "stage": "submodel",
+    "label": {
+      "en": "Headline preview impression",
+      "ro": "Impresia preview-ului de titlu"
+    },
+    "description": {
+      "en": "Register that the controlled headline preview was rendered before access is evaluated; this does not assert fixation, reading or encoding.",
+      "ro": "Înregistrează faptul că preview-ul controlat al titlului a fost afișat înainte de evaluarea accesului; aceasta nu implică fixare vizuală, lectură sau encodare."
+    },
+    "code_ref": "src/cognitive_epistemic_model/access.py",
+    "status": "candidate"
+  },
+  {
+    "id": "ODD.M1.PROCESS.ACCESS_MODELS",
+    "stage": "submodel",
+    "label": {
+      "en": "Nested headline-access models",
+      "ro": "Modele nested de acces prin titlu"
+    },
+    "description": {
+      "en": "Compare a cue-insensitive NULL model with a headline-negativity candidate using one precomputed binary Hneg cue and demonstrative logistic reference parameters.",
+      "ro": "Compară un model NULL insensibil la indiciu cu un candidat bazat pe negativitatea titlului, folosind un singur Hneg binar precomputat și parametri logistici demonstrativi."
+    },
+    "code_ref": "src/cognitive_epistemic_model/access.py",
+    "status": "candidate"
+  },
+  {
+    "id": "ODD.M1.OBS.ACCESS_PATTERN",
+    "stage": "observation",
+    "label": {
+      "en": "M1 headline-access discrimination",
+      "ro": "Discriminarea M1 a accesului prin titlu"
+    },
+    "description": {
+      "en": "Check the higher-Hneg access direction, nested NULL convergence, non-click preservation of PreviewImpression and separation from downstream belief/engagement/share states.",
+      "ro": "Verifică direcția accesului pentru Hneg mai mare, convergența modelului NULL, păstrarea PreviewImpression la non-click și separarea față de belief/engagement/share downstream."
+    },
+    "code_ref": "tests/test_m1_access.py",
+    "status": "candidate"
   }
 ]

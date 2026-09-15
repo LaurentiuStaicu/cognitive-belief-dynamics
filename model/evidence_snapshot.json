@@ -1,7 +1,7 @@
 {
-  "id": "EVIDENCE.M1.2026-09-15.r2",
+  "id": "EVIDENCE.M1.2026-09-16.r1",
   "model_specification": "M1",
-  "as_of": "2026-09-15",
+  "as_of": "2026-09-16",
   "registry": "model/references.json",
-  "scope": "Phenomenon-level evidence and limitations supporting retained M0 claims, M1.E1 editorial emphasis, and M1.E2 presentation-framing/congruence model discrimination; not a systematic review or calibration dataset."
+  "scope": "Phenomenon-level evidence, provenance, integrity corrections, counterevidence and limitations supporting retained M0 claims, M1.E1 editorial emphasis, M1.E2 presentation-framing/congruence model discrimination, and the bounded M1.E3 headline-access candidate; not a systematic review or calibration dataset."
 }

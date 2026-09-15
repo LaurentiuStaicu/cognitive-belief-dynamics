@@ -391,3 +391,126 @@ Promotion remains blocked:
 The next approved implementation phase must promote these objects explicitly,
 extend the active schemas/registry as required, and preserve all retained M0,
 M1.E1 and M1.E2 outputs.
+
+
+## Alpha 0.4.2a0 Phase B — M1.E3 active-registry promotion and minimal runtime
+
+Phase B promotes the approved Phase A contract into an **unreleased feature
+branch**, not yet into the public Alpha release.
+
+Implemented backend:
+
+- `src/cognitive_epistemic_model/access.py`;
+- M1.E3-NULL versus headline-negativity candidate;
+- binary precomputed `Hneg ∈ {0,1}`;
+- `Paccess` conditional on `PreviewImpression`;
+- illustrative binary `Access` draw;
+- no runtime sentiment analyser;
+- no downstream coupling to M0/M1.E1/M1.E2.
+
+Reference parameters are demonstrative:
+
+- intercept = -2.0;
+- beta_hneg = 0.20.
+
+They are not fitted to Robertson et al. (2023) and must not be reported as
+empirical estimates.
+
+Active registry promotion on the Phase B branch adds:
+
+- Hneg, Paccess, Access and PreviewImpression;
+- VAL.M1.004 / VAL.M1.N04 / VAL.M1.N05 / VAL.M1.N06;
+- TARGET.M1.E3.ROBERTSON_2023;
+- Robertson 2023, Upworthy archive provenance, the 2024 correction and Nickl
+  2025 preliminary counterevidence;
+- evidence snapshot EVIDENCE.M1.2026-09-16.r1;
+- platform A/B empirical-target schema support;
+- ODD/TRACE/CLAIMS evidence-to-model documentation;
+- deterministic `m1_access.json` export.
+
+The target preserves the source-native design instead of fabricating participant
+counts. It records 12,448 RCTs, 53,699 headline variants, >205 million
+impressions and 2,778,124 clicks from the main Results text. It also records the
+publication's 53,699 versus 53,669 headline-count discrepancy as provenance.
+
+Phase B remains intentionally without an M1.E3 UI.
+
+Do not merge this branch into `main` while the public software version is still
+0.4.1a1. GitHub Pages deploys verified `main`, so merging active M1.E3 registry
+content before the 0.4.2a0 presentation/release layer is ready would expose a new
+model state under the old release label.
+
+Next gate after Phase B: explanatory/theory integration and a bounded
+Understanding → Mechanisms comparator, followed by release audit. No downstream
+Access → belief/share integration is authorized.
+
+
+## Alpha 0.4.2a0 Phase C — M1.E3 Theory/Understanding integration
+
+Phase C is stacked on Phase B head
+`7e2a250bdb2fb1992a564249110bf947f97e2e45` on branch
+`alpha-0.4.2a0-phase-c-access-ui-theory`.
+
+Implemented explanatory layer:
+
+- `web/src/access-stage.ts` renders the bounded M1.E3 comparator;
+- `web/src/main.ts` loads the canonical `m1_access.json` export;
+- `web/src/learning.ts` places M1.E3 under Understanding → Mechanisms;
+- `web/src/understanding.ts` supports
+  `#understanding/mechanisms/access`;
+- Theory chapter 11 explains PreviewImpression → Access as a separate stage;
+- the theory glossary registers executable mechanism token `access`;
+- theory metadata links Hneg, PreviewImpression, Paccess, Access, all four M1.E3
+  validations, registered evidence and `access_probability()`;
+- Playwright regression covers exact probabilities, native evidence counts,
+  scientific-boundary text, Theory → comparator routing, focus and mobile
+  overflow;
+- responsive styling is added without a new top-level application tab.
+
+The comparator reads, rather than reimplements, the deterministic backend export.
+It shows `Paccess=0.11920292202211755` for the NULL/control reference and
+`Paccess=0.1418510649004878` for the higher-Hneg candidate condition.
+
+No new evidence was added in Phase C. Evidence snapshot remains
+`EVIDENCE.M1.2026-09-16.r1`.
+
+No downstream integration is authorized or implemented:
+`Access` still cannot mutate B, Share, Aissue, Pengage or EngageIntent.
+
+Release status: **stacked / unreleased / do not merge into main yet**. The next
+gate is a complete branch CI plus rendered bilingual audit. Only after that should
+a separate Alpha 0.4.2a0 release-preparation branch synchronize version metadata,
+CHANGELOG/README/CITATION/release notes and perform the final pre-publication audit.
+
+
+## Alpha 0.4.2a0 release-preparation gate
+
+Release preparation is stacked on the completed Phase C head and is isolated on
+branch `alpha-0.4.2a0-release-prep`.
+
+Release-only changes:
+
+- software/package metadata advances to `0.4.2a0`;
+- npm metadata advances to `0.4.2-alpha.0`;
+- README, CHANGELOG, CITATION and `releases/v0.4.2a0.md` are synchronized;
+- deterministic static exports carry the new software version;
+- the evidence snapshot remains `EVIDENCE.M1.2026-09-16.r1`;
+- the release reproducibility manifest now lists M1.E1, M1.E2 and M1.E3;
+- `tests/test_version.py` now validates the M1.E3 export, its nested NULL,
+  directional contrast and uncalibrated status.
+
+A structural release-diff audit compared the Phase C base with release-prep for
+runs, interventions, explanations, diagnostics, M1.E1, M1.E2 and M1.E3 exports.
+After removing only `model_version` / `software_version` fields, all seven
+JSON structures were identical. No scientific numerical output changed during
+release preparation.
+
+GitHub Actions run #129 passed Python tests, installed-resource validation,
+byte-for-byte export reproduction, npm install, TypeScript/Vite build, Playwright
+browser regression and artifact upload.
+
+Release-prep remains **Draft / unmerged**. The next gate is a final integration
+branch targeting current `main`, containing the complete Phase B + Phase C +
+release-preparation stack. That integration candidate must receive a fresh full
+CI and a final `main...integration` diff audit before any merge/publication is
+authorized.

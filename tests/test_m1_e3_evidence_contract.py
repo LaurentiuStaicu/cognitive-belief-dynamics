@@ -101,7 +101,17 @@ def test_m1_e3_platform_target_preserves_native_counts_and_effect_metric():
     assert all(item["use"] == "MAGNITUDE_CONTEXT_ONLY" for item in contexts.values())
 
 
-def test_m1_e3_phase_a_does_not_promote_planned_objects_to_active_model():
+def test_m1_e3_phase_a_contract_preserves_historical_pre_promotion_gate():
+    contract = load_contract()
+    gate = contract["promotion_gate"]
+
+    assert gate["active_registry_mutation_allowed"] is False
+    assert gate["executable_equation_allowed"] is False
+    assert gate["ui_allowed"] is False
+    assert "no_beta_neg_value" in contract["forbidden_changes"]
+
+
+def test_m1_e3_phase_b_promotion_matches_the_approved_phase_a_contract():
     contract = load_contract()
 
     active_variables = {
@@ -111,54 +121,44 @@ def test_m1_e3_phase_a_does_not_promote_planned_objects_to_active_model():
         item["id"] for item in json.loads((ROOT / "model/validation_tests.json").read_text())
     }
     active_targets = {
-        item["id"] for item in json.loads((ROOT / "model/empirical_targets.json").read_text())
+        item["id"]: item
+        for item in json.loads((ROOT / "model/empirical_targets.json").read_text())
     }
 
-    planned_quantities = {item["id"] for item in contract["planned_quantities"]}
-    assert planned_quantities == {
-        "PLANNED.VAR.HNEG",
-        "PLANNED.VAR.PACCESS",
-        "PLANNED.VAR.ACCESS",
-        "PLANNED.VAR.PREVIEW_IMPRESSION",
-    }
+    assert contract["candidate_decision"]["selected"]["cue"] == "Hneg"
 
-    assert not any(
-        identifier in active_variables
-        for identifier in {
-            "VAR.HEADLINE.NEGATIVITY",
-            "VAR.ACCESS.PROBABILITY",
-            "VAR.ACCESS",
-            "VAR.PREVIEW.IMPRESSION",
-        }
-    )
+    assert {
+        "VAR.HEADLINE.NEGATIVITY",
+        "VAR.ACCESS.PROBABILITY",
+        "VAR.ACCESS",
+        "VAR.PREVIEW.IMPRESSION",
+    }.issubset(active_variables)
 
-    planned_validation_ids = {
-        item["id"] for item in contract["validation_contract"]["planned_patterns"]
-    }
-    assert planned_validation_ids == {
+    assert {
         "VAL.M1.004",
         "VAL.M1.N04",
         "VAL.M1.N05",
         "VAL.M1.N06",
-    }
-    assert planned_validation_ids.isdisjoint(active_validations)
+    }.issubset(active_validations)
 
-    assert "TARGET.M1.E3.ROBERTSON_2023" not in active_targets
-    assert "PLANNED.TARGET.M1.E3.ROBERTSON_2023" not in active_targets
+    target = active_targets["TARGET.M1.E3.ROBERTSON_2023"]
+    planned = contract["empirical_target"]
+    assert target["study"]["n_experiments"] == planned["design"]["n_experiments"]
+    assert target["study"]["n_variants"] == planned["design"]["n_variants"]
+    assert target["study"]["n_impressions_min"] == planned["design"]["n_impressions_min"]
+    assert target["study"]["n_clicks"] == planned["design"]["n_clicks"]
+
+    active_effects = {item["metric"]: item for item in target["effects"]}
+    planned_effects = {item["metric"]: item for item in planned["effect_context"]}
+    assert active_effects["LOG_ODDS_COEFFICIENT"]["estimate"] == planned_effects["LOG_ODDS_COEFFICIENT"]["value"]
+    assert active_effects["RELATIVE_CHANGE_PERCENT"]["estimate"] == planned_effects["RELATIVE_CHANGE_PERCENT"]["value"]
 
 
-def test_m1_e3_phase_a_keeps_evidence_snapshot_and_executable_surface_frozen():
+def test_m1_e3_phase_b_advances_evidence_snapshot_but_not_phase_a_contract():
     contract = load_contract()
     snapshot = json.loads((ROOT / "model/evidence_snapshot.json").read_text())
 
-    assert snapshot["id"] == "EVIDENCE.M1.2026-09-15.r2"
-
-    gate = contract["promotion_gate"]
-    assert gate["active_registry_mutation_allowed"] is False
-    assert gate["executable_equation_allowed"] is False
-    assert gate["ui_allowed"] is False
-
-    assert "no_beta_neg_value" in contract["forbidden_changes"]
+    assert snapshot["id"] == "EVIDENCE.M1.2026-09-16.r1"
 
     def all_keys(value):
         if isinstance(value, dict):

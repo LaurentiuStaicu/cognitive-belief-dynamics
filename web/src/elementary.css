@@ -191,3 +191,18 @@ h1,h2,h3,.brand,.scope strong,.metrics strong,.process-number{font-family:inheri
  .theory-token{border-bottom:1px solid LinkText;color:LinkText}
  .theory-chapters button[aria-current=page]{outline:2px solid Highlight}
 }
+
+
+/* M1.E3 headline access comparator */
+.m1-access-stage{display:grid;gap:1rem;scroll-margin-top:1rem}
+.m1-access-flow{display:flex;align-items:center;justify-content:center;gap:.55rem;flex-wrap:wrap;border:1px solid var(--border);border-radius:.5rem;padding:.85rem;background:var(--soft)}
+.m1-access-flow span{font-weight:700}
+.m1-fixed-invariants{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
+.m1-fixed-invariants article{display:grid;gap:.35rem;min-width:0}
+.m1-fixed-invariants span{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.m1-fixed-invariants code,.m1-access-headlines h4{overflow-wrap:anywhere}
+.m1-access-headlines{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
+.m1-access-headlines article{min-width:0}
+.m1-access-table table{min-width:48rem}
+@media(max-width:900px){.m1-fixed-invariants{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:700px){.m1-access-headlines{grid-template-columns:minmax(0,1fr)}.m1-access-flow{justify-content:flex-start}}

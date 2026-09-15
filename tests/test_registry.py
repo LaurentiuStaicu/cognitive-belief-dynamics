@@ -84,3 +84,28 @@ def test_empirical_target_pattern_references_are_enforced(tmp_path):
     (model / "empirical_targets.json").write_text(json.dumps(targets))
     with pytest.raises(RegistryError, match="unresolved target pattern reference"):
         validate_model_dir(model, ROOT / "schemas")
+
+
+def test_empirical_target_auxiliary_references_are_enforced(tmp_path):
+    model = tmp_path / "model"
+    shutil.copytree(ROOT / "model", model)
+    targets = json.loads((model / "empirical_targets.json").read_text())
+    m1_e3 = next(item for item in targets if item["id"] == "TARGET.M1.E3.ROBERTSON_2023")
+    m1_e3["integrity_refs"] = ["REF.MISSING.2099"]
+    (model / "empirical_targets.json").write_text(json.dumps(targets))
+    with pytest.raises(RegistryError, match="unresolved target integrity_refs"):
+        validate_model_dir(model, ROOT / "schemas")
+
+
+def test_platform_ab_target_preserves_native_design_fields():
+    targets = json.loads((ROOT / "model/empirical_targets.json").read_text())
+    target = next(item for item in targets if item["id"] == "TARGET.M1.E3.ROBERTSON_2023")
+
+    assert target["study"]["design_family"] == "PLATFORM_AB_TEST_ARCHIVE"
+    assert "n_recruited" not in target["study"]
+    assert "n_analyzed" not in target["study"]
+    assert target["study"]["n_experiments"] == 12448
+    assert target["study"]["n_clicks"] == 2778124
+
+    metrics = {item["metric"] for item in target["effects"]}
+    assert {"LOG_ODDS_COEFFICIENT", "RELATIVE_CHANGE_PERCENT"} <= metrics

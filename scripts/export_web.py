@@ -1,5 +1,6 @@
 """Export canonical registries and deterministic reference runs for the static viewer."""
 from cognitive_epistemic_model import __version__
+from cognitive_epistemic_model.access import reference_access_experiment
 from cognitive_epistemic_model.calibration.diagnostics import (
     local_identifiability_report,
     prediction_robustness_report,
@@ -157,6 +158,19 @@ def export():
                 "model_specification": "M1",
                 "baseline_model_specification": "M0",
                 "experiment": reference_presentation_experiment(),
+            },
+            indent=2,
+        )
+        + "\n"
+    )
+
+    (DEST / "m1_access.json").write_text(
+        json.dumps(
+            {
+                "model_version": __version__,
+                "model_specification": "M1",
+                "baseline_model_specification": "M0",
+                "experiment": reference_access_experiment(),
             },
             indent=2,
         )

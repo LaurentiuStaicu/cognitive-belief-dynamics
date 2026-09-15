@@ -20,6 +20,18 @@ By contrast, a 2026 Nature field experiment on X randomized users between algori
 
 Together these results support a staged architecture: algorithms can alter exposure and can sometimes produce downstream attitude effects, but direction and magnitude depend on platform, intervention, population and outcome.
 
+## Headline impression is not full-content access
+
+M1.E3 makes one intermediate stage executable instead of collapsing it into generic “attention”. A [[VAR:PreviewImpression]] records that a headline preview was rendered or available. [[VAR:Access]] records whether the full item was opened or clicked. Between them, [[VAR:Paccess]] is the modelled access probability. These quantities are deliberately separate from attention, encoding, belief, [[VAR:EngageIntent]] and [[VAR:Share]].
+
+The reference comparator holds the story, source, image, factual compatibility and preview impression fixed. It changes only the precomputed binary [[VAR:Hneg]] cue: 0 for the lower-negativity control condition and 1 for the higher-negativity condition. The NULL model uses `logit(Paccess) = b0`; the candidate [[MECH:access]] model uses `logit(Paccess) = b0 + beta_hneg × Hneg`. The coefficients are demonstrative, not fitted to the published regression. [[CODE:m1e3.access_probability]] contains the executable form.
+
+The primary directional target, [[REF:REF.ROBERTSON.2023.NEGATIVITY]], comes from randomized Upworthy headline experiments. The filtered confirmatory sample reported in the main Results text contains 12,448 experiments, 53,699 headline variants, more than 205 million impressions and 2,778,124 clicks. The source model used a continuous standardized negative-word predictor in a multilevel binomial regression; CEM does not copy that predictor or its coefficient into the binary reference cue.
+
+The Upworthy archive later received a randomization-integrity correction. [[REF:REF.MATIAS.2024.UPWORTHY_CORRECTION]] reports that the Robertson result is nearly unchanged when analyses are restricted to tests considered reliable. This strengthens provenance but does not turn the finding into a universal law. [[REF:REF.NICKL.2025.ATTENTION_ECONOMY]] is retained as preliminary counterevidence from a different experimental context in which the expected negativity effect was not observed.
+
+[[VAL:VAL.M1.004]] requires higher registered Hneg to produce higher Paccess. [[VAL:VAL.M1.N04]] requires convergence when the cue is disabled. [[VAL:VAL.M1.N05]] prevents Paccess from mutating downstream cognition, and [[VAL:VAL.M1.N06]] requires a non-click to preserve PreviewImpression. Use [[VIEW:learning]] and open [[MECH:access]] to inspect the bounded NULL-versus-Hneg comparator.
+
 ## Exposure is heterogeneous, not evenly distributed
 
 Average exposure can hide concentrated tails. Research on online misinformation shows that problematic content is often consumed disproportionately by a relatively small subset of users rather than uniformly across the population. A model calibrated only to a population mean can therefore miss the users and network locations where repeated exposure is highest.

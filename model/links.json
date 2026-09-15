@@ -168,5 +168,49 @@
       "ro": "EngageIntent este un proxy de sarcină și nu reprezintă comportament observat pe platformă.",
       "en": "EngageIntent is a task proxy and does not represent observed platform behavior."
     }
+  },
+  {
+    "id": "LINK.HEADLINE_NEGATIVITY.ACCESS_PROBABILITY",
+    "source": "VAR.HEADLINE.NEGATIVITY",
+    "target": "VAR.ACCESS.PROBABILITY",
+    "relation_type": "CAUSAL",
+    "polarity": "positive",
+    "mechanism_evidence_status": "CANDIDATE",
+    "functional_form_status": "REFERENCE_CANDIDATE",
+    "phenomenon_evidence_status": "EXPERIMENTAL",
+    "evidence_refs": [
+      "REF.ROBERTSON.2023.NEGATIVITY",
+      "REF.NICKL.2025.ATTENTION_ECONOMY"
+    ],
+    "evidence_summary": {
+      "ro": "Registered Report-ul Upworthy arată că o proporție mai mare de limbaj negativ în titluri crește probabilitatea de click în comparații între variante ale aceleiași știri; un experiment preliminar mai recent nu a găsit efectul așteptat de negativitate, astfel încât M1.E3 păstrează relația ca mecanism candidat dependent de context.",
+      "en": "The Upworthy Registered Report shows that a larger proportion of negative headline language increases click propensity within same-story headline comparisons; a newer preliminary experiment did not find the expected negativity effect, so M1.E3 retains this relation as a context-bounded candidate mechanism."
+    },
+    "evidence_limitations": {
+      "ro": "Hneg este un indiciu binar precomputat al modelului, nu predictorul continuu LIWC din studiu; coeficientul logistic de referință nu este estimat din efectul publicat și nu reprezintă o constantă universală.",
+      "en": "Hneg is a model-defined binary precomputed cue rather than the study's continuous LIWC predictor; the reference logistic coefficient is not estimated from the published effect and is not a universal constant."
+    }
+  },
+  {
+    "id": "LINK.ACCESS_PROBABILITY.ACCESS",
+    "source": "VAR.ACCESS.PROBABILITY",
+    "target": "VAR.ACCESS",
+    "relation_type": "MEASUREMENT",
+    "polarity": "positive",
+    "mechanism_evidence_status": "MODEL_DERIVED",
+    "functional_form_status": "REFERENCE_CANDIDATE",
+    "phenomenon_evidence_status": "EXPERIMENTAL",
+    "evidence_refs": [
+      "REF.ROBERTSON.2023.NEGATIVITY",
+      "REF.MATIAS.2021.UPWORTHY"
+    ],
+    "evidence_summary": {
+      "ro": "Arhiva Upworthy separă numărul de impresii de numărul de clickuri, iar studiul Robertson modelează clickurile condiționat de impresii; M1.E3 reprezintă analog rezultatul binar Access separat de probabilitatea latentă Paccess.",
+      "en": "The Upworthy archive separates impressions from clicks, and Robertson models clicks conditional on impressions; M1.E3 analogously represents binary Access separately from latent Paccess."
+    },
+    "evidence_limitations": {
+      "ro": "Access este un outcome de referință al comparatorului și nu trebuie interpretat ca atenție, lectură completă, comprehensiune, convingere sau distribuire.",
+      "en": "Access is a reference comparator outcome and must not be interpreted as attention, reading completion, comprehension, belief, or sharing."
+    }
   }
 ]
