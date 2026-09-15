@@ -65,3 +65,24 @@
 **What would change the decision.** Remove the interaction if a smaller model reproduces the registered heterogeneity target under invariant semantic content, or if out-of-sample evidence contradicts the congruence moderation.
 
 **Version introduced.** 0.4.1a0.
+
+
+## 2026-09 — Alpha 0.4.2 M1.E3 headline-access gate
+
+**Question.** After separating editorial selection and presentation-framing outcomes, what is the smallest next executable stage that distinguishes a rendered headline preview from the decision to open/click fuller content?
+
+**Candidates.** (A) add a generic latent attention variable; (B) add a broad multi-feature click model with negativity, simplicity, curiosity and ranking; (C) add one explicit PreviewImpression → Access gate with one predeclared controlled headline cue and nested NULL.
+
+**Evidence.** Robertson et al. (2023) use a Registered Report on Upworthy randomized headline experiments and model clicks conditional on impressions with a multilevel binomial-logit specification. The main Results text reports 12,448 filtered RCTs, 53,699 headlines, more than 205 million impressions and 2,778,124 clicks, with a positive standardized negative-language coefficient. The 2024 Upworthy correction identifies a period with likely randomization problems; archive maintainers report the Robertson result remains nearly identical after restricting the reanalysis to reliable tests. A 2025 Nickl–Hills–Lorenz-Spreen preprint / APS 2026 presentation provides preliminary counterevidence by reporting no expected negativity-bias effect in a different two-stage experiment.
+
+**Decision.** Choose C. Promote Hneg as a binary precomputed controlled cue, Paccess as a derived metric, Access as a separate observable and PreviewImpression as a separate prior event. Compare cue-insensitive NULL with a demonstrative logistic Hneg candidate. Keep the coefficient uncalibrated and independent of the source coefficient/magnitude.
+
+**Nested null.** When Hneg is ignored by the NULL model, lower- and higher-Hneg conditions must have identical Paccess.
+
+**Outcome boundary.** PreviewImpression, Access, attention, encoding, belief, EngageIntent and Share remain distinct. Non-click does not erase headline exposure.
+
+**Alternative deferred.** Headline simplicity Hsimp remains a scientifically supported alternative, but its composite operationalisation, LIWC-derived components and restricted Washington Post source data make it less suitable for the first minimal reproducible comparator.
+
+**What would change the decision.** Replace or revise M1.E3 if independent evidence contradicts the bounded access direction, if the comparator cannot preserve its invariants, if a smaller alternative cue discriminates the model more cleanly, or if the access stage fails to remain separable from downstream cognition/action.
+
+**Release boundary.** This Phase B implementation remains on an unreleased feature branch until the Alpha 0.4.2a0 explanatory/UI layer and release audit are complete.
