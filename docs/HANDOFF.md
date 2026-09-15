@@ -311,10 +311,11 @@ Markowitz & Rogers (2024), including independent Washington Post headline tests.
 
 Gligorić et al. (2023) is convergent registered analysis of the same Upworthy
 archive as Robertson and must not be counted as an independent replication.
-Recent counterevidence is registered rather than hidden: an APS 2026 conference
-experiment reported no negativity-bias effect in its two-stage design, and a
-2025 news-aggregator field experiment found no significant benefit from reducing
-article-text complexity. These results do not directly refute the headline
+Recent counterevidence is registered rather than hidden: a 2025 preprint by
+Nickl, Hills & Lorenz-Spreen, later presented as the same project at APS 2026,
+reported no negativity-bias effect in its two-stage design; this is one study,
+not two independent replications. A separate 2025 news-aggregator field
+experiment found no significant benefit from reducing article-text complexity. These results do not directly refute the headline
 studies, but they rule out treating either cue as a universal constant.
 
 Phase A must compare Candidate N and Candidate S on construct validity,
