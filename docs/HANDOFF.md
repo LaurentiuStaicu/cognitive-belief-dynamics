@@ -293,3 +293,41 @@ The next causal-stage extension remains outside 0.4.1a1. Attention/consumption
 gating is a candidate for later Alpha 0.4.x work, but it requires its own
 operationalisation, empirical target, differential prediction and rejection
 criterion.
+
+
+## Alpha 0.4.2a0 planning — M1.E3 Headline Access Gate
+
+Planning contract: `docs/ALPHA_0.4.2a0_PLAN.md`.
+
+The next scientific extension is defined as a distinct **preview impression →
+access/click** gate rather than a generic “attention” coefficient. Click-through
+rate is treated as an access observable, not as gaze, reading completion, belief,
+endorsement or sharing.
+
+The planning audit now keeps the first executable headline cue **open until the
+Phase A evidence contract**. Candidate N is headline negativity, anchored in
+Robertson et al. (2023). Candidate S is headline simplicity, anchored in Shulman,
+Markowitz & Rogers (2024), including independent Washington Post headline tests.
+
+Gligorić et al. (2023) is convergent registered analysis of the same Upworthy
+archive as Robertson and must not be counted as an independent replication.
+Recent counterevidence is registered rather than hidden: a 2025 preprint by
+Nickl, Hills & Lorenz-Spreen, later presented as the same project at APS 2026,
+reported no negativity-bias effect in its two-stage design; this is one study,
+not two independent replications. A separate 2025 news-aggregator field
+experiment found no significant benefit from reducing article-text complexity. These results do not directly refute the headline
+studies, but they rule out treating either cue as a universal constant.
+
+Phase A must compare Candidate N and Candidate S on construct validity,
+observable match, causal identification, independence of evidence, context
+robustness and reproducibility, then freeze **exactly one** cue before executable
+code is added.
+
+Planning explicitly preserves:
+`PreviewImpression != Access != Attention != Belief != EngageIntent != Share`.
+
+No Alpha 0.4.2 executable code should be added until source roles, counterevidence,
+the selected cue encoding, Paccess/Access/PreviewImpression, validation patterns
+VAL.M1.004 / VAL.M1.N04 / VAL.M1.N05 / VAL.M1.N06, and comparator invariants are
+registered. The existing M0, M1.E1 and M1.E2 outputs remain the scientific
+regression baseline.
