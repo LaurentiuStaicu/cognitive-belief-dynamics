@@ -8,7 +8,7 @@ Incertitudinea nu produce un singur răspuns psihologic. Uneori stimulează expl
 
 ## Un construct motivațional, nu o etichetă de inteligență
 
-Kruglanski și Webster definesc nevoia de closure ca dorința pentru cunoaștere definită asupra unei probleme, în contrast cu ambiguitatea sau confuzia. Ei o tratează atât ca diferență individuală, cât și ca stare care poate fi evocată situațional. Presiunea timpului, zgomotul, oboseala sau costul perceput al incertitudinii pot modifica tendința către închidere cognitivă.
+Kruglanski și Webster definesc nevoia de închidere cognitivă ca dorința pentru cunoaștere definită asupra unei probleme, în contrast cu ambiguitatea sau confuzia. Ei o tratează atât ca diferență individuală, cât și ca stare care poate fi evocată situațional. Presiunea timpului, zgomotul, oboseala sau costul perceput al incertitudinii pot modifica tendința către închidere cognitivă.
 
 Acest lucru este important pentru CEM deoarece împiedică o interpretare moralizatoare. A căuta rapid o concluzie nu înseamnă automat „capacitate cognitivă scăzută”; poate fi o adaptare la costuri, timp sau risc. Problema epistemică apare atunci când costul închiderii premature depășește beneficiul și când informația ulterioară relevantă este filtrată sau reinterpretată pentru a conserva concluzia inițială.
 
@@ -30,7 +30,7 @@ O clasificare binară a populației ar cere măsurare directă, praguri validate
 
 ## Ce nu afirmă acest capitol
 
-Nu afirmă că nevoia de closure este patologică, că duce inevitabil la dezinformare sau că poate fi dedusă din orientarea politică, educație ori comportamentul online. Nu atribuie un scor de închidere cognitivă agenților CEM și nu o tratează ca o cauză universală a credințelor greșite.
+Nu afirmă că nevoia de închidere cognitivă este patologică, că duce inevitabil la dezinformare sau că poate fi dedusă din orientarea politică, educație ori comportamentul online. Nu atribuie un scor de închidere cognitivă agenților CEM și nu o tratează ca o cauză universală a credințelor greșite.
 
 ## Implicație pentru proiect
 
