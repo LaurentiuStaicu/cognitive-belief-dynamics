@@ -464,5 +464,31 @@
     "related_chapters": [
       "THEORY.14.VALIDATION"
     ]
+  },
+  {
+    "id": "GLOSS.MECH.ACCESS",
+    "kind": "MECHANISM",
+    "token": "access",
+    "label": {
+      "en": "Headline access gate",
+      "ro": "Poarta de acces la titlu"
+    },
+    "short_definition": {
+      "en": "Executable M1.E3 candidate mechanism comparing cue-insensitive and Hneg-sensitive probabilities of opening/clicking a full item after one preview impression.",
+      "ro": "Mecanism candidat M1.E3 executabil care compară probabilitatea de deschidere/click după o impresie de preview într-un model insensibil la indiciu și într-un model sensibil la Hneg."
+    },
+    "what_it_is_not": {
+      "en": "Attention, reading completion, belief, engagement intent, sharing, or a calibrated population CTR model.",
+      "ro": "Nu este atenție, finalizarea lecturii, convingere, intenție de interacțiune, distribuire sau un model calibrat al CTR populațional."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "learning:access",
+    "related_chapters": [
+      "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+    ]
   }
 ]
