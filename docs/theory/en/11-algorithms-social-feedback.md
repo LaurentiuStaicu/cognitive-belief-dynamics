@@ -1,10 +1,10 @@
-# Algorithms, ranking and social feedback
+# Algorithms, networks, cross-platform dynamics and social feedback
 
 ## Central idea
 
 A ranking algorithm can influence which information is seen, how often and in what order, but this is a different causal stage from directly forming a belief. CEM deliberately separates ranking → exposure from exposure → processing → belief → action.
 
-[[CONCEPT:algorithm-stage]] · [[VAR:Nexp]] · [[MECH:repetition]] · [[MODULE:MOD.18]] · [[VIEW:structure]]
+[[CONCEPT:algorithm-stage]] · [[VAR:Nexp]] · [[MECH:repetition]] · [[MODULE:MOD.08]] · [[MODULE:MOD.10]] · [[MODULE:MOD.18]] · [[MODULE:MOD.19]] · [[VIEW:structure]]
 
 ## Why “the algorithm made me believe it” is too short
 
@@ -20,6 +20,12 @@ By contrast, a 2026 Nature field experiment on X randomized users between algori
 
 Together these results support a staged architecture: algorithms can alter exposure and can sometimes produce downstream attitude effects, but direction and magnitude depend on platform, intervention, population and outcome.
 
+## Exposure is heterogeneous, not evenly distributed
+
+Average exposure can hide concentrated tails. Research on online misinformation shows that problematic content is often consumed disproportionately by a relatively small subset of users rather than uniformly across the population. A model calibrated only to a population mean can therefore miss the users and network locations where repeated exposure is highest.
+
+[[MODULE:MOD.08]] reserves population and network heterogeneity. A future executable model should represent variation in activity, connectivity, source-following patterns and exposure opportunities instead of assuming interchangeable agents. Heterogeneity should be measured or explicitly scenario-defined; it should not be added merely to make a simulation look realistic.
+
 ## Social feedback as a loop
 
 A user sees content, acts on it, the system observes that action, and selection can change. Other users' reactions can also become social cues. This creates a loop:
@@ -30,16 +36,30 @@ Another possible loop is:
 
 source/content exposure → familiarity or appraisal → action → social feedback → future exposure.
 
-MOD.18 reserves this level in the conceptual map, but Alpha 0.4.1a1 does not yet execute a recommender system or social network.
+[[MODULE:MOD.18]] reserves social norms and collective evidence. Counts of likes, shares, comments or endorsements can become cues, but they are not direct measures of truth or genuine consensus. A future social-proof mechanism should separate the observed cue from the underlying population state that generated it.
+
+## Cross-platform ecosystems
+
+Information rarely remains on one platform. A claim can move from a television segment to an online newspaper, then to a social network, messaging app, search engine, video platform or AI assistant, acquiring new framing and audiences at each step. Users also move between services, and content created on one platform can be amplified on another.
+
+[[MODULE:MOD.10]] reserves this cross-platform ecosystem. The important modelling point is that platforms are not independent exposure containers. Cross-platform transmission can create repeated exposure, alter apparent source diversity and change which interventions are reachable. A future mechanism therefore needs explicit transfer rules rather than assuming that exposure on one service is equivalent to exposure everywhere.
+
+## Strategic influence is not ordinary diffusion
+
+Some information spreads because many individuals independently choose to share it. Other information is deliberately produced, targeted or amplified by coordinated actors. Computational-propaganda research distinguishes actors, content production, dissemination methods and amplification, including automation, coordinated campaigns and microtargeting.
+
+[[MODULE:MOD.19]] reserves strategic influence and adversarial production. This stage should not be collapsed into “misinformation”. Strategic influence can use false, misleading, selectively true or entirely factual material. The relevant additional feature is intentional or coordinated intervention in production and distribution, not factuality alone.
+
+A future executable mechanism should therefore distinguish organic diffusion from coordinated production or amplification and should require observable signatures or externally defined scenarios. CEM should not infer hostile intent merely from a content pattern.
 
 ## Connection to repetition
 
-If ranking increases content frequency, it can alter [[VAR:Nexp]], after which [[MECH:repetition]] can affect familiarity. This does not mean every algorithmic amplification produces illusory truth: content must actually be observed and processed, and the repetition effect must generalize to that content domain.
+If ranking, social feedback, cross-platform transfer or coordinated amplification increases content frequency, it can alter [[VAR:Nexp]], after which [[MECH:repetition]] can affect familiarity. This does not mean every amplification produces illusory truth: content must actually be observed and processed, and the repetition effect must generalize to that content domain.
 
 ## What this chapter does not claim
 
-It does not claim algorithms are neutral, nor that they are the single cause of polarization. It does not extrapolate X results to Facebook, TikTok or every platform. It does not infer political intention from content distributions and does not treat engagement as synonymous with belief.
+It does not claim algorithms are neutral, nor that they are the single cause of polarization. It does not extrapolate X results to Facebook, TikTok or every platform. It does not assume average exposure describes every user, equate social endorsement with truth, infer strategic intent from popularity, or treat engagement as synonymous with belief.
 
-## Future M1 implication
+## Future-model implication
 
-[[CONCEPT:algorithm-stage]] remains CONCEPTUAL. To become executable it needs an explicit ranking policy, observable input, exposure output, nested null and a differential pattern that the model without ranking cannot reproduce.
+The ranking stage and modules for network heterogeneity, cross-platform transmission, social feedback and strategic influence remain CONCEPTUAL. To become executable, each needs explicit inputs and outputs, a null model, measurable or scenario-defined assumptions, and a differential pattern that a simpler model cannot reproduce.
