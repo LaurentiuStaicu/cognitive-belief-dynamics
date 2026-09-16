@@ -48,10 +48,14 @@ def test_semantic_compiler_entity_coverage_matches_authoritative_sources():
         "theory_glossary",
     ):
         expected |= {item["id"] for item in load(MODEL / f"{name}.json")}
+    expected |= {
+        item["semantic_id"]
+        for item in load(MODEL / "computational_dependencies.json")["extra_nodes"]
+    }
 
     actual = {item["id"] for item in index["entities"]}
     assert actual == expected
-    assert len(actual) == 103
+    assert len(actual) == 114
 
 
 def test_semantic_compiler_preserves_registered_links_exactly():
@@ -95,12 +99,38 @@ def test_semantic_compiler_documentation_relations_are_resolved():
         assert relation["target"] in entity_ids
 
 
-def test_oa1b_does_not_import_computational_dependencies_early():
+def test_semantic_compiler_imports_computational_dependencies_exactly():
     index = build_semantic_index(MODEL)
-    assert not any(
-        relation["layer"] == "COMPUTATIONAL_DEPENDENCY"
+    source = load(MODEL / "computational_dependencies.json")
+    expected = {item["id"]: item for item in source["dependencies"]}
+    compiled = {
+        relation["id"]: relation
         for relation in index["relations"]
-    )
+        if relation["layer"] == "COMPUTATIONAL_DEPENDENCY"
+    }
+
+    assert set(compiled) == set(expected)
+    assert len(compiled) == 17
+    for relation_id, relation in compiled.items():
+        item = expected[relation_id]
+        assert relation["source"] == item["source_semantic_id"]
+        assert relation["target"] == item["target_semantic_id"]
+        assert relation["formula"] == item["formula"]
+        assert relation["code_file"] == item["code_file"]
+        assert relation.get("registered_relation_id") == item.get("registered_relation_id")
+
+
+def test_semantic_compiler_counts_all_three_relation_layers():
+    index = build_semantic_index(MODEL)
+    counts = {}
+    for relation in index["relations"]:
+        counts[relation["layer"]] = counts.get(relation["layer"], 0) + 1
+    assert counts == {
+        "REGISTERED_EVIDENCE_RELATION": 10,
+        "COMPUTATIONAL_DEPENDENCY": 17,
+        "DOCUMENTATION_RELATION": 162,
+    }
+    assert len(index["relations"]) == 189
 
 
 def test_semantic_related_ids_all_resolve():

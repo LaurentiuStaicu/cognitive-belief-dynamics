@@ -8,7 +8,8 @@ from jsonschema import Draft202012Validator
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "model/computational_dependencies.json"
 SCHEMA = ROOT / "schemas/computational_dependencies.schema.json"
-LEGACY = ROOT / "web/src/dependencies.ts"
+WEB_GENERATED = ROOT / "web/src/generated/computational_dependencies.json"
+ADAPTER = ROOT / "web/src/dependencies.ts"
 VARIABLES = ROOT / "model/variables.json"
 LINKS = ROOT / "model/links.json"
 
@@ -66,30 +67,15 @@ def test_dependency_semantic_endpoints_and_registered_links_resolve():
             assert item["registered_relation_id"] in link_ids
 
 
-def test_legacy_typescript_metadata_is_semantically_preserved_during_transition():
-    """OA-1C contract is a staged relocation: legacy TS remains until consumer cutover.
+def test_web_generated_dependency_data_matches_canonical_byte_for_byte():
+    assert WEB_GENERATED.read_bytes() == DATA.read_bytes()
 
-    This test prevents the new canonical data from silently changing the 17 graph
-    edges before TypeScript becomes a generated-data consumer.
-    """
 
-    data = load(DATA)
-    legacy = LEGACY.read_text(encoding="utf-8")
-
-    for node in data["extra_nodes"]:
-        assert f"id:'{node['graph_id']}'" in legacy
-        assert f"ro:'{node['label']['ro']}'" in legacy
-        assert f"en:'{node['label']['en']}'" in legacy
-
-    for item in data["dependencies"]:
-        assert f"id:'{item['graph_id']}'" in legacy
-        assert f"source:'{item['source_graph_id']}'" in legacy
-        assert f"target:'{item['target_graph_id']}'" in legacy
-        assert f"formula:'{item['formula']}'" in legacy
-        assert f"file:'{item['code_file']}'" in legacy
-        if "registered_relation_id" in item:
-            assert f"registered:'{item['registered_relation_id']}'" in legacy
-
+def test_typescript_dependency_adapter_consumes_generated_canonical_data():
+    adapter = ADAPTER.read_text(encoding="utf-8")
+    assert "generated/computational_dependencies.json" in adapter
+    assert "F′ = F + αf(1 − F)" not in adapter
+    assert "LINK.EXPOSURE.FAMILIARITY" not in adapter
 
 def test_contract_keeps_computation_separate_from_evidence_registry():
     data = load(DATA)
