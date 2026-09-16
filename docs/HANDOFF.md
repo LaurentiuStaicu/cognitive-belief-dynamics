@@ -884,3 +884,39 @@ parameter estimates varied slightly at floating-point scale.
 
 No EVSD/2HT activation, Pencode, human-data authorization, active registry, UI,
 evidence snapshot or release-version change is permitted in Phase I.
+
+
+## Alpha 0.4.3a0 Phase J — prospective 200-replicate confirmation
+
+Phase J is stacked on the Phase I branch and must not execute confirmation until
+Phase I is merged.
+
+Frozen confirmation surface:
+
+- all 18 P64_X10 screening cells;
+- 11 boundary cells = every minimum-recovery tie for each alternative allocation
+  and generator;
+- 29 cells total;
+- 200 replicates per cell.
+
+Tie handling is `INCLUDE_ALL_TIES`; no arbitrary 2HT boundary cell is selected
+after screening.
+
+Formal primary gate:
+
+- each of the 18 P64 cells must have recovery >=0.80.
+
+Secondary precision audit:
+
+- Wilson 95% interval for every cell;
+- an all-P64 lower-bound>=0.80 flag is reported;
+- this sensitivity flag does not replace the preregistered point estimate.
+
+Parallel confirmation uses cell-specific deterministic seeds derived from
+SHA256(base_seed|cell_id|phase-j-v1).
+
+Confirmation tooling reports model recovery and parameter recovery separately.
+
+No confirmation execution, human-protocol design, recruitment, active EVSD/2HT,
+Pencode, UI, evidence-snapshot or release change is authorized before the Phase I
+merge gate.
