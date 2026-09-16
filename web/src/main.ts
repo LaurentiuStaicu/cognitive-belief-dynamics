@@ -10,6 +10,7 @@ import './decision-uncertainty-ui.css';
 import './action-canvas.css';
 import './indicator-objects.css';
 import './signposts-triggers.css';
+import './adaptive-plan-runtime.css';
 import {chartSeries} from './visual-language';
 import {mountSemanticSearch} from './search-ui';
 import {mountSemanticInspector} from './inspector-ui';
