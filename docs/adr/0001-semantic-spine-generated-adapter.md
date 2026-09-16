@@ -1,6 +1,6 @@
 # ADR-0001 — Semantic Spine as a generated adapter over existing registries
 
-Status: Proposed in R1  
+Status: Accepted — R1 merged in PR #35  
 Date: 2026-09-16
 
 ## Context
