@@ -2,6 +2,226 @@
   "baseline_contract": "OA0.BASELINE.2026-09-16",
   "entities": [
     {
+      "id": "COMP.INPUT.ACCURACY_CUE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Cue"
+          ]
+        },
+        "preferred": {
+          "en": "Accuracy cue",
+          "ro": "Indiciu de acuratețe"
+        }
+      },
+      "semantic_type": "COMPUTATIONAL_NODE",
+      "short_name": "Cue",
+      "source": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "Cue"
+      }
+    },
+    {
+      "id": "COMP.INPUT.BASELINE_ACCURACY",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Baseline"
+          ]
+        },
+        "preferred": {
+          "en": "Baseline accuracy",
+          "ro": "Acuratețe de bază"
+        }
+      },
+      "semantic_type": "COMPUTATIONAL_NODE",
+      "short_name": "Baseline",
+      "source": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "Baseline"
+      }
+    },
+    {
+      "id": "COMP.INPUT.CORRECTION_DIRECTION",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Direction"
+          ]
+        },
+        "preferred": {
+          "en": "Correction direction",
+          "ro": "Direcția corecției"
+        }
+      },
+      "semantic_type": "COMPUTATIONAL_NODE",
+      "short_name": "Direction",
+      "source": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "Direction"
+      }
+    },
+    {
+      "id": "COMP.INPUT.CORRECTION_EVENT",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Correction"
+          ]
+        },
+        "preferred": {
+          "en": "Corrective event",
+          "ro": "Eveniment corectiv"
+        }
+      },
+      "semantic_type": "COMPUTATIONAL_NODE",
+      "short_name": "Correction",
+      "source": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "Correction"
+      }
+    },
+    {
+      "id": "COMP.INPUT.ELAPSED_TIME",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Time"
+          ]
+        },
+        "preferred": {
+          "en": "Elapsed time",
+          "ro": "Timp scurs"
+        }
+      },
+      "semantic_type": "COMPUTATIONAL_NODE",
+      "short_name": "Time",
+      "source": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "Time"
+      }
+    },
+    {
+      "id": "COMP.INPUT.EVIDENCE_SIGNAL",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Evidence"
+          ]
+        },
+        "preferred": {
+          "en": "Evidence signal",
+          "ro": "Semnal de evidență"
+        }
+      },
+      "semantic_type": "COMPUTATIONAL_NODE",
+      "short_name": "Evidence",
+      "source": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "Evidence"
+      }
+    },
+    {
+      "id": "COMP.INPUT.PRIOR_BELIEF",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Prior"
+          ]
+        },
+        "preferred": {
+          "en": "Prior belief",
+          "ro": "Convingere inițială"
+        }
+      },
+      "semantic_type": "COMPUTATIONAL_NODE",
+      "short_name": "Prior",
+      "source": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "Prior"
+      }
+    },
+    {
+      "id": "COMP.INPUT.RANDOM_DRAW",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Random"
+          ]
+        },
+        "preferred": {
+          "en": "Random draw",
+          "ro": "Extragere aleatoare"
+        }
+      },
+      "semantic_type": "COMPUTATIONAL_NODE",
+      "short_name": "Random",
+      "source": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "Random"
+      }
+    },
+    {
+      "id": "COMP.INPUT.REWARD_CONTEXT",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Reward"
+          ]
+        },
+        "preferred": {
+          "en": "Reward and bias",
+          "ro": "Recompensă și bias"
+        }
+      },
+      "semantic_type": "COMPUTATIONAL_NODE",
+      "short_name": "Reward",
+      "source": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "Reward"
+      }
+    },
+    {
+      "id": "COMP.INPUT.SOURCE_FEEDBACK",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Feedback"
+          ]
+        },
+        "preferred": {
+          "en": "Source feedback",
+          "ro": "Feedback despre sursă"
+        }
+      },
+      "semantic_type": "COMPUTATIONAL_NODE",
+      "short_name": "Feedback",
+      "source": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "Feedback"
+      }
+    },
+    {
+      "id": "COMP.NODE.SHARE_PROBABILITY",
+      "labels": {
+        "alternative": {
+          "und": [
+            "P"
+          ]
+        },
+        "preferred": {
+          "en": "P(share)",
+          "ro": "P(distribuire)"
+        }
+      },
+      "semantic_type": "COMPUTATIONAL_NODE",
+      "short_name": "P",
+      "source": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "P"
+      }
+    },
+    {
       "id": "GLOSS.CONCEPT.ALGORITHM_STAGE",
       "labels": {
         "alternative": {
@@ -4449,10 +4669,218 @@
         "source_id": "THEORY.15.USING_CEM"
       },
       "target": "MOD.20"
+    },
+    {
+      "code_file": "model.py",
+      "formula": "u += W × (2B − 1)",
+      "id": "b-p",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "VAR.BELIEF.CLAIM",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "b-p"
+      },
+      "target": "COMP.NODE.SHARE_PROBABILITY"
+    },
+    {
+      "code_file": "model.py",
+      "formula": "W = logistic(logit(baseline) + shift)",
+      "id": "baseline-w",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "COMP.INPUT.BASELINE_ACCURACY",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "baseline-w"
+      },
+      "target": "VAR.ACCURACY.SALIENCE"
+    },
+    {
+      "code_file": "model.py",
+      "formula": "zB += βcorrection × C × direction",
+      "id": "c-b",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "VAR.CORRECTION.ACCESS",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "c-b"
+      },
+      "target": "VAR.BELIEF.CLAIM"
+    },
+    {
+      "code_file": "updates.py",
+      "formula": "C′ = C + αc(1 − C)",
+      "id": "correction-c",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "COMP.INPUT.CORRECTION_EVENT",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "correction-c"
+      },
+      "target": "VAR.CORRECTION.ACCESS"
+    },
+    {
+      "code_file": "model.py",
+      "formula": "W = logistic(logit(baseline) + βcue × cue)",
+      "id": "cue-w",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "COMP.INPUT.ACCURACY_CUE",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "cue-w"
+      },
+      "target": "VAR.ACCURACY.SALIENCE"
+    },
+    {
+      "code_file": "simulation.py",
+      "formula": "zB += βcorrection × C × direction",
+      "id": "direction-b",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "COMP.INPUT.CORRECTION_DIRECTION",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "direction-b"
+      },
+      "target": "VAR.BELIEF.CLAIM"
+    },
+    {
+      "code_file": "model.py",
+      "formula": "zB += βsource × evidence × (2T − 1)",
+      "id": "evidence-b",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "COMP.INPUT.EVIDENCE_SIGNAL",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "evidence-b"
+      },
+      "target": "VAR.BELIEF.CLAIM"
+    },
+    {
+      "code_file": "updates.py",
+      "formula": "F′ = F + αf(1 − F)",
+      "id": "exposure-f",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "registered_relation_id": "LINK.EXPOSURE.FAMILIARITY",
+      "source": "VAR.EXPOSURE.COUNT",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "exposure-f"
+      },
+      "target": "VAR.FAMILIARITY.CLAIM"
+    },
+    {
+      "code_file": "model.py",
+      "formula": "zB += βf × F",
+      "id": "f-b",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "registered_relation_id": "LINK.FAMILIARITY.BELIEF",
+      "source": "VAR.FAMILIARITY.CLAIM",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "f-b"
+      },
+      "target": "VAR.BELIEF.CLAIM"
+    },
+    {
+      "code_file": "updates.py",
+      "formula": "T′ = T + αt(outcome − T)",
+      "id": "feedback-t",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "COMP.INPUT.SOURCE_FEEDBACK",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "feedback-t"
+      },
+      "target": "VAR.RELIABILITY.ESTIMATE"
+    },
+    {
+      "code_file": "simulation.py",
+      "formula": "Share = [random() < P]; P = logistic(u)",
+      "id": "p-share",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "COMP.NODE.SHARE_PROBABILITY",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "p-share"
+      },
+      "target": "VAR.ACTION.SHARE"
+    },
+    {
+      "code_file": "model.py",
+      "formula": "zB += logit(prior)",
+      "id": "prior-b",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "COMP.INPUT.PRIOR_BELIEF",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "prior-b"
+      },
+      "target": "VAR.BELIEF.CLAIM"
+    },
+    {
+      "code_file": "simulation.py",
+      "formula": "r ∼ Uniform(0,1); Share = [r < P]",
+      "id": "random-share",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "COMP.INPUT.RANDOM_DRAW",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "random-share"
+      },
+      "target": "VAR.ACTION.SHARE"
+    },
+    {
+      "code_file": "model.py",
+      "formula": "u += bias + βreward × (1 − W) × reward",
+      "id": "reward-p",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "COMP.INPUT.REWARD_CONTEXT",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "reward-p"
+      },
+      "target": "COMP.NODE.SHARE_PROBABILITY"
+    },
+    {
+      "code_file": "model.py",
+      "formula": "zB += βsource × evidence × (2T − 1)",
+      "id": "t-b",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "VAR.RELIABILITY.ESTIMATE",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "t-b"
+      },
+      "target": "VAR.BELIEF.CLAIM"
+    },
+    {
+      "code_file": "updates.py",
+      "formula": "C′ = C × exp(−λc Δt)",
+      "id": "time-c",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "COMP.INPUT.ELAPSED_TIME",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "time-c"
+      },
+      "target": "VAR.CORRECTION.ACCESS"
+    },
+    {
+      "code_file": "model.py",
+      "formula": "u = bias + W(2B − 1) + βreward(1 − W)reward",
+      "id": "w-p",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "registered_relation_id": "LINK.ACCURACY.ACTION",
+      "source": "VAR.ACCURACY.SALIENCE",
+      "source_record": {
+        "path": "model/computational_dependencies.json",
+        "source_id": "w-p"
+      },
+      "target": "COMP.NODE.SHARE_PROBABILITY"
     }
   ],
   "schema_version": "1",
   "source_paths": [
+    "model/computational_dependencies.json",
     "model/contracts/oa0_optimization_baseline.json",
     "model/empirical_targets.json",
     "model/links.json",
