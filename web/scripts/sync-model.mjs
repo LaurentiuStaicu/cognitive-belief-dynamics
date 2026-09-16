@@ -9,10 +9,12 @@ for (const name of ['variables','links','modules','validation_tests','references
 
 const generated=new URL('../src/generated/',import.meta.url);
 mkdirSync(generated,{recursive:true});
-copyFileSync(
- fileURLToPath(new URL('model/computational_dependencies.json',root)),
- fileURLToPath(new URL('computational_dependencies.json',generated))
-);
+for(const name of ['computational_dependencies','semantic_index']){
+ copyFileSync(
+  fileURLToPath(new URL(`model/${name}.json`,root)),
+  fileURLToPath(new URL(`${name}.json`,generated))
+ );
+}
 
 const licenses=new URL('../public/licenses/',import.meta.url);
 mkdirSync(licenses,{recursive:true});
