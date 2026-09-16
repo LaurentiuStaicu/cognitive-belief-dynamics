@@ -1,0 +1,326 @@
+{
+  "schema_version": "1",
+  "model_scope": "M0",
+  "purpose": "COMPUTATIONAL_EXPLANATION_ONLY",
+  "boundary": "Equation/data-flow dependencies used for explanation. They are not empirical causal claims and do not replace model/links.json.",
+  "extra_nodes": [
+    {
+      "graph_id": "P",
+      "semantic_id": "COMP.NODE.SHARE_PROBABILITY",
+      "kind": "output",
+      "label": {"ro": "P(distribuire)", "en": "P(share)"}
+    },
+    {
+      "graph_id": "Prior",
+      "semantic_id": "COMP.NODE.PRIOR_BELIEF_INPUT",
+      "kind": "input",
+      "label": {"ro": "Convingere inițială", "en": "Prior belief"}
+    },
+    {
+      "graph_id": "Evidence",
+      "semantic_id": "COMP.NODE.EVIDENCE_SIGNAL_INPUT",
+      "kind": "input",
+      "label": {"ro": "Semnal de evidență", "en": "Evidence signal"}
+    },
+    {
+      "graph_id": "Direction",
+      "semantic_id": "COMP.NODE.CORRECTION_DIRECTION_INPUT",
+      "kind": "input",
+      "label": {"ro": "Direcția corecției", "en": "Correction direction"}
+    },
+    {
+      "graph_id": "Cue",
+      "semantic_id": "COMP.NODE.ACCURACY_CUE_INPUT",
+      "kind": "input",
+      "label": {"ro": "Indiciu de acuratețe", "en": "Accuracy cue"}
+    },
+    {
+      "graph_id": "Baseline",
+      "semantic_id": "COMP.NODE.BASELINE_ACCURACY_INPUT",
+      "kind": "input",
+      "label": {"ro": "Acuratețe de bază", "en": "Baseline accuracy"}
+    },
+    {
+      "graph_id": "Reward",
+      "semantic_id": "COMP.NODE.REWARD_BIAS_INPUT",
+      "kind": "input",
+      "label": {"ro": "Recompensă și bias", "en": "Reward and bias"}
+    },
+    {
+      "graph_id": "Feedback",
+      "semantic_id": "COMP.NODE.SOURCE_FEEDBACK_INPUT",
+      "kind": "input",
+      "label": {"ro": "Feedback despre sursă", "en": "Source feedback"}
+    },
+    {
+      "graph_id": "Correction",
+      "semantic_id": "COMP.NODE.CORRECTION_EVENT_INPUT",
+      "kind": "input",
+      "label": {"ro": "Eveniment corectiv", "en": "Corrective event"}
+    },
+    {
+      "graph_id": "Time",
+      "semantic_id": "COMP.NODE.ELAPSED_TIME_INPUT",
+      "kind": "input",
+      "label": {"ro": "Timp scurs", "en": "Elapsed time"}
+    },
+    {
+      "graph_id": "Random",
+      "semantic_id": "COMP.NODE.RANDOM_DRAW_INPUT",
+      "kind": "input",
+      "label": {"ro": "Extragere aleatoare", "en": "Random draw"}
+    }
+  ],
+  "variable_graph_map": {
+    "Nexp": "VAR.EXPOSURE.COUNT",
+    "F": "VAR.FAMILIARITY.CLAIM",
+    "C": "VAR.CORRECTION.ACCESS",
+    "T": "VAR.RELIABILITY.ESTIMATE",
+    "B": "VAR.BELIEF.CLAIM",
+    "W": "VAR.ACCURACY.SALIENCE",
+    "Share": "VAR.ACTION.SHARE"
+  },
+  "dependencies": [
+    {
+      "id": "COMPDEP.EXPOSURE.FAMILIARITY",
+      "graph_id": "exposure-f",
+      "source_graph_id": "Nexp",
+      "target_graph_id": "F",
+      "source_semantic_id": "VAR.EXPOSURE.COUNT",
+      "target_semantic_id": "VAR.FAMILIARITY.CLAIM",
+      "description": {
+        "ro": "Expunerile actualizează familiaritatea cu incremente descrescătoare. Nexp este numărătoarea conceptuală a evenimentelor; Simulator procesează evenimentele, fără să utilizeze un contor Nexp în ecuație.",
+        "en": "Exposures update familiarity with decreasing increments. Nexp is the conceptual event count; Simulator processes events without using an Nexp counter in the equation."
+      },
+      "formula": "F′ = F + αf(1 − F)",
+      "code_file": "updates.py",
+      "registered_relation_id": "LINK.EXPOSURE.FAMILIARITY"
+    },
+    {
+      "id": "COMPDEP.FAMILIARITY.BELIEF",
+      "graph_id": "f-b",
+      "source_graph_id": "F",
+      "target_graph_id": "B",
+      "source_semantic_id": "VAR.FAMILIARITY.CLAIM",
+      "target_semantic_id": "VAR.BELIEF.CLAIM",
+      "description": {
+        "ro": "Familiaritatea contribuie la scorul latent al convingerii. Cu beta_f pozitiv, familiaritatea mai mare crește B dacă celelalte intrări rămân fixe.",
+        "en": "Familiarity contributes to latent belief. With positive beta_f, greater familiarity raises B with other inputs fixed."
+      },
+      "formula": "zB += βf × F",
+      "code_file": "model.py",
+      "registered_relation_id": "LINK.FAMILIARITY.BELIEF"
+    },
+    {
+      "id": "COMPDEP.CORRECTION_ACCESS.BELIEF",
+      "graph_id": "c-b",
+      "source_graph_id": "C",
+      "target_graph_id": "B",
+      "source_semantic_id": "VAR.CORRECTION.ACCESS",
+      "target_semantic_id": "VAR.BELIEF.CLAIM",
+      "description": {
+        "ro": "Accesibilitatea multiplică direcția corecției. Efectul poate fi negativ, nul sau pozitiv. Familiaritatea rămâne o contribuție separată.",
+        "en": "Accessibility multiplies correction direction. The effect can be negative, zero or positive. Familiarity remains a separate contribution."
+      },
+      "formula": "zB += βcorrection × C × direction",
+      "code_file": "model.py"
+    },
+    {
+      "id": "COMPDEP.RELIABILITY.BELIEF",
+      "graph_id": "t-b",
+      "source_graph_id": "T",
+      "target_graph_id": "B",
+      "source_semantic_id": "VAR.RELIABILITY.ESTIMATE",
+      "target_semantic_id": "VAR.BELIEF.CLAIM",
+      "description": {
+        "ro": "T ponderează semnalul de evidență. La T = 0,5 contribuția este nulă; sub 0,5 semnul evidenței este inversat. Aceasta este o alegere a modelului, nu o regulă psihologică stabilită.",
+        "en": "T weights evidence. At T = 0.5 its contribution is zero; below 0.5 the evidence sign is reversed. This is a model choice, not an established psychological rule."
+      },
+      "formula": "zB += βsource × evidence × (2T − 1)",
+      "code_file": "model.py"
+    },
+    {
+      "id": "COMPDEP.BELIEF.SHARE_PROBABILITY",
+      "graph_id": "b-p",
+      "source_graph_id": "B",
+      "target_graph_id": "P",
+      "source_semantic_id": "VAR.BELIEF.CLAIM",
+      "target_semantic_id": "COMP.NODE.SHARE_PROBABILITY",
+      "description": {
+        "ro": "Convingerea intră în decizie printr-un termen ponderat cu W. Efectul depinde de W; judecata și acțiunea nu sunt aceeași mărime.",
+        "en": "Belief enters the decision through a W-weighted term. Its effect depends on W; judgment and action are not the same quantity."
+      },
+      "formula": "u += W × (2B − 1)",
+      "code_file": "model.py"
+    },
+    {
+      "id": "COMPDEP.ACCURACY_SALIENCE.SHARE_PROBABILITY",
+      "graph_id": "w-p",
+      "source_graph_id": "W",
+      "target_graph_id": "P",
+      "source_semantic_id": "VAR.ACCURACY.SALIENCE",
+      "target_semantic_id": "COMP.NODE.SHARE_PROBABILITY",
+      "description": {
+        "ro": "W schimbă simultan ponderea convingerii și a recompensei. Creșterea sa nu reduce universal distribuirea. Relația W → Share din registru este descompusă aici prin probabilitatea intermediară P.",
+        "en": "W changes both belief and reward weighting. Increasing W does not universally reduce sharing. The registered W → Share relation is decomposed here through intermediate probability P."
+      },
+      "formula": "u = bias + W(2B − 1) + βreward(1 − W)reward",
+      "code_file": "model.py",
+      "registered_relation_id": "LINK.ACCURACY.ACTION"
+    },
+    {
+      "id": "COMPDEP.SHARE_PROBABILITY.SHARE",
+      "graph_id": "p-share",
+      "source_graph_id": "P",
+      "target_graph_id": "Share",
+      "source_semantic_id": "COMP.NODE.SHARE_PROBABILITY",
+      "target_semantic_id": "VAR.ACTION.SHARE",
+      "description": {
+        "ro": "O extragere uniformă este comparată cu P. Acțiunea poate varia chiar dacă P este identică. Nu există în M0 o buclă automată Share → expuneri viitoare.",
+        "en": "A uniform draw is compared with P. Actions can differ at identical P. M0 has no automatic Share → future exposure feedback loop."
+      },
+      "formula": "Share = [random() < P]; P = logistic(u)",
+      "code_file": "simulation.py"
+    },
+    {
+      "id": "COMPDEP.PRIOR.BELIEF",
+      "graph_id": "prior-b",
+      "source_graph_id": "Prior",
+      "target_graph_id": "B",
+      "source_semantic_id": "COMP.NODE.PRIOR_BELIEF_INPUT",
+      "target_semantic_id": "VAR.BELIEF.CLAIM",
+      "description": {
+        "ro": "Convingerea inițială intră prin logit. În M0, B calculat la pasul anterior nu înlocuiește automat această valoare inițială.",
+        "en": "Prior belief enters through its logit. In M0, previously calculated B does not automatically replace the prior."
+      },
+      "formula": "zB += logit(prior)",
+      "code_file": "model.py"
+    },
+    {
+      "id": "COMPDEP.EVIDENCE.BELIEF",
+      "graph_id": "evidence-b",
+      "source_graph_id": "Evidence",
+      "target_graph_id": "B",
+      "source_semantic_id": "COMP.NODE.EVIDENCE_SIGNAL_INPUT",
+      "target_semantic_id": "VAR.BELIEF.CLAIM",
+      "description": {
+        "ro": "Semnalul este o intrare a evenimentului de decizie, în intervalul −1…1. Adevărul din lumea simulată nu este transmis direct funcției de convingere.",
+        "en": "The signal is an input of the decision event, ranging from −1 to 1. Simulated truth is not passed directly into belief computation."
+      },
+      "formula": "zB += βsource × evidence × (2T − 1)",
+      "code_file": "model.py"
+    },
+    {
+      "id": "COMPDEP.CORRECTION_DIRECTION.BELIEF",
+      "graph_id": "direction-b",
+      "source_graph_id": "Direction",
+      "target_graph_id": "B",
+      "source_semantic_id": "COMP.NODE.CORRECTION_DIRECTION_INPUT",
+      "target_semantic_id": "VAR.BELIEF.CLAIM",
+      "description": {
+        "ro": "Ultimul eveniment corectiv fixează direcția în intervalul −1…1. Fără un astfel de eveniment, direcția implicită este zero.",
+        "en": "The latest corrective event sets direction in −1…1. Without such an event the default direction is zero."
+      },
+      "formula": "zB += βcorrection × C × direction",
+      "code_file": "simulation.py"
+    },
+    {
+      "id": "COMPDEP.ACCURACY_CUE.ACCURACY_SALIENCE",
+      "graph_id": "cue-w",
+      "source_graph_id": "Cue",
+      "target_graph_id": "W",
+      "source_semantic_id": "COMP.NODE.ACCURACY_CUE_INPUT",
+      "target_semantic_id": "VAR.ACCURACY.SALIENCE",
+      "description": {
+        "ro": "Indiciul adaugă un deplasament logistic față de nivelul de bază. Nu modifică direct B.",
+        "en": "The cue adds a logistic shift from baseline. It does not directly modify B."
+      },
+      "formula": "W = logistic(logit(baseline) + βcue × cue)",
+      "code_file": "model.py"
+    },
+    {
+      "id": "COMPDEP.BASELINE.ACCURACY_SALIENCE",
+      "graph_id": "baseline-w",
+      "source_graph_id": "Baseline",
+      "target_graph_id": "W",
+      "source_semantic_id": "COMP.NODE.BASELINE_ACCURACY_INPUT",
+      "target_semantic_id": "VAR.ACCURACY.SALIENCE",
+      "description": {
+        "ro": "Nivelul de bază este o proprietate a agentului, distinctă de indiciul contextual. Nu reprezintă o măsură generală a raționalității.",
+        "en": "Baseline is an agent property, distinct from the contextual cue. It is not a general measure of rationality."
+      },
+      "formula": "W = logistic(logit(baseline) + shift)",
+      "code_file": "model.py"
+    },
+    {
+      "id": "COMPDEP.REWARD.SHARE_PROBABILITY",
+      "graph_id": "reward-p",
+      "source_graph_id": "Reward",
+      "target_graph_id": "P",
+      "source_semantic_id": "COMP.NODE.REWARD_BIAS_INPUT",
+      "target_semantic_id": "COMP.NODE.SHARE_PROBABILITY",
+      "description": {
+        "ro": "Recompensa contextuală este ponderată cu 1 − W. Biasul de distribuire este un termen separat, constant pentru agentul respectiv.",
+        "en": "Contextual reward is weighted by 1 − W. Sharing bias is a separate term, constant for the agent."
+      },
+      "formula": "u += bias + βreward × (1 − W) × reward",
+      "code_file": "model.py"
+    },
+    {
+      "id": "COMPDEP.SOURCE_FEEDBACK.RELIABILITY",
+      "graph_id": "feedback-t",
+      "source_graph_id": "Feedback",
+      "target_graph_id": "T",
+      "source_semantic_id": "COMP.NODE.SOURCE_FEEDBACK_INPUT",
+      "target_semantic_id": "VAR.RELIABILITY.ESTIMATE",
+      "description": {
+        "ro": "O confirmare apropie T de 1; o infirmare îl apropie de 0. Viteza ajustării este alpha_t.",
+        "en": "Confirmation moves T towards 1; disconfirmation moves it towards 0. Adjustment speed is alpha_t."
+      },
+      "formula": "T′ = T + αt(outcome − T)",
+      "code_file": "updates.py"
+    },
+    {
+      "id": "COMPDEP.CORRECTION_EVENT.CORRECTION_ACCESS",
+      "graph_id": "correction-c",
+      "source_graph_id": "Correction",
+      "target_graph_id": "C",
+      "source_semantic_id": "COMP.NODE.CORRECTION_EVENT_INPUT",
+      "target_semantic_id": "VAR.CORRECTION.ACCESS",
+      "description": {
+        "ro": "Evenimentul crește accesibilitatea după aplicarea diminuării de la ultimul moment relevant. Direcția este memorată separat.",
+        "en": "The event increases accessibility after decay since the last relevant time. Direction is stored separately."
+      },
+      "formula": "C′ = C + αc(1 − C)",
+      "code_file": "updates.py"
+    },
+    {
+      "id": "COMPDEP.TIME.CORRECTION_ACCESS",
+      "graph_id": "time-c",
+      "source_graph_id": "Time",
+      "target_graph_id": "C",
+      "source_semantic_id": "COMP.NODE.ELAPSED_TIME_INPUT",
+      "target_semantic_id": "VAR.CORRECTION.ACCESS",
+      "description": {
+        "ro": "Accesibilitatea scade exponențial cu timpul scurs. În M0, familiaritatea și estimarea sursei nu au o diminuare temporală similară.",
+        "en": "Accessibility decays exponentially with elapsed time. M0 has no equivalent time decay for familiarity or source estimates."
+      },
+      "formula": "C′ = C × exp(−λc Δt)",
+      "code_file": "updates.py"
+    },
+    {
+      "id": "COMPDEP.RANDOM.SHARE",
+      "graph_id": "random-share",
+      "source_graph_id": "Random",
+      "target_graph_id": "Share",
+      "source_semantic_id": "COMP.NODE.RANDOM_DRAW_INPUT",
+      "target_semantic_id": "VAR.ACTION.SHARE",
+      "description": {
+        "ro": "Seed-ul controlează reproductibilitatea extragerilor. Aleatorul afectează acțiunea Share, nu convingerea B sau probabilitatea P.",
+        "en": "The seed controls reproducibility of draws. Randomness affects Share, not belief B or probability P."
+      },
+      "formula": "r ∼ Uniform(0,1); Share = [r < P]",
+      "code_file": "simulation.py"
+    }
+  ]
+}
