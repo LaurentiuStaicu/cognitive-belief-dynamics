@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run test:workspace && npm run test:ia && npm run test:visual && npm run test:oa4 && npm run test:oa5a && npm run test:oa5c && npm run test:oa5d && npm run test:oa6b && npm run test:oa6c && tsc --noEmit && vite build --base=./",
+    "build": "npm run test:workspace && npm run test:ia && npm run test:visual && npm run test:oa4 && npm run test:oa5a && npm run test:oa5c && npm run test:oa5d && npm run test:oa6b && npm run test:oa6c && npm run test:oa6d && tsc --noEmit && vite build --base=./",
     "prebuild": "node scripts/sync-model.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "test:browser": "node scripts/smoke.mjs",
@@ -18,7 +18,8 @@
     "test:oa5c": "node --test tests/challenge-model.test.ts",
     "test:oa5d": "node --test tests/active-understanding-links.test.ts",
     "test:oa6b": "node --test tests/decision-robustness.test.ts",
-    "test:oa6c": "node --test tests/decision-uncertainty-ui.test.ts"
+    "test:oa6c": "node --test tests/decision-uncertainty-ui.test.ts",
+    "test:oa6d": "node --test tests/information-priority.test.ts tests/adaptive-reassessment.test.ts"
   },
   "dependencies": {
     "cytoscape": "^3.31.0",
