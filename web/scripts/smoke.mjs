@@ -408,9 +408,11 @@ try {
  assert.match(await page.locator('.vodd-extension').textContent(),/MOD\.14/);
  await openView('runs');await page.locator('#language').click();await page.locator('#timeline').fill('8');
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'desktop.png'),fullPage:true});}
- await page.setViewportSize({width:390,height:844});
+ await page.setViewportSize({width:600,height:844});
  assert.equal(await page.locator('.nav-groups').evaluate(el=>getComputedStyle(el).display),'grid');
  assert.equal((await page.locator('.nav-groups').evaluate(el=>getComputedStyle(el).gridTemplateColumns)).split(' ').length,2);
+ await page.setViewportSize({width:390,height:844});
+ assert.equal((await page.locator('.nav-groups').evaluate(el=>getComputedStyle(el).gridTemplateColumns)).split(' ').length,1);
  await page.evaluate(()=>{location.hash='#understanding/theory/repetition-familiarity-truth';});
  await waitTheory();
  assert.equal(await page.locator('#theoryChapterSelect').isVisible(),true);
