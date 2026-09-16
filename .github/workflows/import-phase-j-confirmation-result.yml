@@ -1,0 +1,65 @@
+name: Import Phase J authoritative confirmation result
+
+on:
+  push:
+    branches:
+      - alpha-0.4.3a0-phase-k-confirmation-results
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  import-result:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+
+      - name: Verify import branch starts from hardened Phase J main
+        run: |
+          git diff --exit-code 76aca60beb49a4e2ce5d96abaa564a67282ba811 HEAD -- . ':(exclude).github/workflows/import-phase-j-confirmation-result.yml'
+
+      - name: Download authoritative artifact from run 35081097627
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: participant-confirmation-authoritative
+          path: imported
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: LaurentiuStaicu/cognitive-epistemic-model
+          run-id: 35081097627
+
+      - name: Audit artifact and stage persistent files
+        run: |
+          set -euo pipefail
+          test "$(sha256sum imported/authoritative_result.json | cut -d' ' -f1)" = "88c16c2143e7131a4ec8915dbb726ece7e859a797162df173b89743837335f89"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path("imported/authoritative_result.json").read_text())
+          provenance = json.loads(Path("imported/PROVENANCE.json").read_text())
+          assert result["benchmark_id"] == "BENCH.M1.E4.PARTICIPANT_CONFIRMATION.2026-09-16"
+          assert result["selected_cells_total"] == 29
+          assert result["replicates_per_cell"] == 200
+          assert result["primary_cells"] == 18
+          assert result["boundary_cells"] == 11
+          assert provenance["github_run_id"] == "35081097627"
+          assert provenance["source_phase_j_main_sha"] == "76aca60beb49a4e2ce5d96abaa564a67282ba811"
+          assert provenance["workflow_source_sha"] == "faa8b4223960bb60dfa10654a7107d4158021f7f"
+          PY
+
+          mkdir -p model/benchmarks/results
+          cp imported/authoritative_result.json             model/benchmarks/results/m1_e4_participant_confirmation_authoritative_2026-09-16.json
+          cp imported/PROVENANCE.json             model/benchmarks/results/m1_e4_participant_confirmation_authoritative_2026-09-16.provenance.json
+          cp imported/SHARD_RESULT_SHA256SUMS             model/benchmarks/results/m1_e4_participant_confirmation_authoritative_2026-09-16.shards.sha256
+          printf '%s  %s\n'             "88c16c2143e7131a4ec8915dbb726ece7e859a797162df173b89743837335f89"             "model/benchmarks/results/m1_e4_participant_confirmation_authoritative_2026-09-16.json"             > model/benchmarks/results/m1_e4_participant_confirmation_authoritative_2026-09-16.sha256
+
+      - name: Commit persistent result and remove one-shot workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add model/benchmarks/results/
+          git rm .github/workflows/import-phase-j-confirmation-result.yml
+          git commit -m "Persist authoritative Phase J confirmation result [skip actions]"
+          git push origin HEAD:alpha-0.4.3a0-phase-k-confirmation-results
