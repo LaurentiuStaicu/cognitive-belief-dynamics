@@ -83,7 +83,13 @@ try {
  assert.equal(await page.locator('[data-understanding-mode]').count(),3);
  assert.equal(await page.locator('[data-understanding-mode="theory"]').getAttribute('aria-pressed'),'true');
  assert.equal(await page.locator('[data-theory-chapter]').count(),16);
- assert.equal(await page.locator('#theoryArticle p').first().evaluate(el=>getComputedStyle(el).maxWidth),'72ch');
+ const theoryMeasure=await page.locator('#theoryArticle p').first().evaluate(el=>({
+  maxWidth:getComputedStyle(el).maxWidth,
+  width:el.getBoundingClientRect().width
+ }));
+ assert.notEqual(theoryMeasure.maxWidth,'none');
+ assert(Number.parseFloat(theoryMeasure.maxWidth)<=800,'Theory reader max-width must remain constrained');
+ assert(theoryMeasure.width<=800,'Theory prose must not expand beyond the reader measure');
  assert((await page.locator('.theory-statuses [data-status]').count())>0);
  assert.notEqual(await page.locator('.theory-statuses [data-status]').first().evaluate(el=>getComputedStyle(el,'::before').content),'none');
  assert.match(await page.locator('#theoryArticle').textContent(),/Ce este Cognitive Epistemic Model/);
