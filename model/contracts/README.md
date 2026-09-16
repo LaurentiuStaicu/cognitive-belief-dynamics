@@ -149,3 +149,13 @@ Alpha 0.4.3a0 Phase J adds a prospective confirmation contract:
   flag;
 - cell-specific SHA-256-derived RNG permits deterministic parallel execution;
 - confirmation cannot execute before Phase I is merged.
+
+
+## Optimization-track product contracts
+
+OA product contracts and deterministic fixtures may also live in this directory, but they are **not scientific-model promotion contracts**.
+
+- `workspace_fixture_v1.json` and `semantic_index_fixture_v1.json` are OA regression fixtures.
+- `active_understanding_v1.json` is the OA-5A learning-interaction contract. It references existing canonical model/semantic artifacts, adds no equation or evidence status, and does not promote a cognitive mechanism.
+
+Their schemas/tests are product-integrity gates and must preserve the scientific boundaries defined by the optimization architecture.
