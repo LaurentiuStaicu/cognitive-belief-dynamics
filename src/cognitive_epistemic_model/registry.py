@@ -39,6 +39,9 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     processes = load_json(model_dir / "processes.json")
     evidence_snapshot = load_json(model_dir / "evidence_snapshot.json")
     empirical_targets = load_json(model_dir / "empirical_targets.json")
+    computational_dependencies = load_json(
+        model_dir / "computational_dependencies.json"
+    )
     theory_index = load_json(model_dir / "theory_index.json")
     theory_glossary = load_json(model_dir / "theory_glossary.json")
 
@@ -49,6 +52,20 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     validate_items(subsystems, load_json(schema_dir / "subsystem.schema.json"))
     validate_items(processes, load_json(schema_dir / "process.schema.json"))
     validate_items(empirical_targets, load_json(schema_dir / "empirical_target.schema.json"))
+    computational_validator = Draft202012Validator(
+        load_json(schema_dir / "computational_dependencies.schema.json")
+    )
+    computational_errors = sorted(
+        computational_validator.iter_errors(computational_dependencies),
+        key=lambda err: list(err.path),
+    )
+    if computational_errors:
+        raise RegistryError(
+            "\n".join(
+                f"computational dependencies: {err.message}"
+                for err in computational_errors
+            )
+        )
     validate_items(theory_index, load_json(schema_dir / "theory_index.schema.json"))
     validate_items(theory_glossary, load_json(schema_dir / "theory_glossary.schema.json"))
     snapshot_validator = Draft202012Validator(load_json(schema_dir / "evidence_snapshot.schema.json"))
@@ -76,6 +93,66 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
             unresolved.append((link["id"], "target", link["target"]))
     if unresolved:
         raise RegistryError(f"unresolved variable references: {unresolved}")
+
+    computational_nodes = computational_dependencies["nodes"]
+    computational_edges = computational_dependencies["dependencies"]
+    duplicate_node_ids = sorted(
+        key
+        for key, count in Counter(node["id"] for node in computational_nodes).items()
+        if count > 1
+    )
+    duplicate_node_semantic_ids = sorted(
+        key
+        for key, count in Counter(
+            node["semantic_id"] for node in computational_nodes
+        ).items()
+        if count > 1
+    )
+    duplicate_dependency_ids = sorted(
+        key
+        for key, count in Counter(
+            edge["id"] for edge in computational_edges
+        ).items()
+        if count > 1
+    )
+    if duplicate_node_ids:
+        raise RegistryError(
+            f"duplicate computational node IDs: {duplicate_node_ids}"
+        )
+    if duplicate_node_semantic_ids:
+        raise RegistryError(
+            "duplicate computational node semantic IDs: "
+            f"{duplicate_node_semantic_ids}"
+        )
+    if duplicate_dependency_ids:
+        raise RegistryError(
+            f"duplicate computational dependency IDs: {duplicate_dependency_ids}"
+        )
+
+    graph_ids = {item["short_name"] for item in variables} | {
+        item["id"] for item in computational_nodes
+    }
+    semantic_endpoint_ids = variable_ids | {
+        item["semantic_id"] for item in computational_nodes
+    }
+    link_ids = {item["id"] for item in links}
+    for edge in computational_edges:
+        if edge["source"] not in graph_ids or edge["target"] not in graph_ids:
+            raise RegistryError(
+                f"{edge['id']}: unresolved computational graph endpoint"
+            )
+        if (
+            edge["source_semantic_id"] not in semantic_endpoint_ids
+            or edge["target_semantic_id"] not in semantic_endpoint_ids
+        ):
+            raise RegistryError(
+                f"{edge['id']}: unresolved computational semantic endpoint"
+            )
+        registered = edge.get("registered_relation_id")
+        if registered is not None and registered not in link_ids:
+            raise RegistryError(
+                f"{edge['id']}: unresolved registered relation {registered}"
+            )
 
     reference_ids = {ref["id"] for ref in references}
     validation_ids = {item["id"] for item in load_json(model_dir / "validation_tests.json")}
@@ -135,6 +212,8 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
         "subsystems": len(subsystems),
         "processes": len(processes),
         "empirical_targets": len(empirical_targets),
+        "computational_nodes": len(computational_nodes),
+        "computational_dependencies": len(computational_edges),
         "semantic_entities": len(semantic_index["entities"]),
         "semantic_relations": len(semantic_index["relations"]),
         **theory_counts,
