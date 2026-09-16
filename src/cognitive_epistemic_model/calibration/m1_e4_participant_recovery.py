@@ -6,7 +6,7 @@ from typing import Iterable
 
 import numpy as np
 from scipy.optimize import minimize
-from scipy.special import expit, gammaln, logsumexp, xlog1py, xlogy
+from scipy.special import expit, gammaln, logsumexp, ndtr, xlog1py, xlogy
 
 from cognitive_epistemic_model.calibration.m1_e4_candidate_recovery import (
     RecoveryFamily,
@@ -131,21 +131,8 @@ def simulate_participant_dataset(
         if family is RecoveryFamily.EVSD:
             memory_p = memory * np.exp(participant_memory[p])
             bias_p = biases + participant_bias[p]
-            hit_prob = np.empty((2, biases.size), dtype=float)
-            fa_prob = np.empty_like(hit_prob)
-            for j in range(2):
-                hit_prob[j] = 0.5 * (
-                    1.0
-                    + np.vectorize(np.math.erf)(
-                        (memory_p[j] / 2.0 - bias_p) / sqrt(2.0)
-                    )
-                )
-                fa_prob[j] = 0.5 * (
-                    1.0
-                    + np.vectorize(np.math.erf)(
-                        (-memory_p[j] / 2.0 - bias_p) / sqrt(2.0)
-                    )
-                )
+            hit_prob = ndtr(memory_p[:, None] / 2.0 - bias_p[None, :])
+            fa_prob = ndtr(-memory_p[:, None] / 2.0 - bias_p[None, :])
         else:
             memory_p = expit(
                 np.asarray([_logit(x) for x in memory]) + participant_memory[p]
@@ -224,15 +211,11 @@ def _marginal_log_likelihood(
             for h, v in enumerate(bias_offsets):
                 if family is RecoveryFamily.EVSD:
                     bias_p = population_biases + v
-                    z_hit = memory_p[:, None] / 2.0 - bias_p[None, :]
-                    z_fa = -memory_p[:, None] / 2.0 - bias_p[None, :]
-                    hit_prob = 0.5 * (
-                        1.0
-                        + np.vectorize(np.math.erf)(z_hit / sqrt(2.0))
+                    hit_prob = ndtr(
+                        memory_p[:, None] / 2.0 - bias_p[None, :]
                     )
-                    fa_prob = 0.5 * (
-                        1.0
-                        + np.vectorize(np.math.erf)(z_fa / sqrt(2.0))
+                    fa_prob = ndtr(
+                        -memory_p[:, None] / 2.0 - bias_p[None, :]
                     )
                 else:
                     bias_p = expit(
