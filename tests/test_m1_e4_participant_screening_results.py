@@ -57,7 +57,7 @@ def test_authoritative_participant_screening_has_complete_frozen_grid():
             + float(row["wrong_probability"])
             + float(row["inconclusive_probability"])
         ) == 1.0
-        assert row["passes_0_80"] == "True"
+        assert row["passes_0_80"].strip().lower() == "true"
 
 
 def test_screening_decision_surface_matches_phase_i_audit():
