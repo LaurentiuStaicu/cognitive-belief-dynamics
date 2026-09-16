@@ -79,3 +79,24 @@ Alpha 0.4.3a0 Phase C adds a third pre-executable contract:
   `Ddet`.
 - no active model, registry, runtime, UI, evidence snapshot or release metadata
   is promoted in Phase C.
+
+
+Alpha 0.4.3a0 Phase D adds the preregistration-ready model-discrimination protocol:
+
+- `m1_e4_discrimination_protocol.json` defines the minimum dataset and decision
+  rules required before EVSD versus 2HT selection is permitted.
+- the primary route is an experimentally manipulated binary-bias ROC with at
+  least three nondegenerate operating points per Hsimp condition; five or more
+  are preferred.
+- a six-point confidence ROC is supplemental and may not serve as the sole
+  decisive evidence.
+- prospective candidate-recovery simulation is mandatory; CEM uses >=0.80
+  recovery across the preregistered core grid as a design convention, not a
+  universal literature threshold.
+- future fitting must use raw target/foil response counts with binomial
+  likelihoods, candidate-specific bias invariance, parameter-count-aware fit
+  diagnostics and held-out prediction when feasible.
+- discordant diagnostics yield `INCONCLUSIVE_MODEL_DISCRIMINATION`.
+- `Pencode` remains not identified and inactive.
+- no model winner, active registry, runtime, UI, evidence snapshot or release
+  metadata is promoted in Phase D.

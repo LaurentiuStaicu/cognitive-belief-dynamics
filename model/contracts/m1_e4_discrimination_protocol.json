@@ -1,0 +1,169 @@
+{
+  "id": "CONTRACT.M1.E4.DISCRIMINATION.2026-09-16",
+  "status": "PHASE_D_PROTOCOL_ONLY",
+  "model_extension": "M1.E4",
+  "scope": "Preregistration-ready dataset and decision protocol for discriminating EVSD versus symmetric 2HT recognition candidates; no winner, runtime, Pencode, UI or active registry promotion.",
+  "primary_route": {
+    "type": "EXPERIMENTALLY_MANIPULATED_BINARY_BIAS_ROC",
+    "minimum_operating_points_per_hsimp": 3,
+    "preferred_operating_points_per_hsimp": 5,
+    "required_bias_settings": ["liberal", "approximately_neutral", "conservative"],
+    "acceptable_manipulations": [
+      "payoff_matrix",
+      "target_foil_base_rate",
+      "explicit_criterion_instruction"
+    ],
+    "reason": "Three nondegenerate points are the structural minimum for assessing deviation from linearity; more points improve model fitting and recovery."
+  },
+  "supplemental_route": {
+    "type": "CONFIDENCE_RATING_ROC",
+    "preferred_scale_points": 6,
+    "nontrivial_cumulative_thresholds": 5,
+    "sole_decisive_evidence_allowed": false,
+    "raw_category_frequencies_required": true,
+    "reason": "Confidence ROCs are widely used but threshold models can require additional response-mapping assumptions; convergence with experimental bias manipulation is preferred."
+  },
+  "operating_point_rules": {
+    "hard_minimum_non_degenerate_per_hsimp": 3,
+    "preferred_minimum_per_hsimp": 5,
+    "target_and_foil_observations_required": true,
+    "false_alarm_span_required": true,
+    "degenerate_points_count_toward_minimum": false,
+    "universal_fixed_trial_n": false
+  },
+  "prospective_design_simulation": {
+    "required": true,
+    "candidate_generators": ["CANDIDATE.M1.E4.C1.EVSD", "CANDIDATE.M1.E4.C2.2HT"],
+    "parameter_grid_must_cover": [
+      "weak_memory",
+      "medium_memory",
+      "strong_memory",
+      "liberal_bias",
+      "neutral_bias",
+      "conservative_bias",
+      "plausible_target_trial_counts",
+      "plausible_foil_trial_counts",
+      "both_hsimp_conditions"
+    ],
+    "minimum_core_candidate_recovery_probability": 0.8,
+    "threshold_status": "CEM_DESIGN_CONVENTION",
+    "catastrophic_asymmetric_recovery_allowed": false
+  },
+  "dataset_schema": {
+    "required_fields": [
+      "dataset_id",
+      "hsimp",
+      "bias_condition_id",
+      "bias_manipulation_type",
+      "Ntarget",
+      "Nfoil",
+      "Nhit",
+      "Nmiss",
+      "Nfa",
+      "Ncr",
+      "provenance_ref"
+    ],
+    "confidence_metadata_required_when_applicable": true,
+    "participant_level_preferred": true,
+    "aggregate_counts_sufficient_for_initial_binomial_comparison": true
+  },
+  "fitting_protocol": {
+    "primary_surface": "RAW_BINOMIAL_RESPONSE_COUNTS",
+    "candidate_invariance": {
+      "EVSD": "share d across bias settings within Hsimp; vary c by bias setting",
+      "2HT": "share Ddet across bias settings within Hsimp; vary g by bias setting"
+    },
+    "required_diagnostics": [
+      "maximized_log_likelihood",
+      "parameter_count",
+      "AIC",
+      "AICc_when_relevant",
+      "held_out_predictive_log_likelihood_when_feasible",
+      "parameter_recovery",
+      "candidate_recovery",
+      "HF_residuals",
+      "qualitative_ROC_and_invariance_checks"
+    ],
+    "single_metric_winner_allowed": false
+  },
+  "winner_rule": {
+    "selection_allowed_only_if": [
+      "prospective_candidate_recovery_passed",
+      "one_candidate_better_penalized_in_sample_fit",
+      "same_candidate_better_held_out_prediction_when_feasible",
+      "candidate_specific_memory_parameter_stable_under_bias_manipulation",
+      "competing_candidate_has_material_qualitative_or_predictive_failure",
+      "conclusion_stable_to_documented_reasonable_analysis_choices"
+    ],
+    "discordant_result": "INCONCLUSIVE_MODEL_DISCRIMINATION",
+    "universal_delta_aic_cutoff": false
+  },
+  "pencode_boundary": {
+    "status": "NOT_IDENTIFIED_AND_NOT_ACTIVE",
+    "model_selection_identifies_pencode": false
+  },
+  "sources": [
+    {
+      "id": "SRC.M1.E4.PROTOCOL.DUBE.2012",
+      "doi": "10.1037/a0024957",
+      "role": "BINARY_BIAS_ROC_DISCRIMINATION_EVIDENCE"
+    },
+    {
+      "id": "SRC.M1.E4.PROTOCOL.BROEDER_SCHUTZ.2009",
+      "doi": "10.1037/a0015279",
+      "role": "BIAS_MANIPULATION_AND_THRESHOLD_MODEL_COUNTERPOINT"
+    },
+    {
+      "id": "SRC.M1.E4.PROTOCOL.BROEDER.2013",
+      "doi": "10.1080/09658211.2013.767348",
+      "role": "CONFIDENCE_MAPPING_BOUNDARY"
+    },
+    {
+      "id": "SRC.M1.E4.PROTOCOL.KOEN.2017",
+      "doi": "10.3758/s13428-016-0796-z",
+      "role": "CONFIDENCE_ROC_PRACTICE_AND_MAXIMUM_LIKELIHOOD"
+    },
+    {
+      "id": "SRC.M1.E4.PROTOCOL.PAZZAGLIA.2013",
+      "doi": "10.1037/a0033044",
+      "role": "MODEL_CLASS_COMPARISON_REVIEW"
+    }
+  ],
+  "validation_contract": {
+    "planned_patterns": [
+      {"id":"VAL.M1.D01","status":"PLANNED_ONLY","pattern":"At least three nondegenerate operating points per Hsimp condition."},
+      {"id":"VAL.M1.D02","status":"PLANNED_ONLY","pattern":"Bias settings produce a meaningful false-alarm-rate span."},
+      {"id":"VAL.M1.D03","status":"PLANNED_ONLY","pattern":"Prospective candidate recovery passes the preregistered design gate under both generators."},
+      {"id":"VAL.M1.D04","status":"PLANNED_ONLY","pattern":"Model comparison is fitted to raw target/foil response counts."},
+      {"id":"VAL.M1.D05","status":"PLANNED_ONLY","pattern":"Candidate memory parameter remains shared across pure-bias settings."},
+      {"id":"VAL.M1.DN01","status":"PLANNED_ONLY","pattern":"Confidence ROC alone cannot support the strongest winner claim."},
+      {"id":"VAL.M1.DN02","status":"PLANNED_ONLY","pattern":"AIC alone, Drecog alone, or ROC visual appearance alone cannot select a winner."},
+      {"id":"VAL.M1.DN03","status":"PLANNED_ONLY","pattern":"Discordant diagnostics yield INCONCLUSIVE_MODEL_DISCRIMINATION."},
+      {"id":"VAL.M1.DN04","status":"PLANNED_ONLY","pattern":"Selecting a model family does not identify Pencode."}
+    ]
+  },
+  "promotion_gate": {
+    "active_registry_mutation_allowed": false,
+    "runtime_model_selection_allowed": false,
+    "winner_declaration_allowed": false,
+    "ui_allowed": false,
+    "requirements": [
+      "schema_valid",
+      "minimum_operating_points_explicit",
+      "preferred_operating_points_explicit",
+      "binary_bias_primary",
+      "confidence_route_bounded",
+      "candidate_recovery_mandatory",
+      "raw_likelihood_primary",
+      "invariance_tests_explicit",
+      "convergent_winner_rule",
+      "inconclusive_first_class",
+      "planned_validations_inactive",
+      "no_runtime_ui_pencode",
+      "active_registries_unchanged",
+      "evidence_snapshot_unchanged",
+      "release_metadata_unchanged",
+      "full_ci_green"
+    ]
+  }
+}
