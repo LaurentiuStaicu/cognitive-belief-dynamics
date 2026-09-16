@@ -642,3 +642,45 @@ Protocol decision:
 
 Phase D does not activate either candidate, does not create Pencode, and does not
 change runtime, UI, evidence snapshot or Alpha 0.4.2a0 release metadata.
+
+
+## Alpha 0.4.3a0 Phase E — M1.E4 candidate-recovery benchmark
+
+Phase D was merged into `main` at
+`9ccfddea3764dfe0ffa426d415538cb894e6aeb0`; post-merge CI #142 passed.
+
+Phase E is isolated on branch
+`alpha-0.4.3a0-phase-e-candidate-recovery-benchmark`.
+
+The phase constructs executable validation tooling, not an active recognition
+mechanism.
+
+Benchmark architecture:
+
+- generators: EVSD and symmetric 2HT;
+- conditions: complex/simple Hsimp;
+- five generator-specific bias operating points;
+- weak/medium/strong memory regimes;
+- prospective trial-count sweep: 40, 80, 160, 320 target trials and the same
+  number of foil trials per operating point;
+- 200 authoritative replicates per generator × regime × trial-count cell;
+- independent train and held-out datasets in every replicate;
+- both candidates fit to every train dataset;
+- decisive recovery label only when train AIC and held-out predictive log
+  likelihood agree;
+- otherwise `INCONCLUSIVE`;
+- generator-by-selected confusion matrix plus separate memory/bias parameter
+  recovery diagnostics;
+- each core grid cell must individually reach the Phase D 0.80 CEM recovery
+  convention for the design to pass.
+
+Ordinary CI runs a small deterministic smoke benchmark only. It validates code,
+optimization, output structure and fixed-seed reproducibility; it does **not**
+constitute the authoritative 200-replicate benchmark execution.
+
+No model winner, active registry, Pencode, UI, evidence snapshot or Alpha 0.4.2a0
+release metadata is changed by Phase E.
+
+A later execution gate must run the frozen full configuration and publish the
+complete per-cell recovery output before empirical EVSD-versus-2HT model
+selection is allowed.

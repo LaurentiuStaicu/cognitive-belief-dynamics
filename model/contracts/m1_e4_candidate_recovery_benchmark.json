@@ -1,0 +1,94 @@
+{
+  "id": "CONTRACT.M1.E4.RECOVERY_BENCHMARK.2026-09-16",
+  "status": "PHASE_E_SYNTHETIC_BENCHMARK_TOOL_ONLY",
+  "model_extension": "M1.E4",
+  "scope": "Executable synthetic model- and parameter-recovery benchmark for the pre-runtime EVSD versus symmetric 2HT candidate families; not an active cognitive mechanism and not empirical model selection.",
+  "implementation": {
+    "module": "src/cognitive_epistemic_model/calibration/m1_e4_candidate_recovery.py",
+    "runner": "scripts/run_m1_e4_candidate_recovery.py",
+    "core_config": "model/benchmarks/m1_e4_candidate_recovery_core.json",
+    "candidate_families": ["EVSD", "2HT"],
+    "active_runtime_import_allowed": false
+  },
+  "simulation_design": {
+    "seed": 20260916,
+    "replicates_per_grid_cell": 200,
+    "trial_counts_per_operating_point": [40, 80, 160, 320],
+    "operating_points_per_condition": 5,
+    "conditions": ["complex", "simple"],
+    "independent_train_and_held_out_draws": true,
+    "memory_regimes": ["weak", "medium", "strong"]
+  },
+  "selection_rule": {
+    "train_diagnostic": "AIC",
+    "held_out_diagnostic": "PREDICTIVE_LOG_LIKELIHOOD",
+    "decisive_selection": "AIC and held-out predictive log likelihood must favor the same candidate family",
+    "discordant_or_tied_selection": "INCONCLUSIVE",
+    "universal_delta_aic_cutoff": false
+  },
+  "required_outputs": [
+    "generator-by-selected confusion counts including INCONCLUSIVE",
+    "generator-by-selected confusion probabilities including INCONCLUSIVE",
+    "per-grid-cell recovery probability",
+    "per-grid-cell wrong-selection probability",
+    "per-grid-cell inconclusive probability",
+    "generator-memory parameter mean absolute error",
+    "generator-bias parameter RMSE",
+    "minimum grid-cell recovery probability",
+    "all-core-grid-cells-pass flag"
+  ],
+  "design_gate": {
+    "minimum_recovery_probability_each_core_grid_cell": 0.8,
+    "threshold_status": "CEM_DESIGN_CONVENTION",
+    "aggregate_average_may_mask_failed_cell": false,
+    "both_generators_must_pass": true,
+    "authoritative_full_run_required_before_empirical_model_selection": true,
+    "ci_smoke_run_is_authoritative": false
+  },
+  "interpretation_boundary": [
+    "Passing candidate recovery shows that the planned design and fitting procedure can distinguish the candidate families under the simulated parameter grid; it does not establish which family is true in human recognition.",
+    "Failure in a parameter regime is a design-identifiability problem to be reported, not evidence favoring the competing family.",
+    "Parameter recovery is evaluated separately from model-family recovery.",
+    "Selection of EVSD or 2HT does not identify Pencode."
+  ],
+  "method_sources": [
+    {
+      "id": "SRC.M1.E4.RECOVERY.WILSON_COLLINS.2019",
+      "doi": "10.7554/eLife.49547",
+      "role": "MODEL_AND_PARAMETER_RECOVERY_CONFUSION_MATRIX_METHOD"
+    },
+    {
+      "id": "SRC.M1.E4.RECOVERY.SCHAD_ET_AL_TUTORIAL.2023",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10522800/",
+      "role": "MODEL_RECOVERY_RECOMMENDATION_AND_CONFUSION_MATRIX"
+    },
+    {
+      "id": "SRC.M1.E4.RECOVERY.AUSHEV.2023",
+      "doi": "10.1007/s42113-023-00180-7",
+      "role": "SIMULATOR_BASED_EXPERIMENTAL_DESIGN_CONTEXT"
+    }
+  ],
+  "promotion_gate": {
+    "benchmark_code_allowed": true,
+    "active_model_registration_allowed": false,
+    "winner_declaration_allowed": false,
+    "pencode_allowed": false,
+    "ui_allowed": false,
+    "requirements": [
+      "contract_schema_valid",
+      "core_config_frozen",
+      "both_generator_families_simulated",
+      "both_candidates_refit_to_every_synthetic_dataset",
+      "independent_held_out_draw_used",
+      "confusion_matrix_includes_inconclusive",
+      "parameter_recovery_reported_separately",
+      "per_grid_cell_recovery_reported",
+      "same_seed_reproducible",
+      "ci_smoke_benchmark_passes",
+      "active_registries_unchanged",
+      "evidence_snapshot_unchanged",
+      "release_metadata_unchanged",
+      "full_ci_green"
+    ]
+  }
+}
