@@ -179,3 +179,39 @@ Secondary sensitivity:
 
 Phase J is prospective tooling only until Phase I is merged. Confirmation
 execution and human-protocol design remain blocked.
+
+
+## Authoritative Phase J participant confirmation — 2026-09-16
+
+The frozen 29-cell Phase J confirmation was executed from hardened `main`
+commit `76aca60beb49a4e2ce5d96abaa564a67282ba811` in GitHub Actions run
+`35081097627`.
+
+Persistent files:
+
+- `results/m1_e4_participant_confirmation_authoritative_2026-09-16.json`;
+- `results/m1_e4_participant_confirmation_authoritative_2026-09-16.provenance.json`;
+- `results/m1_e4_participant_confirmation_authoritative_2026-09-16.sha256`;
+- `results/m1_e4_participant_confirmation_authoritative_2026-09-16.shards.sha256`.
+
+Authoritative JSON SHA-256:
+
+`88c16c2143e7131a4ec8915dbb726ece7e859a797162df173b89743837335f89`.
+
+Result:
+
+- all 18 primary P64_X10 cells pass the formal 0.80 recovery gate;
+- primary minimum recovery = `0.92`;
+- all 18 primary cells also have Wilson 95% lower bound >= 0.80;
+- minimum primary Wilson lower bound = `0.8740105117`;
+- boundary minimum recovery = `0.885`;
+- across all 5,800 replicates: 5,662 correct-family, 3 wrong-family and
+  135 inconclusive selections.
+
+The limiting primary cell is P64_X10 × low heterogeneity × EVSD × weak memory
+(184/200 correct, 1 wrong-family, 15 inconclusive).
+
+This is a synthetic model-recovery result. It does not select EVSD or 2HT as
+human truth, identify Pencode, or authorize participant recruitment. The next
+scientific task is prospective human-protocol robustness work addressing which
+currently omitted factors require additional frozen simulation gates.
