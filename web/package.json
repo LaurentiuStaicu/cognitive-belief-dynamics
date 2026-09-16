@@ -21,7 +21,7 @@
     "test:oa6c": "node --test tests/decision-uncertainty-ui.test.ts",
     "test:oa6d": "node --test tests/information-priority.test.ts tests/adaptive-reassessment.test.ts",
     "test:oa6e": "node --test tests/decision-uncertainty-closure.test.ts",
-    "test:oa7": "node --test tests/action-canvas.test.ts tests/indicator-objects.test.ts tests/signposts-triggers.test.ts"
+    "test:oa7": "node --test tests/action-canvas.test.ts tests/indicator-objects.test.ts tests/signposts-triggers.test.ts tests/adaptive-plan-runtime.test.ts"
   },
   "dependencies": {
     "cytoscape": "^3.31.0",
