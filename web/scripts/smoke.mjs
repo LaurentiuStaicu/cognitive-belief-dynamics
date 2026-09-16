@@ -49,6 +49,21 @@ try {
  const version=JSON.parse(await readFile(path.join(dist,'model/version.json'),'utf8'));
  assert.match(await page.locator('#releaseVersion').textContent(),new RegExp(version.version.replaceAll('.', '\\.')));
  assert((await page.locator('#releaseVersion').getAttribute('href')).endsWith('/'+version.release_tag));
+ assert.equal(await page.locator('search.global-search').count(),1);
+ assert.equal(await page.locator('#semanticSearchInput').getAttribute('type'),'search');
+ assert.equal(await page.locator('label[for="semanticSearchInput"]').count(),1);
+ assert.equal(await page.locator('[role="combobox"],[role="listbox"],[role="option"]').count(),0);
+ await page.locator('#semanticSearchInput').fill('familiaritate');
+ await page.locator('#semanticSearchForm button[type="submit"]').click();
+ await page.locator('[data-search-result-id="VAR.FAMILIARITY.CLAIM"]').waitFor();
+ assert.match(await page.locator('#semanticSearchSummary').textContent(),/rezultate semantice/);
+ assert.doesNotMatch(await page.locator('#semanticSearchResults').textContent(),/retrievalScore|1000|950|900/);
+ const searchValueBeforeNav=await page.locator('#semanticSearchInput').inputValue();
+ await page.locator('[data-nav-group="analyze"]').click();
+ assert.equal(await page.locator('#semanticSearchInput').inputValue(),searchValueBeforeNav);
+ assert.equal(await page.locator('[data-search-result-id="VAR.FAMILIARITY.CLAIM"]').count(),1);
+ await page.locator('[data-nav-group="understand"]').click();
+ await waitTheory();
  const visualTokens=await page.evaluate(()=>{
   const css=getComputedStyle(document.documentElement);
   return {
