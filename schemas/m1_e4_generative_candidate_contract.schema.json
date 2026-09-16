@@ -1,0 +1,307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/m1_e4_generative_candidate_contract.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "model_extension",
+    "scope",
+    "conditioning_event",
+    "primary_candidates",
+    "one_point_identifiability",
+    "asymmetric_2ht_boundary",
+    "future_discrimination_design",
+    "future_fitting_surface",
+    "comparison_fairness",
+    "pencode_boundary",
+    "sources",
+    "validation_contract",
+    "promotion_gate",
+    "forbidden_changes"
+  ],
+  "properties": {
+    "id": {"const": "CONTRACT.M1.E4.GENERATIVE.2026-09-16"},
+    "status": {"const": "PHASE_C_MODEL_COMPARISON_ONLY"},
+    "model_extension": {"const": "M1.E4"},
+    "scope": {"type": "string", "minLength": 40},
+    "conditioning_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "requires_access"],
+      "properties": {
+        "id": {"const": "PreviewImpression"},
+        "requires_access": {"const": false}
+      }
+    },
+    "primary_candidates": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"$ref": "#/$defs/candidate"}
+    },
+    "one_point_identifiability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "single_operating_point_selects_candidate_family",
+        "reason",
+        "published_mean_dprime_selects_candidate_family",
+        "published_mean_dprime_reason"
+      ],
+      "properties": {
+        "single_operating_point_selects_candidate_family": {"const": false},
+        "reason": {"type": "string", "minLength": 30},
+        "published_mean_dprime_selects_candidate_family": {"const": false},
+        "published_mean_dprime_reason": {"type": "string", "minLength": 30}
+      }
+    },
+    "asymmetric_2ht_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "parameters", "observed_probabilities_from_one_operating_point", "underidentified", "reason"],
+      "properties": {
+        "status": {"const": "DEFERRED_UNDERIDENTIFIED"},
+        "parameters": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {"enum": ["Do", "Dn", "g"]}
+        },
+        "observed_probabilities_from_one_operating_point": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"enum": ["H", "F"]}
+        },
+        "underidentified": {"const": true},
+        "reason": {"type": "string", "minLength": 25}
+      }
+    },
+    "future_discrimination_design": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["acceptable_data_classes", "roc_predictions"],
+      "properties": {
+        "acceptable_data_classes": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"type": "object"}
+        },
+        "roc_predictions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["EVSD", "2HT", "boundary"],
+          "properties": {
+            "EVSD": {"type": "string", "minLength": 20},
+            "2HT": {"type": "string", "minLength": 20},
+            "boundary": {"type": "string", "minLength": 30}
+          }
+        }
+      }
+    },
+    "future_fitting_surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary_level",
+        "target_likelihood",
+        "foil_likelihood",
+        "required_retained_quantities",
+        "summary_only_fit_allowed"
+      ],
+      "properties": {
+        "primary_level": {"const": "RAW_BINOMIAL_RESPONSES"},
+        "target_likelihood": {"const": "Nhit_jk ~ Binomial(Ntarget_jk, Hpred_jk)"},
+        "foil_likelihood": {"const": "Nfa_jk ~ Binomial(Nfoil_jk, Fpred_jk)"},
+        "required_retained_quantities": {
+          "type": "array",
+          "minItems": 10,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 2}
+        },
+        "summary_only_fit_allowed": {"const": false}
+      }
+    },
+    "comparison_fairness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parameter_count_aware",
+        "initial_parameterization",
+        "required_diagnostics",
+        "aic_is_causal_proof",
+        "extra_flexibility_requires_symmetric_justification"
+      ],
+      "properties": {
+        "parameter_count_aware": {"const": true},
+        "initial_parameterization": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["EVSD", "2HT"],
+          "properties": {
+            "EVSD": {"type": "string", "minLength": 20},
+            "2HT": {"type": "string", "minLength": 20}
+          }
+        },
+        "required_diagnostics": {
+          "type": "array",
+          "minItems": 4,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 3}
+        },
+        "aic_is_causal_proof": {"const": false},
+        "extra_flexibility_requires_symmetric_justification": {"const": true}
+      }
+    },
+    "pencode_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "forbidden_equivalences"],
+      "properties": {
+        "status": {"const": "NOT_IDENTIFIED_AND_NOT_ACTIVE"},
+        "forbidden_equivalences": {
+          "type": "array",
+          "minItems": 5,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 5}
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 6,
+      "items": {"$ref": "#/$defs/source"}
+    },
+    "validation_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["planned_patterns"],
+      "properties": {
+        "planned_patterns": {
+          "type": "array",
+          "minItems": 8,
+          "items": {"$ref": "#/$defs/validationPattern"}
+        }
+      }
+    },
+    "promotion_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirements",
+        "active_registry_mutation_allowed",
+        "runtime_model_selection_allowed",
+        "executable_cognitive_equation_allowed",
+        "ui_allowed"
+      ],
+      "properties": {
+        "requirements": {
+          "type": "array",
+          "minItems": 14,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 5}
+        },
+        "active_registry_mutation_allowed": {"const": false},
+        "runtime_model_selection_allowed": {"const": false},
+        "executable_cognitive_equation_allowed": {"const": false},
+        "ui_allowed": {"const": false}
+      }
+    },
+    "forbidden_changes": {
+      "type": "array",
+      "minItems": 10,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 5}
+    }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "family",
+        "status",
+        "parameters",
+        "forward_mapping",
+        "inverse_mapping",
+        "condition_effect",
+        "bias_parameter",
+        "what_memory_parameter_is_not",
+        "known_boundary"
+      ],
+      "properties": {
+        "id": {
+          "enum": [
+            "CANDIDATE.M1.E4.C1.EVSD",
+            "CANDIDATE.M1.E4.C2.2HT"
+          ]
+        },
+        "label": {"type": "string", "minLength": 20},
+        "family": {
+          "enum": [
+            "CONTINUOUS_EVIDENCE_STRENGTH",
+            "DISCRETE_DETECTION_PLUS_GUESSING"
+          ]
+        },
+        "status": {"const": "PRIMARY_COMPARATOR"},
+        "parameters": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "role", "domain"],
+            "properties": {
+              "name": {"type": "string", "minLength": 1},
+              "role": {"type": "string", "minLength": 5},
+              "domain": {"type": "string", "minLength": 3}
+            }
+          }
+        },
+        "distributional_assumptions": {"type": "object"},
+        "forward_mapping": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["hit_rate", "false_alarm_rate"],
+          "properties": {
+            "hit_rate": {"type": "string", "minLength": 5},
+            "false_alarm_rate": {"type": "string", "minLength": 5}
+          }
+        },
+        "inverse_mapping": {"type": "object", "minProperties": 2},
+        "condition_effect": {"type": "string", "minLength": 10},
+        "bias_parameter": {"type": "string", "minLength": 1},
+        "what_memory_parameter_is_not": {"type": "string", "minLength": 25},
+        "known_boundary": {"type": "string", "minLength": 25}
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "citation", "doi", "role"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^SRC\\.M1\\.E4\\.GEN\\.[A-Z0-9_.-]+$"},
+        "citation": {"type": "string", "minLength": 30},
+        "doi": {"type": "string", "pattern": "^10\\.\\d{4,9}/\\S+$"},
+        "role": {"type": "string", "minLength": 10}
+      }
+    },
+    "validationPattern": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "claim_scope", "status", "pattern"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^VAL\\.M1\\.(G01|G02|G03|GN01|GN02|GN03|GN04|GN05)$"},
+        "name": {"type": "string", "minLength": 5},
+        "claim_scope": {"enum": ["MODEL_COMPARISON_PATTERN", "NEGATIVE_CONSTRAINT"]},
+        "status": {"const": "PLANNED_ONLY"},
+        "pattern": {"type": "string", "minLength": 20}
+      }
+    }
+  }
+}
