@@ -1,4 +1,6 @@
 import type {RobustnessAudit} from './decision-robustness';
+import {deriveInformationPriority,type InformationPriorityClass,type InformationPriorityReason} from './information-priority';
+import {ReassessmentStore,type ReassessmentBasis,type SignpostKind} from './adaptive-reassessment';
 
 type Lang='ro'|'en';
 type Copy=Record<Lang,string>;
@@ -63,6 +65,32 @@ const labelQuant=(value:DecisionUncertaintyItem['quantification_status'],lang:La
  FINITE_SCENARIOS:lang==='ro'?'scenarii finite':'finite scenarios',
  PROBABILITY_DISTRIBUTION:lang==='ro'?'distribuție probabilistică':'probability distribution'
 }[value]);
+const priorityLabel=(value:InformationPriorityClass,lang:Lang)=>({
+ DECISION_SENSITIVE_NOW:lang==='ro'?'sensibilă pentru decizie acum':'decision-sensitive now',
+ CLARIFY_USER_ASSUMPTION:lang==='ro'?'clarifică ipoteza utilizatorului':'clarify user assumption',
+ RESEARCH_OR_MONITOR:lang==='ro'?'cercetează sau monitorizează':'research or monitor',
+ CONTEXT_LIMITATION:lang==='ro'?'limitare structurală':'structural limitation'
+}[value]);
+const priorityReason=(value:InformationPriorityReason,lang:Lang)=>({
+ DIRECT_DECISION_SWITCH:lang==='ro'?'Prima alegere se schimbă între scenariile declarate în setările curente; informația care reduce această incertitudine poate schimba decizia.':'The top choice changes across declared scenarios under current settings; information that reduces this uncertainty may change the decision.',
+ STABLE_WITHIN_DECLARED_SCENARIOS:lang==='ro'?'Prima alegere rămâne stabilă în scenariile declarate curente. Aceasta nu dovedește stabilitate în afara lor, dar nu există acum un switch direct observat.':'The top choice remains stable across the current declared scenarios. This does not establish stability beyond them, but no direct switch is currently observed.',
+ USER_CONTROLLED_ASSUMPTION:lang==='ro'?'Aceasta este o ipoteză controlată de utilizator. Clarificarea valorii sau preferinței precedă orice interpretare ca incertitudine științifică.':'This is a user-controlled assumption. Clarifying the value or preference comes before interpreting it as scientific uncertainty.',
+ REDUCIBLE_EVIDENCE_GAP:lang==='ro'?'Incertitudinea este cel puțin parțial reducibilă prin date, literatură sau măsurare, dar OA-6D nu îi atribuie o valoare numerică a informației.':'The uncertainty is at least partly reducible through data, literature, or measurement, but OA-6D does not assign it a numeric value of information.',
+ OMITTED_MODEL_SCOPE:lang==='ro'?'Aceasta reprezintă o limitare a domeniului modelului. Mai multe date pot să nu fie suficiente fără extinderea structurii modelului.':'This represents a model-scope limitation. More data may not be sufficient without extending model structure.'
+}[value]);
+const signpostLabel=(value:SignpostKind,lang:Lang)=>({
+ METRIC:lang==='ro'?'metrică observată':'observed metric',
+ EVENT:lang==='ro'?'eveniment':'event',
+ EVIDENCE_UPDATE:lang==='ro'?'actualizare de dovezi':'evidence update',
+ SCHEDULED_REVIEW:lang==='ro'?'revizuire programată':'scheduled review',
+ OTHER:lang==='ro'?'alt semnal':'other signpost'
+}[value]);
+const basisLabel=(value:ReassessmentBasis,lang:Lang)=>({
+ USER_DEFINED:lang==='ro'?'definit de utilizator':'user-defined',
+ EMPIRICAL:lang==='ro'?'empiric':'empirical',
+ CONCEPTUAL:lang==='ro'?'conceptual':'conceptual',
+ EXECUTABLE:lang==='ro'?'executabil':'executable'
+}[value]);
 
 export function renderDecisionUncertainty(host:HTMLElement,options:Options){
  const {lang,registry,audit,selectedAlternativeId,acceptableGainThreshold,scenarioLabel,alternativeLabel,number}=options;
@@ -75,11 +103,19 @@ export function renderDecisionUncertainty(host:HTMLElement,options:Options){
  const rankRange=selected.rankRange?`${selected.rankRange[0]} – ${selected.rankRange[1]}`:tr('n/a','n/a');
  const regret=selected.maxRegretAcrossFeasibleScenarios===null?tr('n/a','n/a'):number(selected.maxRegretAcrossFeasibleScenarios);
  const changes=audit.decisionSwitch.changes;
+ const priority=deriveInformationPriority(registry.uncertainties,audit,selectedAlternativeId);
+ const priorityById=new Map(priority.entries.map(item=>[item.uncertaintyId,item]));
+ const reassessmentStore=new ReassessmentStore(localStorage);
+ const reassessments=reassessmentStore.all();
  host.innerHTML=`<div class="section-heading uncertainty-heading"><div><p class="eyebrow">OA-6 · DECISION UNDER UNCERTAINTY</p><h3>${tr('Ce rămâne robust când schimbăm ipotezele?','What remains robust when assumptions change?')}</h3><p>${tr('Compară aceleași opțiuni fezabile în cele trei profiluri declarate. Frecvența unui rezultat în aceste profiluri este acoperire de scenarii, nu probabilitate.','Compare the same feasible options across the three declared profiles. Frequency across these profiles is scenario coverage, not probability.')}</p></div><span class="uncertainty-badge">${tr('FĂRĂ PROBABILITĂȚI IMPLICITE','NO IMPLIED PROBABILITIES')}</span></div>
  <details class="uncertainty-ledger" open>
   <summary>${tr('Ce este incert? Registrul OA-6A','What is uncertain? OA-6A registry')}</summary>
   <div class="uncertainty-ledger-grid">${registry.uncertainties.map(item=>`<article data-uncertainty-id="${esc(item.id)}"><div class="uncertainty-tags"><span>${esc(labelRole(item.role,lang))}</span><span>${esc(item.uncertainty_type)}</span><span>${esc(labelQuant(item.quantification_status,lang))}</span></div><h4>${esc(item.label[lang])}</h4><p>${esc(item.limitations[lang])}</p><dl><dt>${tr('Probabilitate','Probability')}</dt><dd><code>${esc(item.probability_status)}</code></dd><dt>${tr('Reducibilitate','Reducibility')}</dt><dd><code>${esc(item.reducibility)}</code></dd></dl></article>`).join('')}</div>
  </details>
+ <section class="information-priority" aria-labelledby="informationPriorityTitle">
+  <div class="section-heading"><div><p class="eyebrow">OA-6D · INFORMATION PRIORITY</p><h4 id="informationPriorityTitle">${tr('Ce merită clarificat, cercetat sau monitorizat?','What is worth clarifying, researching, or monitoring?')}</h4><p>${tr('Trierea este calitativă și orientată spre sensibilitatea deciziei și reducibilitatea incertitudinii. Nu este VOI numeric și nu produce un clasament cardinal al incertitudinilor.','The triage is qualitative and based on decision sensitivity and reducibility. It is not numeric VOI and does not produce a cardinal ranking of uncertainties.')}</p></div><code>${priority.triagePolicy}</code></div>
+  <div class="information-priority-grid">${registry.uncertainties.map(item=>{const entry=priorityById.get(item.id)!;return `<article data-information-priority="${esc(item.id)}" data-priority-class="${entry.priorityClass}"><span class="priority-class">${esc(priorityLabel(entry.priorityClass,lang))}</span><h5>${esc(item.label[lang])}</h5><p>${esc(priorityReason(entry.reason,lang))}</p><div class="priority-meta"><code>${esc(item.reducibility)}</code><span>${entry.decisionSensitive?tr('switch observat','observed switch'):tr('fără switch direct observat','no direct switch observed')}</span></div><button type="button" data-priority-create-trigger="${esc(item.id)}">${tr('Definește un semnal de reevaluare','Define reassessment signpost')}</button></article>`;}).join('')}</div>
+ </section>
  <div class="uncertainty-threshold"><div><label for="acceptabilityThreshold">${tr('Prag de acceptabilitate ales de utilizator · câștig minim','User-declared acceptability threshold · minimum gain')}</label><p class="note">${tr('Pragul este o preferință de decizie, nu un parametru științific și nu modifică scorurile modelului.','The threshold is a decision preference, not a scientific parameter, and does not modify model scores.')}</p></div><input id="acceptabilityThreshold" type="number" min="0" max="100" step="0.5" value="${acceptableGainThreshold}"></div>
  <section id="selectedRobustness" data-selected-alternative="${selectedAlternativeId}" aria-live="polite">
   <h4>${tr('Robustețea combinației selectate','Robustness of the selected bundle')}: ${esc(alternativeLabel(selectedAlternativeId))}</h4>
