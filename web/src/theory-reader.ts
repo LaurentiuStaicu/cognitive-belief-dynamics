@@ -1,3 +1,4 @@
+import {semanticEntity,semanticLabel} from './semantic';
 type Lang='ro'|'en';
 
 export type TheoryChapter={
@@ -62,6 +63,8 @@ type Context={
 
 const tokenRe=/\[\[(VAR|MODULE|MECH|VAL|REF|VIEW|CODE|CONCEPT):([^\]]+)\]\]/g;
 
+const sem=(id:string,lang:Lang,fallback:string)=>semanticLabel(id,lang,fallback);
+
 const esc=(value:string)=>value.replace(/[&<>"']/g,char=>({
  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
 }[char]!));
@@ -89,11 +92,11 @@ function codeRefs(ctx:Context){
 function displayToken(kind:string,value:string,ctx:Context){
  if(kind==='VAR'){
   const item=ctx.variables.find(v=>v.id===value||v.short_name===value);
-  return item?.short_name??value;
+  return semanticEntity(item?.id??value)?.short_name??item?.short_name??value;
  }
- if(kind==='MODULE') return ctx.modules.find(m=>m.id===value)?.label[ctx.lang]??value;
- if(kind==='MECH'||kind==='CONCEPT') return ctx.glossary.find(g=>g.token===value)?.label[ctx.lang]??value;
- if(kind==='VAL') return ctx.validations.find(v=>v.id===value)?.name??value;
+ if(kind==='MODULE'){const item=ctx.modules.find(m=>m.id===value);return item?sem(item.id,ctx.lang,item.label[ctx.lang]):value;}
+ if(kind==='MECH'||kind==='CONCEPT'){const item=ctx.glossary.find(g=>g.token===value);return item?sem(item.id,ctx.lang,item.label[ctx.lang]):value;}
+ if(kind==='VAL'){const item=ctx.validations.find(v=>v.id===value);return item?sem(item.id,ctx.lang,item.name):value;}
  if(kind==='CODE') return codeRefs(ctx).get(value)?.symbol??value;
  if(kind==='VIEW'){
   const first=value.split(':')[0];
@@ -182,7 +185,7 @@ function chapterSources(chapter:TheoryChapter,ctx:Context){
 function inspectorDefault(chapter:TheoryChapter,ctx:Context){
  const t=(ro:string,en:string)=>ctx.lang==='ro'?ro:en;
  return `<p class="eyebrow">${t('CAPITOL ACTIV','ACTIVE CHAPTER')}</p>
- <h2>${esc(chapter.label[ctx.lang])}</h2>
+ <h2>${esc(sem(chapter.id,ctx.lang,chapter.label[ctx.lang]))}</h2>
  <p>${esc(chapter.summary[ctx.lang])}</p>
  <div class="theory-statuses">${chapter.epistemic_status.map(status=>`<span data-status="${esc(status)}">${esc(statusLabel(status,ctx.lang))}</span>`).join('')}</div>
  ${chapterSources(chapter,ctx)}
@@ -196,27 +199,27 @@ function inspectorFor(kind:string,value:string,chapter:TheoryChapter,ctx:Context
   const item=ctx.variables.find(v=>v.id===value||v.short_name===value);
   if(!item) return inspectorDefault(chapter,ctx);
   const range=item.range?item.range.join(' … '):t('nedeclarat','not declared');
-  return `<p class="eyebrow">VAR · ${esc(item.ontology_type)}</p><h2><code>${esc(item.short_name)}</code> ${esc(item.label[ctx.lang])}</h2>
+  return `<p class="eyebrow">VAR · ${esc(item.ontology_type)}</p><h2><code>${esc(item.short_name)}</code> ${esc(sem(item.id,ctx.lang,item.label[ctx.lang]))}</h2>
   <p>${esc(item.definition)}</p><dl class="theory-meta"><dt>${t('Domeniu','Range')}</dt><dd>${esc(range)}</dd><dt>${t('Modul','Module')}</dt><dd>${esc(item.conceptual_module)}</dd></dl>
   <div class="boundary"><strong>${t('Nu reprezintă','What it is not')}</strong><p>${esc(item.what_it_is_not)}</p></div>
   <button type="button" data-theory-open-view="reference:${esc(item.id)}">${t('Deschide în Registru','Open in Registry')}</button>`;
  }
  if(kind==='MODULE'){
   const item=ctx.modules.find(m=>m.id===value);
-  return item?`<p class="eyebrow">${esc(item.id)}</p><h2>${esc(item.label[ctx.lang])}</h2><p class="note">${t('Modul conceptual. Deschide Visual ODD pentru a vedea ce părți sunt executabile și ce părți rămân arhitecturale.','Conceptual module. Open Visual ODD to see which parts are executable and which remain architectural.')}</p><button type="button" data-theory-open-view="process">${t('Deschide Visual ODD','Open Visual ODD')}</button>`:inspectorDefault(chapter,ctx);
+  return item?`<p class="eyebrow">${esc(item.id)}</p><h2>${esc(sem(item.id,ctx.lang,item.label[ctx.lang]))}</h2><p class="note">${t('Modul conceptual. Deschide Visual ODD pentru a vedea ce părți sunt executabile și ce părți rămân arhitecturale.','Conceptual module. Open Visual ODD to see which parts are executable and which remain architectural.')}</p><button type="button" data-theory-open-view="process">${t('Deschide Visual ODD','Open Visual ODD')}</button>`:inspectorDefault(chapter,ctx);
  }
  if(kind==='MECH'||kind==='CONCEPT'){
   const glossaryKind=kind==='MECH'?'MECHANISM':'CONCEPT';
   const item=ctx.glossary.find(g=>g.token===value&&g.kind===glossaryKind);
   if(!item) return inspectorDefault(chapter,ctx);
-  return `<p class="eyebrow">${kind}</p><h2>${esc(item.label[ctx.lang])}</h2><p>${esc(item.short_definition[ctx.lang])}</p>
+  return `<p class="eyebrow">${kind}</p><h2>${esc(sem(item.id,ctx.lang,item.label[ctx.lang]))}</h2><p>${esc(item.short_definition[ctx.lang])}</p>
   <div class="theory-statuses">${item.epistemic_status.map(status=>`<span data-status="${esc(status)}">${esc(statusLabel(status,ctx.lang))}</span>`).join('')}</div>
   <div class="boundary"><strong>${t('Nu reprezintă','What it is not')}</strong><p>${esc(item.what_it_is_not[ctx.lang])}</p></div>
   ${kind==='MECH'&&item.executable?`<button type="button" data-theory-open-mechanism="${esc(item.token)}">${t('Deschide mecanismul','Open mechanism')}</button>`:''}`;
  }
  if(kind==='VAL'){
   const item=ctx.validations.find(v=>v.id===value);
-  return item?`<p class="eyebrow">${esc(item.id)} · ${esc(item.claim_scope)}</p><h2>${esc(item.name)}</h2><p>${esc(item.pattern)}</p><button type="button" data-theory-open-view="process">${t('Vezi protocolul de validare','Open validation protocol')}</button>`:inspectorDefault(chapter,ctx);
+  return item?`<p class="eyebrow">${esc(item.id)} · ${esc(item.claim_scope)}</p><h2>${esc(sem(item.id,ctx.lang,item.name))}</h2><p>${esc(item.pattern)}</p><button type="button" data-theory-open-view="process">${t('Vezi protocolul de validare','Open validation protocol')}</button>`:inspectorDefault(chapter,ctx);
  }
  if(kind==='REF'){
   const item=ctx.references.find(r=>r.id===value);
@@ -243,8 +246,8 @@ export async function mountTheoryReader(host:HTMLElement,context:Context,request
  host.innerHTML=`<div class="theory-layout">
   <nav class="panel theory-chapters" aria-label="${t('Capitole de teorie','Theory chapters')}">
    <p class="eyebrow">${t('CUPRINS','CONTENTS')}</p>
-   <label class="theory-chapter-select">${t('Capitol','Chapter')}<select id="theoryChapterSelect">${ordered.map(item=>`<option value="${esc(theoryChapterSlug(item))}" ${item.id===chapter.id?'selected':''}>${String(item.order).padStart(2,'0')} · ${esc(item.label[ctx.lang])}</option>`).join('')}</select></label>
-   <ol class="theory-chapter-list">${ordered.map(item=>`<li><button type="button" data-theory-chapter="${esc(theoryChapterSlug(item))}" aria-current="${item.id===chapter.id?'page':'false'}"><span>${String(item.order).padStart(2,'0')}</span>${esc(item.label[ctx.lang])}</button></li>`).join('')}</ol>
+   <label class="theory-chapter-select">${t('Capitol','Chapter')}<select id="theoryChapterSelect">${ordered.map(item=>`<option value="${esc(theoryChapterSlug(item))}" ${item.id===chapter.id?'selected':''}>${String(item.order).padStart(2,'0')} · ${esc(sem(item.id,ctx.lang,item.label[ctx.lang]))}</option>`).join('')}</select></label>
+   <ol class="theory-chapter-list">${ordered.map(item=>`<li><button type="button" data-theory-chapter="${esc(theoryChapterSlug(item))}" aria-current="${item.id===chapter.id?'page':'false'}"><span>${String(item.order).padStart(2,'0')}</span>${esc(sem(item.id,ctx.lang,item.label[ctx.lang]))}</button></li>`).join('')}</ol>
   </nav>
   <article class="panel theory-reader" id="theoryArticle" aria-busy="true"><p class="loading">${t('Se încarcă teoria…','Loading theory…')}</p></article>
   <aside class="panel theory-inspector" id="theoryInspector" tabindex="-1" aria-label="${t('Inspector contextual','Contextual inspector')}" aria-live="polite"></aside>
