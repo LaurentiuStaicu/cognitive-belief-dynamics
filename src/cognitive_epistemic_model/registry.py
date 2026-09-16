@@ -41,6 +41,7 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     empirical_targets = load_json(model_dir / "empirical_targets.json")
     theory_index = load_json(model_dir / "theory_index.json")
     theory_glossary = load_json(model_dir / "theory_glossary.json")
+    computational_dependencies = load_json(model_dir / "computational_dependencies.json")
 
     validate_items(modules, load_json(schema_dir / "module.schema.json"))
     validate_items(variables, load_json(schema_dir / "variable.schema.json"))
@@ -51,6 +52,20 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     validate_items(empirical_targets, load_json(schema_dir / "empirical_target.schema.json"))
     validate_items(theory_index, load_json(schema_dir / "theory_index.schema.json"))
     validate_items(theory_glossary, load_json(schema_dir / "theory_glossary.schema.json"))
+    computational_validator = Draft202012Validator(
+        load_json(schema_dir / "computational_dependencies.schema.json")
+    )
+    computational_errors = sorted(
+        computational_validator.iter_errors(computational_dependencies),
+        key=lambda err: list(err.path),
+    )
+    if computational_errors:
+        raise RegistryError(
+            "\\n".join(
+                f"computational dependencies: {err.message}"
+                for err in computational_errors
+            )
+        )
     snapshot_validator = Draft202012Validator(load_json(schema_dir / "evidence_snapshot.schema.json"))
     snapshot_errors = sorted(snapshot_validator.iter_errors(evidence_snapshot), key=lambda err: list(err.path))
     if snapshot_errors:
@@ -137,5 +152,6 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
         "empirical_targets": len(empirical_targets),
         "semantic_entities": len(semantic_index["entities"]),
         "semantic_relations": len(semantic_index["relations"]),
+        "computational_dependencies": len(computational_dependencies["dependencies"]),
         **theory_counts,
     }
