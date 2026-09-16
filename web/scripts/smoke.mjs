@@ -57,11 +57,27 @@ try {
  await page.locator('#semanticSearchForm button[type="submit"]').click();
  await page.locator('[data-search-result-id="VAR.FAMILIARITY.CLAIM"]').waitFor();
  assert.match(await page.locator('#semanticSearchSummary').textContent(),/rezultate semantice/);
+ await page.locator('[data-search-result-id="VAR.FAMILIARITY.CLAIM"] [data-search-inspect-id]').click();
+ assert.equal(await page.locator('aside#semanticInspector').count(),1);
+ assert.equal(await page.locator('#semanticInspector').getAttribute('data-inspector-kind'),'entity');
+ assert.equal(await page.locator('#semanticInspector').getAttribute('data-inspector-id'),'VAR.FAMILIARITY.CLAIM');
+ assert.equal(await page.evaluate(()=>document.activeElement?.id),'semanticInspector');
+ assert.match(await page.locator('#semanticInspector').textContent(),/VAR\.FAMILIARITY\.CLAIM/);
+ assert.equal(await page.locator('#semanticInspector [role="dialog"]').count(),0);
+ const firstRelation=page.locator('#semanticInspector [data-inspect-id]').first();
+ await firstRelation.click();
+ assert.equal(await page.locator('#semanticInspector').getAttribute('data-inspector-kind'),'relation');
+ assert.match(await page.locator('#semanticInspector .eyebrow').textContent(),/Relație|Dependență|documentație/i);
+ const sourceButton=page.locator('#semanticInspector .inspector-endpoints [data-inspect-id]').first();
+ await sourceButton.click();
+ assert.equal(await page.locator('#semanticInspector').getAttribute('data-inspector-kind'),'entity');
+
  assert.doesNotMatch(await page.locator('#semanticSearchResults').textContent(),/retrievalScore|1000|950|900/);
  const searchValueBeforeNav=await page.locator('#semanticSearchInput').inputValue();
  await page.locator('[data-nav-group="analyze"]').click();
  assert.equal(await page.locator('#semanticSearchInput').inputValue(),searchValueBeforeNav);
  assert.equal(await page.locator('[data-search-result-id="VAR.FAMILIARITY.CLAIM"]').count(),1);
+ assert.notEqual(await page.locator('#semanticInspector').getAttribute('data-inspector-id'),'');
  await page.locator('[data-nav-group="understand"]').click();
  await waitTheory();
  const visualTokens=await page.evaluate(()=>{
