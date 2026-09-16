@@ -1,0 +1,122 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from cognitive_epistemic_model.semantic import (
+    build_semantic_index,
+    semantic_index_json,
+    validate_semantic_index,
+)
+
+ROOT = Path(__file__).resolve().parents[1]
+MODEL = ROOT / "model"
+SCHEMA = ROOT / "schemas" / "semantic_index.schema.json"
+GENERATED = MODEL / "semantic_index.json"
+
+
+def load(path: Path):
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def test_semantic_compiler_builds_schema_valid_index():
+    index = build_semantic_index(MODEL)
+    validate_semantic_index(index, SCHEMA)
+
+
+def test_semantic_compiler_matches_committed_generated_index_byte_for_byte():
+    index = build_semantic_index(MODEL)
+    assert semantic_index_json(index) == GENERATED.read_text(encoding="utf-8")
+
+
+def test_semantic_compiler_is_deterministic():
+    first = semantic_index_json(build_semantic_index(MODEL))
+    second = semantic_index_json(build_semantic_index(MODEL))
+    assert first == second
+
+
+def test_semantic_compiler_entity_coverage_matches_authoritative_sources():
+    index = build_semantic_index(MODEL)
+    expected = set()
+    for name in (
+        "variables",
+        "modules",
+        "references",
+        "validation_tests",
+        "empirical_targets",
+        "theory_index",
+        "theory_glossary",
+    ):
+        expected |= {item["id"] for item in load(MODEL / f"{name}.json")}
+
+    actual = {item["id"] for item in index["entities"]}
+    assert actual == expected
+    assert len(actual) == 103
+
+
+def test_semantic_compiler_preserves_registered_links_exactly():
+    index = build_semantic_index(MODEL)
+    links = load(MODEL / "links.json")
+    expected_ids = {item["id"] for item in links}
+    registered = [
+        relation
+        for relation in index["relations"]
+        if relation["layer"] == "REGISTERED_EVIDENCE_RELATION"
+    ]
+
+    assert {item["id"] for item in registered} == expected_ids
+    assert len(registered) == 10
+
+    source_by_id = {item["id"]: item for item in links}
+    for relation in registered:
+        source = source_by_id[relation["id"]]
+        assert relation["relation_type"] == source["relation_type"]
+        assert relation["polarity"] == source["polarity"]
+        assert relation["evidence_refs"] == source["evidence_refs"]
+        assert relation["status_facets"] == {
+            "phenomenon_evidence": source["phenomenon_evidence_status"],
+            "mechanism_evidence": source["mechanism_evidence_status"],
+            "functional_form": source["functional_form_status"],
+        }
+
+
+def test_semantic_compiler_documentation_relations_are_resolved():
+    index = build_semantic_index(MODEL)
+    entity_ids = {item["id"] for item in index["entities"]}
+    documentation = [
+        relation
+        for relation in index["relations"]
+        if relation["layer"] == "DOCUMENTATION_RELATION"
+    ]
+
+    assert len(documentation) == 162
+    for relation in documentation:
+        assert relation["source"] in entity_ids
+        assert relation["target"] in entity_ids
+
+
+def test_oa1b_does_not_import_computational_dependencies_early():
+    index = build_semantic_index(MODEL)
+    assert not any(
+        relation["layer"] == "COMPUTATIONAL_DEPENDENCY"
+        for relation in index["relations"]
+    )
+
+
+def test_semantic_related_ids_all_resolve():
+    index = build_semantic_index(MODEL)
+    entity_ids = {item["id"] for item in index["entities"]}
+    for entity in index["entities"]:
+        assert set(entity.get("related_ids", [])) <= entity_ids
+
+
+def test_semantic_compiler_preserves_bilingual_theory_and_glossary_labels():
+    index = build_semantic_index(MODEL)
+    by_id = {item["id"]: item for item in index["entities"]}
+
+    theory = by_id["THEORY.01.WORLD_INFORMATION_REPRESENTATION"]
+    assert set(theory["labels"]["preferred"]) == {"ro", "en"}
+
+    mechanism = by_id["GLOSS.MECH.REPETITION"]
+    assert set(mechanism["labels"]["preferred"]) == {"ro", "en"}
+    assert "repetition" in mechanism["labels"]["alternative"]["und"]
