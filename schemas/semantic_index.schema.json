@@ -173,13 +173,14 @@
         },
         "semantic_type": {
           "enum": [
-            "VARIABLE",
+            "COMPUTATIONAL_NODE",
+            "EMPIRICAL_TARGET",
+            "GLOSSARY_ENTRY",
             "MODULE",
             "REFERENCE",
-            "VALIDATION",
-            "EMPIRICAL_TARGET",
             "THEORY_CHAPTER",
-            "GLOSSARY_ENTRY"
+            "VALIDATION",
+            "VARIABLE"
           ]
         },
         "semantic_roles": {
