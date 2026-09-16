@@ -31,3 +31,25 @@
 @media(max-width:900px){.uncertainty-ledger-grid{grid-template-columns:minmax(0,1fr)}.uncertainty-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:550px){.uncertainty-threshold{grid-template-columns:minmax(0,1fr)}.uncertainty-metrics{grid-template-columns:minmax(0,1fr)}.uncertainty-context-item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;width:100%}.uncertainty-context>div{display:grid;grid-template-columns:minmax(0,1fr)}}
 @media(forced-colors:active){.uncertainty-tags span,.uncertainty-switch,.uncertainty-context-item{border-color:CanvasText}}
+
+/* OA-6D — information priority + adaptive reassessment */
+.information-priority,.adaptive-reassessment{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}
+.information-priority-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
+.information-priority-grid article{border:1px solid var(--border);border-radius:.45rem;padding:.85rem;min-width:0}
+.information-priority-grid h5,.reassessment-records h5{margin:.5rem 0}
+.priority-class{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:.15rem .5rem;font-size:.72rem;font-weight:700}
+.priority-meta{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;margin:.65rem 0;font-size:.76rem;color:var(--muted)}
+.information-priority-grid button{min-height:42px}
+#reassessmentForm{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;margin:1rem 0}
+#reassessmentForm label{display:grid;gap:.3rem;font-weight:700;min-width:0}
+#reassessmentForm input,#reassessmentForm select,#reassessmentForm textarea{width:100%;min-width:0;padding:.55rem}
+#reassessmentForm input,#reassessmentForm select{min-height:44px}
+#reassessmentForm .wide{grid-column:1/-1}
+.adaptive-actions{display:flex;flex-wrap:wrap;gap:.5rem}
+.reassessment-records{display:grid;gap:.75rem;margin:1rem 0}
+.reassessment-records article{border:1px solid var(--border);border-radius:.45rem;padding:.85rem;min-width:0}
+.reassessment-records article>div:first-child{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center}
+.reassessment-records dl{display:grid;grid-template-columns:minmax(6rem,auto) minmax(0,1fr);gap:.3rem .7rem}
+.reassessment-records dd{margin:0;overflow-wrap:anywhere}
+@media(max-width:760px){.information-priority-grid,#reassessmentForm{grid-template-columns:minmax(0,1fr)}#reassessmentForm .wide{grid-column:auto}.reassessment-records dl{grid-template-columns:minmax(0,1fr)}}
+@media(forced-colors:active){.priority-class,.information-priority-grid article,.reassessment-records article{border-color:CanvasText}}
