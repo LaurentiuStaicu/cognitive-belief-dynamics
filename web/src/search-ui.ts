@@ -1,7 +1,7 @@
 import {semanticIndex,type SemanticIndex,type SemanticLang} from './semantic';
 import {searchSemanticIndex,type SemanticSearchResult} from './semantic-search';
 
-type SearchUiOptions={lang:SemanticLang;index?:SemanticIndex;initialQuery?:string;onQueryChange?:(query:string)=>void;};
+type SearchUiOptions={lang:SemanticLang;index?:SemanticIndex;initialQuery?:string;onQueryChange?:(query:string)=>void;onSelect?:(id:string)=>void;};
 
 const esc=(value:string)=>value.replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]!));
 
@@ -14,11 +14,12 @@ function typeLabel(type:string,lang:SemanticLang):string{
  const pair=labels[type];return pair?(lang==='ro'?pair[0]:pair[1]):type;
 }
 
-function resultMarkup(result:SemanticSearchResult,lang:SemanticLang):string{
+function resultMarkup(result:SemanticSearchResult,lang:SemanticLang,selectable:boolean):string{
  const short=result.shortName?'<code>'+esc(result.shortName)+'</code>':'';
+ const action=selectable?'<button type="button" class="semantic-search-result-action" data-search-inspect-id="'+esc(result.id)+'">'+(lang==='ro'?'Inspectează':'Inspect')+'<span class="sr-only"> '+esc(result.label)+'</span></button>':'';
  return '<li class="semantic-search-result" data-search-result-id="'+esc(result.id)+'">'+
   '<div class="semantic-search-result-heading"><strong>'+esc(result.label)+'</strong><span>'+esc(typeLabel(result.semanticType,lang))+'</span></div>'+
-  '<div class="semantic-search-result-meta">'+short+'<code>'+esc(result.id)+'</code></div></li>';
+  '<div class="semantic-search-result-meta">'+short+'<code>'+esc(result.id)+'</code></div>'+action+'</li>';
 }
 
 export function mountSemanticSearch(host:HTMLElement,options:SearchUiOptions):void{
@@ -39,7 +40,8 @@ export function mountSemanticSearch(host:HTMLElement,options:SearchUiOptions):vo
   if(!trimmed){summary.textContent='';resultsHost.replaceChildren();return;}
   const results=searchSemanticIndex(index,trimmed,{lang,limit:20});
   summary.textContent=results.length===0?t('Niciun rezultat semantic.','No semantic results.'):(lang==='ro'?String(results.length)+' rezultate semantice.':String(results.length)+' semantic results.');
-  resultsHost.innerHTML=results.map(result=>resultMarkup(result,lang)).join('');
+  resultsHost.innerHTML=results.map(result=>resultMarkup(result,lang,options.onSelect!==undefined)).join('');
+  resultsHost.querySelectorAll<HTMLButtonElement>('[data-search-inspect-id]').forEach(button=>button.onclick=()=>{const id=button.dataset.searchInspectId;if(id)options.onSelect?.(id);});
  };
  form.onsubmit=event=>{event.preventDefault();render(input.value);};
  form.onreset=()=>{queueMicrotask(()=>{input.value='';render('');input.focus();});};
