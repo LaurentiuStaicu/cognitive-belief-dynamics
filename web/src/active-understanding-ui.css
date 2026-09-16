@@ -62,3 +62,19 @@
  .active-actions .primary{background:ButtonFace;color:ButtonText;border-color:ButtonText}
  .active-comparison{border-color:Highlight}
 }
+
+/* OA-5C — Challenge Model */
+.challenge-model{min-width:0}
+.challenge-model-invariants,.challenge-model-status{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;margin:1rem 0}
+.challenge-model-invariants>div,.challenge-model-status>div{display:grid;gap:.25rem;min-width:0;padding:.7rem;border:1px solid var(--border,#d5deea);border-radius:8px}
+.challenge-model-invariants span,.challenge-model-status span{font-size:.78rem;color:var(--muted)}
+.challenge-model-invariants code,.challenge-model-status code{overflow-wrap:anywhere}
+.challenge-model-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1rem 0}
+.challenge-model-card{min-width:0;border:1px solid var(--border,#d5deea);border-radius:10px;padding:1rem}
+.challenge-model-card h4{margin:.25rem 0 .6rem}
+.challenge-model-card dl{display:grid;gap:.35rem;margin:1rem 0}
+.challenge-model-card dl>div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.75rem;padding:.45rem 0;border-bottom:1px solid var(--border,#d5deea)}
+.challenge-model-card dd{margin:0;font-variant-numeric:tabular-nums}
+@media(max-width:700px){
+ .challenge-model-grid,.challenge-model-invariants,.challenge-model-status{grid-template-columns:minmax(0,1fr)}
+}

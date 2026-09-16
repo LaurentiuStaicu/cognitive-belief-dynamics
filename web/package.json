@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run test:workspace && npm run test:ia && npm run test:visual && npm run test:oa4 && npm run test:oa5a && tsc --noEmit && vite build --base=./",
+    "build": "npm run test:workspace && npm run test:ia && npm run test:visual && npm run test:oa4 && npm run test:oa5a && npm run test:oa5c && tsc --noEmit && vite build --base=./",
     "prebuild": "node scripts/sync-model.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "test:browser": "node scripts/smoke.mjs",
@@ -14,7 +14,8 @@
     "test:ia": "node --test tests/navigation.test.ts",
     "test:visual": "node --test tests/visual-language.test.ts",
     "test:oa4": "node --test tests/search-inspector.test.ts",
-    "test:oa5a": "node --test tests/active-understanding.test.ts"
+    "test:oa5a": "node --test tests/active-understanding.test.ts",
+    "test:oa5c": "node --test tests/challenge-model.test.ts"
   },
   "dependencies": {
     "cytoscape": "^3.31.0",
