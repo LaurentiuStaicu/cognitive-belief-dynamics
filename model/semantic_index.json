@@ -1,0 +1,4466 @@
+{
+  "baseline_contract": "OA0.BASELINE.2026-09-16",
+  "entities": [
+    {
+      "id": "GLOSS.CONCEPT.ALGORITHM_STAGE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "algorithm-stage"
+          ]
+        },
+        "preferred": {
+          "en": "Ranking versus downstream cognition",
+          "ro": "Ranking versus cogniție ulterioară"
+        }
+      },
+      "related_ids": [
+        "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      ],
+      "semantic_roles": [
+        "CONCEPT_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.ALGORITHM_STAGE"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "Causal-stage distinction separating recommendation ranking from exposure, processing, internal representation and later judgment.",
+        "ro": "Distincție de etapă cauzală care separă rankingul de recomandare de expunere, procesare, reprezentare internă și judecată ulterioară."
+      }
+    },
+    {
+      "id": "GLOSS.CONCEPT.INDIVIDUATION",
+      "labels": {
+        "alternative": {
+          "und": [
+            "individuation"
+          ]
+        },
+        "preferred": {
+          "en": "Individuation",
+          "ro": "Individuație"
+        }
+      },
+      "related_ids": [
+        "THEORY.13.INDIVIDUATION_AUTONOMY"
+      ],
+      "semantic_roles": [
+        "CONCEPT_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.INDIVIDUATION"
+      },
+      "status_facets": {
+        "source_tags": [
+          "INTERPRETIVE"
+        ]
+      },
+      "summary": {
+        "en": "Jungian interpretive concept concerning integration of conscious and less-conscious aspects of the self.",
+        "ro": "Concept interpretativ jungian privind integrarea aspectelor conștiente și mai puțin conștiente ale sinelui."
+      }
+    },
+    {
+      "id": "GLOSS.CONCEPT.M0",
+      "labels": {
+        "alternative": {
+          "und": [
+            "m0"
+          ]
+        },
+        "preferred": {
+          "en": "M0 baseline",
+          "ro": "Baseline M0"
+        }
+      },
+      "related_ids": [
+        "THEORY.00.WHAT_IS_CEM",
+        "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      ],
+      "semantic_roles": [
+        "CONCEPT_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.M0"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Retained executable baseline containing repetition, correction, source-reliability, belief and action mechanisms.",
+        "ro": "Baseline executabil reținut care conține mecanismele de repetiție, corecție, fiabilitate a sursei, convingere și acțiune."
+      }
+    },
+    {
+      "id": "GLOSS.CONCEPT.M1_E1",
+      "labels": {
+        "alternative": {
+          "und": [
+            "m1-e1"
+          ]
+        },
+        "preferred": {
+          "en": "M1.E1 Editorial Emphasis",
+          "ro": "M1.E1 Accent editorial"
+        }
+      },
+      "related_ids": [
+        "THEORY.09.EDITORIAL_SELECTION"
+      ],
+      "semantic_roles": [
+        "CONCEPT_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.M1_E1"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "First executable M1 extension separating a fixed factual pool from the editorial sample observed.",
+        "ro": "Prima extensie M1 executabilă care separă un pool factual fix de eșantionul editorial observat."
+      }
+    },
+    {
+      "id": "GLOSS.CONCEPT.M1_E2",
+      "labels": {
+        "alternative": {
+          "und": [
+            "m1-e2"
+          ]
+        },
+        "preferred": {
+          "en": "M1.E2 Presentation Framing",
+          "ro": "M1.E2 Framing de prezentare"
+        }
+      },
+      "related_ids": [
+        "THEORY.10.PRESENTATION_CONGRUENCE"
+      ],
+      "semantic_roles": [
+        "CONCEPT_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.M1_E2"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Second executable M1 extension discriminating semantic-equivalent framing models with task-specific congruence.",
+        "ro": "A doua extensie M1 executabilă care discriminează modele de framing semantic echivalent cu congruență task-specifică."
+      }
+    },
+    {
+      "id": "GLOSS.CONCEPT.NEED_FOR_CLOSURE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "need-for-closure"
+          ]
+        },
+        "preferred": {
+          "en": "Need for closure",
+          "ro": "Nevoie de închidere cognitivă"
+        }
+      },
+      "related_ids": [
+        "THEORY.03.UNCERTAINTY_CLOSURE"
+      ],
+      "semantic_roles": [
+        "CONCEPT_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.NEED_FOR_CLOSURE"
+      },
+      "status_facets": {
+        "source_tags": [
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "Conceptual pressure toward definite answers under ambiguity, linked historically to seizing and freezing processes.",
+        "ro": "Presiune conceptuală către răspunsuri definite în ambiguitate, legată istoric de procesele de seizing și freezing."
+      }
+    },
+    {
+      "id": "GLOSS.CONCEPT.ODD",
+      "labels": {
+        "alternative": {
+          "und": [
+            "odd"
+          ]
+        },
+        "preferred": {
+          "en": "ODD protocol",
+          "ro": "Protocol ODD"
+        }
+      },
+      "related_ids": [
+        "THEORY.14.VALIDATION"
+      ],
+      "semantic_roles": [
+        "CONCEPT_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.ODD"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Formal model-description structure used to document purpose, entities, processes, initialization, inputs and submodels.",
+        "ro": "Structură formală de descriere a modelului folosită pentru scop, entități, procese, inițializare, inputuri și submodele."
+      }
+    },
+    {
+      "id": "GLOSS.CONCEPT.REFLECTIVE_DISTANCE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "reflective-distance"
+          ]
+        },
+        "preferred": {
+          "en": "Reflective Distance",
+          "ro": "Reflective Distance"
+        }
+      },
+      "related_ids": [
+        "THEORY.13.INDIVIDUATION_AUTONOMY"
+      ],
+      "semantic_roles": [
+        "CONCEPT_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.REFLECTIVE_DISTANCE"
+      },
+      "status_facets": {
+        "source_tags": [
+          "INTERPRETIVE"
+        ]
+      },
+      "summary": {
+        "en": "Project-level integrative label for reflective distance from immediate thoughts, affect and identity commitments.",
+        "ro": "Etichetă integrativă la nivel de proiect pentru distanța reflexivă față de gânduri, afect și angajamente identitare imediate."
+      }
+    },
+    {
+      "id": "GLOSS.CONCEPT.STRESS_RESOURCES",
+      "labels": {
+        "alternative": {
+          "und": [
+            "stress-resources"
+          ]
+        },
+        "preferred": {
+          "en": "Stress and executive resources",
+          "ro": "Stres și resurse executive"
+        }
+      },
+      "related_ids": [
+        "THEORY.04.STRESS_RESOURCES_FLEXIBILITY"
+      ],
+      "semantic_roles": [
+        "CONCEPT_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.STRESS_RESOURCES"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "Background theoretical layer concerning how acute or chronic stress can alter working-memory and flexibility demands.",
+        "ro": "Strat teoretic de fundal privind modul în care stresul acut sau cronic poate modifica cerințele de memorie de lucru și flexibilitate."
+      }
+    },
+    {
+      "id": "GLOSS.CONCEPT.TYPE1_TYPE2",
+      "labels": {
+        "alternative": {
+          "und": [
+            "type1-type2"
+          ]
+        },
+        "preferred": {
+          "en": "Type 1 / Type 2 processing",
+          "ro": "Procesare Type 1 / Type 2"
+        }
+      },
+      "related_ids": [
+        "THEORY.02.PROCESSING_METACONTROL"
+      ],
+      "semantic_roles": [
+        "CONCEPT_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.TYPE1_TYPE2"
+      },
+      "status_facets": {
+        "source_tags": [
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "A theoretical distinction between relatively autonomous processing and deliberative processing with working-memory demands.",
+        "ro": "Distincție teoretică între procesare relativ autonomă și procesare deliberativă cu cerințe de memorie de lucru."
+      }
+    },
+    {
+      "id": "GLOSS.CONCEPT.VALIDATION",
+      "labels": {
+        "alternative": {
+          "und": [
+            "model-validation"
+          ]
+        },
+        "preferred": {
+          "en": "Model validation",
+          "ro": "Validarea modelului"
+        }
+      },
+      "related_ids": [
+        "THEORY.14.VALIDATION"
+      ],
+      "semantic_roles": [
+        "CONCEPT_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.VALIDATION"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Layered checks separating implementation correctness, pattern reproduction, empirical targets, model discrimination and reproducibility.",
+        "ro": "Verificări pe niveluri care separă corectitudinea implementării, reproducerea patternurilor, țintele empirice, discriminarea modelelor și reproductibilitatea."
+      }
+    },
+    {
+      "id": "GLOSS.CONCEPT.WORLD_MODEL",
+      "labels": {
+        "alternative": {
+          "und": [
+            "world-model"
+          ]
+        },
+        "preferred": {
+          "en": "World-model construction",
+          "ro": "Construirea modelului realității"
+        }
+      },
+      "related_ids": [
+        "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+        "THEORY.09.EDITORIAL_SELECTION"
+      ],
+      "semantic_roles": [
+        "CONCEPT_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.WORLD_MODEL"
+      },
+      "status_facets": {
+        "source_tags": [
+          "CONCEPTUAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Conceptual distinction between external world state, information reaching the agent, and the internal representation built from it.",
+        "ro": "Distincție conceptuală între starea externă a lumii, informația care ajunge la agent și reprezentarea internă construită din aceasta."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.ACCESS",
+      "labels": {
+        "alternative": {
+          "und": [
+            "access"
+          ]
+        },
+        "preferred": {
+          "en": "Headline access gate",
+          "ro": "Poarta de acces la titlu"
+        }
+      },
+      "related_ids": [
+        "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.ACCESS"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Executable M1.E3 candidate mechanism comparing cue-insensitive and Hneg-sensitive probabilities of opening/clicking a full item after one preview impression.",
+        "ro": "Mecanism candidat M1.E3 executabil care compară probabilitatea de deschidere/click după o impresie de preview într-un model insensibil la indiciu și într-un model sensibil la Hneg."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.ACCURACY",
+      "labels": {
+        "alternative": {
+          "und": [
+            "accuracy"
+          ]
+        },
+        "preferred": {
+          "en": "Accuracy salience and action",
+          "ro": "Saliența acurateții și acțiune"
+        }
+      },
+      "related_ids": [
+        "THEORY.08.BELIEF_ACCURACY_ACTION",
+        "THEORY.12.INTERVENTIONS"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.ACCURACY"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Executable M0 decision mechanism separating belief from contextual accuracy weighting and sharing action.",
+        "ro": "Mecanism decizional M0 executabil care separă convingerea de ponderea contextuală a acurateții și acțiunea de distribuire."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.CORRECTION",
+      "labels": {
+        "alternative": {
+          "und": [
+            "correction"
+          ]
+        },
+        "preferred": {
+          "en": "Correction accessibility",
+          "ro": "Accesibilitatea corecției"
+        }
+      },
+      "related_ids": [
+        "THEORY.06.CORRECTION_ACCESS_MEMORY"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.CORRECTION"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Executable M0 mechanism for encoding and decay of corrective-context accessibility.",
+        "ro": "Mecanism M0 executabil pentru encodarea și diminuarea accesibilității contextului corectiv."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.EDITORIAL",
+      "labels": {
+        "alternative": {
+          "und": [
+            "editorial"
+          ]
+        },
+        "preferred": {
+          "en": "Editorial emphasis",
+          "ro": "Accent editorial"
+        }
+      },
+      "related_ids": [
+        "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+        "THEORY.09.EDITORIAL_SELECTION"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.EDITORIAL"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Executable M1.E1 candidate mechanism selecting a factual subset from a fixed information pool.",
+        "ro": "Mecanism candidat M1.E1 executabil care selectează un subset factual dintr-un pool informațional fix."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.PRESENTATION",
+      "labels": {
+        "alternative": {
+          "und": [
+            "presentation"
+          ]
+        },
+        "preferred": {
+          "en": "Presentation framing × congruence",
+          "ro": "Framing de prezentare × congruență"
+        }
+      },
+      "related_ids": [
+        "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+        "THEORY.10.PRESENTATION_CONGRUENCE"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.PRESENTATION"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Executable M1.E2 candidate mechanism comparing semantic-equivalent framing models under task-specific congruence.",
+        "ro": "Mecanism candidat M1.E2 executabil care compară modele de framing semantic echivalent sub congruență task-specifică."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.REPETITION",
+      "labels": {
+        "alternative": {
+          "und": [
+            "repetition"
+          ]
+        },
+        "preferred": {
+          "en": "Repetition / familiarity",
+          "ro": "Repetiție / familiaritate"
+        }
+      },
+      "related_ids": [
+        "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.REPETITION"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Executable M0 mechanism in which repeated exposure increases claim familiarity.",
+        "ro": "Mecanism M0 executabil în care expunerea repetată crește familiaritatea afirmației."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.SOURCE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "source"
+          ]
+        },
+        "preferred": {
+          "en": "Source reliability learning",
+          "ro": "Învățarea fiabilității sursei"
+        }
+      },
+      "related_ids": [
+        "THEORY.07.SOURCE_RELIABILITY"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.SOURCE"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Executable M0 mechanism updating the agent's estimate of source reliability from feedback.",
+        "ro": "Mecanism M0 executabil care actualizează estimarea agentului privind fiabilitatea sursei din feedback."
+      }
+    },
+    {
+      "id": "MOD.01",
+      "labels": {
+        "preferred": {
+          "en": "State conditions",
+          "ro": "Condiții de stare"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.01"
+      }
+    },
+    {
+      "id": "MOD.02",
+      "labels": {
+        "preferred": {
+          "en": "Epistemic processing / metacontrol",
+          "ro": "Procesare epistemică / metacontrol"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.02"
+      }
+    },
+    {
+      "id": "MOD.03",
+      "labels": {
+        "preferred": {
+          "en": "Information & network environment",
+          "ro": "Mediul informațional și de rețea"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.03"
+      }
+    },
+    {
+      "id": "MOD.04",
+      "labels": {
+        "preferred": {
+          "en": "Memory & learning",
+          "ro": "Memorie și învățare"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.04"
+      }
+    },
+    {
+      "id": "MOD.05",
+      "labels": {
+        "preferred": {
+          "en": "Social identity & polarization",
+          "ro": "Identitate socială și polarizare"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.05"
+      }
+    },
+    {
+      "id": "MOD.06",
+      "labels": {
+        "preferred": {
+          "en": "Affect & decision urgency",
+          "ro": "Afect și urgența deciziei"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.06"
+      }
+    },
+    {
+      "id": "MOD.07",
+      "labels": {
+        "preferred": {
+          "en": "Action & dissemination",
+          "ro": "Acțiune și diseminare"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.07"
+      }
+    },
+    {
+      "id": "MOD.08",
+      "labels": {
+        "preferred": {
+          "en": "Population & network heterogeneity",
+          "ro": "Eterogenitate populațională și de rețea"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.08"
+      }
+    },
+    {
+      "id": "MOD.09",
+      "labels": {
+        "preferred": {
+          "en": "Attention & encoding",
+          "ro": "Atenție și encodare"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.09"
+      }
+    },
+    {
+      "id": "MOD.10",
+      "labels": {
+        "preferred": {
+          "en": "Adaptation & cross-platform ecosystem",
+          "ro": "Adaptare și ecosistem multiplatformă"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.10"
+      }
+    },
+    {
+      "id": "MOD.11",
+      "labels": {
+        "preferred": {
+          "en": "Human–AI epistemic intermediation",
+          "ro": "Intermediere epistemică om–AI"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.11"
+      }
+    },
+    {
+      "id": "MOD.12",
+      "labels": {
+        "preferred": {
+          "en": "Delegation & appropriate reliance",
+          "ro": "Delegare și încredere calibrată"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.12"
+      }
+    },
+    {
+      "id": "MOD.13",
+      "labels": {
+        "preferred": {
+          "en": "Skill acquisition / deskilling / human oversight",
+          "ro": "Dobândirea competenței / pierderea competenței / supraveghere"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.13"
+      }
+    },
+    {
+      "id": "MOD.14",
+      "labels": {
+        "preferred": {
+          "en": "World-model construction",
+          "ro": "Construirea modelului realității"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.14"
+      }
+    },
+    {
+      "id": "MOD.15",
+      "labels": {
+        "preferred": {
+          "en": "Heuristic policy selection",
+          "ro": "Selecția politicilor euristice"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.15"
+      }
+    },
+    {
+      "id": "MOD.16",
+      "labels": {
+        "preferred": {
+          "en": "Editorial media system",
+          "ro": "Sistemul media editorial"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.16"
+      }
+    },
+    {
+      "id": "MOD.17",
+      "labels": {
+        "preferred": {
+          "en": "Self-integration / individuation",
+          "ro": "Integrarea sinelui / individuație"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.17"
+      }
+    },
+    {
+      "id": "MOD.18",
+      "labels": {
+        "preferred": {
+          "en": "Social norms & collective evidence",
+          "ro": "Norme sociale și dovezi colective"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.18"
+      }
+    },
+    {
+      "id": "MOD.19",
+      "labels": {
+        "preferred": {
+          "en": "Strategic influence / adversarial production",
+          "ro": "Influență strategică / producție adversarială"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.19"
+      }
+    },
+    {
+      "id": "MOD.20",
+      "labels": {
+        "preferred": {
+          "en": "Epistemic institutions & authority",
+          "ro": "Instituții epistemice și autoritate"
+        }
+      },
+      "semantic_type": "MODULE",
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.20"
+      }
+    },
+    {
+      "id": "REF.ALVARADO.2026",
+      "labels": {
+        "preferred": {
+          "und": "Alvarado, J. D., Aruguete, N., & Calvo, E. (2026). Framing and news sharing behavior: the use of confirmation and refutation statements in the election of a right-wing populist leader. Humanities and Social Sciences Communications."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.ALVARADO.2026"
+      }
+    },
+    {
+      "id": "REF.ARUGUETE.2024",
+      "labels": {
+        "preferred": {
+          "und": "Aruguete, N., Batista, F., Calvo, E., Guizzo-Altube, M., Scartascini, C., & Ventura, T. (2024). Framing fact-checks as a “confirmation” increases engagement with corrections of misinformation: a four-country study. Scientific Reports, 14, 3201."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.ARUGUETE.2024"
+      }
+    },
+    {
+      "id": "REF.DECHENE.2010",
+      "labels": {
+        "preferred": {
+          "und": "Dechêne, A., Stahl, C., Hansen, J., & Wänke, M. (2010). The truth about the truth: A meta-analytic review of the truth effect. Personality and Social Psychology Review, 14, 238–257."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.DECHENE.2010"
+      }
+    },
+    {
+      "id": "REF.HASHER.1977",
+      "labels": {
+        "preferred": {
+          "und": "Hasher, L., Goldstein, D., & Toppino, T. (1977). Frequency and the conference of referential validity. Journal of Verbal Learning and Verbal Behavior, 16, 107–112."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.HASHER.1977"
+      }
+    },
+    {
+      "id": "REF.MATIAS.2021.UPWORTHY",
+      "labels": {
+        "preferred": {
+          "und": "Matias, J. N., Munger, K., Le Quere, M. A., & Ebersole, C. (2021). The Upworthy Research Archive, a time series of 32,487 experiments in U.S. media. Scientific Data, 8, 195."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.MATIAS.2021.UPWORTHY"
+      }
+    },
+    {
+      "id": "REF.MATIAS.2024.UPWORTHY_CORRECTION",
+      "labels": {
+        "preferred": {
+          "und": "Matias, J. N., Munger, K., Le Quere, M. A., & Ebersole, C. (2024). Author Correction: The Upworthy Research Archive, a time series of 32,487 experiments in U.S. media. Scientific Data, 11, 765."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.MATIAS.2024.UPWORTHY_CORRECTION"
+      }
+    },
+    {
+      "id": "REF.NICKL.2025.ATTENTION_ECONOMY",
+      "labels": {
+        "preferred": {
+          "und": "Nickl, P. L., Hills, T., & Lorenz-Spreen, P. (2025). The effects of an experimental attention economy on the production and consumption of news headlines. PsyArXiv preprint."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.NICKL.2025.ATTENTION_ECONOMY"
+      }
+    },
+    {
+      "id": "REF.PENNYCOOK.2021",
+      "labels": {
+        "preferred": {
+          "und": "Pennycook, G., Epstein, Z., Mosleh, M., Arechar, A. A., Eckles, D., & Rand, D. G. (2021). Shifting attention to accuracy can reduce misinformation online. Nature, 592, 590–595."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.PENNYCOOK.2021"
+      }
+    },
+    {
+      "id": "REF.ROBERTSON.2023.NEGATIVITY",
+      "labels": {
+        "preferred": {
+          "und": "Robertson, C. E., Pröllochs, N., Schwarzenegger, K., Pärnamets, P., Van Bavel, J. J., & Feuerriegel, S. (2023). Negativity drives online news consumption. Nature Human Behaviour, 7, 812–822."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.ROBERTSON.2023.NEGATIVITY"
+      }
+    },
+    {
+      "id": "REF.TOHIDI.2025",
+      "labels": {
+        "preferred": {
+          "und": "Tohidi, A., Haider, S., & Watts, D. J. (2025). Rethinking news framing with large language models. Scientific Reports, 15, 45592."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.TOHIDI.2025"
+      }
+    },
+    {
+      "id": "TARGET.M1.E1.TOHIDI_2025",
+      "labels": {
+        "alternative": {
+          "en": [
+            "Selective factual emphasis"
+          ]
+        },
+        "preferred": {
+          "und": "TARGET.M1.E1.TOHIDI_2025"
+        }
+      },
+      "related_ids": [
+        "REF.TOHIDI.2025",
+        "VAL.M1.001"
+      ],
+      "semantic_type": "EMPIRICAL_TARGET",
+      "source": {
+        "path": "model/empirical_targets.json",
+        "source_id": "TARGET.M1.E1.TOHIDI_2025"
+      },
+      "summary": {
+        "en": "Alpha 0.4 uses the negative-versus-neutral direction and nested-null contrast as validation targets. Published magnitudes are context only and are not used to set the appraisal gain."
+      }
+    },
+    {
+      "id": "TARGET.M1.E2.ALVARADO_2026",
+      "labels": {
+        "alternative": {
+          "en": [
+            "Frame by prior-attitude congruence"
+          ]
+        },
+        "preferred": {
+          "und": "TARGET.M1.E2.ALVARADO_2026"
+        }
+      },
+      "related_ids": [
+        "REF.ALVARADO.2026",
+        "VAL.M1.003"
+      ],
+      "semantic_type": "EMPIRICAL_TARGET",
+      "source": {
+        "path": "model/empirical_targets.json",
+        "source_id": "TARGET.M1.E2.ALVARADO_2026"
+      },
+      "summary": {
+        "en": "Alpha 0.4.1 uses the positive confirmation-by-congruence interaction and near-zero counter-attitudinal confirmation main effect as the differential target that distinguishes frame×congruence from frame-only."
+      }
+    },
+    {
+      "id": "TARGET.M1.E2.ARUGUETE_2024",
+      "labels": {
+        "alternative": {
+          "en": [
+            "Semantic-equivalent presentation framing"
+          ]
+        },
+        "preferred": {
+          "und": "TARGET.M1.E2.ARUGUETE_2024"
+        }
+      },
+      "related_ids": [
+        "REF.ARUGUETE.2024",
+        "VAL.M1.002"
+      ],
+      "semantic_type": "EMPIRICAL_TARGET",
+      "source": {
+        "path": "model/empirical_targets.json",
+        "source_id": "TARGET.M1.E2.ARUGUETE_2024"
+      },
+      "summary": {
+        "en": "Alpha 0.4.1 uses the cross-country confirmation-greater-than-refutation engagement direction as the target for the frame-only candidate. The published percentage-point effects are context only and do not set beta_frame."
+      }
+    },
+    {
+      "id": "TARGET.M1.E3.ROBERTSON_2023",
+      "labels": {
+        "alternative": {
+          "en": [
+            "Headline-negativity access differential"
+          ]
+        },
+        "preferred": {
+          "und": "TARGET.M1.E3.ROBERTSON_2023"
+        }
+      },
+      "related_ids": [
+        "REF.MATIAS.2021.UPWORTHY",
+        "REF.MATIAS.2024.UPWORTHY_CORRECTION",
+        "REF.NICKL.2025.ATTENTION_ECONOMY",
+        "REF.ROBERTSON.2023.NEGATIVITY",
+        "VAL.M1.004"
+      ],
+      "semantic_type": "EMPIRICAL_TARGET",
+      "source": {
+        "path": "model/empirical_targets.json",
+        "source_id": "TARGET.M1.E3.ROBERTSON_2023"
+      },
+      "summary": {
+        "en": "Alpha 0.4.2 uses only the directional higher-Hneg to higher-Paccess pattern. The CEM binary Hneg cue and demonstrative logistic coefficient are not fitted to the source study's continuous standardized predictor or reported magnitude."
+      }
+    },
+    {
+      "id": "THEORY.00.WHAT_IS_CEM",
+      "labels": {
+        "preferred": {
+          "en": "What is the Cognitive Epistemic Model?",
+          "ro": "Ce este Cognitive Epistemic Model?"
+        }
+      },
+      "related_ids": [
+        "MOD.02",
+        "MOD.14"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.00.WHAT_IS_CEM"
+      },
+      "status_facets": {
+        "source_tags": [
+          "CONCEPTUAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Orientation to the problem CEM studies, the retained M0 baseline, the M1 extensions, and the model's current scientific limits.",
+        "ro": "Orientare asupra problemei studiate de CEM, modelului executabil de referință M0, extensiilor M1 și limitelor științifice actuale ale modelului."
+      }
+    },
+    {
+      "id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "labels": {
+        "preferred": {
+          "en": "World, information and internal representation",
+          "ro": "Lume, informație și reprezentare internă"
+        }
+      },
+      "related_ids": [
+        "GLOSS.MECH.EDITORIAL",
+        "GLOSS.MECH.PRESENTATION",
+        "MOD.03",
+        "MOD.14",
+        "MOD.16",
+        "REF.ARUGUETE.2024",
+        "REF.TOHIDI.2025",
+        "THEORY.00.WHAT_IS_CEM",
+        "VAL.M1.001",
+        "VAL.M1.002",
+        "VAR.ISSUE.APPRAISAL",
+        "VAR.OBSERVED.SAMPLE.BALANCE"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "status_facets": {
+        "source_tags": [
+          "CONCEPTUAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Separates world state, available information, selected and presented information, observed information, internal representation, judgment and action.",
+        "ro": "Separă starea lumii, informația disponibilă, informația selectată și prezentată, informația observată, reprezentarea internă, judecata și acțiunea."
+      }
+    },
+    {
+      "id": "THEORY.02.PROCESSING_METACONTROL",
+      "labels": {
+        "preferred": {
+          "en": "Fast processing, deliberation and metacontrol",
+          "ro": "Procesare rapidă, deliberare și metacontrol"
+        }
+      },
+      "related_ids": [
+        "MOD.02",
+        "MOD.09",
+        "MOD.15",
+        "THEORY.00.WHAT_IS_CEM",
+        "VAR.ACCURACY.SALIENCE"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.02.PROCESSING_METACONTROL"
+      },
+      "status_facets": {
+        "source_tags": [
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "Introduces cautious Type 1/Type 2 distinctions, working-memory demands and metacognitive control without turning them into two literal brains.",
+        "ro": "Introduce prudent distincțiile Type 1/Type 2, rolul memoriei de lucru, al atenției și al metacontrolului, fără a le transforma în două sisteme cognitive literale."
+      }
+    },
+    {
+      "id": "THEORY.03.UNCERTAINTY_CLOSURE",
+      "labels": {
+        "preferred": {
+          "en": "Uncertainty, need for closure, seizing and freezing",
+          "ro": "Incertitudine și nevoia de închidere cognitivă"
+        }
+      },
+      "related_ids": [
+        "MOD.02",
+        "MOD.06",
+        "THEORY.02.PROCESSING_METACONTROL"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.03.UNCERTAINTY_CLOSURE"
+      },
+      "status_facets": {
+        "source_tags": [
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "Recovers the project's conceptual distinction between closure pressure, rapid commitment and later maintenance of an interpretation.",
+        "ro": "Recuperează distincția conceptuală a proiectului dintre presiunea pentru închidere, angajarea rapidă și menținerea ulterioară a unei interpretări."
+      }
+    },
+    {
+      "id": "THEORY.04.STRESS_RESOURCES_FLEXIBILITY",
+      "labels": {
+        "preferred": {
+          "en": "Stress, executive resources and flexibility",
+          "ro": "Stres, resurse executive și flexibilitate"
+        }
+      },
+      "related_ids": [
+        "MOD.01",
+        "MOD.02",
+        "MOD.06",
+        "THEORY.02.PROCESSING_METACONTROL"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.04.STRESS_RESOURCES_FLEXIBILITY"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "Explains how stress can affect working memory and flexibility while avoiding simplistic claims that stress switches off the prefrontal cortex.",
+        "ro": "Explică modul în care stresul poate afecta memoria de lucru și flexibilitatea, evitând afirmația simplistă că stresul oprește cortexul prefrontal."
+      }
+    },
+    {
+      "id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "labels": {
+        "preferred": {
+          "en": "Repetition, familiarity and judged truth",
+          "ro": "Repetiție, familiaritate și adevăr perceput"
+        }
+      },
+      "related_ids": [
+        "GLOSS.MECH.REPETITION",
+        "MOD.02",
+        "MOD.03",
+        "MOD.04",
+        "REF.DECHENE.2010",
+        "REF.HASHER.1977",
+        "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+        "VAL.M0.001",
+        "VAR.BELIEF.CLAIM",
+        "VAR.EXPOSURE.COUNT",
+        "VAR.FAMILIARITY.CLAIM"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Explains the executable M0 path from repeated exposure to familiarity and its contribution to claim plausibility.",
+        "ro": "Explică traseul executabil M0 de la expunerea repetată la familiaritate și contribuția acesteia la plauzibilitatea afirmației."
+      }
+    },
+    {
+      "id": "THEORY.06.CORRECTION_ACCESS_MEMORY",
+      "labels": {
+        "preferred": {
+          "en": "Corrections, accessibility and memory",
+          "ro": "Corecții, accesibilitate și memorie"
+        }
+      },
+      "related_ids": [
+        "GLOSS.MECH.CORRECTION",
+        "MOD.02",
+        "MOD.04",
+        "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+        "VAL.M0.002",
+        "VAR.BELIEF.CLAIM",
+        "VAR.CORRECTION.ACCESS"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.06.CORRECTION_ACCESS_MEMORY"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Explains correction encoding, corrective-context accessibility and decay without describing decay as deletion of memory.",
+        "ro": "Explică encodarea corecției, accesibilitatea contextului corectiv și diminuarea acesteia fără a descrie procesul ca ștergere a memoriei."
+      }
+    },
+    {
+      "id": "THEORY.07.SOURCE_RELIABILITY",
+      "labels": {
+        "preferred": {
+          "en": "Sources, feedback and estimated reliability",
+          "ro": "Surse, feedback și fiabilitate estimată"
+        }
+      },
+      "related_ids": [
+        "GLOSS.MECH.SOURCE",
+        "MOD.02",
+        "MOD.20",
+        "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+        "VAL.M0.003",
+        "VAR.BELIEF.CLAIM",
+        "VAR.RELIABILITY.ESTIMATE"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.07.SOURCE_RELIABILITY"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Separates actual source quality from the agent's task-relevant reliability estimate and its influence on evidence weighting.",
+        "ro": "Separă performanța reală a sursei de estimarea agentului privind fiabilitatea ei și extinde discuția către expertiză, autoritate și instituții epistemice."
+      }
+    },
+    {
+      "id": "THEORY.08.BELIEF_ACCURACY_ACTION",
+      "labels": {
+        "preferred": {
+          "en": "Belief, accuracy attention and action",
+          "ro": "Convingere, atenție la acuratețe și acțiune"
+        }
+      },
+      "related_ids": [
+        "GLOSS.MECH.ACCURACY",
+        "MOD.02",
+        "MOD.07",
+        "REF.PENNYCOOK.2021",
+        "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+        "VAL.M0.004",
+        "VAL.M0.N01",
+        "VAR.ACCURACY.SALIENCE",
+        "VAR.ACTION.SHARE",
+        "VAR.BELIEF.CLAIM"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.08.BELIEF_ACCURACY_ACTION"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Separates latent truth judgment, contextual accuracy weight, sharing probability and sampled sharing action.",
+        "ro": "Separă judecata latentă de adevăr, ponderea contextuală a acurateții, probabilitatea de distribuire și acțiunea de distribuire eșantionată."
+      }
+    },
+    {
+      "id": "THEORY.09.EDITORIAL_SELECTION",
+      "labels": {
+        "preferred": {
+          "en": "Editorial selection and the observed world",
+          "ro": "Selecție editorială și lumea observată"
+        }
+      },
+      "related_ids": [
+        "GLOSS.MECH.EDITORIAL",
+        "MOD.14",
+        "MOD.16",
+        "REF.TOHIDI.2025",
+        "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+        "VAL.M1.001",
+        "VAL.M1.N01",
+        "VAR.CONTENT.VALENCE",
+        "VAR.EDITORIAL.EMPHASIS",
+        "VAR.ISSUE.APPRAISAL",
+        "VAR.OBSERVED.SAMPLE.BALANCE"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.09.EDITORIAL_SELECTION"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Explains M1.E1: the factual pool stays fixed while editorial emphasis changes the selected sample and issue appraisal.",
+        "ro": "Explică M1.E1: setul factual rămâne fix, iar accentul editorial schimbă eșantionul selectat și evaluarea subiectului."
+      }
+    },
+    {
+      "id": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "labels": {
+        "preferred": {
+          "en": "Presentation framing, attitudinal congruence and identity",
+          "ro": "Încadrare de prezentare, congruență atitudinală și identitate"
+        }
+      },
+      "related_ids": [
+        "GLOSS.MECH.PRESENTATION",
+        "MOD.05",
+        "MOD.07",
+        "MOD.15",
+        "MOD.16",
+        "REF.ALVARADO.2026",
+        "REF.ARUGUETE.2024",
+        "THEORY.09.EDITORIAL_SELECTION",
+        "VAL.M1.002",
+        "VAL.M1.003",
+        "VAL.M1.N02",
+        "VAL.M1.N03",
+        "VAR.ATTITUDE.CONGRUENCE",
+        "VAR.ENGAGEMENT.INTENT",
+        "VAR.ENGAGEMENT.PROBABILITY",
+        "VAR.PRESENTATION.FRAME"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Explains M1.E2: semantic content remains fixed while confirmation/refutation framing and task-specific congruence discriminate nested engagement models.",
+        "ro": "Explică M1.E2: conținutul semantic rămâne fix, iar forma de confirmare sau infirmare și congruența specifică sarcinii diferențiază modele incluse unul în altul; identitatea și polarizarea rămân extensii conceptuale."
+      }
+    },
+    {
+      "id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "labels": {
+        "preferred": {
+          "en": "Algorithms, networks, cross-platform dynamics and social feedback",
+          "ro": "Algoritmi, rețele, ecosistem multiplatformă și feedback social"
+        }
+      },
+      "related_ids": [
+        "GLOSS.MECH.ACCESS",
+        "GLOSS.MECH.REPETITION",
+        "MOD.03",
+        "MOD.07",
+        "MOD.08",
+        "MOD.10",
+        "MOD.16",
+        "MOD.18",
+        "MOD.19",
+        "REF.MATIAS.2024.UPWORTHY_CORRECTION",
+        "REF.NICKL.2025.ATTENTION_ECONOMY",
+        "REF.ROBERTSON.2023.NEGATIVITY",
+        "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+        "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+        "VAL.M0.001",
+        "VAL.M1.004",
+        "VAL.M1.N04",
+        "VAL.M1.N05",
+        "VAL.M1.N06",
+        "VAR.ACCESS",
+        "VAR.ACCESS.PROBABILITY",
+        "VAR.EXPOSURE.COUNT",
+        "VAR.HEADLINE.NEGATIVITY",
+        "VAR.PREVIEW.IMPRESSION"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "CONCEPTUAL",
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Separates ranking, preview impression, access and downstream cognition while combining the executable M1.E3 headline-access gate with conceptual coverage for exposure heterogeneity, network structure, cross-platform transmission, social feedback and strategic amplification.",
+        "ro": "Separă ordonarea, impresia preview-ului, accesarea și procesele cognitive ulterioare, combinând poarta executabilă M1.E3 de acces la titlu cu acoperirea conceptuală a eterogenității expunerii, structurii de rețea, transmiterii între platforme, feedbackului social și amplificării strategice."
+      }
+    },
+    {
+      "id": "THEORY.12.INTERVENTIONS",
+      "labels": {
+        "preferred": {
+          "en": "Interventions, human–AI mediation and causal location",
+          "ro": "Intervenții, intermediere om–AI și localizare cauzală"
+        }
+      },
+      "related_ids": [
+        "GLOSS.MECH.ACCURACY",
+        "GLOSS.MECH.CORRECTION",
+        "MOD.02",
+        "MOD.07",
+        "MOD.09",
+        "MOD.11",
+        "MOD.12",
+        "MOD.13",
+        "REF.PENNYCOOK.2021",
+        "THEORY.08.BELIEF_ACCURACY_ACTION",
+        "THEORY.09.EDITORIAL_SELECTION",
+        "VAL.M0.002",
+        "VAL.M0.004",
+        "VAR.ACCURACY.SALIENCE",
+        "VAR.CORRECTION.ACCESS"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE",
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "Locates executable interventions in the causal chain and extends the conceptual map to human–AI intermediation, appropriate reliance, skill dynamics and effective oversight.",
+        "ro": "Plasează intervențiile executabile în lanțul cauzal și extinde harta conceptuală către intermedierea om–AI, utilizarea adecvată a automatizării, dinamica competenței și supravegherea eficientă."
+      }
+    },
+    {
+      "id": "THEORY.13.INDIVIDUATION_AUTONOMY",
+      "labels": {
+        "preferred": {
+          "en": "Individuation, self-integration and epistemic autonomy",
+          "ro": "Individuație, integrarea sinelui și autonomie epistemică"
+        }
+      },
+      "related_ids": [
+        "MOD.17",
+        "THEORY.02.PROCESSING_METACONTROL"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.13.INDIVIDUATION_AUTONOMY"
+      },
+      "status_facets": {
+        "source_tags": [
+          "INTERPRETIVE"
+        ]
+      },
+      "summary": {
+        "en": "Preserves Jungian individuation and Reflective Distance as an interpretive layer linked cautiously to metacognition and autonomy.",
+        "ro": "Păstrează individuația jungiană și Reflective Distance ca strat interpretativ, legat prudent de metacogniție și autonomie."
+      }
+    },
+    {
+      "id": "THEORY.14.VALIDATION",
+      "labels": {
+        "preferred": {
+          "en": "How an epistemic model is validated",
+          "ro": "Cum validăm un model epistemic"
+        }
+      },
+      "related_ids": [
+        "MOD.02",
+        "MOD.20",
+        "THEORY.00.WHAT_IS_CEM",
+        "VAL.M0.001",
+        "VAL.M1.001",
+        "VAL.M1.003"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.14.VALIDATION"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Explains implementation tests, pattern tests, empirical targets, nested nulls, model discrimination, diagnostics, ODD, reproducibility and provenance.",
+        "ro": "Explică testele de implementare, testele de tipar, țintele empirice, modelele nule incluse, discriminarea între modele, diagnosticele, ODD, reproductibilitatea și proveniența datelor."
+      }
+    },
+    {
+      "id": "THEORY.15.USING_CEM",
+      "labels": {
+        "preferred": {
+          "en": "How to use CEM without confusing the map with the territory",
+          "ro": "Cum folosesc CEM fără să confund harta cu teritoriul"
+        }
+      },
+      "related_ids": [
+        "MOD.07",
+        "MOD.20",
+        "THEORY.00.WHAT_IS_CEM"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.15.USING_CEM"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Connects understanding, mechanism exploration, evidence inspection, prioritization and action planning into one coherent workflow.",
+        "ro": "Leagă înțelegerea, explorarea mecanismelor, inspectarea dovezilor, prioritizarea și planificarea acțiunilor într-un singur flux coerent."
+      }
+    },
+    {
+      "id": "VAL.M0.001",
+      "labels": {
+        "preferred": {
+          "en": "Illusory truth"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M0.001"
+      },
+      "summary": {
+        "en": "Repeated exposure increases average truth judgment under comparable conditions."
+      }
+    },
+    {
+      "id": "VAL.M0.002",
+      "labels": {
+        "preferred": {
+          "en": "Correction and belief regression"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M0.002"
+      },
+      "summary": {
+        "en": "Correction can reduce belief initially and partial regression can occur as corrective accessibility decays."
+      }
+    },
+    {
+      "id": "VAL.M0.003",
+      "labels": {
+        "preferred": {
+          "en": "Source reliability weighting"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M0.003"
+      },
+      "summary": {
+        "en": "Learned source reliability changes the weight given to otherwise comparable evidence."
+      }
+    },
+    {
+      "id": "VAL.M0.004",
+      "labels": {
+        "preferred": {
+          "en": "Accuracy salience and sharing"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M0.004"
+      },
+      "summary": {
+        "en": "Accuracy salience can improve sharing discernment, with heterogeneous effect size."
+      }
+    },
+    {
+      "id": "VAL.M0.N01",
+      "labels": {
+        "preferred": {
+          "en": "Belief is not action"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M0.N01"
+      },
+      "summary": {
+        "en": "Belief and sharing can dissociate."
+      }
+    },
+    {
+      "id": "VAL.M1.001",
+      "labels": {
+        "preferred": {
+          "en": "Selective factual emphasis"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M1.001"
+      },
+      "summary": {
+        "en": "Holding the underlying fact-compatible information pool fixed, negative editorial emphasis can produce a more negative observed sample and issue appraisal than a neutral selection policy."
+      }
+    },
+    {
+      "id": "VAL.M1.002",
+      "labels": {
+        "preferred": {
+          "en": "Semantic-equivalent presentation framing"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M1.002"
+      },
+      "summary": {
+        "en": "Holding proposition meaning, truth compatibility and selected content fixed, confirmation framing produces higher active-engagement propensity than refutation framing in the frame-only reference model."
+      }
+    },
+    {
+      "id": "VAL.M1.003",
+      "labels": {
+        "preferred": {
+          "en": "Frame by prior-attitude congruence"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M1.003"
+      },
+      "summary": {
+        "en": "The confirmation-refutation engagement contrast is larger for congruent messages than for counter-attitudinal messages in the frame-by-congruence model."
+      }
+    },
+    {
+      "id": "VAL.M1.004",
+      "labels": {
+        "preferred": {
+          "en": "Headline-negativity access differential"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M1.004"
+      },
+      "summary": {
+        "en": "Holding the underlying story, source, image, preview opportunity and other registered conditions fixed, higher Hneg produces higher Paccess in the selected M1.E3 candidate."
+      }
+    },
+    {
+      "id": "VAL.M1.N01",
+      "labels": {
+        "preferred": {
+          "en": "Editorial mediation is necessary for the M1.E1 condition difference"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M1.N01"
+      },
+      "summary": {
+        "en": "When editorial selection is disabled and conditions receive the same full fact-compatible pool, the editorial-emphasis condition difference disappears."
+      }
+    },
+    {
+      "id": "VAL.M1.N02",
+      "labels": {
+        "preferred": {
+          "en": "Presentation-frame null"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M1.N02"
+      },
+      "summary": {
+        "en": "When presentation-frame variation is removed, otherwise identical confirmation and refutation conditions converge."
+      }
+    },
+    {
+      "id": "VAL.M1.N03",
+      "labels": {
+        "preferred": {
+          "en": "Engagement intent is not M0 Share"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M1.N03"
+      },
+      "summary": {
+        "en": "An M1.E2 effect on active-engagement intent must remain separate from the retained M0 Share process and may not silently modify M0 sharing outputs."
+      }
+    },
+    {
+      "id": "VAL.M1.N04",
+      "labels": {
+        "preferred": {
+          "en": "Access-gate null"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M1.N04"
+      },
+      "summary": {
+        "en": "When the headline-negativity cue is ignored by the NULL model, otherwise identical lower- and higher-Hneg conditions converge in Paccess."
+      }
+    },
+    {
+      "id": "VAL.M1.N05",
+      "labels": {
+        "preferred": {
+          "en": "Access is not downstream cognition"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M1.N05"
+      },
+      "summary": {
+        "en": "The M1.E3 access comparator remains separate from retained M0 belief and Share, M1.E1 Aissue, and M1.E2 Pengage/EngageIntent; it must not directly mutate those states."
+      }
+    },
+    {
+      "id": "VAL.M1.N06",
+      "labels": {
+        "preferred": {
+          "en": "Non-click preserves headline exposure"
+        }
+      },
+      "semantic_type": "VALIDATION",
+      "source": {
+        "path": "model/validation_tests.json",
+        "source_id": "VAL.M1.N06"
+      },
+      "summary": {
+        "en": "An Access outcome of zero does not erase PreviewImpression or imply that the rendered headline preview was never available."
+      }
+    },
+    {
+      "id": "VAR.ACCESS",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Access"
+          ]
+        },
+        "preferred": {
+          "en": "Access/open action",
+          "ro": "Acțiunea de accesare/deschidere"
+        }
+      },
+      "related_ids": [
+        "MOD.07"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Access",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.ACCESS"
+      },
+      "summary": {
+        "en": "Reference M1.E3 binary outcome indicating whether the full item is opened/clicked after the preview impression."
+      }
+    },
+    {
+      "id": "VAR.ACCESS.PROBABILITY",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Paccess"
+          ]
+        },
+        "preferred": {
+          "en": "Access probability",
+          "ro": "Probabilitatea de acces"
+        }
+      },
+      "related_ids": [
+        "MOD.07"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Paccess",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.ACCESS.PROBABILITY"
+      },
+      "summary": {
+        "en": "Latent M1.E3 probability of opening/clicking the full item conditional on one registered PreviewImpression."
+      }
+    },
+    {
+      "id": "VAR.ACCURACY.SALIENCE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "W"
+          ]
+        },
+        "preferred": {
+          "en": "Accuracy salience",
+          "ro": "Saliența acurateții"
+        }
+      },
+      "related_ids": [
+        "MOD.07"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "W",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.ACCURACY.SALIENCE"
+      },
+      "summary": {
+        "en": "Contextual decision weight placed on accuracy when acting/sharing."
+      }
+    },
+    {
+      "id": "VAR.ACTION.SHARE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Share"
+          ]
+        },
+        "preferred": {
+          "en": "Share action",
+          "ro": "Acțiunea de distribuire"
+        }
+      },
+      "related_ids": [
+        "MOD.07"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Share",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.ACTION.SHARE"
+      },
+      "summary": {
+        "en": "Observed or simulated action indicating whether an item is shared."
+      }
+    },
+    {
+      "id": "VAR.ATTITUDE.CONGRUENCE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Gatt"
+          ]
+        },
+        "preferred": {
+          "en": "Prior-attitude congruence",
+          "ro": "Congruența cu atitudinea anterioară"
+        }
+      },
+      "related_ids": [
+        "MOD.15"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Gatt",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.ATTITUDE.CONGRUENCE"
+      },
+      "summary": {
+        "en": "Task-specific relation between an agent's prior stance and the semantic stance of the current message."
+      }
+    },
+    {
+      "id": "VAR.BELIEF.CLAIM",
+      "labels": {
+        "alternative": {
+          "und": [
+            "B"
+          ]
+        },
+        "preferred": {
+          "en": "Belief (claim plausibility)",
+          "ro": "Convingere (plauzibilitatea afirmației)"
+        }
+      },
+      "related_ids": [
+        "MOD.02"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "B",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.BELIEF.CLAIM"
+      },
+      "summary": {
+        "en": "Latent propensity to judge a claim as true at a given time."
+      }
+    },
+    {
+      "id": "VAR.CONTENT.VALENCE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Vcontent"
+          ]
+        },
+        "preferred": {
+          "en": "Information-unit valence",
+          "ro": "Valența unității informaționale"
+        }
+      },
+      "related_ids": [
+        "MOD.16"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Vcontent",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.CONTENT.VALENCE"
+      },
+      "summary": {
+        "en": "Signed valence assigned to an event-relevant information unit for the M1 reference selection task."
+      }
+    },
+    {
+      "id": "VAR.CORRECTION.ACCESS",
+      "labels": {
+        "alternative": {
+          "und": [
+            "C"
+          ]
+        },
+        "preferred": {
+          "en": "Corrective-context accessibility",
+          "ro": "Accesibilitatea contextului corectiv"
+        }
+      },
+      "related_ids": [
+        "MOD.04"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "C",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.CORRECTION.ACCESS"
+      },
+      "summary": {
+        "en": "Current accessibility of corrective information for a claim."
+      }
+    },
+    {
+      "id": "VAR.EDITORIAL.EMPHASIS",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Eedit"
+          ]
+        },
+        "preferred": {
+          "en": "Editorial emphasis policy",
+          "ro": "Politica de accent editorial"
+        }
+      },
+      "related_ids": [
+        "MOD.16"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Eedit",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.EDITORIAL.EMPHASIS"
+      },
+      "summary": {
+        "en": "Reference policy controlling which valence-compatible information units are preferentially selected from a fixed event pool."
+      }
+    },
+    {
+      "id": "VAR.ENGAGEMENT.INTENT",
+      "labels": {
+        "alternative": {
+          "und": [
+            "EngageIntent"
+          ]
+        },
+        "preferred": {
+          "en": "Active-engagement intent",
+          "ro": "Intenția de engagement activ"
+        }
+      },
+      "related_ids": [
+        "MOD.07"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "EngageIntent",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.ENGAGEMENT.INTENT"
+      },
+      "summary": {
+        "en": "Reference observable corresponding to an active stated response such as like, share, or comment versus ignore."
+      }
+    },
+    {
+      "id": "VAR.ENGAGEMENT.PROBABILITY",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Pengage"
+          ]
+        },
+        "preferred": {
+          "en": "Active-engagement probability",
+          "ro": "Probabilitatea de engagement activ"
+        }
+      },
+      "related_ids": [
+        "MOD.07"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Pengage",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.ENGAGEMENT.PROBABILITY"
+      },
+      "summary": {
+        "en": "Latent M1.E2 probability of an active engagement response under the reference presentation task."
+      }
+    },
+    {
+      "id": "VAR.EXPOSURE.COUNT",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Nexp"
+          ]
+        },
+        "preferred": {
+          "en": "Exposure count",
+          "ro": "Numărul de expuneri"
+        }
+      },
+      "related_ids": [
+        "MOD.03"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Nexp",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.EXPOSURE.COUNT"
+      },
+      "summary": {
+        "en": "Count or history of exposures of an agent to an information item."
+      }
+    },
+    {
+      "id": "VAR.FAMILIARITY.CLAIM",
+      "labels": {
+        "alternative": {
+          "und": [
+            "F"
+          ]
+        },
+        "preferred": {
+          "en": "Claim familiarity",
+          "ro": "Familiaritatea afirmației"
+        }
+      },
+      "related_ids": [
+        "MOD.04"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "F",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.FAMILIARITY.CLAIM"
+      },
+      "summary": {
+        "en": "Accessibility/familiarity of a claim for an agent after exposure."
+      }
+    },
+    {
+      "id": "VAR.HEADLINE.NEGATIVITY",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Hneg"
+          ]
+        },
+        "preferred": {
+          "en": "Headline-negativity cue",
+          "ro": "Indiciul de negativitate al titlului"
+        }
+      },
+      "related_ids": [
+        "MOD.16"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Hneg",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.HEADLINE.NEGATIVITY"
+      },
+      "summary": {
+        "en": "Binary precomputed reference cue distinguishing lower-negativity/control from higher-negativity headline conditions in M1.E3."
+      }
+    },
+    {
+      "id": "VAR.ISSUE.APPRAISAL",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Aissue"
+          ]
+        },
+        "preferred": {
+          "en": "Issue appraisal",
+          "ro": "Evaluarea subiectului"
+        }
+      },
+      "related_ids": [
+        "MOD.14"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Aissue",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.ISSUE.APPRAISAL"
+      },
+      "summary": {
+        "en": "Bounded M1 reference state representing the current evaluation of an event or issue after the observed information sample."
+      }
+    },
+    {
+      "id": "VAR.OBSERVED.SAMPLE.BALANCE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Sobs"
+          ]
+        },
+        "preferred": {
+          "en": "Observed information balance",
+          "ro": "Balanța informației observate"
+        }
+      },
+      "related_ids": [
+        "MOD.14"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Sobs",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.OBSERVED.SAMPLE.BALANCE"
+      },
+      "summary": {
+        "en": "Mean signed valence of the information units actually exposed after editorial selection."
+      }
+    },
+    {
+      "id": "VAR.PRESENTATION.FRAME",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Fpres"
+          ]
+        },
+        "preferred": {
+          "en": "Presentation frame",
+          "ro": "Cadrul de prezentare"
+        }
+      },
+      "related_ids": [
+        "MOD.16"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Fpres",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.PRESENTATION.FRAME"
+      },
+      "summary": {
+        "en": "Reference encoding of a semantically equivalent confirmation versus refutation presentation."
+      }
+    },
+    {
+      "id": "VAR.PREVIEW.IMPRESSION",
+      "labels": {
+        "alternative": {
+          "und": [
+            "PreviewImpression"
+          ]
+        },
+        "preferred": {
+          "en": "Preview impression",
+          "ro": "Impresia preview-ului"
+        }
+      },
+      "related_ids": [
+        "MOD.03"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "PreviewImpression",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.PREVIEW.IMPRESSION"
+      },
+      "summary": {
+        "en": "Registered event that the headline preview was rendered/available in the M1.E3 reference task."
+      }
+    },
+    {
+      "id": "VAR.RELIABILITY.ESTIMATE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "T"
+          ]
+        },
+        "preferred": {
+          "en": "Estimated source reliability",
+          "ro": "Fiabilitatea estimată a sursei"
+        }
+      },
+      "related_ids": [
+        "MOD.02"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "T",
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.RELIABILITY.ESTIMATE"
+      },
+      "summary": {
+        "en": "Agent's task-relevant estimate of a source's reliability."
+      }
+    }
+  ],
+  "relations": [
+    {
+      "evidence_refs": [
+        "REF.ROBERTSON.2023.NEGATIVITY",
+        "REF.MATIAS.2021.UPWORTHY"
+      ],
+      "id": "LINK.ACCESS_PROBABILITY.ACCESS",
+      "layer": "REGISTERED_EVIDENCE_RELATION",
+      "polarity": "positive",
+      "relation_type": "MEASUREMENT",
+      "source": "VAR.ACCESS.PROBABILITY",
+      "source_record": {
+        "path": "model/links.json",
+        "source_id": "LINK.ACCESS_PROBABILITY.ACCESS"
+      },
+      "status_facets": {
+        "functional_form": "REFERENCE_CANDIDATE",
+        "mechanism_evidence": "MODEL_DERIVED",
+        "phenomenon_evidence": "EXPERIMENTAL"
+      },
+      "target": "VAR.ACCESS"
+    },
+    {
+      "evidence_refs": [
+        "REF.PENNYCOOK.2021"
+      ],
+      "id": "LINK.ACCURACY.ACTION",
+      "layer": "REGISTERED_EVIDENCE_RELATION",
+      "polarity": "context_dependent",
+      "relation_type": "MODERATING",
+      "source": "VAR.ACCURACY.SALIENCE",
+      "source_record": {
+        "path": "model/links.json",
+        "source_id": "LINK.ACCURACY.ACTION"
+      },
+      "status_facets": {
+        "functional_form": "REFERENCE_CANDIDATE",
+        "mechanism_evidence": "CANDIDATE",
+        "phenomenon_evidence": "EXPERIMENTAL"
+      },
+      "target": "VAR.ACTION.SHARE"
+    },
+    {
+      "evidence_refs": [
+        "REF.ALVARADO.2026"
+      ],
+      "id": "LINK.CONGRUENCE.ENGAGEMENT",
+      "layer": "REGISTERED_EVIDENCE_RELATION",
+      "polarity": "context_dependent",
+      "relation_type": "MODERATING",
+      "source": "VAR.ATTITUDE.CONGRUENCE",
+      "source_record": {
+        "path": "model/links.json",
+        "source_id": "LINK.CONGRUENCE.ENGAGEMENT"
+      },
+      "status_facets": {
+        "functional_form": "REFERENCE_CANDIDATE",
+        "mechanism_evidence": "EXPERIMENTAL",
+        "phenomenon_evidence": "EXPERIMENTAL"
+      },
+      "target": "VAR.ENGAGEMENT.PROBABILITY"
+    },
+    {
+      "evidence_refs": [
+        "REF.TOHIDI.2025"
+      ],
+      "id": "LINK.EDITORIAL.OBSERVED_SAMPLE",
+      "layer": "REGISTERED_EVIDENCE_RELATION",
+      "polarity": "context_dependent",
+      "relation_type": "INFORMATION_FLOW",
+      "source": "VAR.EDITORIAL.EMPHASIS",
+      "source_record": {
+        "path": "model/links.json",
+        "source_id": "LINK.EDITORIAL.OBSERVED_SAMPLE"
+      },
+      "status_facets": {
+        "functional_form": "REFERENCE_CANDIDATE",
+        "mechanism_evidence": "CANDIDATE",
+        "phenomenon_evidence": "EXPERIMENTAL"
+      },
+      "target": "VAR.OBSERVED.SAMPLE.BALANCE"
+    },
+    {
+      "evidence_refs": [
+        "REF.ARUGUETE.2024",
+        "REF.ALVARADO.2026"
+      ],
+      "id": "LINK.ENGAGEMENT.PROBABILITY.INTENT",
+      "layer": "REGISTERED_EVIDENCE_RELATION",
+      "polarity": "positive",
+      "relation_type": "MEASUREMENT",
+      "source": "VAR.ENGAGEMENT.PROBABILITY",
+      "source_record": {
+        "path": "model/links.json",
+        "source_id": "LINK.ENGAGEMENT.PROBABILITY.INTENT"
+      },
+      "status_facets": {
+        "functional_form": "REFERENCE_CANDIDATE",
+        "mechanism_evidence": "MODEL_DERIVED",
+        "phenomenon_evidence": "EXPERIMENTAL"
+      },
+      "target": "VAR.ENGAGEMENT.INTENT"
+    },
+    {
+      "evidence_refs": [
+        "REF.HASHER.1977"
+      ],
+      "id": "LINK.EXPOSURE.FAMILIARITY",
+      "layer": "REGISTERED_EVIDENCE_RELATION",
+      "polarity": "positive",
+      "relation_type": "CAUSAL",
+      "source": "VAR.EXPOSURE.COUNT",
+      "source_record": {
+        "path": "model/links.json",
+        "source_id": "LINK.EXPOSURE.FAMILIARITY"
+      },
+      "status_facets": {
+        "functional_form": "REFERENCE_CANDIDATE",
+        "mechanism_evidence": "CANDIDATE",
+        "phenomenon_evidence": "EXPERIMENTAL"
+      },
+      "target": "VAR.FAMILIARITY.CLAIM"
+    },
+    {
+      "evidence_refs": [
+        "REF.DECHENE.2010"
+      ],
+      "id": "LINK.FAMILIARITY.BELIEF",
+      "layer": "REGISTERED_EVIDENCE_RELATION",
+      "polarity": "context_dependent",
+      "relation_type": "CAUSAL",
+      "source": "VAR.FAMILIARITY.CLAIM",
+      "source_record": {
+        "path": "model/links.json",
+        "source_id": "LINK.FAMILIARITY.BELIEF"
+      },
+      "status_facets": {
+        "functional_form": "REFERENCE_CANDIDATE",
+        "mechanism_evidence": "CANDIDATE",
+        "phenomenon_evidence": "META_ANALYTIC"
+      },
+      "target": "VAR.BELIEF.CLAIM"
+    },
+    {
+      "evidence_refs": [
+        "REF.ROBERTSON.2023.NEGATIVITY",
+        "REF.NICKL.2025.ATTENTION_ECONOMY"
+      ],
+      "id": "LINK.HEADLINE_NEGATIVITY.ACCESS_PROBABILITY",
+      "layer": "REGISTERED_EVIDENCE_RELATION",
+      "polarity": "positive",
+      "relation_type": "CAUSAL",
+      "source": "VAR.HEADLINE.NEGATIVITY",
+      "source_record": {
+        "path": "model/links.json",
+        "source_id": "LINK.HEADLINE_NEGATIVITY.ACCESS_PROBABILITY"
+      },
+      "status_facets": {
+        "functional_form": "REFERENCE_CANDIDATE",
+        "mechanism_evidence": "CANDIDATE",
+        "phenomenon_evidence": "EXPERIMENTAL"
+      },
+      "target": "VAR.ACCESS.PROBABILITY"
+    },
+    {
+      "evidence_refs": [
+        "REF.TOHIDI.2025"
+      ],
+      "id": "LINK.OBSERVED_SAMPLE.APPRAISAL",
+      "layer": "REGISTERED_EVIDENCE_RELATION",
+      "polarity": "context_dependent",
+      "relation_type": "CAUSAL",
+      "source": "VAR.OBSERVED.SAMPLE.BALANCE",
+      "source_record": {
+        "path": "model/links.json",
+        "source_id": "LINK.OBSERVED_SAMPLE.APPRAISAL"
+      },
+      "status_facets": {
+        "functional_form": "REFERENCE_CANDIDATE",
+        "mechanism_evidence": "CANDIDATE",
+        "phenomenon_evidence": "EXPERIMENTAL"
+      },
+      "target": "VAR.ISSUE.APPRAISAL"
+    },
+    {
+      "evidence_refs": [
+        "REF.ARUGUETE.2024",
+        "REF.ALVARADO.2026"
+      ],
+      "id": "LINK.PRESENTATION.ENGAGEMENT",
+      "layer": "REGISTERED_EVIDENCE_RELATION",
+      "polarity": "context_dependent",
+      "relation_type": "CAUSAL",
+      "source": "VAR.PRESENTATION.FRAME",
+      "source_record": {
+        "path": "model/links.json",
+        "source_id": "LINK.PRESENTATION.ENGAGEMENT"
+      },
+      "status_facets": {
+        "functional_form": "REFERENCE_CANDIDATE",
+        "mechanism_evidence": "CANDIDATE",
+        "phenomenon_evidence": "EXPERIMENTAL"
+      },
+      "target": "VAR.ENGAGEMENT.PROBABILITY"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.ALGORITHM_STAGE.RELATED_CHAPTER.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.ALGORITHM_STAGE",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.ALGORITHM_STAGE"
+      },
+      "target": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.INDIVIDUATION.RELATED_CHAPTER.THEORY.13.INDIVIDUATION_AUTONOMY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.INDIVIDUATION",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.INDIVIDUATION"
+      },
+      "target": "THEORY.13.INDIVIDUATION_AUTONOMY"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.M0.RELATED_CHAPTER.THEORY.00.WHAT_IS_CEM",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.M0",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.M0"
+      },
+      "target": "THEORY.00.WHAT_IS_CEM"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.M0.RELATED_CHAPTER.THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.M0",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.M0"
+      },
+      "target": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.M1_E1.RELATED_CHAPTER.THEORY.09.EDITORIAL_SELECTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.M1_E1",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.M1_E1"
+      },
+      "target": "THEORY.09.EDITORIAL_SELECTION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.M1_E2.RELATED_CHAPTER.THEORY.10.PRESENTATION_CONGRUENCE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.M1_E2",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.M1_E2"
+      },
+      "target": "THEORY.10.PRESENTATION_CONGRUENCE"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.NEED_FOR_CLOSURE.RELATED_CHAPTER.THEORY.03.UNCERTAINTY_CLOSURE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.NEED_FOR_CLOSURE",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.NEED_FOR_CLOSURE"
+      },
+      "target": "THEORY.03.UNCERTAINTY_CLOSURE"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.ODD.RELATED_CHAPTER.THEORY.14.VALIDATION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.ODD",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.ODD"
+      },
+      "target": "THEORY.14.VALIDATION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.REFLECTIVE_DISTANCE.RELATED_CHAPTER.THEORY.13.INDIVIDUATION_AUTONOMY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.REFLECTIVE_DISTANCE",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.REFLECTIVE_DISTANCE"
+      },
+      "target": "THEORY.13.INDIVIDUATION_AUTONOMY"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.STRESS_RESOURCES.RELATED_CHAPTER.THEORY.04.STRESS_RESOURCES_FLEXIBILITY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.STRESS_RESOURCES",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.STRESS_RESOURCES"
+      },
+      "target": "THEORY.04.STRESS_RESOURCES_FLEXIBILITY"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.TYPE1_TYPE2.RELATED_CHAPTER.THEORY.02.PROCESSING_METACONTROL",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.TYPE1_TYPE2",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.TYPE1_TYPE2"
+      },
+      "target": "THEORY.02.PROCESSING_METACONTROL"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.VALIDATION.RELATED_CHAPTER.THEORY.14.VALIDATION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.VALIDATION",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.VALIDATION"
+      },
+      "target": "THEORY.14.VALIDATION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.WORLD_MODEL.RELATED_CHAPTER.THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.WORLD_MODEL",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.WORLD_MODEL"
+      },
+      "target": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.WORLD_MODEL.RELATED_CHAPTER.THEORY.09.EDITORIAL_SELECTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.WORLD_MODEL",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.WORLD_MODEL"
+      },
+      "target": "THEORY.09.EDITORIAL_SELECTION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.ACCESS.RELATED_CHAPTER.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.ACCESS",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.ACCESS"
+      },
+      "target": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.ACCURACY.RELATED_CHAPTER.THEORY.08.BELIEF_ACCURACY_ACTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.ACCURACY",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.ACCURACY"
+      },
+      "target": "THEORY.08.BELIEF_ACCURACY_ACTION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.ACCURACY.RELATED_CHAPTER.THEORY.12.INTERVENTIONS",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.ACCURACY",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.ACCURACY"
+      },
+      "target": "THEORY.12.INTERVENTIONS"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.CORRECTION.RELATED_CHAPTER.THEORY.06.CORRECTION_ACCESS_MEMORY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.CORRECTION",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.CORRECTION"
+      },
+      "target": "THEORY.06.CORRECTION_ACCESS_MEMORY"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.EDITORIAL.RELATED_CHAPTER.THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.EDITORIAL",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.EDITORIAL"
+      },
+      "target": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.EDITORIAL.RELATED_CHAPTER.THEORY.09.EDITORIAL_SELECTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.EDITORIAL",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.EDITORIAL"
+      },
+      "target": "THEORY.09.EDITORIAL_SELECTION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.PRESENTATION.RELATED_CHAPTER.THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.PRESENTATION",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.PRESENTATION"
+      },
+      "target": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.PRESENTATION.RELATED_CHAPTER.THEORY.10.PRESENTATION_CONGRUENCE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.PRESENTATION",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.PRESENTATION"
+      },
+      "target": "THEORY.10.PRESENTATION_CONGRUENCE"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.REPETITION.RELATED_CHAPTER.THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.REPETITION",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.REPETITION"
+      },
+      "target": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.SOURCE.RELATED_CHAPTER.THEORY.07.SOURCE_RELIABILITY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.SOURCE",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.SOURCE"
+      },
+      "target": "THEORY.07.SOURCE_RELIABILITY"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.00.WHAT_IS_CEM.USES_MODULE.MOD.02",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.00.WHAT_IS_CEM",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.00.WHAT_IS_CEM"
+      },
+      "target": "MOD.02"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.00.WHAT_IS_CEM.USES_MODULE.MOD.14",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.00.WHAT_IS_CEM",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.00.WHAT_IS_CEM"
+      },
+      "target": "MOD.14"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.01.WORLD_INFORMATION_REPRESENTATION.CITES_REFERENCE.REF.ARUGUETE.2024",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "target": "REF.ARUGUETE.2024"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.01.WORLD_INFORMATION_REPRESENTATION.CITES_REFERENCE.REF.TOHIDI.2025",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "target": "REF.TOHIDI.2025"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.01.WORLD_INFORMATION_REPRESENTATION.DESCRIBES_MECHANISM.GLOSS.MECH.EDITORIAL",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "target": "GLOSS.MECH.EDITORIAL"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.01.WORLD_INFORMATION_REPRESENTATION.DESCRIBES_MECHANISM.GLOSS.MECH.PRESENTATION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "target": "GLOSS.MECH.PRESENTATION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.01.WORLD_INFORMATION_REPRESENTATION.PREREQUISITE_CHAPTER.THEORY.00.WHAT_IS_CEM",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "target": "THEORY.00.WHAT_IS_CEM"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.01.WORLD_INFORMATION_REPRESENTATION.REFERENCES_VALIDATION.VAL.M1.001",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "target": "VAL.M1.001"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.01.WORLD_INFORMATION_REPRESENTATION.REFERENCES_VALIDATION.VAL.M1.002",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "target": "VAL.M1.002"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.01.WORLD_INFORMATION_REPRESENTATION.USES_MODULE.MOD.03",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "target": "MOD.03"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.01.WORLD_INFORMATION_REPRESENTATION.USES_MODULE.MOD.14",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "target": "MOD.14"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.01.WORLD_INFORMATION_REPRESENTATION.USES_MODULE.MOD.16",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "target": "MOD.16"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.01.WORLD_INFORMATION_REPRESENTATION.USES_VARIABLE.VAR.ISSUE.APPRAISAL",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "target": "VAR.ISSUE.APPRAISAL"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.01.WORLD_INFORMATION_REPRESENTATION.USES_VARIABLE.VAR.OBSERVED.SAMPLE.BALANCE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "target": "VAR.OBSERVED.SAMPLE.BALANCE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.02.PROCESSING_METACONTROL.PREREQUISITE_CHAPTER.THEORY.00.WHAT_IS_CEM",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.02.PROCESSING_METACONTROL",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.02.PROCESSING_METACONTROL"
+      },
+      "target": "THEORY.00.WHAT_IS_CEM"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.02.PROCESSING_METACONTROL.USES_MODULE.MOD.02",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.02.PROCESSING_METACONTROL",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.02.PROCESSING_METACONTROL"
+      },
+      "target": "MOD.02"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.02.PROCESSING_METACONTROL.USES_MODULE.MOD.09",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.02.PROCESSING_METACONTROL",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.02.PROCESSING_METACONTROL"
+      },
+      "target": "MOD.09"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.02.PROCESSING_METACONTROL.USES_MODULE.MOD.15",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.02.PROCESSING_METACONTROL",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.02.PROCESSING_METACONTROL"
+      },
+      "target": "MOD.15"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.02.PROCESSING_METACONTROL.USES_VARIABLE.VAR.ACCURACY.SALIENCE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.02.PROCESSING_METACONTROL",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.02.PROCESSING_METACONTROL"
+      },
+      "target": "VAR.ACCURACY.SALIENCE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.03.UNCERTAINTY_CLOSURE.PREREQUISITE_CHAPTER.THEORY.02.PROCESSING_METACONTROL",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.03.UNCERTAINTY_CLOSURE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.03.UNCERTAINTY_CLOSURE"
+      },
+      "target": "THEORY.02.PROCESSING_METACONTROL"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.03.UNCERTAINTY_CLOSURE.USES_MODULE.MOD.02",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.03.UNCERTAINTY_CLOSURE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.03.UNCERTAINTY_CLOSURE"
+      },
+      "target": "MOD.02"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.03.UNCERTAINTY_CLOSURE.USES_MODULE.MOD.06",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.03.UNCERTAINTY_CLOSURE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.03.UNCERTAINTY_CLOSURE"
+      },
+      "target": "MOD.06"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.04.STRESS_RESOURCES_FLEXIBILITY.PREREQUISITE_CHAPTER.THEORY.02.PROCESSING_METACONTROL",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.04.STRESS_RESOURCES_FLEXIBILITY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.04.STRESS_RESOURCES_FLEXIBILITY"
+      },
+      "target": "THEORY.02.PROCESSING_METACONTROL"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.04.STRESS_RESOURCES_FLEXIBILITY.USES_MODULE.MOD.01",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.04.STRESS_RESOURCES_FLEXIBILITY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.04.STRESS_RESOURCES_FLEXIBILITY"
+      },
+      "target": "MOD.01"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.04.STRESS_RESOURCES_FLEXIBILITY.USES_MODULE.MOD.02",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.04.STRESS_RESOURCES_FLEXIBILITY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.04.STRESS_RESOURCES_FLEXIBILITY"
+      },
+      "target": "MOD.02"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.04.STRESS_RESOURCES_FLEXIBILITY.USES_MODULE.MOD.06",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.04.STRESS_RESOURCES_FLEXIBILITY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.04.STRESS_RESOURCES_FLEXIBILITY"
+      },
+      "target": "MOD.06"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.05.REPETITION_FAMILIARITY_TRUTH.CITES_REFERENCE.REF.DECHENE.2010",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      },
+      "target": "REF.DECHENE.2010"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.05.REPETITION_FAMILIARITY_TRUTH.CITES_REFERENCE.REF.HASHER.1977",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      },
+      "target": "REF.HASHER.1977"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.05.REPETITION_FAMILIARITY_TRUTH.DESCRIBES_MECHANISM.GLOSS.MECH.REPETITION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      },
+      "target": "GLOSS.MECH.REPETITION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.05.REPETITION_FAMILIARITY_TRUTH.PREREQUISITE_CHAPTER.THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      },
+      "target": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.05.REPETITION_FAMILIARITY_TRUTH.REFERENCES_VALIDATION.VAL.M0.001",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      },
+      "target": "VAL.M0.001"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.05.REPETITION_FAMILIARITY_TRUTH.USES_MODULE.MOD.02",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      },
+      "target": "MOD.02"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.05.REPETITION_FAMILIARITY_TRUTH.USES_MODULE.MOD.03",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      },
+      "target": "MOD.03"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.05.REPETITION_FAMILIARITY_TRUTH.USES_MODULE.MOD.04",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      },
+      "target": "MOD.04"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.05.REPETITION_FAMILIARITY_TRUTH.USES_VARIABLE.VAR.BELIEF.CLAIM",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      },
+      "target": "VAR.BELIEF.CLAIM"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.05.REPETITION_FAMILIARITY_TRUTH.USES_VARIABLE.VAR.EXPOSURE.COUNT",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      },
+      "target": "VAR.EXPOSURE.COUNT"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.05.REPETITION_FAMILIARITY_TRUTH.USES_VARIABLE.VAR.FAMILIARITY.CLAIM",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      },
+      "target": "VAR.FAMILIARITY.CLAIM"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.06.CORRECTION_ACCESS_MEMORY.DESCRIBES_MECHANISM.GLOSS.MECH.CORRECTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.06.CORRECTION_ACCESS_MEMORY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.06.CORRECTION_ACCESS_MEMORY"
+      },
+      "target": "GLOSS.MECH.CORRECTION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.06.CORRECTION_ACCESS_MEMORY.PREREQUISITE_CHAPTER.THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.06.CORRECTION_ACCESS_MEMORY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.06.CORRECTION_ACCESS_MEMORY"
+      },
+      "target": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.06.CORRECTION_ACCESS_MEMORY.REFERENCES_VALIDATION.VAL.M0.002",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.06.CORRECTION_ACCESS_MEMORY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.06.CORRECTION_ACCESS_MEMORY"
+      },
+      "target": "VAL.M0.002"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.06.CORRECTION_ACCESS_MEMORY.USES_MODULE.MOD.02",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.06.CORRECTION_ACCESS_MEMORY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.06.CORRECTION_ACCESS_MEMORY"
+      },
+      "target": "MOD.02"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.06.CORRECTION_ACCESS_MEMORY.USES_MODULE.MOD.04",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.06.CORRECTION_ACCESS_MEMORY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.06.CORRECTION_ACCESS_MEMORY"
+      },
+      "target": "MOD.04"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.06.CORRECTION_ACCESS_MEMORY.USES_VARIABLE.VAR.BELIEF.CLAIM",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.06.CORRECTION_ACCESS_MEMORY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.06.CORRECTION_ACCESS_MEMORY"
+      },
+      "target": "VAR.BELIEF.CLAIM"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.06.CORRECTION_ACCESS_MEMORY.USES_VARIABLE.VAR.CORRECTION.ACCESS",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.06.CORRECTION_ACCESS_MEMORY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.06.CORRECTION_ACCESS_MEMORY"
+      },
+      "target": "VAR.CORRECTION.ACCESS"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.07.SOURCE_RELIABILITY.DESCRIBES_MECHANISM.GLOSS.MECH.SOURCE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.07.SOURCE_RELIABILITY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.07.SOURCE_RELIABILITY"
+      },
+      "target": "GLOSS.MECH.SOURCE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.07.SOURCE_RELIABILITY.PREREQUISITE_CHAPTER.THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.07.SOURCE_RELIABILITY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.07.SOURCE_RELIABILITY"
+      },
+      "target": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.07.SOURCE_RELIABILITY.REFERENCES_VALIDATION.VAL.M0.003",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.07.SOURCE_RELIABILITY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.07.SOURCE_RELIABILITY"
+      },
+      "target": "VAL.M0.003"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.07.SOURCE_RELIABILITY.USES_MODULE.MOD.02",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.07.SOURCE_RELIABILITY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.07.SOURCE_RELIABILITY"
+      },
+      "target": "MOD.02"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.07.SOURCE_RELIABILITY.USES_MODULE.MOD.20",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.07.SOURCE_RELIABILITY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.07.SOURCE_RELIABILITY"
+      },
+      "target": "MOD.20"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.07.SOURCE_RELIABILITY.USES_VARIABLE.VAR.BELIEF.CLAIM",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.07.SOURCE_RELIABILITY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.07.SOURCE_RELIABILITY"
+      },
+      "target": "VAR.BELIEF.CLAIM"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.07.SOURCE_RELIABILITY.USES_VARIABLE.VAR.RELIABILITY.ESTIMATE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.07.SOURCE_RELIABILITY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.07.SOURCE_RELIABILITY"
+      },
+      "target": "VAR.RELIABILITY.ESTIMATE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.08.BELIEF_ACCURACY_ACTION.CITES_REFERENCE.REF.PENNYCOOK.2021",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.08.BELIEF_ACCURACY_ACTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.08.BELIEF_ACCURACY_ACTION"
+      },
+      "target": "REF.PENNYCOOK.2021"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.08.BELIEF_ACCURACY_ACTION.DESCRIBES_MECHANISM.GLOSS.MECH.ACCURACY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.08.BELIEF_ACCURACY_ACTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.08.BELIEF_ACCURACY_ACTION"
+      },
+      "target": "GLOSS.MECH.ACCURACY"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.08.BELIEF_ACCURACY_ACTION.PREREQUISITE_CHAPTER.THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.08.BELIEF_ACCURACY_ACTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.08.BELIEF_ACCURACY_ACTION"
+      },
+      "target": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.08.BELIEF_ACCURACY_ACTION.REFERENCES_VALIDATION.VAL.M0.004",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.08.BELIEF_ACCURACY_ACTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.08.BELIEF_ACCURACY_ACTION"
+      },
+      "target": "VAL.M0.004"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.08.BELIEF_ACCURACY_ACTION.REFERENCES_VALIDATION.VAL.M0.N01",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.08.BELIEF_ACCURACY_ACTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.08.BELIEF_ACCURACY_ACTION"
+      },
+      "target": "VAL.M0.N01"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.08.BELIEF_ACCURACY_ACTION.USES_MODULE.MOD.02",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.08.BELIEF_ACCURACY_ACTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.08.BELIEF_ACCURACY_ACTION"
+      },
+      "target": "MOD.02"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.08.BELIEF_ACCURACY_ACTION.USES_MODULE.MOD.07",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.08.BELIEF_ACCURACY_ACTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.08.BELIEF_ACCURACY_ACTION"
+      },
+      "target": "MOD.07"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.08.BELIEF_ACCURACY_ACTION.USES_VARIABLE.VAR.ACCURACY.SALIENCE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.08.BELIEF_ACCURACY_ACTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.08.BELIEF_ACCURACY_ACTION"
+      },
+      "target": "VAR.ACCURACY.SALIENCE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.08.BELIEF_ACCURACY_ACTION.USES_VARIABLE.VAR.ACTION.SHARE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.08.BELIEF_ACCURACY_ACTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.08.BELIEF_ACCURACY_ACTION"
+      },
+      "target": "VAR.ACTION.SHARE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.08.BELIEF_ACCURACY_ACTION.USES_VARIABLE.VAR.BELIEF.CLAIM",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.08.BELIEF_ACCURACY_ACTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.08.BELIEF_ACCURACY_ACTION"
+      },
+      "target": "VAR.BELIEF.CLAIM"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.09.EDITORIAL_SELECTION.CITES_REFERENCE.REF.TOHIDI.2025",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.09.EDITORIAL_SELECTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.09.EDITORIAL_SELECTION"
+      },
+      "target": "REF.TOHIDI.2025"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.09.EDITORIAL_SELECTION.DESCRIBES_MECHANISM.GLOSS.MECH.EDITORIAL",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.09.EDITORIAL_SELECTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.09.EDITORIAL_SELECTION"
+      },
+      "target": "GLOSS.MECH.EDITORIAL"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.09.EDITORIAL_SELECTION.PREREQUISITE_CHAPTER.THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.09.EDITORIAL_SELECTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.09.EDITORIAL_SELECTION"
+      },
+      "target": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.09.EDITORIAL_SELECTION.REFERENCES_VALIDATION.VAL.M1.001",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.09.EDITORIAL_SELECTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.09.EDITORIAL_SELECTION"
+      },
+      "target": "VAL.M1.001"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.09.EDITORIAL_SELECTION.REFERENCES_VALIDATION.VAL.M1.N01",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.09.EDITORIAL_SELECTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.09.EDITORIAL_SELECTION"
+      },
+      "target": "VAL.M1.N01"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.09.EDITORIAL_SELECTION.USES_MODULE.MOD.14",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.09.EDITORIAL_SELECTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.09.EDITORIAL_SELECTION"
+      },
+      "target": "MOD.14"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.09.EDITORIAL_SELECTION.USES_MODULE.MOD.16",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.09.EDITORIAL_SELECTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.09.EDITORIAL_SELECTION"
+      },
+      "target": "MOD.16"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.09.EDITORIAL_SELECTION.USES_VARIABLE.VAR.CONTENT.VALENCE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.09.EDITORIAL_SELECTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.09.EDITORIAL_SELECTION"
+      },
+      "target": "VAR.CONTENT.VALENCE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.09.EDITORIAL_SELECTION.USES_VARIABLE.VAR.EDITORIAL.EMPHASIS",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.09.EDITORIAL_SELECTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.09.EDITORIAL_SELECTION"
+      },
+      "target": "VAR.EDITORIAL.EMPHASIS"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.09.EDITORIAL_SELECTION.USES_VARIABLE.VAR.ISSUE.APPRAISAL",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.09.EDITORIAL_SELECTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.09.EDITORIAL_SELECTION"
+      },
+      "target": "VAR.ISSUE.APPRAISAL"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.09.EDITORIAL_SELECTION.USES_VARIABLE.VAR.OBSERVED.SAMPLE.BALANCE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.09.EDITORIAL_SELECTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.09.EDITORIAL_SELECTION"
+      },
+      "target": "VAR.OBSERVED.SAMPLE.BALANCE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.CITES_REFERENCE.REF.ALVARADO.2026",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "REF.ALVARADO.2026"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.CITES_REFERENCE.REF.ARUGUETE.2024",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "REF.ARUGUETE.2024"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.DESCRIBES_MECHANISM.GLOSS.MECH.PRESENTATION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "GLOSS.MECH.PRESENTATION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.PREREQUISITE_CHAPTER.THEORY.09.EDITORIAL_SELECTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "THEORY.09.EDITORIAL_SELECTION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.REFERENCES_VALIDATION.VAL.M1.002",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "VAL.M1.002"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.REFERENCES_VALIDATION.VAL.M1.003",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "VAL.M1.003"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.REFERENCES_VALIDATION.VAL.M1.N02",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "VAL.M1.N02"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.REFERENCES_VALIDATION.VAL.M1.N03",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "VAL.M1.N03"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.USES_MODULE.MOD.05",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "MOD.05"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.USES_MODULE.MOD.07",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "MOD.07"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.USES_MODULE.MOD.15",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "MOD.15"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.USES_MODULE.MOD.16",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "MOD.16"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.USES_VARIABLE.VAR.ATTITUDE.CONGRUENCE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "VAR.ATTITUDE.CONGRUENCE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.USES_VARIABLE.VAR.ENGAGEMENT.INTENT",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "VAR.ENGAGEMENT.INTENT"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.USES_VARIABLE.VAR.ENGAGEMENT.PROBABILITY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "VAR.ENGAGEMENT.PROBABILITY"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.10.PRESENTATION_CONGRUENCE.USES_VARIABLE.VAR.PRESENTATION.FRAME",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.10.PRESENTATION_CONGRUENCE",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.10.PRESENTATION_CONGRUENCE"
+      },
+      "target": "VAR.PRESENTATION.FRAME"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.CITES_REFERENCE.REF.MATIAS.2024.UPWORTHY_CORRECTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "REF.MATIAS.2024.UPWORTHY_CORRECTION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.CITES_REFERENCE.REF.NICKL.2025.ATTENTION_ECONOMY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "REF.NICKL.2025.ATTENTION_ECONOMY"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.CITES_REFERENCE.REF.ROBERTSON.2023.NEGATIVITY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "REF.ROBERTSON.2023.NEGATIVITY"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.DESCRIBES_MECHANISM.GLOSS.MECH.ACCESS",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "GLOSS.MECH.ACCESS"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.DESCRIBES_MECHANISM.GLOSS.MECH.REPETITION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "GLOSS.MECH.REPETITION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.PREREQUISITE_CHAPTER.THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.PREREQUISITE_CHAPTER.THEORY.05.REPETITION_FAMILIARITY_TRUTH",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.REFERENCES_VALIDATION.VAL.M0.001",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "VAL.M0.001"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.REFERENCES_VALIDATION.VAL.M1.004",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "VAL.M1.004"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.REFERENCES_VALIDATION.VAL.M1.N04",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "VAL.M1.N04"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.REFERENCES_VALIDATION.VAL.M1.N05",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "VAL.M1.N05"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.REFERENCES_VALIDATION.VAL.M1.N06",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "VAL.M1.N06"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.USES_MODULE.MOD.03",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "MOD.03"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.USES_MODULE.MOD.07",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "MOD.07"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.USES_MODULE.MOD.08",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "MOD.08"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.USES_MODULE.MOD.10",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "MOD.10"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.USES_MODULE.MOD.16",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "MOD.16"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.USES_MODULE.MOD.18",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "MOD.18"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.USES_MODULE.MOD.19",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "MOD.19"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.USES_VARIABLE.VAR.ACCESS",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "VAR.ACCESS"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.USES_VARIABLE.VAR.ACCESS.PROBABILITY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "VAR.ACCESS.PROBABILITY"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.USES_VARIABLE.VAR.EXPOSURE.COUNT",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "VAR.EXPOSURE.COUNT"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.USES_VARIABLE.VAR.HEADLINE.NEGATIVITY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "VAR.HEADLINE.NEGATIVITY"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK.USES_VARIABLE.VAR.PREVIEW.IMPRESSION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+      },
+      "target": "VAR.PREVIEW.IMPRESSION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.CITES_REFERENCE.REF.PENNYCOOK.2021",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "REF.PENNYCOOK.2021"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.DESCRIBES_MECHANISM.GLOSS.MECH.ACCURACY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "GLOSS.MECH.ACCURACY"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.DESCRIBES_MECHANISM.GLOSS.MECH.CORRECTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "GLOSS.MECH.CORRECTION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.PREREQUISITE_CHAPTER.THEORY.08.BELIEF_ACCURACY_ACTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "THEORY.08.BELIEF_ACCURACY_ACTION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.PREREQUISITE_CHAPTER.THEORY.09.EDITORIAL_SELECTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "THEORY.09.EDITORIAL_SELECTION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.REFERENCES_VALIDATION.VAL.M0.002",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "VAL.M0.002"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.REFERENCES_VALIDATION.VAL.M0.004",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "VAL.M0.004"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.USES_MODULE.MOD.02",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "MOD.02"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.USES_MODULE.MOD.07",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "MOD.07"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.USES_MODULE.MOD.09",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "MOD.09"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.USES_MODULE.MOD.11",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "MOD.11"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.USES_MODULE.MOD.12",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "MOD.12"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.USES_MODULE.MOD.13",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "MOD.13"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.USES_VARIABLE.VAR.ACCURACY.SALIENCE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "VAR.ACCURACY.SALIENCE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.12.INTERVENTIONS.USES_VARIABLE.VAR.CORRECTION.ACCESS",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.12.INTERVENTIONS",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.12.INTERVENTIONS"
+      },
+      "target": "VAR.CORRECTION.ACCESS"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.13.INDIVIDUATION_AUTONOMY.PREREQUISITE_CHAPTER.THEORY.02.PROCESSING_METACONTROL",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.13.INDIVIDUATION_AUTONOMY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.13.INDIVIDUATION_AUTONOMY"
+      },
+      "target": "THEORY.02.PROCESSING_METACONTROL"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.13.INDIVIDUATION_AUTONOMY.USES_MODULE.MOD.17",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.13.INDIVIDUATION_AUTONOMY",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.13.INDIVIDUATION_AUTONOMY"
+      },
+      "target": "MOD.17"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.14.VALIDATION.PREREQUISITE_CHAPTER.THEORY.00.WHAT_IS_CEM",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.14.VALIDATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.14.VALIDATION"
+      },
+      "target": "THEORY.00.WHAT_IS_CEM"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.14.VALIDATION.REFERENCES_VALIDATION.VAL.M0.001",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.14.VALIDATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.14.VALIDATION"
+      },
+      "target": "VAL.M0.001"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.14.VALIDATION.REFERENCES_VALIDATION.VAL.M1.001",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.14.VALIDATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.14.VALIDATION"
+      },
+      "target": "VAL.M1.001"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.14.VALIDATION.REFERENCES_VALIDATION.VAL.M1.003",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "REFERENCES_VALIDATION",
+      "source": "THEORY.14.VALIDATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.14.VALIDATION"
+      },
+      "target": "VAL.M1.003"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.14.VALIDATION.USES_MODULE.MOD.02",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.14.VALIDATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.14.VALIDATION"
+      },
+      "target": "MOD.02"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.14.VALIDATION.USES_MODULE.MOD.20",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.14.VALIDATION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.14.VALIDATION"
+      },
+      "target": "MOD.20"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.15.USING_CEM.PREREQUISITE_CHAPTER.THEORY.00.WHAT_IS_CEM",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.15.USING_CEM",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.15.USING_CEM"
+      },
+      "target": "THEORY.00.WHAT_IS_CEM"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.15.USING_CEM.USES_MODULE.MOD.07",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.15.USING_CEM",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.15.USING_CEM"
+      },
+      "target": "MOD.07"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.15.USING_CEM.USES_MODULE.MOD.20",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.15.USING_CEM",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.15.USING_CEM"
+      },
+      "target": "MOD.20"
+    }
+  ],
+  "schema_version": "1",
+  "source_paths": [
+    "model/contracts/oa0_optimization_baseline.json",
+    "model/empirical_targets.json",
+    "model/links.json",
+    "model/modules.json",
+    "model/references.json",
+    "model/theory_glossary.json",
+    "model/theory_index.json",
+    "model/validation_tests.json",
+    "model/variables.json"
+  ]
+}
