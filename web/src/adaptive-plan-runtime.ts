@@ -6,6 +6,14 @@ type Copy=Record<Lang,string>;
 export type AdaptivePhase='NOW'|'WATCH'|'IF'|'THEN'|'STOP'|'REASSESS';
 export type AdaptiveStepReadiness='DEFINED'|'MISSING_TRIGGER'|'MISSING_ACTION';
 
+export type StructuredTriggerCondition={
+ indicator_id:string;
+ comparator:TriggerDraft['comparator'];
+ threshold:number;
+ unit:TriggerDraft['unit'];
+ origin:TriggerDraft['origin'];
+};
+
 export type AdaptivePlanStep={
  id:string;
  phase:AdaptivePhase;
@@ -14,6 +22,7 @@ export type AdaptivePlanStep={
  indicator_id?:string;
  trigger_draft_id?:string;
  trigger_condition?:Copy;
+ trigger?:StructuredTriggerCondition;
  action?:Copy;
 };
 
@@ -75,7 +84,17 @@ export function buildAdaptivePlanDraft(input:{
    phase:'IF',
    statement:triggerCondition??copy('Definește mai întâi un trigger draft.','Define a trigger draft first.'),
    readiness:input.trigger?'DEFINED':'MISSING_TRIGGER',
-   ...(input.trigger?{trigger_draft_id:input.trigger.id,trigger_condition:triggerCondition}: {})
+   ...(input.trigger?{
+    trigger_draft_id:input.trigger.id,
+    trigger_condition:triggerCondition,
+    trigger:{
+     indicator_id:input.trigger.indicator_id,
+     comparator:input.trigger.comparator,
+     threshold:input.trigger.threshold,
+     unit:input.trigger.unit,
+     origin:input.trigger.origin
+    }
+   }: {})
   },
   {
    id:'CEM.ADAPTIVE.RUNTIME.THEN',
