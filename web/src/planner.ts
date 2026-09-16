@@ -6,9 +6,9 @@ import {buildActionCanvasProjection,renderActionCanvas} from './action-canvas';
 import {buildIndicatorProjection,renderIndicatorObjects} from './indicator-objects';
 import {buildSignpostProjection,mountSignpostsTriggers} from './signposts-triggers';
 import {mountAdaptivePlanRuntime,type AdaptivePlanDraft} from './adaptive-plan-runtime';
-import {isAdaptivePlanReadyForFreeze,materializeIllustrativeImplementationPlan} from './implementation-plan';
-import {addRealityLoopObject} from './workspace-indexeddb';
-import {mountObservedOutcomeRecorder} from './observed-outcome';
+import {isAdaptivePlanReadyForFreeze,materializeIllustrativeImplementationPlan,type ImplementationPlan} from './implementation-plan';
+import {addRealityLoopObject,readRealityLoopObject} from './workspace-indexeddb';
+import {mountObservedOutcomeRecorder,validateObservedOutcomeReferences} from './observed-outcome';
 import type {WorkspaceDocument} from './workspace-store';
 type Lang='ro'|'en';
 type Bundle={mask:number;start:number;false_share:number;true_share:number;false_belief:number;true_belief:number;false_share_path:number[];true_share_path:number[]};
@@ -93,7 +93,13 @@ export function mountPlanner(host:HTMLElement,data:PlanningData,uncertainty:Deci
      mountObservedOutcomeRecorder(host.querySelector<HTMLElement>('#observedOutcomeHost')!,{
       plan:stored,
       indicators:indicatorProjection,
-      lang
+      lang,
+      persist:async outcome=>{
+       const persistedPlan=await readRealityLoopObject<ImplementationPlan>(outcome.implementation_plan_id);
+       if(!persistedPlan)throw new Error('referenced ImplementationPlan is not present in canonical IndexedDB storage');
+       validateObservedOutcomeReferences(outcome,persistedPlan,indicatorProjection);
+       return addRealityLoopObject(outcome);
+      }
      });
     }catch(error){
      button.disabled=false;
