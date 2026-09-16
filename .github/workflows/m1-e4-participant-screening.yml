@@ -8,6 +8,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: m1-e4-authoritative-participant-screening
+  cancel-in-progress: true
+
 jobs:
   screen:
     name: screen-${{ matrix.allocation }}-${{ matrix.heterogeneity }}
