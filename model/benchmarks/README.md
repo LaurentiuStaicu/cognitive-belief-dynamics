@@ -85,3 +85,32 @@ point-estimate gate.
 The benchmark counts are aggregate response counts, not a per-participant trial
 requirement. Human-data collection remains blocked pending participant-aware /
 hierarchical design recovery.
+
+
+## Participant-aware hierarchical screening
+
+`m1_e4_participant_aware_screening.json` translates the Phase G aggregate
+640-target + 640-foil cell anchor into repeated-measures participant allocations.
+
+Candidate allocations:
+
+- 40 participants × 16 target + 16 foil responses per Hsimp×bias cell;
+- 64 × 10+10;
+- 80 × 8+8;
+- 128 × 5+5.
+
+All preserve the same aggregate cell totals.
+
+The simulator adds participant-level memory and response-bias random effects
+shared across the participant's repeated Hsimp/bias measurements. Candidate fits
+use participant-level binomial counts and marginalize those random effects with
+Gauss-Hermite quadrature.
+
+Phase H uses a staged recovery design:
+
+- screening: 50 replicates across the complete 72-cell allocation ×
+  heterogeneity × memory × generator grid;
+- confirmation: 200 replicates for selected/worst cells before any human
+  protocol is designed.
+
+The screening result is not authorization for human data collection.

@@ -1,0 +1,146 @@
+{
+  "id": "CONTRACT.M1.E4.PARTICIPANT_AWARE_RECOVERY.2026-09-16",
+  "status": "PHASE_H_HIERARCHICAL_RECOVERY_TOOLING",
+  "model_extension": "M1.E4",
+  "scope": "Participant-aware hierarchical model-recovery design that translates the aggregate 640+640 operating-point anchor into repeated-measures participant allocations while retaining EVSD versus symmetric 2HT as inactive candidate families.",
+  "scientific_basis": {
+    "pooling_warning": "Ignoring participant and item variability can bias nonlinear signal-detection estimates; hierarchical models explicitly represent participant variability and measurement error.",
+    "repeated_measures_problem": "Responses from the same participant across Hsimp conditions and bias blocks are dependent because latent memory ability and response-bias tendencies are shared.",
+    "criterion_variability": "Recognition-memory criteria can vary across observers and conditions, so response-bias heterogeneity is modeled rather than assumed zero."
+  },
+  "aggregate_anchor": {
+    "target_responses_per_hsimp_bias_cell": 640,
+    "foil_responses_per_hsimp_bias_cell": 640,
+    "source_phase": "PHASE_G",
+    "participant_interpretation": "AGGREGATE_RESPONSE_TARGET_NOT_PER_PARTICIPANT"
+  },
+  "participant_design": {
+    "hsimp": "WITHIN_PARTICIPANT",
+    "bias_operating_points": "WITHIN_PARTICIPANT_BLOCKS",
+    "operating_points": 5,
+    "candidate_allocations": [
+      {"label":"P40_X16","participants":40,"target_per_participant_per_cell":16,"foil_per_participant_per_cell":16,"total_responses_per_participant":320},
+      {"label":"P64_X10","participants":64,"target_per_participant_per_cell":10,"foil_per_participant_per_cell":10,"total_responses_per_participant":200},
+      {"label":"P80_X8","participants":80,"target_per_participant_per_cell":8,"foil_per_participant_per_cell":8,"total_responses_per_participant":160},
+      {"label":"P128_X5","participants":128,"target_per_participant_per_cell":5,"foil_per_participant_per_cell":5,"total_responses_per_participant":100}
+    ],
+    "block_order_human_protocol": "COUNTERBALANCED_OR_RANDOMIZED",
+    "simulator_models_order_or_fatigue": false
+  },
+  "hierarchical_random_effects": {
+    "shared_across_repeated_blocks": true,
+    "EVSD": {
+      "memory": "d_pj = d_j * exp(u_p)",
+      "bias": "c_pk = c_k + v_p"
+    },
+    "2HT": {
+      "memory": "logit(Ddet_pj) = logit(Ddet_j) + u_p",
+      "bias": "logit(g_pk) = logit(g_k) + v_p"
+    },
+    "u_distribution": "Normal(0, sigma_memory)",
+    "v_distribution": "Normal(0, sigma_bias)",
+    "random_effect_correlation": 0.0,
+    "heterogeneity_regimes": [
+      {"label":"low","sigma_memory":0.1,"sigma_bias":0.1},
+      {"label":"moderate","sigma_memory":0.25,"sigma_bias":0.25},
+      {"label":"high","sigma_memory":0.4,"sigma_bias":0.4}
+    ]
+  },
+  "likelihood_and_fit": {
+    "participant_level_raw_counts_required": true,
+    "conditional_trial_model": "BINOMIAL_TARGET_AND_FOIL_COUNTS",
+    "random_effect_integration": "GAUSS_HERMITE_QUADRATURE",
+    "quadrature_nodes": 5,
+    "population_parameters": [
+      "memory parameter by Hsimp condition",
+      "bias parameter by operating point",
+      "sigma_memory",
+      "sigma_bias"
+    ],
+    "parameter_count_per_candidate": 9,
+    "train_diagnostic": "MARGINAL_AIC",
+    "held_out_diagnostic": "MARGINAL_PREDICTIVE_LOG_LIKELIHOOD_NEW_PARTICIPANT_COHORT",
+    "selection_rule": "AIC and new-cohort predictive log likelihood must favor the same family; otherwise INCONCLUSIVE"
+  },
+  "staged_recovery": {
+    "screening_replicates_per_grid_cell": 50,
+    "screening_is_authoritative_for_human_protocol": false,
+    "screening_purpose": "identify viable allocations and worst heterogeneity regions",
+    "confirmation_replicates_per_selected_cell": 200,
+    "confirmation_required_before_human_protocol_design": true,
+    "recovery_threshold": 0.8
+  },
+  "grid": {
+    "participant_allocations": 4,
+    "heterogeneity_regimes": 3,
+    "memory_regimes_per_generator": 3,
+    "generator_families": 2,
+    "screening_cells": 72
+  },
+  "required_outputs": [
+    "generator-by-selected confusion matrix including INCONCLUSIVE",
+    "recovery probability per participant allocation",
+    "recovery probability per heterogeneity regime",
+    "recovery probability per memory regime",
+    "wrong-family probability",
+    "inconclusive probability",
+    "population-memory parameter MAE",
+    "sigma-memory MAE",
+    "sigma-bias MAE",
+    "minimum grid-cell recovery probability"
+  ],
+  "boundaries": {
+    "item_random_effects_included": false,
+    "fatigue_included": false,
+    "learning_or_practice_included": false,
+    "block_order_carryover_included": false,
+    "missingness_or_attrition_included": false,
+    "empirical_model_truth_claimed": false,
+    "pencode_identified": false,
+    "human_data_collection_authorized": false
+  },
+  "method_sources": [
+    {
+      "id": "SRC.M1.E4.HIER.ROUDER_LU.2005",
+      "pmid": "16447374",
+      "role": "HIERARCHICAL_SIGNAL_DETECTION_PARTICIPANT_ITEM_VARIABILITY"
+    },
+    {
+      "id": "SRC.M1.E4.HIER.HUVSD.2024",
+      "pmid": "38806791",
+      "role": "HIERARCHICAL_BINARY_SIGNAL_DETECTION_AND_PARTICIPANT_VARIABILITY"
+    },
+    {
+      "id": "SRC.M1.E4.HIER.BENJAMIN.2009",
+      "doi": "10.1037/a0014351",
+      "role": "CRITERION_VARIABILITY_IN_RECOGNITION"
+    },
+    {
+      "id": "SRC.M1.E4.HIER.STATE_TRACE.2021",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8046171/",
+      "role": "RECOVERY_WITH_SUBJECT_TRIAL_DEPENDENCIES"
+    }
+  ],
+  "promotion_gate": {
+    "hierarchical_validation_tooling_allowed": true,
+    "active_model_registration_allowed": false,
+    "empirical_model_selection_allowed": false,
+    "pencode_allowed": false,
+    "ui_allowed": false,
+    "requirements": [
+      "schema_valid",
+      "aggregate_640_anchor_preserved",
+      "participant_allocations_preserve_cell_totals",
+      "repeated_measure_random_effects_explicit",
+      "participant_level_likelihood_used",
+      "random_effects_marginalized",
+      "independent_new_participant_held_out_cohort",
+      "screening_and_confirmation_stages_separated",
+      "screening_smoke_reproducible",
+      "active_registries_unchanged",
+      "evidence_snapshot_unchanged",
+      "release_metadata_unchanged",
+      "full_ci_green"
+    ]
+  }
+}
