@@ -26,7 +26,7 @@ import {isAppView,navigationGroupForView,navigationGroups,type AppView} from './
 let graphMode='core';
 let graphFocus='all';
 import {mountPlanner,type PlanningData} from './planner';
-import {type DecisionUncertaintyRegistry} from './decision-uncertainty-ui';
+import {type DecisionUncertaintyRegistry} from './decision-uncertainty-contract';
 import {scenarioName} from './labels';
 import {mountVisualOdd,type OddProcess,type Subsystem} from './odd';
 

@@ -377,7 +377,31 @@ try {
  await page.locator('#budget').fill('2');await page.locator('#budget').dispatchEvent('change');
  assert.equal(await page.locator('[data-switch-scenario="low"]').getAttribute('data-switch-top-mask'),'10');
  assert.match(await page.locator('#decisionSwitch').textContent(),/Răspuns redus|Lower response/);
+ assert.equal(await page.locator('[data-information-priority="UNC.PLANNER.RESPONSE.PROFILES"]').getAttribute('data-priority-class'),'DECISION_SENSITIVE_NOW');
  await page.locator('#budget').fill('3');await page.locator('#budget').dispatchEvent('change');
+
+ // OA-6D: qualitative information priority and local-only reassessment triggers.
+ assert.equal(await page.locator('[data-information-priority]').count(),5);
+ assert.equal(await page.locator('[data-information-priority="UNC.PLANNER.RESPONSE.PROFILES"]').getAttribute('data-priority-class'),'RESEARCH_OR_MONITOR');
+ assert.equal(await page.locator('[data-information-priority="UNC.PLANNER.OBJECTIVE.WEIGHT"]').getAttribute('data-priority-class'),'CLARIFY_USER_ASSUMPTION');
+ assert.equal(await page.locator('[data-information-priority="UNC.PLANNER.STRUCTURAL.SCOPE"]').getAttribute('data-priority-class'),'CONTEXT_LIMITATION');
+ assert.match(await page.locator('.information-priority').textContent(),/QUALITATIVE_TRIAGE_NO_NUMERIC_VOI/);
+ assert.match(await page.locator('.adaptive-reassessment').textContent(),/nu observă automat|does not automatically observe/i);
+ await page.locator('[data-priority-create-trigger="UNC.PLANNER.RESPONSE.PROFILES"]').click();
+ assert.equal(await page.locator('#reassessmentUncertainty').inputValue(),'UNC.PLANNER.RESPONSE.PROFILES');
+ assert.equal(await page.locator('#reassessmentIndicator').evaluate(el=>document.activeElement===el),true);
+ await page.locator('#reassessmentIndicator').fill('New correction-access estimate');
+ await page.locator('[name="trigger_condition"]').fill('Outside current declared range');
+ await page.locator('[name="response_action"]').fill('Re-run robustness comparison');
+ await page.locator('[name="basis"]').selectOption('EMPIRICAL');
+ await page.locator('[name="source_note"]').fill('Future study');
+ await page.locator('#reassessmentForm button[type="submit"]').click();
+ assert.equal(await page.locator('[data-reassessment-record]').count(),1);
+ assert.match(await page.locator('#reassessmentRecords').textContent(),/New correction-access estimate/);
+ assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('cem.decision-reassessment.v1')).records.length),1);
+ await page.locator('[data-remove-reassessment]').click();
+ assert.equal(await page.locator('[data-reassessment-record]').count(),0);
+ assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('cem.decision-reassessment.v1')).records.length),0);
  // Verify exported score decomposition and profile gaps independently of rendered rounding.
  await page.locator('#budget').fill('4');await page.locator('#budget').dispatchEvent('change');
  for(const weight of [0,50,100]){
