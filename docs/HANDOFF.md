@@ -728,3 +728,53 @@ changed in a separate controlled refinement.
 
 No empirical EVSD-vs-2HT selection, Pencode, active M1.E4 runtime or UI is
 authorized.
+
+
+## Alpha 0.4.3a0 Phase G — targeted trial-count refinement
+
+Phase F results were merged into `main` at
+`71b643019f1ebeaa02d445fb09a373a8644cd2b8`; post-merge CI #146 passed.
+
+Phase G isolates the trial-count axis while preserving all five existing
+operating points and all other benchmark settings.
+
+Authoritative refinement:
+
+- workflow run: `35065350252`;
+- workflow commit: `5094b9fa90093ad695ddbef7a290843628f647eb`;
+- artifact ID: `10433859156`;
+- JSON SHA-256:
+  `80635b2e44eb0991fe8db446c163a0a2c3ff9dbab8396342098bdba6f72694b4`;
+- 200 replicates per cell;
+- tested aggregate target + foil counts per operating point:
+  480+480, 640+640, 960+960.
+
+All targeted cells pass the preregistered point-estimate recovery convention:
+
+- 480+480: minimum `0.835`, 6/6 pass;
+- 640+640: minimum `0.920`, 6/6 pass;
+- 960+960: minimum `0.945`, 6/6 pass.
+
+Thus operating-point repositioning is not justified by the current synthetic
+evidence.
+
+Secondary Monte Carlo precision check:
+
+- limiting 480 EVSD-weak = 167/200 = 0.835, Wilson 95% approximately
+  0.777–0.880;
+- limiting 640 EVSD-weak = 184/200 = 0.920, Wilson 95% approximately
+  0.874–0.950.
+
+The formal gate remains the preregistered point estimate. For prospective design,
+640+640 is documented as the more robust starting anchor among tested designs.
+
+Critical boundary: 640 target + 640 foil means aggregate responses per operating
+point in the current binomial benchmark. It is **not** a prescription for a
+single participant.
+
+Next required phase: participant-aware / hierarchical design recovery translating
+the aggregate response target into participant/block allocations and simulating
+between-person heterogeneity and repeated-measures dependence before any human
+data collection.
+
+No EVSD/2HT winner, Pencode, active M1.E4 runtime or UI is authorized.

@@ -1,0 +1,42 @@
+{
+  "benchmark_id": "BENCH.M1.E4.CANDIDATE_RECOVERY.TRIAL_COUNT_REFINEMENT.2026-09-16",
+  "status": "TARGETED_TRIAL_COUNT_REFINEMENT",
+  "seed": 20260916,
+  "replicates": 200,
+  "recovery_threshold": 0.8,
+  "trial_counts_per_operating_point": [480, 640, 960],
+  "bias_grids": {
+    "EVSD": [-0.8, -0.4, 0.0, 0.4, 0.8],
+    "2HT": [0.15, 0.325, 0.5, 0.675, 0.85]
+  },
+  "memory_grids": {
+    "EVSD": [
+      {"label": "weak", "complex": 0.45, "simple": 0.65},
+      {"label": "medium", "complex": 0.9, "simple": 1.1},
+      {"label": "strong", "complex": 1.35, "simple": 1.55}
+    ],
+    "2HT": [
+      {"label": "weak", "complex": 0.18, "simple": 0.28},
+      {"label": "medium", "complex": 0.38, "simple": 0.48},
+      {"label": "strong", "complex": 0.58, "simple": 0.68}
+    ]
+  },
+  "selection_rule": {
+    "in_sample": "AIC",
+    "held_out": "predictive_log_likelihood",
+    "decision": "select a family only when both diagnostics favor the same candidate; otherwise INCONCLUSIVE"
+  },
+  "controlled_change": {
+    "reference_config": "model/benchmarks/m1_e4_candidate_recovery_core.json",
+    "changed_axis_only": "trial_counts_per_operating_point",
+    "unchanged_axes": [
+      "seed",
+      "replicates",
+      "recovery_threshold",
+      "bias_grids",
+      "memory_grids",
+      "selection_rule"
+    ]
+  },
+  "interpretation_boundary": "Targeted design refinement only. This sweep changes trial count and nothing else. It does not calibrate M1.E4, select the true recognition architecture, activate EVSD/2HT, or identify Pencode."
+}
