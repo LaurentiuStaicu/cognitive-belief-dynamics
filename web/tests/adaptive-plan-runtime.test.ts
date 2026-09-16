@@ -30,6 +30,13 @@ test('OA-7 WATCH and IF bind to signpost/trigger while actions remain user decla
  assert.equal(watch.indicator_id,trigger.indicator_id);
  assert.equal(iff.trigger_draft_id,trigger.id);
  assert.match(iff.trigger_condition!.en,/user-declared threshold/i);
+ assert.deepEqual(iff.trigger,{
+  indicator_id:trigger.indicator_id,
+  comparator:'LTE',
+  threshold:0.35,
+  unit:'probability',
+  origin:'USER_DECLARED'
+ });
  for(const phase of ['THEN','STOP','REASSESS'] as const){
   assert.equal(plan.steps.find(item=>item.phase===phase)!.readiness,'DEFINED');
  }
