@@ -1,0 +1,60 @@
+{
+  "schema_version": "1",
+  "workspace_id": "CEM.WORKSPACE.example-oa2a",
+  "created_at": "2026-09-16T11:10:00Z",
+  "updated_at": "2026-09-16T11:10:00Z",
+  "versions": {
+    "software_version": "0.4.2a0",
+    "release_tag": "v0.4.2a0",
+    "model_specification": "M1",
+    "evidence_snapshot": "EVIDENCE.M1.2026-09-16.r1",
+    "semantic_schema_version": "1",
+    "semantic_baseline_contract": "OA0.BASELINE.2026-09-16"
+  },
+  "case": {
+    "id": "CEM.CASE.example-repetition",
+    "title": "Repetition and familiarity inspection",
+    "notes": "User-authored note. Scientific objects remain canonical references.",
+    "entity_refs": [
+      "GLOSS.MECH.REPETITION",
+      "VAR.EXPOSURE.COUNT",
+      "VAR.FAMILIARITY.CLAIM"
+    ],
+    "relation_refs": [
+      "COMPDEP.EXPOSURE.FAMILIARITY",
+      "LINK.EXPOSURE.FAMILIARITY"
+    ],
+    "focus": {
+      "entity_id": "VAR.FAMILIARITY.CLAIM",
+      "relation_id": "LINK.EXPOSURE.FAMILIARITY"
+    }
+  },
+  "provenance": {
+    "current_revision_id": "CEM.WORKSPACE.REV.example-oa2a-r0",
+    "activities": [
+      {
+        "id": "CEM.ACTIVITY.example-create",
+        "type": "CREATE",
+        "timestamp": "2026-09-16T11:10:00Z",
+        "agent": {
+          "kind": "SOFTWARE",
+          "id": "CEM.WEB",
+          "version": "0.4.2a0"
+        },
+        "used": [
+          {"kind": "SEMANTIC_ENTITY", "id": "GLOSS.MECH.REPETITION"},
+          {"kind": "SEMANTIC_ENTITY", "id": "VAR.EXPOSURE.COUNT"},
+          {"kind": "SEMANTIC_ENTITY", "id": "VAR.FAMILIARITY.CLAIM"},
+          {"kind": "SEMANTIC_RELATION", "id": "COMPDEP.EXPOSURE.FAMILIARITY"},
+          {"kind": "SEMANTIC_RELATION", "id": "LINK.EXPOSURE.FAMILIARITY"},
+          {"kind": "EVIDENCE_SNAPSHOT", "id": "EVIDENCE.M1.2026-09-16.r1"},
+          {"kind": "MODEL_SPECIFICATION", "id": "M1"},
+          {"kind": "SOFTWARE_VERSION", "id": "0.4.2a0"}
+        ],
+        "generated": [
+          {"kind": "WORKSPACE_REVISION", "id": "CEM.WORKSPACE.REV.example-oa2a-r0"}
+        ]
+      }
+    ]
+  }
+}
