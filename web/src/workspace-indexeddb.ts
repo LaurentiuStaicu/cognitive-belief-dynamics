@@ -1,10 +1,8 @@
-import {
- WORKSPACE_ACTIVE_KEY,
- WORKSPACE_RECOVERY_KEY,
- type StorageLike,
- type WorkspaceDocument
-} from './workspace-store';
-import {WORKSPACE_IMPORT_ORIGINAL_KEY} from './workspace-portable';
+import type {StorageLike,WorkspaceDocument} from './workspace-store';
+
+const LEGACY_LEGACY_WORKSPACE_ACTIVE_KEY='cem.workspace.v1.active';
+const LEGACY_LEGACY_WORKSPACE_RECOVERY_KEY='cem.workspace.v1.recovery';
+const LEGACY_LEGACY_WORKSPACE_IMPORT_ORIGINAL_KEY='cem.workspace.v1.import.original';
 
 export const CEM_STORAGE_DB_NAME='cem-reality-loop';
 export const CEM_STORAGE_DB_VERSION=1;
@@ -53,12 +51,12 @@ function parseWorkspace(raw:string,key:string,validate:ValidateWorkspace):Worksp
 }
 
 export function inspectLegacyWorkspaceStorage(storage:StorageLike,validate:ValidateWorkspace):LegacyWorkspaceSnapshot|undefined{
- const activeRaw=storage.getItem(WORKSPACE_ACTIVE_KEY);
+ const activeRaw=storage.getItem(LEGACY_WORKSPACE_ACTIVE_KEY);
  if(activeRaw===null)return undefined;
- const active=parseWorkspace(activeRaw,WORKSPACE_ACTIVE_KEY,validate);
- const recoveryRaw=storage.getItem(WORKSPACE_RECOVERY_KEY);
- const recovery=recoveryRaw===null?undefined:parseWorkspace(recoveryRaw,WORKSPACE_RECOVERY_KEY,validate);
- const importOriginalRaw=storage.getItem(WORKSPACE_IMPORT_ORIGINAL_KEY)??undefined;
+ const active=parseWorkspace(activeRaw,LEGACY_WORKSPACE_ACTIVE_KEY,validate);
+ const recoveryRaw=storage.getItem(LEGACY_WORKSPACE_RECOVERY_KEY);
+ const recovery=recoveryRaw===null?undefined:parseWorkspace(recoveryRaw,LEGACY_WORKSPACE_RECOVERY_KEY,validate);
+ const importOriginalRaw=storage.getItem(LEGACY_WORKSPACE_IMPORT_ORIGINAL_KEY)??undefined;
  return {
   active_raw:activeRaw,
   active:clone(active),
