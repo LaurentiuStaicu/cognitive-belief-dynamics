@@ -652,6 +652,9 @@
         },
         "action": {
           "$ref": "#/$defs/copy"
+        },
+        "trigger": {
+          "$ref": "#/$defs/triggerCondition"
         }
       },
       "allOf": [
@@ -685,7 +688,8 @@
           },
           "then": {
             "required": [
-              "trigger_condition"
+              "trigger_condition",
+              "trigger"
             ]
           }
         },
@@ -1045,6 +1049,41 @@
         "revision_of_autopsy_id": {
           "type": "string",
           "pattern": "^CEM\\.DECISION\\.AUTOPSY\\.[A-Za-z0-9._-]+$"
+        }
+      }
+    },
+    "triggerCondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "indicator_id",
+        "comparator",
+        "threshold",
+        "unit",
+        "origin"
+      ],
+      "properties": {
+        "indicator_id": {
+          "type": "string",
+          "pattern": "^CEM\\.INDICATOR\\.[A-Za-z0-9._-]+$"
+        },
+        "comparator": {
+          "enum": [
+            "LT",
+            "LTE",
+            "GTE",
+            "GT"
+          ]
+        },
+        "threshold": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin": {
+          "const": "USER_DECLARED"
         }
       }
     }
