@@ -504,7 +504,15 @@ try {
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Active Understanding mobile horizontal overflow');
  assert.equal((await page.locator('.active-understanding-layout').evaluate(el=>getComputedStyle(el).gridTemplateColumns)).split(' ').length,1);
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'active-understanding-mobile.png'),fullPage:true});
- await page.evaluate(()=>{location.hash='#understanding/mechanisms/access';});
+ await page.evaluate(()=>{location.hash='#understanding/active/challenge-model';});
+ await page.locator('[data-challenge-model="M1.E3"]').waitFor();
+ assert.equal(await page.locator('[data-model="null"] [data-delta]').textContent(),'0,000000');
+ assert.equal(await page.locator('[data-model="headline-negativity"] [data-delta]').textContent(),'0,022648');
+ assert.match(await page.locator('.challenge-model-status').textContent(),/MODEL_DISCRIMINATION_DEMONSTRATION/);
+ assert.match(await page.locator('.challenge-model').textContent(),/VAL\.M1\.N04/);
+ assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Challenge Model mobile horizontal overflow');
+ if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'challenge-model-mobile.png'),fullPage:true});
+ await page.locator('[data-au-open-access]').click();
  await page.locator('#m1AccessStage').waitFor();
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'M1.E3 mobile horizontal overflow');
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'m1-access-mobile.png'),fullPage:true});

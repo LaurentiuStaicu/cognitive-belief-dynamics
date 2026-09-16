@@ -5,6 +5,8 @@ import {
  type ActiveConfidence,
  type ActiveSession
 } from './active-understanding';
+import {projectAccessChallenge} from './challenge-model';
+import type {M1AccessData} from './access-stage';
 
 type Lang='ro'|'en';
 type Copy={ro:string;en:string};
@@ -67,9 +69,12 @@ export async function mountActiveUnderstanding(
  host:HTMLElement,
  lang:Lang,
  requestedId:string|undefined,
+ m1Access:M1AccessData,
  navigate:(target:string)=>void
 ):Promise<void>{
  const contract=await loadContract();
+ const challengeModel=projectAccessChallenge(m1Access);
+ const challengeModelActive=requestedId==='challenge-model';
  const t=(ro:string,en:string)=>lang==='ro'?ro:en;
  const challenge=contract.challenges.find(item=>item.id===requestedId)??contract.challenges[0];
  let session=createActiveSession(challenge.id,challenge.correct_choice_id);
@@ -89,7 +94,7 @@ export async function mountActiveUnderstanding(
   <div class="active-understanding-layout">
    <nav class="panel active-challenges" aria-label="${t('Provocări de înțelegere','Understanding challenges')}">
     <p class="eyebrow">${t('PROVOCĂRI','CHALLENGES')}</p>
-    <ol>${contract.challenges.map(item=>`<li><button type="button" data-au-challenge="${esc(item.id)}" aria-current="${item.id===challenge.id?'step':'false'}"><strong>${esc(item.id)}</strong><span>${esc(local(item.learning_target,lang))}</span></button></li>`).join('')}</ol>
+    <ol>${contract.challenges.map(item=>`<li><button type="button" data-au-challenge="${esc(item.id)}" aria-current="${!challengeModelActive&&item.id===challenge.id?'step':'false'}"><strong>${esc(item.id)}</strong><span>${esc(local(item.learning_target,lang))}</span></button></li>`).join('')}<li><button type="button" data-au-challenge-model aria-current="${challengeModelActive?'step':'false'}"><strong>CM-1</strong><span>${t('Compară două modele M1.E3 deja înregistrate','Compare two already-registered M1.E3 models')}</span></button></li></ol>
    </nav>
    <div class="active-understanding-main">
     <article id="activeChallengeStage" class="panel active-stage" aria-live="polite"></article>
@@ -105,6 +110,7 @@ export async function mountActiveUnderstanding(
   const id=button.dataset.auChallenge;
   if(id)location.hash=`#understanding/active/${encodeURIComponent(id)}`;
  });
+ host.querySelector<HTMLButtonElement>('[data-au-challenge-model]')!.onclick=()=>{location.hash='#understanding/active/challenge-model';};
 
  const renderHistory=()=>{
   const records=[...history.all()].reverse().slice(0,6);
@@ -131,6 +137,51 @@ export async function mountActiveUnderstanding(
  };
 
  const renderStage=()=>{
+  if(challengeModelActive){
+   const cm=challengeModel;
+   const locale=lang==='ro'?'ro-RO':'en-GB';
+   const number=(value:number)=>value.toLocaleString(locale,{minimumFractionDigits:6,maximumFractionDigits:6});
+   const calibrated=cm.calibrated?t('calibrat','calibrated'):t('necalibrat','uncalibrated');
+   stage.dataset.auStage='CHALLENGE_MODEL';
+   stage.innerHTML=`<div class="challenge-model" data-challenge-model="${esc(cm.experimentId)}">
+    <p class="eyebrow">OA-5C · CHALLENGE MODEL</p>
+    <h3 data-au-stage-title tabindex="-1">${t('Același context, două modele înregistrate','Same context, two registered models')}</h3>
+    <p>${t('Compară ce prezice modelul NULL cu modelul care include indiciul Hneg. Valorile sunt proiectate direct din artefactul canonic M1.E3; această suprafață nu recalculează și nu ajustează modelul.','Compare what the NULL model predicts with the model that includes the Hneg cue. Values are projected directly from the canonical M1.E3 artifact; this surface does not refit or modify the model.')}</p>
+    <div class="challenge-model-invariants" aria-label="${t('Condiții ținute fixe','Held-fixed conditions')}">
+     <div><span>${t('Poveste','Story')}</span><code>${esc(cm.storyId)}</code></div>
+     <div><span>${t('Sursă','Source')}</span><code>${esc(cm.sourceId)}</code></div>
+     <div><span>${t('Imagine','Image')}</span><code>${esc(cm.imageId??'NONE')}</code></div>
+     <div><span>PreviewImpression</span><code>${String(cm.previewImpression)}</code></div>
+    </div>
+    <div class="challenge-model-grid">
+     <article class="challenge-model-card" data-model="null">
+      <p class="eyebrow">M1.E3-NULL</p>
+      <h4>${t('Hneg este ignorat','Hneg is ignored')}</h4>
+      <p>${t('Ipoteza NULL păstrează aceeași probabilitate de acces când Hneg trece de la condiția de control la tratament.','The NULL hypothesis keeps access probability unchanged when Hneg moves from control to treatment.')}</p>
+      <dl><div><dt>Hneg = ${cm.controlCue}</dt><dd>${number(cm.nullModel.lower)}</dd></div><div><dt>Hneg = ${cm.treatmentCue}</dt><dd>${number(cm.nullModel.higher)}</dd></div><div><dt>ΔPaccess</dt><dd data-delta>${number(cm.nullModel.delta)}</dd></div></dl>
+      <code>VAL.M1.N04</code>
+     </article>
+     <article class="challenge-model-card" data-model="headline-negativity">
+      <p class="eyebrow">M1.E3-A · Hneg</p>
+      <h4>${t('Hneg intră în poarta de acces','Hneg enters the access gate')}</h4>
+      <p>${t('Modelul alternativ folosește indiciul binar Hneg în logitul de referință. Coeficientul este demonstrativ, nu estimat din populație.','The alternative model uses the binary Hneg cue in the reference logit. The coefficient is demonstrative, not population-estimated.')}</p>
+      <dl><div><dt>Hneg = ${cm.controlCue}</dt><dd>${number(cm.alternativeModel.lower)}</dd></div><div><dt>Hneg = ${cm.treatmentCue}</dt><dd>${number(cm.alternativeModel.higher)}</dd></div><div><dt>ΔPaccess</dt><dd data-delta>${number(cm.alternativeModel.delta)}</dd></div></dl>
+      <code>β<sub>Hneg</sub> = ${esc(String(cm.betaHneg))}</code> · <code>VAL.M1.004</code>
+     </article>
+    </div>
+    <div class="challenge-model-status">
+     <div><span>${t('Scopul artefactului','Artifact purpose')}</span><code>${esc(cm.purpose)}</code></div>
+     <div><span>${t('Statut parametri','Parameter status')}</span><strong>${calibrated}</strong></div>
+     <div><span>${t('Țintă empirică','Empirical target')}</span><code>${esc(cm.empiricalTargetId)}</code></div>
+     <div><span>${t('Validări înregistrate','Registered validations')}</span><code>${esc(cm.validationPatternIds.join(' · '))}</code></div>
+    </div>
+    <div class="boundary"><strong>${t('Limită epistemică','Epistemic boundary')}</strong><p>${esc(cm.interpretationBoundary)}</p><p>${t('Diferența dintre predicții arată ce implică fiecare model în acest experiment demonstrativ. Nu selectează un model universal adevărat și nu transformă coeficienții necalibrați în estimări cauzale populaționale.','The prediction difference shows what each model implies in this demonstration experiment. It does not select a universally true model or turn uncalibrated coefficients into population causal estimates.')}</p></div>
+    <div class="active-actions"><button type="button" class="primary" data-au-open-access>${t('Deschide comparatorul M1.E3 complet','Open the full M1.E3 comparator')}</button><button type="button" data-au-back-challenges>${t('Înapoi la AU-1','Back to AU-1')}</button></div>
+   </div>`;
+   stage.querySelector<HTMLButtonElement>('[data-au-open-access]')!.onclick=()=>{location.hash='#understanding/mechanisms/access';};
+   stage.querySelector<HTMLButtonElement>('[data-au-back-challenges]')!.onclick=()=>{location.hash='#understanding/active/AU-1';};
+   return;
+  }
   stage.dataset.auStage=session.stage;
   const progress={WORKED_EXAMPLE:1,PREDICT:2,REVEAL:3,EXPLAIN:4,BOUNDARY:5,COMPLETE:6}[session.stage];
   const stageHeader=`<div class="active-stage-progress"><span>${t('Pas','Step')} ${progress} / 6</span><progress value="${progress}" max="6" aria-label="${t('Progresul secvenței active','Active sequence progress')}"></progress><span>${esc(stageLabel(session.stage,lang))}</span></div>`;
