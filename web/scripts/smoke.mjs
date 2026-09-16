@@ -381,6 +381,22 @@ try {
  assert.match(await page.locator('#indicatorObjects').textContent(),/nu ObservedOutcome|not ObservedOutcome/i);
  assert.match(await page.locator('[data-indicator-id="CEM.INDICATOR.M0.FALSE_SHARING.MEAN13"]').textContent(),/SIMULATED|simulat/i);
 
+ // OA-7 signposts / triggers: user-declared conditions remain unevaluated without observations.
+ assert.equal(await page.locator('#signpostsTriggers').count(),1);
+ assert.equal(await page.locator('[data-signpost-id]').count(),2);
+ assert.match(await page.locator('#signpostsTriggers').textContent(),/NO_BACKGROUND_MONITORING/);
+ await page.locator('#triggerDraftForm select[name="signpost_id"]').selectOption('CEM.SIGNPOST.M0.FALSE_SHARING.MEAN13');
+ await page.locator('#triggerDraftForm select[name="comparator"]').selectOption('LTE');
+ await page.locator('#triggerDraftForm input[name="threshold"]').fill('0.35');
+ await page.locator('#triggerDraftForm button[type="submit"]').click();
+ assert.equal(await page.locator('[data-trigger-draft]').count(),1);
+ assert.match(await page.locator('[data-trigger-draft]').textContent(),/USER_DECLARED/);
+ assert.match(await page.locator('[data-trigger-draft]').textContent(),/NOT_EVALUATED_NO_OBSERVED_OUTCOME/);
+ assert.match(await page.locator('[data-trigger-draft]').textContent(),/NOT_BOUND_TO_ADAPTIVE_ACTION/);
+ assert.doesNotMatch(await page.locator('[data-trigger-draft]').textContent(),/triggered\s*=\s*true/i);
+ await page.locator('[data-remove-trigger]').click();
+ assert.equal(await page.locator('[data-trigger-draft]').count(),0);
+
  // OA-6C: explicit finite-scenario uncertainty UI, threshold coverage and canonical context.
  assert.equal(await page.locator('#decisionUncertainty').count(),1);
  assert.equal(await page.locator('[data-uncertainty-id]').count(),5);
