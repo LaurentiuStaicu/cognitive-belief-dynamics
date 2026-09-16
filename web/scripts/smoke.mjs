@@ -44,8 +44,36 @@ try {
  assert.deepEqual(initialWorkspace.case.entity_refs,[]);
  assert.deepEqual(initialWorkspace.case.relation_refs,[]);
  assert.equal(initialWorkspace.provenance.activities.at(-1).type,'CREATE');
+
+ // R3: copy-first IndexedDB migration preserves localStorage authority and verifies the copied Workspace.
+ const readIdbRecord=async(store,key)=>page.evaluate(async({store,key})=>{
+  const db=await new Promise((resolve,reject)=>{const req=indexedDB.open('cem-reality-loop',1);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});
+  try{
+   return await new Promise((resolve,reject)=>{const tx=db.transaction(store,'readonly');const req=tx.objectStore(store).get(key);req.onsuccess=()=>resolve(req.result??null);req.onerror=()=>reject(req.error);});
+  }finally{db.close();}
+ },{store,key});
+ const idbStores=await page.evaluate(async()=>{
+  const db=await new Promise((resolve,reject)=>{const req=indexedDB.open('cem-reality-loop',1);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});
+  try{return {version:db.version,stores:[...db.objectStoreNames]};}finally{db.close();}
+ });
+ assert.equal(idbStores.version,1);
+ assert.deepEqual(idbStores.stores.sort(),['import_originals','reality_loop_objects','storage_meta','workspace_documents','workspace_recovery']);
+ assert.deepEqual(await readIdbRecord('workspace_documents',initialWorkspace.workspace_id),initialWorkspace);
+ const migrationMeta=await readIdbRecord('storage_meta','legacy_workspace_v1_migration');
+ assert.equal(migrationMeta.value.workspace_id,initialWorkspace.workspace_id);
+ assert.equal(migrationMeta.value.source,'localStorage');
+ assert.equal(migrationMeta.value.legacy_keys_preserved,true);
+ assert.equal(await page.evaluate(key=>localStorage.getItem(key),workspaceKey),workspaceBeforeReload);
+
+ // Recovery is copied on the next startup but remains present in legacy storage as rollback material.
+ const recoveryKey='cem.workspace.v1.recovery';
+ await page.evaluate(({key,value})=>localStorage.setItem(key,value),{key:recoveryKey,value:workspaceBeforeReload});
  await page.reload();await waitTheory();
  assert.equal(await page.evaluate(key=>localStorage.getItem(key),workspaceKey),workspaceBeforeReload);
+ assert.equal(await page.evaluate(key=>localStorage.getItem(key),recoveryKey),workspaceBeforeReload);
+ const idbRecovery=await readIdbRecord('workspace_recovery',initialWorkspace.workspace_id);
+ assert.deepEqual(idbRecovery.document,initialWorkspace);
+ assert.equal(idbRecovery.original_raw,workspaceBeforeReload);
  const version=JSON.parse(await readFile(path.join(dist,'model/version.json'),'utf8'));
  assert.match(await page.locator('#releaseVersion').textContent(),new RegExp(version.version.replaceAll('.', '\\.')));
  assert((await page.locator('#releaseVersion').getAttribute('href')).endsWith('/'+version.release_tag));
