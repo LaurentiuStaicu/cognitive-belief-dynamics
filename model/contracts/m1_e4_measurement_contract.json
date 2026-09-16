@@ -1,0 +1,256 @@
+{
+  "id": "CONTRACT.M1.E4.MEASUREMENT.2026-09-16",
+  "status": "PHASE_B_MEASUREMENT_ONLY",
+  "model_extension": "M1.E4",
+  "scope": "Measurement bridge from raw recognition probe responses to signal-detection sensitivity and explicit identifiability limits for any future executable encoding state; no active registry promotion, runtime or UI.",
+  "conditioning_event": {
+    "id": "PreviewImpression",
+    "requires_access": false
+  },
+  "source_task": {
+    "primary_source_id": "SRC.M1.E4.MEAS.SHULMAN.2024",
+    "reported_probe_count": 24,
+    "target_foil_split_known_from_main_text": false,
+    "source_terminology_note": "The article prose uses the word hit broadly while explaining correct recognition responses. CEM does not inherit that wording and uses standard yes/no SDT contingency definitions."
+  },
+  "raw_cells": [
+    {
+      "id": "MEAS.NHIT",
+      "short_name": "Nhit",
+      "definition": "Count of previously presented target probes answered seen.",
+      "standard_sdt_role": "HIT"
+    },
+    {
+      "id": "MEAS.NMISS",
+      "short_name": "Nmiss",
+      "definition": "Count of previously presented target probes answered not seen.",
+      "standard_sdt_role": "MISS"
+    },
+    {
+      "id": "MEAS.NFA",
+      "short_name": "Nfa",
+      "definition": "Count of foil probes not previously presented but answered seen.",
+      "standard_sdt_role": "FALSE_ALARM"
+    },
+    {
+      "id": "MEAS.NCR",
+      "short_name": "Ncr",
+      "definition": "Count of foil probes not previously presented and answered not seen.",
+      "standard_sdt_role": "CORRECT_REJECTION"
+    }
+  ],
+  "rate_definitions": {
+    "hit_rate": "Nhit / (Nhit + Nmiss)",
+    "false_alarm_rate": "Nfa / (Nfa + Ncr)",
+    "raw_counts_must_remain_reconstructable": true
+  },
+  "reference_estimator": {
+    "family": "EQUAL_VARIANCE_GAUSSIAN_YES_NO_SDT",
+    "inverse_cdf": "STANDARD_NORMAL",
+    "extreme_rate_correction": {
+      "method": "HAUTUS_LOG_LINEAR",
+      "apply_to_all_cells": true,
+      "corrected_hit_rate": "(Nhit + 0.5) / (Nhit + Nmiss + 1)",
+      "corrected_false_alarm_rate": "(Nfa + 0.5) / (Nfa + Ncr + 1)",
+      "source_id": "SRC.M1.E4.MEAS.HAUTUS.1995",
+      "source_exact_replication_claim": false
+    },
+    "drecog_formula": "Phi^-1(Hstar) - Phi^-1(Fstar)",
+    "crecog_formula": "-0.5 * (Phi^-1(Hstar) + Phi^-1(Fstar))",
+    "measurement_boundary": "The estimator is a transparent CEM reference convention. It does not establish that recognition-memory evidence distributions have equal variance or that the Shulman source used the same extreme-rate correction."
+  },
+  "measurement_quantities": [
+    {
+      "id": "PLANNED.MEAS.DRECOG",
+      "short_name": "Drecog",
+      "role": "PRIMARY_VALIDATION_METRIC",
+      "status": "MEASUREMENT_ONLY",
+      "definition": "Signal-detection sensitivity derived from target/foil recognition responses under the registered CEM reference estimator.",
+      "what_it_is_not": "Not attention, gaze, fixation, event-level encoding probability, recollection, familiarity, comprehension or belief."
+    },
+    {
+      "id": "PLANNED.MEAS.CRECOG",
+      "short_name": "Crecog",
+      "role": "AUXILIARY_RESPONSE_CRITERION_DIAGNOSTIC",
+      "status": "MEASUREMENT_ONLY",
+      "definition": "Reference SDT response-criterion diagnostic derived from the same corrected hit and false-alarm rates.",
+      "what_it_is_not": "Not recognition sensitivity, memory strength, encoding quality or a model state."
+    },
+    {
+      "id": "PLANNED.MEAS.MSEP",
+      "short_name": "Msep",
+      "role": "REFERENCE_MEASUREMENT_MODEL_BRIDGE",
+      "status": "MEASUREMENT_MODEL_ONLY",
+      "definition": "Standardized target-versus-foil evidence-distribution mean separation under the equal-variance Gaussian SDT reference model.",
+      "reference_identity": "Msep = Drecog",
+      "what_it_is_not": "Not a probability, per-item state, biological encoding strength, attention, recollection, familiarity or belief."
+    }
+  ],
+  "identifiability": {
+    "drecog_alone_identifies": [
+      "recognition discriminability under the registered measurement convention"
+    ],
+    "drecog_alone_does_not_identify": [
+      "unique hit rate",
+      "unique false-alarm rate",
+      "response criterion",
+      "event-level Pencode",
+      "attention allocation",
+      "recollection probability",
+      "familiarity process",
+      "target evidence variance",
+      "foil evidence variance"
+    ],
+    "drecog_plus_crecog_reference_inverse": {
+      "z_hit": "Drecog / 2 - Crecog",
+      "z_false_alarm": "-Drecog / 2 - Crecog",
+      "boundary": "This inversion reconstructs corrected operating-point rates only inside the equal-variance reference model and still does not identify an encoding mechanism."
+    },
+    "pencode": {
+      "status": "NOT_IDENTIFIED_BY_CURRENT_MEASUREMENT",
+      "forbidden_shortcuts": [
+        "logistic(Drecog)",
+        "Phi(Drecog)",
+        "Drecog / constant",
+        "condition_mean_dprime_as_item_probability"
+      ]
+    }
+  },
+  "model_assumption_boundary": {
+    "equal_variance_status": "REFERENCE_MEASUREMENT_ASSUMPTION_ONLY",
+    "reason": "The standard d-prime formula is transparent and matches the reported sensitivity family, but recognition-memory ROCs often show unequal target/foil evidence variance.",
+    "richer_model_requirement": "A future unequal-variance or multi-process recognition model requires additional identifying data such as multiple confidence criteria/ROC information or other independent constraints.",
+    "single_operating_point_sufficient_for_richer_model": false
+  },
+  "sources": [
+    {
+      "id": "SRC.M1.E4.MEAS.SHULMAN.2024",
+      "citation": "Shulman, H. C., Markowitz, D. M., & Rogers, T. (2024). Reading dies in complexity: Online news consumers prefer simple writing. Science Advances, 10(23), eadn2555.",
+      "doi": "10.1126/sciadv.adn2555",
+      "role": "PRIMARY_TASK_AND_REPORTED_DPRIME"
+    },
+    {
+      "id": "SRC.M1.E4.MEAS.STANISLAW_TODOROV.1999",
+      "citation": "Stanislaw, H., & Todorov, N. (1999). Calculation of signal detection theory measures. Behavior Research Methods, Instruments, & Computers, 31(1), 137-149.",
+      "doi": "10.3758/BF03207704",
+      "role": "STANDARD_SDT_MEASUREMENT_REFERENCE"
+    },
+    {
+      "id": "SRC.M1.E4.MEAS.HAUTUS.1995",
+      "citation": "Hautus, M. J. (1995). Corrections for extreme proportions and their biasing effects on estimated values of d-prime. Behavior Research Methods, Instruments, & Computers, 27(1), 46-51.",
+      "doi": "10.3758/BF03203619",
+      "role": "EXTREME_RATE_CORRECTION_REFERENCE"
+    },
+    {
+      "id": "SRC.M1.E4.MEAS.SPANTON_BERRY.2020",
+      "citation": "Spanton, R. W., & Berry, C. J. (2020). The unequal variance signal-detection model of recognition memory: Investigating the encoding variability hypothesis. Quarterly Journal of Experimental Psychology, 73(8), 1242-1260.",
+      "doi": "10.1177/1747021820906117",
+      "role": "RECOGNITION_MODEL_ASSUMPTION_BOUNDARY"
+    }
+  ],
+  "validation_contract": {
+    "planned_patterns": [
+      {
+        "id": "VAL.M1.M01",
+        "name": "SDT reconstruction",
+        "claim_scope": "MEASUREMENT_PATTERN",
+        "status": "PLANNED_ONLY",
+        "pattern": "Registered hit, miss, false-alarm and correct-rejection counts must yield finite Drecog and Crecog under the CEM reference estimator."
+      },
+      {
+        "id": "VAL.M1.M02",
+        "name": "Recognition sensitivity direction",
+        "claim_scope": "MEASUREMENT_PATTERN",
+        "status": "PLANNED_ONLY",
+        "pattern": "At comparable response criterion and probe structure, improved target-versus-foil discrimination must correspond to higher Drecog."
+      },
+      {
+        "id": "VAL.M1.MN01",
+        "name": "Criterion is not sensitivity",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "A response-criterion shift must not be represented as an encoding or recognition-sensitivity state change."
+      },
+      {
+        "id": "VAL.M1.MN02",
+        "name": "Drecog does not identify Pencode",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "No deterministic conversion from Drecog alone to an item-level Pencode is permitted."
+      },
+      {
+        "id": "VAL.M1.MN03",
+        "name": "Raw SDT cells remain reconstructable",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "When recognition responses are ingested or simulated, the four standard contingency counts must remain reconstructable rather than retaining only Drecog."
+      },
+      {
+        "id": "VAL.M1.MN04",
+        "name": "Equal variance is a measurement assumption",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "The equal-variance Gaussian SDT convention must not be represented as established recognition-memory physiology or a uniquely identified cognitive process."
+      },
+      {
+        "id": "VAL.M1.MN05",
+        "name": "Standard SDT cell ontology",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "CEM must retain standard hit, miss, false-alarm and correct-rejection definitions even where source prose uses broader informal terminology."
+      }
+    ]
+  },
+  "next_candidate_gate": {
+    "authorized_now": false,
+    "required_future_comparison": [
+      "SDT-native continuous evidence-strength generative candidate",
+      "discrete or mixture encoding candidate only with explicit guessing, criterion and lure assumptions plus additional identifying evidence"
+    ],
+    "evaluation_levels": [
+      "raw recognition responses",
+      "hit and false-alarm rates",
+      "Drecog",
+      "Crecog"
+    ],
+    "acceptance_boundary": "A future candidate is not validated merely because one free parameter can be tuned to reproduce the published condition mean d-prime values."
+  },
+  "promotion_gate": {
+    "requirements": [
+      "contract_schema_valid",
+      "standard_sdt_cell_ontology_explicit",
+      "unreported_target_foil_split_not_invented",
+      "loglinear_correction_labeled_cem_reference_not_source_replication",
+      "drecog_and_crecog_separated",
+      "pencode_not_identified",
+      "msep_measurement_model_only",
+      "equal_variance_assumption_explicitly_bounded",
+      "planned_measurement_validations_absent_from_active_registry",
+      "no_runtime_recognition_or_encoding_module",
+      "no_m1_e4_ui",
+      "active_scientific_registries_unchanged",
+      "active_evidence_snapshot_unchanged",
+      "retained_outputs_byte_reproducible",
+      "full_ci_green"
+    ],
+    "active_registry_mutation_allowed": false,
+    "executable_cognitive_equation_allowed": false,
+    "measurement_formula_documentation_allowed": true,
+    "ui_allowed": false
+  },
+  "forbidden_changes": [
+    "no_active_M1_E4_registry_promotion",
+    "no_active_Msep_variable",
+    "no_active_Crecog_variable",
+    "no_active_Pencode_variable",
+    "no_Pencode_from_Drecog_shortcut",
+    "no_runtime_recognition_module",
+    "no_runtime_encoding_module",
+    "no_recognition_UI",
+    "no_beta_simp_value",
+    "no_attention_state",
+    "no_source_exact_replication_claim_without_source_code_verification",
+    "no_software_release_version_change",
+    "no_evidence_snapshot_change"
+  ]
+}
