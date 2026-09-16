@@ -1,0 +1,33 @@
+/* OA-6C — Decision Under Uncertainty UI */
+.uncertainty-heading{align-items:flex-start}
+.uncertainty-badge{border:1px solid var(--border);border-radius:.35rem;padding:.35rem .55rem;font-size:.72rem;font-weight:700;white-space:normal}
+.uncertainty-ledger{margin:1rem 0}
+.uncertainty-ledger summary,.uncertainty-robustness-table summary{font-weight:700}
+.uncertainty-ledger-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;margin-top:.85rem}
+.uncertainty-ledger-grid article{border:1px solid var(--border);border-radius:.45rem;padding:.85rem;min-width:0}
+.uncertainty-ledger-grid article h4{margin:.55rem 0}
+.uncertainty-ledger-grid article p{font-size:.88rem}
+.uncertainty-ledger-grid dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.25rem .65rem;font-size:.78rem;margin:0}
+.uncertainty-ledger-grid dd{margin:0;overflow-wrap:anywhere}
+.uncertainty-tags{display:flex;gap:.3rem;flex-wrap:wrap}
+.uncertainty-tags span{border:1px solid var(--border);border-radius:999px;padding:.1rem .45rem;font-size:.68rem;font-weight:700}
+.uncertainty-threshold{display:grid;grid-template-columns:minmax(0,1fr) minmax(7rem,10rem);gap:1rem;align-items:end;margin:1rem 0;padding:1rem;background:var(--soft);border-radius:.45rem}
+.uncertainty-threshold label{font-weight:700}
+.uncertainty-threshold p{margin:.25rem 0 0}
+.uncertainty-threshold input{width:100%;min-height:44px;padding:.55rem}
+.uncertainty-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.65rem;margin:1rem 0}
+.uncertainty-metrics>div{background:var(--soft);padding:.75rem;border-radius:.4rem;min-width:0}
+.uncertainty-metrics span,.uncertainty-metrics small{display:block;font-size:.76rem;color:var(--muted)}
+.uncertainty-metrics strong{display:block;font-size:1.25rem;font-variant-numeric:tabular-nums;color:var(--accent)}
+.uncertainty-matrix table,.uncertainty-robustness-table table{min-width:46rem}
+.uncertainty-matrix th:first-child,.uncertainty-robustness-table th:first-child{text-align:left}
+.uncertainty-switch{margin:1rem 0;padding:1rem;border:1px solid var(--border);border-radius:.45rem}
+.uncertainty-switch ul{margin-bottom:0}
+.uncertainty-boundary{margin-top:1rem}
+.uncertainty-context{border-top:1px solid var(--border);padding-top:1rem;margin-top:1rem}
+.uncertainty-context>div{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center}
+.uncertainty-context-item{display:inline-flex;align-items:center;gap:.3rem;flex-wrap:wrap;border:1px solid var(--border);border-radius:.4rem;padding:.35rem}
+.uncertainty-context-item button{min-height:38px;padding:.35rem .5rem;font-size:.78rem}
+@media(max-width:900px){.uncertainty-ledger-grid{grid-template-columns:minmax(0,1fr)}.uncertainty-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){.uncertainty-threshold{grid-template-columns:minmax(0,1fr)}.uncertainty-metrics{grid-template-columns:minmax(0,1fr)}.uncertainty-context-item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;width:100%}.uncertainty-context>div{display:grid;grid-template-columns:minmax(0,1fr)}}
+@media(forced-colors:active){.uncertainty-tags span,.uncertainty-switch,.uncertainty-context-item{border-color:CanvasText}}
