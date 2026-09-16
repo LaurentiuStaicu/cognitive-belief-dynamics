@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://laurentiustaicu.github.io/cognitive-epistemic-model/schemas/computational_dependencies.schema.json",
+  "title": "CEM computational dependency registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model_specification",
+    "nodes",
+    "dependencies"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1"
+    },
+    "model_specification": {
+      "const": "M0"
+    },
+    "nodes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/node"
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/dependency"
+      }
+    }
+  },
+  "$defs": {
+    "bilingual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ro",
+        "en"
+      ],
+      "properties": {
+        "ro": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "semantic_id",
+        "label",
+        "kind"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9]*$"
+        },
+        "semantic_id": {
+          "type": "string",
+          "pattern": "^COMP\\.(NODE|INPUT)\\.[A-Z0-9_.-]+$"
+        },
+        "label": {
+          "$ref": "#/$defs/bilingual"
+        },
+        "kind": {
+          "enum": [
+            "input",
+            "output"
+          ]
+        }
+      }
+    },
+    "dependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source",
+        "target",
+        "source_semantic_id",
+        "target_semantic_id",
+        "explanation",
+        "formula",
+        "code_file"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]+$"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_semantic_id": {
+          "type": "string",
+          "pattern": "^(VAR|COMP)\\.[A-Z0-9_.-]+$"
+        },
+        "target_semantic_id": {
+          "type": "string",
+          "pattern": "^(VAR|COMP)\\.[A-Z0-9_.-]+$"
+        },
+        "explanation": {
+          "$ref": "#/$defs/bilingual"
+        },
+        "formula": {
+          "type": "string",
+          "minLength": 1
+        },
+        "code_file": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+\\.py$"
+        },
+        "registered_relation_id": {
+          "type": "string",
+          "pattern": "^LINK\\.[A-Z0-9_.-]+$"
+        }
+      }
+    }
+  }
+}
