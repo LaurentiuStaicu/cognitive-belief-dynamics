@@ -39,3 +39,21 @@ For Alpha 0.4.3a0:
 - no M1.E4 object enters the active variable, validation, target or evidence
   registries in Phase A;
 - the active evidence snapshot and public Alpha 0.4.2a0 release remain unchanged.
+
+
+Alpha 0.4.3a0 Phase B adds a second pre-executable contract:
+
+- `m1_e4_measurement_contract.json` defines the SDT measurement bridge from
+  raw recognition cells to `Drecog` and an auxiliary response-criterion
+  diagnostic `Crecog`.
+- CEM uses standard hit/miss/false-alarm/correct-rejection terminology and does
+  not infer an unreported target/foil split from the 24-item source task.
+- the open reference estimator uses equal-variance Gaussian yes/no SDT with a
+  Hautus log-linear correction, explicitly labeled as a CEM convention rather
+  than exact reproduction of the source implementation.
+- `Msep` is measurement-model-only and numerically equals `Drecog` only
+  inside that reference model.
+- `Pencode` is explicitly **not identified** by the current measurement and no
+  deterministic `Drecog → Pencode` shortcut is permitted.
+- no active registry, evidence snapshot, runtime, UI or release metadata is
+  promoted in Phase B.
