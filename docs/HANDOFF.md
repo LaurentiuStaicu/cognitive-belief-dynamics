@@ -920,3 +920,61 @@ Confirmation tooling reports model recovery and parameter recovery separately.
 No confirmation execution, human-protocol design, recruitment, active EVSD/2HT,
 Pencode, UI, evidence-snapshot or release change is authorized before the Phase I
 merge gate.
+
+
+## Alpha 0.4.3a0 Phase K — authoritative participant confirmation result
+
+Phase J tooling was merged to `main`, and the optimizer-hardening regression
+was subsequently merged at
+`76aca60beb49a4e2ce5d96abaa564a67282ba811`.
+
+The clean authoritative confirmation was executed from zero in GitHub Actions
+run `35081097627`, workflow-source commit
+`faa8b4223960bb60dfa10654a7107d4158021f7f`.
+
+Frozen execution:
+
+- 18 primary P64_X10 cells;
+- 11 boundary cells;
+- 29 cells total;
+- 200 replicates/cell;
+- 5,800 replicates total.
+
+Authoritative result:
+
+- primary formal gate: PASS, 18/18 cells >= 0.80;
+- primary minimum recovery: 0.92;
+- secondary Wilson sensitivity: PASS, 18/18 lower bounds >= 0.80;
+- minimum primary Wilson lower bound: 0.8740105117;
+- boundary minimum recovery: 0.885;
+- all-cell confusion totals: 5,662 correct, 3 wrong-family, 135 inconclusive.
+
+The limiting primary cell is:
+
+`P64_X10 × low heterogeneity × EVSD × weak memory`
+
+with recovery 0.92, wrong-family 0.005 and inconclusive 0.075.
+
+The formerly failing numerical boundary cell
+`P128_X5 × high × 2HT × strong` completed in the clean authoritative run with
+recovery 0.995 and no wrong-family selections.
+
+Persistent result, provenance and 29 shard hashes are versioned in
+`model/benchmarks/results/`. The authoritative JSON hash is
+`88c16c2143e7131a4ec8915dbb726ece7e859a797162df173b89743837335f89`.
+
+Interpretation boundary:
+
+- this validates the frozen synthetic participant-aware recovery design;
+- it does not establish EVSD or 2HT as human cognitive truth;
+- it does not establish 64 participants as sufficient for a real study;
+- it does not identify Pencode;
+- it does not authorize recruitment.
+
+Still omitted from the simulator are item random effects, fatigue,
+practice/learning, block-order carryover, missingness/dropout and correlated
+memory/bias random effects.
+
+Next scientific task after Phase K integration: draft the human experimental
+protocol and prospectively decide which omitted factors require another frozen
+robustness simulation gate before recruitment.
