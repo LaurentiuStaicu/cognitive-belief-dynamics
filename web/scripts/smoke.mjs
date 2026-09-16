@@ -156,6 +156,48 @@ try {
  await page.locator('[data-au-skip]').click();
  assert.match(await page.locator('#activeChallengeStage').textContent(),/fără a salva o predicție/);
  assert.equal((await page.evaluate(()=>JSON.parse(localStorage.getItem('cem.active-understanding.history.v1')).records.length)),1);
+
+ // OA-5D: Theory, Search and Universal Inspector cross-links preserve semantic identity and explicit focus.
+ assert.equal(await page.locator('[data-au-open-theory]').count(),1);
+ assert.equal(await page.locator('[data-au-search-canonical]').count(),1);
+ assert.equal(await page.locator('[data-au-inspect-canonical]').count(),1);
+ await page.locator('[data-au-search-canonical]').click();
+ assert.equal(await page.locator('#semanticSearchInput').inputValue(),'COMP.NODE.ACCURACY_CUE_INPUT');
+ assert.equal(await page.locator('#semanticSearchInput').evaluate(el=>document.activeElement===el),true);
+ assert.equal(await page.locator('[data-search-result-id="COMP.NODE.ACCURACY_CUE_INPUT"]').count(),1);
+ assert.equal(await page.locator('#activeChallengeStage').getAttribute('data-au-stage'),'REVEAL');
+ await page.locator('[data-au-inspect-canonical]').click();
+ assert.equal(await page.locator('#semanticInspector').getAttribute('data-inspector-id'),'COMPDEP.ACCURACY_CUE.ACCURACY_SALIENCE');
+ assert.equal(await page.locator('#semanticInspector').getAttribute('data-inspector-kind'),'relation');
+ assert.equal(await page.locator('#semanticInspector').evaluate(el=>document.activeElement===el),true);
+ assert.equal(await page.locator('#activeChallengeStage').getAttribute('data-au-stage'),'REVEAL');
+ await page.locator('[data-au-open-theory]').click();
+ await page.waitForURL(/#understanding\/theory\/belief-accuracy-action$/);
+ await waitTheory();
+ assert.equal(await page.locator('#theoryArticle').evaluate(el=>document.activeElement===el),true);
+ assert.match(await page.locator('#theoryArticle').textContent(),/Convingere, atenție la acuratețe și acțiune/);
+ await page.goBack();
+ await page.waitForURL(/#understanding\/active\/AU-2$/);
+ await page.locator('#activeUnderstandingTitle').waitFor();
+
+ await page.evaluate(()=>{location.hash='#understanding/active/challenge-model';});
+ await page.locator('[data-challenge-model="M1.E3"]').waitFor();
+ await page.locator('[data-au-cm-search]').click();
+ assert.equal(await page.locator('#semanticSearchInput').inputValue(),'VAR.HEADLINE.NEGATIVITY');
+ assert.equal(await page.locator('#semanticSearchInput').evaluate(el=>document.activeElement===el),true);
+ await page.locator('[data-au-cm-inspect]').click();
+ assert.equal(await page.locator('#semanticInspector').getAttribute('data-inspector-id'),'VAR.ACCESS.PROBABILITY');
+ assert.equal(await page.locator('#semanticInspector').evaluate(el=>document.activeElement===el),true);
+ await page.locator('[data-au-cm-theory]').click();
+ await page.waitForURL(/#understanding\/theory\/algorithms-social-feedback$/);
+ await waitTheory();
+ assert.equal(await page.locator('#theoryArticle').evaluate(el=>document.activeElement===el),true);
+ await page.goBack();
+ await page.waitForURL(/#understanding\/active\/challenge-model$/);
+ await page.locator('[data-challenge-model="M1.E3"]').waitFor();
+
+ await page.evaluate(()=>{location.hash='#understanding/active/AU-2';});
+ await page.locator('#activeUnderstandingTitle').waitFor();
  await page.locator('[data-au-clear-history]').click();
  assert.equal(await page.evaluate(()=>localStorage.getItem('cem.active-understanding.history.v1')),null);
  assert.match(await page.locator('#activeHistory').textContent(),/Nicio predicție salvată/);

@@ -102,7 +102,7 @@ export function mountUnderstanding(
  }
 
  if(mode==='active'){
-  mountActiveUnderstanding(sub,lang,current.detail,m1Access,navigate).catch(error=>{
+  mountActiveUnderstanding(sub,lang,current.detail,theory.chapters,m1Access,navigate).catch(error=>{
    sub.innerHTML=`<div class="panel"><h3>${t('Modul activ nu poate fi încărcat','Active mode could not be loaded')}</h3><p>${String(error)}</p></div>`;
   });
   return;
