@@ -4,6 +4,8 @@
   "source_paths": [
     "model/variables.json",
     "model/links.json",
+    "model/modules.json",
+    "model/references.json",
     "model/theory_index.json",
     "model/theory_glossary.json",
     "web/src/dependencies.ts"
@@ -30,6 +32,40 @@
       "short_name": "F",
       "summary": {
         "en": "Accessibility/familiarity of a claim for an agent after exposure."
+      }
+    },
+    {
+      "id": "VAR.EXPOSURE.COUNT",
+      "semantic_type": "VARIABLE",
+      "labels": {
+        "preferred": {
+          "ro": "Numărul de expuneri",
+          "en": "Exposure count"
+        },
+        "alternative": {
+          "und": [
+            "Nexp"
+          ]
+        }
+      },
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.EXPOSURE.COUNT"
+      },
+      "short_name": "Nexp"
+    },
+    {
+      "id": "MOD.14",
+      "semantic_type": "MODULE",
+      "labels": {
+        "preferred": {
+          "ro": "Construirea modelului realității",
+          "en": "World-model construction"
+        }
+      },
+      "source": {
+        "path": "model/modules.json",
+        "source_id": "MOD.14"
       }
     },
     {
@@ -121,8 +157,8 @@
     {
       "id": "exposure-f",
       "layer": "COMPUTATIONAL_DEPENDENCY",
-      "source": "Nexp",
-      "target": "F",
+      "source": "VAR.EXPOSURE.COUNT",
+      "target": "VAR.FAMILIARITY.CLAIM",
       "source_record": {
         "path": "web/src/dependencies.ts",
         "source_id": "exposure-f"
