@@ -778,3 +778,57 @@ between-person heterogeneity and repeated-measures dependence before any human
 data collection.
 
 No EVSD/2HT winner, Pencode, active M1.E4 runtime or UI is authorized.
+
+
+## Alpha 0.4.3a0 Phase H — participant-aware hierarchical recovery
+
+Phase G was merged into `main` at
+`9c2225d608123f206c495ab1f945709195c92e22`; post-merge CI #148 passed.
+
+Phase H is isolated on branch
+`alpha-0.4.3a0-phase-h-participant-aware-recovery`.
+
+The Phase G `640 target + 640 foil` anchor is now treated explicitly as an
+aggregate Hsimp×bias-cell response target, not a per-participant trial count.
+
+Candidate allocations preserve that anchor:
+
+- P40_X16 → 320 responses/participant;
+- P64_X10 → 200 responses/participant;
+- P80_X8 → 160 responses/participant;
+- P128_X5 → 100 responses/participant.
+
+All five bias operating points and both Hsimp conditions are repeated within
+participant.
+
+Participant random effects:
+
+- EVSD: multiplicative memory ability + additive criterion shift;
+- 2HT: logit-scale detection ability + logit-scale guessing/bias shift.
+
+These shared latent effects induce repeated-measures dependence across the
+participant's blocks.
+
+The fitter uses raw participant-level target/foil binomial counts and marginal
+likelihood via Gauss-Hermite quadrature. Candidate comparison remains marginal
+AIC on train plus predictive log likelihood in a new independent participant
+cohort.
+
+The frozen screen contains:
+
+- 4 allocations;
+- low/moderate/high participant heterogeneity;
+- weak/medium/strong memory;
+- both generators;
+- 72 cells;
+- 50 replicates per cell.
+
+The 50-replicate screen is exploratory and cannot authorize a human protocol.
+Selected/worst cells require 200-replicate confirmation.
+
+Current exclusions remain explicit: item random effects, fatigue, practice,
+block-order carryover, missingness/dropout and correlated participant random
+effects.
+
+No EVSD/2HT activation, Pencode, UI, evidence-snapshot or release change is
+allowed in Phase H.
