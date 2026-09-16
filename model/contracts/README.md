@@ -159,3 +159,14 @@ OA product contracts and deterministic fixtures may also live in this directory,
 - `active_understanding_v1.json` is the OA-5A learning-interaction contract. It references existing canonical model/semantic artifacts, adds no equation or evidence status, and does not promote a cognitive mechanism.
 
 Their schemas/tests are product-integrity gates and must preserve the scientific boundaries defined by the optimization architecture.
+
+
+OA-6A adds the first Decision Under Uncertainty product contract:
+
+- `decision_uncertainty_v1.json` is a schema-validated registry of uncertainty and decision-assumption metadata for the existing intervention planner.
+- low/reference/high remain finite sensitivity scenarios with `probability_status = NOT_AVAILABLE`;
+- objective weight, effort units and activation timing are explicitly decision assumptions rather than scientific parameters;
+- the registry records the planner's structural-scope limitation separately;
+- no equal scenario weights, confidence intervals, expected values or probability-of-best claims are inferred;
+- a fail-closed probability guard requires explicit normalized weights before any later probability-bearing finite-scenario consumer can proceed;
+- OA-6A changes no intervention score, equation, evidence status, reference run or release metadata.
