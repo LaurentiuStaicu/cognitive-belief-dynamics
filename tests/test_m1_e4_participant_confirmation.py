@@ -138,10 +138,10 @@ def test_wilson_interval_matches_known_screening_examples():
     low_44, high_44 = wilson_interval(44, 50, 0.95)
     low_48, high_48 = wilson_interval(48, 50, 0.95)
 
-    assert np.isclose(low_44, 0.761982, atol=1e-5)
-    assert np.isclose(high_44, 0.943789, atol=1e-5)
-    assert np.isclose(low_48, 0.865404, atol=1e-5)
-    assert np.isclose(high_48, 0.988963, atol=1e-5)
+    assert np.isclose(low_44, 0.7619518261679702, atol=1e-12)
+    assert np.isclose(high_44, 0.9438239984906772, atol=1e-12)
+    assert np.isclose(low_48, 0.8653990931249298, atol=1e-12)
+    assert np.isclose(high_48, 0.9889611156723801, atol=1e-12)
 
 
 def test_confirmation_runner_smoke_is_deterministic():
