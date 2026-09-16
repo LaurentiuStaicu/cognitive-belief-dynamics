@@ -1,0 +1,302 @@
+{
+  "id": "CONTRACT.M1.E4.GENERATIVE.2026-09-16",
+  "status": "PHASE_C_MODEL_COMPARISON_ONLY",
+  "model_extension": "M1.E4",
+  "scope": "Formal pre-runtime comparison of two recognition-memory generative candidate families at the raw response and SDT-summary levels; no active model selection, Pencode, runtime or UI.",
+  "conditioning_event": {
+    "id": "PreviewImpression",
+    "requires_access": false
+  },
+  "primary_candidates": [
+    {
+      "id": "CANDIDATE.M1.E4.C1.EVSD",
+      "label": "Equal-variance continuous signal-detection recognition model",
+      "family": "CONTINUOUS_EVIDENCE_STRENGTH",
+      "status": "PRIMARY_COMPARATOR",
+      "parameters": [
+        {
+          "name": "d",
+          "role": "MEMORY_DISCRIMINABILITY",
+          "domain": "REAL_NONNEGATIVE"
+        },
+        {
+          "name": "c",
+          "role": "RESPONSE_CRITERION",
+          "domain": "REAL"
+        }
+      ],
+      "distributional_assumptions": {
+        "foil_evidence": "Normal(-d/2, 1)",
+        "target_evidence": "Normal(+d/2, 1)",
+        "response_rule": "seen iff evidence > c",
+        "equal_variance": true
+      },
+      "forward_mapping": {
+        "hit_rate": "Phi(d/2 - c)",
+        "false_alarm_rate": "Phi(-d/2 - c)"
+      },
+      "inverse_mapping": {
+        "d": "z(H) - z(F)",
+        "c": "-0.5 * (z(H) + z(F))"
+      },
+      "condition_effect": "d_simple > d_complex",
+      "bias_parameter": "c",
+      "what_memory_parameter_is_not": "The parameter d is not Pencode, a probability, direct attention, neural encoding strength or recollection probability.",
+      "known_boundary": "The equal-variance assumption is a transparent reference simplification; recognition-memory evidence often supports unequal target and foil variances."
+    },
+    {
+      "id": "CANDIDATE.M1.E4.C2.2HT",
+      "label": "Symmetric two-high-threshold recognition model with guessing",
+      "family": "DISCRETE_DETECTION_PLUS_GUESSING",
+      "status": "PRIMARY_COMPARATOR",
+      "parameters": [
+        {
+          "name": "Ddet",
+          "role": "SYMMETRIC_DETECTION_STATE_PROBABILITY",
+          "domain": "UNIT_INTERVAL"
+        },
+        {
+          "name": "g",
+          "role": "UNCERTAIN_STATE_SEEN_GUESS_PROBABILITY",
+          "domain": "UNIT_INTERVAL"
+        }
+      ],
+      "forward_mapping": {
+        "hit_rate": "Ddet + (1 - Ddet) * g",
+        "false_alarm_rate": "(1 - Ddet) * g"
+      },
+      "inverse_mapping": {
+        "Ddet": "H - F",
+        "g": "F / (1 - Ddet) when Ddet < 1"
+      },
+      "condition_effect": "Ddet_simple > Ddet_complex",
+      "bias_parameter": "g",
+      "what_memory_parameter_is_not": "The parameter Ddet is a model-specific detection-state probability and is not automatically an item-level Pencode.",
+      "known_boundary": "The symmetric detection assumption is a deliberate two-parameter comparator. A general asymmetric 2HT model introduces separate target and foil detection parameters and is underidentified from one H,F point."
+    }
+  ],
+  "one_point_identifiability": {
+    "single_operating_point_selects_candidate_family": false,
+    "reason": "For any nondegenerate operating point with 0 < F < H < 1, EVSD can recover d and c, while the symmetric 2HT comparator can recover Ddet and g and reproduce the same H and F.",
+    "published_mean_dprime_selects_candidate_family": false,
+    "published_mean_dprime_reason": "A mean d-prime does not uniquely determine raw hit and false-alarm rates and cannot discriminate the candidate families."
+  },
+  "asymmetric_2ht_boundary": {
+    "status": "DEFERRED_UNDERIDENTIFIED",
+    "parameters": ["Do", "Dn", "g"],
+    "observed_probabilities_from_one_operating_point": ["H", "F"],
+    "underidentified": true,
+    "reason": "Three latent parameters cannot be identified from two response probabilities without additional constraints or data."
+  },
+  "future_discrimination_design": {
+    "acceptable_data_classes": [
+      {
+        "id": "MULTIPLE_OPERATING_POINTS",
+        "methods": [
+          "confidence ratings",
+          "experimentally manipulated response bias",
+          "payoff manipulation",
+          "base-rate manipulation"
+        ],
+        "minimum_non_degenerate_operating_points_per_condition": 3,
+        "primary_object": "ROC"
+      },
+      {
+        "id": "BIAS_MANIPULATION",
+        "methods": [
+          "response payoff manipulation",
+          "old/new base-rate manipulation",
+          "instructional criterion manipulation"
+        ],
+        "candidate_invariance": {
+          "EVSD": "d remains invariant while c changes",
+          "2HT": "Ddet remains invariant while g changes"
+        }
+      }
+    ],
+    "roc_predictions": {
+      "EVSD": "curved ROC in probability coordinates under continuous Gaussian evidence",
+      "2HT": "linear ROC in the basic threshold model when guessing/bias varies and detection remains fixed",
+      "boundary": "ROC shape is candidate-specific evidence under model assumptions, not a universal theorem; the recognition-memory literature contains an active historical debate."
+    }
+  },
+  "future_fitting_surface": {
+    "primary_level": "RAW_BINOMIAL_RESPONSES",
+    "target_likelihood": "Nhit_jk ~ Binomial(Ntarget_jk, Hpred_jk)",
+    "foil_likelihood": "Nfa_jk ~ Binomial(Nfoil_jk, Fpred_jk)",
+    "required_retained_quantities": [
+      "Nhit",
+      "Nmiss",
+      "Nfa",
+      "Ncr",
+      "Hpred",
+      "Fpred",
+      "Drecog",
+      "Crecog",
+      "log_likelihood",
+      "parameter_count"
+    ],
+    "summary_only_fit_allowed": false
+  },
+  "comparison_fairness": {
+    "parameter_count_aware": true,
+    "initial_parameterization": {
+      "EVSD": "one d per Hsimp condition plus criterion parameters for response settings",
+      "2HT": "one Ddet per Hsimp condition plus guessing parameters for response settings"
+    },
+    "required_diagnostics": [
+      "log_likelihood",
+      "parameter_count",
+      "AIC",
+      "held_out_predictive_fit_when_data_support_it"
+    ],
+    "aic_is_causal_proof": false,
+    "extra_flexibility_requires_symmetric_justification": true
+  },
+  "pencode_boundary": {
+    "status": "NOT_IDENTIFIED_AND_NOT_ACTIVE",
+    "forbidden_equivalences": [
+      "Pencode = d",
+      "Pencode = Ddet",
+      "Pencode = logistic(d)",
+      "Pencode = logistic(Ddet)",
+      "Pencode = Phi(d)"
+    ]
+  },
+  "sources": [
+    {
+      "id": "SRC.M1.E4.GEN.SHULMAN.2024",
+      "citation": "Shulman, H. C., Markowitz, D. M., & Rogers, T. (2024). Reading dies in complexity: Online news consumers prefer simple writing. Science Advances, 10(23), eadn2555.",
+      "doi": "10.1126/sciadv.adn2555",
+      "role": "EMPIRICAL_RECOGNITION_TARGET"
+    },
+    {
+      "id": "SRC.M1.E4.GEN.WIXTED.2007",
+      "citation": "Wixted, J. T. (2007). Dual-process theory and signal-detection theory of recognition memory. Psychological Review, 114(1), 152-176.",
+      "doi": "10.1037/0033-295X.114.1.152",
+      "role": "CONTINUOUS_SDT_MODEL_CONTEXT"
+    },
+    {
+      "id": "SRC.M1.E4.GEN.BROEDER.2013",
+      "citation": "Bröder, A., Kellen, D., Schütz, J., & Rohrmeier, C. (2013). Validating a two-high-threshold measurement model for confidence rating data in recognition. Memory, 21(8), 916-944.",
+      "doi": "10.1080/09658211.2013.767348",
+      "role": "TWO_HIGH_THRESHOLD_MODEL_CONTEXT"
+    },
+    {
+      "id": "SRC.M1.E4.GEN.DUBE.2012",
+      "citation": "Dube, C., & Rotello, C. M. (2012). Binary ROCs in perception and recognition memory are curved. Journal of Experimental Psychology: Learning, Memory, and Cognition, 38(1), 130-151.",
+      "doi": "10.1037/a0024957",
+      "role": "ROC_MODEL_DISCRIMINATION_EVIDENCE"
+    },
+    {
+      "id": "SRC.M1.E4.GEN.PAZZAGLIA.2013",
+      "citation": "Pazzaglia, A. M., Dube, C., & Rotello, C. M. (2013). A critical comparison of discrete-state and continuous models of recognition memory: implications for recognition and beyond. Psychological Bulletin, 139(6), 1173-1203.",
+      "doi": "10.1037/a0033044",
+      "role": "MODEL_CLASS_COMPARISON_REVIEW"
+    },
+    {
+      "id": "SRC.M1.E4.GEN.SPANTON_BERRY.2020",
+      "citation": "Spanton, R. W., & Berry, C. J. (2020). The unequal variance signal-detection model of recognition memory: Investigating the encoding variability hypothesis. Quarterly Journal of Experimental Psychology, 73(8), 1242-1260.",
+      "doi": "10.1177/1747021820906117",
+      "role": "EVSD_ASSUMPTION_BOUNDARY"
+    }
+  ],
+  "validation_contract": {
+    "planned_patterns": [
+      {
+        "id": "VAL.M1.G01",
+        "name": "One-point equifinality",
+        "claim_scope": "MODEL_COMPARISON_PATTERN",
+        "status": "PLANNED_ONLY",
+        "pattern": "At a registered nondegenerate synthetic H,F operating point, both primary candidates must reconstruct the same H and F within numerical tolerance."
+      },
+      {
+        "id": "VAL.M1.G02",
+        "name": "EVSD inverse consistency",
+        "claim_scope": "MODEL_COMPARISON_PATTERN",
+        "status": "PLANNED_ONLY",
+        "pattern": "The EVSD inverse mapping H,F to d,c followed by its forward mapping must reproduce the original operating point."
+      },
+      {
+        "id": "VAL.M1.G03",
+        "name": "Symmetric 2HT inverse consistency",
+        "claim_scope": "MODEL_COMPARISON_PATTERN",
+        "status": "PLANNED_ONLY",
+        "pattern": "For valid H >= F, the symmetric 2HT inverse mapping H,F to Ddet,g followed by its forward mapping must reproduce the original operating point."
+      },
+      {
+        "id": "VAL.M1.GN01",
+        "name": "Pencode remains absent",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "Neither EVSD d nor 2HT Ddet may be represented as Pencode."
+      },
+      {
+        "id": "VAL.M1.GN02",
+        "name": "One operating point does not select model family",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "A single H,F point or a single mean Drecog must not be represented as identifying EVSD versus 2HT."
+      },
+      {
+        "id": "VAL.M1.GN03",
+        "name": "Bias manipulation preserves candidate memory parameter",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "Under a synthetic pure-bias manipulation, EVSD must vary c with d fixed and 2HT must vary g with Ddet fixed."
+      },
+      {
+        "id": "VAL.M1.GN04",
+        "name": "Raw-response fitting required",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "Future candidate fitting must use raw/binomial recognition response data when available and may not fit only the published condition mean Drecog."
+      },
+      {
+        "id": "VAL.M1.GN05",
+        "name": "ROC prediction assumptions explicit",
+        "claim_scope": "NEGATIVE_CONSTRAINT",
+        "status": "PLANNED_ONLY",
+        "pattern": "Candidate-specific ROC curvature or linearity expectations must retain their model assumptions and may not be stated as universal recognition-memory facts."
+      }
+    ]
+  },
+  "promotion_gate": {
+    "requirements": [
+      "contract_schema_valid",
+      "exactly_two_primary_candidate_families",
+      "candidate_formulas_and_inverse_mappings_explicit",
+      "one_point_equifinality_demonstrated",
+      "asymmetric_2ht_underidentification_documented",
+      "pencode_remains_blocked",
+      "future_discrimination_requires_multiple_operating_points_or_bias_manipulation",
+      "raw_response_likelihood_primary",
+      "parameter_count_fairness_explicit",
+      "planned_generative_validations_absent_from_active_registry",
+      "no_runtime_recognition_or_encoding_model",
+      "no_m1_e4_ui",
+      "active_scientific_registries_unchanged",
+      "active_evidence_snapshot_unchanged",
+      "retained_outputs_byte_reproducible",
+      "full_ci_green"
+    ],
+    "active_registry_mutation_allowed": false,
+    "runtime_model_selection_allowed": false,
+    "executable_cognitive_equation_allowed": false,
+    "ui_allowed": false
+  },
+  "forbidden_changes": [
+    "no_active_C1_model_registration",
+    "no_active_C2_model_registration",
+    "no_runtime_model_fitting",
+    "no_runtime_recognition_simulator",
+    "no_Pencode",
+    "no_beta_simp_value",
+    "no_attention_state",
+    "no_UI_comparator",
+    "no_winner_declaration",
+    "no_calibration_to_mean_dprime_only",
+    "no_release_version_change",
+    "no_evidence_snapshot_change"
+  ]
+}
