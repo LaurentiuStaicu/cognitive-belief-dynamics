@@ -170,3 +170,15 @@ OA-6A adds the first Decision Under Uncertainty product contract:
 - no equal scenario weights, confidence intervals, expected values or probability-of-best claims are inferred;
 - a fail-closed probability guard requires explicit normalized weights before any later probability-bearing finite-scenario consumer can proceed;
 - OA-6A changes no intervention score, equation, evidence status, reference run or release metadata.
+
+
+OA-7 begins the Reality Loop with a pre-executable product contract:
+
+- `reality_loop_v1.json` reserves distinct `SimulationResult`, `DecisionAnalysis`, `ImplementationPlan` and `ObservedOutcome` objects;
+- Action Canvas follows Problem -> target mechanism -> intervention -> proximal result -> intermediate result -> final outcome;
+- Indicator objects and the adaptive NOW/WATCH/IF/THEN/STOP/REASSESS vocabulary are schema-bound;
+- real-world plans require explicit population, context and primary outcome fields;
+- observations are append-only retrospective records and cannot mutate the frozen prospective snapshot;
+- Decision Autopsy may propose a new revision but `prior_prediction_mutated` is fixed to false;
+- the current Workspace v1 schema is intentionally unchanged; runtime persistence requires a later explicit migration;
+- the contract fixture is synthetic product metadata and promotes no scientific mechanism, equation, evidence status or recommendation.

@@ -1,0 +1,1028 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://laurentiustaicu.github.io/cognitive-epistemic-model/schemas/reality_loop.schema.json",
+  "title": "CEM OA-7 Reality Loop product contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "status",
+    "provenance_policy",
+    "storage_boundary",
+    "simulation_results",
+    "decision_analyses",
+    "indicators",
+    "implementation_plans",
+    "observed_outcomes",
+    "decision_autopsies"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1"
+    },
+    "contract_id": {
+      "const": "OA7.REALITY_LOOP.CONTRACT.V1"
+    },
+    "status": {
+      "const": "PRE_EXECUTABLE_PRODUCT_CONTRACT"
+    },
+    "provenance_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "alignment",
+        "revision_policy",
+        "observations_may_mutate_prospective",
+        "observations_may_propose_revision"
+      ],
+      "properties": {
+        "alignment": {
+          "const": "W3C_PROV_INSPIRED"
+        },
+        "revision_policy": {
+          "const": "APPEND_ONLY"
+        },
+        "observations_may_mutate_prospective": {
+          "const": false
+        },
+        "observations_may_propose_revision": {
+          "const": true
+        }
+      }
+    },
+    "storage_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current_workspace_schema_version",
+        "integration_status",
+        "migration_required"
+      ],
+      "properties": {
+        "current_workspace_schema_version": {
+          "const": "1"
+        },
+        "integration_status": {
+          "const": "RESERVED_NOT_IN_WORKSPACE_V1"
+        },
+        "migration_required": {
+          "const": true
+        }
+      }
+    },
+    "simulation_results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/simulationResult"
+      }
+    },
+    "decision_analyses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/decisionAnalysis"
+      }
+    },
+    "indicators": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/indicator"
+      }
+    },
+    "implementation_plans": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/implementationPlan"
+      }
+    },
+    "observed_outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/observedOutcome"
+      }
+    },
+    "decision_autopsies": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/decisionAutopsy"
+      }
+    }
+  },
+  "$defs": {
+    "copy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ro",
+        "en"
+      ],
+      "properties": {
+        "ro": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "population": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "definition"
+      ],
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/copy"
+        },
+        "definition": {
+          "$ref": "#/$defs/copy"
+        },
+        "inclusion": {
+          "type": "string"
+        },
+        "exclusion": {
+          "type": "string"
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "setting",
+        "time_horizon"
+      ],
+      "properties": {
+        "setting": {
+          "$ref": "#/$defs/copy"
+        },
+        "geography": {
+          "type": "string",
+          "minLength": 1
+        },
+        "time_horizon": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "definition",
+        "stage"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/copy"
+        },
+        "definition": {
+          "$ref": "#/$defs/copy"
+        },
+        "stage": {
+          "enum": [
+            "PROXIMAL",
+            "INTERMEDIATE",
+            "FINAL"
+          ]
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quality_note": {
+          "type": "string"
+        }
+      }
+    },
+    "simulationResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type",
+        "id",
+        "case_id",
+        "created_at",
+        "model_artifact_ref",
+        "input_snapshot_ref",
+        "result_ref",
+        "epistemic_scope",
+        "prospective"
+      ],
+      "properties": {
+        "object_type": {
+          "const": "SimulationResult"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^CEM\\.SIMULATION\\.RESULT\\.[A-Za-z0-9._-]+$"
+        },
+        "case_id": {
+          "type": "string",
+          "pattern": "^CEM\\.CASE\\.[A-Za-z0-9._-]+$"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "model_artifact_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_snapshot_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "epistemic_scope": {
+          "enum": [
+            "ILLUSTRATIVE_UNCALIBRATED",
+            "EMPIRICALLY_ANCHORED",
+            "CALIBRATED"
+          ]
+        },
+        "prospective": {
+          "const": true
+        }
+      }
+    },
+    "decisionAnalysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type",
+        "id",
+        "case_id",
+        "created_at",
+        "simulation_result_refs",
+        "assumption_registry_ref",
+        "analysis_method_refs",
+        "conclusion_status",
+        "recommendation_status"
+      ],
+      "properties": {
+        "object_type": {
+          "const": "DecisionAnalysis"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^CEM\\.DECISION\\.ANALYSIS\\.[A-Za-z0-9._-]+$"
+        },
+        "case_id": {
+          "type": "string",
+          "pattern": "^CEM\\.CASE\\.[A-Za-z0-9._-]+$"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "simulation_result_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^CEM\\.SIMULATION\\.RESULT\\.[A-Za-z0-9._-]+$"
+          }
+        },
+        "assumption_registry_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "analysis_method_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "conclusion_status": {
+          "enum": [
+            "CONDITIONAL",
+            "INCONCLUSIVE"
+          ]
+        },
+        "selected_option_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recommendation_status": {
+          "const": "NOT_A_REAL_WORLD_RECOMMENDATION"
+        },
+        "limitations": {
+          "$ref": "#/$defs/copy"
+        }
+      }
+    },
+    "indicator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type",
+        "id",
+        "label",
+        "observed_property",
+        "target_stage",
+        "result_type",
+        "direction",
+        "measurement_procedure",
+        "source_refs",
+        "limitations"
+      ],
+      "properties": {
+        "object_type": {
+          "const": "Indicator"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^CEM\\.INDICATOR\\.[A-Za-z0-9._-]+$"
+        },
+        "label": {
+          "$ref": "#/$defs/copy"
+        },
+        "observed_property": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_stage": {
+          "enum": [
+            "PROXIMAL",
+            "INTERMEDIATE",
+            "FINAL"
+          ]
+        },
+        "result_type": {
+          "enum": [
+            "NUMBER",
+            "BOOLEAN",
+            "TEXT",
+            "CATEGORY"
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "direction": {
+          "enum": [
+            "INCREASE",
+            "DECREASE",
+            "STAY_WITHIN_RANGE",
+            "NONE"
+          ]
+        },
+        "measurement_procedure": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "limitations": {
+          "$ref": "#/$defs/copy"
+        }
+      }
+    },
+    "actionCanvas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "problem",
+        "target_mechanism",
+        "intervention",
+        "proximal_result",
+        "intermediate_result",
+        "final_outcome"
+      ],
+      "properties": {
+        "problem": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "refs"
+          ],
+          "properties": {
+            "label": {
+              "$ref": "#/$defs/copy"
+            },
+            "refs": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "target_mechanism": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "refs"
+          ],
+          "properties": {
+            "label": {
+              "$ref": "#/$defs/copy"
+            },
+            "refs": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "intervention": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "refs"
+          ],
+          "properties": {
+            "label": {
+              "$ref": "#/$defs/copy"
+            },
+            "refs": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "proximal_result": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "refs",
+            "indicator_ids"
+          ],
+          "properties": {
+            "label": {
+              "$ref": "#/$defs/copy"
+            },
+            "refs": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "indicator_ids": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^CEM\\.INDICATOR\\.[A-Za-z0-9._-]+$"
+              }
+            }
+          }
+        },
+        "intermediate_result": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "refs",
+            "indicator_ids"
+          ],
+          "properties": {
+            "label": {
+              "$ref": "#/$defs/copy"
+            },
+            "refs": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "indicator_ids": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^CEM\\.INDICATOR\\.[A-Za-z0-9._-]+$"
+              }
+            }
+          }
+        },
+        "final_outcome": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "refs",
+            "indicator_ids"
+          ],
+          "properties": {
+            "label": {
+              "$ref": "#/$defs/copy"
+            },
+            "refs": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "indicator_ids": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^CEM\\.INDICATOR\\.[A-Za-z0-9._-]+$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "prospectiveSnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "frozen_at",
+        "revision_policy"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^CEM\\.PROSPECTIVE\\.SNAPSHOT\\.[A-Za-z0-9._-]+$"
+        },
+        "frozen_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "revision_policy": {
+          "const": "APPEND_ONLY_NO_RETROACTIVE_EDIT"
+        }
+      }
+    },
+    "adaptiveStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "phase",
+        "statement"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^CEM\\.ADAPTIVE\\.STEP\\.[A-Za-z0-9._-]+$"
+        },
+        "phase": {
+          "enum": [
+            "NOW",
+            "WATCH",
+            "IF",
+            "THEN",
+            "STOP",
+            "REASSESS"
+          ]
+        },
+        "statement": {
+          "$ref": "#/$defs/copy"
+        },
+        "indicator_id": {
+          "type": "string",
+          "pattern": "^CEM\\.INDICATOR\\.[A-Za-z0-9._-]+$"
+        },
+        "trigger_condition": {
+          "$ref": "#/$defs/copy"
+        },
+        "action": {
+          "$ref": "#/$defs/copy"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "phase": {
+                "const": "WATCH"
+              }
+            },
+            "required": [
+              "phase"
+            ]
+          },
+          "then": {
+            "required": [
+              "indicator_id"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "phase": {
+                "const": "IF"
+              }
+            },
+            "required": [
+              "phase"
+            ]
+          },
+          "then": {
+            "required": [
+              "trigger_condition"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "phase": {
+                "enum": [
+                  "THEN",
+                  "STOP",
+                  "REASSESS"
+                ]
+              }
+            },
+            "required": [
+              "phase"
+            ]
+          },
+          "then": {
+            "required": [
+              "action"
+            ]
+          }
+        }
+      ]
+    },
+    "implementationPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type",
+        "id",
+        "case_id",
+        "created_at",
+        "decision_analysis_id",
+        "prospective_snapshot",
+        "plan_scope",
+        "action_canvas",
+        "indicator_ids",
+        "adaptive_plan",
+        "status"
+      ],
+      "properties": {
+        "object_type": {
+          "const": "ImplementationPlan"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^CEM\\.IMPLEMENTATION\\.PLAN\\.[A-Za-z0-9._-]+$"
+        },
+        "case_id": {
+          "type": "string",
+          "pattern": "^CEM\\.CASE\\.[A-Za-z0-9._-]+$"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "decision_analysis_id": {
+          "type": "string",
+          "pattern": "^CEM\\.DECISION\\.ANALYSIS\\.[A-Za-z0-9._-]+$"
+        },
+        "prospective_snapshot": {
+          "$ref": "#/$defs/prospectiveSnapshot"
+        },
+        "plan_scope": {
+          "enum": [
+            "ILLUSTRATIVE",
+            "REAL_WORLD"
+          ]
+        },
+        "population": {
+          "$ref": "#/$defs/population"
+        },
+        "context": {
+          "$ref": "#/$defs/context"
+        },
+        "primary_outcome": {
+          "$ref": "#/$defs/outcome"
+        },
+        "action_canvas": {
+          "$ref": "#/$defs/actionCanvas"
+        },
+        "indicator_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^CEM\\.INDICATOR\\.[A-Za-z0-9._-]+$"
+          }
+        },
+        "adaptive_plan": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/adaptiveStep"
+          }
+        },
+        "status": {
+          "enum": [
+            "DRAFT",
+            "ACTIVE",
+            "STOPPED",
+            "COMPLETED",
+            "SUPERSEDED"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "plan_scope": {
+                "const": "REAL_WORLD"
+              }
+            },
+            "required": [
+              "plan_scope"
+            ]
+          },
+          "then": {
+            "required": [
+              "population",
+              "context",
+              "primary_outcome"
+            ]
+          }
+        }
+      ]
+    },
+    "observedOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type",
+        "id",
+        "case_id",
+        "implementation_plan_id",
+        "prospective_snapshot_id",
+        "indicator_id",
+        "population",
+        "context",
+        "outcome",
+        "feature_of_interest",
+        "observed_property",
+        "procedure",
+        "phenomenon_time",
+        "result_time",
+        "result",
+        "source_refs",
+        "recorded_at",
+        "retrospective",
+        "mutation_policy"
+      ],
+      "properties": {
+        "object_type": {
+          "const": "ObservedOutcome"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^CEM\\.OBSERVED\\.OUTCOME\\.[A-Za-z0-9._-]+$"
+        },
+        "case_id": {
+          "type": "string",
+          "pattern": "^CEM\\.CASE\\.[A-Za-z0-9._-]+$"
+        },
+        "implementation_plan_id": {
+          "type": "string",
+          "pattern": "^CEM\\.IMPLEMENTATION\\.PLAN\\.[A-Za-z0-9._-]+$"
+        },
+        "prospective_snapshot_id": {
+          "type": "string",
+          "pattern": "^CEM\\.PROSPECTIVE\\.SNAPSHOT\\.[A-Za-z0-9._-]+$"
+        },
+        "indicator_id": {
+          "type": "string",
+          "pattern": "^CEM\\.INDICATOR\\.[A-Za-z0-9._-]+$"
+        },
+        "population": {
+          "$ref": "#/$defs/population"
+        },
+        "context": {
+          "$ref": "#/$defs/context"
+        },
+        "outcome": {
+          "$ref": "#/$defs/outcome"
+        },
+        "feature_of_interest": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_property": {
+          "type": "string",
+          "minLength": 1
+        },
+        "procedure": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phenomenon_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "result_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "result": {
+          "$ref": "#/$defs/result"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "recorded_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "retrospective": {
+          "const": true
+        },
+        "mutation_policy": {
+          "const": "APPEND_ONLY_NO_RETROACTIVE_PREDICTION_EDIT"
+        }
+      }
+    },
+    "revisionProposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "rationale",
+        "proposed_change",
+        "status"
+      ],
+      "properties": {
+        "target": {
+          "enum": [
+            "MODEL_ASSUMPTION",
+            "DECISION_ANALYSIS",
+            "IMPLEMENTATION_PLAN",
+            "INDICATOR"
+          ]
+        },
+        "rationale": {
+          "$ref": "#/$defs/copy"
+        },
+        "proposed_change": {
+          "$ref": "#/$defs/copy"
+        },
+        "status": {
+          "enum": [
+            "PROPOSED",
+            "ACCEPTED",
+            "REJECTED"
+          ]
+        }
+      }
+    },
+    "decisionAutopsy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type",
+        "id",
+        "case_id",
+        "implementation_plan_id",
+        "decision_analysis_id",
+        "observed_outcome_ids",
+        "created_at",
+        "findings",
+        "revision_proposals",
+        "prior_prediction_mutated"
+      ],
+      "properties": {
+        "object_type": {
+          "const": "DecisionAutopsy"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^CEM\\.DECISION\\.AUTOPSY\\.[A-Za-z0-9._-]+$"
+        },
+        "case_id": {
+          "type": "string",
+          "pattern": "^CEM\\.CASE\\.[A-Za-z0-9._-]+$"
+        },
+        "implementation_plan_id": {
+          "type": "string",
+          "pattern": "^CEM\\.IMPLEMENTATION\\.PLAN\\.[A-Za-z0-9._-]+$"
+        },
+        "decision_analysis_id": {
+          "type": "string",
+          "pattern": "^CEM\\.DECISION\\.ANALYSIS\\.[A-Za-z0-9._-]+$"
+        },
+        "observed_outcome_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^CEM\\.OBSERVED\\.OUTCOME\\.[A-Za-z0-9._-]+$"
+          }
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "findings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/copy"
+          }
+        },
+        "revision_proposals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/revisionProposal"
+          }
+        },
+        "prior_prediction_mutated": {
+          "const": false
+        },
+        "revision_of_autopsy_id": {
+          "type": "string",
+          "pattern": "^CEM\\.DECISION\\.AUTOPSY\\.[A-Za-z0-9._-]+$"
+        }
+      }
+    }
+  }
+}

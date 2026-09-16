@@ -1,0 +1,386 @@
+{
+  "schema_version": "1",
+  "contract_id": "OA7.REALITY_LOOP.CONTRACT.V1",
+  "status": "PRE_EXECUTABLE_PRODUCT_CONTRACT",
+  "provenance_policy": {
+    "alignment": "W3C_PROV_INSPIRED",
+    "revision_policy": "APPEND_ONLY",
+    "observations_may_mutate_prospective": false,
+    "observations_may_propose_revision": true
+  },
+  "storage_boundary": {
+    "current_workspace_schema_version": "1",
+    "integration_status": "RESERVED_NOT_IN_WORKSPACE_V1",
+    "migration_required": true
+  },
+  "simulation_results": [
+    {
+      "object_type": "SimulationResult",
+      "id": "CEM.SIMULATION.RESULT.OA7.CONTRACT.EXAMPLE",
+      "case_id": "CEM.CASE.OA7.CONTRACT.EXAMPLE",
+      "created_at": "2026-09-16T16:45:00Z",
+      "model_artifact_ref": "web/public/model/interventions.json",
+      "input_snapshot_ref": "OA7.INPUT.CONTRACT.EXAMPLE",
+      "result_ref": "OA7.RESULT.CONTRACT.EXAMPLE",
+      "epistemic_scope": "ILLUSTRATIVE_UNCALIBRATED",
+      "prospective": true
+    }
+  ],
+  "decision_analyses": [
+    {
+      "object_type": "DecisionAnalysis",
+      "id": "CEM.DECISION.ANALYSIS.OA7.CONTRACT.EXAMPLE",
+      "case_id": "CEM.CASE.OA7.CONTRACT.EXAMPLE",
+      "created_at": "2026-09-16T16:46:00Z",
+      "simulation_result_refs": [
+        "CEM.SIMULATION.RESULT.OA7.CONTRACT.EXAMPLE"
+      ],
+      "assumption_registry_ref": "OA6.UNCERTAINTY.REGISTRY.V1",
+      "analysis_method_refs": [
+        "OA6.DETERMINISTIC.ROBUSTNESS",
+        "OA6.QUALITATIVE.INFORMATION.PRIORITY"
+      ],
+      "conclusion_status": "CONDITIONAL",
+      "recommendation_status": "NOT_A_REAL_WORLD_RECOMMENDATION",
+      "limitations": {
+        "ro": "Exemplu de contract fără recomandare reală.",
+        "en": "Contract example; not a real-world recommendation."
+      }
+    }
+  ],
+  "indicators": [
+    {
+      "object_type": "Indicator",
+      "id": "CEM.INDICATOR.OA7.PROXIMAL.EXAMPLE",
+      "label": {
+        "ro": "Indicator proximal de exemplu",
+        "en": "Example proximal indicator"
+      },
+      "observed_property": "OA7.CONTRACT.PROXIMAL.PROPERTY",
+      "target_stage": "PROXIMAL",
+      "result_type": "NUMBER",
+      "unit": "contract_unit",
+      "direction": "INCREASE",
+      "measurement_procedure": "CONTRACT_ONLY_PROCEDURE",
+      "source_refs": [
+        "OA7.CONTRACT.EXAMPLE"
+      ],
+      "limitations": {
+        "ro": "Doar structură de contract.",
+        "en": "Contract structure only."
+      }
+    },
+    {
+      "object_type": "Indicator",
+      "id": "CEM.INDICATOR.OA7.INTERMEDIATE.EXAMPLE",
+      "label": {
+        "ro": "Indicator intermediar de exemplu",
+        "en": "Example intermediate indicator"
+      },
+      "observed_property": "OA7.CONTRACT.INTERMEDIATE.PROPERTY",
+      "target_stage": "INTERMEDIATE",
+      "result_type": "NUMBER",
+      "unit": "contract_unit",
+      "direction": "INCREASE",
+      "measurement_procedure": "CONTRACT_ONLY_PROCEDURE",
+      "source_refs": [
+        "OA7.CONTRACT.EXAMPLE"
+      ],
+      "limitations": {
+        "ro": "Doar structură de contract.",
+        "en": "Contract structure only."
+      }
+    },
+    {
+      "object_type": "Indicator",
+      "id": "CEM.INDICATOR.OA7.FINAL.EXAMPLE",
+      "label": {
+        "ro": "Indicator final de exemplu",
+        "en": "Example final indicator"
+      },
+      "observed_property": "OA7.CONTRACT.FINAL.PROPERTY",
+      "target_stage": "FINAL",
+      "result_type": "TEXT",
+      "direction": "NONE",
+      "measurement_procedure": "CONTRACT_ONLY_PROCEDURE",
+      "source_refs": [
+        "OA7.CONTRACT.EXAMPLE"
+      ],
+      "limitations": {
+        "ro": "Doar structură de contract.",
+        "en": "Contract structure only."
+      }
+    }
+  ],
+  "implementation_plans": [
+    {
+      "object_type": "ImplementationPlan",
+      "id": "CEM.IMPLEMENTATION.PLAN.OA7.CONTRACT.EXAMPLE",
+      "case_id": "CEM.CASE.OA7.CONTRACT.EXAMPLE",
+      "created_at": "2026-09-16T16:47:00Z",
+      "decision_analysis_id": "CEM.DECISION.ANALYSIS.OA7.CONTRACT.EXAMPLE",
+      "prospective_snapshot": {
+        "id": "CEM.PROSPECTIVE.SNAPSHOT.OA7.CONTRACT.EXAMPLE",
+        "frozen_at": "2026-09-16T16:47:00Z",
+        "revision_policy": "APPEND_ONLY_NO_RETROACTIVE_EDIT"
+      },
+      "plan_scope": "REAL_WORLD",
+      "population": {
+        "label": {
+          "ro": "Populație de test contractual",
+          "en": "Contract-test population"
+        },
+        "definition": {
+          "ro": "Exemplu sintetic folosit numai pentru validarea câmpurilor obligatorii.",
+          "en": "Synthetic example used only to validate required fields."
+        }
+      },
+      "context": {
+        "setting": {
+          "ro": "Context de test contractual",
+          "en": "Contract-test context"
+        },
+        "geography": "unspecified-contract-fixture",
+        "time_horizon": "contract-fixture-horizon"
+      },
+      "primary_outcome": {
+        "name": {
+          "ro": "Rezultat final de test",
+          "en": "Contract final outcome"
+        },
+        "definition": {
+          "ro": "Rezultat fictiv fără semnificație științifică.",
+          "en": "Fictional outcome with no scientific meaning."
+        },
+        "stage": "FINAL"
+      },
+      "action_canvas": {
+        "problem": {
+          "label": {
+            "ro": "Problemă",
+            "en": "Problem"
+          },
+          "refs": [
+            "OA7.CONTRACT.PROBLEM"
+          ]
+        },
+        "target_mechanism": {
+          "label": {
+            "ro": "Mecanism țintă",
+            "en": "Target mechanism"
+          },
+          "refs": [
+            "OA7.CONTRACT.MECHANISM"
+          ]
+        },
+        "intervention": {
+          "label": {
+            "ro": "Intervenție",
+            "en": "Intervention"
+          },
+          "refs": [
+            "web/public/model/interventions.json"
+          ]
+        },
+        "proximal_result": {
+          "label": {
+            "ro": "Rezultat proximal",
+            "en": "Proximal result"
+          },
+          "refs": [
+            "OA7.CONTRACT.PROXIMAL"
+          ],
+          "indicator_ids": [
+            "CEM.INDICATOR.OA7.PROXIMAL.EXAMPLE"
+          ]
+        },
+        "intermediate_result": {
+          "label": {
+            "ro": "Rezultat intermediar",
+            "en": "Intermediate result"
+          },
+          "refs": [
+            "OA7.CONTRACT.INTERMEDIATE"
+          ],
+          "indicator_ids": [
+            "CEM.INDICATOR.OA7.INTERMEDIATE.EXAMPLE"
+          ]
+        },
+        "final_outcome": {
+          "label": {
+            "ro": "Rezultat final",
+            "en": "Final outcome"
+          },
+          "refs": [
+            "OA7.CONTRACT.FINAL"
+          ],
+          "indicator_ids": [
+            "CEM.INDICATOR.OA7.FINAL.EXAMPLE"
+          ]
+        }
+      },
+      "indicator_ids": [
+        "CEM.INDICATOR.OA7.PROXIMAL.EXAMPLE",
+        "CEM.INDICATOR.OA7.INTERMEDIATE.EXAMPLE",
+        "CEM.INDICATOR.OA7.FINAL.EXAMPLE"
+      ],
+      "adaptive_plan": [
+        {
+          "id": "CEM.ADAPTIVE.STEP.OA7.NOW",
+          "phase": "NOW",
+          "statement": {
+            "ro": "Înregistrează starea inițială.",
+            "en": "Record the initial state."
+          }
+        },
+        {
+          "id": "CEM.ADAPTIVE.STEP.OA7.WATCH",
+          "phase": "WATCH",
+          "statement": {
+            "ro": "Urmărește indicatorul proximal.",
+            "en": "Watch the proximal indicator."
+          },
+          "indicator_id": "CEM.INDICATOR.OA7.PROXIMAL.EXAMPLE"
+        },
+        {
+          "id": "CEM.ADAPTIVE.STEP.OA7.IF",
+          "phase": "IF",
+          "statement": {
+            "ro": "Evaluează condiția de trigger.",
+            "en": "Evaluate the trigger condition."
+          },
+          "trigger_condition": {
+            "ro": "Dacă observația depășește pragul definit prospectiv.",
+            "en": "If the observation crosses the prospectively defined threshold."
+          }
+        },
+        {
+          "id": "CEM.ADAPTIVE.STEP.OA7.THEN",
+          "phase": "THEN",
+          "statement": {
+            "ro": "Aplică acțiunea contingentă.",
+            "en": "Apply the contingent action."
+          },
+          "action": {
+            "ro": "Reanalizează planul fără a rescrie predicția inițială.",
+            "en": "Reanalyse the plan without rewriting the original prediction."
+          }
+        },
+        {
+          "id": "CEM.ADAPTIVE.STEP.OA7.STOP",
+          "phase": "STOP",
+          "statement": {
+            "ro": "Evaluează condiția de oprire.",
+            "en": "Evaluate the stop condition."
+          },
+          "action": {
+            "ro": "Oprește implementarea dacă regula prospectivă de oprire este satisfăcută.",
+            "en": "Stop implementation if the prospective stop rule is met."
+          }
+        },
+        {
+          "id": "CEM.ADAPTIVE.STEP.OA7.REASSESS",
+          "phase": "REASSESS",
+          "statement": {
+            "ro": "Reevaluează decizia.",
+            "en": "Reassess the decision."
+          },
+          "action": {
+            "ro": "Creează o revizie nouă și păstrează snapshotul prospectiv.",
+            "en": "Create a new revision and preserve the prospective snapshot."
+          }
+        }
+      ],
+      "status": "DRAFT"
+    }
+  ],
+  "observed_outcomes": [
+    {
+      "object_type": "ObservedOutcome",
+      "id": "CEM.OBSERVED.OUTCOME.OA7.CONTRACT.EXAMPLE",
+      "case_id": "CEM.CASE.OA7.CONTRACT.EXAMPLE",
+      "implementation_plan_id": "CEM.IMPLEMENTATION.PLAN.OA7.CONTRACT.EXAMPLE",
+      "prospective_snapshot_id": "CEM.PROSPECTIVE.SNAPSHOT.OA7.CONTRACT.EXAMPLE",
+      "indicator_id": "CEM.INDICATOR.OA7.PROXIMAL.EXAMPLE",
+      "population": {
+        "label": {
+          "ro": "Populație de test contractual",
+          "en": "Contract-test population"
+        },
+        "definition": {
+          "ro": "Aceeași populație fictivă definită prospectiv.",
+          "en": "The same fictional population defined prospectively."
+        }
+      },
+      "context": {
+        "setting": {
+          "ro": "Context de test contractual",
+          "en": "Contract-test context"
+        },
+        "geography": "unspecified-contract-fixture",
+        "time_horizon": "contract-fixture-horizon"
+      },
+      "outcome": {
+        "name": {
+          "ro": "Rezultat proximal observat de test",
+          "en": "Observed contract proximal outcome"
+        },
+        "definition": {
+          "ro": "Înregistrare fictivă pentru schema de observație.",
+          "en": "Fictional record for the observation schema."
+        },
+        "stage": "PROXIMAL"
+      },
+      "feature_of_interest": "OA7.CONTRACT.FEATURE.OF.INTEREST",
+      "observed_property": "OA7.CONTRACT.PROXIMAL.PROPERTY",
+      "procedure": "CONTRACT_ONLY_PROCEDURE",
+      "phenomenon_time": "2026-09-16T17:00:00Z",
+      "result_time": "2026-09-16T17:05:00Z",
+      "result": {
+        "value": 0,
+        "unit": "contract_unit",
+        "quality_note": "contract fixture only"
+      },
+      "source_refs": [
+        "OA7.CONTRACT.EXAMPLE"
+      ],
+      "recorded_at": "2026-09-16T17:06:00Z",
+      "retrospective": true,
+      "mutation_policy": "APPEND_ONLY_NO_RETROACTIVE_PREDICTION_EDIT"
+    }
+  ],
+  "decision_autopsies": [
+    {
+      "object_type": "DecisionAutopsy",
+      "id": "CEM.DECISION.AUTOPSY.OA7.CONTRACT.EXAMPLE",
+      "case_id": "CEM.CASE.OA7.CONTRACT.EXAMPLE",
+      "implementation_plan_id": "CEM.IMPLEMENTATION.PLAN.OA7.CONTRACT.EXAMPLE",
+      "decision_analysis_id": "CEM.DECISION.ANALYSIS.OA7.CONTRACT.EXAMPLE",
+      "observed_outcome_ids": [
+        "CEM.OBSERVED.OUTCOME.OA7.CONTRACT.EXAMPLE"
+      ],
+      "created_at": "2026-09-16T17:10:00Z",
+      "findings": [
+        {
+          "ro": "Observația este păstrată separat de predicția prospectivă.",
+          "en": "The observation is preserved separately from the prospective prediction."
+        }
+      ],
+      "revision_proposals": [
+        {
+          "target": "MODEL_ASSUMPTION",
+          "rationale": {
+            "ro": "Exemplu de traseu de revizie.",
+            "en": "Example revision path."
+          },
+          "proposed_change": {
+            "ro": "Propune o revizie nouă; nu rescrie snapshotul anterior.",
+            "en": "Propose a new revision; do not rewrite the prior snapshot."
+          },
+          "status": "PROPOSED"
+        }
+      ],
+      "prior_prediction_mutated": false
+    }
+  ]
+}
