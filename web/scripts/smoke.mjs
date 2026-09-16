@@ -356,6 +356,21 @@ try {
  const expected=plans.profiles.find(p=>p.id==='reference').bundles.filter(b=>b.start===2&&b.mask.toString(2).replaceAll('0','').length<=3).sort((a,b)=>score(b)-score(a))[0];
  assert.equal(Number(await page.locator('#bestBundle').getAttribute('data-mask')),expected.mask);
 
+ // OA-7 first implementation slice: read-only Action Canvas projection.
+ assert.equal(await page.locator('#actionCanvas').count(),1);
+ assert.equal(await page.locator('[data-action-stage]').count(),6);
+ assert.equal(await page.locator('#actionCanvas').getAttribute('data-action-canvas-mask'),String(expected.mask));
+ assert.equal(await page.locator('[data-action-stage="PROXIMAL_RESULT"]').getAttribute('data-action-status'),'SIMULATED_OUTPUT');
+ assert.equal(await page.locator('[data-action-stage="INTERMEDIATE_RESULT"]').getAttribute('data-action-status'),'NOT_OPERATIONALIZED');
+ assert.equal(await page.locator('[data-action-stage="FINAL_OUTCOME"]').getAttribute('data-action-status'),'NOT_OPERATIONALIZED');
+ assert.match(await page.locator('#actionCanvas').textContent(),/read-only|read-only/i);
+ await page.locator('[data-plan-mask="2"] [data-inspect="2"]').click();
+ assert.equal(await page.locator('#actionCanvas').getAttribute('data-action-canvas-mask'),'2');
+ assert.match(await page.locator('[data-action-stage="TARGET_MECHANISM"]').textContent(),/Context corectiv verificat|Verified corrective context/);
+ assert.doesNotMatch(await page.locator('[data-action-stage="TARGET_MECHANISM"]').textContent(),/Indiciu de acuratețe|Accuracy cue/);
+ await page.locator(`[data-plan-mask="${expected.mask}"] [data-inspect="${expected.mask}"]`).click();
+ assert.equal(await page.locator('#actionCanvas').getAttribute('data-action-canvas-mask'),String(expected.mask));
+
  // OA-6C: explicit finite-scenario uncertainty UI, threshold coverage and canonical context.
  assert.equal(await page.locator('#decisionUncertainty').count(),1);
  assert.equal(await page.locator('[data-uncertainty-id]').count(),5);
