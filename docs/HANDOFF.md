@@ -575,3 +575,37 @@ and Alpha 0.4.2a0 release metadata remain unchanged.
 A later generative-candidate phase must compare explicit mechanisms at the raw
 response and SDT-summary levels; matching the published mean d-prime alone is
 insufficient.
+
+
+## Alpha 0.4.3a0 Phase C — M1.E4 generative candidate comparison
+
+Phase B was merged into `main` at
+`e9b38fa4ca69152c759cb18526bb1529230d1754` and post-merge CI #138 passed.
+
+Phase C is isolated on branch
+`alpha-0.4.3a0-phase-c-generative-candidates`.
+
+Candidate decision:
+
+- C1: equal-variance continuous SDT with `d` + response criterion `c`;
+- C2: symmetric two-high-threshold detection + guessing with `Ddet` + `g`;
+- neither candidate is promoted to the active CEM model;
+- neither `d` nor `Ddet` is `Pencode`.
+
+The contract demonstrates one-point equifinality analytically and in regression
+tests: one nondegenerate H/F operating point can be represented exactly by both
+candidate families.
+
+The future discrimination design therefore requires multiple operating points or
+a direct response-bias manipulation. The intended invariance tests are:
+
+- EVSD: `d` fixed while `c` changes;
+- 2HT: `Ddet` fixed while `g` changes.
+
+Future fitting must use raw/binomial target and foil responses and report
+parameter-count-aware diagnostics. Matching the published Shulman mean d-prime
+values alone cannot select a model.
+
+Phase C adds only documentation, a pre-executable contract, its schema and
+regression tests. Active registries, runtime, UI, evidence snapshot and public
+Alpha 0.4.2a0 release metadata remain unchanged.
