@@ -19,8 +19,10 @@ W → Share path is mediated by P in the computational map, with that distinctio
 explicit in its description. Reference formulas and calibrated effects remain distinct.
 
 Source-of-truth review: model.py, updates.py and simulation.py, 2026-09-13.
-The map is explanatory metadata in web/src/dependencies.ts, not a second simulator.
-Do not change equations or coefficients by editing it. Internal latent logits,
+The explanatory dependency metadata is now canonical data in
+model/computational_dependencies.json. web/src/dependencies.ts only adapts that
+generated/public data for the interface; it is not a second scientific source.
+Do not change equations or coefficients by editing the dependency registry. Internal latent logits,
 parameter nodes and state-update self-loops are not drawn separately; reward/bias
 are grouped in one input node and coefficient roles appear in edge details.
 Nexp describes event counts, not a stored Simulator counter used by an equation.
