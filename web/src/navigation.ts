@@ -72,3 +72,5 @@ export function navigationItem(view:AppView):NavigationItem{
  if(!item)throw new Error('view item is not mapped: '+view);
  return item;
 }
+
+export function isAppView(value:string):value is AppView{return requiredExistingViews.includes(value as AppView);}
