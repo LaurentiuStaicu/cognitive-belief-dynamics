@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {semanticIndex} from '../src/semantic.ts';
+import {readFileSync} from 'node:fs';
+import type {SemanticIndex} from '../src/semantic.ts';
+const semanticIndex=JSON.parse(readFileSync(new URL('../src/generated/semantic_index.json',import.meta.url),'utf8')) as SemanticIndex;
 import {normalizeSearchText,searchSemanticIndex} from '../src/semantic-search.ts';
 import {inspectSemanticIndex} from '../src/semantic-inspector.ts';
 
