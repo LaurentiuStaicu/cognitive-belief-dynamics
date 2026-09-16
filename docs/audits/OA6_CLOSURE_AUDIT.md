@@ -82,7 +82,7 @@ OA-6E extends the browser gate to verify:
 - a native information-priority button is operable with keyboard Enter;
 - keyboard activation moves focus to the associated reassessment indicator;
 - the complete planning / Decision Under Uncertainty view remains one-dimensional at 320 CSS px;
-- the same planning view remains within the viewport at 200% root text size;
+- separately, the same planning view remains usable without document-level horizontal overflow at 200% root text size in the desktop viewport;
 - semantic information is expressed through text, tables and labels rather than color alone.
 
 This closes the explicit R7 requirement for keyboard operation and 320 CSS px / 200% text reflow.
@@ -107,7 +107,7 @@ OA-6 may close only when all of the following are green on the PR and again afte
 - Playwright browser regression;
 - scientific artifact hash invariant;
 - RO/EN semantic parity;
-- 320 CSS px and 200% planning reflow;
+- 320 CSS px planning reflow and a separate 200% text-resize gate;
 - keyboard activation;
 - no prohibited probability/expected-value language in executable OA-6 surfaces.
 
