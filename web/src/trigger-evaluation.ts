@@ -1,7 +1,7 @@
 import type {StructuredTriggerCondition} from './adaptive-plan-runtime';
 import type {ImplementationPlan} from './implementation-plan';
 import type {IndicatorProjection} from './indicator-objects';
-import {type ObservedOutcome,validateObservedOutcomeReferences} from './observed-outcome';
+import type {ObservedOutcome} from './observed-outcome';
 
 type Lang='ro'|'en';
 
@@ -60,6 +60,23 @@ function compare(value:number,trigger:StructuredTriggerCondition):boolean{
  throw new Error('unsupported trigger comparator');
 }
 
+function referencesValid(plan:ImplementationPlan,outcome:ObservedOutcome,indicators:IndicatorProjection):boolean{
+ if(plan.object_type!=='ImplementationPlan')return false;
+ if(outcome.case_id!==plan.case_id)return false;
+ if(outcome.implementation_plan_id!==plan.id)return false;
+ if(outcome.prospective_snapshot_id!==plan.prospective_snapshot.id)return false;
+ if(!plan.indicator_ids.includes(outcome.indicator_id))return false;
+ const definition=indicators.indicators.find(item=>item.definition.id===outcome.indicator_id)?.definition;
+ if(!definition)return false;
+ if(outcome.observed_property!==definition.observed_property)return false;
+ if(outcome.outcome.stage!==definition.target_stage)return false;
+ if(definition.unit&&outcome.result.unit!==definition.unit)return false;
+ if(definition.target_stage==='PROXIMAL'&&!plan.action_canvas.proximal_result.indicator_ids.includes(outcome.indicator_id))return false;
+ if(definition.target_stage==='INTERMEDIATE'&&!plan.action_canvas.intermediate_result.indicator_ids.includes(outcome.indicator_id))return false;
+ if(definition.target_stage==='FINAL'&&!plan.action_canvas.final_outcome.indicator_ids.includes(outcome.indicator_id))return false;
+ return true;
+}
+
 function notEvaluable(
  plan:ImplementationPlan,
  outcome:ObservedOutcome,
@@ -92,9 +109,7 @@ export function evaluateObservedOutcomeAgainstFrozenTrigger(input:{
 }):TriggerEvaluation{
  const {plan,outcome,indicators}=input;
  const trigger=frozenTrigger(plan);
- try{
-  validateObservedOutcomeReferences(outcome,plan,indicators);
- }catch{
+ if(!referencesValid(plan,outcome,indicators)){
   return notEvaluable(plan,outcome,trigger,'REFERENCE_VALIDATION_FAILED');
  }
  if(outcome.indicator_id!==trigger.indicator_id)return notEvaluable(plan,outcome,trigger,'INDICATOR_MISMATCH');
