@@ -371,6 +371,16 @@ try {
  await page.locator(`[data-plan-mask="${expected.mask}"] [data-inspect="${expected.mask}"]`).click();
  assert.equal(await page.locator('#actionCanvas').getAttribute('data-action-canvas-mask'),String(expected.mask));
 
+ // OA-7 Indicator objects: simulation-derived definitions remain distinct from observations.
+ assert.equal(await page.locator('#indicatorObjects').count(),1);
+ assert.equal(await page.locator('[data-indicator-id]').count(),2);
+ assert.equal(await page.locator('[data-indicator-stage="PROXIMAL"]').count(),2);
+ assert.equal(await page.locator('[data-observation-status="NOT_OBSERVED"]').count(),2);
+ assert.equal(await page.locator('[data-indicator-coverage="INTERMEDIATE"]').getAttribute('data-indicator-coverage-status'),'NOT_OPERATIONALIZED');
+ assert.equal(await page.locator('[data-indicator-coverage="FINAL"]').getAttribute('data-indicator-coverage-status'),'NOT_OPERATIONALIZED');
+ assert.match(await page.locator('#indicatorObjects').textContent(),/nu ObservedOutcome|not ObservedOutcome/i);
+ assert.match(await page.locator('[data-indicator-id="CEM.INDICATOR.M0.FALSE_SHARING.MEAN13"]').textContent(),/SIMULATED|simulat/i);
+
  // OA-6C: explicit finite-scenario uncertainty UI, threshold coverage and canonical context.
  assert.equal(await page.locator('#decisionUncertainty').count(),1);
  assert.equal(await page.locator('[data-uncertainty-id]').count(),5);
