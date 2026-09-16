@@ -75,6 +75,7 @@ def build_semantic_index(model_dir: str | Path) -> dict[str, Any]:
     chapters = _load(model_dir / "theory_index.json")
     glossary = _load(model_dir / "theory_glossary.json")
     links = _load(model_dir / "links.json")
+    computational = _load(model_dir / "computational_dependencies.json")
 
     entities: list[dict[str, Any]] = []
     relations: list[dict[str, Any]] = []
@@ -108,6 +109,23 @@ def build_semantic_index(model_dir: str | Path) -> dict[str, Any]:
                 "semantic_type": "MODULE",
                 "labels": _labels(item["label"]),
                 "source": _source("model/modules.json", item["id"]),
+            }
+        )
+
+    for item in computational["nodes"]:
+        entities.append(
+            {
+                "id": item["semantic_id"],
+                "semantic_type": "COMPUTATIONAL_NODE",
+                "labels": _labels(
+                    item["label"],
+                    alternative={"und": [item["id"]]},
+                ),
+                "source": _source(
+                    "model/computational_dependencies.json",
+                    item["id"],
+                ),
+                "short_name": item["id"],
             }
         )
 
@@ -288,6 +306,23 @@ def build_semantic_index(model_dir: str | Path) -> dict[str, Any]:
             }
         )
 
+    for item in computational["dependencies"]:
+        relation = {
+            "id": item["id"],
+            "layer": "COMPUTATIONAL_DEPENDENCY",
+            "source": item["source_semantic_id"],
+            "target": item["target_semantic_id"],
+            "source_record": _source(
+                "model/computational_dependencies.json",
+                item["id"],
+            ),
+            "formula": item["formula"],
+            "code_file": item["code_file"],
+        }
+        if item.get("registered_relation_id"):
+            relation["registered_relation_id"] = item["registered_relation_id"]
+        relations.append(relation)
+
     entities.sort(key=lambda item: item["id"])
     relations.sort(key=lambda item: item["id"])
 
@@ -320,6 +355,7 @@ def build_semantic_index(model_dir: str | Path) -> dict[str, Any]:
         "source_paths": sorted(
             [
                 "model/contracts/oa0_optimization_baseline.json",
+                "model/computational_dependencies.json",
                 "model/empirical_targets.json",
                 "model/links.json",
                 "model/modules.json",
