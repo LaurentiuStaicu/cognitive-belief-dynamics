@@ -97,7 +97,7 @@ export function renderDecisionUncertainty(host:HTMLElement,options:Options){
  <div class="uncertainty-context"><h4>${tr('Context canonic asociat','Related canonical context')}</h4><p class="note">${tr('Aceste legături navighează către obiecte deja înregistrate; nu adaugă relații științifice noi.','These links navigate to already-registered objects; they do not add new scientific relations.')}</p><div><button type="button" data-uncertainty-theory>${tr('Teorie · intervenții','Theory · interventions')}</button>${uncertaintyCanonicalContext.semanticIds.map(id=>`<span class="uncertainty-context-item"><code>${id}</code><button type="button" data-uncertainty-search="${id}">${tr('Caută','Search')}</button><button type="button" data-uncertainty-inspect="${id}">${tr('Inspector','Inspector')}</button></span>`).join('')}<button type="button" data-uncertainty-reference="VAR.ACTION.SHARE">${tr('Registru · Share','Registry · Share')}</button></div></div>`;
 
  host.querySelector<HTMLInputElement>('#acceptabilityThreshold')!.onchange=event=>{
-  const input=event.currentTarget;
+  const input=event.currentTarget as HTMLInputElement;
   if(!input.reportValidity())return;
   options.onThresholdChange(Number(input.value));
  };
