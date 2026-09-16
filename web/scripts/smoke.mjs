@@ -355,6 +355,29 @@ try {
  const score=b=>50*(1-b.false_share+b.true_share);
  const expected=plans.profiles.find(p=>p.id==='reference').bundles.filter(b=>b.start===2&&b.mask.toString(2).replaceAll('0','').length<=3).sort((a,b)=>score(b)-score(a))[0];
  assert.equal(Number(await page.locator('#bestBundle').getAttribute('data-mask')),expected.mask);
+
+ // OA-6C: explicit finite-scenario uncertainty UI, threshold coverage and canonical context.
+ assert.equal(await page.locator('#decisionUncertainty').count(),1);
+ assert.equal(await page.locator('[data-uncertainty-id]').count(),5);
+ assert.equal(await page.locator('#uncertaintyScenarioMatrix tbody tr').count(),3);
+ assert.match(await page.locator('#decisionUncertainty').textContent(),/scenarii declarate|declared scenarios/i);
+ assert.match(await page.locator('#decisionUncertainty').textContent(),/nu probabilitate|not a probability/i);
+ assert.equal(await page.locator('#selectedRobustness').getAttribute('data-selected-alternative'),'14');
+ assert.match(await page.locator('#selectedTopCoverage').textContent(),/3 \/ 3/);
+ await page.locator('#acceptabilityThreshold').fill('8');
+ await page.locator('#acceptabilityThreshold').dispatchEvent('change');
+ assert.match(await page.locator('#selectedAcceptableCoverage').textContent(),/1 \/ 3/);
+ await page.locator('[data-uncertainty-search="VAR.FAMILIARITY.CLAIM"]').click();
+ assert.equal(await page.locator('#semanticSearchInput').inputValue(),'VAR.FAMILIARITY.CLAIM');
+ assert.equal(await page.locator('#semanticSearchInput').evaluate(el=>document.activeElement===el),true);
+ await page.locator('[data-uncertainty-inspect="VAR.FAMILIARITY.CLAIM"]').click();
+ assert.equal(await page.locator('#semanticInspector').getAttribute('data-inspector-id'),'VAR.FAMILIARITY.CLAIM');
+ assert.equal(await page.locator('#semanticInspector').evaluate(el=>document.activeElement===el),true);
+ assert.equal(await page.locator('#decisionUncertainty').count(),1);
+ await page.locator('#budget').fill('2');await page.locator('#budget').dispatchEvent('change');
+ assert.equal(await page.locator('[data-switch-scenario="low"]').getAttribute('data-switch-top-mask'),'10');
+ assert.match(await page.locator('#decisionSwitch').textContent(),/Răspuns redus|Lower response/);
+ await page.locator('#budget').fill('3');await page.locator('#budget').dispatchEvent('change');
  // Verify exported score decomposition and profile gaps independently of rendered rounding.
  await page.locator('#budget').fill('4');await page.locator('#budget').dispatchEvent('change');
  for(const weight of [0,50,100]){

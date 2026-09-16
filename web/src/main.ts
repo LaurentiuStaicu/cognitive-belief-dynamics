@@ -6,6 +6,7 @@ import './visual-language.css';
 import './search-ui.css';
 import './inspector-ui.css';
 import './active-understanding-ui.css';
+import './decision-uncertainty-ui.css';
 import {chartSeries} from './visual-language';
 import {mountSemanticSearch} from './search-ui';
 import {mountSemanticInspector} from './inspector-ui';
@@ -25,6 +26,7 @@ import {isAppView,navigationGroupForView,navigationGroups,type AppView} from './
 let graphMode='core';
 let graphFocus='all';
 import {mountPlanner,type PlanningData} from './planner';
+import {type DecisionUncertaintyRegistry} from './decision-uncertainty-ui';
 import {scenarioName} from './labels';
 import {mountVisualOdd,type OddProcess,type Subsystem} from './odd';
 
@@ -38,6 +40,7 @@ type Module = {id:string;label:Record<Lang,string>};
 let lang:Lang = 'ro';
 let view:AppView = 'learning';
 let planning:PlanningData;
+let decisionUncertainty:DecisionUncertaintyRegistry;
 let selected = 'correction';
 let step = 0;
 let playing:ReturnType<typeof setInterval> | undefined;
@@ -112,7 +115,7 @@ function shell() {
  document.querySelectorAll<HTMLButtonElement>('[data-nav-group]').forEach(b=>b.onclick=()=>{stop();const group=navigationGroups.find(candidate=>candidate.id===b.dataset.navGroup);if(!group)return;view=group.defaultView;if(view==='reference')registryFocus='';shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
  document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.onclick=()=>{stop();const next=b.dataset.view;if(!next||!isAppView(next))return;if(next==='reference')registryFocus='';view=next;shell();});
  if(view==='learning') mountUnderstanding(document.getElementById('content')!,lang,runs,m1Editorial,m1Presentation,m1Access,m1Targets,{chapters:theoryIndex,glossary:theoryGlossary,variables,modules,references,validations:validationTests,releaseTag:release.release_tag},target=>{stop();const [nextRaw,...parts]=target.split(':');const payload=parts.join(':');if(nextRaw==='search'){semanticSearchQuery=payload;remountSearch(true);return;}if(nextRaw==='inspect'){semanticInspectorId=payload;remountInspector(true);return;}const [id,time]=parts;if(!isAppView(nextRaw))throw new Error(`unknown application view: ${nextRaw}`);const next=nextRaw;if(location.hash.startsWith('#understanding/')&&!target.startsWith('learning'))history.pushState({cemView:next,cemId:id??null,cemTime:time??null},'',location.href);view=next;if(next==='reference'){registryFocus=id??'';}else if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
- if(view==='planning') mountPlanner(document.getElementById('content')!,planning,lang);
+ if(view==='planning') mountPlanner(document.getElementById('content')!,planning,decisionUncertainty,lang,target=>{const [kind,...parts]=target.split(':');const payload=parts.join(':');if(kind==='search'){semanticSearchQuery=payload;remountSearch(true);return;}if(kind==='inspect'){semanticInspectorId=payload;remountInspector(true);return;}if(kind==='reference'){history.pushState({cemView:'reference',cemId:payload,cemTime:null},'',location.href);registryFocus=payload;view='reference';shell();document.getElementById('content')!.scrollIntoView({block:'start'});return;}throw new Error(`unknown planner navigation target: ${target}`);});
  if(view==='runs') renderRuns();
  if(view==='comparison') mountComparison(document.getElementById('content')!,runs,lang,(id,time)=>{selected=id;step=time;view='runs';shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
  if(view==='structure') renderStructure();
@@ -211,7 +214,7 @@ function renderProcess(){
  mountVisualOdd(document.getElementById('content')!,lang,oddProcesses,subsystems);
 }
 async function load<T>(name:string):Promise<T>{const r=await fetch(`./model/${name}.json`);if(!r.ok)throw new Error(`${name}: HTTP ${r.status}`);return r.json();}
-async function init(){[variables,links,modules,references,oddProcesses,subsystems,m1Targets,m1Editorial,m1Presentation,m1Access,theoryIndex,theoryGlossary,validationTests]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems'),load<EmpiricalTarget[]>('empirical_targets'),load<M1EditorialData>('m1_editorial'),load<M1PresentationData>('m1_presentation'),load<M1AccessData>('m1_access'),load<TheoryChapter[]>('theory_index'),load<TheoryGlossaryEntry[]>('theory_glossary'),load<TheoryValidation[]>('validation_tests')]);assertSemanticCoverage([...variables.map(v=>v.id),...modules.map(m=>m.id),...references.map(r=>r.id),...validationTests.map(v=>v.id),...theoryIndex.map(c=>c.id),...theoryGlossary.map(g=>g.id)],links.map(l=>l.id));initializeWorkspaceSession();runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
+async function init(){[variables,links,modules,references,oddProcesses,subsystems,m1Targets,m1Editorial,m1Presentation,m1Access,theoryIndex,theoryGlossary,validationTests]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems'),load<EmpiricalTarget[]>('empirical_targets'),load<M1EditorialData>('m1_editorial'),load<M1PresentationData>('m1_presentation'),load<M1AccessData>('m1_access'),load<TheoryChapter[]>('theory_index'),load<TheoryGlossaryEntry[]>('theory_glossary'),load<TheoryValidation[]>('validation_tests')]);assertSemanticCoverage([...variables.map(v=>v.id),...modules.map(m=>m.id),...references.map(r=>r.id),...validationTests.map(v=>v.id),...theoryIndex.map(c=>c.id),...theoryGlossary.map(g=>g.id)],links.map(l=>l.id));initializeWorkspaceSession();runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');decisionUncertainty=await load<DecisionUncertaintyRegistry>('decision_uncertainty');explanations=await load<ExplanationData>('explanations');shell();}
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(view==='structure'){stop();shell();}});
 let understandingRouteRefresh=false;
 const refreshUnderstandingRoute=()=>{

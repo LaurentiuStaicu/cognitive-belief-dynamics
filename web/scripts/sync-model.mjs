@@ -10,6 +10,10 @@ copyFileSync(
   fileURLToPath(new URL('model/contracts/active_understanding_v1.json',root)),
   fileURLToPath(new URL('active_understanding.json',target))
 );
+copyFileSync(
+  fileURLToPath(new URL('model/contracts/decision_uncertainty_v1.json',root)),
+  fileURLToPath(new URL('decision_uncertainty.json',target))
+);
 
 const generated=new URL('../src/generated/',import.meta.url);
 mkdirSync(generated,{recursive:true});
