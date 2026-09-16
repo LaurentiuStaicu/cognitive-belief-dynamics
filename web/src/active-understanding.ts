@@ -4,6 +4,7 @@ export type PredictionOutcome='correct'|'incorrect';
 
 export type ActiveSession={
  challengeId:string;
+ correctChoiceId:string;
  stage:ActiveStage;
  predictionCategory?:string;
  confidence?:ActiveConfidence;
@@ -12,16 +13,17 @@ export type ActiveSession={
 
 export type ActiveAction=
  |{type:'START_PREDICTION'}
- |{type:'SUBMIT_PREDICTION';predictionCategory:string;correctChoiceId:string;confidence?:ActiveConfidence}
+ |{type:'SUBMIT_PREDICTION';predictionCategory:string;confidence?:ActiveConfidence}
  |{type:'SKIP_PREDICTION'}
  |{type:'SHOW_EXPLANATION'}
  |{type:'SHOW_BOUNDARY'}
  |{type:'COMPLETE'}
  |{type:'RESET'};
 
-export function createActiveSession(challengeId:string):ActiveSession{
+export function createActiveSession(challengeId:string,correctChoiceId:string):ActiveSession{
  if(!challengeId.trim())throw new Error('challenge id required');
- return {challengeId,stage:'WORKED_EXAMPLE'};
+ if(!correctChoiceId.trim())throw new Error('correct choice id required');
+ return {challengeId,correctChoiceId,stage:'WORKED_EXAMPLE'};
 }
 
 export function reduceActiveSession(state:ActiveSession,action:ActiveAction):ActiveSession{
@@ -37,11 +39,11 @@ export function reduceActiveSession(state:ActiveSession,action:ActiveAction):Act
     stage:'REVEAL',
     predictionCategory:action.predictionCategory,
     ...(action.confidence?{confidence:action.confidence}:{}),
-    outcome:action.predictionCategory===action.correctChoiceId?'correct':'incorrect'
+    outcome:action.predictionCategory===state.correctChoiceId?'correct':'incorrect'
    };
   case 'SKIP_PREDICTION':
    if(state.stage!=='PREDICT')throw new Error('prediction can be skipped only in PREDICT stage');
-   return {challengeId:state.challengeId,stage:'REVEAL'};
+   return {challengeId:state.challengeId,correctChoiceId:state.correctChoiceId,stage:'REVEAL'};
   case 'SHOW_EXPLANATION':
    if(state.stage!=='REVEAL')throw new Error('explanation follows reveal');
    return {...state,stage:'EXPLAIN'};
@@ -52,7 +54,7 @@ export function reduceActiveSession(state:ActiveSession,action:ActiveAction):Act
    if(state.stage!=='BOUNDARY')throw new Error('completion follows epistemic boundary');
    return {...state,stage:'COMPLETE'};
   case 'RESET':
-   return createActiveSession(state.challengeId);
+   return createActiveSession(state.challengeId,state.correctChoiceId);
  }
 }
 
@@ -118,9 +120,10 @@ export class LearningHistoryStore{
  }
 
  record(input:Omit<LearningHistoryRecord,'timestamp'>):LearningHistoryDocument{
-  if(!validRecord({...input,timestamp:this.now()}))throw new Error('invalid learning-history record');
+  const timestamp=this.now();
+  if(!validRecord({...input,timestamp}))throw new Error('invalid learning-history record');
   const document=this.read();
-  const next:LearningHistoryRecord={...clone(input),timestamp:this.now()};
+  const next:LearningHistoryRecord={...clone(input),timestamp};
   document.records=[...document.records,next].slice(-this.maxRecords);
   this.write(document);
   return clone(document);

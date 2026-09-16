@@ -16,7 +16,7 @@ class MemoryStorage implements StorageLike{
 }
 
 test('OA-5A state machine requires predict before reveal but permits an explicit skip',()=>{
- let state=createActiveSession('AU-1');
+ let state=createActiveSession('AU-1','INCREASE');
  assert.equal(state.stage,'WORKED_EXAMPLE');
  state=reduceActiveSession(state,{type:'START_PREDICTION'});
  assert.equal(state.stage,'PREDICT');
@@ -26,12 +26,11 @@ test('OA-5A state machine requires predict before reveal but permits an explicit
 });
 
 test('submitted prediction records outcome and optional learner confidence without changing the target result',()=>{
- let state=createActiveSession('AU-2');
+ let state=createActiveSession('AU-2','ACCURACY_SALIENCE');
  state=reduceActiveSession(state,{type:'START_PREDICTION'});
  state=reduceActiveSession(state,{
   type:'SUBMIT_PREDICTION',
   predictionCategory:'ACCURACY_SALIENCE',
-  correctChoiceId:'ACCURACY_SALIENCE',
   confidence:'medium'
  });
  assert.equal(state.stage,'REVEAL');
@@ -41,12 +40,11 @@ test('submitted prediction records outcome and optional learner confidence witho
 });
 
 test('reveal must precede explanation, boundary and completion',()=>{
- let state=createActiveSession('AU-3');
+ let state=createActiveSession('AU-3','COMPUTATIONAL_DEPENDENCY');
  state=reduceActiveSession(state,{type:'START_PREDICTION'});
  state=reduceActiveSession(state,{
   type:'SUBMIT_PREDICTION',
-  predictionCategory:'REGISTERED_EVIDENCE_RELATION',
-  correctChoiceId:'COMPUTATIONAL_DEPENDENCY'
+  predictionCategory:'REGISTERED_EVIDENCE_RELATION'
  });
  assert.equal(state.outcome,'incorrect');
  state=reduceActiveSession(state,{type:'SHOW_EXPLANATION'});
@@ -58,12 +56,11 @@ test('reveal must precede explanation, boundary and completion',()=>{
 });
 
 test('illegal state transitions fail closed',()=>{
- const state=createActiveSession('AU-1');
+ const state=createActiveSession('AU-1','INCREASE');
  assert.throws(()=>reduceActiveSession(state,{type:'SHOW_EXPLANATION'}));
  assert.throws(()=>reduceActiveSession(state,{
   type:'SUBMIT_PREDICTION',
-  predictionCategory:'INCREASE',
-  correctChoiceId:'INCREASE'
+  predictionCategory:'INCREASE'
  }));
 });
 
