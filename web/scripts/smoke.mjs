@@ -479,6 +479,43 @@ try {
  },frozenPlan);
  assert.equal(duplicateRejected,true);
 
+ // OA-7 retrospective recorder: manual ObservedOutcome append must not mutate the frozen prospective plan.
+ const frozenPlanBeforeObservation=JSON.stringify(frozenPlan);
+ assert.equal(await page.locator('#observedOutcomeRecorder').getAttribute('data-plan-id'),frozenPlanId);
+ assert.equal(await page.locator('#observedOutcomeRecorder').getAttribute('data-snapshot-id'),frozenSnapshotId);
+ await page.locator('#observedOutcomeForm [name="indicator_id"]').selectOption('CEM.INDICATOR.M0.FALSE_SHARING.MEAN13');
+ await page.locator('#observedOutcomeForm [name="population_label"]').fill('Regression cohort');
+ await page.locator('#observedOutcomeForm [name="population_definition"]').fill('Manual illustrative retrospective cohort');
+ await page.locator('#observedOutcomeForm [name="setting"]').fill('Regression test setting');
+ await page.locator('#observedOutcomeForm [name="geography"]').fill('RO');
+ await page.locator('#observedOutcomeForm [name="time_horizon"]').fill('30 days');
+ await page.locator('#observedOutcomeForm [name="outcome_name"]').fill('Observed false-sharing probability');
+ await page.locator('#observedOutcomeForm [name="outcome_definition"]').fill('Manual retrospective regression measurement');
+ await page.locator('#observedOutcomeForm [name="feature_of_interest"]').fill('regression cohort');
+ await page.locator('#observedOutcomeForm [name="procedure"]').fill('manual regression measurement protocol');
+ await page.locator('#observedOutcomeForm [name="phenomenon_time"]').fill('2026-01-01T10:00');
+ await page.locator('#observedOutcomeForm [name="result_time"]').fill('2026-01-01T11:00');
+ await page.locator('#observedOutcomeForm [name="result_value"]').fill('0.3142');
+ await page.locator('#observedOutcomeForm [name="quality_note"]').fill('illustrative browser regression');
+ await page.locator('#observedOutcomeForm [name="source_refs"]').fill('source:manual-regression\nsource:protocol');
+ await page.locator('#observedOutcomeForm button[type="submit"]').click();
+ await page.waitForFunction(()=>Boolean(document.querySelector('#observedOutcomeHost')?.getAttribute('data-observed-outcome-id')));
+ const observedOutcomeId=await page.locator('#observedOutcomeHost').getAttribute('data-observed-outcome-id');
+ assert(observedOutcomeId?.startsWith('CEM.OBSERVED.OUTCOME.'));
+ const observedOutcome=await readIdbRecord('reality_loop_objects',observedOutcomeId);
+ assert.equal(observedOutcome.object_type,'ObservedOutcome');
+ assert.equal(observedOutcome.case_id,initialWorkspace.case.id);
+ assert.equal(observedOutcome.implementation_plan_id,frozenPlanId);
+ assert.equal(observedOutcome.prospective_snapshot_id,frozenSnapshotId);
+ assert.equal(observedOutcome.indicator_id,'CEM.INDICATOR.M0.FALSE_SHARING.MEAN13');
+ assert.equal(observedOutcome.observed_property,'M0.SIMULATED.FALSE_SHARING.PROBABILITY.MEAN13');
+ assert.equal(observedOutcome.result.value,0.3142);
+ assert.equal(observedOutcome.result.unit,'probability');
+ assert.deepEqual(observedOutcome.source_refs,['source:manual-regression','source:protocol']);
+ assert.equal(observedOutcome.retrospective,true);
+ assert.equal(observedOutcome.mutation_policy,'APPEND_ONLY_NO_RETROACTIVE_PREDICTION_EDIT');
+ assert.equal(JSON.stringify(await readIdbRecord('reality_loop_objects',frozenPlanId)),frozenPlanBeforeObservation);
+
  await page.locator('[data-remove-trigger]').click();
  assert.equal(await page.locator('[data-trigger-draft]').count(),0);
  assert.equal(await page.locator('[data-adaptive-phase="IF"]').getAttribute('data-adaptive-readiness'),'MISSING_TRIGGER');
