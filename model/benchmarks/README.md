@@ -114,3 +114,39 @@ Phase H uses a staged recovery design:
   protocol is designed.
 
 The screening result is not authorization for human data collection.
+
+
+## Authoritative Phase I participant-aware screening — 2026-09-16
+
+The participant-aware 72-cell screen was completed from the Phase H model using
+50 replicates per cell.
+
+Persistent result files:
+
+- `results/m1_e4_participant_screening_authoritative_2026-09-16.csv`;
+- `results/m1_e4_participant_screening_authoritative_2026-09-16.sha256`.
+
+Authoritative decision surface:
+
+- 72 / 72 cells pass the 0.80 screening convention;
+- global minimum recovery = `0.88`;
+- no decisive wrong-family selections;
+- EVSD generator: 1780 / 1800 EVSD, 0 / 1800 2HT, 20 inconclusive;
+- 2HT generator: 1751 / 1800 2HT, 0 / 1800 EVSD, 49 inconclusive.
+
+Allocation minima:
+
+- P40_X16: 0.94;
+- P64_X10: 0.96;
+- P80_X8: 0.90;
+- P128_X5: 0.88.
+
+P64_X10 is therefore nominated for 200-replicate confirmation across its entire
+18-cell stress grid. Screening alone does not authorize a human protocol.
+
+The marginal-likelihood implementation was vectorized for computational
+feasibility. A repository test compares the vectorized calculation directly
+against a loop-based reference for both candidate families. Separate CI runs can
+show tiny floating-point differences in continuous optimizer estimates, so Phase I
+records decision-level reproducibility rather than falsely requiring bitwise
+identity of optimized parameter values.

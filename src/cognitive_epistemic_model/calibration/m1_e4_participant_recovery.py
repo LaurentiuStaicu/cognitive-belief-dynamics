@@ -197,50 +197,62 @@ def _marginal_log_likelihood(
     memory_offsets = sqrt(2.0) * sigma_memory * nodes
     bias_offsets = sqrt(2.0) * sigma_bias * nodes
 
-    total_ll = 0.0
-    for p in range(dataset.participants):
-        terms: list[float] = []
-        for i, u in enumerate(memory_offsets):
-            if family is RecoveryFamily.EVSD:
-                memory_p = population_memory * np.exp(u)
-            else:
-                memory_p = expit(
-                    np.asarray([_logit(x) for x in population_memory]) + u
-                )
+    # Vectorize the same Gauss-Hermite integral over participants and both
+    # random-effect dimensions. Shapes:
+    #   participant outcomes: P x C x K
+    #   quadrature probabilities: M x B x C x K
+    #   conditional likelihood: P x M x B
+    #
+    # This is mathematically identical to the former participant/node loops but
+    # removes Python-level iteration from the optimizer's hot path.
+    if family is RecoveryFamily.EVSD:
+        memory_by_node = (
+            population_memory[None, :] * np.exp(memory_offsets[:, None])
+        )
+        bias_by_node = population_biases[None, :] + bias_offsets[:, None]
+        hit_prob = ndtr(
+            memory_by_node[:, None, :, None] / 2.0
+            - bias_by_node[None, :, None, :]
+        )
+        fa_prob = ndtr(
+            -memory_by_node[:, None, :, None] / 2.0
+            - bias_by_node[None, :, None, :]
+        )
+    else:
+        memory_logits = np.asarray([_logit(x) for x in population_memory])
+        bias_logits = np.asarray([_logit(x) for x in population_biases])
+        memory_by_node = expit(
+            memory_logits[None, :] + memory_offsets[:, None]
+        )
+        bias_by_node = expit(
+            bias_logits[None, :] + bias_offsets[:, None]
+        )
+        fa_prob = (
+            (1.0 - memory_by_node[:, None, :, None])
+            * bias_by_node[None, :, None, :]
+        )
+        hit_prob = memory_by_node[:, None, :, None] + fa_prob
 
-            for h, v in enumerate(bias_offsets):
-                if family is RecoveryFamily.EVSD:
-                    bias_p = population_biases + v
-                    hit_prob = ndtr(
-                        memory_p[:, None] / 2.0 - bias_p[None, :]
-                    )
-                    fa_prob = ndtr(
-                        -memory_p[:, None] / 2.0 - bias_p[None, :]
-                    )
-                else:
-                    bias_p = expit(
-                        np.asarray([_logit(x) for x in population_biases]) + v
-                    )
-                    fa_prob = (1.0 - memory_p)[:, None] * bias_p[None, :]
-                    hit_prob = memory_p[:, None] + fa_prob
+    hit_ll = _binomial_ll_array(
+        dataset.hits[:, None, None, :, :],
+        dataset.n_target_per_cell,
+        hit_prob[None, :, :, :, :],
+    )
+    fa_ll = _binomial_ll_array(
+        dataset.false_alarms[:, None, None, :, :],
+        dataset.n_foil_per_cell,
+        fa_prob[None, :, :, :, :],
+    )
+    conditional = (hit_ll + fa_ll).sum(axis=(-2, -1))
 
-                conditional = float(
-                    _binomial_ll_array(
-                        dataset.hits[p],
-                        dataset.n_target_per_cell,
-                        hit_prob,
-                    ).sum()
-                    + _binomial_ll_array(
-                        dataset.false_alarms[p],
-                        dataset.n_foil_per_cell,
-                        fa_prob,
-                    ).sum()
-                )
-                terms.append(
-                    float(log_weights[i] + log_weights[h] + conditional)
-                )
-        total_ll += float(logsumexp(np.asarray(terms)))
-    return total_ll
+    quadrature_log_weight = (
+        log_weights[None, :, None] + log_weights[None, None, :]
+    )
+    participant_marginal = logsumexp(
+        conditional + quadrature_log_weight,
+        axis=(1, 2),
+    )
+    return float(participant_marginal.sum())
 
 
 def _unpack(
