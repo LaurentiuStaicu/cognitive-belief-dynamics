@@ -1,4 +1,4 @@
-import {semanticIndex,type SemanticEntity,type SemanticIndex,type SemanticLang} from './semantic';
+import type {SemanticEntity,SemanticIndex,SemanticLang} from './semantic';
 
 export type SemanticSearchMatch=
  |'ID_EXACT'|'SHORT_NAME_EXACT'|'PREFERRED_LABEL_EXACT'|'ALTERNATIVE_LABEL_EXACT'
@@ -74,6 +74,3 @@ export function searchSemanticIndex(index:SemanticIndex,query:string,options:Sem
   .slice(0,limit);
 }
 
-export function searchSemantic(query:string,options:SemanticSearchOptions):SemanticSearchResult[]{
- return searchSemanticIndex(semanticIndex,query,options);
-}
