@@ -464,7 +464,18 @@ try {
  assert.deepEqual(frozenPlan.adaptive_plan.map(step=>step.phase),['NOW','WATCH','IF','THEN','STOP','REASSESS']);
  assert.equal('readiness' in frozenPlan.adaptive_plan[0],false);
  assert.equal('trigger_draft_id' in frozenPlan.adaptive_plan[2],false);
+ assert.deepEqual(frozenPlan.adaptive_plan[2].trigger,{
+  indicator_id:'CEM.INDICATOR.M0.FALSE_SHARING.MEAN13',
+  comparator:'LTE',
+  threshold:0.35,
+  unit:'probability',
+  origin:'USER_DECLARED'
+ });
  assert.equal('observed_outcome_id' in frozenPlan,false);
+ assert.equal(await page.locator('#triggerEvaluation').getAttribute('data-plan-id'),frozenPlanId);
+ assert.equal(await page.locator('#triggerEvaluation').getAttribute('data-automation'),'NO_AUTOMATIC_ACTIONS');
+ assert.equal(await page.locator('[data-trigger-evaluation]').count(),0);
+ assert.equal(await page.locator('[data-trigger-empty]').count(),1);
  const duplicateRejected=await page.evaluate(async record=>{
   const db=await new Promise((resolve,reject)=>{const req=indexedDB.open('cem-reality-loop',1);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});
   try{
@@ -514,6 +525,11 @@ try {
  assert.deepEqual(observedOutcome.source_refs,['source:manual-regression','source:protocol']);
  assert.equal(observedOutcome.retrospective,true);
  assert.equal(observedOutcome.mutation_policy,'APPEND_ONLY_NO_RETROACTIVE_PREDICTION_EDIT');
+ await page.waitForFunction(id=>Boolean(document.querySelector(`[data-trigger-evaluation="${id}"]`)),observedOutcomeId);
+ assert.equal(await page.locator(`[data-trigger-evaluation="${observedOutcomeId}"]`).getAttribute('data-trigger-status'),'NOT_EVALUABLE');
+ assert.match(await page.locator(`[data-trigger-evaluation="${observedOutcomeId}"]`).textContent(),/PRE_SNAPSHOT_PHENOMENON/);
+ assert.match(await page.locator('#triggerEvaluation').textContent(),/NO_AUTOMATIC_ACTIONS/);
+ assert.doesNotMatch(await page.locator('#triggerEvaluation').textContent(),/executed\s*=\s*true/i);
  assert.equal(JSON.stringify(await readIdbRecord('reality_loop_objects',frozenPlanId)),frozenPlanBeforeObservation);
 
  await page.locator('[data-remove-trigger]').click();
