@@ -1,13 +1,13 @@
-import {
- WORKSPACE_ACTIVE_KEY,
- WORKSPACE_RECOVERY_KEY,
- type StorageLike,
- type WorkspaceActivity,
- type WorkspaceDocument,
- type WorkspaceRef,
- type WorkspaceVersions
+import type {
+ StorageLike,
+ WorkspaceActivity,
+ WorkspaceDocument,
+ WorkspaceRef,
+ WorkspaceVersions
 } from './workspace-store';
 
+const WORKSPACE_ACTIVE_KEY='cem.workspace.v1.active';
+const WORKSPACE_RECOVERY_KEY='cem.workspace.v1.recovery';
 export const WORKSPACE_IMPORT_ORIGINAL_KEY='cem.workspace.v1.import.original';
 
 export class WorkspaceImportError extends Error{}
@@ -86,7 +86,6 @@ function appendActivity(
 }
 
 function migrateV0(source:LegacyWorkspaceV0,now:()=>string,id:()=>string):WorkspaceDocument{
- const timestamp=now();
  const token=id();
  const initialRevision=`CEM.WORKSPACE.REV.${token}.legacy`;
  const versions:WorkspaceVersions={
@@ -120,8 +119,7 @@ function migrateV0(source:LegacyWorkspaceV0,now:()=>string,id:()=>string):Worksp
    }]
   }
  };
- const migrated=appendActivity(base,'MIGRATE',now,id);
- return {...migrated,updated_at:timestamp};
+ return appendActivity(base,'MIGRATE',now,id);
 }
 
 export function workspaceFileName(document:WorkspaceDocument):string{
