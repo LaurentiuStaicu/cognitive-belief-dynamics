@@ -84,11 +84,13 @@ export class WorkspaceStore {
  private document?:WorkspaceDocument;
  private undoStack:WorkspaceCase[]=[];
  private redoStack:WorkspaceCase[]=[];
+ private readonly storage:StorageLike;
  private readonly now:()=>string;
  private readonly id:()=>string;
  private readonly validate:(document:WorkspaceDocument)=>void;
 
- constructor(private readonly storage:StorageLike,options:StoreOptions={}){
+ constructor(storage:StorageLike,options:StoreOptions={}){
+  this.storage=storage;
   this.now=options.now??defaultNow;
   this.id=options.id??defaultId;
   this.validate=options.validate??(()=>{});
