@@ -1,0 +1,106 @@
+{
+  "benchmark_id": "BENCH.M1.E4.PARTICIPANT_AWARE.SCREENING.2026-09-16",
+  "status": "PARTICIPANT_AWARE_HIERARCHICAL_SCREENING",
+  "seed": 20260916,
+  "replicates": 50,
+  "confirmation_replicates": 200,
+  "recovery_threshold": 0.8,
+  "quadrature_nodes": 5,
+  "aggregate_target_per_cell": 640,
+  "aggregate_foil_per_cell": 640,
+  "design_structure": {
+    "hsimp": "WITHIN_PARTICIPANT",
+    "bias_operating_points": "WITHIN_PARTICIPANT_BLOCKS",
+    "operating_points": 5,
+    "block_order": "COUNTERBALANCED_OR_RANDOMIZED_IN_HUMAN_PROTOCOL",
+    "held_out": "INDEPENDENT_NEW_PARTICIPANT_COHORT"
+  },
+  "participant_allocations": [
+    {
+      "label": "P40_X16",
+      "participants": 40,
+      "target_trials_per_participant_per_cell": 16,
+      "foil_trials_per_participant_per_cell": 16,
+      "total_responses_per_participant": 320
+    },
+    {
+      "label": "P64_X10",
+      "participants": 64,
+      "target_trials_per_participant_per_cell": 10,
+      "foil_trials_per_participant_per_cell": 10,
+      "total_responses_per_participant": 200
+    },
+    {
+      "label": "P80_X8",
+      "participants": 80,
+      "target_trials_per_participant_per_cell": 8,
+      "foil_trials_per_participant_per_cell": 8,
+      "total_responses_per_participant": 160
+    },
+    {
+      "label": "P128_X5",
+      "participants": 128,
+      "target_trials_per_participant_per_cell": 5,
+      "foil_trials_per_participant_per_cell": 5,
+      "total_responses_per_participant": 100
+    }
+  ],
+  "heterogeneity_regimes": [
+    {
+      "label": "low",
+      "sigma_memory": 0.1,
+      "sigma_bias": 0.1
+    },
+    {
+      "label": "moderate",
+      "sigma_memory": 0.25,
+      "sigma_bias": 0.25
+    },
+    {
+      "label": "high",
+      "sigma_memory": 0.4,
+      "sigma_bias": 0.4
+    }
+  ],
+  "bias_grids": {
+    "EVSD": [-0.8, -0.4, 0.0, 0.4, 0.8],
+    "2HT": [0.15, 0.325, 0.5, 0.675, 0.85]
+  },
+  "memory_grids": {
+    "EVSD": [
+      {"label": "weak", "complex": 0.45, "simple": 0.65},
+      {"label": "medium", "complex": 0.9, "simple": 1.1},
+      {"label": "strong", "complex": 1.35, "simple": 1.55}
+    ],
+    "2HT": [
+      {"label": "weak", "complex": 0.18, "simple": 0.28},
+      {"label": "medium", "complex": 0.38, "simple": 0.48},
+      {"label": "strong", "complex": 0.58, "simple": 0.68}
+    ]
+  },
+  "random_effects": {
+    "EVSD": {
+      "memory": "d_participant_condition = d_population_condition * exp(u_participant)",
+      "bias": "c_participant_point = c_population_point + v_participant"
+    },
+    "2HT": {
+      "memory": "logit(Ddet_participant_condition) = logit(Ddet_population_condition) + u_participant",
+      "bias": "logit(g_participant_point) = logit(g_population_point) + v_participant"
+    },
+    "u_participant": "Normal(0, sigma_memory)",
+    "v_participant": "Normal(0, sigma_bias)",
+    "correlation_between_random_effects": 0.0
+  },
+  "selection_rule": {
+    "train": "marginal AIC after Gauss-Hermite integration over participant random effects",
+    "held_out": "marginal predictive log likelihood in an independent participant cohort",
+    "decision": "select a family only when train AIC and held-out predictive log likelihood favor the same candidate; otherwise INCONCLUSIVE"
+  },
+  "screening_gate": {
+    "purpose": "identify participant allocations and heterogeneity regions requiring 200-replicate confirmation",
+    "screening_replicates_are_authoritative_for_human_protocol": false,
+    "confirmation_required": true,
+    "confirmation_replicates": 200
+  },
+  "interpretation_boundary": "Participant-aware synthetic recovery only. The benchmark models participant memory and response-bias heterogeneity shared across repeated blocks. It does not yet model item random effects, fatigue, learning, block-order carryover, missingness, attrition, or empirical model truth; it does not identify Pencode."
+}
