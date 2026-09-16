@@ -544,3 +544,34 @@ Phase A adds only:
 
 No active registry, evidence snapshot, runtime equation, UI or release metadata is
 authorized to change in this phase.
+
+
+## Alpha 0.4.3a0 Phase B — M1.E4 SDT measurement bridge
+
+Phase A was merged into `main` at
+`4218bbd381127de4ab0872c21356500d13faae51` and post-merge CI #136 passed.
+
+Phase B is isolated on branch
+`alpha-0.4.3a0-phase-b-measurement-bridge`.
+
+Measurement decision:
+
+- preserve the raw 2×2 recognition cells: hit, miss, false alarm, correct rejection;
+- compute `Drecog` from corrected hit/false-alarm rates under a transparent
+  equal-variance Gaussian yes/no SDT reference convention;
+- keep `Crecog` as a separate response-criterion diagnostic;
+- use the Hautus log-linear correction consistently for finite reference
+  estimates, without claiming exact reproduction of the source code;
+- do not invent the unreported target/foil split of the 24-item Study 3 task;
+- keep `Msep` measurement-model-only;
+- mark `Pencode` as `NOT_IDENTIFIED_BY_CURRENT_MEASUREMENT`;
+- treat equal target/foil evidence variance as a reference assumption rather
+  than established recognition-memory physiology.
+
+Phase B adds only documentation, a pre-executable contract, its schema and
+regression tests. Active scientific registries, runtime, UI, evidence snapshot
+and Alpha 0.4.2a0 release metadata remain unchanged.
+
+A later generative-candidate phase must compare explicit mechanisms at the raw
+response and SDT-summary levels; matching the published mean d-prime alone is
+insufficient.
