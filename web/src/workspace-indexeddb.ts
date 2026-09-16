@@ -216,3 +216,38 @@ export async function migrateLegacyWorkspaceToIndexedDb(
   };
  }finally{db.close();}
 }
+
+
+export async function addRealityLoopObject<T extends {id:string;object_type:string}>(
+ record:T,
+ options:OpenOptions={}
+):Promise<T>{
+ const db=await openCemStorage(options);
+ try{
+  let tx:IDBTransaction;
+  try{
+   tx=db.transaction(CEM_STORAGE_STORES.reality_loop_objects,'readwrite',{durability:'strict'});
+  }catch{
+   tx=db.transaction(CEM_STORAGE_STORES.reality_loop_objects,'readwrite');
+  }
+  tx.objectStore(CEM_STORAGE_STORES.reality_loop_objects).add(clone(record));
+  await transactionDone(tx);
+
+  const verifyTx=db.transaction(CEM_STORAGE_STORES.reality_loop_objects,'readonly');
+  const written=await requestResult(verifyTx.objectStore(CEM_STORAGE_STORES.reality_loop_objects).get(record.id)) as T|undefined;
+  await transactionDone(verifyTx);
+  if(!written)throw new Error(`Reality Loop append verification failed: ${record.id}`);
+  if(JSON.stringify(written)!==JSON.stringify(record))throw new Error(`Reality Loop append verification mismatch: ${record.id}`);
+  return clone(written);
+ }finally{db.close();}
+}
+
+export async function readRealityLoopObject<T=unknown>(id:string,options:OpenOptions={}):Promise<T|undefined>{
+ const db=await openCemStorage(options);
+ try{
+  const tx=db.transaction(CEM_STORAGE_STORES.reality_loop_objects,'readonly');
+  const value=await requestResult(tx.objectStore(CEM_STORAGE_STORES.reality_loop_objects).get(id)) as T|undefined;
+  await transactionDone(tx);
+  return value===undefined?undefined:clone(value);
+ }finally{db.close();}
+}

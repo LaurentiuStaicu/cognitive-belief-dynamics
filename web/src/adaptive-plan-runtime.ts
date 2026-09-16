@@ -118,6 +118,7 @@ export function mountAdaptivePlanRuntime(host:HTMLElement,input:{
  bundle_label:Copy;
  signposts:SignpostDefinition[];
  trigger_drafts:TriggerDraft[];
+ onPlanChange?:(plan:AdaptivePlanDraft)=>void;
 }){
  const {lang}=input;
  const t=(ro:string,en:string)=>lang==='ro'?ro:en;
@@ -127,6 +128,7 @@ export function mountAdaptivePlanRuntime(host:HTMLElement,input:{
   const trigger=input.trigger_drafts.find(item=>item.id===selectedTriggerId);
   const signpost=trigger?input.signposts.find(item=>item.id===trigger.signpost_id):input.signposts[0];
   const plan=buildAdaptivePlanDraft({bundle_label:input.bundle_label,signpost,trigger,actions});
+  input.onPlanChange?.(plan);
   host.innerHTML=`<section id="adaptivePlanRuntime" class="adaptive-plan-runtime" data-execution-status="${plan.execution_status}">
    <div class="section-heading"><div><p class="eyebrow">OA-7 · ADAPTIVE PLAN</p><h4>${t('NOW / WATCH / IF / THEN / STOP / REASSESS','NOW / WATCH / IF / THEN / STOP / REASSESS')}</h4><p>${t('Acesta este un plan draft prospectiv. Definește ce am face dacă un trigger ar fi confirmat ulterior prin observații; nu execută și nu evaluează acțiuni.','This is a prospective plan draft. It defines what we would do if a trigger were later confirmed by observations; it does not execute or evaluate actions.')}</p></div><span class="adaptive-plan-boundary">${plan.execution_status}</span></div>
    <div class="adaptive-step-grid">${plan.steps.map(step=>`<article data-adaptive-phase="${step.phase}" data-adaptive-readiness="${step.readiness}"><div><strong>${step.phase}</strong><code>${step.readiness}</code></div><p>${esc(step.statement[lang])}</p>${step.indicator_id?`<small>Indicator: ${esc(step.indicator_id)}</small>`:''}${step.trigger_draft_id?`<small>Trigger: ${esc(step.trigger_draft_id)}</small>`:''}</article>`).join('')}</div>

@@ -439,6 +439,46 @@ try {
  assert.match(await page.locator('#adaptivePlanRuntime').textContent(),/NO_AUTOMATIC_ACTIONS|nu se execută automat|never executed automatically/i);
  assert.doesNotMatch(await page.locator('#adaptivePlanRuntime').textContent(),/executed\s*=\s*true/i);
 
+ // OA-7 canonical prospective freeze: append-only ImplementationPlan + embedded ProspectiveSnapshot.
+ assert.equal(await page.locator('#implementationPlanPersistence').getAttribute('data-freeze-ready'),'true');
+ await page.locator('#freezeImplementationPlan').click();
+ await page.waitForFunction(()=>Boolean(document.querySelector('#implementationPlanPersistenceHost')?.getAttribute('data-implementation-plan-id')));
+ const frozenPlanId=await page.locator('#implementationPlanPersistenceHost').getAttribute('data-implementation-plan-id');
+ const frozenSnapshotId=await page.locator('#implementationPlanPersistenceHost').getAttribute('data-prospective-snapshot-id');
+ assert(frozenPlanId?.startsWith('CEM.IMPLEMENTATION.PLAN.'));
+ assert(frozenSnapshotId?.startsWith('CEM.PROSPECTIVE.SNAPSHOT.'));
+ const frozenPlan=await readIdbRecord('reality_loop_objects',frozenPlanId);
+ assert.equal(frozenPlan.object_type,'ImplementationPlan');
+ assert.equal(frozenPlan.case_id,initialWorkspace.case.id);
+ assert.equal(frozenPlan.plan_scope,'ILLUSTRATIVE');
+ assert.equal(frozenPlan.status,'DRAFT');
+ assert.equal(frozenPlan.prospective_snapshot.id,frozenSnapshotId);
+ assert.equal(frozenPlan.prospective_snapshot.revision_policy,'APPEND_ONLY_NO_RETROACTIVE_EDIT');
+ assert.equal(frozenPlan.created_at,frozenPlan.prospective_snapshot.frozen_at);
+ assert.deepEqual(frozenPlan.indicator_ids,[
+  'CEM.INDICATOR.M0.FALSE_SHARING.MEAN13',
+  'CEM.INDICATOR.M0.TRUE_SHARING.MEAN13'
+ ]);
+ assert.deepEqual(frozenPlan.action_canvas.intermediate_result.indicator_ids,[]);
+ assert.deepEqual(frozenPlan.action_canvas.final_outcome.indicator_ids,[]);
+ assert.deepEqual(frozenPlan.adaptive_plan.map(step=>step.phase),['NOW','WATCH','IF','THEN','STOP','REASSESS']);
+ assert.equal('readiness' in frozenPlan.adaptive_plan[0],false);
+ assert.equal('trigger_draft_id' in frozenPlan.adaptive_plan[2],false);
+ assert.equal('observed_outcome_id' in frozenPlan,false);
+ const duplicateRejected=await page.evaluate(async record=>{
+  const db=await new Promise((resolve,reject)=>{const req=indexedDB.open('cem-reality-loop',1);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});
+  try{
+   return await new Promise(resolve=>{
+    const tx=db.transaction('reality_loop_objects','readwrite');
+    const req=tx.objectStore('reality_loop_objects').add(record);
+    req.onerror=event=>{event.preventDefault();tx.abort();};
+    tx.onabort=()=>resolve(true);
+    tx.oncomplete=()=>resolve(false);
+   });
+  }finally{db.close();}
+ },frozenPlan);
+ assert.equal(duplicateRejected,true);
+
  await page.locator('[data-remove-trigger]').click();
  assert.equal(await page.locator('[data-trigger-draft]').count(),0);
  assert.equal(await page.locator('[data-adaptive-phase="IF"]').getAttribute('data-adaptive-readiness'),'MISSING_TRIGGER');
