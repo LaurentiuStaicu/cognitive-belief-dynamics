@@ -514,3 +514,33 @@ branch targeting current `main`, containing the complete Phase B + Phase C +
 release-preparation stack. That integration candidate must receive a fresh full
 CI and a final `main...integration` diff audit before any merge/publication is
 authorized.
+
+
+## Alpha 0.4.3a0 Phase A — M1.E4 Headline Recognition Gate
+
+Phase A begins on branch `alpha-0.4.3a0-phase-a-recognition-contract` from
+public Alpha 0.4.2a0 main commit
+`459b4fd3f4d690a33008fcc11ae839ad9f742b6d`.
+
+Scientific decision:
+
+- do not implement a generic attention state;
+- condition the first recognition experiment on `PreviewImpression`, not
+  `Access`;
+- select `Hsimp` as a binary precomputed simple-versus-complex headline cue;
+- select `Drecog` as the direct validation construct;
+- defer latent `Aattn` and event-level `Pencode`;
+- use Shulman Study 3 as the primary directional target;
+- preserve Shulman Study 4 professional-writer null and Mattis et al. 2025
+  article-complexity null as context boundaries.
+
+Phase A adds only:
+
+- `docs/ALPHA_0.4.3a0_PLAN.md`;
+- `model/contracts/m1_e4_evidence_contract.json`;
+- `schemas/m1_e4_evidence_contract.schema.json`;
+- contract regression tests;
+- contract/handoff documentation.
+
+No active registry, evidence snapshot, runtime equation, UI or release metadata is
+authorized to change in this phase.
