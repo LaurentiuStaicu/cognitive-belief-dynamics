@@ -53,6 +53,10 @@ Versioned bilingual theory/documentation chapter with explicit cross-links and c
 
 Bilingual explanatory descriptor. Entries whose current `kind` is `MECHANISM` may expose semantic role `MECHANISM_DESCRIPTOR`.
 
+### ComputationalNode
+
+A non-registered computational input or intermediate output used to explain executable data flow. It is not promoted to a registered psychological variable merely because it is executable.
+
 The broader OA architecture still anticipates future objects such as Claim, Assumption, Prediction, Intervention, Indicator, Observation and Decision, but OA-1 does not invent them before a source-of-truth object exists.
 
 ## 4. Relation layers
@@ -78,11 +82,11 @@ These are not interchangeable with computational dependencies.
 
 ### Computational dependency
 
-Current source: `web/src/dependencies.ts`.
+Canonical source after OA-1C: `model/computational_dependencies.json`.
 
 Represents equation/data-flow dependency and code/formula provenance. It does not by itself assert empirical causation.
 
-OA-1 should move this metadata into a canonical data artifact so TypeScript becomes a consumer rather than a second scientific metadata source.
+The web TypeScript layer adapts this canonical data for graph rendering and is not a second scientific metadata source.
 
 ### Documentation relation
 
@@ -223,7 +227,7 @@ Generate semantic entities/relations from current authoritative registries and t
 
 ### OA-1C — computational dependency extraction
 
-Move current computational dependency metadata out of TypeScript into canonical data consumed by the web application.
+Move the 11 auxiliary graph nodes and 17 computational dependencies into a schema-validated canonical registry, compile them into the Semantic Spine and make TypeScript a consumer while preserving existing graph behavior.
 
 ### OA-1D — web semantic adapter
 
