@@ -1,0 +1,102 @@
+/* OA-3B visual-language layer. Scientific meaning remains in the data/text, never in color alone. */
+:root{
+ --vl-space-unit:6px;
+ --vl-space-1:6px;
+ --vl-space-2:12px;
+ --vl-space-3:18px;
+ --vl-space-4:24px;
+ --vl-space-6:36px;
+ --vl-space-8:48px;
+ --vl-content-margin-min:12px;
+ --vl-reader-max:72ch;
+ --vl-target-min:44px;
+ --vl-focus-ring:3px;
+ --vl-focus-offset:3px;
+ --vl-radius-sm:6px;
+ --vl-radius-md:10px;
+ --vl-radius-lg:14px;
+ --vl-surface-base:var(--bg);
+ --vl-surface-raised:var(--surface);
+ --vl-surface-inset:var(--soft);
+ --vl-border:var(--border);
+ --vl-focus-color:#6b35c8;
+ --vl-status-strong:#116149;
+ --vl-status-model:#1f6096;
+ --vl-status-concept:#725d00;
+ --vl-status-candidate:#8a4b08;
+}
+@media(prefers-color-scheme:dark){:root{
+ --vl-focus-color:#ffd166;
+ --vl-status-strong:#8ee0bf;
+ --vl-status-model:#9acbff;
+ --vl-status-concept:#f0d77c;
+ --vl-status-candidate:#ffbd78;
+}}
+html{font-family:system-ui,Inter,sans-serif}
+body{background:var(--vl-surface-base);color:var(--text)}
+.workspace{padding-left:max(var(--vl-content-margin-min),clamp(12px,2vw,24px));padding-right:max(var(--vl-content-margin-min),clamp(12px,2vw,24px))}
+.panel{background:var(--vl-surface-raised);border-color:var(--vl-border);border-radius:var(--vl-radius-lg)}
+.navigation-shell{margin-bottom:var(--vl-space-4)}
+.nav-groups{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--vl-space-1);margin-bottom:var(--vl-space-1)}
+.nav-groups button{min-height:var(--vl-target-min);padding:var(--vl-space-2) var(--vl-space-3)}
+.views{gap:var(--vl-space-1)}
+.views button{min-height:var(--vl-target-min)}
+button,select,input[type=number],input[type=range],.button-link{min-height:var(--vl-target-min)}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,[tabindex]:focus-visible{
+ outline:var(--vl-focus-ring) solid var(--vl-focus-color);
+ outline-offset:var(--vl-focus-offset);
+}
+.theory-reader{line-height:1.68}
+.theory-reader>p,.theory-reader>blockquote,.theory-reader>ul,.theory-reader>ol,.theory-reader>h2,.theory-reader>h3,.theory-reader>h4{max-width:var(--vl-reader-max)}
+.intro p:not(.eyebrow),.section-heading p{max-width:var(--vl-reader-max)}
+.theory-statuses{display:flex;flex-wrap:wrap;gap:var(--vl-space-1)}
+.theory-statuses [data-status],.epistemic-status{
+ display:inline-flex;
+ align-items:center;
+ gap:var(--vl-space-1);
+ padding:3px var(--vl-space-2);
+ border:1px solid currentColor;
+ border-radius:999px;
+ font-size:.8rem;
+ font-weight:650;
+ line-height:1.4;
+}
+.theory-statuses [data-status]::before,.epistemic-status::before{
+ display:inline-grid;
+ place-items:center;
+ min-width:1.5rem;
+ height:1.5rem;
+ padding:0 .25rem;
+ border-radius:var(--vl-radius-sm);
+ border:1px solid currentColor;
+ font-size:.68rem;
+ font-weight:800;
+ letter-spacing:.02em;
+}
+[data-status="EMPIRICAL"],[data-status="META_ANALYTIC"]{color:var(--vl-status-strong)}
+[data-status="EXECUTABLE"],[data-status="EXPERIMENTAL"]{color:var(--vl-status-model)}
+[data-status="CONCEPTUAL"],[data-status="INTERPRETIVE"]{color:var(--vl-status-concept)}
+[data-status="CANDIDATE"],[data-status="REFERENCE_CANDIDATE"]{color:var(--vl-status-candidate)}
+[data-status="EMPIRICAL"]::before{content:"E"}
+[data-status="EXECUTABLE"]::before{content:"X"}
+[data-status="CONCEPTUAL"]::before{content:"C"}
+[data-status="INTERPRETIVE"]::before{content:"I"}
+[data-status="EXPERIMENTAL"]::before{content:"EX"}
+[data-status="META_ANALYTIC"]::before{content:"MA"}
+[data-status="CANDIDATE"]::before{content:"?"}
+[data-status="REFERENCE_CANDIDATE"]::before{content:"R"}
+@media(max-width:1050px){
+ .workspace{padding-left:max(var(--vl-content-margin-min),1.2rem);padding-right:max(var(--vl-content-margin-min),1.2rem)}
+}
+@media(max-width:760px){
+ .workspace{padding-left:var(--vl-content-margin-min);padding-right:var(--vl-content-margin-min)}
+ .nav-groups{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .nav-groups button{text-align:left}
+ .views{display:grid;grid-template-columns:1fr;gap:0;border-bottom:0}
+ .views button{text-align:left;border-bottom:1px solid var(--vl-border)}
+}
+@media(max-width:420px){.nav-groups{grid-template-columns:1fr}}
+@media(forced-colors:active){
+ .theory-statuses [data-status],.epistemic-status{border:1px solid CanvasText}
+ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid Highlight}
+}
