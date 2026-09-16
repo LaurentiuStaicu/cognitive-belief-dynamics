@@ -63,14 +63,22 @@ function rank(entity:SemanticEntity,query:string,lang:SemanticLang):{match:Seman
 export function searchSemanticIndex(index:SemanticIndex,query:string,options:SemanticSearchOptions):SemanticSearchResult[]{
  const limit=Math.max(1,Math.min(options.limit??20,100));
  const allowed=options.semanticTypes?new Set(options.semanticTypes):null;
- return index.entities
-  .filter(entity=>!allowed||allowed.has(entity.semantic_type))
-  .map(entity=>{const result=rank(entity,query,options.lang);return result?{
-    id:entity.id,semanticType:entity.semantic_type,label:localizedLabel(entity,options.lang),shortName:entity.short_name,
-    match:result.match,retrievalScore:result.retrievalScore,statusFacets:entity.status_facets
-   }:null;})
-  .filter((value):value is SemanticSearchResult=>value!==null)
-  .sort((a,b)=>b.retrievalScore-a.retrievalScore||a.id.localeCompare(b.id,'en'))
-  .slice(0,limit);
+ const results:SemanticSearchResult[]=[];
+ for(const entity of index.entities){
+  if(allowed&&!allowed.has(entity.semantic_type))continue;
+  const ranked=rank(entity,query,options.lang);
+  if(!ranked)continue;
+  const item:SemanticSearchResult={
+   id:entity.id,
+   semanticType:entity.semantic_type,
+   label:localizedLabel(entity,options.lang),
+   match:ranked.match,
+   retrievalScore:ranked.retrievalScore
+  };
+  if(entity.short_name!==undefined)item.shortName=entity.short_name;
+  if(entity.status_facets!==undefined)item.statusFacets=entity.status_facets;
+  results.push(item);
+ }
+ return results.sort((a,b)=>b.retrievalScore-a.retrievalScore||a.id.localeCompare(b.id,'en')).slice(0,limit);
 }
 
