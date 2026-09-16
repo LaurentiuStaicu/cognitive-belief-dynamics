@@ -23,6 +23,13 @@ try {
  browser=await chromium.launch({headless:true, ...(process.env.CEM_BROWSER_PATH ? {executablePath:process.env.CEM_BROWSER_PATH, args:['--no-sandbox','--disable-gpu']} : {})});
  const page=await browser.newPage({viewport:{width:1440,height:1050},reducedMotion:'reduce'});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const domainForView={learning:'understand',structure:'understand',process:'understand',runs:'analyze',comparison:'analyze',planning:'act',reference:'library'};
+ const openView=async view=>{
+  const domain=domainForView[view];
+  assert(domain,`missing IA domain for view ${view}`);
+  await page.locator(`[data-nav-group="${domain}"]`).click();
+  await page.locator(`[data-view="${view}"]`).click();
+ };
  const waitTheory=()=>page.waitForFunction(()=>document.querySelector('#theoryArticle')?.getAttribute('aria-busy')==='false');
  page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
  await page.goto(url);await waitTheory();
@@ -163,7 +170,7 @@ try {
  await page.locator('#narrativeOpenRun').click();
  assert.equal(await page.locator('#scenario').inputValue(),'correction');
  assert.equal(await page.locator('#timeline').inputValue(),'7');
- await page.locator('[data-view="learning"]').click();
+ await openView('learning');
  await page.locator('#m1EditorialStage').waitFor();
  assert.equal(await page.locator('[data-m1-condition]').count(),3);
  assert.match(await page.locator('#m1EditorialStage').textContent(),/Benchmark empiric|Empirical benchmark/);
@@ -205,7 +212,7 @@ try {
  await page.locator('[data-mechanism="source"]').click();
  assert.match(await page.locator('#mechanismReading').textContent(),/2T − 1/);
  await page.locator('#exploreMechanism').click();assert.equal(await page.locator('#scenario').inputValue(),'source');
- await page.locator('[data-view="planning"]').click();await page.locator('#bestBundle').waitFor();
+ await openView('planning');await page.locator('#bestBundle').waitFor();
  const plans=JSON.parse(await readFile(path.join(dist,'model/interventions.json'),'utf8'));
  const score=b=>50*(1-b.false_share+b.true_share);
  const expected=plans.profiles.find(p=>p.id==='reference').bundles.filter(b=>b.start===2&&b.mask.toString(2).replaceAll('0','').length<=3).sort((a,b)=>score(b)-score(a))[0];
@@ -269,7 +276,7 @@ try {
  const planDownload=page.waitForEvent('download');await page.locator('#exportPlan').click();assert.equal((await planDownload).suggestedFilename(),'cem-intervention-plan.json');
  await page.selectOption('#timing','2');await page.selectOption('#assumption','reference');
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'planning.png'),fullPage:true});}
- await page.locator('[data-view="runs"]').click();await page.locator('#scenario').waitFor();
+ await openView('runs');await page.locator('#scenario').waitFor();
  const data=JSON.parse(await readFile(path.join(dist,'model/runs.json'),'utf8'));
  const explanations=JSON.parse(await readFile(path.join(dist,'model/explanations.json'),'utf8'));
  for(const run of data.runs){
@@ -284,7 +291,7 @@ try {
   assert.equal(await page.locator('#beliefTerms tbody tr').count(),4);
   assert.equal(await page.locator('#sharingTerms tbody tr').count(),3);
  }
- await page.locator('[data-view="comparison"]').click();
+ await openView('comparison');
  for(const comparison of data.runs){
   await page.selectOption('#comparisonScenario',comparison.id);await page.locator('#compareTimeline').fill('12');
   const baseline=data.runs.find(r=>r.id==='repetition');
@@ -306,7 +313,7 @@ try {
  await page.locator('#play').click();await page.locator('#reset').click();
  const download=page.waitForEvent('download');await page.locator('#download').click();assert.equal((await download).suggestedFilename(),'cem-m0-correction.json');
  await page.locator('#language').click();assert.equal(await page.locator('html').getAttribute('lang'),'en');assert.match(await page.locator('h1').textContent(),/Mechanisms/);
- await page.locator('[data-view="structure"]').click();await page.selectOption('#variable','VAR.CORRECTION.ACCESS');assert.match(await page.locator('#detail').textContent(),/Corrective-context/);
+ await openView('structure');await page.selectOption('#variable','VAR.CORRECTION.ACCESS');assert.match(await page.locator('#detail').textContent(),/Corrective-context/);
  assert.match(await page.locator('#graphCount').textContent(),/8 nodes · 7/);
  await page.selectOption('#dependency','c-b');assert.match(await page.locator('#detail').textContent(),/direction/);
  // M0 Visual Stage: exported events and stochastic outcomes, not time or a probability threshold.
@@ -352,7 +359,7 @@ try {
  assert.match(await page.locator('#stageReading').textContent(),/combines prior belief/);
  if(process.env.CEM_SCREENSHOTS)await page.locator('.visual-controls').screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'graph-explanation.png')});
  await page.locator('#stageOpen').click();assert.equal(await page.locator('#scenario').inputValue(),'correction');assert.equal(await page.locator('#timeline').inputValue(),'5');
- await page.locator('[data-view="structure"]').click();
+ await openView('structure');
  await page.selectOption('#graphMode','inputs');assert.equal(await page.locator('#dependency option').count(),18);
  await page.selectOption('#dependency','prior-b');assert.match(await page.locator('#detail').textContent(),/does not automatically replace/);
  await page.selectOption('#graphFocus','source');assert.match(await page.locator('#graphCount').textContent(),/6 nodes/);
@@ -361,18 +368,18 @@ try {
  const registryLinks=JSON.parse(await readFile(path.join(dist,'model/links.json'),'utf8'));
  await page.selectOption('#graphMode','registered');assert.equal(await page.locator('#variable option').count(),registryVariables.length);assert.equal(await page.locator('#variable option[value="VAR.ISSUE.APPRAISAL"]').count(),1);assert.equal(await page.locator('#variable option[value="VAR.ATTITUDE.CONGRUENCE"]').count(),1);assert.equal(await page.locator('#variable option[value="VAR.ACCESS.PROBABILITY"]').count(),1);assert.equal(await page.locator('#variable option[value="VAR.PREVIEW.IMPRESSION"]').count(),1);
  await page.selectOption('#graphMode','core');
- await page.locator('[data-view="reference"]').click();
+ await openView('reference');
  assert.equal(await page.locator('.reference-grid article').count(),registryVariables.length+registryLinks.length);
  assert.equal(await page.locator('.citation-link').count(),registryLinks.reduce((sum,link)=>sum+link.evidence_refs.length,0));
  for(const a of await page.locator('.citation-link').all()) assert.match(await a.getAttribute('href'),/^https:\/\/doi\.org\/10\./);
  assert.match(await page.locator('.reference-grid').last().textContent(),/Candidate mechanism/);
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.locator('.reference-grid').last().screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'evidence.png')});}
- await page.locator('[data-view="process"]').click();
+ await openView('process');
  assert.equal(await page.locator('[data-odd-stage]').count(),4);
  assert.equal(await page.locator('.subsystem-grid article').count(),8);
  assert.match(await page.locator('[data-odd-stage="submodel"]').textContent(),/Belief update|Actualizarea convingerii/);
  assert.match(await page.locator('.vodd-extension').textContent(),/MOD\.14/);
- await page.locator('[data-view="runs"]').click();await page.locator('#language').click();await page.locator('#timeline').fill('8');
+ await openView('runs');await page.locator('#language').click();await page.locator('#timeline').fill('8');
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'desktop.png'),fullPage:true});}
  await page.setViewportSize({width:390,height:844});
  await page.evaluate(()=>{location.hash='#understanding/theory/repetition-familiarity-truth';});
@@ -397,7 +404,7 @@ try {
  await waitTheory();
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'mobile.png'),fullPage:true});
  for(const v of ['structure','reference','process','planning','learning','comparison']){await page.locator(`[data-view="${v}"]`).click();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: mobile overflow`);}
- await page.locator('[data-view="learning"]').click();
+ await openView('learning');
  await waitTheory();
  await page.evaluate(()=>document.documentElement.style.fontSize='200%');
  if(!(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth))) console.log(await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth).map(e=>({tag:e.tagName,cls:e.className,w:e.getBoundingClientRect().width})).slice(0,15)));
