@@ -121,3 +121,17 @@ promoting an active cognitive mechanism:
   design-recovery gate.
 - no active registry, UI, Pencode, evidence snapshot or release metadata is
   changed in Phase E.
+
+
+Alpha 0.4.3a0 Phase H adds participant-aware hierarchical validation tooling:
+
+- `m1_e4_participant_aware_recovery.json` freezes the participant/repeated-
+  measures recovery contract.
+- the Phase G 640+640 aggregate anchor is preserved while response counts are
+  redistributed across 40, 64, 80 or 128 participants.
+- participant memory ability and response-bias tendency are random effects shared
+  across repeated Hsimp conditions and bias blocks.
+- random effects are marginalized with Gauss-Hermite quadrature.
+- held-out predictive fit uses a new independent participant cohort.
+- screening (50 replicates/cell) is separated from 200-replicate confirmation.
+- human data collection, model activation, Pencode and UI remain blocked.
