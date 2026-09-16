@@ -403,7 +403,7 @@ try {
  await page.evaluate(()=>{location.hash='#understanding/theory/repetition-familiarity-truth';});
  await waitTheory();
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'mobile.png'),fullPage:true});
- for(const v of ['structure','reference','process','planning','learning','comparison']){await page.locator(`[data-view="${v}"]`).click();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: mobile overflow`);}
+ for(const v of ['structure','reference','process','planning','learning','comparison']){await openView(v);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: mobile overflow`);}
  await openView('learning');
  await waitTheory();
  await page.evaluate(()=>document.documentElement.style.fontSize='200%');
@@ -414,7 +414,7 @@ try {
  for(const colorScheme of ['light','dark']){
   await page.emulateMedia({colorScheme});
   for(const v of ['learning','runs','structure','planning','comparison']){
-   await page.locator(`[data-view="${v}"]`).click();
+   await openView(v);
    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${v}: ${colorScheme} overflow`);
    if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,`${v}-${colorScheme}.png`),fullPage:true});
   }
