@@ -1,0 +1,146 @@
+{
+  "schema_version": "1",
+  "baseline_contract": "OA0.BASELINE.2026-09-16",
+  "source_paths": [
+    "model/variables.json",
+    "model/links.json",
+    "model/theory_index.json",
+    "model/theory_glossary.json",
+    "web/src/dependencies.ts"
+  ],
+  "entities": [
+    {
+      "id": "VAR.FAMILIARITY.CLAIM",
+      "semantic_type": "VARIABLE",
+      "labels": {
+        "preferred": {
+          "ro": "Familiaritatea afirmației",
+          "en": "Claim familiarity"
+        },
+        "alternative": {
+          "und": [
+            "F"
+          ]
+        }
+      },
+      "source": {
+        "path": "model/variables.json",
+        "source_id": "VAR.FAMILIARITY.CLAIM"
+      },
+      "short_name": "F",
+      "summary": {
+        "en": "Accessibility/familiarity of a claim for an agent after exposure."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.REPETITION",
+      "semantic_type": "GLOSSARY_ENTRY",
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "labels": {
+        "preferred": {
+          "ro": "Repetiție / familiaritate",
+          "en": "Repetition / familiarity"
+        },
+        "alternative": {
+          "en": [
+            "repetition"
+          ]
+        }
+      },
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.REPETITION"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE"
+        ]
+      },
+      "related_ids": [
+        "THEORY.05.REPETITION_FAMILIARITY_TRUTH"
+      ]
+    },
+    {
+      "id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "semantic_type": "THEORY_CHAPTER",
+      "labels": {
+        "preferred": {
+          "ro": "Lume, informație și reprezentare internă",
+          "en": "World, information and internal representation"
+        }
+      },
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "status_facets": {
+        "source_tags": [
+          "CONCEPTUAL",
+          "EXECUTABLE"
+        ]
+      }
+    },
+    {
+      "id": "REF.HASHER.1977",
+      "semantic_type": "REFERENCE",
+      "labels": {
+        "preferred": {
+          "und": "Hasher, Goldstein & Toppino (1977)"
+        }
+      },
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.HASHER.1977"
+      }
+    }
+  ],
+  "relations": [
+    {
+      "id": "LINK.EXPOSURE.FAMILIARITY",
+      "layer": "REGISTERED_EVIDENCE_RELATION",
+      "source": "VAR.EXPOSURE.COUNT",
+      "target": "VAR.FAMILIARITY.CLAIM",
+      "source_record": {
+        "path": "model/links.json",
+        "source_id": "LINK.EXPOSURE.FAMILIARITY"
+      },
+      "relation_type": "CAUSAL",
+      "polarity": "positive",
+      "status_facets": {
+        "phenomenon_evidence": "EXPERIMENTAL",
+        "mechanism_evidence": "CANDIDATE",
+        "functional_form": "REFERENCE_CANDIDATE"
+      },
+      "evidence_refs": [
+        "REF.HASHER.1977"
+      ]
+    },
+    {
+      "id": "exposure-f",
+      "layer": "COMPUTATIONAL_DEPENDENCY",
+      "source": "Nexp",
+      "target": "F",
+      "source_record": {
+        "path": "web/src/dependencies.ts",
+        "source_id": "exposure-f"
+      },
+      "formula": "F′ = F + αf(1 − F)",
+      "code_file": "updates.py",
+      "registered_relation_id": "LINK.EXPOSURE.FAMILIARITY"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.01.WORLD_INFORMATION_REPRESENTATION.MODULE.MOD.14",
+      "layer": "DOCUMENTATION_RELATION",
+      "source": "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "target": "MOD.14",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+      },
+      "relation_type": "USES_MODULE"
+    }
+  ]
+}
