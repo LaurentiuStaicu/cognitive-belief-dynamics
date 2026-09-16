@@ -57,3 +57,25 @@ Alpha 0.4.3a0 Phase B adds a second pre-executable contract:
   deterministic `Drecog → Pencode` shortcut is permitted.
 - no active registry, evidence snapshot, runtime, UI or release metadata is
   promoted in Phase B.
+
+
+Alpha 0.4.3a0 Phase C adds a third pre-executable contract:
+
+- `m1_e4_generative_candidate_contract.json` freezes two formal recognition
+  candidate families without selecting a winner.
+- C1 is an equal-variance continuous SDT evidence-strength model with memory
+  parameter `d` and response criterion `c`.
+- C2 is a symmetric two-high-threshold model with detection parameter `Ddet`
+  and uncertain-state guessing parameter `g`.
+- both candidates must reconstruct the same nondegenerate single H/F operating
+  point, demonstrating that one point cannot identify the model family.
+- a more general asymmetric 2HT model remains deferred because `Do`, `Dn`
+  and `g` are underidentified from only H and F.
+- future discrimination requires multiple operating points / ROC information or
+  an explicit bias manipulation with invariant candidate memory parameters.
+- future fitting must operate on raw target/foil response counts, with Drecog and
+  Crecog retained as diagnostics rather than the only fitting target.
+- `Pencode` remains not identified and cannot be equated with either `d` or
+  `Ddet`.
+- no active model, registry, runtime, UI, evidence snapshot or release metadata
+  is promoted in Phase C.
