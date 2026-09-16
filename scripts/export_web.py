@@ -97,6 +97,7 @@ def export():
         "processes",
         "evidence_snapshot",
         "empirical_targets",
+        "computational_dependencies",
         "theory_index",
         "theory_glossary",
     ):
