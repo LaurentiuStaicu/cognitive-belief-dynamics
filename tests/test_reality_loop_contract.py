@@ -105,6 +105,29 @@ def test_oa7_action_canvas_and_adaptive_vocabulary_are_complete():
         assert set(plan["action_canvas"][key]["indicator_ids"]) <= indicator_ids
 
 
+def test_oa7_if_trigger_is_machine_readable_and_bound_to_watched_indicator():
+    contract = load(CONTRACT)
+    plan = contract["implementation_plans"][0]
+    watch = next(step for step in plan["adaptive_plan"] if step["phase"] == "WATCH")
+    iff = next(step for step in plan["adaptive_plan"] if step["phase"] == "IF")
+    trigger = iff["trigger"]
+
+    assert trigger["indicator_id"] == watch["indicator_id"]
+    assert trigger["indicator_id"] in plan["indicator_ids"]
+    assert trigger["comparator"] in {"LT", "LTE", "GTE", "GT"}
+    assert isinstance(trigger["threshold"], (int, float))
+    assert trigger["origin"] == "USER_DECLARED"
+
+    indicator = next(item for item in contract["indicators"] if item["id"] == trigger["indicator_id"])
+    assert trigger["unit"] == indicator["unit"]
+
+    broken = deepcopy(contract)
+    broken_if = next(step for step in broken["implementation_plans"][0]["adaptive_plan"] if step["phase"] == "IF")
+    del broken_if["trigger"]
+    with pytest.raises(ValidationError):
+        validator().validate(broken)
+
+
 def test_oa7_observed_outcome_uses_observation_metadata_without_rewriting_prediction():
     contract = load(CONTRACT)
     plan = contract["implementation_plans"][0]
