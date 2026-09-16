@@ -684,3 +684,47 @@ release metadata is changed by Phase E.
 A later execution gate must run the frozen full configuration and publish the
 complete per-cell recovery output before empirical EVSD-versus-2HT model
 selection is allowed.
+
+
+## Alpha 0.4.3a0 Phase F — authoritative candidate-recovery result
+
+PR #26 / Phase E was merged into `main` at
+`8e291fd38c4f88ec7c0eb7c45a464dbd2914bd0e`; post-merge CI #144 passed.
+
+The frozen full recovery benchmark then ran in GitHub Actions run
+`35064052116` from validation workflow commit
+`25cd4c9a93b1ada9a55bd6cc5a087f5e70136fb3`.
+
+Authoritative JSON checksum:
+
+`c8aad7d5fcab17ddc114b0a0e1776e576e30056e21f0307fbb0a32722128cea7`.
+
+Result:
+
+- minimum grid recovery = `0.225`;
+- `all_core_grid_cells_pass = false`;
+- 17 / 24 cells fail the 0.80 CEM design convention;
+- at 320 target + 320 foil per operating point, 5 / 6 generator × regime cells
+  pass;
+- limiting cell = EVSD weak, recovery `0.745`, wrong `0.005`,
+  inconclusive `0.250`.
+
+Overall confusion probabilities:
+
+- EVSD generator → EVSD 0.6871, 2HT 0.0292, inconclusive 0.2838;
+- 2HT generator → 2HT 0.5838, EVSD 0.0471, inconclusive 0.3692.
+
+Verdict:
+
+`DESIGN_NOT_YET_ADEQUATELY_DISCRIMINATING`.
+
+The dominant residual error at the largest sample size is inconclusiveness rather
+than systematic wrong-model selection.
+
+The next refinement should therefore vary trial count first while preserving the
+five operating points. A targeted 480 / 640 / 960 target+foil sweep is proposed.
+Only if the weak-EVSD region still fails should the operating-point placement be
+changed in a separate controlled refinement.
+
+No empirical EVSD-vs-2HT selection, Pencode, active M1.E4 runtime or UI is
+authorized.
