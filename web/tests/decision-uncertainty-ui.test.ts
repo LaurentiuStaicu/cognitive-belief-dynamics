@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {uncertaintyCanonicalContext,type DecisionUncertaintyRegistry} from '../src/decision-uncertainty-ui.ts';
+import {uncertaintyCanonicalContext,type DecisionUncertaintyRegistry} from '../src/decision-uncertainty-contract.ts';
 
 const variables=JSON.parse(await readFile(new URL('../../model/variables.json',import.meta.url),'utf8')) as {id:string}[];
 const theory=JSON.parse(await readFile(new URL('../../model/theory_index.json',import.meta.url),'utf8')) as {source_paths:{en:string}}[];
