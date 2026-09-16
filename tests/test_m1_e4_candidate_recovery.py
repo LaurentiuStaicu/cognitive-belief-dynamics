@@ -2,11 +2,16 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 from jsonschema import Draft202012Validator
+from scipy.optimize import minimize as scipy_minimize
+
+import cognitive_epistemic_model.calibration.m1_e4_candidate_recovery as candidate_recovery
 
 from cognitive_epistemic_model.calibration.m1_e4_candidate_recovery import (
+    RecognitionCounts,
     RecoveryFamily,
     evsd_probabilities,
     fit_candidate,
@@ -82,6 +87,43 @@ def test_candidate_probability_functions_respect_model_constraints():
     assert 0.0 < f_e < h_e < 1.0
     assert 0.0 <= f_t < h_t <= 1.0
     assert np.isclose(h_t - f_t, 0.4)
+
+
+def test_two_ht_fit_retries_exact_phase_j_replication_111_surface(monkeypatch):
+    points = (
+        RecognitionCounts(640, 640, 467, 37),
+        RecognitionCounts(640, 640, 494, 69),
+        RecognitionCounts(640, 640, 534, 106),
+        RecognitionCounts(640, 640, 571, 143),
+        RecognitionCounts(640, 640, 605, 165),
+    )
+    calls: list[dict | None] = []
+
+    def controlled_minimize(*args, **kwargs):
+        calls.append(kwargs.get("options"))
+        if len(calls) == 1:
+            return SimpleNamespace(success=False, message="ABNORMAL")
+        return scipy_minimize(*args, **kwargs)
+
+    monkeypatch.setattr(candidate_recovery, "minimize", controlled_minimize)
+
+    fit = candidate_recovery.fit_two_ht_condition(points)
+
+    assert calls == [None, {"maxls": 100}]
+    assert np.isclose(fit.log_likelihood, -31.276238797970336, rtol=1e-10, atol=1e-8)
+    assert np.isclose(fit.memory, 0.6723864052458528, rtol=1e-8, atol=1e-8)
+    assert np.allclose(
+        fit.biases,
+        (
+            0.17612793696506446,
+            0.3201504368954919,
+            0.4999999934348496,
+            0.6748664513277185,
+            0.8230582278270012,
+        ),
+        rtol=1e-8,
+        atol=1e-8,
+    )
 
 
 def test_both_candidate_families_fit_same_dataset_surface():
