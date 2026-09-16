@@ -111,7 +111,7 @@ try {
  assert.equal(await page.locator('.views [data-view]').count(),1);
  await page.locator('[data-nav-group="understand"]').click();
  await waitTheory();
- assert.equal(await page.locator('[data-understanding-mode]').count(),3);
+ assert.equal(await page.locator('[data-understanding-mode]').count(),4);
  assert.equal(await page.locator('[data-understanding-mode="theory"]').getAttribute('aria-pressed'),'true');
  assert.equal(await page.locator('[data-theory-chapter]').count(),16);
  const theoryMeasure=await page.locator('#theoryArticle p').first().evaluate(el=>({
@@ -124,6 +124,44 @@ try {
  assert((await page.locator('.theory-statuses [data-status]').count())>0);
  assert.notEqual(await page.locator('.theory-statuses [data-status]').first().evaluate(el=>getComputedStyle(el,'::before').content),'none');
  assert.match(await page.locator('#theoryArticle').textContent(),/Ce este Cognitive Epistemic Model/);
+
+ // OA-5B: explicit Predict -> Reveal -> Explain -> Boundary flow, local bounded history and skip.
+ await page.evaluate(()=>{location.hash='#understanding/active/AU-1';});
+ await page.locator('#activeUnderstandingTitle').getByText('Înțelegere activă',{exact:true}).waitFor();
+ assert.equal(await page.locator('[data-au-challenge]').count(),3);
+ assert.equal(await page.locator('[data-au-challenge="AU-1"]').getAttribute('aria-current'),'step');
+ assert.equal(await page.locator('[data-au-stage="REVEAL"]').count(),0);
+ await page.locator('[data-au-start]').click();
+ await page.locator('input[name="auPrediction"][value="INCREASE"]').check();
+ await page.selectOption('#activeConfidence','medium');
+ await page.locator('[data-au-submit]').click();
+ assert.match(await page.locator('#activeChallengeStage').textContent(),/Crește/);
+ assert.match(await page.locator('#activeChallengeStage').textContent(),/coincide/);
+ const activeHistory=await page.evaluate(()=>JSON.parse(localStorage.getItem('cem.active-understanding.history.v1')??'{"records":[]}'));
+ assert.equal(activeHistory.schema_version,'1');
+ assert.equal(activeHistory.records.length,1);
+ assert.deepEqual(Object.keys(activeHistory.records[0]).sort(),['canonical_target_refs','challenge_id','confidence','outcome_category','prediction_category','timestamp']);
+ assert.equal(activeHistory.records[0].challenge_id,'AU-1');
+ assert.equal(activeHistory.records[0].confidence,'medium');
+ await page.locator('[data-au-explain]').click();
+ assert.match(await page.locator('#activeChallengeStage').textContent(),/Expunerea este evenimentul/);
+ await page.locator('[data-au-boundary]').click();
+ assert.match(await page.locator('#activeChallengeStage').textContent(),/Familiaritatea nu este adevăr/);
+ await page.locator('[data-au-complete]').click();
+ assert.match(await page.locator('#activeChallengeStage').textContent(),/Secvență completă/);
+ await page.locator('[data-au-challenge="AU-2"]').click();
+ await page.waitForURL(/#understanding\/active\/AU-2$/);
+ await page.locator('[data-au-start]').click();
+ await page.locator('[data-au-skip]').click();
+ assert.match(await page.locator('#activeChallengeStage').textContent(),/fără a salva o predicție/);
+ assert.equal((await page.evaluate(()=>JSON.parse(localStorage.getItem('cem.active-understanding.history.v1')).records.length)),1);
+ await page.locator('#language').click();
+ assert.equal(await page.locator('html').getAttribute('lang'),'en');
+ await page.locator('#activeUnderstandingTitle').getByText('Active Understanding',{exact:true}).waitFor();
+ assert.match(await page.locator('#activeChallengeStage').textContent(),/accuracy cue/i);
+ await page.locator('#language').click();
+ await page.locator('[data-understanding-mode="theory"]').click();
+ await waitTheory();
 
  // Alpha 0.4.1a1 Phase D: guided journey is deep-linkable, bilingual and returns from real app surfaces.
  await page.evaluate(()=>{location.hash='#understanding/tour/orientation';});
@@ -457,6 +495,11 @@ try {
  assert.equal(await page.locator('.guided-tour-steps ol').isVisible(),false);
  assert.equal(await page.locator('#guidedTourSelect').inputValue(),'planning');
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'guided-tour-mobile.png'),fullPage:true});
+ await page.evaluate(()=>{location.hash='#understanding/active/AU-3';});
+ await page.locator('#activeUnderstandingTitle').waitFor();
+ assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Active Understanding mobile horizontal overflow');
+ assert.equal((await page.locator('.active-understanding-layout').evaluate(el=>getComputedStyle(el).gridTemplateColumns)).split(' ').length,1);
+ if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'active-understanding-mobile.png'),fullPage:true});
  await page.evaluate(()=>{location.hash='#understanding/mechanisms/access';});
  await page.locator('#m1AccessStage').waitFor();
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'M1.E3 mobile horizontal overflow');

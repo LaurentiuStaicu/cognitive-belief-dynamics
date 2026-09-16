@@ -6,6 +6,10 @@ mkdirSync(target, {recursive:true});
 for (const name of ['variables','links','modules','validation_tests','references','subsystems','processes','evidence_snapshot','empirical_targets','theory_index','theory_glossary']) {
   copyFileSync(fileURLToPath(new URL(`model/${name}.json`, root)), fileURLToPath(new URL(`${name}.json`, target)));
 }
+copyFileSync(
+  fileURLToPath(new URL('model/contracts/active_understanding_v1.json',root)),
+  fileURLToPath(new URL('active_understanding.json',target))
+);
 
 const generated=new URL('../src/generated/',import.meta.url);
 mkdirSync(generated,{recursive:true});

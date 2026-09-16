@@ -5,6 +5,7 @@ import './elementary.css';
 import './visual-language.css';
 import './search-ui.css';
 import './inspector-ui.css';
+import './active-understanding-ui.css';
 import {chartSeries} from './visual-language';
 import {mountSemanticSearch} from './search-ui';
 import {mountSemanticInspector} from './inspector-ui';
