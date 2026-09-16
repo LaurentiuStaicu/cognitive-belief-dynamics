@@ -1,0 +1,12 @@
+{
+  "benchmark_id": "BENCH.M1.E4.PARTICIPANT_CONFIRMATION.2026-09-16",
+  "boundary_cells": 11,
+  "github_run_attempt": "1",
+  "github_run_id": "35081097627",
+  "phase": "Alpha 0.4.3a0 Phase J",
+  "primary_cells": 18,
+  "replicates_per_cell": 200,
+  "selected_cells_total": 29,
+  "source_phase_j_main_sha": "76aca60beb49a4e2ce5d96abaa564a67282ba811",
+  "workflow_source_sha": "faa8b4223960bb60dfa10654a7107d4158021f7f"
+}
