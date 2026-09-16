@@ -135,3 +135,17 @@ Alpha 0.4.3a0 Phase H adds participant-aware hierarchical validation tooling:
 - held-out predictive fit uses a new independent participant cohort.
 - screening (50 replicates/cell) is separated from 200-replicate confirmation.
 - human data collection, model activation, Pencode and UI remain blocked.
+
+
+Alpha 0.4.3a0 Phase J adds a prospective confirmation contract:
+
+- `m1_e4_participant_confirmation.json` freezes the 200-replicate confirmation
+  gate before execution.
+- all 18 P64_X10 cells are mandatory;
+- all lower-recovery boundary ties from P40_X16, P80_X8 and P128_X5 are retained;
+- the exact surface contains 29 cells;
+- point-estimate recovery >=0.80 remains the formal gate;
+- Wilson 95% lower bounds are reported prospectively as a separate robustness
+  flag;
+- cell-specific SHA-256-derived RNG permits deterministic parallel execution;
+- confirmation cannot execute before Phase I is merged.
