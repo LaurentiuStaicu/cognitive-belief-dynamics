@@ -62,6 +62,27 @@ def test_oa7_real_world_plan_requires_population_context_and_outcome():
         with pytest.raises(ValidationError):
             validator().validate(broken)
 
+def test_oa7_illustrative_plan_may_leave_unoperationalized_later_stage_indicators_empty():
+    contract = deepcopy(load(CONTRACT))
+    plan = contract["implementation_plans"][0]
+    plan["plan_scope"] = "ILLUSTRATIVE"
+    plan.pop("population", None)
+    plan.pop("context", None)
+    plan.pop("primary_outcome", None)
+    plan["action_canvas"]["intermediate_result"]["indicator_ids"] = []
+    plan["action_canvas"]["final_outcome"]["indicator_ids"] = []
+    validator().validate(contract)
+
+
+def test_oa7_real_world_plan_still_requires_operational_indicators_for_all_result_stages():
+    contract = deepcopy(load(CONTRACT))
+    for stage in ("proximal_result", "intermediate_result", "final_outcome"):
+        broken = deepcopy(contract)
+        broken["implementation_plans"][0]["action_canvas"][stage]["indicator_ids"] = []
+        with pytest.raises(ValidationError):
+            validator().validate(broken)
+
+
 
 def test_oa7_action_canvas_and_adaptive_vocabulary_are_complete():
     contract = load(CONTRACT)
