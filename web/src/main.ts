@@ -13,6 +13,7 @@ let explanations:ExplanationData;
 import {mountVisualStage} from './visual-stage';
 import {dependencies,extraNodes} from './dependencies';
 import {assertSemanticCoverage,semanticLabel} from './semantic';
+import {initializeWorkspaceSession} from './workspace-session';
 let graphMode='core';
 let graphFocus='all';
 import {mountPlanner,type PlanningData} from './planner';
@@ -191,7 +192,7 @@ function renderProcess(){
  mountVisualOdd(document.getElementById('content')!,lang,oddProcesses,subsystems);
 }
 async function load<T>(name:string):Promise<T>{const r=await fetch(`./model/${name}.json`);if(!r.ok)throw new Error(`${name}: HTTP ${r.status}`);return r.json();}
-async function init(){[variables,links,modules,references,oddProcesses,subsystems,m1Targets,m1Editorial,m1Presentation,m1Access,theoryIndex,theoryGlossary,validationTests]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems'),load<EmpiricalTarget[]>('empirical_targets'),load<M1EditorialData>('m1_editorial'),load<M1PresentationData>('m1_presentation'),load<M1AccessData>('m1_access'),load<TheoryChapter[]>('theory_index'),load<TheoryGlossaryEntry[]>('theory_glossary'),load<TheoryValidation[]>('validation_tests')]);assertSemanticCoverage([...variables.map(v=>v.id),...modules.map(m=>m.id),...references.map(r=>r.id),...validationTests.map(v=>v.id),...theoryIndex.map(c=>c.id),...theoryGlossary.map(g=>g.id)],links.map(l=>l.id));runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
+async function init(){[variables,links,modules,references,oddProcesses,subsystems,m1Targets,m1Editorial,m1Presentation,m1Access,theoryIndex,theoryGlossary,validationTests]=await Promise.all([load<Variable[]>('variables'),load<Link[]>('links'),load<Module[]>('modules'),load<Reference[]>('references'),load<OddProcess[]>('processes'),load<Subsystem[]>('subsystems'),load<EmpiricalTarget[]>('empirical_targets'),load<M1EditorialData>('m1_editorial'),load<M1PresentationData>('m1_presentation'),load<M1AccessData>('m1_access'),load<TheoryChapter[]>('theory_index'),load<TheoryGlossaryEntry[]>('theory_glossary'),load<TheoryValidation[]>('validation_tests')]);assertSemanticCoverage([...variables.map(v=>v.id),...modules.map(m=>m.id),...references.map(r=>r.id),...validationTests.map(v=>v.id),...theoryIndex.map(c=>c.id),...theoryGlossary.map(g=>g.id)],links.map(l=>l.id));initializeWorkspaceSession();runs=(await load<{runs:Run[]}>('runs')).runs;planning=await load<PlanningData>('interventions');explanations=await load<ExplanationData>('explanations');shell();}
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(view==='structure'){stop();shell();}});
 let understandingRouteRefresh=false;
 const refreshUnderstandingRoute=()=>{
