@@ -14,7 +14,7 @@ import {mountVisualStage} from './visual-stage';
 import {dependencies,extraNodes} from './dependencies';
 import {assertSemanticCoverage,semanticLabel} from './semantic';
 import {initializeWorkspaceSession} from './workspace-session';
-import {navigationGroupForView,navigationGroups,type AppView} from './navigation';
+import {isAppView,navigationGroupForView,navigationGroups,type AppView} from './navigation';
 let graphMode='core';
 let graphFocus='all';
 import {mountPlanner,type PlanningData} from './planner';
@@ -96,8 +96,8 @@ function shell() {
  <main id="content"></main><footer><span>${tr('Model demonstrativ · coeficienți necalibrați','Demonstration model · uncalibrated coefficients')}</span><span>${tr('Nu estimează proporții Track A/B sau diagnostice individuale.','Does not estimate Track A/B prevalence or individual diagnoses.')}</span></footer></div>`;
  document.getElementById('language')!.onclick=()=>{stop();lang=lang==='ro'?'en':'ro';shell();};
  document.querySelectorAll<HTMLButtonElement>('[data-nav-group]').forEach(b=>b.onclick=()=>{stop();const group=navigationGroups.find(candidate=>candidate.id===b.dataset.navGroup);if(!group)return;view=group.defaultView;if(view==='reference')registryFocus='';shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
- document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.onclick=()=>{stop();const next=b.dataset.view as AppView;if(next==='reference')registryFocus='';view=next;shell();});
- if(view==='learning') mountUnderstanding(document.getElementById('content')!,lang,runs,m1Editorial,m1Presentation,m1Access,m1Targets,{chapters:theoryIndex,glossary:theoryGlossary,variables,modules,references,validations:validationTests,releaseTag:release.release_tag},target=>{stop();const [next,id,time]=target.split(':');if(location.hash.startsWith('#understanding/')&&!target.startsWith('learning'))history.pushState({cemView:next,cemId:id??null,cemTime:time??null},'',location.href);view=next;if(next==='reference'){registryFocus=id??'';}else if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
+ document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.onclick=()=>{stop();const next=b.dataset.view;if(!next||!isAppView(next))return;if(next==='reference')registryFocus='';view=next;shell();});
+ if(view==='learning') mountUnderstanding(document.getElementById('content')!,lang,runs,m1Editorial,m1Presentation,m1Access,m1Targets,{chapters:theoryIndex,glossary:theoryGlossary,variables,modules,references,validations:validationTests,releaseTag:release.release_tag},target=>{stop();const [nextRaw,id,time]=target.split(':');if(!isAppView(nextRaw))throw new Error(`unknown application view: ${nextRaw}`);const next=nextRaw;if(location.hash.startsWith('#understanding/')&&!target.startsWith('learning'))history.pushState({cemView:next,cemId:id??null,cemTime:time??null},'',location.href);view=next;if(next==='reference'){registryFocus=id??'';}else if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
  if(view==='planning') mountPlanner(document.getElementById('content')!,planning,lang);
  if(view==='runs') renderRuns();
  if(view==='comparison') mountComparison(document.getElementById('content')!,runs,lang,(id,time)=>{selected=id;step=time;view='runs';shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
@@ -208,7 +208,7 @@ const refreshUnderstandingRoute=()=>{
 addEventListener('hashchange',refreshUnderstandingRoute);
 addEventListener('popstate',event=>{
  const state=event.state as {cemView?:string;cemId?:string|null;cemTime?:string|null}|null;
- if(state?.cemView){
+ if(state?.cemView&&isAppView(state.cemView)){
   stop();
   view=state.cemView;
   if(view==='reference')registryFocus=state.cemId??'';
