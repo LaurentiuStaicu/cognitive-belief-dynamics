@@ -2,7 +2,7 @@ import release from '../public/model/version.json';
 import {semanticEntity,semanticIndex,semanticRelation} from './semantic';
 import {WorkspaceStore,type WorkspaceDocument,type WorkspaceSeed} from './workspace-store';
 
-function validateRuntime(document:WorkspaceDocument):void{
+export function validateWorkspaceRuntime(document:WorkspaceDocument):void{
  if(document.schema_version!=='1')throw new Error(`unsupported workspace schema ${document.schema_version}`);
  if(!document.workspace_id.startsWith('CEM.WORKSPACE.'))throw new Error('invalid workspace id');
  if(!document.case.id.startsWith('CEM.CASE.'))throw new Error('invalid case id');
@@ -29,7 +29,7 @@ function validateRuntime(document:WorkspaceDocument):void{
 }
 
 export function initializeWorkspaceSession(storage:Storage=localStorage):WorkspaceStore{
- const store=new WorkspaceStore(storage,{validate:validateRuntime});
+ const store=new WorkspaceStore(storage,{validate:validateWorkspaceRuntime});
  const seed:WorkspaceSeed={
   title:'Untitled CEM case',
   versions:{
