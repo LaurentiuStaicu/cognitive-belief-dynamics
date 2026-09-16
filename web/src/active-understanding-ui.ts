@@ -93,7 +93,7 @@ export async function mountActiveUnderstanding(
    </nav>
    <div class="active-understanding-main">
     <article id="activeChallengeStage" class="panel active-stage" aria-live="polite"></article>
-    <aside id="activeHistory" class="panel active-history" aria-labelledby="activeHistoryTitle"></aside>
+    <section id="activeHistory" class="panel active-history" aria-labelledby="activeHistoryTitle"></section>
    </div>
   </div>
  </section>`;
@@ -131,6 +131,7 @@ export async function mountActiveUnderstanding(
  };
 
  const renderStage=()=>{
+  stage.dataset.auStage=session.stage;
   const progress={WORKED_EXAMPLE:1,PREDICT:2,REVEAL:3,EXPLAIN:4,BOUNDARY:5,COMPLETE:6}[session.stage];
   const stageHeader=`<div class="active-stage-progress"><span>${t('Pas','Step')} ${progress} / 6</span><progress value="${progress}" max="6" aria-label="${t('Progresul secvenței active','Active sequence progress')}"></progress><span>${esc(stageLabel(session.stage,lang))}</span></div>`;
 

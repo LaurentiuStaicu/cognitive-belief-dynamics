@@ -135,6 +135,7 @@ try {
  await page.locator('input[name="auPrediction"][value="INCREASE"]').check();
  await page.selectOption('#activeConfidence','medium');
  await page.locator('[data-au-submit]').click();
+ assert.equal(await page.locator('#activeChallengeStage').getAttribute('data-au-stage'),'REVEAL');
  assert.match(await page.locator('#activeChallengeStage').textContent(),/Crește/);
  assert.match(await page.locator('#activeChallengeStage').textContent(),/coincide/);
  const activeHistory=await page.evaluate(()=>JSON.parse(localStorage.getItem('cem.active-understanding.history.v1')??'{"records":[]}'));
@@ -155,6 +156,9 @@ try {
  await page.locator('[data-au-skip]').click();
  assert.match(await page.locator('#activeChallengeStage').textContent(),/fără a salva o predicție/);
  assert.equal((await page.evaluate(()=>JSON.parse(localStorage.getItem('cem.active-understanding.history.v1')).records.length)),1);
+ await page.locator('[data-au-clear-history]').click();
+ assert.equal(await page.evaluate(()=>localStorage.getItem('cem.active-understanding.history.v1')),null);
+ assert.match(await page.locator('#activeHistory').textContent(),/Nicio predicție salvată/);
  await page.locator('#language').click();
  assert.equal(await page.locator('html').getAttribute('lang'),'en');
  await page.locator('#activeUnderstandingTitle').getByText('Active Understanding',{exact:true}).waitFor();
