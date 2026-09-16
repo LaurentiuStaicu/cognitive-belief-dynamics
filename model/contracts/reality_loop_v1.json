@@ -252,6 +252,13 @@
           "trigger_condition": {
             "ro": "Dacă observația depășește pragul definit prospectiv.",
             "en": "If the observation crosses the prospectively defined threshold."
+          },
+          "trigger": {
+            "indicator_id": "CEM.INDICATOR.OA7.PROXIMAL.EXAMPLE",
+            "comparator": "GTE",
+            "threshold": 0.5,
+            "unit": "contract_unit",
+            "origin": "USER_DECLARED"
           }
         },
         {

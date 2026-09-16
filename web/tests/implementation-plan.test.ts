@@ -53,6 +53,13 @@ test('OA-7 materializes a canonical illustrative ImplementationPlan with frozen 
  assert.deepEqual(plan.adaptive_plan.map(item=>item.phase),['NOW','WATCH','IF','THEN','STOP','REASSESS']);
  assert.equal('readiness' in plan.adaptive_plan[0],false);
  assert.equal('trigger_draft_id' in plan.adaptive_plan[2],false);
+ assert.deepEqual(plan.adaptive_plan[2].trigger,{
+  indicator_id:'CEM.INDICATOR.M0.FALSE_SHARING.MEAN13',
+  comparator:'LTE',
+  threshold:0.35,
+  unit:'probability',
+  origin:'USER_DECLARED'
+ });
 });
 
 test('OA-7 refuses to freeze incomplete adaptive drafts',()=>{
