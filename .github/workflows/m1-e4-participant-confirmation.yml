@@ -1,4 +1,4 @@
-name: M1.E4 authoritative participant confirmation
+name: M1.E4 Phase J optimizer failure diagnostic
 
 on:
   push:
@@ -9,56 +9,9 @@ permissions:
   contents: read
 
 jobs:
-  prepare:
-    name: freeze-confirmation-matrix
+  diagnose:
     runs-on: ubuntu-latest
-    outputs:
-      cells: ${{ steps.matrix.outputs.cells }}
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
-        with:
-          fetch-depth: 0
-
-      - name: Verify one-shot workflow is the only change from Phase J main
-        run: |
-          git diff --exit-code 8005e20a53099d065f969eb9aad90bf81e7c88a2 HEAD -- . ':(exclude).github/workflows/m1-e4-participant-confirmation.yml'
-
-      - id: matrix
-        name: Read frozen 29-cell matrix
-        run: |
-          python - <<'PY' >> "$GITHUB_OUTPUT"
-          import json
-          from pathlib import Path
-
-          config = json.loads(
-              Path("model/benchmarks/m1_e4_participant_confirmation_200.json").read_text()
-          )
-          cells = [row["cell_id"] for row in config["selected_cells"]]
-
-          assert config["replicates_per_cell"] == 200
-          assert config["recovery_threshold"] == 0.8
-          assert config["quadrature_nodes"] == 5
-          assert config["selection_policy"]["selected_cells_total"] == 29
-          assert config["selection_policy"]["primary_cells"] == 18
-          assert config["selection_policy"]["boundary_cells"] == 11
-          assert config["selection_policy"]["tie_handling"] == "INCLUDE_ALL_TIES"
-          assert len(cells) == 29
-          assert len(set(cells)) == 29
-
-          print("cells=" + json.dumps(cells, separators=(",", ":")))
-          PY
-
-  confirm:
-    name: confirm-${{ matrix.cell_id }}
-    needs: prepare
-    runs-on: ubuntu-latest
-    timeout-minutes: 240
-    strategy:
-      fail-fast: false
-      max-parallel: 12
-      matrix:
-        cell_id: ${{ fromJSON(needs.prepare.outputs.cells) }}
-
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
@@ -68,174 +21,102 @@ jobs:
       - name: Install benchmark dependencies
         run: python -m pip install .
 
-      - name: Run frozen 200-replicate confirmation cell
-        env:
-          CELL_ID: ${{ matrix.cell_id }}
-        run: |
-          mkdir -p artifacts
-          python scripts/run_m1_e4_participant_confirmation.py \
-            --cell-id "$CELL_ID" \
-            --output artifacts/result.json
-
-      - name: Audit cell result without turning a scientific miss into a technical failure
-        env:
-          CELL_ID: ${{ matrix.cell_id }}
+      - name: Reproduce and isolate deterministic pooled 2HT initialization failure
         run: |
           python - <<'PY'
           import json
-          import os
           from pathlib import Path
 
-          from cognitive_epistemic_model.calibration.m1_e4_participant_confirmation import cell_seed
+          import numpy as np
 
-          cell_id = os.environ["CELL_ID"]
-          config = json.loads(
-              Path("model/benchmarks/m1_e4_participant_confirmation_200.json").read_text()
+          from cognitive_epistemic_model.calibration.m1_e4_candidate_recovery import (
+              RecoveryFamily,
+              fit_candidate,
           )
-          payload = json.loads(Path("artifacts/result.json").read_text())
-
-          assert payload["benchmark_id"] == config["benchmark_id"]
-          assert payload["replicates_per_cell"] == 200
-          assert payload["partial_execution"] is True
-          assert len(payload["results"]) == 1
-
-          row = payload["results"][0]
-          expected = [x for x in config["selected_cells"] if x["cell_id"] == cell_id]
-          assert len(expected) == 1
-          expected = expected[0]
-
-          assert row["cell_id"] == cell_id
-          assert row["role"] == expected["role"]
-          assert row["allocation"] == expected["allocation"]
-          assert row["heterogeneity"] == expected["heterogeneity"]
-          assert row["generator"] == expected["generator"]
-          assert row["regime"] == expected["regime"]
-          assert row["replicates"] == 200
-          assert row["seed"] == cell_seed(config["base_seed"], cell_id)
-          assert sum(row["selected"].values()) == 200
-
-          print("cell_id:", row["cell_id"])
-          print("role:", row["role"])
-          print("recovery_probability:", row["recovery_probability"])
-          print("wrong_probability:", row["wrong_probability"])
-          print("inconclusive_probability:", row["inconclusive_probability"])
-          print("wilson_95:", row["wilson_lower"], row["wilson_upper"])
-          print("formal_gate:", row["passes_formal_recovery_gate"])
-          print("secondary_wilson_margin:", row["passes_secondary_wilson_margin"])
-          PY
-
-      - name: Create cell checksum
-        run: sha256sum artifacts/result.json > artifacts/SHA256SUMS
-
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: participant-confirm-${{ matrix.cell_id }}
-          path: artifacts/
-          if-no-files-found: error
-          retention-days: 30
-
-  aggregate:
-    name: aggregate-authoritative-confirmation
-    needs: confirm
-    runs-on: ubuntu-latest
-    if: ${{ always() && needs.confirm.result == 'success' }}
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
-        with:
-          python-version: '3.12'
-
-      - name: Install benchmark dependencies
-        run: python -m pip install .
-
-      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
-        with:
-          pattern: participant-confirm-*
-          path: artifacts/shards
-          merge-multiple: false
-
-      - name: Aggregate exactly the frozen 29 cells
-        run: |
-          python - <<'PY'
-          import json
-          import os
-          from pathlib import Path
-
           from cognitive_epistemic_model.calibration.m1_e4_participant_confirmation import (
-              summarize_confirmation,
+              _lookup_cell_inputs,
+              cell_seed,
+          )
+          from cognitive_epistemic_model.calibration.m1_e4_participant_recovery import (
+              _aggregate_for_initialization,
+              simulate_participant_dataset,
           )
 
-          config_path = Path("model/benchmarks/m1_e4_participant_confirmation_200.json")
-          config = json.loads(config_path.read_text())
-          shard_files = sorted(Path("artifacts/shards").glob("*/result.json"))
-
-          assert len(shard_files) == 29, len(shard_files)
-
-          rows = []
-          seen = set()
-          for path in shard_files:
-              payload = json.loads(path.read_text())
-              assert payload["benchmark_id"] == config["benchmark_id"]
-              assert payload["replicates_per_cell"] == 200
-              assert payload["partial_execution"] is True
-              assert len(payload["results"]) == 1
-              row = payload["results"][0]
-              assert row["replicates"] == 200
-              assert row["cell_id"] not in seen
-              seen.add(row["cell_id"])
-              rows.append(row)
-
-          expected = {x["cell_id"] for x in config["selected_cells"]}
-          assert seen == expected
-
-          summary = summarize_confirmation(config, rows)
-          out = Path("artifacts/authoritative_result.json")
-          out.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n")
-
-          provenance = {
-              "phase": "Alpha 0.4.3a0 Phase J",
-              "benchmark_id": config["benchmark_id"],
-              "source_phase_j_main_sha": "8005e20a53099d065f969eb9aad90bf81e7c88a2",
-              "workflow_source_sha": os.environ["GITHUB_SHA"],
-              "github_run_id": os.environ["GITHUB_RUN_ID"],
-              "github_run_attempt": os.environ["GITHUB_RUN_ATTEMPT"],
-              "selected_cells_total": summary["selected_cells_total"],
-              "replicates_per_cell": summary["replicates_per_cell"],
-              "primary_cells": summary["primary_cells"],
-              "boundary_cells": summary["boundary_cells"],
-          }
-          Path("artifacts/PROVENANCE.json").write_text(
-              json.dumps(provenance, indent=2, sort_keys=True) + "\n"
+          confirmation = json.loads(
+              Path("model/benchmarks/m1_e4_participant_confirmation_200.json").read_text()
           )
-
-          print("selected_cells_total:", summary["selected_cells_total"])
-          print("replicates_per_cell:", summary["replicates_per_cell"])
-          print("primary_minimum_recovery:", summary["primary_minimum_recovery"])
-          print("primary_all_formal_gate_pass:", summary["primary_all_formal_gate_pass"])
-          print(
-              "primary_all_secondary_wilson_margin_pass:",
-              summary["primary_all_secondary_wilson_margin_pass"],
+          screening = json.loads(
+              Path(confirmation["source_screening_config"]).read_text()
           )
-          print("boundary_minimum_recovery:", summary["boundary_minimum_recovery"])
-          print("wrong_family_selections_total:", summary["wrong_family_selections_total"])
-          print("inconclusive_total:", summary["inconclusive_total"])
-          print("AUTHORITATIVE_RESULT_JSON::" + json.dumps(summary, sort_keys=True))
+          cell_id = "P128_X5__high__2HT__strong"
+          selected = [x for x in confirmation["selected_cells"] if x["cell_id"] == cell_id]
+          assert len(selected) == 1
+          selected = selected[0]
+
+          allocation, heterogeneity, truth, biases = _lookup_cell_inputs(
+              screening, selected
+          )
+          rng = np.random.default_rng(cell_seed(confirmation["base_seed"], cell_id))
+
+          for replicate_index in range(1, confirmation["replicates_per_cell"] + 1):
+              train = simulate_participant_dataset(
+                  family=RecoveryFamily.TWO_HT,
+                  population_memory=truth,
+                  population_biases=biases,
+                  participants=int(allocation["participants"]),
+                  n_target_per_cell=int(allocation["target_trials_per_participant_per_cell"]),
+                  n_foil_per_cell=int(allocation["foil_trials_per_participant_per_cell"]),
+                  sigma_memory=float(heterogeneity["sigma_memory"]),
+                  sigma_bias=float(heterogeneity["sigma_bias"]),
+                  rng=rng,
+              )
+              # Advance the RNG exactly as the authoritative runner does before fitting.
+              _held_out = simulate_participant_dataset(
+                  family=RecoveryFamily.TWO_HT,
+                  population_memory=truth,
+                  population_biases=biases,
+                  participants=int(allocation["participants"]),
+                  n_target_per_cell=int(allocation["target_trials_per_participant_per_cell"]),
+                  n_foil_per_cell=int(allocation["foil_trials_per_participant_per_cell"]),
+                  sigma_memory=float(heterogeneity["sigma_memory"]),
+                  sigma_bias=float(heterogeneity["sigma_bias"]),
+                  rng=rng,
+              )
+
+              pooled = _aggregate_for_initialization(train)
+              try:
+                  fit_candidate(RecoveryFamily.TWO_HT, pooled)
+              except RuntimeError as exc:
+                  serial = {
+                      condition: [
+                          {
+                              "n_target": p.n_target,
+                              "n_foil": p.n_foil,
+                              "n_hit": p.n_hit,
+                              "n_fa": p.n_fa,
+                          }
+                          for p in points
+                      ]
+                      for condition, points in pooled.items()
+                  }
+                  print("FAILURE_REPLICATE_INDEX_1BASED::" + str(replicate_index))
+                  print("FAILURE_EXCEPTION::" + repr(exc))
+                  print("FAILURE_POOLED_COUNTS_JSON::" + json.dumps(serial, sort_keys=True))
+
+                  for condition, points in pooled.items():
+                      try:
+                          fit_candidate(
+                              RecoveryFamily.TWO_HT,
+                              {condition: points},
+                          )
+                      except RuntimeError as condition_exc:
+                          print(
+                              "FAILURE_CONDITION::"
+                              + condition
+                              + "::"
+                              + repr(condition_exc)
+                          )
+                  raise SystemExit(0)
+
+          raise SystemExit("expected deterministic failure was not reproduced")
           PY
-
-      - name: Preserve frozen config and create checksums
-        run: |
-          cp model/benchmarks/m1_e4_participant_confirmation_200.json             artifacts/m1_e4_participant_confirmation_200.json
-          find artifacts/shards -type f -name result.json -print0             | sort -z             | xargs -0 sha256sum > artifacts/SHARD_RESULT_SHA256SUMS
-          sha256sum             artifacts/authoritative_result.json             artifacts/PROVENANCE.json             artifacts/m1_e4_participant_confirmation_200.json             > artifacts/SHA256SUMS
-
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: participant-confirmation-authoritative
-          path: |
-            artifacts/authoritative_result.json
-            artifacts/PROVENANCE.json
-            artifacts/m1_e4_participant_confirmation_200.json
-            artifacts/SHA256SUMS
-            artifacts/SHARD_RESULT_SHA256SUMS
-          if-no-files-found: error
-          retention-days: 30
