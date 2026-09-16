@@ -48,10 +48,12 @@ def test_semantic_compiler_entity_coverage_matches_authoritative_sources():
         "theory_glossary",
     ):
         expected |= {item["id"] for item in load(MODEL / f"{name}.json")}
+    computational = load(MODEL / "computational_dependencies.json")
+    expected |= {item["semantic_id"] for item in computational["nodes"]}
 
     actual = {item["id"] for item in index["entities"]}
     assert actual == expected
-    assert len(actual) == 103
+    assert len(actual) == 114
 
 
 def test_semantic_compiler_preserves_registered_links_exactly():
@@ -95,12 +97,42 @@ def test_semantic_compiler_documentation_relations_are_resolved():
         assert relation["target"] in entity_ids
 
 
-def test_oa1b_does_not_import_computational_dependencies_early():
+def test_oa1c_imports_computational_dependencies_exactly():
     index = build_semantic_index(MODEL)
-    assert not any(
-        relation["layer"] == "COMPUTATIONAL_DEPENDENCY"
+    source = load(MODEL / "computational_dependencies.json")
+    compiled = [
+        relation
         for relation in index["relations"]
-    )
+        if relation["layer"] == "COMPUTATIONAL_DEPENDENCY"
+    ]
+
+    assert len(compiled) == len(source["dependencies"]) == 17
+    assert {item["id"] for item in compiled} == {
+        item["id"] for item in source["dependencies"]
+    }
+
+    source_by_id = {item["id"]: item for item in source["dependencies"]}
+    for relation in compiled:
+        original = source_by_id[relation["id"]]
+        assert relation["source"] == original["source_semantic_id"]
+        assert relation["target"] == original["target_semantic_id"]
+        assert relation["formula"] == original["formula"]
+        assert relation["code_file"] == original["code_file"]
+        assert relation.get("registered_relation_id") == original.get(
+            "registered_relation_id"
+        )
+
+
+def test_oa1c_computational_node_entities_preserve_graph_aliases():
+    index = build_semantic_index(MODEL)
+    source = load(MODEL / "computational_dependencies.json")
+    by_id = {item["id"]: item for item in index["entities"]}
+
+    for node in source["nodes"]:
+        entity = by_id[node["semantic_id"]]
+        assert entity["semantic_type"] == "COMPUTATIONAL_NODE"
+        assert entity["short_name"] == node["id"]
+        assert node["id"] in entity["labels"]["alternative"]["und"]
 
 
 def test_semantic_related_ids_all_resolve():
