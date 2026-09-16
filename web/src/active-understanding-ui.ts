@@ -7,6 +7,7 @@ import {
 } from './active-understanding';
 import {projectAccessChallenge} from './challenge-model';
 import type {M1AccessData} from './access-stage';
+import {challengeModelLearningLinks,deriveActiveLearningLinks,type ActiveTheoryChapter} from './active-understanding-links';
 
 type Lang='ro'|'en';
 type Copy={ro:string;en:string};
@@ -69,6 +70,7 @@ export async function mountActiveUnderstanding(
  host:HTMLElement,
  lang:Lang,
  requestedId:string|undefined,
+ theoryChapters:ActiveTheoryChapter[],
  m1Access:M1AccessData,
  navigate:(target:string)=>void
 ):Promise<void>{
@@ -77,6 +79,7 @@ export async function mountActiveUnderstanding(
  const challengeModelActive=requestedId==='challenge-model';
  const t=(ro:string,en:string)=>lang==='ro'?ro:en;
  const challenge=contract.challenges.find(item=>item.id===requestedId)??contract.challenges[0];
+ const learningLinks=deriveActiveLearningLinks(challenge,theoryChapters);
  let session=createActiveSession(challenge.id,challenge.correct_choice_id);
  let selectedChoice='';
  let selectedConfidence='';
@@ -127,13 +130,16 @@ export async function mountActiveUnderstanding(
 
  const choiceLabel=(id:string)=>local(challenge.choices.find(item=>item.id===id)?.label??{ro:id,en:id},lang);
 
- const refsMarkup=()=>`<div class="active-canonical-refs"><strong>${t('Ancore canonice','Canonical anchors')}</strong><div>${challenge.canonical_target_refs.map(id=>`<button type="button" data-au-open-ref="${esc(id)}"><code>${esc(id)}</code></button>`).join('')}</div></div>`;
+ const refsMarkup=()=>`<div class="active-canonical-refs"><strong>${t('Ancore canonice','Canonical anchors')}</strong><div>${challenge.canonical_target_refs.map(id=>`<button type="button" data-au-open-ref="${esc(id)}"><code>${esc(id)}</code></button>`).join('')}</div></div><div class="active-learning-links" aria-label="${t('Continuă explorarea conceptului','Continue exploring the concept')}"><strong>${t('Continuă în suprafețele canonice','Continue in canonical surfaces')}</strong><div><button type="button" data-au-open-theory>${t('Context în Teorie','Theory context')}</button><button type="button" data-au-search-canonical>${t('Caută obiectul','Search object')} <code>${esc(learningLinks.searchQuery)}</code></button><button type="button" data-au-inspect-canonical>${t('Inspector universal','Universal Inspector')} <code>${esc(learningLinks.inspectorId)}</code></button></div></div>`;
 
  const wireRefs=()=>{
   stage.querySelectorAll<HTMLButtonElement>('[data-au-open-ref]').forEach(button=>button.onclick=()=>{
    const id=button.dataset.auOpenRef;
    if(id)navigate('reference:'+id);
   });
+  stage.querySelector<HTMLButtonElement>('[data-au-open-theory]')?.addEventListener('click',()=>{location.hash=`#understanding/theory/${encodeURIComponent(learningLinks.theorySlug)}`;});
+  stage.querySelector<HTMLButtonElement>('[data-au-search-canonical]')?.addEventListener('click',()=>navigate('search:'+learningLinks.searchQuery));
+  stage.querySelector<HTMLButtonElement>('[data-au-inspect-canonical]')?.addEventListener('click',()=>navigate('inspect:'+learningLinks.inspectorId));
  };
 
  const renderStage=()=>{
@@ -176,8 +182,12 @@ export async function mountActiveUnderstanding(
      <div><span>${t('Validări înregistrate','Registered validations')}</span><code>${esc(cm.validationPatternIds.join(' · '))}</code></div>
     </div>
     <div class="boundary"><strong>${t('Limită epistemică','Epistemic boundary')}</strong><p>${esc(cm.interpretationBoundary)}</p><p>${t('Diferența dintre predicții arată ce implică fiecare model în acest experiment demonstrativ. Nu selectează un model universal adevărat și nu transformă coeficienții necalibrați în estimări cauzale populaționale.','The prediction difference shows what each model implies in this demonstration experiment. It does not select a universally true model or turn uncalibrated coefficients into population causal estimates.')}</p></div>
+    <div class="active-learning-links" aria-label="${t('Continuă explorarea comparatorului','Continue exploring the comparator')}"><strong>${t('Continuă în suprafețele canonice','Continue in canonical surfaces')}</strong><div><button type="button" data-au-cm-theory>${t('Context în Teorie','Theory context')}</button><button type="button" data-au-cm-search>${t('Caută Hneg','Search Hneg')}</button><button type="button" data-au-cm-inspect>${t('Inspectează Paccess','Inspect Paccess')}</button></div></div>
     <div class="active-actions"><button type="button" class="primary" data-au-open-access>${t('Deschide comparatorul M1.E3 complet','Open the full M1.E3 comparator')}</button><button type="button" data-au-back-challenges>${t('Înapoi la AU-1','Back to AU-1')}</button></div>
    </div>`;
+   stage.querySelector<HTMLButtonElement>('[data-au-cm-theory]')!.onclick=()=>{location.hash=`#understanding/theory/${encodeURIComponent(challengeModelLearningLinks.theorySlug)}`;};
+   stage.querySelector<HTMLButtonElement>('[data-au-cm-search]')!.onclick=()=>navigate('search:'+challengeModelLearningLinks.searchQuery);
+   stage.querySelector<HTMLButtonElement>('[data-au-cm-inspect]')!.onclick=()=>navigate('inspect:'+challengeModelLearningLinks.inspectorId);
    stage.querySelector<HTMLButtonElement>('[data-au-open-access]')!.onclick=()=>{location.hash='#understanding/mechanisms/access';};
    stage.querySelector<HTMLButtonElement>('[data-au-back-challenges]')!.onclick=()=>{location.hash='#understanding/active/AU-1';};
    return;

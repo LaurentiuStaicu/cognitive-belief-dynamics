@@ -249,7 +249,7 @@ export async function mountTheoryReader(host:HTMLElement,context:Context,request
    <label class="theory-chapter-select">${t('Capitol','Chapter')}<select id="theoryChapterSelect">${ordered.map(item=>`<option value="${esc(theoryChapterSlug(item))}" ${item.id===chapter.id?'selected':''}>${String(item.order).padStart(2,'0')} · ${esc(sem(item.id,ctx.lang,item.label[ctx.lang]))}</option>`).join('')}</select></label>
    <ol class="theory-chapter-list">${ordered.map(item=>`<li><button type="button" data-theory-chapter="${esc(theoryChapterSlug(item))}" aria-current="${item.id===chapter.id?'page':'false'}"><span>${String(item.order).padStart(2,'0')}</span>${esc(sem(item.id,ctx.lang,item.label[ctx.lang]))}</button></li>`).join('')}</ol>
   </nav>
-  <article class="panel theory-reader" id="theoryArticle" aria-busy="true"><p class="loading">${t('Se încarcă teoria…','Loading theory…')}</p></article>
+  <article class="panel theory-reader" id="theoryArticle" tabindex="-1" aria-busy="true"><p class="loading">${t('Se încarcă teoria…','Loading theory…')}</p></article>
   <aside class="panel theory-inspector" id="theoryInspector" tabindex="-1" aria-label="${t('Inspector contextual','Contextual inspector')}" aria-live="polite"></aside>
  </div>`;
 
@@ -295,4 +295,5 @@ export async function mountTheoryReader(host:HTMLElement,context:Context,request
   location.hash=`#understanding/theory/${encodeURIComponent(slug)}`;
  };
  await loadChapter(chapter);
+ if(requestedSlug)article.focus({preventScroll:false});
 }

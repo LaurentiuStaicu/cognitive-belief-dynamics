@@ -78,3 +78,10 @@
 @media(max-width:700px){
  .challenge-model-grid,.challenge-model-invariants,.challenge-model-status{grid-template-columns:minmax(0,1fr)}
 }
+
+/* OA-5D — canonical learning cross-links */
+.active-learning-links{margin:1rem 0;padding-top:.9rem;border-top:1px solid var(--border,#d5deea)}
+.active-learning-links>div{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.55rem}
+.active-learning-links button{min-height:44px;max-width:100%;overflow-wrap:anywhere}
+.active-learning-links code{font-size:.78em}
+@media(max-width:620px){.active-learning-links>div{display:grid;grid-template-columns:minmax(0,1fr)}.active-learning-links button{width:100%}}
