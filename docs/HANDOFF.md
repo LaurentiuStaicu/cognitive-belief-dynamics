@@ -832,3 +832,55 @@ effects.
 
 No EVSD/2HT activation, Pencode, UI, evidence-snapshot or release change is
 allowed in Phase H.
+
+
+## Alpha 0.4.3a0 Phase I — participant-aware screening result
+
+Phase H was merged into `main` at
+`b725e14a8a226e67e1c2bc4f7c82b11dd15442a7`; post-merge CI #150 passed.
+
+The 72-cell participant-aware screening then completed using the frozen Phase H
+model and 50 replicates per cell.
+
+Vectorized marginal-likelihood source commit:
+
+`f1123a4dce74c2b7c43917fd73d69080102d1799`.
+
+Equivalence-test commit:
+
+`f5866784561b163f3a0c4b44ccff6bed146e4347`.
+
+Persistent screening provenance is anchored to GitHub Actions run
+`35069251436`.
+
+Result:
+
+- 72 / 72 cells pass the 0.80 point-estimate screening gate;
+- minimum recovery = 0.88;
+- zero decisive wrong-family selections;
+- P64_X10 has the strongest screening profile:
+  minimum 0.96, mean 0.9911, mean inconclusive 0.0089;
+- limiting cell:
+  P128_X5 × low heterogeneity × EVSD × weak memory,
+  recovery 0.88, wrong 0, inconclusive 0.12.
+
+Because each cell has only 50 screening replicates, these results reduce the
+design space but do not authorize a human study.
+
+Next confirmation proposal:
+
+1. all 18 P64_X10 cells at 200 replicates;
+2. boundary cells from the other allocations, preserving both generator
+   families and especially the weak-EVSD / low-heterogeneity region.
+
+The exact boundary-cell tie choices must be frozen prospectively in the next
+confirmation contract before execution.
+
+The numerical implementation is vectorized but scientifically unchanged.
+A direct vectorized-vs-loop likelihood equivalence regression test is included.
+Two complete screening runs yielded the same 72/72 pass surface, same minima,
+same confusion counts and same limiting cells; some optimized continuous
+parameter estimates varied slightly at floating-point scale.
+
+No EVSD/2HT activation, Pencode, human-data authorization, active registry, UI,
+evidence snapshot or release-version change is permitted in Phase I.
