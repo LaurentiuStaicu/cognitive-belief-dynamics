@@ -16,6 +16,8 @@ jobs:
       cells: ${{ steps.matrix.outputs.cells }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 2
 
       - name: Verify one-shot workflow is the only change from Phase J main
         run: |
