@@ -7,6 +7,7 @@ import './search-ui.css';
 import './inspector-ui.css';
 import './active-understanding-ui.css';
 import './decision-uncertainty-ui.css';
+import './action-canvas.css';
 import {chartSeries} from './visual-language';
 import {mountSemanticSearch} from './search-ui';
 import {mountSemanticInspector} from './inspector-ui';
