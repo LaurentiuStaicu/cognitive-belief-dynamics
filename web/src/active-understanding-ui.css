@@ -1,0 +1,64 @@
+/* OA-5B — Active Understanding */
+.active-understanding{min-width:0}
+.active-understanding-intro{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:1rem}
+.active-understanding-intro>div{min-width:0;max-width:78ch}
+.active-understanding-intro p:not(.eyebrow){color:var(--muted)}
+.active-mode-badge{flex:0 0 auto;border:1px solid var(--border,#c5cfdd);border-radius:999px;padding:.35rem .6rem;font-size:.72rem;font-weight:700;letter-spacing:.08em}
+.active-understanding-layout{display:grid;grid-template-columns:minmax(15rem,20rem) minmax(0,1fr);gap:1rem;align-items:start}
+.active-challenges{position:sticky;top:1rem;min-width:0}
+.active-challenges ol{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
+.active-challenges li{min-width:0}
+.active-challenges button{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr);gap:.65rem;text-align:start;align-items:start;line-height:1.35}
+.active-challenges button strong{font-variant-numeric:tabular-nums;color:var(--muted)}
+.active-challenges button span{font-size:.86rem;font-weight:500;overflow-wrap:anywhere}
+.active-challenges button[aria-current=step]{border-color:var(--accent,#168573);box-shadow:inset .2rem 0 var(--accent,#168573)}
+.active-understanding-main{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem;min-width:0}
+.active-stage{min-width:0;max-width:78ch;width:100%}
+.active-stage [data-au-stage-title]:focus{outline:none}
+.active-stage-progress{display:grid;grid-template-columns:auto minmax(7rem,1fr) auto;gap:.75rem;align-items:center;margin-bottom:1.25rem;color:var(--muted);font-size:.8rem}
+.active-stage-progress progress{width:100%;height:.6rem;accent-color:var(--accent,#168573)}
+.active-learning-target,.active-explanation{font-size:1.05rem;line-height:1.7}
+.active-worked-example{border-block:1px solid var(--border,#d5deea);padding:1rem 0;margin:1rem 0}
+.active-worked-example>div,.active-canonical-refs>div{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.55rem}
+.active-worked-example code{background:#eef3f8;border-radius:5px;padding:.25rem .4rem}
+.active-canonical-refs{margin:1.2rem 0}
+.active-canonical-refs button{min-height:36px;padding:.35rem .5rem;font-weight:500}
+.active-choice-fieldset{border:0;padding:0;margin:1.2rem 0;display:grid;gap:.55rem}
+.active-choice-fieldset legend{font-weight:700;margin-bottom:.6rem}
+.active-choice-fieldset label{display:flex;gap:.7rem;align-items:flex-start;border:1px solid var(--border,#d5deea);border-radius:8px;padding:.75rem;cursor:pointer}
+.active-choice-fieldset input{width:20px;height:20px;flex:0 0 auto;accent-color:var(--accent,#168573)}
+.active-confidence{display:grid;gap:.4rem;max-width:24rem;font-weight:600;margin:1rem 0}
+.active-confidence select{font-weight:400}
+.active-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.25rem}
+.active-actions .primary{background:var(--accent,#168573);border-color:var(--accent,#168573);color:var(--accent-text,#fff)}
+.active-comparison{border-left:4px solid var(--accent,#168573);padding:.85rem 1rem;background:#eef6f5}
+.active-history{min-width:0;max-width:78ch}
+.active-history-heading{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start}
+.active-history-heading button{font-size:.8rem}
+.active-history-list{list-style:none;margin:1rem 0 0;padding:0;display:grid;gap:.55rem}
+.active-history-list li{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:.6rem;align-items:center;border-top:1px solid var(--border,#d5deea);padding-top:.65rem;font-size:.82rem;min-width:0}
+.active-history-list li>div{min-width:0;display:flex;gap:.5rem;flex-wrap:wrap}
+.active-history-list time{white-space:nowrap;color:var(--muted)}
+.active-history-empty{margin-bottom:0;color:var(--muted)}
+@media(max-width:900px){
+ .active-understanding-layout{grid-template-columns:minmax(0,1fr)}
+ .active-challenges{position:static}
+ .active-challenges ol{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .active-challenges button{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+ .active-understanding-intro{flex-wrap:wrap}
+ .active-challenges ol{grid-template-columns:minmax(0,1fr)}
+ .active-stage-progress{grid-template-columns:auto minmax(0,1fr);gap:.45rem}
+ .active-stage-progress span:last-child{grid-column:1/-1}
+ .active-actions{align-items:stretch}
+ .active-actions button{width:100%}
+ .active-history-heading{flex-wrap:wrap}
+ .active-history-list li{grid-template-columns:minmax(0,1fr) auto}
+ .active-history-list time{grid-column:1/-1;white-space:normal}
+}
+@media(forced-colors:active){
+ .active-challenges button[aria-current=step]{outline:2px solid Highlight}
+ .active-actions .primary{background:ButtonFace;color:ButtonText;border-color:ButtonText}
+ .active-comparison{border-color:Highlight}
+}
