@@ -394,8 +394,26 @@ try {
  assert.match(await page.locator('[data-trigger-draft]').textContent(),/NOT_EVALUATED_NO_OBSERVED_OUTCOME/);
  assert.match(await page.locator('[data-trigger-draft]').textContent(),/NOT_BOUND_TO_ADAPTIVE_ACTION/);
  assert.doesNotMatch(await page.locator('[data-trigger-draft]').textContent(),/triggered\s*=\s*true/i);
+
+ // OA-7 adaptive plan: complete the canonical six-phase prospective draft without executing it.
+ assert.equal(await page.locator('#adaptivePlanRuntime').count(),1);
+ assert.equal(await page.locator('[data-adaptive-phase]').count(),6);
+ assert.equal(await page.locator('#adaptivePlanRuntime').getAttribute('data-execution-status'),'DESIGN_ONLY_NO_OBSERVED_OUTCOME');
+ assert.equal(await page.locator('[data-adaptive-phase="IF"]').getAttribute('data-adaptive-readiness'),'DEFINED');
+ assert.equal(await page.locator('[data-adaptive-phase="THEN"]').getAttribute('data-adaptive-readiness'),'MISSING_ACTION');
+ await page.locator('#adaptivePlanForm textarea[name="then_action"]').fill('Reconsider the corrective-context bundle');
+ await page.locator('#adaptivePlanForm textarea[name="stop_action"]').fill('Stop if the prospective stop rule is confirmed');
+ await page.locator('#adaptivePlanForm textarea[name="reassess_action"]').fill('Reassess assumptions and create a new revision');
+ await page.locator('#adaptivePlanForm button[type="submit"]').click();
+ assert.equal(await page.locator('[data-adaptive-phase="THEN"]').getAttribute('data-adaptive-readiness'),'DEFINED');
+ assert.equal(await page.locator('[data-adaptive-phase="STOP"]').getAttribute('data-adaptive-readiness'),'DEFINED');
+ assert.equal(await page.locator('[data-adaptive-phase="REASSESS"]').getAttribute('data-adaptive-readiness'),'DEFINED');
+ assert.match(await page.locator('#adaptivePlanRuntime').textContent(),/NO_AUTOMATIC_ACTIONS|nu se execută automat|never executed automatically/i);
+ assert.doesNotMatch(await page.locator('#adaptivePlanRuntime').textContent(),/executed\s*=\s*true/i);
+
  await page.locator('[data-remove-trigger]').click();
  assert.equal(await page.locator('[data-trigger-draft]').count(),0);
+ assert.equal(await page.locator('[data-adaptive-phase="IF"]').getAttribute('data-adaptive-readiness'),'MISSING_TRIGGER');
 
  // OA-6C: explicit finite-scenario uncertainty UI, threshold coverage and canonical context.
  assert.equal(await page.locator('#decisionUncertainty').count(),1);

@@ -79,10 +79,11 @@ export function createTriggerDraft(input:{
 const esc=(value:string)=>value.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]??c));
 const comparatorLabel=(value:TriggerDraft['comparator'])=>({LT:'<',LTE:'≤',GTE:'≥',GT:'>'}[value]);
 
-export function mountSignpostsTriggers(host:HTMLElement,projection:SignpostTriggerProjection,lang:Lang){
+export function mountSignpostsTriggers(host:HTMLElement,projection:SignpostTriggerProjection,lang:Lang,onDraftsChange?:(drafts:TriggerDraft[])=>void){
  const t=(ro:string,en:string)=>lang==='ro'?ro:en;
  let drafts:TriggerDraft[]=[];
  const render=()=>{
+  onDraftsChange?.([...drafts]);
   host.innerHTML=`<section class="signposts-triggers" id="signpostsTriggers">
    <div class="section-heading"><div><p class="eyebrow">OA-7 · SIGNPOSTS / TRIGGERS</p><h4>${t('Ce urmărim și ce condiție ar cere reevaluare?','What do we watch and what condition would require reassessment?')}</h4><p>${t('Signpost-ul identifică indicatorul de urmărit. Trigger-ul este o condiție prospectivă declarată de utilizator; nu este derivată din model și nu este evaluată automat fără ObservedOutcome.','A signpost identifies the indicator to monitor. A trigger is a prospective user-declared condition; it is not derived from the model and is not automatically evaluated without an ObservedOutcome.')}</p></div><span class="signpost-boundary">${projection.automation}</span></div>
    <div class="signpost-grid">${projection.signposts.map(item=>`<article data-signpost-id="${esc(item.id)}" data-signpost-indicator="${esc(item.indicator_id)}"><h5>${esc(item.label[lang])}</h5><code>${esc(item.id)}</code><dl><dt>Indicator</dt><dd>${esc(item.indicator_id)}</dd><dt>${t('Rol','Role')}</dt><dd>${item.monitoring_role}</dd><dt>${t('Timp','Timing')}</dt><dd>${item.timing_role}</dd></dl></article>`).join('')}</div>
