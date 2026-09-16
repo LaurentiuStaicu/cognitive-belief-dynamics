@@ -1,6 +1,5 @@
 import type {ImplementationPlan} from './implementation-plan';
 import type {IndicatorDefinition,IndicatorProjection} from './indicator-objects';
-import {addRealityLoopObject,readRealityLoopObject} from './workspace-indexeddb';
 
 type Lang='ro'|'en';
 type Copy={ro:string;en:string};
@@ -183,22 +182,12 @@ export function materializeObservedOutcome(input:ObservedOutcomeInput):ObservedO
  return record;
 }
 
-export async function persistObservedOutcome(
- record:ObservedOutcome,
- indicators:IndicatorProjection
-):Promise<ObservedOutcome>{
- const persistedPlan=await readRealityLoopObject<ImplementationPlan>(record.implementation_plan_id);
- if(!persistedPlan)throw new Error('referenced ImplementationPlan is not present in canonical IndexedDB storage');
- validateObservedOutcomeReferences(record,persistedPlan,indicators);
- return addRealityLoopObject(record);
-}
-
 const esc=(value:string)=>value.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]??c));
 const localDefault=()=>new Date(Date.now()-60_000).toISOString().slice(0,16);
 
 export function mountObservedOutcomeRecorder(
  host:HTMLElement,
- input:{plan:ImplementationPlan;indicators:IndicatorProjection;lang:Lang}
+ input:{plan:ImplementationPlan;indicators:IndicatorProjection;lang:Lang;persist:(record:ObservedOutcome)=>Promise<ObservedOutcome>}
 ):void{
  const {plan,indicators,lang}=input;
  const t=(ro:string,en:string)=>lang==='ro'?ro:en;
@@ -264,7 +253,7 @@ export function mountObservedOutcomeRecorder(
     quality_note:String(data.get('quality_note')??''),
     source_refs:String(data.get('source_refs')).split(/\r?\n/)
    });
-   const stored=await persistObservedOutcome(record,indicators);
+   const stored=await input.persist(record);
    host.dataset.observedOutcomeId=stored.id;
    status.textContent=t(`Observație adăugată append-only: ${stored.id}`,`Append-only observation saved: ${stored.id}`);
   }catch(error){
