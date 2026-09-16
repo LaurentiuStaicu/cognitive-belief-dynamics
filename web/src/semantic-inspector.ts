@@ -1,4 +1,4 @@
-import {semanticIndex,type SemanticEntity,type SemanticIndex,type SemanticLang,type SemanticRelation} from './semantic';
+import type {SemanticEntity,SemanticIndex,SemanticLang,SemanticRelation} from './semantic';
 
 export type SemanticInspectorRelation={
  id:string;
@@ -63,4 +63,3 @@ export function inspectSemanticIndex(index:SemanticIndex,id:string,lang:Semantic
   formula:relation.formula,codeFile:relation.code_file,registeredRelationId:relation.registered_relation_id,sourceRecord:relation.source_record};
 }
 
-export function inspectSemantic(id:string,lang:SemanticLang):SemanticInspectorModel|undefined{return inspectSemanticIndex(semanticIndex,id,lang);}
