@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {navigationGroupForView,navigationGroups,navigationItem,requiredExistingViews,type AppView} from '../src/navigation.ts';
+import {isAppView,navigationGroupForView,navigationGroups,navigationItem,requiredExistingViews,type AppView} from '../src/navigation.ts';
 
 test('OA-3 has exactly four ordered user-purpose domains',()=>{
  assert.deepEqual(navigationGroups.map(group=>group.id),['understand','analyze','act','library']);
@@ -38,4 +38,11 @@ test('navigation labels remain bilingual and non-empty',()=>{
 test('OA-3A does not introduce search or inspector destinations',()=>{
  const haystack=JSON.stringify(navigationGroups).toLowerCase();
  assert(!haystack.includes('search'));assert(!haystack.includes('căut'));assert(!haystack.includes('inspector'));
+});
+
+test('runtime view guard accepts only mapped application views',()=>{
+ assert.equal(isAppView('learning'),true);
+ assert.equal(isAppView('reference'),true);
+ assert.equal(isAppView('search'),false);
+ assert.equal(isAppView(''),false);
 });
