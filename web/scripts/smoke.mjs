@@ -402,6 +402,38 @@ try {
  await page.locator('[data-remove-reassessment]').click();
  assert.equal(await page.locator('[data-reassessment-record]').count(),0);
  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('cem.decision-reassessment.v1')).records.length),0);
+
+ // OA-6E: keyboard, bilingual semantic parity, 320 CSS px and 200% text reflow.
+ const priorityTrigger=page.locator('[data-priority-create-trigger="UNC.PLANNER.RESPONSE.PROFILES"]');
+ await priorityTrigger.focus();
+ assert.equal(await priorityTrigger.evaluate(el=>document.activeElement===el),true);
+ await page.keyboard.press('Enter');
+ assert.equal(await page.locator('#reassessmentIndicator').evaluate(el=>document.activeElement===el),true);
+ const semanticCounts=async()=>({
+  uncertainty:await page.locator('[data-uncertainty-id]').count(),
+  priority:await page.locator('[data-information-priority]').count(),
+  scenarios:await page.locator('[data-uncertainty-scenario]').count(),
+  robustness:await page.locator('[data-robustness-alternative]').count(),
+  reassessmentForms:await page.locator('#reassessmentForm').count()
+ });
+ const roSemantic=await semanticCounts();
+ assert.match(await page.locator('#decisionUncertainty').textContent(),/Ce rămâne robust când schimbăm ipotezele/);
+ assert.match(await page.locator('#decisionUncertainty').textContent(),/FĂRĂ PROBABILITĂȚI IMPLICITE/);
+ await page.locator('#language').click();
+ assert.equal(await page.locator('html').getAttribute('lang'),'en');
+ await page.locator('#decisionUncertainty').waitFor();
+ assert.deepEqual(await semanticCounts(),roSemantic);
+ assert.match(await page.locator('#decisionUncertainty').textContent(),/What remains robust when assumptions change/);
+ assert.match(await page.locator('#decisionUncertainty').textContent(),/NO IMPLIED PROBABILITIES/);
+ await page.locator('#language').click();
+ assert.equal(await page.locator('html').getAttribute('lang'),'ro');
+ await page.locator('#decisionUncertainty').waitFor();
+ await page.setViewportSize({width:320,height:844});
+ assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'OA-6 planning 320 CSS px horizontal overflow');
+ await page.evaluate(()=>document.documentElement.style.fontSize='200%');
+ assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'OA-6 planning 320 CSS px + 200% text horizontal overflow');
+ await page.evaluate(()=>document.documentElement.style.fontSize='');
+ await page.setViewportSize({width:1440,height:1050});
  // Verify exported score decomposition and profile gaps independently of rendered rounding.
  await page.locator('#budget').fill('4');await page.locator('#budget').dispatchEvent('change');
  for(const weight of [0,50,100]){
