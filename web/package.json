@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run test:workspace && npm run test:ia && tsc --noEmit && vite build --base=./",
+    "build": "npm run test:workspace && npm run test:ia && npm run test:visual && tsc --noEmit && vite build --base=./",
     "prebuild": "node scripts/sync-model.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "test:browser": "node scripts/smoke.mjs",
     "predev": "node scripts/sync-model.mjs",
     "test:workspace": "node --test tests/workspace-*.test.ts",
-    "test:ia": "node --test tests/navigation.test.ts"
+    "test:ia": "node --test tests/navigation.test.ts",
+    "test:visual": "node --test tests/visual-language.test.ts"
   },
   "dependencies": {
     "cytoscape": "^3.31.0",

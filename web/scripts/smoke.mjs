@@ -49,6 +49,20 @@ try {
  const version=JSON.parse(await readFile(path.join(dist,'model/version.json'),'utf8'));
  assert.match(await page.locator('#releaseVersion').textContent(),new RegExp(version.version.replaceAll('.', '\\.')));
  assert((await page.locator('#releaseVersion').getAttribute('href')).endsWith('/'+version.release_tag));
+ const visualTokens=await page.evaluate(()=>{
+  const css=getComputedStyle(document.documentElement);
+  return {
+   unit:css.getPropertyValue('--vl-space-unit').trim(),
+   margin:css.getPropertyValue('--vl-content-margin-min').trim(),
+   reader:css.getPropertyValue('--vl-reader-max').trim(),
+   target:css.getPropertyValue('--vl-target-min').trim()
+  };
+ });
+ assert.deepEqual(visualTokens,{unit:'6px',margin:'12px',reader:'72ch',target:'44px'});
+ const domainBox=await page.locator('[data-nav-group="understand"]').boundingBox();
+ assert(domainBox&&domainBox.height>=44,'primary domain target must remain at least 44px high');
+ await page.locator('[data-nav-group="understand"]').focus();
+ assert(Number.parseFloat(await page.locator('[data-nav-group="understand"]').evaluate(el=>getComputedStyle(el).outlineWidth))>=3,'visible focus ring must be at least 3px');
  assert.equal(await page.locator('[data-nav-group]').count(),4);
  assert.equal(await page.locator('[data-nav-group="understand"]').getAttribute('aria-pressed'),'true');
  assert.equal(await page.locator('.views [data-view]').count(),3);
@@ -69,6 +83,15 @@ try {
  assert.equal(await page.locator('[data-understanding-mode]').count(),3);
  assert.equal(await page.locator('[data-understanding-mode="theory"]').getAttribute('aria-pressed'),'true');
  assert.equal(await page.locator('[data-theory-chapter]').count(),16);
+ const theoryMeasure=await page.locator('#theoryArticle p').first().evaluate(el=>({
+  maxWidth:getComputedStyle(el).maxWidth,
+  width:el.getBoundingClientRect().width
+ }));
+ assert.notEqual(theoryMeasure.maxWidth,'none');
+ assert(Number.parseFloat(theoryMeasure.maxWidth)<=800,'Theory reader max-width must remain constrained');
+ assert(theoryMeasure.width<=800,'Theory prose must not expand beyond the reader measure');
+ assert((await page.locator('.theory-statuses [data-status]').count())>0);
+ assert.notEqual(await page.locator('.theory-statuses [data-status]').first().evaluate(el=>getComputedStyle(el,'::before').content),'none');
  assert.match(await page.locator('#theoryArticle').textContent(),/Ce este Cognitive Epistemic Model/);
 
  // Alpha 0.4.1a1 Phase D: guided journey is deep-linkable, bilingual and returns from real app surfaces.
@@ -277,6 +300,8 @@ try {
  await page.selectOption('#timing','2');await page.selectOption('#assumption','reference');
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'planning.png'),fullPage:true});}
  await openView('runs');await page.locator('#scenario').waitFor();
+ const chartPatterns=await page.locator('#chart polyline').evaluateAll(lines=>lines.map(line=>line.getAttribute('stroke-dasharray')));
+ assert.deepEqual(chartPatterns,['none','8 4','2 4']);
  const data=JSON.parse(await readFile(path.join(dist,'model/runs.json'),'utf8'));
  const explanations=JSON.parse(await readFile(path.join(dist,'model/explanations.json'),'utf8'));
  for(const run of data.runs){
@@ -373,6 +398,8 @@ try {
  assert.equal(await page.locator('.citation-link').count(),registryLinks.reduce((sum,link)=>sum+link.evidence_refs.length,0));
  for(const a of await page.locator('.citation-link').all()) assert.match(await a.getAttribute('href'),/^https:\/\/doi\.org\/10\./);
  assert.match(await page.locator('.reference-grid').last().textContent(),/Candidate mechanism/);
+ assert((await page.locator('.epistemic-status[data-status]').count())>0);
+ assert.notEqual(await page.locator('.epistemic-status[data-status]').first().evaluate(el=>getComputedStyle(el,'::before').content),'none');
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.locator('.reference-grid').last().screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'evidence.png')});}
  await openView('process');
  assert.equal(await page.locator('[data-odd-stage]').count(),4);
@@ -381,7 +408,11 @@ try {
  assert.match(await page.locator('.vodd-extension').textContent(),/MOD\.14/);
  await openView('runs');await page.locator('#language').click();await page.locator('#timeline').fill('8');
  if(process.env.CEM_SCREENSHOTS){await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'desktop.png'),fullPage:true});}
+ await page.setViewportSize({width:600,height:844});
+ assert.equal(await page.locator('.nav-groups').evaluate(el=>getComputedStyle(el).display),'grid');
+ assert.equal((await page.locator('.nav-groups').evaluate(el=>getComputedStyle(el).gridTemplateColumns)).split(' ').length,2);
  await page.setViewportSize({width:390,height:844});
+ assert.equal((await page.locator('.nav-groups').evaluate(el=>getComputedStyle(el).gridTemplateColumns)).split(' ').length,1);
  await page.evaluate(()=>{location.hash='#understanding/theory/repetition-familiarity-truth';});
  await waitTheory();
  assert.equal(await page.locator('#theoryChapterSelect').isVisible(),true);
