@@ -150,6 +150,38 @@ export function renderDecisionUncertainty(host:HTMLElement,options:Options){
  <div class="boundary uncertainty-boundary"><strong>${tr('Limită epistemică','Epistemic boundary')}</strong><p>${tr('Profilurile low/reference/high sunt scenarii finite de sensibilitate cu probability_status = NOT_AVAILABLE. Nici raportul 3/3, nici regretul, nici intervalele de rang nu sunt probabilități, intervale de încredere sau recomandări validate pentru populație.','The low/reference/high profiles are finite sensitivity scenarios with probability_status = NOT_AVAILABLE. Neither 3/3 coverage, regret, nor rank ranges are probabilities, confidence intervals, or validated population recommendations.')}</p></div>
  <div class="uncertainty-context"><h4>${tr('Context canonic asociat','Related canonical context')}</h4><p class="note">${tr('Aceste legături navighează către obiecte deja înregistrate; nu adaugă relații științifice noi.','These links navigate to already-registered objects; they do not add new scientific relations.')}</p><div><button type="button" data-uncertainty-theory>${tr('Teorie · intervenții','Theory · interventions')}</button>${uncertaintyCanonicalContext.semanticIds.map(id=>`<span class="uncertainty-context-item"><code>${id}</code><button type="button" data-uncertainty-search="${id}">${tr('Caută','Search')}</button><button type="button" data-uncertainty-inspect="${id}">${tr('Inspector','Inspector')}</button></span>`).join('')}<button type="button" data-uncertainty-reference="VAR.ACTION.SHARE">${tr('Registru · Share','Registry · Share')}</button></div></div>`;
 
+ host.querySelectorAll<HTMLButtonElement>('[data-priority-create-trigger]').forEach(button=>button.onclick=()=>{
+  const select=host.querySelector<HTMLSelectElement>('#reassessmentUncertainty')!;
+  select.value=button.dataset.priorityCreateTrigger??'';
+  host.querySelector<HTMLInputElement>('#reassessmentIndicator')!.focus({preventScroll:false});
+ });
+ const reassessmentForm=host.querySelector<HTMLFormElement>('#reassessmentForm')!;
+ reassessmentForm.onsubmit=event=>{
+  event.preventDefault();
+  const form=event.currentTarget as HTMLFormElement;
+  if(!form.reportValidity())return;
+  const data=new FormData(form);
+  reassessmentStore.add({
+   uncertainty_id:String(data.get('uncertainty_id')??''),
+   signpost_kind:String(data.get('signpost_kind')??'OTHER') as SignpostKind,
+   indicator:String(data.get('indicator')??'').trim(),
+   trigger_condition:String(data.get('trigger_condition')??'').trim(),
+   response_action:String(data.get('response_action')??'').trim(),
+   basis:String(data.get('basis')??'USER_DEFINED') as ReassessmentBasis,
+   rationale:String(data.get('rationale')??'').trim(),
+   source_note:String(data.get('source_note')??'').trim(),
+   earliest_reassessment:String(data.get('earliest_reassessment')??'').trim(),
+   latest_reassessment:String(data.get('latest_reassessment')??'').trim()
+  });
+  renderDecisionUncertainty(host,options);
+ };
+ host.querySelectorAll<HTMLButtonElement>('[data-remove-reassessment]').forEach(button=>button.onclick=()=>{
+  reassessmentStore.remove(button.dataset.removeReassessment??'');
+  renderDecisionUncertainty(host,options);
+ });
+ const clearReassessments=host.querySelector<HTMLButtonElement>('[data-clear-reassessments]')!;
+ clearReassessments.onclick=()=>{reassessmentStore.clear();renderDecisionUncertainty(host,options);};
+
  host.querySelector<HTMLInputElement>('#acceptabilityThreshold')!.onchange=event=>{
   const input=event.currentTarget as HTMLInputElement;
   if(!input.reportValidity())return;
