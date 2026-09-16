@@ -179,7 +179,8 @@
             "VALIDATION",
             "EMPIRICAL_TARGET",
             "THEORY_CHAPTER",
-            "GLOSSARY_ENTRY"
+            "GLOSSARY_ENTRY",
+            "COMPUTATIONAL_NODE"
           ]
         },
         "semantic_roles": {
