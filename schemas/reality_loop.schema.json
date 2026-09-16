@@ -525,7 +525,6 @@
             },
             "indicator_ids": {
               "type": "array",
-              "minItems": 1,
               "uniqueItems": true,
               "items": {
                 "type": "string",
@@ -556,7 +555,6 @@
             },
             "indicator_ids": {
               "type": "array",
-              "minItems": 1,
               "uniqueItems": true,
               "items": {
                 "type": "string",
@@ -587,7 +585,6 @@
             },
             "indicator_ids": {
               "type": "array",
-              "minItems": 1,
               "uniqueItems": true,
               "items": {
                 "type": "string",
@@ -815,7 +812,34 @@
               "population",
               "context",
               "primary_outcome"
-            ]
+            ],
+            "properties": {
+              "action_canvas": {
+                "properties": {
+                  "proximal_result": {
+                    "properties": {
+                      "indicator_ids": {
+                        "minItems": 1
+                      }
+                    }
+                  },
+                  "intermediate_result": {
+                    "properties": {
+                      "indicator_ids": {
+                        "minItems": 1
+                      }
+                    }
+                  },
+                  "final_outcome": {
+                    "properties": {
+                      "indicator_ids": {
+                        "minItems": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       ]
