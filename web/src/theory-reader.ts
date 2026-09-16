@@ -63,6 +63,8 @@ type Context={
 
 const tokenRe=/\[\[(VAR|MODULE|MECH|VAL|REF|VIEW|CODE|CONCEPT):([^\]]+)\]\]/g;
 
+const sem=(id:string,lang:Lang,fallback:string)=>semanticLabel(id,lang,fallback);
+
 const esc=(value:string)=>value.replace(/[&<>"']/g,char=>({
  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
 }[char]!));
