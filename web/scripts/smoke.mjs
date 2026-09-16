@@ -431,7 +431,8 @@ try {
  await page.setViewportSize({width:320,height:844});
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'OA-6 planning 320 CSS px horizontal overflow');
  await page.evaluate(()=>document.documentElement.style.fontSize='200%');
- assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'OA-6 planning 320 CSS px + 200% text horizontal overflow');
+ const oa6Overflow=await page.evaluate(()=>[...document.querySelectorAll('body *')].map(el=>{const r=el.getBoundingClientRect();return {tag:el.tagName,id:el.id,cls:typeof el.className==='string'?el.className:'',left:Math.round(r.left),right:Math.round(r.right),width:Math.round(r.width),text:(el.textContent??'').trim().slice(0,80)};}).filter(item=>item.right>innerWidth+1||item.left<-1).slice(0,20));
+ assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'OA-6 planning 320 CSS px + 200% text horizontal overflow: '+JSON.stringify(oa6Overflow));
  await page.evaluate(()=>document.documentElement.style.fontSize='');
  await page.setViewportSize({width:1440,height:1050});
  // Verify exported score decomposition and profile gaps independently of rendered rounding.
