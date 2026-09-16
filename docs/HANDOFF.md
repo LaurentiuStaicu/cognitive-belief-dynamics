@@ -609,3 +609,36 @@ values alone cannot select a model.
 Phase C adds only documentation, a pre-executable contract, its schema and
 regression tests. Active registries, runtime, UI, evidence snapshot and public
 Alpha 0.4.2a0 release metadata remain unchanged.
+
+
+## Alpha 0.4.3a0 Phase D — M1.E4 discrimination protocol
+
+Phase C was merged into `main` at
+`3096a350cf8a57291db063f62d4528916a6c7862` and post-merge CI #140 passed.
+
+Phase D is isolated on branch
+`alpha-0.4.3a0-phase-d-discrimination-protocol-main`.
+
+Protocol decision:
+
+- primary evidence route: experimentally manipulated binary old/new response
+  bias;
+- hard structural minimum: three nondegenerate operating points per Hsimp
+  condition (liberal, approximately neutral, conservative);
+- preferred: five or more operating points per Hsimp condition;
+- six-point confidence ratings may supplement the design but are not sufficient
+  alone for the strongest model-selection claim;
+- no universal participant/trial N is hard-coded; prospective simulation chooses
+  a design that recovers both generating candidates adequately;
+- CEM's preregistered design convention requires >=0.80 candidate recovery across
+  the core parameter grid and forbids catastrophic asymmetric recovery;
+- model fitting uses raw target/foil response counts;
+- EVSD shares `d` and varies `c` across pure-bias settings;
+- 2HT shares `Ddet` and varies `g`;
+- winner selection requires convergent penalized fit, predictive performance,
+  invariance/qualitative checks and successful recovery simulation;
+- otherwise the required output is
+  `INCONCLUSIVE_MODEL_DISCRIMINATION`.
+
+Phase D does not activate either candidate, does not create Pencode, and does not
+change runtime, UI, evidence snapshot or Alpha 0.4.2a0 release metadata.
