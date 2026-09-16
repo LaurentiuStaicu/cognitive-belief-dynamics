@@ -150,3 +150,32 @@ against a loop-based reference for both candidate families. Separate CI runs can
 show tiny floating-point differences in continuous optimizer estimates, so Phase I
 records decision-level reproducibility rather than falsely requiring bitwise
 identity of optimized parameter values.
+
+
+## Phase J prospective 200-replicate confirmation
+
+`m1_e4_participant_confirmation_200.json` freezes the confirmation surface
+before any 200-replicate execution.
+
+Selection:
+
+- all 18 P64_X10 cells;
+- all minimum-recovery boundary ties for each non-selected allocation and
+  generator family;
+- total = 29 cells.
+
+Every cell receives a deterministic SHA-256-derived random seed so parallel job
+ordering cannot alter its synthetic stream.
+
+Formal gate:
+
+- all 18 P64_X10 cells must have observed recovery >= 0.80 at 200 replicates.
+
+Secondary sensitivity:
+
+- report the 95% Wilson interval per cell;
+- report whether all 18 P64 cells have Wilson lower bound >= 0.80;
+- this does not replace the formal point-estimate gate.
+
+Phase J is prospective tooling only until Phase I is merged. Confirmation
+execution and human-protocol design remain blocked.

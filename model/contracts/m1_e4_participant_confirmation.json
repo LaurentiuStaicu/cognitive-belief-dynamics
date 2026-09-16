@@ -1,0 +1,90 @@
+{
+  "id": "CONTRACT.M1.E4.PARTICIPANT_CONFIRMATION.2026-09-16",
+  "status": "PHASE_J_PROSPECTIVE_CONFIRMATION_ONLY",
+  "model_extension": "M1.E4",
+  "scope": "Prospective 200-replicate confirmation contract for the participant-aware EVSD versus symmetric 2HT design. The cell set is frozen before confirmation execution and does not authorize human recruitment.",
+  "source_screening": {
+    "phase": "PHASE_I",
+    "results": "model/benchmarks/results/m1_e4_participant_screening_authoritative_2026-09-16.csv",
+    "screening_replicates_per_cell": 50,
+    "screening_cells": 72,
+    "screening_minimum_recovery": 0.88,
+    "screening_all_cells_pass": true
+  },
+  "confirmation_surface": {
+    "config": "model/benchmarks/m1_e4_participant_confirmation_200.json",
+    "replicates_per_cell": 200,
+    "selected_cells_total": 29,
+    "primary_cells": 18,
+    "boundary_cells": 11,
+    "primary_rule": "ALL_18_P64_X10_SCREENING_CELLS",
+    "boundary_rule": "ALL_MINIMUM_RECOVERY_TIES_FOR_EACH_NONSELECTED_ALLOCATION_AND_GENERATOR",
+    "tie_handling": "INCLUDE_ALL_TIES"
+  },
+  "formal_gate": {
+    "recovery_threshold": 0.8,
+    "primary_all_18_cells_must_pass": true,
+    "point_estimate_is_authoritative_gate": true,
+    "boundary_cells_are_diagnostic_not_primary_blockers": true,
+    "wrong_family_and_inconclusive_probabilities_reported_separately": true
+  },
+  "secondary_precision_analysis": {
+    "wilson_level": 0.95,
+    "wilson_lower_bound_reported_per_cell": true,
+    "all_primary_lower_bounds_above_0_8_reported_as_robustness_flag": true,
+    "replaces_formal_gate": false
+  },
+  "execution_reproducibility": {
+    "cell_specific_seed_required": true,
+    "seed_derivation": "first 8 hex digits of SHA256(base_seed|cell_id|phase-j-v1)",
+    "reason": "Parallel job ordering must not alter a cell's random stream.",
+    "authoritative_execution_must_use_frozen_replicate_count": true
+  },
+  "scientific_boundaries": {
+    "model_recovery_is_best_case_validation": true,
+    "parameter_recovery_reported_separately": true,
+    "item_random_effects_included": false,
+    "fatigue_included": false,
+    "practice_or_learning_included": false,
+    "block_order_carryover_included": false,
+    "missingness_or_dropout_included": false,
+    "correlated_memory_bias_random_effects_included": false,
+    "human_recruitment_authorized": false,
+    "pencode_identified": false,
+    "active_model_selected": false
+  },
+  "method_sources": [
+    {
+      "id": "SRC.M1.E4.CONFIRM.WILSON_COLLINS.2019",
+      "doi": "10.7554/eLife.49547",
+      "role": "MODEL_AND_PARAMETER_RECOVERY_ACROSS_PARAMETER_REGIMES"
+    },
+    {
+      "id": "SRC.M1.E4.CONFIRM.ROUDER_LU.2005",
+      "doi": "10.3758/bf03196750",
+      "role": "HIERARCHICAL_SIGNAL_DETECTION_AND_PARTICIPANT_VARIABILITY"
+    }
+  ],
+  "promotion_gate": {
+    "confirmation_tooling_allowed": true,
+    "confirmation_execution_allowed_before_phase_i_merge": false,
+    "active_model_registration_allowed": false,
+    "human_protocol_design_allowed": false,
+    "human_recruitment_allowed": false,
+    "pencode_allowed": false,
+    "ui_allowed": false,
+    "requirements": [
+      "phase_i_results_versioned",
+      "exact_29_cell_surface_frozen",
+      "all_screening_ties_preserved",
+      "cell_specific_rng_stable",
+      "formal_and_secondary_precision_rules_separated",
+      "200_replicates_fixed",
+      "loop_vectorized_equivalence_inherited",
+      "active_registries_unchanged",
+      "evidence_snapshot_unchanged",
+      "release_metadata_unchanged",
+      "full_ci_green"
+    ]
+  }
+}
