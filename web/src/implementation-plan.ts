@@ -1,5 +1,5 @@
 import type {ActionCanvasProjection} from './action-canvas';
-import type {AdaptivePlanDraft,AdaptivePlanStep} from './adaptive-plan-runtime';
+import type {AdaptivePlanDraft,AdaptivePlanStep,StructuredTriggerCondition} from './adaptive-plan-runtime';
 import type {IndicatorProjection} from './indicator-objects';
 
 type Copy={ro:string;en:string};
@@ -33,6 +33,7 @@ export type ImplementationPlan={
   statement:Copy;
   indicator_id?:string;
   trigger_condition?:Copy;
+  trigger?:StructuredTriggerCondition;
   action?:Copy;
  }[];
  status:'DRAFT';
@@ -58,6 +59,11 @@ function requireCompleteAdaptivePlan(plan:AdaptivePlanDraft):void{
   if(step.phase!==phases[i])throw new Error('adaptive plan phase order is invalid');
   if(step.readiness!=='DEFINED')throw new Error(`adaptive plan phase ${step.phase} is not defined`);
  }
+ const watch=plan.steps.find(step=>step.phase==='WATCH');
+ const iff=plan.steps.find(step=>step.phase==='IF');
+ if(!watch?.indicator_id)throw new Error('adaptive plan WATCH must bind an Indicator');
+ if(!iff?.trigger)throw new Error('adaptive plan IF must preserve a structured trigger');
+ if(iff.trigger.indicator_id!==watch.indicator_id)throw new Error('adaptive plan trigger Indicator must match WATCH Indicator');
 }
 
 function canonicalAdaptiveStep(step:AdaptivePlanStep):ImplementationPlan['adaptive_plan'][number]{
@@ -67,6 +73,7 @@ function canonicalAdaptiveStep(step:AdaptivePlanStep):ImplementationPlan['adapti
   statement:clone(step.statement),
   ...(step.indicator_id?{indicator_id:step.indicator_id}:{}),
   ...(step.trigger_condition?{trigger_condition:clone(step.trigger_condition)}:{}),
+  ...(step.trigger?{trigger:clone(step.trigger)}:{}),
   ...(step.action?{action:clone(step.action)}:{})
  };
 }
