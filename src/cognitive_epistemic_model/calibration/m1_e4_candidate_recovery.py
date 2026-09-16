@@ -196,14 +196,28 @@ def fit_two_ht_condition(points: tuple[RecognitionCounts, ...]) -> ConditionFit:
             total += _point_log_likelihood(counts, h, f)
         return -total
 
+    bounds = [(1e-6, 1.0 - 1e-6)] + [(1e-6, 1.0 - 1e-6)] * len(points)
     result = minimize(
         objective,
         x0=x0,
         method="L-BFGS-B",
-        bounds=[(1e-6, 1.0 - 1e-6)] + [(1e-6, 1.0 - 1e-6)] * len(points),
+        bounds=bounds,
     )
     if not result.success:
-        raise RuntimeError(f"2HT fit failed: {result.message}")
+        # SciPy's default L-BFGS-B line-search budget can terminate abnormally
+        # at an otherwise stable optimum for some deterministic pooled-count
+        # surfaces. Retry from the identical initial point with only the
+        # bounded line-search budget increased; the objective, bounds,
+        # parameterization, data, and seed remain unchanged.
+        result = minimize(
+            objective,
+            x0=x0,
+            method="L-BFGS-B",
+            bounds=bounds,
+            options={"maxls": 100},
+        )
+    if not result.success:
+        raise RuntimeError(f"2HT fit failed after bounded retry: {result.message}")
     return ConditionFit(
         memory=float(result.x[0]),
         biases=tuple(float(x) for x in result.x[1:]),
