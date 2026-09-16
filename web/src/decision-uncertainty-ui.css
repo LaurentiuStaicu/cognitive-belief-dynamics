@@ -53,3 +53,13 @@
 .reassessment-records dd{margin:0;overflow-wrap:anywhere}
 @media(max-width:760px){.information-priority-grid,#reassessmentForm{grid-template-columns:minmax(0,1fr)}#reassessmentForm .wide{grid-column:auto}.reassessment-records dl{grid-template-columns:minmax(0,1fr)}}
 @media(forced-colors:active){.priority-class,.information-priority-grid article,.reassessment-records article{border-color:CanvasText}}
+
+/* OA-6E closure: technical labels must not force document-level overflow at enlarged text. */
+#decisionUncertainty code,
+#decisionUncertainty .priority-class,
+#decisionUncertainty .uncertainty-badge{
+ max-width:100%;
+ overflow-wrap:anywhere;
+ word-break:break-word;
+ white-space:normal;
+}
