@@ -57,6 +57,7 @@ function compare(value:number,trigger:StructuredTriggerCondition):boolean{
   case 'GTE': return value>=trigger.threshold;
   case 'GT': return value>trigger.threshold;
  }
+ throw new Error('unsupported trigger comparator');
 }
 
 function notEvaluable(
