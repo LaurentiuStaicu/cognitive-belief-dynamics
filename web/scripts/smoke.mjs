@@ -149,7 +149,7 @@ try {
  await page.locator('[data-au-boundary]').click();
  assert.match(await page.locator('#activeChallengeStage').textContent(),/Familiaritatea nu este adevăr/);
  await page.locator('[data-au-complete]').click();
- assert.match(await page.locator('#activeChallengeStage').textContent(),/Secvență completă/);
+ assert.match(await page.locator('#activeChallengeStage').textContent(),/SECVENȚĂ COMPLETĂ/);
  await page.locator('[data-au-challenge="AU-2"]').click();
  await page.waitForURL(/#understanding\/active\/AU-2$/);
  await page.locator('[data-au-start]').click();
