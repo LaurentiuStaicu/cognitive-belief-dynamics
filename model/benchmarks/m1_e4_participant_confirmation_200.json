@@ -1,0 +1,300 @@
+{
+  "benchmark_id": "BENCH.M1.E4.PARTICIPANT_CONFIRMATION.2026-09-16",
+  "status": "PROSPECTIVE_200_REPLICATE_CONFIRMATION_CONTRACT",
+  "base_seed": 20260916,
+  "replicates_per_cell": 200,
+  "recovery_threshold": 0.8,
+  "quadrature_nodes": 5,
+  "source_screening_config": "model/benchmarks/m1_e4_participant_aware_screening.json",
+  "source_screening_results": "model/benchmarks/results/m1_e4_participant_screening_authoritative_2026-09-16.csv",
+  "source_phase_i_document": "docs/ALPHA_0.4.3a0_PARTICIPANT_SCREENING_RESULTS.md",
+  "seed_scheme": {
+    "type": "SHA256_CELL_SPECIFIC_UINT32",
+    "expression": "first 8 hex digits of SHA256(base_seed|cell_id|phase-j-v1)",
+    "reason": "stable per-cell random streams permit deterministic parallel execution without dependence on job order"
+  },
+  "selection_policy": {
+    "primary": "ALL_18_P64_X10_SCREENING_CELLS",
+    "boundary": "ALL_MINIMUM_RECOVERY_TIES_FOR_EACH_NONSELECTED_ALLOCATION_AND_GENERATOR",
+    "tie_handling": "INCLUDE_ALL_TIES",
+    "selected_cells_total": 29,
+    "primary_cells": 18,
+    "boundary_cells": 11
+  },
+  "formal_gate": {
+    "primary_all_cells_recovery_at_least": 0.8,
+    "primary_point_estimate_gate_is_authoritative": true,
+    "boundary_cells_block_primary_gate": false,
+    "wrong_and_inconclusive_reported_separately": true
+  },
+  "robustness_sensitivity": {
+    "wilson_interval_level": 0.95,
+    "report_lower_bound_for_every_cell": true,
+    "all_primary_wilson_lower_bounds_at_least_0_8_is_secondary_flag": true,
+    "replaces_formal_gate": false
+  },
+  "selected_cells": [
+    {
+      "cell_id": "P128_X5__high__2HT__strong",
+      "allocation": "P128_X5",
+      "heterogeneity": "high",
+      "generator": "2HT",
+      "regime": "strong",
+      "screening_recovery": 0.94,
+      "role": "BOUNDARY_MINIMUM_WITH_TIES"
+    },
+    {
+      "cell_id": "P128_X5__low__EVSD__weak",
+      "allocation": "P128_X5",
+      "heterogeneity": "low",
+      "generator": "EVSD",
+      "regime": "weak",
+      "screening_recovery": 0.88,
+      "role": "BOUNDARY_MINIMUM_WITH_TIES"
+    },
+    {
+      "cell_id": "P128_X5__moderate__2HT__medium",
+      "allocation": "P128_X5",
+      "heterogeneity": "moderate",
+      "generator": "2HT",
+      "regime": "medium",
+      "screening_recovery": 0.94,
+      "role": "BOUNDARY_MINIMUM_WITH_TIES"
+    },
+    {
+      "cell_id": "P128_X5__moderate__2HT__strong",
+      "allocation": "P128_X5",
+      "heterogeneity": "moderate",
+      "generator": "2HT",
+      "regime": "strong",
+      "screening_recovery": 0.94,
+      "role": "BOUNDARY_MINIMUM_WITH_TIES"
+    },
+    {
+      "cell_id": "P40_X16__high__2HT__strong",
+      "allocation": "P40_X16",
+      "heterogeneity": "high",
+      "generator": "2HT",
+      "regime": "strong",
+      "screening_recovery": 0.96,
+      "role": "BOUNDARY_MINIMUM_WITH_TIES"
+    },
+    {
+      "cell_id": "P40_X16__low__2HT__weak",
+      "allocation": "P40_X16",
+      "heterogeneity": "low",
+      "generator": "2HT",
+      "regime": "weak",
+      "screening_recovery": 0.96,
+      "role": "BOUNDARY_MINIMUM_WITH_TIES"
+    },
+    {
+      "cell_id": "P40_X16__low__EVSD__weak",
+      "allocation": "P40_X16",
+      "heterogeneity": "low",
+      "generator": "EVSD",
+      "regime": "weak",
+      "screening_recovery": 0.94,
+      "role": "BOUNDARY_MINIMUM_WITH_TIES"
+    },
+    {
+      "cell_id": "P40_X16__moderate__2HT__medium",
+      "allocation": "P40_X16",
+      "heterogeneity": "moderate",
+      "generator": "2HT",
+      "regime": "medium",
+      "screening_recovery": 0.96,
+      "role": "BOUNDARY_MINIMUM_WITH_TIES"
+    },
+    {
+      "cell_id": "P40_X16__moderate__2HT__strong",
+      "allocation": "P40_X16",
+      "heterogeneity": "moderate",
+      "generator": "2HT",
+      "regime": "strong",
+      "screening_recovery": 0.96,
+      "role": "BOUNDARY_MINIMUM_WITH_TIES"
+    },
+    {
+      "cell_id": "P80_X8__low__2HT__weak",
+      "allocation": "P80_X8",
+      "heterogeneity": "low",
+      "generator": "2HT",
+      "regime": "weak",
+      "screening_recovery": 0.92,
+      "role": "BOUNDARY_MINIMUM_WITH_TIES"
+    },
+    {
+      "cell_id": "P80_X8__low__EVSD__weak",
+      "allocation": "P80_X8",
+      "heterogeneity": "low",
+      "generator": "EVSD",
+      "regime": "weak",
+      "screening_recovery": 0.9,
+      "role": "BOUNDARY_MINIMUM_WITH_TIES"
+    },
+    {
+      "cell_id": "P64_X10__high__2HT__medium",
+      "allocation": "P64_X10",
+      "heterogeneity": "high",
+      "generator": "2HT",
+      "regime": "medium",
+      "screening_recovery": 1,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__high__2HT__strong",
+      "allocation": "P64_X10",
+      "heterogeneity": "high",
+      "generator": "2HT",
+      "regime": "strong",
+      "screening_recovery": 0.98,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__high__2HT__weak",
+      "allocation": "P64_X10",
+      "heterogeneity": "high",
+      "generator": "2HT",
+      "regime": "weak",
+      "screening_recovery": 1,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__high__EVSD__medium",
+      "allocation": "P64_X10",
+      "heterogeneity": "high",
+      "generator": "EVSD",
+      "regime": "medium",
+      "screening_recovery": 1,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__high__EVSD__strong",
+      "allocation": "P64_X10",
+      "heterogeneity": "high",
+      "generator": "EVSD",
+      "regime": "strong",
+      "screening_recovery": 1,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__high__EVSD__weak",
+      "allocation": "P64_X10",
+      "heterogeneity": "high",
+      "generator": "EVSD",
+      "regime": "weak",
+      "screening_recovery": 0.98,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__low__2HT__medium",
+      "allocation": "P64_X10",
+      "heterogeneity": "low",
+      "generator": "2HT",
+      "regime": "medium",
+      "screening_recovery": 1,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__low__2HT__strong",
+      "allocation": "P64_X10",
+      "heterogeneity": "low",
+      "generator": "2HT",
+      "regime": "strong",
+      "screening_recovery": 0.96,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__low__2HT__weak",
+      "allocation": "P64_X10",
+      "heterogeneity": "low",
+      "generator": "2HT",
+      "regime": "weak",
+      "screening_recovery": 0.98,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__low__EVSD__medium",
+      "allocation": "P64_X10",
+      "heterogeneity": "low",
+      "generator": "EVSD",
+      "regime": "medium",
+      "screening_recovery": 1,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__low__EVSD__strong",
+      "allocation": "P64_X10",
+      "heterogeneity": "low",
+      "generator": "EVSD",
+      "regime": "strong",
+      "screening_recovery": 1,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__low__EVSD__weak",
+      "allocation": "P64_X10",
+      "heterogeneity": "low",
+      "generator": "EVSD",
+      "regime": "weak",
+      "screening_recovery": 0.98,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__moderate__2HT__medium",
+      "allocation": "P64_X10",
+      "heterogeneity": "moderate",
+      "generator": "2HT",
+      "regime": "medium",
+      "screening_recovery": 1,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__moderate__2HT__strong",
+      "allocation": "P64_X10",
+      "heterogeneity": "moderate",
+      "generator": "2HT",
+      "regime": "strong",
+      "screening_recovery": 0.98,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__moderate__2HT__weak",
+      "allocation": "P64_X10",
+      "heterogeneity": "moderate",
+      "generator": "2HT",
+      "regime": "weak",
+      "screening_recovery": 0.98,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__moderate__EVSD__medium",
+      "allocation": "P64_X10",
+      "heterogeneity": "moderate",
+      "generator": "EVSD",
+      "regime": "medium",
+      "screening_recovery": 1,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__moderate__EVSD__strong",
+      "allocation": "P64_X10",
+      "heterogeneity": "moderate",
+      "generator": "EVSD",
+      "regime": "strong",
+      "screening_recovery": 1,
+      "role": "PRIMARY_P64_FULL_GRID"
+    },
+    {
+      "cell_id": "P64_X10__moderate__EVSD__weak",
+      "allocation": "P64_X10",
+      "heterogeneity": "moderate",
+      "generator": "EVSD",
+      "regime": "weak",
+      "screening_recovery": 1,
+      "role": "PRIMARY_P64_FULL_GRID"
+    }
+  ],
+  "interpretation_boundary": "This contract freezes the 200-replicate confirmation surface before execution. It does not authorize human data collection, select the true recognition model, identify Pencode, or make P64_X10 a final human-study sample-size recommendation."
+}
