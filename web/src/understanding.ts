@@ -90,8 +90,7 @@ export function mountUnderstanding(
     stage?.scrollIntoView({block:'start'});
     stage?.focus({preventScroll:true});
    };
-   focusAccess();
-   requestAnimationFrame(focusAccess);
+   requestAnimationFrame(()=>requestAnimationFrame(focusAccess));
   }else if(current.detail){
    requestAnimationFrame(()=>{
     sub.querySelector<HTMLButtonElement>(`[data-mechanism="${CSS.escape(current.detail!)}"]`)?.click();
