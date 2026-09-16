@@ -1,8 +1,8 @@
 # OA-5 closure audit — Active Understanding
 
-Status: **CLOSURE CANDIDATE — requires OA-5D PR CI and post-merge CI**
+Status: **CLOSED — OA-5D PR CI #222 and post-merge CI #223 both successful**
 
-Baseline audited: `f32bd39e3f8bcfbebaddb0c7cad89369c46dd998` (OA-5C merged in main; post-merge CI #221 successful).
+Baseline audited: `e62324dcd4551dafe423387b6e8217e1eac021e6` (OA-5D merged in main; post-merge CI #223 successful).
 
 ## Scope
 
@@ -61,6 +61,6 @@ OA-5D is UI/test/documentation integration only. It must not modify files under 
 
 ## Closure gate
 
-OA-5 may be declared closed only if dedicated OA-5D unit tests, full Python/reference reproduction, TypeScript/Vite, Playwright, scientific-output diff audit, PR CI and post-merge CI all pass.
+All closure conditions are satisfied. Dedicated OA-5D unit tests, full Python/reference reproduction, TypeScript/Vite, Playwright, the scientific-output diff audit, PR CI #222 and post-merge CI #223 all passed.
 
-Only after those conditions are satisfied may R7 / OA-6 Decision Under Uncertainty begin.
+OA-5 is therefore formally closed at `e62324d…`. R7 / OA-6 Decision Under Uncertainty may begin.
