@@ -1,6 +1,7 @@
 import {renderSchedule,type Schedule} from './plan-schedule';
 import {analyzeDeclaredScenarios,type DeclaredScenario} from './decision-robustness';
-import {renderDecisionUncertainty,type DecisionUncertaintyRegistry} from './decision-uncertainty-ui';
+import {renderDecisionUncertainty} from './decision-uncertainty-ui';
+import {type DecisionUncertaintyRegistry} from './decision-uncertainty-contract';
 type Lang='ro'|'en';
 type Bundle={mask:number;start:number;false_share:number;true_share:number;false_belief:number;true_belief:number;false_share_path:number[];true_share_path:number[]};
 type Lever={id:string;bit:number;label:Record<Lang,string>;factor:string;action:Record<Lang,string>};
