@@ -108,6 +108,25 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
         validate_code=(root / "src").is_dir(),
     )
 
+    from .semantic import (
+        build_semantic_index,
+        semantic_index_json,
+        validate_semantic_index,
+    )
+
+    semantic_index = build_semantic_index(model_dir)
+    validate_semantic_index(
+        semantic_index,
+        schema_dir / "semantic_index.schema.json",
+    )
+    semantic_path = model_dir / "semantic_index.json"
+    if not semantic_path.is_file():
+        raise RegistryError("missing generated semantic index: semantic_index.json")
+    if semantic_path.read_text(encoding="utf-8") != semantic_index_json(semantic_index):
+        raise RegistryError(
+            "generated semantic index is stale; run python scripts/export_semantic.py"
+        )
+
     return {
         "modules": len(modules),
         "variables": len(variables),
@@ -116,5 +135,7 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
         "subsystems": len(subsystems),
         "processes": len(processes),
         "empirical_targets": len(empirical_targets),
+        "semantic_entities": len(semantic_index["entities"]),
+        "semantic_relations": len(semantic_index["relations"]),
         **theory_counts,
     }
