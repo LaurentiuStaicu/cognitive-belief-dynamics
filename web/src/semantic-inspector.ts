@@ -38,19 +38,31 @@ export function inspectSemanticIndex(index:SemanticIndex,id:string,lang:Semantic
  const entities=new Map(index.entities.map(entity=>[entity.id,entity]));
  const entity=entities.get(id);
  if(entity){
-  const related=index.relations.flatMap(relation=>{
-   if(relation.source===id){const counterpart=entities.get(relation.target);return [{
-    id:relation.id,layer:relation.layer,direction:'outgoing' as const,counterpartId:relation.target,
-    counterpartLabel:label(counterpart,lang,relation.target),relationType:relation.relation_type,
-    polarity:relation.polarity,statusFacets:relation.status_facets
-   }];}
-   if(relation.target===id){const counterpart=entities.get(relation.source);return [{
-    id:relation.id,layer:relation.layer,direction:'incoming' as const,counterpartId:relation.source,
-    counterpartLabel:label(counterpart,lang,relation.source),relationType:relation.relation_type,
-    polarity:relation.polarity,statusFacets:relation.status_facets
-   }];}
-   return [];
-  }).sort((a,b)=>a.layer.localeCompare(b.layer,'en')||a.id.localeCompare(b.id,'en'));
+  const related:SemanticInspectorRelation[]=[];
+  for(const relation of index.relations){
+   if(relation.source===id){
+    const counterpart=entities.get(relation.target);
+    const item:SemanticInspectorRelation={
+     id:relation.id,layer:relation.layer,direction:'outgoing',counterpartId:relation.target,
+     counterpartLabel:label(counterpart,lang,relation.target)
+    };
+    if(relation.relation_type!==undefined)item.relationType=relation.relation_type;
+    if(relation.polarity!==undefined)item.polarity=relation.polarity;
+    if(relation.status_facets!==undefined)item.statusFacets=relation.status_facets;
+    related.push(item);
+   }else if(relation.target===id){
+    const counterpart=entities.get(relation.source);
+    const item:SemanticInspectorRelation={
+     id:relation.id,layer:relation.layer,direction:'incoming',counterpartId:relation.source,
+     counterpartLabel:label(counterpart,lang,relation.source)
+    };
+    if(relation.relation_type!==undefined)item.relationType=relation.relation_type;
+    if(relation.polarity!==undefined)item.polarity=relation.polarity;
+    if(relation.status_facets!==undefined)item.statusFacets=relation.status_facets;
+    related.push(item);
+   }
+  }
+  related.sort((a,b)=>a.layer.localeCompare(b.layer,'en')||a.id.localeCompare(b.id,'en'));
   return {kind:'entity',id:entity.id,semanticType:entity.semantic_type,title:label(entity,lang,entity.id),
    shortName:entity.short_name,summary:summary(entity,lang),statusFacets:entity.status_facets,source:entity.source,related};
  }
