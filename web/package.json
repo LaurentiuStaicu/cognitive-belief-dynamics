@@ -10,7 +10,7 @@
     "preview": "vite preview --host 0.0.0.0",
     "test:browser": "node scripts/smoke.mjs",
     "predev": "node scripts/sync-model.mjs",
-    "test:workspace": "node --test tests/workspace-store.test.ts"
+    "test:workspace": "node --test tests/workspace-*.test.ts"
   },
   "dependencies": {
     "cytoscape": "^3.31.0",
