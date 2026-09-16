@@ -1,206 +1,200 @@
-# CEM Semantic Contract — OA-0
+# CEM Semantic Contract — OA-1 / R1 refinement
 
-Status: planning contract. No runtime semantic migration occurs in OA-0.
+Status: R1 research decision refining the OA-0 planning contract. No runtime semantic migration occurs in this document-only phase.
 
 ## 1. Purpose
 
 The Semantic Spine gives the same scientific object one stable identity across Theory, Mechanisms, Structure, Registry, Search, Workspace, provenance and future GTK/native surfaces.
 
-It is intentionally smaller than a general ontology.
+It is intentionally smaller than a general ontology and begins as a generated adapter/index over existing registries.
 
 ## 2. Design rules
 
 1. Stable identifiers outlive labels and translations.
-2. Labels are localized presentation; IDs are canonical identity.
-3. Scientific status is explicit data, not inferred from CSS or prose.
-4. Computational dependency and empirical support are different relations.
-5. Provenance relations are different from scientific/semantic relations.
-6. Existing registries remain authoritative until an OA-1 adapter proves lossless migration.
-7. No UI code may manufacture a stronger epistemic status than the source entity carries.
-8. New semantic types are added only when an existing type cannot express a required distinction.
+2. Existing repository IDs are canonical by default; stylistic renaming is not a migration goal.
+3. Labels are localized presentation; IDs are canonical identity.
+4. Scientific status is explicit data, not inferred from CSS or prose.
+5. Epistemic status is multidimensional; do not collapse phenomenon evidence, mechanism status, functional-form status, conceptual status and executability into one scalar label.
+6. Computational dependency and empirical/evidence-qualified relations are different relation layers.
+7. Provenance relations are different from scientific/semantic relations.
+8. Existing registries remain authoritative until an OA-1 adapter proves lossless indexing/migration.
+9. No UI code may manufacture a stronger epistemic status than the source entity carries.
+10. New semantic types are added only when an existing type cannot express a required distinction.
 
-## 3. Initial entity vocabulary
+## 3. OA-1 first-slice entity vocabulary
 
-### Concept
-
-Non-executable explanatory concept.
-
-### Construct
-
-Theoretical construct that may have one or more operationalizations.
+OA-1 indexes entities that already exist authoritatively in the repository:
 
 ### Variable
 
 Registered state/input/output quantity with an ontology role and model scope.
 
-### Claim
+### Module
 
-Human-readable proposition whose support, limits and scope can be inspected.
+Registered conceptual module.
 
-### Mechanism
+### Reference
 
-Candidate explanatory process. A mechanism may be conceptual or executable.
+Bibliographic/source record with study type, review scope and provenance metadata.
 
-### Formula
+### Validation
 
-Functional form used by an executable model.
-
-### Assumption
-
-Condition accepted for an analysis/model/decision but not itself established by execution.
-
-### Evidence
-
-Bibliographic or empirical evidence item with provenance and review scope.
+Test or criterion evaluating a specified prediction, negative constraint or invariant.
 
 ### EmpiricalTarget
 
 Observable pattern used to test/discriminate model behavior.
 
-### Validation
+### TheoryChapter
 
-Test or criterion evaluating a specified prediction/invariant.
+Versioned bilingual theory/documentation chapter with explicit cross-links and claim boundaries.
 
-### Model
+### GlossaryEntry
 
-Versioned scientific specification such as M0 or an M1 comparator.
+Bilingual explanatory descriptor. Entries whose current `kind` is `MECHANISM` may expose semantic role `MECHANISM_DESCRIPTOR`.
 
-### Scenario
+The broader OA architecture still anticipates future objects such as Claim, Assumption, Prediction, Intervention, Indicator, Observation and Decision, but OA-1 does not invent them before a source-of-truth object exists.
 
-Frozen or parameterized model execution context.
+## 4. Relation layers
 
-### Prediction
+OA-1 represents relation **layer** before flattening relation semantics.
 
-Prospective expected result, including a user's prediction where applicable.
+### Registered evidence-qualified relation
 
-### Intervention
+Source: `model/links.json`.
 
-Candidate action represented in a decision analysis; not automatically a recommendation.
+Preserve:
 
-### Outcome
+- source/target IDs;
+- raw relation type;
+- polarity;
+- phenomenon evidence status;
+- mechanism evidence status;
+- functional-form status;
+- evidence references;
+- bilingual finding and limitation summaries.
 
-Defined result construct.
+These are not interchangeable with computational dependencies.
 
-### Indicator
+### Computational dependency
 
-Operational measure used to monitor an outcome or signpost.
+Current source: `web/src/dependencies.ts`.
 
-### Observation
+Represents equation/data-flow dependency and code/formula provenance. It does not by itself assert empirical causation.
 
-Recorded real-world or experimental result, distinct from simulated result.
+OA-1 should move this metadata into a canonical data artifact so TypeScript becomes a consumer rather than a second scientific metadata source.
 
-### Decision
+### Documentation relation
 
-Recorded selection/commitment with objective, assumptions and provenance.
+Theory/glossary cross-links to variables, modules, validations, references and views.
 
-## 4. Initial relation vocabulary
+Documentation relations support navigation/search. They do not imply evidential support unless an explicit role says so.
 
-### DEPENDS_ON
+## 5. Epistemic status facets
 
-Computational or definitional dependency. Does not imply empirical causation.
+A single `epistemic_status` field is insufficient for the current repository.
 
-### SUPPORTS
+OA-1 uses optional orthogonal facets derived from existing source fields.
 
-Evidence/claim support relation.
+Illustrative normalized shape:
 
-### CONTRADICTS
+```json
+{
+  "status_facets": {
+    "phenomenon_evidence": "EXPERIMENTAL",
+    "mechanism": "CANDIDATE",
+    "functional_form": "REFERENCE_CANDIDATE",
+    "implementation": ["EXECUTABLE"]
+  }
+}
+```
 
-Evidence/claim inconsistency or counterevidence relation.
+Allowed values must be enumerated from the repository before schema implementation. OA-1 must not create a maturity ordering that implies, for example:
 
-### LIMITS
+- EXECUTABLE => EMPIRICALLY_VALIDATED;
+- CANDIDATE => VALIDATED;
+- REFERENCE_CANDIDATE => calibrated law.
 
-Boundary/limitation relation.
+Theory/glossary values such as `CONCEPTUAL`, `EMPIRICAL` and `EXECUTABLE` are preserved as source facets/roles rather than silently mapped to a stronger universal status.
 
-### OPERATIONALIZES
+## 6. Multilingual labels
 
-Connects a construct/mechanism to a measurable or executable representation.
+Current bilingual labels remain authoritative.
 
-### TESTS
+The generated semantic index may normalize them to:
 
-Connects validation/experiment to claim, mechanism or prediction.
+```json
+{
+  "preferred_labels": {
+    "ro": "...",
+    "en": "..."
+  },
+  "alternative_labels": {
+    "ro": [],
+    "en": []
+  }
+}
+```
 
-### PREDICTS
+Preferred-label discipline follows the useful SKOS idea of one preferred label per language. Alternative labels support Search, abbreviations, synonyms and legacy terms.
 
-Model/mechanism to prospective prediction.
+CEM does not require RDF or SKOS serialization.
 
-### TARGETS
+## 7. Required common metadata
 
-Intervention to intended mechanism/construct/outcome.
-
-### MEASURES
-
-Indicator/metric to construct/outcome.
-
-### DERIVED_FROM
-
-Semantic derivation between versions/outputs.
-
-### GENERATED_BY
-
-Result to analysis/execution activity.
-
-### SUPERSEDES
-
-Explicit replacement relation preserving historical identity.
-
-## 5. Epistemic status vocabulary
-
-Initial statuses:
-
-- EMPIRICAL_PHENOMENON
-- EMPIRICAL_OBSERVATION
-- CANDIDATE_MECHANISM
-- REFERENCE_FORM
-- UNCALIBRATED_FORM
-- CONCEPTUAL
-- INTERPRETIVE
-- VALIDATED_WITHIN_SCOPE
-
-OA-1 must define allowed status/entity combinations and migration rules from current registry fields.
-
-## 6. Required common metadata
-
-Where applicable:
+For generated semantic entities, where applicable:
 
 - id
-- entity_type
-- labels (RO/EN)
-- description
-- epistemic_status
+- semantic_type
+- preferred_labels (RO/EN)
+- alternative_labels
+- description/summary
+- status_facets
 - model_scope
-- evidence_refs
-- assumptions
-- limitations
-- related_entities
-- provenance_ref
-- introduced_in
-- superseded_by
+- source registry/path and source ID
+- related entity IDs
+- evidence/reference IDs
+- limitations/boundaries
 
-Fields may be optional by type, but identity and type are always required.
+Identity, semantic type and source mapping are mandatory.
 
-## 7. Stable ID convention
+## 8. Stable ID policy
 
-Candidate convention:
+Existing IDs remain canonical by default:
 
-`<family>.<scope>.<descriptive_slug>`
+- `VAR.*`
+- `LINK.*`
+- `MOD.*`
+- `REF.*`
+- `VAL.*`
+- `TARGET.*`
+- `THEORY.*`
+- `GLOSS.*`
 
-Examples:
+OA-1 must not mass-rename them into a stylistically uniform namespace.
 
-- `variable.m0.familiarity`
-- `mechanism.m0.repetition_familiarity`
-- `claim.repetition.perceived_truth`
-- `formula.m0.familiarity_update`
-- `validation.m0.repetition_differential`
+When a later object genuinely needs a new identity, introduce explicit aliases/source mapping and preserve old references.
 
-OA-1 must map existing IDs without breaking external links or registry references. Where old IDs are already stable and meaningful, aliases are preferred over destructive renaming.
+Theory mechanism tokens such as `repetition`, `editorial` and `presentation` must resolve through an explicit adapter table rather than implicit string matching.
 
-## 8. Separation from provenance
+## 9. Schema strategy
+
+Use JSON Schema Draft 2020-12 explicitly with `$schema` and stable `$id` identifiers.
+
+Prefer reusable `$defs` and `$ref` definitions.
+
+The first semantic schema validates the generated index; it does not force every source registry to migrate simultaneously.
+
+Cross-reference integrity is validated in Python tests in addition to structural JSON Schema validation.
+
+## 10. Separation from provenance
 
 Semantic relations answer questions such as:
 
-- What does this variable depend on?
-- What evidence supports this claim?
-- What mechanism operationalizes this phenomenon?
+- What does this variable depend on computationally?
+- What registered relation connects these variables?
+- What evidence/references are attached?
+- Which theory chapter explains this entity?
 
 Provenance answers:
 
@@ -208,20 +202,50 @@ Provenance answers:
 - Which model/evidence snapshot/settings were used?
 - Which version revised an earlier entity?
 
-OA-1/OA-2 may map provenance to W3C PROV concepts, but the semantic layer remains CEM-native.
+OA-1 records source mapping only.
 
-## 9. OA-1 migration gate
+OA-2 may map execution/workspace provenance to W3C PROV concepts such as Entity, Activity, Usage, Generation and Revision, but the semantic layer remains CEM-native.
 
-OA-1 cannot merge until:
+## 11. OA-1 implementation slices
 
-- every current registered variable/link/module/reference/validation has a lossless semantic representation or explicit deferral;
+### OA-1A — schema and index contract
+
+- `schemas/semantic_index.schema.json`;
+- entity/relation-layer/status-facet vocabulary;
+- deterministic fixture;
+- adapter contract tests.
+
+No web UI change.
+
+### OA-1B — deterministic semantic compiler
+
+Generate semantic entities/relations from current authoritative registries and theory/glossary indices.
+
+### OA-1C — computational dependency extraction
+
+Move current computational dependency metadata out of TypeScript into canonical data consumed by the web application.
+
+### OA-1D — web semantic adapter
+
+Allow existing Theory/Registry surfaces to consume normalized semantic identity/labels without changing the OA-3 information architecture.
+
+Search and Universal Inspector remain OA-4.
+
+## 12. OA-1 migration gate
+
+OA-1 cannot merge as complete until:
+
+- current variables/modules/references/validations/targets/theory/glossary have lossless semantic representation or explicit deferral;
+- current registered links retain every evidence/mechanism/functional-form status;
+- computational dependencies remain a separate layer;
 - old IDs/deep links remain resolvable;
 - generated web artifacts remain scientifically identical;
-- semantic status cannot strengthen the current scientific status;
+- semantic metadata cannot strengthen current scientific status;
 - RO/EN labels retain parity;
-- schema validation and regression tests pass.
+- semantic output is deterministic;
+- schema and cross-reference tests pass.
 
-## 10. Explicit non-goals
+## 13. Explicit non-goals
 
 OA-1 does not require:
 
@@ -232,4 +256,6 @@ OA-1 does not require:
 - automatic causal discovery;
 - automatic literature inference;
 - automatic claim strengthening;
-- merging all current model JSON into one monolithic file.
+- one universal confidence/maturity score;
+- merging all current model JSON into one monolithic file;
+- creation of future Workspace entities before OA-2.
