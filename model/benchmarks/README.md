@@ -52,3 +52,36 @@ Verdict:
 `DESIGN_NOT_YET_ADEQUATELY_DISCRIMINATING`.
 
 No empirical model selection is authorized by this result.
+
+
+## Authoritative Phase G trial-count refinement — 2026-09-16
+
+The controlled trial-count refinement was executed in GitHub Actions run
+`35065350252` from workflow commit
+`5094b9fa90093ad695ddbef7a290843628f647eb`.
+
+Authoritative JSON SHA-256:
+
+`80635b2e44eb0991fe8db446c163a0a2c3ff9dbab8396342098bdba6f72694b4`.
+
+The refinement preserved seed, 200 replicates, recovery threshold, five
+operating points, memory grids and model-selection rule. Only aggregate
+target/foil response count per operating point changed to 480 / 640 / 960.
+
+Results:
+
+- 480+480: minimum recovery `0.835`, 6/6 cells pass;
+- 640+640: minimum recovery `0.920`, 6/6 cells pass;
+- 960+960: minimum recovery `0.945`, 6/6 cells pass;
+- overall targeted minimum: `0.835`;
+- all 18 targeted cells pass the predeclared `0.80` point-estimate convention.
+
+The limiting 480 EVSD-weak cell is 167/200 recovered. Because its secondary
+Wilson 95% Monte Carlo interval includes 0.80, the results report 640+640 as the
+more robust provisional aggregate design anchor; this interval criterion is a
+post-result sensitivity analysis and is not substituted for the preregistered
+point-estimate gate.
+
+The benchmark counts are aggregate response counts, not a per-participant trial
+requirement. Human-data collection remains blocked pending participant-aware /
+hierarchical design recovery.
