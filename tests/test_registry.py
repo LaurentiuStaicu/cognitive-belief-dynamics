@@ -16,11 +16,11 @@ def test_registry_schema_and_semantic_validation():
     assert counts["subsystems"] == 8
     assert counts["processes"] >= 13
     assert counts["empirical_targets"] >= 1
-    assert counts["theory_chapters"] == 16
+    assert counts["theory_chapters"] == 17
     assert counts["theory_glossary"] >= 15
     assert counts["theory_tokens"] >= 60
-    assert counts["semantic_entities"] == 114
-    assert counts["semantic_relations"] == 189
+    assert counts["semantic_entities"] == 133
+    assert counts["semantic_relations"] == 226
     assert counts["computational_dependencies"] == 17
 
 

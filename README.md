@@ -1,3 +1,4 @@
+<!-- Shared InfoClar Model Suite product header reference: CEM / World3 / Macro -->
 <p align="center">
   <img src="web/public/icon.svg" width="96" height="96" alt="Cognitive Epistemic Model icon">
 </p>
@@ -9,19 +10,17 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.3a0"><img alt="Version 0.4.3a0" src="https://img.shields.io/badge/version-0.4.3a0-4e9a06"></a>
-  <img alt="Development stage: alpha" src="https://img.shields.io/badge/stage-alpha-e5a50a">
-  <img alt="Available application: Web" src="https://img.shields.io/badge/app-Web-4a90d9">
-  <img alt="elementary OS Flatpak: planned" src="https://img.shields.io/badge/elementary_OS_Flatpak-planned-64baff">
-  <a href="LICENSE"><img alt="Code license: MIT" src="https://img.shields.io/badge/code_license-MIT-blue"></a>
-  <a href="LICENSING.md"><img alt="Documentation license: CC BY 4.0" src="https://img.shields.io/badge/docs-CC_BY_4.0-blue"></a>
+  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.3a0"><img alt="Version 0.4.3a0" src="https://img.shields.io/badge/Version-0.4.3a0-4e9a06"></a>
+  <img alt="elementary OS: Web-first" src="https://img.shields.io/badge/elementary_OS-Web--first-64baff">
+  <a href="#releases-and-licensing"><img alt="License: MIT + CC BY 4.0" src="https://img.shields.io/badge/License-MIT_%2B_CC_BY_4.0-blue"></a>
 </p>
 
-<p align="center">
-  <a href="https://laurentiustaicu.github.io/cognitive-epistemic-model/">
-    <img alt="Deschide aplicația / Open app" src="https://img.shields.io/badge/Deschide_aplica%C8%9Bia_%2F_Open_app-087F73?style=for-the-badge">
-  </a>
-</p>
+<table align="center" role="presentation">
+  <tr>
+    <td align="center" width="220"><a href="https://laurentiustaicu.github.io/cognitive-epistemic-model/"><strong>Open Web App</strong></a></td>
+    <td align="center" width="220"><strong>Download Flatpak</strong><br><sub>Planned</sub></td>
+  </tr>
+</table>
 
 > **Alpha 0.4.3a0 — Optimization & Visual Polish Consolidation.** M1 remains a candidate, uncalibrated extension retaining the M0 baseline.
 > Software tests do not establish psychological validity or population prevalence.

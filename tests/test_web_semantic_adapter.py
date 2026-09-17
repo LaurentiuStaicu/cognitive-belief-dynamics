@@ -31,15 +31,15 @@ def test_web_semantic_adapter_exposes_canonical_lookup_surface():
 
 def test_web_semantic_index_has_expected_oa1_surface():
     index = json.loads(GENERATED.read_text(encoding="utf-8"))
-    assert len(index["entities"]) == 114
-    assert len(index["relations"]) == 189
+    assert len(index["entities"]) == 133
+    assert len(index["relations"]) == 226
     layers = {}
     for relation in index["relations"]:
         layers[relation["layer"]] = layers.get(relation["layer"], 0) + 1
     assert layers == {
         "REGISTERED_EVIDENCE_RELATION": 10,
         "COMPUTATIONAL_DEPENDENCY": 17,
-        "DOCUMENTATION_RELATION": 162,
+        "DOCUMENTATION_RELATION": 199,
     }
 
 

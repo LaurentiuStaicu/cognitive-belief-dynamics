@@ -16,13 +16,13 @@ def test_theory_contract_has_complete_bilingual_phase_c_corpus():
         model_dir=ROOT / "model",
         schema_dir=ROOT / "schemas",
     )
-    assert counts["theory_chapters"] == 16
+    assert counts["theory_chapters"] == 17
     assert counts["theory_glossary"] >= 15
     assert counts["theory_tokens"] >= 60
     assert counts["theory_code_refs"] >= 10
 
     chapters = json.loads((ROOT / "model/theory_index.json").read_text())
-    assert [chapter["order"] for chapter in chapters] == list(range(16))
+    assert [chapter["order"] for chapter in chapters] == list(range(17))
     for chapter in chapters:
         for lang in ("ro", "en"):
             path = ROOT / chapter["source_paths"][lang]

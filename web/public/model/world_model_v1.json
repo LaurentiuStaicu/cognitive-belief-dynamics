@@ -1,0 +1,510 @@
+{
+  "contract_id": "MOD14.WORLD_MODEL.V1",
+  "module_id": "MOD.14",
+  "title": {
+    "en": "World-model construction",
+    "ro": "Construirea modelului realității"
+  },
+  "purpose": {
+    "en": "Describe how an agent-relative representation of reality can be constructed and revised from observed information, prior information, memory, source/provenance cues, social context and explicit uncertainty, while keeping empirically supported effects separate from normative computation and interpretive theory.",
+    "ro": "Descrie modul în care o reprezentare a realității relativă la agent poate fi construită și revizuită din informația observată, informația anterioară, memorie, indicii despre sursă/proveniență, context social și incertitudine explicită, păstrând separat efectele susținute empiric de calculul normativ și de teoria interpretativă."
+  },
+  "scope_boundary": {
+    "en": "This module is not a calibrated population model, not a claim that the brain literally implements Bayes' rule, not a truth oracle and not a replacement for the existing CEM belief variable B. Its executable operator is a normative proposition-level reference update available only when a prior probability and a defensible diagnostic likelihood ratio are supplied.",
+    "ro": "Acest modul nu este un model calibrat populațional, nu afirmă că creierul implementează literal regula lui Bayes, nu este un oracol al adevărului și nu înlocuiește variabila CEM existentă B pentru convingere. Operatorul executabil este o actualizare normativă de referință la nivel de propoziție, disponibilă numai când sunt furnizate o probabilitate anterioară și un raport de verosimilitate diagnostic justificabil."
+  },
+  "epistemic_levels": [
+    {
+      "level": "EMPIRICAL",
+      "claims": [
+        "Controlled cue-integration studies show that humans can combine uncertain sensory estimates in ways close to reliability-weighted maximum-likelihood predictions in specific tasks.",
+        "Prior knowledge and schemas can influence interpretation, encoding and retrieval, but the direction and magnitude are task- and context-dependent rather than a universal scalar coefficient.",
+        "Source monitoring and source-related evaluation affect how communicated information is attributed and used.",
+        "Repeated exposure can increase perceived truth or plausibility in some tasks; CEM already represents familiarity separately and MOD.14 does not duplicate it.",
+        "Confidence and metacognitive quality are distinct from objective accuracy; uncertainty display must not be treated as knowledge certification."
+      ]
+    },
+    {
+      "level": "EXECUTABLE",
+      "claims": [
+        "A binary proposition can be updated normatively from prior probability p and diagnostic likelihood ratio LR by posterior odds = prior odds × LR.",
+        "Binary Shannon entropy, normalized to [0,1], is used only as a transparent derived uncertainty indicator of the normative proposition state.",
+        "Sequential likelihood-ratio accumulation is permitted only when each LR is defensible and dependence between evidence items is handled by the supplying measurement model."
+      ]
+    },
+    {
+      "level": "CONCEPTUAL",
+      "claims": [
+        "The world-model cycle organizes observation/selection, memory/prior retrieval, source and provenance evaluation, social-context interpretation, proposition revision, uncertainty retention and contradiction-driven reassessment.",
+        "Existing CEM variables are inputs or neighboring constructs where appropriate; no universal coefficients are assigned to attention, memory, familiarity, source reliability or social context without an empirical measurement bridge."
+      ]
+    },
+    {
+      "level": "INTERPRETIVE",
+      "claims": [
+        "Predictive-coding and Bayesian-brain accounts are useful interpretive frames for uncertainty-sensitive inference but are not encoded here as a universal neural mechanism.",
+        "The phrase 'constructed reality' denotes an internal, partial, revisable representation; it does not imply that external reality is created by cognition."
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "id": "WM.VAR.PRIOR",
+      "short_name": "Pprior",
+      "label": {
+        "en": "Prior proposition probability",
+        "ro": "Probabilitatea anterioară a propoziției"
+      },
+      "status": [
+        "EXECUTABLE"
+      ],
+      "range": [
+        0.0,
+        1.0
+      ],
+      "definition": "Normative probability assigned to a binary proposition before the current diagnostic evidence item.",
+      "not_equivalent_to": [
+        "VAR.BELIEF.CLAIM",
+        "ground truth",
+        "population prevalence unless explicitly defined as such"
+      ]
+    },
+    {
+      "id": "WM.VAR.LR",
+      "short_name": "LR",
+      "label": {
+        "en": "Diagnostic likelihood ratio",
+        "ro": "Raport de verosimilitate diagnostic"
+      },
+      "status": [
+        "EXECUTABLE"
+      ],
+      "range": [
+        0.0,
+        null
+      ],
+      "definition": "Externally justified diagnostic evidence ratio P(evidence|proposition true) / P(evidence|proposition false).",
+      "not_equivalent_to": [
+        "source trust",
+        "familiarity",
+        "evidence amount",
+        "subjective confidence"
+      ]
+    },
+    {
+      "id": "WM.VAR.POSTERIOR",
+      "short_name": "Pwm",
+      "label": {
+        "en": "Normative world-model posterior",
+        "ro": "Posteriorul normativ al modelului realității"
+      },
+      "status": [
+        "EXECUTABLE"
+      ],
+      "range": [
+        0.0,
+        1.0
+      ],
+      "definition": "Normative proposition probability after applying one or more justified likelihood-ratio updates.",
+      "not_equivalent_to": [
+        "VAR.BELIEF.CLAIM",
+        "knowledge",
+        "truth",
+        "population opinion"
+      ]
+    },
+    {
+      "id": "WM.VAR.UNCERTAINTY",
+      "short_name": "Uwm",
+      "label": {
+        "en": "Normative proposition uncertainty",
+        "ro": "Incertitudinea normativă a propoziției"
+      },
+      "status": [
+        "EXECUTABLE"
+      ],
+      "range": [
+        0.0,
+        1.0
+      ],
+      "definition": "Normalized binary Shannon entropy derived from Pwm; 1 at p=0.5 and 0 at p=0 or p=1.",
+      "not_equivalent_to": [
+        "decision uncertainty registry",
+        "metacognitive confidence",
+        "ignorance about model misspecification"
+      ]
+    },
+    {
+      "id": "WM.VAR.PROVENANCE",
+      "short_name": "Prov",
+      "label": {
+        "en": "Evidence provenance record",
+        "ro": "Înregistrarea provenienței dovezii"
+      },
+      "status": [
+        "CONCEPTUAL",
+        "EMPIRICAL"
+      ],
+      "definition": "Traceable record of the evidence item, source, acquisition context and measurement assumptions used in an update.",
+      "not_equivalent_to": [
+        "VAR.RELIABILITY.ESTIMATE",
+        "truth certification"
+      ]
+    }
+  ],
+  "mechanisms": [
+    {
+      "id": "WM.MECH.OBSERVE_SELECT",
+      "label": {
+        "en": "Observation and selection",
+        "ro": "Observare și selecție"
+      },
+      "status": [
+        "CONCEPTUAL",
+        "EMPIRICAL"
+      ],
+      "description": "Only a subset of available information becomes observed/encoded. MOD.14 links to existing exposure, preview/access and observed-sample constructs rather than introducing a generic attention coefficient."
+    },
+    {
+      "id": "WM.MECH.PRIOR_MEMORY",
+      "label": {
+        "en": "Prior and memory retrieval",
+        "ro": "Recuperarea informației anterioare și a memoriei"
+      },
+      "status": [
+        "CONCEPTUAL",
+        "EMPIRICAL"
+      ],
+      "description": "Previously stored information and schemas can constrain interpretation and retrieval. No universal numerical mapping to Pprior is asserted."
+    },
+    {
+      "id": "WM.MECH.PROVENANCE_SOURCE",
+      "label": {
+        "en": "Provenance and source evaluation",
+        "ro": "Evaluarea provenienței și a sursei"
+      },
+      "status": [
+        "CONCEPTUAL",
+        "EMPIRICAL"
+      ],
+      "description": "Source attribution and task-relevant source evaluation condition how communicated information is used. Existing CEM source-reliability learning remains distinct."
+    },
+    {
+      "id": "WM.MECH.SOCIAL_CONTEXT",
+      "label": {
+        "en": "Social-context interpretation",
+        "ro": "Interpretarea contextului social"
+      },
+      "status": [
+        "CONCEPTUAL",
+        "EMPIRICAL"
+      ],
+      "description": "Communicated information is interpreted in social context, including speaker/source cues and consensus information when available. No generic conformity multiplier is introduced."
+    },
+    {
+      "id": "WM.MECH.NORMATIVE_UPDATE",
+      "label": {
+        "en": "Normative proposition update",
+        "ro": "Actualizarea normativă a propoziției"
+      },
+      "status": [
+        "EXECUTABLE"
+      ],
+      "description": "Transforms Pprior and a defensible LR into Pwm by Bayes' odds form; it is a transparent reference computation, not a descriptive law of human cognition."
+    },
+    {
+      "id": "WM.MECH.UNCERTAINTY_TRACKING",
+      "label": {
+        "en": "Explicit uncertainty tracking",
+        "ro": "Urmărirea explicită a incertitudinii"
+      },
+      "status": [
+        "EXECUTABLE",
+        "CONCEPTUAL"
+      ],
+      "description": "Carries proposition-level normative uncertainty forward rather than collapsing the representation to true/false."
+    },
+    {
+      "id": "WM.MECH.CONTRADICTION_REASSESSMENT",
+      "label": {
+        "en": "Contradiction and reassessment",
+        "ro": "Contradicție și reevaluare"
+      },
+      "status": [
+        "CONCEPTUAL",
+        "EMPIRICAL"
+      ],
+      "description": "Counterevidence, corrections or source reappraisal can trigger revision. Existing CEM correction accessibility and continued-influence constructs remain the relevant neighboring mechanisms."
+    }
+  ],
+  "relations": [
+    {
+      "id": "WM.REL.PRIOR.UPDATE",
+      "source": "WM.VAR.PRIOR",
+      "target": "WM.MECH.NORMATIVE_UPDATE",
+      "kind": "INFORMATION_FLOW",
+      "sign": "context_dependent",
+      "status": [
+        "EXECUTABLE"
+      ]
+    },
+    {
+      "id": "WM.REL.LR.UPDATE",
+      "source": "WM.VAR.LR",
+      "target": "WM.MECH.NORMATIVE_UPDATE",
+      "kind": "INFORMATION_FLOW",
+      "sign": "context_dependent",
+      "status": [
+        "EXECUTABLE"
+      ]
+    },
+    {
+      "id": "WM.REL.UPDATE.POSTERIOR",
+      "source": "WM.MECH.NORMATIVE_UPDATE",
+      "target": "WM.VAR.POSTERIOR",
+      "kind": "COMPUTATIONAL",
+      "sign": "context_dependent",
+      "status": [
+        "EXECUTABLE"
+      ]
+    },
+    {
+      "id": "WM.REL.POSTERIOR.UNCERTAINTY",
+      "source": "WM.VAR.POSTERIOR",
+      "target": "WM.VAR.UNCERTAINTY",
+      "kind": "DERIVATION",
+      "sign": "non_monotonic",
+      "status": [
+        "EXECUTABLE"
+      ]
+    },
+    {
+      "id": "WM.REL.PROVENANCE.UPDATE",
+      "source": "WM.VAR.PROVENANCE",
+      "target": "WM.MECH.NORMATIVE_UPDATE",
+      "kind": "GATING",
+      "sign": "context_dependent",
+      "status": [
+        "CONCEPTUAL"
+      ]
+    },
+    {
+      "id": "WM.REL.OBSERVATION.REPRESENTATION",
+      "source": "WM.MECH.OBSERVE_SELECT",
+      "target": "WM.MECH.PRIOR_MEMORY",
+      "kind": "INFORMATION_FLOW",
+      "sign": "context_dependent",
+      "status": [
+        "CONCEPTUAL",
+        "EMPIRICAL"
+      ]
+    },
+    {
+      "id": "WM.REL.SOURCE.REPRESENTATION",
+      "source": "WM.MECH.PROVENANCE_SOURCE",
+      "target": "WM.MECH.NORMATIVE_UPDATE",
+      "kind": "MEASUREMENT_BRIDGE_REQUIRED",
+      "sign": "context_dependent",
+      "status": [
+        "CONCEPTUAL",
+        "EMPIRICAL"
+      ]
+    },
+    {
+      "id": "WM.REL.SOCIAL.REPRESENTATION",
+      "source": "WM.MECH.SOCIAL_CONTEXT",
+      "target": "WM.MECH.NORMATIVE_UPDATE",
+      "kind": "MEASUREMENT_BRIDGE_REQUIRED",
+      "sign": "context_dependent",
+      "status": [
+        "CONCEPTUAL",
+        "EMPIRICAL"
+      ]
+    },
+    {
+      "id": "WM.REL.REASSESSMENT.PRIOR",
+      "source": "WM.MECH.CONTRADICTION_REASSESSMENT",
+      "target": "WM.VAR.PRIOR",
+      "kind": "TEMPORAL_REVISION",
+      "sign": "context_dependent",
+      "status": [
+        "CONCEPTUAL",
+        "EMPIRICAL"
+      ]
+    }
+  ],
+  "temporal_model": {
+    "unit": "discrete evidence-update event",
+    "sequence": [
+      "observe/select",
+      "retrieve prior/context",
+      "evaluate provenance/source/social context",
+      "supply defensible LR if available",
+      "normative update",
+      "retain posterior and uncertainty",
+      "reassess on new or contradictory evidence"
+    ],
+    "warning": "An event step has no fixed mapping to seconds, days or years."
+  },
+  "executable_specification": {
+    "posterior_formula": "p1 = (p0 * LR) / (p0 * LR + (1 - p0))",
+    "odds_formula": "O1 = O0 * LR",
+    "uncertainty_formula": "Uwm = -p*log2(p) - (1-p)*log2(1-p)",
+    "preconditions": [
+      "0 <= p0 <= 1",
+      "LR > 0 and finite",
+      "LR is supplied by a defensible domain-specific diagnostic or measurement model",
+      "sequential evidence is not treated as independent unless that assumption is defensible"
+    ],
+    "failure_mode": "Fail closed: no posterior is computed when LR is absent, non-finite, non-positive or merely inferred from familiarity/source trust/social agreement."
+  },
+  "cross_links": [
+    {
+      "target": "VAR.EXPOSURE.COUNT",
+      "role": "available/observed information history; does not itself determine evidence diagnosticity"
+    },
+    {
+      "target": "VAR.FAMILIARITY.CLAIM",
+      "role": "existing familiarity state; empirical neighbor, never substituted for LR"
+    },
+    {
+      "target": "VAR.CORRECTION.ACCESS",
+      "role": "existing accessibility of corrective context for contradiction/reassessment"
+    },
+    {
+      "target": "VAR.RELIABILITY.ESTIMATE",
+      "role": "agent-relative source estimate; not actual reliability and not automatically an LR"
+    },
+    {
+      "target": "VAR.BELIEF.CLAIM",
+      "role": "existing descriptive latent belief propensity; deliberately distinct from normative Pwm"
+    },
+    {
+      "target": "VAR.OBSERVED.SAMPLE.BALANCE",
+      "role": "existing M1 observed-information summary feeding issue representation in its own task"
+    },
+    {
+      "target": "VAR.ISSUE.APPRAISAL",
+      "role": "existing bounded M1 issue-appraisal state; task-specific neighbor, not replaced by Pwm"
+    },
+    {
+      "target": "VAR.PREVIEW.IMPRESSION",
+      "role": "availability event, explicitly not proof of attention or encoding"
+    },
+    {
+      "target": "VAR.ACCESS",
+      "role": "observed access/open action; does not certify comprehension or belief"
+    },
+    {
+      "target": "MOD.02",
+      "role": "belief/source reliability neighborhood"
+    },
+    {
+      "target": "MOD.03",
+      "role": "exposure and information availability neighborhood"
+    },
+    {
+      "target": "MOD.04",
+      "role": "familiarity, memory/correction accessibility neighborhood"
+    },
+    {
+      "target": "MOD.15",
+      "role": "prior-attitude congruence neighborhood"
+    },
+    {
+      "target": "MOD.16",
+      "role": "selection and presentation neighborhood"
+    }
+  ],
+  "falsification_and_tests": [
+    {
+      "claim": "Reliability-sensitive cue integration can approximate statistically efficient weighting in controlled tasks.",
+      "weakening_condition": "Across tasks explicitly designed to estimate cue reliabilities, human integration repeatedly fails to vary with diagnostic reliability beyond measurement error and task-specific alternatives fit better.",
+      "scope": "EMPIRICAL; not a universal cognition claim"
+    },
+    {
+      "claim": "Prior knowledge/schema can alter interpretation, encoding or retrieval.",
+      "weakening_condition": "Pre-registered manipulations of relevant prior/schema information produce no reproducible differences in the specified outcome under conditions with adequate power and manipulation checks.",
+      "scope": "EMPIRICAL; directional sign must be specified per task"
+    },
+    {
+      "claim": "Provenance/source information can influence attribution and communicated-information evaluation.",
+      "weakening_condition": "Controlled source/provenance manipulations produce no reproducible differences in attribution or evaluation under task conditions where source information is available and attended.",
+      "scope": "EMPIRICAL; no generic coefficient asserted"
+    },
+    {
+      "claim": "The Bayes operator correctly implements the declared normative update.",
+      "weakening_condition": "Software output differs from the algebraic odds-form update or violates probability/entropy invariants.",
+      "scope": "EXECUTABLE software correctness, not empirical falsification of human cognition"
+    }
+  ],
+  "limitations": [
+    "Pwm is a proposition-level normative reference value, not an estimate of a person's latent belief B.",
+    "Binary proposition representation is deliberately narrow and does not capture rich relational, causal or continuous world models.",
+    "Likelihood ratios must come from external domain-specific measurement models; MOD.14 does not manufacture them from psychological cues.",
+    "Evidence dependence can cause severe double counting if likelihood ratios are multiplied naively.",
+    "Entropy captures uncertainty of a binary normative probability only; it does not include model misspecification, unknown unknowns or social disagreement.",
+    "Predictive coding, free-energy and Bayesian-brain theories remain interpretive framing unless a task-specific empirical bridge is supplied.",
+    "No population calibration, human recruitment, Pencode estimation or M1.E4 reactivation is introduced. Phase M remains unchanged."
+  ],
+  "references": [
+    {
+      "id": "REF.WM.ERNST_BANKS.2002",
+      "citation": "Ernst, M. O., & Banks, M. S. (2002). Humans integrate visual and haptic information in a statistically optimal fashion. Nature, 415, 429–433.",
+      "doi": "10.1038/415429a",
+      "url": "https://doi.org/10.1038/415429a",
+      "supports": [
+        "WM.MECH.OBSERVE_SELECT",
+        "WM.MECH.NORMATIVE_UPDATE"
+      ]
+    },
+    {
+      "id": "REF.WM.KNILL_POUGET.2004",
+      "citation": "Knill, D. C., & Pouget, A. (2004). The Bayesian brain: the role of uncertainty in neural coding and computation. Trends in Neurosciences, 27, 712–719.",
+      "doi": "10.1016/j.tins.2004.10.007",
+      "url": "https://doi.org/10.1016/j.tins.2004.10.007",
+      "supports": [
+        "WM.MECH.UNCERTAINTY_TRACKING"
+      ]
+    },
+    {
+      "id": "REF.WM.ZWAAN_RADVANSKY.1998",
+      "citation": "Zwaan, R. A., & Radvansky, G. A. (1998). Situation models in language comprehension and memory. Psychological Bulletin, 123, 162–185.",
+      "doi": "10.1037/0033-2909.123.2.162",
+      "url": "https://doi.org/10.1037/0033-2909.123.2.162",
+      "supports": [
+        "WM.MECH.PRIOR_MEMORY"
+      ]
+    },
+    {
+      "id": "REF.WM.JOHNSON.1993",
+      "citation": "Johnson, M. K., Hashtroudi, S., & Lindsay, D. S. (1993). Source monitoring. Psychological Bulletin, 114, 3–28.",
+      "doi": "10.1037/0033-2909.114.1.3",
+      "url": "https://doi.org/10.1037/0033-2909.114.1.3",
+      "supports": [
+        "WM.MECH.PROVENANCE_SOURCE"
+      ]
+    },
+    {
+      "id": "REF.WM.SPERBER.2010",
+      "citation": "Sperber, D., Clément, F., Heintz, C., Mascaro, O., Mercier, H., Origgi, G., & Wilson, D. (2010). Epistemic Vigilance. Mind & Language, 25, 359–393.",
+      "doi": "10.1111/j.1468-0017.2010.01394.x",
+      "url": "https://doi.org/10.1111/j.1468-0017.2010.01394.x",
+      "supports": [
+        "WM.MECH.PROVENANCE_SOURCE",
+        "WM.MECH.SOCIAL_CONTEXT"
+      ]
+    },
+    {
+      "id": "REF.WM.ECKER.2022",
+      "citation": "Ecker, U. K. H., Lewandowsky, S., Cook, J., et al. (2022). The psychological drivers of misinformation belief and its resistance to correction. Nature Reviews Psychology, 1, 13–29.",
+      "doi": "10.1038/s44159-021-00006-y",
+      "url": "https://doi.org/10.1038/s44159-021-00006-y",
+      "supports": [
+        "WM.MECH.PRIOR_MEMORY",
+        "WM.MECH.CONTRADICTION_REASSESSMENT",
+        "WM.MECH.SOCIAL_CONTEXT"
+      ]
+    }
+  ]
+}

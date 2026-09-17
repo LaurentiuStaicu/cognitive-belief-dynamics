@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://laurentiustaicu.github.io/cognitive-epistemic-model/schemas/world_model.schema.json",
+  "title": "CEM MOD.14 world-model contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_id","module_id","title","purpose","scope_boundary","epistemic_levels","variables","mechanisms","relations","temporal_model","executable_specification","cross_links","falsification_and_tests","limitations","references"],
+  "properties": {
+    "contract_id": {"const":"MOD14.WORLD_MODEL.V1"},
+    "module_id": {"const":"MOD.14"},
+    "title": {"$ref":"#/$defs/bilingual"},
+    "purpose": {"$ref":"#/$defs/bilingual"},
+    "scope_boundary": {"$ref":"#/$defs/bilingual"},
+    "epistemic_levels": {"type":"array","minItems":4,"maxItems":4,"items":{"type":"object","additionalProperties":false,"required":["level","claims"],"properties":{"level":{"enum":["EMPIRICAL","EXECUTABLE","CONCEPTUAL","INTERPRETIVE"]},"claims":{"type":"array","minItems":1,"items":{"type":"string","minLength":20}}}}},
+    "variables": {"type":"array","minItems":4,"items":{"$ref":"#/$defs/entity"}},
+    "mechanisms": {"type":"array","minItems":5,"items":{"$ref":"#/$defs/mechanism"}},
+    "relations": {"type":"array","minItems":5,"items":{"$ref":"#/$defs/relation"}},
+    "temporal_model": {"type":"object","additionalProperties":false,"required":["unit","sequence","warning"],"properties":{"unit":{"type":"string"},"sequence":{"type":"array","minItems":2,"items":{"type":"string"}},"warning":{"type":"string"}}},
+    "executable_specification": {"type":"object","additionalProperties":false,"required":["posterior_formula","odds_formula","uncertainty_formula","preconditions","failure_mode"],"properties":{"posterior_formula":{"type":"string"},"odds_formula":{"type":"string"},"uncertainty_formula":{"type":"string"},"preconditions":{"type":"array","minItems":3,"items":{"type":"string"}},"failure_mode":{"type":"string"}}},
+    "cross_links": {"type":"array","minItems":1,"items":{"type":"object","additionalProperties":false,"required":["target","role"],"properties":{"target":{"type":"string","minLength":1},"role":{"type":"string","minLength":10}}}},
+    "falsification_and_tests": {"type":"array","minItems":3,"items":{"type":"object","additionalProperties":false,"required":["claim","weakening_condition","scope"],"properties":{"claim":{"type":"string","minLength":10},"weakening_condition":{"type":"string","minLength":20},"scope":{"type":"string","minLength":5}}}},
+    "limitations": {"type":"array","minItems":5,"items":{"type":"string","minLength":10}},
+    "references": {"type":"array","minItems":4,"items":{"type":"object","additionalProperties":false,"required":["id","citation","doi","url","supports"],"properties":{"id":{"type":"string","pattern":"^REF\\.WM\\."},"citation":{"type":"string","minLength":20},"doi":{"type":"string","minLength":5},"url":{"type":"string","format":"uri"},"supports":{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","pattern":"^WM\\.MECH\\."}}}}}
+  },
+  "$defs": {
+    "bilingual": {"type":"object","additionalProperties":false,"required":["en","ro"],"properties":{"en":{"type":"string","minLength":1},"ro":{"type":"string","minLength":1}}},
+    "status": {"type":"array","minItems":1,"uniqueItems":true,"items":{"enum":["EMPIRICAL","EXECUTABLE","CONCEPTUAL","INTERPRETIVE"]}},
+    "entity": {"type":"object","additionalProperties":false,"required":["id","short_name","label","status","definition","not_equivalent_to"],"properties":{"id":{"type":"string","pattern":"^WM\\.VAR\\."},"short_name":{"type":"string","minLength":1},"label":{"$ref":"#/$defs/bilingual"},"status":{"$ref":"#/$defs/status"},"range":{"type":"array","minItems":2,"maxItems":2,"items":{"type":["number","null"]}},"definition":{"type":"string","minLength":10},"not_equivalent_to":{"type":"array","minItems":1,"items":{"type":"string"}}}},
+    "mechanism": {"type":"object","additionalProperties":false,"required":["id","label","status","description"],"properties":{"id":{"type":"string","pattern":"^WM\\.MECH\\."},"label":{"$ref":"#/$defs/bilingual"},"status":{"$ref":"#/$defs/status"},"description":{"type":"string","minLength":20}}},
+    "relation": {"type":"object","additionalProperties":false,"required":["id","source","target","kind","sign","status"],"properties":{"id":{"type":"string","pattern":"^WM\\.REL\\."},"source":{"type":"string","minLength":1},"target":{"type":"string","minLength":1},"kind":{"type":"string","minLength":1},"sign":{"enum":["positive","negative","non_monotonic","context_dependent","unknown"]},"status":{"$ref":"#/$defs/status"}}}
+  }
+}

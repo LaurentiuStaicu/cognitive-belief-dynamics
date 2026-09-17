@@ -615,7 +615,8 @@
       },
       "related_ids": [
         "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
-        "THEORY.09.EDITORIAL_SELECTION"
+        "THEORY.09.EDITORIAL_SELECTION",
+        "THEORY.16.WORLD_MODEL_CONSTRUCTION"
       ],
       "semantic_roles": [
         "CONCEPT_DESCRIPTOR"
@@ -627,13 +628,15 @@
       },
       "status_facets": {
         "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE",
           "CONCEPTUAL",
-          "EXECUTABLE"
+          "INTERPRETIVE"
         ]
       },
       "summary": {
-        "en": "Conceptual distinction between external world state, information reaching the agent, and the internal representation built from it.",
-        "ro": "Distincție conceptuală între starea externă a lumii, informația care ajunge la agent și reprezentarea internă construită din aceasta."
+        "en": "Agent-relative, partial and revisable internal representation constructed from selected observations, prior information, memory, provenance/source cues, social context and uncertainty.",
+        "ro": "Reprezentare internă relativă la agent, parțială și revizuibilă, construită din observații selectate, informație anterioară, memorie, indicii de proveniență/sursă, context social și incertitudine."
       }
     },
     {
@@ -882,6 +885,250 @@
       "summary": {
         "en": "Executable M0 mechanism updating the agent's estimate of source reliability from feedback.",
         "ro": "Mecanism M0 executabil care actualizează estimarea agentului privind fiabilitatea sursei din feedback."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.WORLD_NORMATIVE_UPDATE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "world-normative-update"
+          ]
+        },
+        "preferred": {
+          "en": "Normative proposition update",
+          "ro": "Actualizarea normativă a propoziției"
+        }
+      },
+      "related_ids": [
+        "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_NORMATIVE_UPDATE"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Executable odds-form Bayesian reference update using an explicit prior and defensible diagnostic likelihood ratio.",
+        "ro": "Actualizare bayesiană executabilă de referință, în forma odds, folosind un prior explicit și un raport diagnostic justificabil."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.WORLD_OBSERVE_SELECT",
+      "labels": {
+        "alternative": {
+          "und": [
+            "world-observe-select"
+          ]
+        },
+        "preferred": {
+          "en": "Observation and selection",
+          "ro": "Observare și selecție"
+        }
+      },
+      "related_ids": [
+        "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_OBSERVE_SELECT"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "Empirical/conceptual gate separating information availability from what is actually observed or encoded.",
+        "ro": "Poartă empirică/conceptuală care separă disponibilitatea informației de ceea ce este efectiv observat sau encodat."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.WORLD_PRIOR_MEMORY",
+      "labels": {
+        "alternative": {
+          "und": [
+            "world-prior-memory"
+          ]
+        },
+        "preferred": {
+          "en": "Prior and memory retrieval",
+          "ro": "Recuperarea informației anterioare și a memoriei"
+        }
+      },
+      "related_ids": [
+        "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_PRIOR_MEMORY"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "Task-dependent use of stored information and schemas during construction or revision of an internal representation.",
+        "ro": "Utilizarea dependentă de sarcină a informației stocate și a schemelor în construirea sau revizuirea reprezentării interne."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.WORLD_PROVENANCE_SOURCE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "world-provenance-source"
+          ]
+        },
+        "preferred": {
+          "en": "Provenance and source evaluation",
+          "ro": "Evaluarea provenienței și a sursei"
+        }
+      },
+      "related_ids": [
+        "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_PROVENANCE_SOURCE"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "Source attribution and source-related evaluation kept distinct from objective reliability and from diagnostic likelihood ratios.",
+        "ro": "Atribuirea sursei și evaluarea legată de sursă, păstrate distincte de fiabilitatea obiectivă și de rapoartele de verosimilitate diagnostice."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.WORLD_REASSESSMENT",
+      "labels": {
+        "alternative": {
+          "und": [
+            "world-reassessment"
+          ]
+        },
+        "preferred": {
+          "en": "Contradiction and reassessment",
+          "ro": "Contradicție și reevaluare"
+        }
+      },
+      "related_ids": [
+        "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_REASSESSMENT"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "Revision pathway triggered by counterevidence, corrections or source reappraisal; descriptive dynamics remain task-specific.",
+        "ro": "Traseu de revizuire declanșat de dovezi contrare, corecții sau reevaluarea sursei; dinamica descriptivă rămâne specifică sarcinii."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.WORLD_SOCIAL_CONTEXT",
+      "labels": {
+        "alternative": {
+          "und": [
+            "world-social-context"
+          ]
+        },
+        "preferred": {
+          "en": "Social-context interpretation",
+          "ro": "Interpretarea contextului social"
+        }
+      },
+      "related_ids": [
+        "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_SOCIAL_CONTEXT"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "Interpretation of communicated information in social context without a generic conformity coefficient.",
+        "ro": "Interpretarea informației comunicate în context social fără un coeficient generic de conformism."
+      }
+    },
+    {
+      "id": "GLOSS.MECH.WORLD_UNCERTAINTY",
+      "labels": {
+        "alternative": {
+          "und": [
+            "world-uncertainty"
+          ]
+        },
+        "preferred": {
+          "en": "Explicit proposition uncertainty",
+          "ro": "Incertitudine explicită a propoziției"
+        }
+      },
+      "related_ids": [
+        "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      ],
+      "semantic_roles": [
+        "MECHANISM_DESCRIPTOR"
+      ],
+      "semantic_type": "GLOSSARY_ENTRY",
+      "source": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_UNCERTAINTY"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE",
+          "CONCEPTUAL"
+        ]
+      },
+      "summary": {
+        "en": "Executable binary-entropy indicator derived from the normative proposition posterior.",
+        "ro": "Indicator executabil de entropie binară derivat din posteriorul normativ al propoziției."
       }
     },
     {
@@ -1292,6 +1539,84 @@
       "source": {
         "path": "model/references.json",
         "source_id": "REF.TOHIDI.2025"
+      }
+    },
+    {
+      "id": "REF.WM.ECKER.2022",
+      "labels": {
+        "preferred": {
+          "und": "Ecker, U. K. H., Lewandowsky, S., Cook, J., et al. (2022). The psychological drivers of misinformation belief and its resistance to correction. Nature Reviews Psychology, 1, 13–29."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.WM.ECKER.2022"
+      }
+    },
+    {
+      "id": "REF.WM.ERNST_BANKS.2002",
+      "labels": {
+        "preferred": {
+          "und": "Ernst, M. O., & Banks, M. S. (2002). Humans integrate visual and haptic information in a statistically optimal fashion. Nature, 415, 429–433."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.WM.ERNST_BANKS.2002"
+      }
+    },
+    {
+      "id": "REF.WM.JOHNSON.1993",
+      "labels": {
+        "preferred": {
+          "und": "Johnson, M. K., Hashtroudi, S., & Lindsay, D. S. (1993). Source monitoring. Psychological Bulletin, 114, 3–28."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.WM.JOHNSON.1993"
+      }
+    },
+    {
+      "id": "REF.WM.KNILL_POUGET.2004",
+      "labels": {
+        "preferred": {
+          "und": "Knill, D. C., & Pouget, A. (2004). The Bayesian brain: the role of uncertainty in neural coding and computation. Trends in Neurosciences, 27, 712–719."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.WM.KNILL_POUGET.2004"
+      }
+    },
+    {
+      "id": "REF.WM.SPERBER.2010",
+      "labels": {
+        "preferred": {
+          "und": "Sperber, D., Clément, F., Heintz, C., Mascaro, O., Mercier, H., Origgi, G., & Wilson, D. (2010). Epistemic Vigilance. Mind & Language, 25, 359–393."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.WM.SPERBER.2010"
+      }
+    },
+    {
+      "id": "REF.WM.ZWAAN_RADVANSKY.1998",
+      "labels": {
+        "preferred": {
+          "und": "Zwaan, R. A., & Radvansky, G. A. (1998). Situation models in language comprehension and memory. Psychological Bulletin, 123, 162–185."
+        }
+      },
+      "semantic_type": "REFERENCE",
+      "source": {
+        "path": "model/references.json",
+        "source_id": "REF.WM.ZWAAN_RADVANSKY.1998"
       }
     },
     {
@@ -1946,6 +2271,63 @@
       "summary": {
         "en": "Connects understanding, mechanism exploration, evidence inspection, prioritization and action planning into one coherent workflow.",
         "ro": "Leagă înțelegerea, explorarea mecanismelor, inspectarea dovezilor, prioritizarea și planificarea acțiunilor într-un singur flux coerent."
+      }
+    },
+    {
+      "id": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "labels": {
+        "preferred": {
+          "en": "World-model construction",
+          "ro": "Construirea modelului realității"
+        }
+      },
+      "related_ids": [
+        "GLOSS.MECH.WORLD_NORMATIVE_UPDATE",
+        "GLOSS.MECH.WORLD_OBSERVE_SELECT",
+        "GLOSS.MECH.WORLD_PRIOR_MEMORY",
+        "GLOSS.MECH.WORLD_PROVENANCE_SOURCE",
+        "GLOSS.MECH.WORLD_REASSESSMENT",
+        "GLOSS.MECH.WORLD_SOCIAL_CONTEXT",
+        "GLOSS.MECH.WORLD_UNCERTAINTY",
+        "MOD.14",
+        "REF.WM.ECKER.2022",
+        "REF.WM.ERNST_BANKS.2002",
+        "REF.WM.JOHNSON.1993",
+        "REF.WM.KNILL_POUGET.2004",
+        "REF.WM.SPERBER.2010",
+        "REF.WM.ZWAAN_RADVANSKY.1998",
+        "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+        "VAR.ACCESS",
+        "VAR.BELIEF.CLAIM",
+        "VAR.CORRECTION.ACCESS",
+        "VAR.EXPOSURE.COUNT",
+        "VAR.FAMILIARITY.CLAIM",
+        "VAR.ISSUE.APPRAISAL",
+        "VAR.OBSERVED.SAMPLE.BALANCE",
+        "VAR.PREVIEW.IMPRESSION",
+        "VAR.RELIABILITY.ESTIMATE",
+        "WM.VAR.LR",
+        "WM.VAR.POSTERIOR",
+        "WM.VAR.PRIOR",
+        "WM.VAR.PROVENANCE",
+        "WM.VAR.UNCERTAINTY"
+      ],
+      "semantic_type": "THEORY_CHAPTER",
+      "source": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EMPIRICAL",
+          "EXECUTABLE",
+          "CONCEPTUAL",
+          "INTERPRETIVE"
+        ]
+      },
+      "summary": {
+        "en": "Explains how an internal representation can be constructed and revised from selected information, prior/memory, provenance/source cues, social context and uncertainty while keeping empirical, executable, conceptual and interpretive levels separate.",
+        "ro": "Explică modul în care o reprezentare internă poate fi construită și revizuită din informație selectată, informație anterioară/memorie, indicii de proveniență/sursă, context social și incertitudine, separând nivelurile empiric, executabil, conceptual și interpretativ."
       }
     },
     {
@@ -2681,6 +3063,162 @@
       "summary": {
         "en": "Agent's task-relevant estimate of a source's reliability."
       }
+    },
+    {
+      "id": "WM.VAR.LR",
+      "labels": {
+        "alternative": {
+          "und": [
+            "LR"
+          ]
+        },
+        "preferred": {
+          "en": "Diagnostic likelihood ratio",
+          "ro": "Raport de verosimilitate diagnostic"
+        }
+      },
+      "related_ids": [
+        "MOD.14"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "LR",
+      "source": {
+        "path": "model/contracts/world_model_v1.json",
+        "source_id": "WM.VAR.LR"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Externally justified diagnostic evidence ratio P(evidence|proposition true) / P(evidence|proposition false)."
+      }
+    },
+    {
+      "id": "WM.VAR.POSTERIOR",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Pwm"
+          ]
+        },
+        "preferred": {
+          "en": "Normative world-model posterior",
+          "ro": "Posteriorul normativ al modelului realității"
+        }
+      },
+      "related_ids": [
+        "MOD.14"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Pwm",
+      "source": {
+        "path": "model/contracts/world_model_v1.json",
+        "source_id": "WM.VAR.POSTERIOR"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Normative proposition probability after applying one or more justified likelihood-ratio updates."
+      }
+    },
+    {
+      "id": "WM.VAR.PRIOR",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Pprior"
+          ]
+        },
+        "preferred": {
+          "en": "Prior proposition probability",
+          "ro": "Probabilitatea anterioară a propoziției"
+        }
+      },
+      "related_ids": [
+        "MOD.14"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Pprior",
+      "source": {
+        "path": "model/contracts/world_model_v1.json",
+        "source_id": "WM.VAR.PRIOR"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Normative probability assigned to a binary proposition before the current diagnostic evidence item."
+      }
+    },
+    {
+      "id": "WM.VAR.PROVENANCE",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Prov"
+          ]
+        },
+        "preferred": {
+          "en": "Evidence provenance record",
+          "ro": "Înregistrarea provenienței dovezii"
+        }
+      },
+      "related_ids": [
+        "MOD.14"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Prov",
+      "source": {
+        "path": "model/contracts/world_model_v1.json",
+        "source_id": "WM.VAR.PROVENANCE"
+      },
+      "status_facets": {
+        "source_tags": [
+          "CONCEPTUAL",
+          "EMPIRICAL"
+        ]
+      },
+      "summary": {
+        "en": "Traceable record of the evidence item, source, acquisition context and measurement assumptions used in an update."
+      }
+    },
+    {
+      "id": "WM.VAR.UNCERTAINTY",
+      "labels": {
+        "alternative": {
+          "und": [
+            "Uwm"
+          ]
+        },
+        "preferred": {
+          "en": "Normative proposition uncertainty",
+          "ro": "Incertitudinea normativă a propoziției"
+        }
+      },
+      "related_ids": [
+        "MOD.14"
+      ],
+      "semantic_type": "VARIABLE",
+      "short_name": "Uwm",
+      "source": {
+        "path": "model/contracts/world_model_v1.json",
+        "source_id": "WM.VAR.UNCERTAINTY"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
+      },
+      "summary": {
+        "en": "Normalized binary Shannon entropy derived from Pwm; 1 at p=0.5 and 0 at p=0 or p=1."
+      }
     }
   ],
   "relations": [
@@ -3250,6 +3788,17 @@
       "target": "THEORY.09.EDITORIAL_SELECTION"
     },
     {
+      "id": "SEMREL.DOC.GLOSS.CONCEPT.WORLD_MODEL.RELATED_CHAPTER.THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.CONCEPT.WORLD_MODEL",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.CONCEPT.WORLD_MODEL"
+      },
+      "target": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+    },
+    {
       "id": "SEMREL.DOC.GLOSS.MECH.ACCESS.RELATED_CHAPTER.THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK",
       "layer": "DOCUMENTATION_RELATION",
       "relation_type": "RELATED_CHAPTER",
@@ -3358,6 +3907,83 @@
         "source_id": "GLOSS.MECH.SOURCE"
       },
       "target": "THEORY.07.SOURCE_RELIABILITY"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.WORLD_NORMATIVE_UPDATE.RELATED_CHAPTER.THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.WORLD_NORMATIVE_UPDATE",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_NORMATIVE_UPDATE"
+      },
+      "target": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.WORLD_OBSERVE_SELECT.RELATED_CHAPTER.THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.WORLD_OBSERVE_SELECT",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_OBSERVE_SELECT"
+      },
+      "target": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.WORLD_PRIOR_MEMORY.RELATED_CHAPTER.THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.WORLD_PRIOR_MEMORY",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_PRIOR_MEMORY"
+      },
+      "target": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.WORLD_PROVENANCE_SOURCE.RELATED_CHAPTER.THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.WORLD_PROVENANCE_SOURCE",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_PROVENANCE_SOURCE"
+      },
+      "target": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.WORLD_REASSESSMENT.RELATED_CHAPTER.THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.WORLD_REASSESSMENT",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_REASSESSMENT"
+      },
+      "target": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.WORLD_SOCIAL_CONTEXT.RELATED_CHAPTER.THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.WORLD_SOCIAL_CONTEXT",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_SOCIAL_CONTEXT"
+      },
+      "target": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+    },
+    {
+      "id": "SEMREL.DOC.GLOSS.MECH.WORLD_UNCERTAINTY.RELATED_CHAPTER.THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "RELATED_CHAPTER",
+      "source": "GLOSS.MECH.WORLD_UNCERTAINTY",
+      "source_record": {
+        "path": "model/theory_glossary.json",
+        "source_id": "GLOSS.MECH.WORLD_UNCERTAINTY"
+      },
+      "target": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
     },
     {
       "id": "SEMREL.DOC.THEORY.00.WHAT_IS_CEM.USES_MODULE.MOD.02",
@@ -4876,12 +5502,332 @@
         "source_id": "THEORY.15.USING_CEM"
       },
       "target": "MOD.20"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.CITES_REFERENCE.REF.WM.ECKER.2022",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "REF.WM.ECKER.2022"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.CITES_REFERENCE.REF.WM.ERNST_BANKS.2002",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "REF.WM.ERNST_BANKS.2002"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.CITES_REFERENCE.REF.WM.JOHNSON.1993",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "REF.WM.JOHNSON.1993"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.CITES_REFERENCE.REF.WM.KNILL_POUGET.2004",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "REF.WM.KNILL_POUGET.2004"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.CITES_REFERENCE.REF.WM.SPERBER.2010",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "REF.WM.SPERBER.2010"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.CITES_REFERENCE.REF.WM.ZWAAN_RADVANSKY.1998",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "CITES_REFERENCE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "REF.WM.ZWAAN_RADVANSKY.1998"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.DESCRIBES_MECHANISM.GLOSS.MECH.WORLD_NORMATIVE_UPDATE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "GLOSS.MECH.WORLD_NORMATIVE_UPDATE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.DESCRIBES_MECHANISM.GLOSS.MECH.WORLD_OBSERVE_SELECT",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "GLOSS.MECH.WORLD_OBSERVE_SELECT"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.DESCRIBES_MECHANISM.GLOSS.MECH.WORLD_PRIOR_MEMORY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "GLOSS.MECH.WORLD_PRIOR_MEMORY"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.DESCRIBES_MECHANISM.GLOSS.MECH.WORLD_PROVENANCE_SOURCE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "GLOSS.MECH.WORLD_PROVENANCE_SOURCE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.DESCRIBES_MECHANISM.GLOSS.MECH.WORLD_REASSESSMENT",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "GLOSS.MECH.WORLD_REASSESSMENT"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.DESCRIBES_MECHANISM.GLOSS.MECH.WORLD_SOCIAL_CONTEXT",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "GLOSS.MECH.WORLD_SOCIAL_CONTEXT"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.DESCRIBES_MECHANISM.GLOSS.MECH.WORLD_UNCERTAINTY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "DESCRIBES_MECHANISM",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "GLOSS.MECH.WORLD_UNCERTAINTY"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.PREREQUISITE_CHAPTER.THEORY.01.WORLD_INFORMATION_REPRESENTATION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "PREREQUISITE_CHAPTER",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_MODULE.MOD.14",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_MODULE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "MOD.14"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.ACCESS",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "VAR.ACCESS"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.BELIEF.CLAIM",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "VAR.BELIEF.CLAIM"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.CORRECTION.ACCESS",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "VAR.CORRECTION.ACCESS"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.EXPOSURE.COUNT",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "VAR.EXPOSURE.COUNT"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.FAMILIARITY.CLAIM",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "VAR.FAMILIARITY.CLAIM"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.ISSUE.APPRAISAL",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "VAR.ISSUE.APPRAISAL"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.OBSERVED.SAMPLE.BALANCE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "VAR.OBSERVED.SAMPLE.BALANCE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.PREVIEW.IMPRESSION",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "VAR.PREVIEW.IMPRESSION"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.RELIABILITY.ESTIMATE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "VAR.RELIABILITY.ESTIMATE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.WM.VAR.LR",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "WM.VAR.LR"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.WM.VAR.POSTERIOR",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "WM.VAR.POSTERIOR"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.WM.VAR.PRIOR",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "WM.VAR.PRIOR"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.WM.VAR.PROVENANCE",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "WM.VAR.PROVENANCE"
+    },
+    {
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.WM.VAR.UNCERTAINTY",
+      "layer": "DOCUMENTATION_RELATION",
+      "relation_type": "USES_VARIABLE",
+      "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+      "source_record": {
+        "path": "model/theory_index.json",
+        "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+      },
+      "target": "WM.VAR.UNCERTAINTY"
     }
   ],
   "schema_version": "1",
   "source_paths": [
     "model/computational_dependencies.json",
     "model/contracts/oa0_optimization_baseline.json",
+    "model/contracts/world_model_v1.json",
     "model/empirical_targets.json",
     "model/links.json",
     "model/modules.json",

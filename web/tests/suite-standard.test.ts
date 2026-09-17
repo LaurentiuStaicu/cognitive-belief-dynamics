@@ -2,48 +2,21 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {calibrationExtension} from '../src/calibration-extension-contract.ts';
+import {cemDiagnostics,cemProductEdges,cemProductNodes} from '../src/cem-product-map.ts';
+const shellSource=readFileSync(new URL('../src/suite-overview.ts',import.meta.url),'utf8');const shellCss=readFileSync(new URL('../src/suite-overview.css',import.meta.url),'utf8');const understandingSource=readFileSync(new URL('../src/understanding.ts',import.meta.url),'utf8');const mainSource=readFileSync(new URL('../src/main.ts',import.meta.url),'utf8');const indexSource=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 
-const overviewSource=readFileSync(new URL('../src/suite-overview.ts',import.meta.url),'utf8');
-const overviewCss=readFileSync(new URL('../src/suite-overview.css',import.meta.url),'utf8');
-const understandingSource=readFileSync(new URL('../src/understanding.ts',import.meta.url),'utf8');
-const mainSource=readFileSync(new URL('../src/main.ts',import.meta.url),'utf8');
-const indexSource=readFileSync(new URL('../index.html',import.meta.url),'utf8');
+test('InfoClar v1.1 remains the primary four-region product shell',()=>{assert.match(mainSource,/mountSuiteOverview\(suiteRoot/);assert.match(mainSource,/id="suiteRoot"/);for(const token of ['suite-model-panel','suite-theory-panel','suite-dashboard-panel','suite-aux-panel'])assert(shellSource.includes(token),token);assert.match(shellCss,/grid-template-areas:'model theory' 'dashboard aux'/);assert.match(shellCss,/@media\(max-width:760px\)[\s\S]*grid-template-areas:'model' 'theory' 'dashboard' 'aux'/);});
 
-test('InfoClar v1.1 keeps one simplified application with four common surfaces',()=>{
- assert.match(overviewSource,/data-suite-standard="InfoClar Model Suite Design Standard v1\.1"/);
- assert.match(overviewSource,/suite-model-panel/);
- assert.match(overviewSource,/suite-theory-panel/);
- assert.match(overviewSource,/suite-dashboard-panel/);
- assert.match(overviewSource,/suite-aux-panel/);
- assert.match(overviewCss,/grid-template-areas:'model theory' 'dashboard aux'/);
- assert.match(overviewCss,/@media\(max-width:760px\)[\s\S]*grid-template-areas:'model' 'theory' 'dashboard' 'aux'/);
-});
+test('the dominant CEM map preserves system complexity and intelligible relations',()=>{assert(cemProductNodes.length>=20);assert(cemProductEdges.length>=23);const nodeIds=new Set(cemProductNodes.map(node=>node.id));for(const edge of cemProductEdges){assert(nodeIds.has(edge.source),edge.source);assert(nodeIds.has(edge.target),edge.target);assert(edge.label.en.length>8);assert(edge.label.ro.length>8);}const identifiers=new Set(cemProductNodes.flatMap(node=>node.identifiers));for(const token of ['Nexp','F','C','T','Sobs','Aissue','B','W','LR','Pwm','Uwm','Share','EngageIntent','Access'])assert(identifiers.has(token),token);for(const node of cemProductNodes){assert(node.label.en.length>3);assert(node.label.ro.length>3);assert(node.summary.en.length>20);assert(node.chapterSlug.length>3);assert(node.statuses.length>0);}assert.match(shellSource,/cem-system-map/);assert.match(shellSource,/data-suite-focus/);assert.match(shellSource,/cem-relevant-paths/);assert.match(shellCss,/\.cem-system-node\.is-selected/);assert.match(shellCss,/\.cem-system-edge\.is-related/);});
 
-test('cognitive diagram stays model-specific instead of imposing a suite-generic chart',()=>{
- for(const token of ['Nexp','F','B','W','Aissue','Paccess','Pengage','Share','EngageIntent','Access'])assert(overviewSource.includes(token),token);
- assert.match(overviewSource,/cem-mechanism-map/);
-});
+test('progressive disclosure connects map selection to theory diagnostics and scientific context',()=>{assert.match(shellSource,/data-suite-theory-chapter/);assert.match(shellSource,/data-suite-diagnostic-focus/);assert.match(shellSource,/data-suite-reference/);assert.match(shellSource,/id="suiteTheoryContext"/);assert.match(shellSource,/id="suiteAuxContext"/);for(const word of ['Proveniență','Provenance','Incertitudine','Uncertainty','Limită','Boundary'])assert(shellSource.includes(word),word);assert(cemDiagnostics.length>=6);for(const diagnostic of cemDiagnostics){assert(nodeIdsForDiagnostics().has(diagnostic.focus),diagnostic.focus);assert(diagnostic.mechanisms.length>=2);assert(diagnostic.evidence.en.length>10);assert(diagnostic.uncertainty.en.length>10);}function nodeIdsForDiagnostics(){return new Set(cemProductNodes.map(node=>node.id));}});
 
-test('English is the first-run default and the bilingual choice persists locally',()=>{
- assert.match(indexSource,/<html lang="en">/);
- assert.match(mainSource,/cem\.ui\.language/);
- assert.match(mainSource,/savedLanguage==='ro'\|\|savedLanguage==='en'\?savedLanguage:'en'/);
- assert.match(mainSource,/localStorage\.setItem\('cem\.ui\.language',lang\)/);
- assert.match(mainSource,/lang==='ro'\?'EN':'RO'/);
-});
+test('Dashboard is epistemic rather than software telemetry',()=>{for(const forbidden of ['softwareVersion','modelSpecification','variableCount','moduleCount','referenceCount','validationCount','Web-first','web-first','Flatpak','Starea și maturitatea modelului','Model state & maturity'])assert.equal(shellSource.includes(forbidden),false,forbidden);assert.match(shellSource,/Epistemic pressure points|Puncte de presiune epistemică/);assert.match(shellSource,/suite-diagnostic/);});
 
-test('overview is the default learning mode while deeper learning remains in the same app',()=>{
- assert.match(understandingSource,/type Mode='overview'\|'theory'\|'mechanisms'\|'tour'\|'active'/);
- assert.match(understandingSource,/saved:'overview'/);
- assert.match(understandingSource,/mountSuiteOverview/);
-});
+test('Theory Learn exposes the complete corpus while remaining contextual',()=>{assert.match(understandingSource,/type Mode='theory'\|'mechanisms'\|'world-model'\|'tour'\|'active'/);assert.equal(understandingSource.includes("'overview'"),false);assert.equal(understandingSource.includes('mountSuiteOverview'),false);assert.match(shellSource,/Răsfoiește corpusul complet|Browse full corpus/);assert.match(shellSource,/Deschide capitolul complet|Open full chapter/);for(const mode of ['theory','mechanisms','world-model','tour','active'])assert(shellSource.includes(`data-suite-learn="${mode}"`),mode);});
 
-test('calibration is a dormant post-v1 extension seam rather than an Advanced app',()=>{
- assert.equal(calibrationExtension.status,'PLANNED_POST_V1');
- assert.equal(calibrationExtension.mounted,false);
- assert.equal(calibrationExtension.uploadControlAvailable,false);
- assert.deepEqual([...calibrationExtension.acceptedExtensions],['.txt','.md','.csv','.tsv','.json','.xlsx','.ods']);
- assert(!mainSource.includes("./calibration-extension-contract"));
- assert(!overviewSource.includes('type="file"'));
- assert(!overviewSource.toLowerCase().includes('advanced mode'));
-});
+test('legacy global chrome stays absent and deep tools remain contextual',()=>{for(const forbidden of ['navigation-shell','data-nav-group','semantic-inspector-global','class="intro"'])assert.equal(mainSource.includes(forbidden),false,forbidden);assert.match(shellSource,/data-suite-tool="search"/);assert.match(shellSource,/data-suite-tool="inspector"/);for(const view of ['structure','runs','comparison','planning','reference','process'])assert(shellSource.includes(`data-suite-view="${view}"`),view);assert.match(mainSource,/ensureSemanticTools/);});
+
+test('English is first-run default and bilingual choice persists locally',()=>{assert.match(indexSource,/<html lang="en">/);assert.match(mainSource,/cem\.ui\.language/);assert.match(mainSource,/savedLanguage==='ro'\|\|savedLanguage==='en'\?savedLanguage:'en'/);assert.match(mainSource,/localStorage\.setItem\('cem\.ui\.language',lang\)/);});
+
+test('calibration stays dormant and development metadata stays outside the product surface',()=>{assert.equal(calibrationExtension.status,'PLANNED_POST_V1');assert.equal(calibrationExtension.mounted,false);assert.equal(calibrationExtension.uploadControlAvailable,false);assert.deepEqual([...calibrationExtension.acceptedExtensions],['.txt','.md','.csv','.tsv','.json','.xlsx','.ods']);assert(!mainSource.includes("./calibration-extension-contract"));assert(!shellSource.includes('type="file"'));assert.equal(/data-(?:mode|view)=\"advanced\"/i.test(shellSource),false);assert.equal(/advanced-mode/i.test(shellSource),false);assert.equal(/Flatpak|Web-first|web-first|Alpha\s+0\./.test(shellSource),false);assert.equal(mainSource.includes('id="releaseVersion"'),false);assert.equal(/Calibration remains dormant|Calibrarea rămâne dormantă|web-first/i.test(mainSource),false);assert.match(mainSource,/class="product-purpose"/);assert.match(mainSource,/EMPIRICAL · EXECUTABLE · CONCEPTUAL · INTERPRETIVE/);});
