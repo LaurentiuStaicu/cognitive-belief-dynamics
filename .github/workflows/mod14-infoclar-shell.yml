@@ -35,6 +35,15 @@ jobs:
           s=t.read_text()
           s=s.replace("assert(!shellSource.toLowerCase().includes('advanced mode'));", "assert.equal(/data-(?:mode|view)=\\\"advanced\\\"/i.test(shellSource),false);assert.equal(/advanced-mode/i.test(shellSource),false);assert.match(shellSource,/no Advanced mode|nu există Advanced mode/i);")
           t.write_text(s)
+          wm=Path('web/src/world-model.ts')
+          w=wm.read_text()
+          w=w.replace("const clamp=(value:number,min:number,max:number)=>Math.min(max,Math.max(min,value));\n","")
+          w=w.replace("const p=clamp(Number(priorInput.value),0,1);","const p=Number(priorInput.value);")
+          w=w.replace("Raport diagnostic LR","Raport de verosimilitate diagnostic LR")
+          w=w.replace("Diagnostic LR","Diagnostic likelihood ratio LR")
+          w=w.replace("LR trebuie să fie finit și strict pozitiv. Operatorul eșuează închis.","Priorul trebuie să fie în [0,1], iar LR trebuie să fie finit și strict pozitiv. Operatorul eșuează închis.")
+          w=w.replace("LR must be finite and strictly positive. The operator fails closed.","Prior must be within [0,1] and LR must be finite and strictly positive. The operator fails closed.")
+          wm.write_text(w)
           PY
       - name: Validate Python and regenerate exports
         run: |
