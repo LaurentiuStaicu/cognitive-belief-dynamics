@@ -49,6 +49,8 @@ jobs:
           q=q.replace("page.locator('#theoryArticle')","page.locator('#suiteTheoryContext #theoryArticle:visible')")
           q=q.replace("document.querySelector('#theoryArticle')","document.querySelector('#suiteTheoryContext #theoryArticle')")
           q=q.replace("page.locator('#theoryInspector')","page.locator('#suiteTheoryContext #theoryInspector')")
+          q=q.replace("await page.locator('#suiteTheoryContext #theoryArticle:visible').getByText('Repetiție, familiaritate și adevăr perceput',{exact:true}).waitFor();","assert.match(await page.locator('#suiteTheoryContext').textContent(),/Repetiție, familiaritate și adevăr perceput/);")
+          q=q.replace("await page.locator('#suiteTheoryContext #theoryArticle:visible').getByText('Repetition, familiarity and judged truth',{exact:true}).waitFor();","assert.match(await page.locator('#suiteTheoryContext').textContent(),/Repetition, familiarity and judged truth/);")
           smoke.write_text(q)
           PY
       - name: Validate Python and regenerate exports
