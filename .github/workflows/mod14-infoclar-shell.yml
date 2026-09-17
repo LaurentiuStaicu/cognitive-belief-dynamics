@@ -44,6 +44,12 @@ jobs:
           w=w.replace("LR trebuie să fie finit și strict pozitiv. Operatorul eșuează închis.","Priorul trebuie să fie în [0,1], iar LR trebuie să fie finit și strict pozitiv. Operatorul eșuează închis.")
           w=w.replace("LR must be finite and strictly positive. The operator fails closed.","Prior must be within [0,1] and LR must be finite and strictly positive. The operator fails closed.")
           wm.write_text(w)
+          smoke=Path('web/scripts/smoke.mjs')
+          q=smoke.read_text()
+          q=q.replace("page.locator('#theoryArticle')","page.locator('#suiteTheoryContext #theoryArticle:visible')")
+          q=q.replace("document.querySelector('#theoryArticle')","document.querySelector('#suiteTheoryContext #theoryArticle')")
+          q=q.replace("page.locator('#theoryInspector')","page.locator('#suiteTheoryContext #theoryInspector')")
+          smoke.write_text(q)
           PY
       - name: Validate Python and regenerate exports
         run: |
