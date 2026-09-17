@@ -89,12 +89,17 @@ Exit gate: graph meaning and values byte-for-byte/semantically unchanged; respon
 
 Exit gate: existing OA-8 accessibility/regression suites green; no two-dimensional page scrolling except intrinsically two-dimensional content.
 
-### VP-5 — Visual closure audit
+### VP-5 — Visual closure audit and consolidation release
 
 - compare all seven current views and secondary surfaces against the Visual Polish contract;
 - remove accidental styling drift and redundant overrides where safe;
 - document remaining density problems that belong to the later Simple/Advanced simplification phase rather than Visual Polish;
-- close Visual Polish only after post-merge CI is green.
+- prepare the cumulative pre-M1-completion consolidation release `Alpha 0.4.3a0 — Optimization & Visual Polish Consolidation`;
+- document both OA-0 through OA-8 and VP-0 through VP-5 in cumulative release notes;
+- preserve an explicit scientific boundary explaining what model/evidence behavior did not change;
+- verify release artifacts, checksums, reproducibility manifest, SBOM/provenance, public release and web deployment on the exact release commit.
+
+Exit gate: closure audit -> version bump to `0.4.3a0` -> cumulative OA+VP release notes -> full exact-commit CI -> public prerelease -> verified web deployment -> return to final M1 Definition of Done and M1 completion.
 
 ## 5. Acceptance criteria
 
@@ -111,7 +116,7 @@ A surface is visually polished when:
 
 ## 6. Relationship to the frozen roadmap
 
-After Visual Polish closes:
+After Visual Polish closes and `Alpha 0.4.3a0` is verified and published:
 
 1. freeze the final M1 Definition of Done;
 2. finish M1 without opening new analytical branches;
