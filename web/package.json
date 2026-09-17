@@ -5,11 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run test:workspace && npm run test:ia && npm run test:visual && npm run test:oa4 && npm run test:oa5a && npm run test:oa5c && npm run test:oa5d && npm run test:oa6b && npm run test:oa6c && npm run test:oa6d && npm run test:oa6e && npm run test:oa7 && npm run test:mod14 && tsc --noEmit && vite build --base=./ && npm run test:performance",
+    "build": "npm run test:workspace && npm run test:ia && npm run test:visual && npm run test:oa4 && npm run test:oa5a && npm run test:oa5c && npm run test:oa5d && npm run test:oa6b && npm run test:oa6c && npm run test:oa6d && npm run test:oa6e && npm run test:oa7 && npm run test:mod14 && npm run test:product-v2 && tsc --noEmit && vite build --base=./ && npm run test:performance",
     "prebuild": "node scripts/sync-model.mjs",
     "preview": "vite preview --host 0.0.0.0",
-    "test:browser": "node scripts/infoclar-smoke.mjs && node scripts/vp4-cross-view-smoke.mjs && node scripts/decision-autopsy-smoke.mjs && npm run test:a11y",
-    "test:a11y": "node scripts/wcag22-aa-smoke.mjs && node scripts/keyboard-traversal-smoke.mjs",
+    "test:browser": "node scripts/product-v2-smoke.mjs",
+    "test:a11y": "node scripts/product-v2-smoke.mjs",
     "test:performance": "node scripts/performance-budget.mjs",
     "predev": "node scripts/sync-model.mjs",
     "test:workspace": "node --test tests/workspace-*.test.ts",
@@ -24,7 +24,8 @@
     "test:oa6d": "node --test tests/information-priority.test.ts tests/adaptive-reassessment.test.ts",
     "test:oa6e": "node --test tests/decision-uncertainty-closure.test.ts",
     "test:oa7": "node --test tests/action-canvas.test.ts tests/indicator-objects.test.ts tests/signposts-triggers.test.ts tests/adaptive-plan-runtime.test.ts tests/implementation-plan.test.ts tests/observed-outcome.test.ts tests/trigger-evaluation.test.ts tests/decision-autopsy.test.ts",
-    "test:mod14": "node --test tests/world-model.test.ts"
+    "test:mod14": "node --test tests/world-model.test.ts",
+    "test:product-v2": "node --test tests/product-v2.test.ts"
   },
   "dependencies": {
     "cytoscape": "^3.31.0",
