@@ -56,13 +56,13 @@ test('VP-3 narrative trajectories use non-color line patterns',()=>{
 });
 
 test('VP-3 chart families retain accessible names, exact-value readouts and data alternatives',()=>{
- assert.match(mainSource,/role=\\"img\\" aria-label=\\"\$\{tr\('/);
- assert.match(mainSource,/class=\\"chart-readout\\" id=\\"chartReadout\\"/);
- assert.match(mainSource,/class=\\"results\\"[\s\S]*class=\\"table-scroll\\"/);
- assert.match(comparisonSource,/role=\\"img\\" aria-label=\\"\$\{title\}/);
- assert.match(comparisonSource,/class=\\"panel comparison-table\\"[\s\S]*class=\\"table-scroll\\"/);
- assert.match(narrativeSource,/aria-labelledby=\\"narrativeChartTitle narrativeChartDesc\\"/);
- assert.match(narrativeSource,/<desc id=\\"narrativeChartDesc\\">/);
+ assert(mainSource.includes('role="img" aria-label="${tr('));
+ assert(mainSource.includes('class="chart-readout" id="chartReadout"'));
+ assert.match(mainSource,/class="results"[\s\S]*class="table-scroll"/);
+ assert(comparisonSource.includes('role="img" aria-label="${title}. ${t('));
+ assert.match(comparisonSource,/class="panel comparison-table"[\s\S]*class="table-scroll"/);
+ assert(narrativeSource.includes('aria-labelledby="narrativeChartTitle narrativeChartDesc"'));
+ assert(narrativeSource.includes('<desc id="narrativeChartDesc">'));
 });
 
 test('adaptive breakpoints are ordered and preserve existing shell thresholds',()=>{
