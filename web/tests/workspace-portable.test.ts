@@ -7,9 +7,14 @@ import {
  type WorkspaceDocument
 } from '../src/workspace-store.ts';
 import {
+ MAX_WORKSPACE_IMPORT_BYTES,
+ MAX_WORKSPACE_IMPORT_DEPTH,
+ MAX_WORKSPACE_IMPORT_NODES,
  WORKSPACE_IMPORT_ORIGINAL_KEY,
+ InvalidWorkspaceShapeError,
  UnsupportedWorkspaceSchemaError,
  WorkspaceImportError,
+ WorkspaceImportLimitError,
  importWorkspaceText,
  installWorkspaceImport,
  serializeWorkspace,
@@ -137,4 +142,26 @@ test('unknown future schema fails closed and storage remains untouched',()=>{
 
 test('corrupt JSON fails closed',()=>{
  assert.throws(()=>importWorkspaceText('{broken',options()),WorkspaceImportError);
+});
+
+test('oversized text is rejected before parse or install',()=>{
+ const text=`{"padding":"${'x'.repeat(MAX_WORKSPACE_IMPORT_BYTES)}"}`;
+ assert.throws(()=>importWorkspaceText(text,options()),WorkspaceImportLimitError);
+});
+
+test('top-level primitive and array inputs are rejected before schema migration',()=>{
+ assert.throws(()=>importWorkspaceText('null',options()),InvalidWorkspaceShapeError);
+ assert.throws(()=>importWorkspaceText('[]',options()),InvalidWorkspaceShapeError);
+});
+
+test('excessive nesting is rejected before clone and provenance work',()=>{
+ let nested:unknown='leaf';
+ for(let i=0;i<MAX_WORKSPACE_IMPORT_DEPTH+1;i++)nested={child:nested};
+ const text=JSON.stringify({schema_version:'1',nested});
+ assert.throws(()=>importWorkspaceText(text,options()),WorkspaceImportLimitError);
+});
+
+test('excessive node count is rejected before validation',()=>{
+ const text=JSON.stringify({schema_version:'1',items:Array.from({length:MAX_WORKSPACE_IMPORT_NODES},()=>0)});
+ assert.throws(()=>importWorkspaceText(text,options()),WorkspaceImportLimitError);
 });
