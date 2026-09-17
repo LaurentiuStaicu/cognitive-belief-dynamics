@@ -22,7 +22,7 @@ async function assertRepetitionPath(page,viewport){
  assert.equal(nodes.length,4,`${viewport.name}: repetition slice must contain exactly four mechanism steps`);
  assert.equal(await pathway.locator('.path-edge').count(),nodes.length-1,`${viewport.name}: every adjacent step needs one relationship`);
  assert.equal(await pathway.locator('.edge-status').count(),0,`${viewport.name}: long relationship labels must not fragment the pathway`);
- assert((await pathway.locator('.relation-key').count())>=2,`${viewport.name}: compact relationship legend missing`);
+ assert((await page.locator('.pathway-panel .relation-key').count())>=2,`${viewport.name}: compact relationship legend missing`);
  const dimensions=await pathway.evaluate(element=>{const rect=element.getBoundingClientRect();return {left:rect.left,right:rect.right,scrollWidth:document.documentElement.scrollWidth,innerWidth:window.innerWidth};});
  assert(dimensions.left>=-1,`${viewport.name}: pathway begins outside viewport`);assert(dimensions.right<=viewport.width+1,`${viewport.name}: pathway exceeds viewport (${dimensions.right} > ${viewport.width})`);assert(dimensions.scrollWidth<=dimensions.innerWidth+1,`${viewport.name}: document overflow ${dimensions.scrollWidth} > ${dimensions.innerWidth}`);
  if(viewport.width<=760){for(let i=1;i<nodes.length;i++)assert(nodes[i].top>nodes[i-1].bottom,`${viewport.name}: pathway is not a clear vertical sequence`);}else{for(let i=1;i<nodes.length;i++)assert(nodes[i].left>nodes[i-1].right,`${viewport.name}: pathway is not a clear left-to-right sequence`);}
