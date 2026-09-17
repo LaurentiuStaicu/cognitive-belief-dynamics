@@ -47,6 +47,10 @@ jobs:
           css=Path('web/src/suite-overview.css')
           c=css.read_text()
           c=c.replace('.cem-map-flow{display:grid;place-items:center;font-size:1.5rem;font-weight:700;color:var(--muted)}','.cem-map-flow{display:grid;place-items:center;font-size:1.5rem;font-weight:700;color:var(--muted);pointer-events:none}')
+          contextual='#suiteTheoryContext .theory-layout{grid-template-columns:minmax(0,1fr)!important;gap:var(--vl-space-2)!important}#suiteTheoryContext .theory-chapters{position:static!important;max-height:none!important;min-width:0}#suiteTheoryContext .theory-chapter-list{display:none}#suiteTheoryContext .theory-chapter-select{display:block!important}#suiteTheoryContext .theory-reader,#suiteTheoryContext .theory-inspector{min-width:0}#suiteTheoryContext .theory-token{min-width:24px;max-width:100%;white-space:normal;overflow-wrap:anywhere}\n'
+          if contextual not in c:
+              marker='@media(max-width:980px)'
+              c=c.replace(marker,contextual+marker)
           css.write_text(c)
           smoke=Path('web/scripts/smoke.mjs')
           q=smoke.read_text()
