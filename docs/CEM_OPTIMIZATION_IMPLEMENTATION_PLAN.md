@@ -186,11 +186,13 @@ Progressively introduced earlier, fully gated here:
 - offline/stale-evidence policy;
 - local diagnostics with no mandatory telemetry.
 
-### OA-9 — Native elementary OS
+### OA-9 — Native elementary OS — DEFERRED UNTIL NEAR v1
 
-Research spike R8 rechecks current platform/runtime requirements immediately before implementation.
+OA-9 is deliberately outside the current optimization critical path. The Web application remains the only active implementation while M1 is completed, the Simple-mode simplification is performed and the remaining modules are integrated. Native implementation begins only after the product is functionally stable and close to version 1.0; Web and Flatpak then become the two official variants of the same product.
 
-Implementation:
+Research spike R8 rechecks current platform/runtime requirements immediately before native implementation so the future package does not freeze outdated GTK/Granite/Flatpak assumptions.
+
+Future implementation:
 
 - GTK4/Granite;
 - Meson;
@@ -201,13 +203,15 @@ Implementation:
 - canonical artifact adapters;
 - scientific parity fixtures shared with web.
 
-Exit gate:
+Future exit gate:
 
 - reproducible Flatpak;
 - installation test on supported elementary OS runtime;
 - parity of scientific values/status/provenance with web;
 - native system font/theme/accessibility;
 - no broad filesystem permissions without explicit justification.
+
+Until that gate is opened, new module development targets the Web implementation and shared scientific/semantic artifacts rather than parallel native UI work.
 
 ## 3. Research spike contract
 
@@ -263,6 +267,7 @@ Silent baseline drift is forbidden.
 
 Not part of the current OA critical path:
 
+- OA-9 native elementary OS / Flatpak implementation before the near-v1 gate;
 - general-purpose AI chatbot inside CEM;
 - cloud accounts/sync;
 - real-time collaboration;
@@ -271,4 +276,4 @@ Not part of the current OA critical path:
 - automatic literature-to-mechanism promotion;
 - global single-number confidence score.
 
-These require independent need, risk and privacy justification.
+These require independent need, risk and privacy justification or, for OA-9, the explicit near-v1 product gate described above.
