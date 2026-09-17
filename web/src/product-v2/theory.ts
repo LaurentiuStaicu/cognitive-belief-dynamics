@@ -42,6 +42,9 @@ function naturalize(raw:string,language:Language,d:Data){
  const short:Record<string,Text>={
   B:{en:'belief judgment',ro:'judecata de credință'},W:{en:'attention to accuracy',ro:'atenția la acuratețe'},F:{en:'familiarity',ro:'familiaritate'},C:{en:'corrective accessibility',ro:'accesibilitatea corecției'},T:{en:'estimated source reliability',ro:'fiabilitatea estimată a sursei'},LR:{en:'likelihood ratio',ro:'raport de verosimilitate'},Pprior:{en:'probabilistic prior',ro:'prior probabilistic'},Pwm:{en:'world-model probability',ro:'probabilitatea din world model'},Uwm:{en:'world-model uncertainty',ro:'incertitudinea world model-ului'},Aissue:{en:'issue appraisal',ro:'evaluarea problemei'},Sobs:{en:'observed information sample',ro:'eșantionul informațional observat'},Nexp:{en:'number of exposures',ro:'numărul expunerilor'},Paccess:{en:'access probability',ro:'probabilitatea de acces'},EngageIntent:{en:'engagement intention',ro:'intenția de engagement'}};
  for(const [key,value] of Object.entries(short))text=text.replace(new RegExp(`\\b${key}\\b`,'g'),value[language]);
+ text=text.replace(/\bM0(?:\.[A-Za-z0-9._-]+)?\b/g,language==='ro'?'modelul executabil de referință':'the reference executable model');
+ text=text.replace(/\bM1(?:\.[A-Za-z0-9._-]+)?\b/g,language==='ro'?'stratul de validare empirică':'the empirical validation layer');
+ text=text.replace(/\bMOD\.[A-Za-z0-9._-]+\b/g,language==='ro'?'modul CEM':'CEM module');
  text=text.replace(/\b(?:ODD|REF|VAR|LINK|CODE|VAL)\.[A-Za-z0-9._-]+\b/g,language==='ro'?'înregistrare tehnică':'technical record');
  text=text.replace(/(?:docs|web|src|model|tests|scripts)\/[A-Za-z0-9_./-]+\.(?:md|ts|tsx|js|mjs|json|py|css)/g,language==='ro'?'resursă tehnică':'technical resource');
  return text;
@@ -96,12 +99,13 @@ export async function mountTheory(host:HTMLElement,options:Options){
  const renderNav=()=>{
   const q=search.value.trim().toLocaleLowerCase(language==='ro'?'ro-RO':'en-US');
   if(mode==='chapters'){
-   nav.innerHTML=`<ol class="theory-v2-chapters">${ordered.filter(item=>!q||`${item.label[language]} ${item.summary[language]}`.toLocaleLowerCase(language==='ro'?'ro-RO':'en-US').includes(q)).map(item=>`<li><button type="button" data-theory-chapter="${esc(slug(item))}" aria-current="${item.id===current.id?'page':'false'}"><span>${String(item.order).padStart(2,'0')}</span><strong>${esc(item.label[language])}</strong><small>${esc(item.summary[language])}</small></button></li>`).join('')}</ol>`;
+   const filtered=ordered.filter(item=>!q||`${naturalize(item.label[language],language,d)} ${naturalize(item.summary[language],language,d)}`.toLocaleLowerCase(language==='ro'?'ro-RO':'en-US').includes(q));
+   nav.innerHTML=`<ol class="theory-v2-chapters">${filtered.map(item=>`<li><button type="button" data-theory-chapter="${esc(slug(item))}" aria-current="${item.id===current.id?'page':'false'}"><span>${String(item.order).padStart(2,'0')}</span><strong>${esc(naturalize(item.label[language],language,d))}</strong><small>${esc(naturalize(item.summary[language],language,d))}</small></button></li>`).join('')}</ol>`;
    nav.querySelectorAll<HTMLButtonElement>('[data-theory-chapter]').forEach(button=>button.onclick=()=>{current=ordered.find(item=>slug(item)===button.dataset.theoryChapter)!;void renderChapter();renderNav();});
   }else{
-   const filtered=d.glossary.filter(item=>!q||`${item.label[language]} ${item.short_definition[language]}`.toLocaleLowerCase(language==='ro'?'ro-RO':'en-US').includes(q));
-   nav.innerHTML=`<div class="theory-v2-glossary">${filtered.map(item=>`<button type="button" data-glossary="${esc(item.id)}"><strong>${esc(item.label[language])}</strong><small>${esc(item.short_definition[language])}</small></button>`).join('')}</div>`;
-   nav.querySelectorAll<HTMLButtonElement>('[data-glossary]').forEach(button=>button.onclick=()=>{const item=d.glossary.find(entry=>entry.id===button.dataset.glossary)!;reader.innerHTML=`<p class="eyebrow">${language==='ro'?'GLOSAR':'GLOSSARY'}</p><h1>${esc(item.label[language])}</h1><p class="lead">${esc(item.short_definition[language])}</p><div class="boundary"><strong>${language==='ro'?'Ce nu înseamnă':'What it is not'}</strong><p>${esc(item.what_it_is_not[language])}</p></div>`;reader.focus({preventScroll:false});});
+   const filtered=d.glossary.filter(item=>!q||`${naturalize(item.label[language],language,d)} ${naturalize(item.short_definition[language],language,d)}`.toLocaleLowerCase(language==='ro'?'ro-RO':'en-US').includes(q));
+   nav.innerHTML=`<div class="theory-v2-glossary">${filtered.map(item=>`<button type="button" data-glossary="${esc(item.id)}"><strong>${esc(naturalize(item.label[language],language,d))}</strong><small>${esc(naturalize(item.short_definition[language],language,d))}</small></button>`).join('')}</div>`;
+   nav.querySelectorAll<HTMLButtonElement>('[data-glossary]').forEach(button=>button.onclick=()=>{const item=d.glossary.find(entry=>entry.id===button.dataset.glossary)!;reader.innerHTML=`<p class="eyebrow">${language==='ro'?'GLOSAR':'GLOSSARY'}</p><h1>${esc(naturalize(item.label[language],language,d))}</h1><p class="lead">${esc(naturalize(item.short_definition[language],language,d))}</p><div class="boundary"><strong>${language==='ro'?'Ce nu înseamnă':'What it is not'}</strong><p>${esc(naturalize(item.what_it_is_not[language],language,d))}</p></div>`;reader.focus({preventScroll:false});});
   }
  };
  const renderChapter=async()=>{
@@ -109,7 +113,7 @@ export async function mountTheory(host:HTMLElement,options:Options){
   const file=current.source_paths[language].split('/').pop()!;
   const response=await fetch(`./theory/${language}/${file}`);if(!response.ok)throw new Error(`theory: HTTP ${response.status}`);
   const raw=await response.text();
-  reader.innerHTML=`<p class="eyebrow">${language==='ro'?'TEORIE CEM':'CEM THEORY'} · ${String(current.order).padStart(2,'0')}</p><div class="theory-v2-article">${markdown(raw,language,d)}</div><div class="boundary"><strong>${language==='ro'?'Ce nu afirmă acest capitol':'What this chapter does not claim'}</strong><p>${esc(current.what_it_does_not_claim[language])}</p></div>${chapterSources(current,d,language)}`;
+  reader.innerHTML=`<p class="eyebrow">${language==='ro'?'TEORIE CEM':'CEM THEORY'} · ${String(current.order).padStart(2,'0')}</p><div class="theory-v2-article">${markdown(raw,language,d)}</div><div class="boundary"><strong>${language==='ro'?'Ce nu afirmă acest capitol':'What this chapter does not claim'}</strong><p>${esc(naturalize(current.what_it_does_not_claim[language],language,d))}</p></div>${chapterSources(current,d,language)}`;
   reader.setAttribute('aria-busy','false');reader.focus({preventScroll:false});
  };
  host.querySelector<HTMLButtonElement>('[data-theory-back]')!.onclick=options.onBack;
