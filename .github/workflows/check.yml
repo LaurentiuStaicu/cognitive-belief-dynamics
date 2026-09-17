@@ -40,12 +40,46 @@ jobs:
         working-directory: web
         env:
           CEM_SCREENSHOTS: ${{ runner.temp }}/cem-screenshots
+      - name: Materialize Python runtime dependency snapshot for SBOM
+        run: python -m pip install --target .sbom-python .
+      - name: Generate SPDX JSON SBOM
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0.24.0
+        with:
+          path: .
+          format: spdx-json
+          output-file: ${{ runner.temp }}/cognitive-epistemic-model.spdx.json
+          upload-artifact: false
+          upload-release-assets: false
+      - name: Validate SBOM inventory
+        env:
+          SBOM_PATH: ${{ runner.temp }}/cognitive-epistemic-model.spdx.json
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+
+          path = Path(os.environ['SBOM_PATH'])
+          data = json.loads(path.read_text())
+          assert data.get('spdxVersion', '').startswith('SPDX-'), data.get('spdxVersion')
+          packages = data.get('packages', [])
+          assert packages, 'SBOM contains no packages'
+          names = {str(item.get('name', '')).lower() for item in packages}
+          required = {'numpy', 'scipy', 'jsonschema', 'cytoscape', 'd3'}
+          missing = sorted(required - names)
+          assert not missing, f'SBOM missing required dependency inventory: {missing}'
+          print(f'Validated SPDX SBOM with {len(packages)} packages')
+          PY
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
           name: browser-screenshots
           path: ${{ runner.temp }}/cem-screenshots
           if-no-files-found: ignore
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: cognitive-epistemic-model-sbom
+          path: ${{ runner.temp }}/cognitive-epistemic-model.spdx.json
+          if-no-files-found: error
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: cognitive-epistemic-model-web

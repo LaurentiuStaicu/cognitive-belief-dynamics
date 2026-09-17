@@ -68,6 +68,13 @@ jobs:
           path: dist
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        if: steps.existing.outputs.status != 'published'
+        with:
+          name: cognitive-epistemic-model-sbom
+          path: release-assets
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
       - name: Package verified web build and reproducibility manifest
         if: steps.existing.outputs.status != 'published'
         env:
@@ -82,7 +89,10 @@ jobs:
           from pathlib import Path
 
           assets = Path('release-assets')
-          assets.mkdir()
+          assets.mkdir(exist_ok=True)
+          sbom_path = assets / 'cognitive-epistemic-model.spdx.json'
+          assert sbom_path.is_file(), 'verified SBOM artifact is missing'
+
           name = 'cognitive-epistemic-model-' + os.environ['TAG'] + '-web.zip'
           archive = assets / name
           with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as z:
@@ -113,7 +123,7 @@ jobs:
           manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
 
           checksum_lines = []
-          for p in (archive, manifest_path):
+          for p in (archive, manifest_path, sbom_path):
               checksum_lines.append(hashlib.sha256(p.read_bytes()).hexdigest() + '  ' + p.name)
           (assets / 'SHA256SUMS.txt').write_text('\n'.join(checksum_lines) + '\n')
           PY
@@ -123,6 +133,7 @@ jobs:
         with:
           subject-path: |
             release-assets/*.zip
+            release-assets/*.spdx.json
             release-assets/reproducibility-manifest.json
             release-assets/SHA256SUMS.txt
       - name: Create draft and attach verified files
