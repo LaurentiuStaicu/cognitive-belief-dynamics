@@ -65,35 +65,36 @@ jobs:
           smoke.write_text(q)
           readme=Path('README.md')
           current=readme.read_text()
-          marker='> **Alpha 0.4.3a0'
-          if marker not in current:
+          release_marker='> **Alpha 0.4.3a0'
+          if release_marker not in current:
               raise SystemExit('README release boundary not found')
-          tail=current[current.index(marker):]
+          tail=current[current.index(release_marker):]
           header='''<!-- Shared InfoClar Model Suite product header reference: CEM / World3 / Macro -->
-<p align="center">
-  <img src="web/public/icon.svg" width="96" height="96" alt="Cognitive Epistemic Model icon">
-</p>
+          <p align="center">
+            <img src="web/public/icon.svg" width="96" height="96" alt="Cognitive Epistemic Model icon">
+          </p>
 
-<h1 align="center">Cognitive Epistemic Model</h1>
+          <h1 align="center">Cognitive Epistemic Model</h1>
 
-<p align="center">
-  Understand belief-formation mechanisms, explore how factors interact, and compare priorities and actions through an evidence-aware research prototype.
-</p>
+          <p align="center">
+            Understand belief-formation mechanisms, explore how factors interact, and compare priorities and actions through an evidence-aware research prototype.
+          </p>
 
-<p align="center">
-  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.3a0"><img alt="Version 0.4.3a0" src="https://img.shields.io/badge/Version-0.4.3a0-4e9a06"></a>
-  <img alt="elementary OS: Web-first" src="https://img.shields.io/badge/elementary_OS-Web--first-64baff">
-  <a href="#releases-and-licensing"><img alt="License: MIT + CC BY 4.0" src="https://img.shields.io/badge/License-MIT_%2B_CC_BY_4.0-blue"></a>
-</p>
+          <p align="center">
+            <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.3a0"><img alt="Version 0.4.3a0" src="https://img.shields.io/badge/Version-0.4.3a0-4e9a06"></a>
+            <img alt="elementary OS: Web-first" src="https://img.shields.io/badge/elementary_OS-Web--first-64baff">
+            <a href="#releases-and-licensing"><img alt="License: MIT + CC BY 4.0" src="https://img.shields.io/badge/License-MIT_%2B_CC_BY_4.0-blue"></a>
+          </p>
 
-<table align="center" role="presentation">
-  <tr>
-    <td align="center" width="220"><a href="https://laurentiustaicu.github.io/cognitive-epistemic-model/"><strong>Open Web App</strong></a></td>
-    <td align="center" width="220"><strong>Download Flatpak</strong><br><sub>Planned</sub></td>
-  </tr>
-</table>
+          <table align="center" role="presentation">
+            <tr>
+              <td align="center" width="220"><a href="https://laurentiustaicu.github.io/cognitive-epistemic-model/"><strong>Open Web App</strong></a></td>
+              <td align="center" width="220"><strong>Download Flatpak</strong><br><sub>Planned</sub></td>
+            </tr>
+          </table>
 
-'''
+          '''
+          header='\n'.join(line[10:] if line.startswith('          ') else line for line in header.splitlines())+'\n'
           readme.write_text(header+tail)
           PY
       - name: Validate standardized README product header
@@ -111,8 +112,8 @@ jobs:
           assert 'https://laurentiustaicu.github.io/cognitive-epistemic-model/' in header
           assert '<a href="https://laurentiustaicu.github.io/cognitive-epistemic-model/"><strong>Open Web App</strong></a>' in header
           assert '<strong>Download Flatpak</strong><br><sub>Planned</sub>' in header
-          flatpak_segment=header.split('<strong>Download Flatpak</strong>',1)[0].rsplit('<td',1)[-1]
-          assert '<a ' not in flatpak_segment
+          flatpak_cell=header.split('<strong>Download Flatpak</strong>',1)[0].rsplit('<td',1)[-1]
+          assert '<a ' not in flatpak_cell
           assert 'Original code: MIT.' in text
           assert 'Original documentation and registries: CC BY 4.0.' in text
           assert 'M1.E4' in text
