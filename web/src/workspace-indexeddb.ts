@@ -251,3 +251,21 @@ export async function readRealityLoopObject<T=unknown>(id:string,options:OpenOpt
   return value===undefined?undefined:clone(value);
  }finally{db.close();}
 }
+
+export type RealityLoopIndexName='object_type'|'case_id'|'implementation_plan_id'|'indicator_id'|'created_at';
+
+export async function readRealityLoopObjectsByIndex<T=unknown>(
+ indexName:RealityLoopIndexName,
+ key:IDBValidKey,
+ options:OpenOptions={}
+):Promise<T[]>{
+ const db=await openCemStorage(options);
+ try{
+  const tx=db.transaction(CEM_STORAGE_STORES.reality_loop_objects,'readonly');
+  const store=tx.objectStore(CEM_STORAGE_STORES.reality_loop_objects);
+  if(!store.indexNames.contains(indexName))throw new Error(`Reality Loop index is not available: ${indexName}`);
+  const values=await requestResult(store.index(indexName).getAll(key)) as T[];
+  await transactionDone(tx);
+  return clone(values);
+ }finally{db.close();}
+}
