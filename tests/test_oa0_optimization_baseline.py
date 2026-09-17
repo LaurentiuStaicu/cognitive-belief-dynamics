@@ -20,13 +20,15 @@ def load(path: Path):
     return json.loads(path.read_text())
 
 
-def test_oa0_baseline_matches_current_release_and_evidence_contract():
+def test_oa0_baseline_pins_historical_release_and_scientific_contract():
     baseline = load(BASELINE)
     version = load(VERSION)
     snapshot = load(SNAPSHOT)
 
-    assert baseline["software_version"] == version["software_version"] == "0.4.2a0"
-    assert baseline["release_tag"] == version["release_tag"] == "v0.4.2a0"
+    assert baseline["software_version"] == "0.4.2a0"
+    assert baseline["release_tag"] == "v0.4.2a0"
+    assert version["software_version"] == "0.4.3a0"
+    assert version["release_tag"] == "v0.4.3a0"
     assert (
         baseline["active_model_specification"]
         == version["model_specification"]
