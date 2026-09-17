@@ -13,13 +13,13 @@ class RegistryError(ValueError):
 
 
 def load_json(path: str | Path) -> Any:
-    with Path(path).open("r", encoding="utf-8") as f:
-        return json.load(f)
+    with Path(path).open("r", encoding="utf-8") as handle:
+        return json.load(handle)
 
 
 def validate_items(items: list[dict], schema: dict) -> None:
     validator = Draft202012Validator(schema)
-    errors = []
+    errors: list[str] = []
     for idx, item in enumerate(items):
         for err in validator.iter_errors(item):
             errors.append(f"item {idx}: {err.message}")
@@ -27,7 +27,15 @@ def validate_items(items: list[dict], schema: dict) -> None:
         raise RegistryError("\n".join(errors))
 
 
+def _validate_object(value: dict, schema: dict, label: str) -> None:
+    validator = Draft202012Validator(schema)
+    errors = sorted(validator.iter_errors(value), key=lambda err: list(err.path))
+    if errors:
+        raise RegistryError("\n".join(f"{label}: {err.message}" for err in errors))
+
+
 def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[str, int]:
+    """Validate the canonical scientific registries retained in the model core."""
     model_dir = Path(model_dir)
     schema_dir = Path(schema_dir)
 
@@ -39,8 +47,6 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     processes = load_json(model_dir / "processes.json")
     evidence_snapshot = load_json(model_dir / "evidence_snapshot.json")
     empirical_targets = load_json(model_dir / "empirical_targets.json")
-    theory_index = load_json(model_dir / "theory_index.json")
-    theory_glossary = load_json(model_dir / "theory_glossary.json")
     computational_dependencies = load_json(model_dir / "computational_dependencies.json")
 
     validate_items(modules, load_json(schema_dir / "module.schema.json"))
@@ -50,40 +56,39 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
     validate_items(subsystems, load_json(schema_dir / "subsystem.schema.json"))
     validate_items(processes, load_json(schema_dir / "process.schema.json"))
     validate_items(empirical_targets, load_json(schema_dir / "empirical_target.schema.json"))
-    validate_items(theory_index, load_json(schema_dir / "theory_index.schema.json"))
-    validate_items(theory_glossary, load_json(schema_dir / "theory_glossary.schema.json"))
-    computational_validator = Draft202012Validator(
-        load_json(schema_dir / "computational_dependencies.schema.json")
+    _validate_object(
+        computational_dependencies,
+        load_json(schema_dir / "computational_dependencies.schema.json"),
+        "computational dependencies",
     )
-    computational_errors = sorted(
-        computational_validator.iter_errors(computational_dependencies),
-        key=lambda err: list(err.path),
+    _validate_object(
+        evidence_snapshot,
+        load_json(schema_dir / "evidence_snapshot.schema.json"),
+        "evidence snapshot",
     )
-    if computational_errors:
-        raise RegistryError(
-            "\\n".join(
-                f"computational dependencies: {err.message}"
-                for err in computational_errors
-            )
-        )
-    snapshot_validator = Draft202012Validator(load_json(schema_dir / "evidence_snapshot.schema.json"))
-    snapshot_errors = sorted(snapshot_validator.iter_errors(evidence_snapshot), key=lambda err: list(err.path))
-    if snapshot_errors:
-        raise RegistryError("\n".join(f"evidence snapshot: {err.message}" for err in snapshot_errors))
 
-    for name, items in (("modules", modules), ("variables", variables), ("links", links), ("references", references), ("subsystems", subsystems), ("processes", processes), ("empirical_targets", empirical_targets), ("theory_index", theory_index), ("theory_glossary", theory_glossary)):
-        duplicates = sorted(key for key, count in Counter(x["id"] for x in items).items() if count > 1)
+    for name, items in (
+        ("modules", modules),
+        ("variables", variables),
+        ("links", links),
+        ("references", references),
+        ("subsystems", subsystems),
+        ("processes", processes),
+        ("empirical_targets", empirical_targets),
+    ):
+        duplicates = sorted(
+            key for key, count in Counter(item["id"] for item in items).items() if count > 1
+        )
         if duplicates:
             raise RegistryError(f"duplicate {name} IDs: {duplicates}")
 
-    module_ids = {x["id"] for x in modules}
-    variable_ids = {x["id"] for x in variables}
-
-    missing_modules = sorted({v["conceptual_module"] for v in variables} - module_ids)
+    module_ids = {item["id"] for item in modules}
+    variable_ids = {item["id"] for item in variables}
+    missing_modules = sorted({item["conceptual_module"] for item in variables} - module_ids)
     if missing_modules:
         raise RegistryError(f"unknown module references: {missing_modules}")
 
-    unresolved = []
+    unresolved: list[tuple[str, str, str]] = []
     for link in links:
         if link["source"] not in variable_ids:
             unresolved.append((link["id"], "source", link["source"]))
@@ -104,43 +109,12 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
         for field in ("provenance_refs", "integrity_refs", "counterevidence_refs"):
             missing = set(target.get(field, [])) - reference_ids
             if missing:
-                raise RegistryError(
-                    f"unresolved target {field} in {target['id']}: {sorted(missing)}"
-                )
+                raise RegistryError(f"unresolved target {field} in {target['id']}: {sorted(missing)}")
         if target["pattern_id"] not in validation_ids:
             raise RegistryError(f"unresolved target pattern reference: {target['id']}")
     for ref in references:
         if ref["url"] != "https://doi.org/" + ref["doi"]:
             raise RegistryError(f"DOI URL mismatch: {ref['id']}")
-
-    from .theory import validate_theory_contract
-    root = model_dir.parent
-    theory_counts = validate_theory_contract(
-        root=root,
-        model_dir=model_dir,
-        schema_dir=schema_dir,
-        validate_sources=True,
-        validate_code=(root / "src").is_dir(),
-    )
-
-    from .semantic import (
-        build_semantic_index,
-        semantic_index_json,
-        validate_semantic_index,
-    )
-
-    semantic_index = build_semantic_index(model_dir)
-    validate_semantic_index(
-        semantic_index,
-        schema_dir / "semantic_index.schema.json",
-    )
-    semantic_path = model_dir / "semantic_index.json"
-    if not semantic_path.is_file():
-        raise RegistryError("missing generated semantic index: semantic_index.json")
-    if semantic_path.read_text(encoding="utf-8") != semantic_index_json(semantic_index):
-        raise RegistryError(
-            "generated semantic index is stale; run python scripts/export_semantic.py"
-        )
 
     return {
         "modules": len(modules),
@@ -150,8 +124,5 @@ def validate_model_dir(model_dir: str | Path, schema_dir: str | Path) -> dict[st
         "subsystems": len(subsystems),
         "processes": len(processes),
         "empirical_targets": len(empirical_targets),
-        "semantic_entities": len(semantic_index["entities"]),
-        "semantic_relations": len(semantic_index["relations"]),
         "computational_dependencies": len(computational_dependencies["dependencies"]),
-        **theory_counts,
     }

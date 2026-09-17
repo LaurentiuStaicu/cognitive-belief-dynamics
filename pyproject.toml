@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "cognitive-epistemic-model"
 dynamic = ["version"]
-description = "Evidence-bound reference simulator for the Cognitive Epistemic Model"
+description = "Computational engine and calibration artifacts for the Cognitive Epistemic Model"
 readme = "README.md"
 requires-python = ">=3.12"
 license = {text = "MIT"}
@@ -16,9 +16,6 @@ dependencies = [
   "jsonschema>=4.22",
 ]
 
-[project.optional-dependencies]
-test = ["pytest>=8", "hypothesis>=6"]
-
 [project.scripts]
 cemodel = "cognitive_epistemic_model.cli:main"
 
@@ -28,11 +25,6 @@ packages = ["src/cognitive_epistemic_model"]
 [tool.hatch.build.targets.wheel.force-include]
 "model" = "cognitive_epistemic_model/data/model"
 "schemas" = "cognitive_epistemic_model/data/schemas"
-"docs/theory" = "cognitive_epistemic_model/data/theory"
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-addopts = "-q"
 
 [tool.hatch.version]
 path = "src/cognitive_epistemic_model/__init__.py"
