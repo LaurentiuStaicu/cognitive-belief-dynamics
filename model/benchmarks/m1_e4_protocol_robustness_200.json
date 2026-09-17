@@ -1,0 +1,134 @@
+{
+  "benchmark_id": "BENCH.M1.E4.PROTOCOL_ROBUSTNESS.2026-09-17",
+  "status": "PROSPECTIVE_PROTOCOL_ROBUSTNESS_200_REPLICATE_CONTRACT",
+  "base_seed": 20260917,
+  "replicates_per_cell": 200,
+  "recovery_threshold": 0.8,
+  "quadrature_nodes": 5,
+  "source_phase_l_document": "docs/ALPHA_0.4.3a0_PHASE_L_HUMAN_PROTOCOL_ROBUSTNESS.md",
+  "source_phase_m_document": "docs/ALPHA_0.4.3a0_PHASE_M_PROTOCOL_ROBUSTNESS.md",
+  "allocation": {
+    "label": "P64_X10",
+    "generated_participants": 64,
+    "target_trials_per_participant_per_cell": 10,
+    "foil_trials_per_participant_per_cell": 10,
+    "bias_operating_points": 5,
+    "hsimp_conditions": 2
+  },
+  "participant_heterogeneity": {
+    "label": "low",
+    "sigma_memory": 0.1,
+    "sigma_bias": 0.1
+  },
+  "bias_grids": {
+    "EVSD": [-0.8, -0.4, 0.0, 0.4, 0.8],
+    "2HT": [0.15, 0.325, 0.5, 0.675, 0.85]
+  },
+  "weak_memory_truth": {
+    "EVSD": {"complex": 0.45, "simple": 0.65},
+    "2HT": {"complex": 0.18, "simple": 0.28}
+  },
+  "seed_scheme": {
+    "type": "SHA256_CELL_SPECIFIC_UINT32",
+    "expression": "first 8 hex digits of SHA256(base_seed|profile_id|generator|phase-m-v1)"
+  },
+  "formal_gate": {
+    "all_18_cells_recovery_at_least": 0.8,
+    "point_estimate_gate_is_authoritative": true,
+    "wrong_and_inconclusive_reported_separately": true
+  },
+  "precision_sensitivity": {
+    "wilson_interval_level": 0.95,
+    "wilson_lower_bound_at_least_0_8_is_secondary": true,
+    "replaces_formal_gate": false,
+    "mcse_max_at_200": 0.035355339059327376,
+    "mcse_at_recovery_0_8": 0.0282842712474619
+  },
+  "profiles": [
+    {
+      "id": "REFERENCE",
+      "item_memory_sd": 0.0,
+      "item_bias_sd": 0.0,
+      "participant_memory_bias_rho": 0.0,
+      "serial_memory_slope": 0.0,
+      "attrition": {"type": "NONE"}
+    },
+    {
+      "id": "ITEM_MODERATE",
+      "item_memory_sd": 0.15,
+      "item_bias_sd": 0.15,
+      "participant_memory_bias_rho": 0.0,
+      "serial_memory_slope": 0.0,
+      "attrition": {"type": "NONE"}
+    },
+    {
+      "id": "ITEM_HIGH",
+      "item_memory_sd": 0.3,
+      "item_bias_sd": 0.3,
+      "participant_memory_bias_rho": 0.0,
+      "serial_memory_slope": 0.0,
+      "attrition": {"type": "NONE"}
+    },
+    {
+      "id": "RHO_POSITIVE",
+      "item_memory_sd": 0.0,
+      "item_bias_sd": 0.0,
+      "participant_memory_bias_rho": 0.5,
+      "serial_memory_slope": 0.0,
+      "attrition": {"type": "NONE"}
+    },
+    {
+      "id": "RHO_NEGATIVE",
+      "item_memory_sd": 0.0,
+      "item_bias_sd": 0.0,
+      "participant_memory_bias_rho": -0.5,
+      "serial_memory_slope": 0.0,
+      "attrition": {"type": "NONE"}
+    },
+    {
+      "id": "SERIAL_DEGRADATION",
+      "item_memory_sd": 0.0,
+      "item_bias_sd": 0.0,
+      "participant_memory_bias_rho": 0.0,
+      "serial_memory_slope": -0.08,
+      "attrition": {"type": "NONE"}
+    },
+    {
+      "id": "MAR_LIKE_ATTRITION",
+      "item_memory_sd": 0.0,
+      "item_bias_sd": 0.0,
+      "participant_memory_bias_rho": 0.0,
+      "serial_memory_slope": 0.0,
+      "attrition": {"type": "MAR_LIKE", "base_probability": 0.1}
+    },
+    {
+      "id": "LATENT_ASSOCIATED_ATTRITION",
+      "item_memory_sd": 0.0,
+      "item_bias_sd": 0.0,
+      "participant_memory_bias_rho": 0.0,
+      "serial_memory_slope": 0.0,
+      "attrition": {
+        "type": "LATENT_MEMORY_ASSOCIATED",
+        "base_probability": 0.1,
+        "memory_logit_coefficient": -0.75,
+        "maximum_probability": 0.35
+      }
+    },
+    {
+      "id": "COMBINED_ADVERSE",
+      "item_memory_sd": 0.3,
+      "item_bias_sd": 0.3,
+      "participant_memory_bias_rho": -0.5,
+      "serial_memory_slope": -0.08,
+      "attrition": {
+        "type": "LATENT_MEMORY_ASSOCIATED",
+        "base_probability": 0.1,
+        "memory_logit_coefficient": -0.75,
+        "maximum_probability": 0.35
+      }
+    }
+  ],
+  "generators": ["EVSD", "2HT"],
+  "selected_cells_total": 18,
+  "interpretation_boundary": "Prospective synthetic misspecification stress test only. The profile values are demonstrative, not population estimates. A PASS does not identify a human cognitive architecture or authorize recruitment; a FAIL is preserved and does not trigger post-hoc gate tuning."
+}
