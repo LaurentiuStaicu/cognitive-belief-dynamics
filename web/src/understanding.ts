@@ -9,9 +9,11 @@ import {
 import {type NarrativeRun} from './narrative-stage';
 import {mountGuidedTour} from './guided-tour';
 import {mountActiveUnderstanding} from './active-understanding-ui';
+import {mountSuiteOverview} from './suite-overview';
+import './suite-overview.css';
 
 type Lang='ro'|'en';
-type Mode='theory'|'mechanisms'|'tour'|'active';
+type Mode='overview'|'theory'|'mechanisms'|'tour'|'active';
 
 export type UnderstandingTheoryData={
  chapters:TheoryChapter[];
@@ -27,8 +29,8 @@ function route(){
  const raw=decodeURIComponent(location.hash.replace(/^#/,''));
  const parts=raw.split('/').filter(Boolean);
  if(parts[0]!=='understanding') return {mode:null as Mode|null,detail:undefined as string|undefined};
- const mode=(parts[1] as Mode|undefined)??'theory';
- return {mode:['theory','mechanisms','tour','active'].includes(mode)?mode:'theory',detail:parts[2]};
+ const mode=(parts[1] as Mode|undefined)??'overview';
+ return {mode:['overview','theory','mechanisms','tour','active'].includes(mode)?mode:'overview',detail:parts[2]};
 }
 
 export function mountUnderstanding(
@@ -45,27 +47,45 @@ export function mountUnderstanding(
  const t=(ro:string,en:string)=>lang==='ro'?ro:en;
  const current=route();
  const saved=localStorage.getItem('cem-understanding-mode') as Mode|null;
- const mode:Mode=current.mode??(saved&&['theory','mechanisms','tour','active'].includes(saved)?saved:'theory');
+ const knownModes:Mode[]=['overview','theory','mechanisms','tour','active'];
+ const mode:Mode=current.mode??(saved&&knownModes.includes(saved)?saved:'overview');
+ const deepMode=mode!=='overview';
 
- host.innerHTML=`<section class="understanding-shell">
-  <div class="section-heading understanding-heading">
-   <div><p class="eyebrow">${t('NIVELUL 1','LEVEL 1')}</p><h2>${t('Înțelegere','Understanding')}</h2><p>${t('Construiește mai întâi modelul mental al teoriei, apoi inspectează mecanismele executabile, testează-ți predicțiile și parcurge aplicația ghidat.','Build the theoretical mental model first, then inspect executable mechanisms, test your predictions and follow the application with guidance.')}</p></div>
-   <nav class="understanding-modes" aria-label="${t('Moduri de înțelegere','Understanding modes')}">
+ host.innerHTML=`<section class="understanding-shell" data-understanding-mode-current="${mode}">
+  ${deepMode?`<div class="section-heading understanding-heading">
+   <div><p class="eyebrow">THEORY / LEARN</p><h2>${t('Aprofundare','Learn')}</h2><p>${t('Revino oricând la suprafața comună a modelului sau continuă cu teoria, mecanismele și exercițiile ghidate.','Return to the common model surface at any time, or continue with theory, mechanisms and guided learning.')}</p></div>
+   <nav class="understanding-modes" aria-label="${t('Moduri de învățare','Learning modes')}">
+    <button type="button" data-understanding-mode="overview" aria-pressed="false">${t('Model','Model')}</button>
     <button type="button" data-understanding-mode="theory" aria-pressed="${mode==='theory'}">${t('Teorie','Theory')}</button>
     <button type="button" data-understanding-mode="mechanisms" aria-pressed="${mode==='mechanisms'}">${t('Mecanisme','Mechanisms')}</button>
     <button type="button" data-understanding-mode="tour" aria-pressed="${mode==='tour'}">${t('Tur ghidat','Guided tour')}</button>
-    <button type="button" data-understanding-mode="active" aria-pressed="${mode==='active'}">${t('Înțelegere activă','Active Understanding')}</button>
+    <button type="button" data-understanding-mode="active" aria-pressed="${mode==='active'}">${t('Învățare activă','Active learning')}</button>
    </nav>
-  </div>
+  </div>`:''}
   <div id="understandingContent"></div>
  </section>`;
 
  const sub=host.querySelector<HTMLElement>('#understandingContent')!;
- host.querySelectorAll<HTMLButtonElement>('[data-understanding-mode]').forEach(button=>button.onclick=()=>{
-  const next=button.dataset.understandingMode as Mode;
+ const openMode=(next:Mode)=>{
   localStorage.setItem('cem-understanding-mode',next);
-  location.hash=`#understanding/${next}`;
- });
+  location.hash=next==='overview'?'#understanding/overview':`#understanding/${next}`;
+ };
+ host.querySelectorAll<HTMLButtonElement>('[data-understanding-mode]').forEach(button=>button.onclick=()=>openMode(button.dataset.understandingMode as Mode));
+
+ if(mode==='overview'){
+  mountSuiteOverview(sub,{
+   lang,
+   softwareVersion:theory.releaseTag.replace(/^v/,''),
+   modelSpecification:'M1',
+   variableCount:theory.variables.length,
+   moduleCount:theory.modules.length,
+   referenceCount:theory.references.length,
+   validationCount:theory.validations.length,
+   openUnderstanding:next=>openMode(next),
+   openView:view=>navigate(view)
+  });
+  return;
+ }
 
  if(mode==='theory'){
   mountTheoryReader(sub,{
