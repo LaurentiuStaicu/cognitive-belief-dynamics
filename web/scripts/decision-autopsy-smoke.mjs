@@ -19,7 +19,8 @@ const server=createServer(async(req,res)=>{
  }catch{res.writeHead(404).end();}
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
-const url=`http://127.0.0.1:${server.address().port}${prefix}`;
+const address=server.address();assert(address&&typeof address!=='string');
+const url=`http://127.0.0.1:${address.port}${prefix}`;
 let browser;
 try{
  browser=await chromium.launch({headless:true,...(process.env.CEM_BROWSER_PATH?{executablePath:process.env.CEM_BROWSER_PATH,args:['--no-sandbox','--disable-gpu']}:{})});
@@ -36,6 +37,9 @@ try{
   finally{db.close();}
  },{store,key});
 
+ // Planning is preserved as research infrastructure, but it is no longer permanent product chrome.
+ await page.getByRole('button',{name:/Research \/ Provenance|Research \/ Proveniență/i}).click();
+ await page.locator('[data-product-surface="technical"]').waitFor();
  await page.locator('[data-suite-view="planning"]').first().click();
  await page.locator('#bestBundle').waitFor();
  await page.locator('[data-plan-mask="2"] [data-inspect="2"]').click();
