@@ -60,7 +60,7 @@ try{
  assert.match(await page.locator('#suiteTheoryContext').textContent(),/What is Cognitive Epistemic Model|World-model construction/i);
 
  await page.locator('[data-suite-learn="world-model"]').first().click();
- await page.locator('#suiteTheoryContext [data-world-model]').waitFor();
+ await page.locator('#suiteTheoryContext [data-world-model-contract]').waitFor();
  const wmText=await page.locator('#suiteTheoryContext').textContent();
  for(const token of ['Pprior','LR','Pwm','Uwm'])assert(wmText.includes(token),`world-model context missing ${token}`);
  assert.match(wmText,/EMPIRICAL/i);
