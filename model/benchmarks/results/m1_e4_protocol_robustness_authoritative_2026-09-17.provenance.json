@@ -1,0 +1,22 @@
+{
+  "aggregate_artifact": {
+    "digest": "sha256:6acac279de1a289541de77bbb64c19bca9d58761ecc9c8a368d3b164ed0f1ada",
+    "id": "10500723364",
+    "name": "m1-phase-m-authoritative-35229760477"
+  },
+  "authoritative_source_aggregate_sha256": "479767bc8f75a689060529c803d7796b2588340f7690915dd9fd481b2e6b9f80",
+  "authoritative_status": "PROTOCOL_ROBUSTNESS_FAIL",
+  "benchmark_id": "BENCH.M1.E4.PROTOCOL_ROBUSTNESS.2026-09-17",
+  "contract_tooling_commit_sha": "2be27f09d054448abb9005ccf29c0017990a4ccc",
+  "event_name": "push",
+  "executed_commit_sha": "af338ed1fe94cc8d59578e50471eb1ccc5886df2",
+  "phase": "M",
+  "replicates_per_cell": 200,
+  "repository": "LaurentiuStaicu/cognitive-epistemic-model",
+  "run_attempt": "1",
+  "run_completed_at_utc": "2026-09-17T13:56:18Z",
+  "run_id": "35229760477",
+  "selected_cells_total": 18,
+  "total_replicates": 3600,
+  "workflow": "M1 Phase M authoritative protocol robustness"
+}
