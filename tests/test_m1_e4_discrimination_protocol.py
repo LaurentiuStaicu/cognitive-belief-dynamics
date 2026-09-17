@@ -116,6 +116,6 @@ def test_phase_d_forbids_registry_runtime_ui_and_release_changes():
 
     version = json.loads((ROOT / "web/public/model/version.json").read_text())
     snapshot = json.loads((ROOT / "model/evidence_snapshot.json").read_text())
-    assert version["software_version"] == "0.4.2a0"
-    assert version["release_tag"] == "v0.4.2a0"
+    assert version["software_version"] == "0.4.3a0"
+    assert version["release_tag"] == "v0.4.3a0"
     assert snapshot["id"] == "EVIDENCE.M1.2026-09-16.r1"
