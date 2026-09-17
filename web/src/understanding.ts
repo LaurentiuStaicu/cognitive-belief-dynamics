@@ -13,50 +13,24 @@ type Lang='ro'|'en';
 type Mode='theory'|'mechanisms'|'world-model'|'tour'|'active';
 export type UnderstandingTheoryData={chapters:TheoryChapter[];glossary:TheoryGlossaryEntry[];variables:TheoryVariable[];modules:TheoryModule[];references:TheoryReference[];validations:TheoryValidation[];releaseTag:string;};
 function route(){const raw=decodeURIComponent(location.hash.replace(/^#/,''));const parts=raw.split('/').filter(Boolean);if(parts[0]!=='understanding')return {mode:null as Mode|null,detail:undefined as string|undefined};const candidate=parts[1] as Mode|undefined;const mode:Mode=candidate&&['theory','mechanisms','world-model','tour','active'].includes(candidate)?candidate:'theory';return {mode,detail:parts[2]};}
-
 function escapeRegExp(value:string){return value.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
 function scrubTheoryTechnicalIdentifiers(root:HTMLElement,lang:Lang,theory:UnderstandingTheoryData){
  const variableLabels=new Map<string,string>();
  for(const variable of theory.variables){const label=variable.label[lang]||variable.label.en;variableLabels.set(variable.id,label);variableLabels.set(variable.short_name,label);}
  const moduleLabels=new Map(theory.modules.map(module=>[module.id,module.label[lang]||module.label.en]));
  const glossaryLabels=new Map(theory.glossary.map(item=>[item.token,item.label[lang]||item.label.en]));
- root.querySelectorAll<HTMLElement>('.theory-token').forEach(token=>{
-  const kind=token.dataset.theoryTokenKind;const value=token.dataset.theoryTokenValue??'';
-  if(kind==='VAR')token.textContent=variableLabels.get(value)??(lang==='ro'?'variabilă a mecanismului':'mechanism variable');
-  else if(kind==='MODULE')token.textContent=moduleLabels.get(value)??(lang==='ro'?'modul CEM':'CEM module');
-  else if(kind==='REF')token.textContent=lang==='ro'?'sursă':'source';
-  else if(kind==='CODE')token.textContent=lang==='ro'?'implementare tehnică':'technical implementation';
-  else if(kind==='VAL')token.textContent=lang==='ro'?'validare':'validation';
-  else if(kind==='MECH'||kind==='CONCEPT')token.textContent=glossaryLabels.get(value)??token.textContent;
- });
- root.querySelectorAll<HTMLElement>('code').forEach(code=>{
-  const raw=(code.textContent??'').trim();
-  if(variableLabels.has(raw))code.textContent=variableLabels.get(raw)!;
-  else if(moduleLabels.has(raw))code.textContent=moduleLabels.get(raw)!;
-  else if(/^(?:REF|VAR|LINK|ODD|MECH|MODULE|VAL|CODE)\./i.test(raw))code.textContent=lang==='ro'?'înregistrare tehnică':'technical record';
-  else if(/[\\/].+\.(?:ts|tsx|js|mjs|json|py|md|yaml|yml|css)$/i.test(raw))code.textContent=lang==='ro'?'fișier tehnic — vezi Research / Proveniență':'technical file — see Research / Provenance';
- });
- const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
- const textNodes:Text[]=[];while(walker.nextNode())textNodes.push(walker.currentNode as Text);
- for(const textNode of textNodes){
-  let value=textNode.data;
-  for(const [id,label] of moduleLabels)value=value.replace(new RegExp(`\\b${escapeRegExp(id)}\\b`,'g'),label);
-  for(const [id,label] of variableLabels){if(id.length<1)continue;value=value.replace(new RegExp(`\\b${escapeRegExp(id)}\\b`,'g'),label);}
-  value=value.replace(/\b(?:REF|VAR|LINK|ODD|MECH|MODULE|VAL|CODE)\.[A-Z0-9._-]+\b/gi,lang==='ro'?'înregistrare tehnică':'technical record');
-  value=value.replace(/\b(?:Pwm|Uwm|Pprior|Aissue|Sobs|Nexp|Pengage|EngageIntent|Paccess|PreviewImpression|Hneg|Eedit|Vcontent|Fpres|Gatt)\b/g,lang==='ro'?'concept tehnic documentat în Research / Proveniență':'technical concept documented in Research / Provenance');
-  value=value.replace(/\b(VAR|CODE|REF)\s*·/g,lang==='ro'?'Detaliu ·':'Detail ·');
-  textNode.data=value;
- }
+ root.querySelectorAll<HTMLElement>('.theory-token').forEach(token=>{const kind=token.dataset.theoryTokenKind;const value=token.dataset.theoryTokenValue??'';if(kind==='VAR')token.textContent=variableLabels.get(value)??(lang==='ro'?'variabilă a mecanismului':'mechanism variable');else if(kind==='MODULE')token.textContent=moduleLabels.get(value)??(lang==='ro'?'modul CEM':'CEM module');else if(kind==='REF')token.textContent=lang==='ro'?'sursă':'source';else if(kind==='CODE')token.textContent=lang==='ro'?'implementare tehnică':'technical implementation';else if(kind==='VAL')token.textContent=lang==='ro'?'validare':'validation';else if(kind==='MECH'||kind==='CONCEPT')token.textContent=glossaryLabels.get(value)??token.textContent;});
+ root.querySelectorAll<HTMLElement>('code').forEach(code=>{const raw=(code.textContent??'').trim();if(variableLabels.has(raw))code.textContent=variableLabels.get(raw)!;else if(moduleLabels.has(raw))code.textContent=moduleLabels.get(raw)!;else if(/^(?:REF|VAR|LINK|ODD|MECH|MODULE|VAL|CODE)\./i.test(raw))code.textContent=lang==='ro'?'înregistrare tehnică':'technical record';else if(/[\\/].+\.(?:ts|tsx|js|mjs|json|py|md|yaml|yml|css)$/i.test(raw))code.textContent=lang==='ro'?'fișier tehnic — vezi Research / Proveniență':'technical file — see Research / Provenance';});
+ const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const textNodes:Text[]=[];while(walker.nextNode())textNodes.push(walker.currentNode as Text);
+ for(const textNode of textNodes){let value=textNode.data;for(const [id,label] of moduleLabels)value=value.replace(new RegExp(`\\b${escapeRegExp(id)}\\b`,'g'),label);for(const [id,label] of variableLabels){if(id.length<1)continue;value=value.replace(new RegExp(`\\b${escapeRegExp(id)}\\b`,'g'),label);}value=value.replace(/\b(?:REF|VAR|LINK|ODD|MECH|MODULE|VAL|CODE)\.[A-Z0-9._-]+\b/gi,lang==='ro'?'înregistrare tehnică':'technical record');value=value.replace(/\b(?:Pwm|Uwm|Pprior|Aissue|Sobs|Nexp|Pengage|EngageIntent|Paccess|PreviewImpression|Hneg|Eedit|Vcontent|Fpres|Gatt)\b/g,lang==='ro'?'concept tehnic documentat în Research / Proveniență':'technical concept documented in Research / Provenance');value=value.replace(/\b(VAR|CODE|REF)\s*·/g,lang==='ro'?'Detaliu ·':'Detail ·');if(value!==textNode.data)textNode.data=value;}
 }
-
+function keepTheoryPublic(root:HTMLElement,lang:Lang,theory:UnderstandingTheoryData){
+ let scheduled=false;const observer=new MutationObserver(()=>{if(scheduled)return;scheduled=true;queueMicrotask(()=>{scheduled=false;observer.disconnect();scrubTheoryTechnicalIdentifiers(root,lang,theory);observer.observe(root,{subtree:true,childList:true,characterData:true});});});scrubTheoryTechnicalIdentifiers(root,lang,theory);observer.observe(root,{subtree:true,childList:true,characterData:true});
+}
 export function mountUnderstanding(host:HTMLElement,lang:Lang,runs:NarrativeRun[],m1Editorial:M1EditorialData,m1Presentation:M1PresentationData,m1Access:M1AccessData,m1Targets:EmpiricalTarget[],theory:UnderstandingTheoryData,navigate:(target:string)=>void){
- const t=(ro:string,en:string)=>lang==='ro'?ro:en;const current=route();const saved=localStorage.getItem('cem-understanding-mode') as Mode|null;const knownModes:Mode[]=['theory','mechanisms','world-model','tour','active'];const mode:Mode=current.mode??(saved&&knownModes.includes(saved)?saved:'theory');
- const publicMode=mode==='theory'?mode:'theory';
+ const t=(ro:string,en:string)=>lang==='ro'?ro:en;const current=route();const saved=localStorage.getItem('cem-understanding-mode') as Mode|null;const knownModes:Mode[]=['theory','mechanisms','world-model','tour','active'];const mode:Mode=current.mode??(saved&&knownModes.includes(saved)?saved:'theory');const publicMode=mode==='theory'?mode:'theory';
  host.innerHTML=`<section class="understanding-shell" data-understanding-mode-current="${publicMode}"><div class="section-heading understanding-heading"><div><p class="eyebrow">THEORY / LEARN</p><h3>${t('Manualul CEM','CEM manual')}</h3><p>${t('Reader-ul public explică teoria în limbaj natural. Identificatorii, căile de fișiere și simbolurile interne sunt păstrate exclusiv în Research / Technical provenance.','The public reader explains the theory in natural language. Identifiers, file paths and internal symbols are kept exclusively in Research / Technical provenance.')}</p></div><nav class="understanding-modes" aria-label="${t('Mod de învățare','Learning mode')}"><button type="button" data-understanding-mode="theory" aria-pressed="true">${t('Teorie','Theory')}</button></nav></div><div id="understandingContent"></div></section>`;
- const sub=host.querySelector<HTMLElement>('#understandingContent')!;
- const openMode=(next:Mode)=>{localStorage.setItem('cem-understanding-mode',next);const target=`#understanding/${next}`;if(location.hash===target)mountUnderstanding(host,lang,runs,m1Editorial,m1Presentation,m1Access,m1Targets,theory,navigate);else location.hash=target;};
- host.querySelectorAll<HTMLButtonElement>('[data-understanding-mode]').forEach(button=>button.onclick=()=>openMode(button.dataset.understandingMode as Mode));
- mountTheoryReader(sub,{lang,chapters:theory.chapters,glossary:theory.glossary,variables:theory.variables,modules:theory.modules,references:theory.references,validations:theory.validations,releaseTag:theory.releaseTag,navigate},current.detail).then(()=>scrubTheoryTechnicalIdentifiers(sub,lang,theory)).catch(error=>{sub.innerHTML=`<div class="panel"><h3>${t('Teoria nu poate fi încărcată','Theory could not be loaded')}</h3><p>${String(error)}</p></div>`;});
+ const sub=host.querySelector<HTMLElement>('#understandingContent')!;const openMode=(next:Mode)=>{localStorage.setItem('cem-understanding-mode',next);const target=`#understanding/${next}`;if(location.hash===target)mountUnderstanding(host,lang,runs,m1Editorial,m1Presentation,m1Access,m1Targets,theory,navigate);else location.hash=target;};host.querySelectorAll<HTMLButtonElement>('[data-understanding-mode]').forEach(button=>button.onclick=()=>openMode(button.dataset.understandingMode as Mode));
+ mountTheoryReader(sub,{lang,chapters:theory.chapters,glossary:theory.glossary,variables:theory.variables,modules:theory.modules,references:theory.references,validations:theory.validations,releaseTag:theory.releaseTag,navigate},current.detail).then(()=>keepTheoryPublic(sub,lang,theory)).catch(error=>{sub.innerHTML=`<div class="panel"><h3>${t('Teoria nu poate fi încărcată','Theory could not be loaded')}</h3><p>${String(error)}</p></div>`;});
 }
-
 void mountLearning;void mountGuidedTour;void mountActiveUnderstanding;void mountWorldModel;
