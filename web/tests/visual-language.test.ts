@@ -4,6 +4,9 @@ import {readFileSync} from 'node:fs';
 import {visualLanguage} from '../src/visual-language.ts';
 
 const visualCss=readFileSync(new URL('../src/visual-language.css',import.meta.url),'utf8');
+const mainSource=readFileSync(new URL('../src/main.ts',import.meta.url),'utf8');
+const comparisonSource=readFileSync(new URL('../src/comparison.ts',import.meta.url),'utf8');
+const narrativeSource=readFileSync(new URL('../src/narrative-stage.ts',import.meta.url),'utf8');
 
 test('visual spacing uses the documented six-pixel rhythm and safe content margin',()=>{
  assert.equal(visualLanguage.spacing.unitPx,6);
@@ -35,6 +38,31 @@ test('VP-2 disclosure and disabled controls retain explicit interaction treatmen
  assert.match(visualCss,/summary\{min-height:var\(--vl-target-min\);[^}]*cursor:pointer/s);
  assert.match(visualCss,/button:disabled,select:disabled,input\[type=number\]:disabled\{opacity:\.52;cursor:not-allowed\}/);
  assert.match(visualCss,/button:hover:not\(:disabled\),\.button-link:hover\{background:var\(--vl-control-hover\)\}/);
+});
+
+test('VP-3 chart surfaces are scroll-contained and dense tables remain readable',()=>{
+ assert.match(visualCss,/\.chart-wrap,\.comparison-plot,\.narrative-chart\{[^}]*overflow-x:auto;[^}]*border:1px solid var\(--vl-border-soft\);[^}]*scrollbar-gutter:stable/s);
+ assert.match(visualCss,/\.table-scroll\{[^}]*overflow:auto;[^}]*border:1px solid var\(--vl-border-soft\);[^}]*scrollbar-gutter:stable/s);
+ assert.match(visualCss,/\.table-scroll thead th\{position:sticky;top:0;[^}]*background:var\(--vl-surface-inset\)/s);
+ assert.match(visualCss,/font-variant-numeric:tabular-nums/);
+});
+
+test('VP-3 narrative trajectories use non-color line patterns',()=>{
+ assert.match(visualCss,/polyline\.narrative-driver\{stroke-dasharray:none\}/);
+ assert.match(visualCss,/polyline\.narrative-belief\{stroke-dasharray:10 4\}/);
+ assert.match(visualCss,/polyline\.narrative-sharing\{stroke-dasharray:2 4\}/);
+ assert.match(visualCss,/\.narrative-legend \.belief span\{border-top-style:dashed\}/);
+ assert.match(visualCss,/\.narrative-legend \.sharing span\{border-top-style:dotted\}/);
+});
+
+test('VP-3 chart families retain accessible names, exact-value readouts and data alternatives',()=>{
+ assert(mainSource.includes('role="img" aria-label="${tr('));
+ assert(mainSource.includes('class="chart-readout" id="chartReadout"'));
+ assert.match(mainSource,/class="results"[\s\S]*class="table-scroll"/);
+ assert(comparisonSource.includes('role="img" aria-label="${title}. ${t('));
+ assert.match(comparisonSource,/class="panel comparison-table"[\s\S]*class="table-scroll"/);
+ assert(narrativeSource.includes('aria-labelledby="narrativeChartTitle narrativeChartDesc"'));
+ assert(narrativeSource.includes('<desc id="narrativeChartDesc">'));
 });
 
 test('adaptive breakpoints are ordered and preserve existing shell thresholds',()=>{
