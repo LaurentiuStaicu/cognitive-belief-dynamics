@@ -73,6 +73,7 @@ let registryFocus = '';
 let semanticSearchQuery = '';
 let semanticInspectorId = '';
 let contextualTool:'search'|'inspector'|null=null;
+let suiteFocus='overview';
 const app = document.getElementById('app')!;
 const tr = (ro:string,en:string) => lang === 'ro' ? ro : en;
 const num = (n:number) => n.toLocaleString(lang === 'ro' ? 'ro-RO' : 'en-GB', {minimumFractionDigits:3,maximumFractionDigits:3});
@@ -113,13 +114,16 @@ const stop = () => { if(playing!==undefined) clearInterval(playing); playing=und
 function shell() {
  graph?.destroy(); graph=undefined;
  document.documentElement.lang=lang;
- app.innerHTML=`<header class="topbar infoclar-topbar"><a class="brand" href="#" aria-label="Cognitive Epistemic Model"><img class="brand-icon" src="./icon.svg" width="42" height="42" alt=""><span>Cognitive Epistemic Model</span></a><div class="top-actions"><a class="version" id="releaseVersion" href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/${release.release_tag}" target="_blank" rel="noopener">${release.channel} ${release.version} · ${release.model}</a><button id="language" aria-label="${tr('Schimbă limba interfeței în engleză','Switch the interface language to Romanian')}">${lang==='ro'?'EN':'RO'}</button><a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model" target="_blank" rel="noopener">GitHub ↗</a></div></header>
- <div class="workspace infoclar-workspace"><main id="suiteRoot"></main><footer><span>${tr('Model demonstrativ · coeficienți necalibrați','Demonstration model · uncalibrated coefficients')}</span><span>${tr('Calibrarea rămâne dormantă până după v1 · web-first','Calibration remains dormant until after v1 · web-first')}</span></footer></div>`;
+ app.innerHTML=`<header class="topbar infoclar-topbar"><a class="brand" href="#" aria-label="Cognitive Epistemic Model"><img class="brand-icon" src="./icon.svg" width="42" height="42" alt=""><span>Cognitive Epistemic Model</span></a><div class="top-actions"><span class="product-purpose">${tr('Explorează cum informația devine judecată și acțiune','Explore how information becomes judgment and action')}</span><button id="language" aria-label="${tr('Schimbă limba interfeței în engleză','Switch the interface language to Romanian')}">${lang==='ro'?'EN':'RO'}</button><a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model" target="_blank" rel="noopener">GitHub ↗</a></div></header>
+ <div class="workspace infoclar-workspace"><main id="suiteRoot"></main><footer><span>${tr('Prototip de cercetare orientat spre dovezi · coeficienți populaționali necalibrați','Evidence-aware research prototype · uncalibrated population coefficients')}</span><span>EMPIRICAL · EXECUTABLE · CONCEPTUAL · INTERPRETIVE</span></footer></div>`;
  const suiteRoot=document.getElementById('suiteRoot')!;
  const openUnderstanding=(next:'theory'|'mechanisms'|'world-model'|'tour'|'active')=>{stop();view='learning';contextualTool=null;localStorage.setItem('cem-understanding-mode',next);const target=`#understanding/${next}`;if(location.hash===target)shell();else location.hash=target;};
  const openSuiteView=(next:'structure'|'runs'|'comparison'|'planning'|'reference'|'process')=>{stop();view=next;contextualTool=null;if(next==='reference')registryFocus='';if(location.hash.startsWith('#understanding/'))history.replaceState(null,'',location.pathname+location.search);shell();};
  const openTool=(tool:'search'|'inspector')=>{stop();view='learning';contextualTool=tool;shell();};
- mountSuiteOverview(suiteRoot,{lang,softwareVersion:release.version,modelSpecification:release.model,variableCount:variables.length,moduleCount:modules.length,referenceCount:references.length,validationCount:validationTests.length,openUnderstanding,openView:openSuiteView,openTool});
+ const openFocus=(id:string)=>{stop();suiteFocus=id;contextualTool=null;shell();requestAnimationFrame(()=>{const target=id==='overview'?'available-information':id;document.querySelector<HTMLButtonElement>(`[data-suite-focus="${CSS.escape(target)}"]`)?.focus({preventScroll:false});});};
+ const openTheoryChapter=(slug:string)=>{stop();view='learning';contextualTool=null;localStorage.setItem('cem-understanding-mode','theory');const target=`#understanding/theory/${slug}`;if(location.hash===target)shell();else location.hash=target;};
+ const openReference=(id:string)=>{stop();view='reference';registryFocus=id;contextualTool=null;if(location.hash.startsWith('#understanding/'))history.replaceState(null,'',location.pathname+location.search);shell();};
+ mountSuiteOverview(suiteRoot,{lang,selectedFocus:suiteFocus,openFocus,openUnderstanding,openTheoryChapter,openReference,openView:openSuiteView,openTool});
  const theoryHost=document.getElementById('suiteTheoryContext')!;
  const auxHost=document.getElementById('suiteAuxContext')!;
  const ensureSemanticTools=()=>{if(!document.getElementById('semanticSearch'))auxHost.innerHTML=`<section class="suite-semantic-tools"><div id="semanticSearch"></div><aside id="semanticInspector" class="panel" aria-labelledby="semanticInspectorTitle" tabindex="-1"></aside></section>`;};
