@@ -14,7 +14,7 @@
     "predev": "node scripts/sync-model.mjs",
     "test:workspace": "node --test tests/workspace-*.test.ts",
     "test:ia": "node --test tests/navigation.test.ts",
-    "test:visual": "node --test tests/visual-language.test.ts",
+    "test:visual": "node --test tests/visual-language.test.ts tests/suite-standard.test.ts",
     "test:oa4": "node --test tests/search-inspector.test.ts",
     "test:oa5a": "node --test tests/active-understanding.test.ts",
     "test:oa5c": "node --test tests/challenge-model.test.ts",

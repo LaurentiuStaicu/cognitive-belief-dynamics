@@ -28,7 +28,7 @@ try{
  page.on('pageerror',error=>errors.push(error.message));
  page.on('response',response=>{if(response.status()>=400)errors.push(`${response.status()} ${response.url()}`);});
  await page.goto(url);
- await page.waitForFunction(()=>document.querySelector('#theoryArticle')?.getAttribute('aria-busy')==='false');
+ await page.locator('[data-suite-standard="InfoClar Model Suite Design Standard v1.1"]').waitFor();
  const initialWorkspace=JSON.parse(await page.evaluate(()=>localStorage.getItem('cem.workspace.v1.active')));
  const readIdbRecord=async(store,key)=>page.evaluate(async({store,key})=>{
   const db=await new Promise((resolve,reject)=>{const req=indexedDB.open('cem-reality-loop',1);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});

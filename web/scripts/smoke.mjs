@@ -32,7 +32,19 @@ try {
  };
  const waitTheory=()=>page.waitForFunction(()=>document.querySelector('#theoryArticle')?.getAttribute('aria-busy')==='false');
  page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
- await page.goto(url);await waitTheory();
+ await page.goto(url);
+ assert.equal(await page.locator('html').getAttribute('lang'),'en');
+ assert.equal((await page.locator('#language').textContent())?.trim(),'RO');
+ assert.equal(await page.locator('[data-suite-standard]').getAttribute('data-suite-standard'),'InfoClar Model Suite Design Standard v1.1');
+ assert.equal(await page.locator('.suite-model-panel').count(),1);
+ assert.equal(await page.locator('.suite-theory-panel').count(),1);
+ assert.equal(await page.locator('.suite-dashboard-panel').count(),1);
+ assert.equal(await page.locator('.suite-aux-panel').count(),1);
+ assert.equal(await page.locator('input[type=\"file\"]').count(),0);
+ await page.locator('#language').click();
+ assert.equal(await page.locator('html').getAttribute('lang'),'ro');
+ await page.locator('[data-suite-learn=\"theory\"]').click();
+ await waitTheory();
  const workspaceKey='cem.workspace.v1.active';
  const workspaceBeforeReload=await page.evaluate(key=>localStorage.getItem(key),workspaceKey);
  assert(workspaceBeforeReload);
@@ -139,7 +151,7 @@ try {
  assert.equal(await page.locator('.views [data-view]').count(),1);
  await page.locator('[data-nav-group="understand"]').click();
  await waitTheory();
- assert.equal(await page.locator('[data-understanding-mode]').count(),4);
+ assert.equal(await page.locator('[data-understanding-mode]').count(),5);
  assert.equal(await page.locator('[data-understanding-mode="theory"]').getAttribute('aria-pressed'),'true');
  assert.equal(await page.locator('[data-theory-chapter]').count(),16);
  const theoryMeasure=await page.locator('#theoryArticle p').first().evaluate(el=>({

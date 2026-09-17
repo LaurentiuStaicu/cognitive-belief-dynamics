@@ -43,7 +43,8 @@ type Frame = {time:number; familiarity:number; correction:number; reliability:nu
 type Run = {id:string; seed:number; prior:number; parameters:Record<string,number>; frames:Frame[]};
 type Reference = {id:string; citation:string; url:string; access_url:string; checked_on:string; review_scope:string};
 type Module = {id:string;label:Record<Lang,string>};
-let lang:Lang = 'ro';
+const savedLanguage=localStorage.getItem('cem.ui.language');
+let lang:Lang = savedLanguage==='ro'||savedLanguage==='en'?savedLanguage:'en';
 let view:AppView = 'learning';
 let planning:PlanningData;
 let decisionUncertainty:DecisionUncertaintyRegistry;
@@ -118,7 +119,7 @@ function shell() {
  const remountSearch=(focus=false)=>{const host=document.getElementById('semanticSearch')!;mountSemanticSearch(host,{lang,initialQuery:semanticSearchQuery,onQueryChange:query=>{semanticSearchQuery=query;},onSelect:id=>{semanticInspectorId=id;remountInspector(true);}});if(focus)host.querySelector<HTMLInputElement>('#semanticSearchInput')?.focus({preventScroll:false});};
  remountSearch();
  remountInspector();
- document.getElementById('language')!.onclick=()=>{stop();lang=lang==='ro'?'en':'ro';shell();};
+ document.getElementById('language')!.onclick=()=>{stop();lang=lang==='ro'?'en':'ro';localStorage.setItem('cem.ui.language',lang);shell();};
  document.querySelectorAll<HTMLButtonElement>('[data-nav-group]').forEach(b=>b.onclick=()=>{stop();const group=navigationGroups.find(candidate=>candidate.id===b.dataset.navGroup);if(!group)return;view=group.defaultView;if(view==='reference')registryFocus='';shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
  document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(b=>b.onclick=()=>{stop();const next=b.dataset.view;if(!next||!isAppView(next))return;if(next==='reference')registryFocus='';view=next;shell();});
  if(view==='learning') mountUnderstanding(document.getElementById('content')!,lang,runs,m1Editorial,m1Presentation,m1Access,m1Targets,{chapters:theoryIndex,glossary:theoryGlossary,variables,modules,references,validations:validationTests,releaseTag:release.release_tag},target=>{stop();const [nextRaw,...parts]=target.split(':');const payload=parts.join(':');if(nextRaw==='search'){semanticSearchQuery=payload;remountSearch(true);return;}if(nextRaw==='inspect'){semanticInspectorId=payload;remountInspector(true);return;}const [id,time]=parts;if(!isAppView(nextRaw))throw new Error(`unknown application view: ${nextRaw}`);const next=nextRaw;if(location.hash.startsWith('#understanding/')&&!target.startsWith('learning'))history.pushState({cemView:next,cemId:id??null,cemTime:time??null},'',location.href);view=next;if(next==='reference'){registryFocus=id??'';}else if(id){selected=id;step=time===undefined?0:Number(time);}shell();document.getElementById('content')!.scrollIntoView({block:'start'});});
