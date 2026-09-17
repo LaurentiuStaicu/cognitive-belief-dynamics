@@ -97,8 +97,8 @@ button{cursor:pointer}
 button:hover:not(:disabled),.button-link:hover{background:var(--vl-control-hover)}
 button:active:not(:disabled),.button-link:active{box-shadow:inset 0 0 0 1px var(--vl-control-text)}
 button[aria-pressed=true]{font-weight:700}
-.primary,button.primary,.button-link.primary{background:var(--vl-control-selected);color:var(--vl-control-selected-text);border-color:var(--vl-control-selected);font-weight:700}
-.primary:hover:not(:disabled),button.primary:hover:not(:disabled),.button-link.primary:hover{background:var(--vl-control-selected);box-shadow:inset 0 0 0 1px currentColor}
+button.primary,.button-link.primary{background:var(--vl-control-selected);color:var(--vl-control-selected-text);border-color:var(--vl-control-selected);font-weight:700}
+button.primary:hover:not(:disabled),.button-link.primary:hover{background:var(--vl-control-selected);box-shadow:inset 0 0 0 1px currentColor}
 button:disabled,select:disabled,input[type=number]:disabled{opacity:.52;cursor:not-allowed}
 select,input[type=number]{padding:var(--vl-space-1) var(--vl-space-2)}
 input[type=range]{min-height:var(--vl-target-min);accent-color:var(--accent)}
