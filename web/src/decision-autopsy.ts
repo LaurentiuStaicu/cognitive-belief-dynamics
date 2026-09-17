@@ -181,7 +181,7 @@ export function mountDecisionAutopsy(
  form.onsubmit=async event=>{
   event.preventDefault();
   if(!form.reportValidity())return;
-  const selected=[...form.querySelectorAll<HTMLInputElement>('input[name="observed_outcome_id"]:checked')].map(item=>item.value);
+  const selected=Array.from(form.querySelectorAll<HTMLInputElement>('input[name="observed_outcome_id"]:checked')).map(item=>item.value);
   if(selected.length===0){status.textContent=t('Selectează cel puțin un ObservedOutcome.','Select at least one ObservedOutcome.');return;}
   const submit=form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
   submit.disabled=true;
