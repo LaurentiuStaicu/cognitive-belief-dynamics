@@ -21,12 +21,12 @@ export const navigationGroups:readonly NavigationGroup[]=[
  {
   id:'understand',
   label:{ro:'Înțelege',en:'Understand'},
-  description:{ro:'Teorie, mecanisme, hartă și metodologie.',en:'Theory, mechanisms, map and methodology.'},
+  description:{ro:'Model, teorie, hartă și metodologie.',en:'Model, theory, map and methodology.'},
   defaultView:'learning',
   items:[
-   {view:'learning',label:{ro:'Teorie și mecanisme',en:'Theory & mechanisms'},description:{ro:'Explicații ghidate ale variabilelor și mecanismelor.',en:'Guided explanations of variables and mechanisms.'}},
-   {view:'structure',label:{ro:'Hartă',en:'Map'},description:{ro:'Dependențe computaționale și relații înregistrate.',en:'Computational dependencies and registered relations.'}},
-   {view:'process',label:{ro:'Metodologie · Visual ODD',en:'Methodology · Visual ODD'},description:{ro:'Procese, limite și convenții ale modelului.',en:'Model processes, boundaries and conventions.'}}
+   {view:'learning',label:{ro:'Model',en:'Model'},description:{ro:'Suprafața comună: vizualizare, Theory/Learn, dashboard și context.',en:'Common surface: visualization, Theory/Learn, dashboard and context.'}},
+   {view:'structure',label:{ro:'Hartă completă',en:'Full map'},description:{ro:'Dependențe computaționale și relații înregistrate.',en:'Computational dependencies and registered relations.'}},
+   {view:'process',label:{ro:'Metodologie',en:'Methodology'},description:{ro:'Procese, limite și convenții ale modelului.',en:'Model processes, boundaries and conventions.'}}
   ]
  },
  {
