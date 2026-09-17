@@ -9,11 +9,17 @@ s=s.replace("chapterSlug:'editorial-selection'","chapterSlug:'editorial-selectio
 s=s.replace("chapterSlug:'presentation-framing-congruence'","chapterSlug:'framing-congruence'")
 product.write_text(s)
 
-# New persistent disclosures must remain real interaction targets in every contextual surface.
+# Persistent and contextual disclosures must remain real interaction targets in every surface.
 css=root/'web/src/suite-overview.css'
 c=css.read_text()
 c=c.replace('.suite-learning-more summary{min-height:44px;display:flex;align-items:center;cursor:pointer}', '.suite-learning-more>summary{display:block;width:100%;min-width:24px;min-height:44px;cursor:pointer;overflow-wrap:anywhere}')
 c=c.replace('.suite-more-diagnostics>summary{min-height:44px;display:flex;align-items:center;cursor:pointer}', '.suite-more-diagnostics>summary{display:block;width:100%;min-width:24px;min-height:44px;cursor:pointer;overflow-wrap:anywhere}')
+run_context='#suiteAuxContext .run-layout{grid-template-columns:minmax(0,1fr)!important}#suiteAuxContext .run-layout>*{min-width:0!important;max-width:100%!important}#suiteAuxContext .run-layout summary{display:block!important;width:100%!important;min-width:24px!important;min-height:44px!important;overflow-wrap:anywhere}#suiteAuxContext .run-layout .table-scroll,#suiteAuxContext .run-layout .chart-wrap{max-width:100%;overflow:auto}\n'
+marker='#suiteAuxContext .planner-layout'
+if run_context not in c:
+    if marker not in c:
+        raise SystemExit('suite contextual CSS anchor missing')
+    c=c.replace(marker,run_context+marker,1)
 css.write_text(c)
 
 # Connect the shared four-region shell to a persistent contextual CEM focus.
