@@ -1,3 +1,3 @@
 """Cognitive Epistemic Model reference implementation."""
 
-__version__ = "0.4.2a0"
+__version__ = "0.4.3a0"
