@@ -31,6 +31,12 @@
  --vl-leading-tight:1.2;
  --vl-leading-body:1.62;
  --vl-leading-reading:1.72;
+ --vl-control-bg:var(--surface);
+ --vl-control-text:var(--text);
+ --vl-control-hover:var(--soft);
+ --vl-control-border:var(--border);
+ --vl-control-selected:var(--accent);
+ --vl-control-selected-text:var(--accent-text);
  --vl-focus-color:#6b35c8;
  --vl-status-strong:#116149;
  --vl-status-model:#1f6096;
@@ -73,10 +79,31 @@ small,.meta,.note,.description,caption{font-size:var(--vl-text-sm);line-height:1
 .mechanism-reading>p,.reading-boundaries>p,.theory-reader>p,.theory-reader>blockquote,.theory-reader>ul,.theory-reader>ol{line-height:var(--vl-leading-reading)}
 .navigation-shell{margin-bottom:var(--vl-space-4)}
 .nav-groups{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--vl-space-1);margin-bottom:var(--vl-space-1)}
-.nav-groups button{min-height:var(--vl-target-min);padding:var(--vl-space-2) var(--vl-space-3)}
+.nav-groups button{min-height:var(--vl-target-min);padding:var(--vl-space-2) var(--vl-space-3);border-radius:var(--vl-radius-md);font-weight:600}
+.nav-groups button[aria-pressed=true]{background:var(--vl-control-selected);color:var(--vl-control-selected-text);border-color:var(--vl-control-selected);font-weight:700;box-shadow:inset 0 -3px 0 currentColor}
 .views{gap:var(--vl-space-1)}
-.views button{min-height:var(--vl-target-min)}
-button,select,input[type=number],input[type=range],.button-link{min-height:var(--vl-target-min)}
+.views button{min-height:var(--vl-target-min);background:transparent;border:0;border-bottom:3px solid transparent;border-radius:0;color:var(--muted);font-weight:550}
+.views button:hover:not(:disabled){background:var(--vl-control-hover);color:var(--vl-control-text)}
+.views button[aria-pressed=true]{background:transparent;color:var(--accent);border-bottom-color:var(--accent);font-weight:700}
+button,select,input[type=number],.button-link{
+ min-height:var(--vl-target-min);
+ border:1px solid var(--vl-control-border);
+ border-radius:var(--vl-radius-sm);
+ background:var(--vl-control-bg);
+ color:var(--vl-control-text);
+}
+button,.button-link{font-weight:600}
+button{cursor:pointer}
+button:hover:not(:disabled),.button-link:hover{background:var(--vl-control-hover)}
+button:active:not(:disabled),.button-link:active{box-shadow:inset 0 0 0 1px var(--vl-control-text)}
+button[aria-pressed=true]{font-weight:700}
+button.primary,.button-link.primary{background:var(--vl-control-selected);color:var(--vl-control-selected-text);border-color:var(--vl-control-selected);font-weight:700}
+button.primary:hover:not(:disabled),.button-link.primary:hover{background:var(--vl-control-selected);box-shadow:inset 0 0 0 1px currentColor}
+button:disabled,select:disabled,input[type=number]:disabled{opacity:.52;cursor:not-allowed}
+select,input[type=number]{padding:var(--vl-space-1) var(--vl-space-2)}
+input[type=range]{min-height:var(--vl-target-min);accent-color:var(--accent)}
+summary{min-height:var(--vl-target-min);padding:var(--vl-space-2) var(--vl-space-1);border-radius:var(--vl-radius-sm);cursor:pointer}
+summary:hover{background:var(--vl-control-hover)}
 button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,[tabindex]:focus-visible{
  outline:var(--vl-focus-ring) solid var(--vl-focus-color);
  outline-offset:var(--vl-focus-offset);
@@ -136,5 +163,6 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,su
 @media(forced-colors:active){
  .panel,.experiment,.graph-panel,.boundary,.lever-grid article,.planner-metrics>div,.narrative-values>div,.narrative-current-value{box-shadow:none;border-color:CanvasText}
  .theory-statuses [data-status],.epistemic-status{border:1px solid CanvasText}
+ .nav-groups button[aria-pressed=true],.views button[aria-pressed=true],button[aria-pressed=true]{outline:2px solid Highlight;outline-offset:1px}
  button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid Highlight}
 }
