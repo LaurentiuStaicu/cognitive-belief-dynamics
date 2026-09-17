@@ -38,7 +38,9 @@
         "META_ANALYTIC",
         "OBSERVATIONAL",
         "DATA_PROVENANCE",
-        "CORRECTION"
+        "CORRECTION",
+        "REVIEW",
+        "THEORETICAL"
       ]
     },
     "checked_on": {
