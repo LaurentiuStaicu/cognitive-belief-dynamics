@@ -40,10 +40,11 @@
 
 @media (max-width: 760px) {
   .future-question-groups { grid-template-columns: 1fr; }
+  .pathway-row.path-count-4 { grid-template-columns: 1fr; }
   .pathway-flow-cue { display: none; }
   .relation-legend { align-items: flex-start; }
   .relation-legend-help { width: 100%; margin-left: 0; }
-  .edge-help { margin: 2px 0 0; }
+  .edge-help { display: none; }
   .edge-line[data-status="EMPIRICAL_CAUSAL_SUPPORT"] { background: #39805b; }
   .edge-line[data-status="EMPIRICAL_ASSOCIATION"] { background: #6a9b7d; }
   .edge-line[data-status="EXECUTABLE_MODEL_RELATION"] { background: repeating-linear-gradient(180deg,#6c88aa 0 8px,transparent 8px 12px); }
