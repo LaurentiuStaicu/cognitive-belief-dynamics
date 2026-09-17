@@ -9,7 +9,7 @@
     "prebuild": "node scripts/sync-model.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "test:browser": "node scripts/smoke.mjs && node scripts/decision-autopsy-smoke.mjs && npm run test:a11y",
-    "test:a11y": "node scripts/wcag22-aa-smoke.mjs",
+    "test:a11y": "node scripts/wcag22-aa-smoke.mjs && node scripts/keyboard-traversal-smoke.mjs",
     "predev": "node scripts/sync-model.mjs",
     "test:workspace": "node --test tests/workspace-*.test.ts",
     "test:ia": "node --test tests/navigation.test.ts",
