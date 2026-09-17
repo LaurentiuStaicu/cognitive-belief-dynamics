@@ -11,29 +11,21 @@
   "inconclusive_total": 406,
   "minimum_recovery_probability": 0.56,
   "minimum_wilson_lower": 0.4907167533465867,
-  "formal_failed_cells": [
-    "COMBINED_ADVERSE__EVSD",
-    "ITEM_HIGH__EVSD",
-    "ITEM_MODERATE__EVSD"
-  ],
-  "secondary_wilson_failed_cells": [
-    "COMBINED_ADVERSE__EVSD",
-    "ITEM_HIGH__EVSD",
-    "ITEM_MODERATE__EVSD"
-  ],
+  "formal_failed_cells": ["COMBINED_ADVERSE__EVSD", "ITEM_HIGH__EVSD", "ITEM_MODERATE__EVSD"],
+  "secondary_wilson_failed_cells": ["COMBINED_ADVERSE__EVSD", "ITEM_HIGH__EVSD", "ITEM_MODERATE__EVSD"],
   "results": [
     {"cell_id":"COMBINED_ADVERSE__EVSD","generator":"EVSD","seed":1378902856,"selected":{"EVSD":117,"2HT":6,"INCONCLUSIVE":77},"recovery_probability":0.585,"wrong_probability":0.03,"inconclusive_probability":0.385,"wilson_95":{"lower":0.5157391490134403,"upper":0.6510571455024242},"passes_formal_gate":false,"passes_secondary_wilson_sensitivity":false},
     {"cell_id":"COMBINED_ADVERSE__2HT","generator":"2HT","seed":3088614161,"selected":{"EVSD":0,"2HT":177,"INCONCLUSIVE":23},"recovery_probability":0.885,"wrong_probability":0.0,"inconclusive_probability":0.115,"wilson_95":{"lower":0.8333528310151243,"upper":0.9221362676743804},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
     {"cell_id":"ITEM_HIGH__EVSD","generator":"EVSD","seed":2461095882,"selected":{"EVSD":112,"2HT":13,"INCONCLUSIVE":75},"recovery_probability":0.56,"wrong_probability":0.065,"inconclusive_probability":0.375,"wilson_95":{"lower":0.4907167533465867,"upper":0.6270218074881414},"passes_formal_gate":false,"passes_secondary_wilson_sensitivity":false},
     {"cell_id":"ITEM_HIGH__2HT","generator":"2HT","seed":2033785295,"selected":{"EVSD":0,"2HT":173,"INCONCLUSIVE":27},"recovery_probability":0.865,"wrong_probability":0.0,"inconclusive_probability":0.135,"wilson_95":{"lower":0.8107086162924745,"upper":0.9055342954521209},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
-    {"cell_id":"ITEM_MODERATE__EVSD","generator":"EVSD","selected":{"EVSD":156,"2HT":3,"INCONCLUSIVE":41},"recovery_probability":0.78,"wrong_probability":0.015,"inconclusive_probability":0.205,"wilson_95":{"lower":0.7176120008170633,"upper":0.8309235740122307},"passes_formal_gate":false,"passes_secondary_wilson_sensitivity":false},
+    {"cell_id":"ITEM_MODERATE__EVSD","generator":"EVSD","seed":346501978,"selected":{"EVSD":156,"2HT":3,"INCONCLUSIVE":41},"recovery_probability":0.78,"wrong_probability":0.015,"inconclusive_probability":0.205,"wilson_95":{"lower":0.7176120008170633,"upper":0.8318346164116673},"passes_formal_gate":false,"passes_secondary_wilson_sensitivity":false},
     {"cell_id":"ITEM_MODERATE__2HT","generator":"2HT","seed":3811802643,"selected":{"EVSD":0,"2HT":190,"INCONCLUSIVE":10},"recovery_probability":0.95,"wrong_probability":0.0,"inconclusive_probability":0.05,"wilson_95":{"lower":0.9104218518612239,"upper":0.972617354399236},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
-    {"cell_id":"LATENT_ASSOCIATED_ATTRITION__EVSD","generator":"EVSD","selected":{"EVSD":180,"2HT":1,"INCONCLUSIVE":19},"recovery_probability":0.9,"wrong_probability":0.005,"inconclusive_probability":0.095,"wilson_95":{"lower":0.8505941875672827,"upper":0.9343353320717271},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
-    {"cell_id":"LATENT_ASSOCIATED_ATTRITION__2HT","generator":"2HT","selected":{"EVSD":0,"2HT":190,"INCONCLUSIVE":10},"recovery_probability":0.95,"wrong_probability":0.0,"inconclusive_probability":0.05,"wilson_95":{"lower":0.9104218518612239,"upper":0.972617354399236},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
-    {"cell_id":"MAR_LIKE_ATTRITION__EVSD","generator":"EVSD","selected":{"EVSD":179,"2HT":1,"INCONCLUSIVE":20},"recovery_probability":0.895,"wrong_probability":0.005,"inconclusive_probability":0.1,"wilson_95":{"lower":0.8448196800887696,"upper":0.9302925120731899},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
-    {"cell_id":"MAR_LIKE_ATTRITION__2HT","generator":"2HT","selected":{"EVSD":0,"2HT":189,"INCONCLUSIVE":11},"recovery_probability":0.945,"wrong_probability":0.0,"inconclusive_probability":0.055,"wilson_95":{"lower":0.9042130012276914,"upper":0.9690146582965411},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
-    {"cell_id":"REFERENCE__EVSD","generator":"EVSD","selected":{"EVSD":187,"2HT":0,"INCONCLUSIVE":13},"recovery_probability":0.935,"wrong_probability":0.0,"inconclusive_probability":0.065,"wilson_95":{"lower":0.8919809207009312,"upper":0.9616355640365893},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
-    {"cell_id":"REFERENCE__2HT","generator":"2HT","selected":{"EVSD":0,"2HT":194,"INCONCLUSIVE":6},"recovery_probability":0.97,"wrong_probability":0.0,"inconclusive_probability":0.03,"wilson_95":{"lower":0.9361057075454807,"upper":0.9861546137809734},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
+    {"cell_id":"LATENT_ASSOCIATED_ATTRITION__EVSD","generator":"EVSD","seed":3675279445,"selected":{"EVSD":180,"2HT":1,"INCONCLUSIVE":19},"recovery_probability":0.9,"wrong_probability":0.005,"inconclusive_probability":0.095,"wilson_95":{"lower":0.8505941875672827,"upper":0.934329551330904},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
+    {"cell_id":"LATENT_ASSOCIATED_ATTRITION__2HT","generator":"2HT","seed":2828128677,"selected":{"EVSD":0,"2HT":190,"INCONCLUSIVE":10},"recovery_probability":0.95,"wrong_probability":0.0,"inconclusive_probability":0.05,"wilson_95":{"lower":0.9104218518612239,"upper":0.972617354399236},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
+    {"cell_id":"MAR_LIKE_ATTRITION__EVSD","generator":"EVSD","seed":599713742,"selected":{"EVSD":179,"2HT":1,"INCONCLUSIVE":20},"recovery_probability":0.895,"wrong_probability":0.005,"inconclusive_probability":0.1,"wilson_95":{"lower":0.8448196800887696,"upper":0.9302925120731899},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
+    {"cell_id":"MAR_LIKE_ATTRITION__2HT","generator":"2HT","seed":1012767477,"selected":{"EVSD":0,"2HT":189,"INCONCLUSIVE":11},"recovery_probability":0.945,"wrong_probability":0.0,"inconclusive_probability":0.055,"wilson_95":{"lower":0.9042130012276914,"upper":0.9690146582965411},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
+    {"cell_id":"REFERENCE__EVSD","generator":"EVSD","seed":330315188,"selected":{"EVSD":187,"2HT":0,"INCONCLUSIVE":13},"recovery_probability":0.935,"wrong_probability":0.0,"inconclusive_probability":0.065,"wilson_95":{"lower":0.8919809207009312,"upper":0.961623645350847},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
+    {"cell_id":"REFERENCE__2HT","generator":"2HT","seed":344717150,"selected":{"EVSD":0,"2HT":194,"INCONCLUSIVE":6},"recovery_probability":0.97,"wrong_probability":0.0,"inconclusive_probability":0.03,"wilson_95":{"lower":0.9361057075454807,"upper":0.9861796856598887},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
     {"cell_id":"RHO_NEGATIVE__EVSD","generator":"EVSD","seed":2809520452,"selected":{"EVSD":178,"2HT":1,"INCONCLUSIVE":21},"recovery_probability":0.89,"wrong_probability":0.005,"inconclusive_probability":0.105,"wilson_95":{"lower":0.8390730900269852,"upper":0.9262275553987469},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
     {"cell_id":"RHO_NEGATIVE__2HT","generator":"2HT","seed":3140602684,"selected":{"EVSD":0,"2HT":197,"INCONCLUSIVE":3},"recovery_probability":0.985,"wrong_probability":0.0,"inconclusive_probability":0.015,"wilson_95":{"lower":0.9568342712073097,"upper":0.9948857622067417},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
     {"cell_id":"RHO_POSITIVE__EVSD","generator":"EVSD","seed":2292658211,"selected":{"EVSD":191,"2HT":0,"INCONCLUSIVE":9},"recovery_probability":0.955,"wrong_probability":0.0,"inconclusive_probability":0.045,"wilson_95":{"lower":0.9167032959981803,"upper":0.976147456998507},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
@@ -41,15 +33,7 @@
     {"cell_id":"SERIAL_DEGRADATION__EVSD","generator":"EVSD","seed":783544104,"selected":{"EVSD":179,"2HT":0,"INCONCLUSIVE":21},"recovery_probability":0.895,"wrong_probability":0.0,"inconclusive_probability":0.105,"wilson_95":{"lower":0.8448196800887696,"upper":0.9302925120731899},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true},
     {"cell_id":"SERIAL_DEGRADATION__2HT","generator":"2HT","seed":4066145014,"selected":{"EVSD":0,"2HT":189,"INCONCLUSIVE":11},"recovery_probability":0.945,"wrong_probability":0.0,"inconclusive_probability":0.055,"wilson_95":{"lower":0.9042130012276914,"upper":0.9690146582965411},"passes_formal_gate":true,"passes_secondary_wilson_sensitivity":true}
   ],
-  "run_provenance": {
-    "contract_tooling_commit_sha": "2be27f09d054448abb9005ccf29c0017990a4ccc",
-    "executed_commit_sha": "af338ed1fe94cc8d59578e50471eb1ccc5886df2",
-    "repository": "LaurentiuStaicu/cognitive-epistemic-model",
-    "run_id": "35229760477",
-    "run_attempt": "1",
-    "event_name": "push",
-    "workflow": "M1 Phase M authoritative protocol robustness"
-  },
+  "run_provenance": {"contract_tooling_commit_sha":"2be27f09d054448abb9005ccf29c0017990a4ccc","executed_commit_sha":"af338ed1fe94cc8d59578e50471eb1ccc5886df2","repository":"LaurentiuStaicu/cognitive-epistemic-model","run_id":"35229760477","run_attempt":"1","event_name":"push","workflow":"M1 Phase M authoritative protocol robustness"},
   "source_aggregate_sha256": "479767bc8f75a689060529c803d7796b2588340f7690915dd9fd481b2e6b9f80",
   "interpretation_boundary": "Phase M closes a prospective synthetic stress gate only. PASS/FAIL does not select a human model, identify Pencode, validate a human sample size or authorize recruitment."
 }
