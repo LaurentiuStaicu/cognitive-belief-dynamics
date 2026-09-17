@@ -1,0 +1,62 @@
+/* Product Concept Recovery visual closure.
+ * Desktop pathways must be traceable end-to-end without horizontal scrolling.
+ * The detailed relation explanation remains available on mobile, where the pathway stacks vertically.
+ */
+@media (min-width: 641px) {
+  .product-concept-shell .pathway-scroll {
+    overflow-x: visible;
+  }
+
+  .product-concept-shell .pathway-flow {
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(11, minmax(0, auto));
+    align-items: stretch;
+    justify-content: space-between;
+    gap: clamp(.18rem, .35vw, .4rem);
+  }
+
+  .product-concept-shell .pathway-step {
+    width: clamp(112px, 8.7vw, 136px);
+    min-height: 166px;
+    padding: .68rem;
+  }
+
+  .product-concept-shell .pathway-step strong {
+    font-size: clamp(.76rem, .78vw, .88rem);
+  }
+
+  .product-concept-shell .pathway-step small {
+    font-size: clamp(.67rem, .69vw, .78rem);
+    line-height: 1.3;
+  }
+
+  .product-concept-shell .pathway-connector {
+    width: clamp(58px, 4.6vw, 72px);
+    padding: .28rem .05rem;
+  }
+
+  .product-concept-shell .pathway-connector .connector-line {
+    font-size: 1.6rem;
+  }
+
+  .product-concept-shell .pathway-connector .edge-status-badge {
+    max-width: 100%;
+    padding: .2rem .28rem;
+    font-size: clamp(.55rem, .55vw, .64rem);
+    line-height: 1.08;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .product-concept-shell .pathway-connector > small {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .product-concept-shell .pathway-connector > small {
+    display: block;
+  }
+}
