@@ -66,7 +66,6 @@ try{
 
  await page.locator('.infrastructure-tools summary').click();
  await page.locator('[data-suite-tool="search"]').first().click();await page.locator('#semanticSearchInput').waitFor();await page.locator('#semanticSearchInput').fill('world model');await page.locator('#semanticSearchForm button[type="submit"]').click();assert((await page.locator('[data-search-result-id]').count())>0);
- await page.locator('.infrastructure-tools summary').click().catch(()=>{});
  await page.locator('[data-suite-tool="inspector"]').first().click();await page.locator('#semanticInspector').waitFor();
 
  const workspace=JSON.parse(await page.evaluate(()=>localStorage.getItem('cem.workspace.v1.active')));assert.equal(workspace.schema_version,'1');
