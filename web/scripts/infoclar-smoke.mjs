@@ -69,6 +69,7 @@ try{
  checkpoint='open infrastructure disclosure';await page.locator('.infrastructure-tools summary').click();
  checkpoint='open semantic search';await page.locator('[data-suite-tool="search"]').first().click();
  checkpoint='wait semantic search';await page.locator('#semanticSearchInput').waitFor();await page.locator('#semanticSearchInput').fill('world model');await page.locator('#semanticSearchForm button[type="submit"]').click();assert((await page.locator('[data-search-result-id]').count())>0);
+ checkpoint='reopen infrastructure disclosure after search remount';await page.locator('.infrastructure-tools summary').click();
  checkpoint='open semantic inspector';await page.locator('[data-suite-tool="inspector"]').first().click();
  checkpoint='wait semantic inspector';await page.locator('#semanticInspector').waitFor();
 
