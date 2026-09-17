@@ -2306,11 +2306,11 @@
         "VAR.OBSERVED.SAMPLE.BALANCE",
         "VAR.PREVIEW.IMPRESSION",
         "VAR.RELIABILITY.ESTIMATE",
-        "VAR.WORLD.LIKELIHOOD_RATIO",
-        "VAR.WORLD.POSTERIOR",
-        "VAR.WORLD.PRIOR",
-        "VAR.WORLD.PROVENANCE",
-        "VAR.WORLD.UNCERTAINTY"
+        "WM.VAR.LR",
+        "WM.VAR.POSTERIOR",
+        "WM.VAR.PRIOR",
+        "WM.VAR.PROVENANCE",
+        "WM.VAR.UNCERTAINTY"
       ],
       "semantic_type": "THEORY_CHAPTER",
       "source": {
@@ -3065,7 +3065,7 @@
       }
     },
     {
-      "id": "VAR.WORLD.LIKELIHOOD_RATIO",
+      "id": "WM.VAR.LR",
       "labels": {
         "alternative": {
           "und": [
@@ -3083,15 +3083,20 @@
       "semantic_type": "VARIABLE",
       "short_name": "LR",
       "source": {
-        "path": "model/variables.json",
-        "source_id": "VAR.WORLD.LIKELIHOOD_RATIO"
+        "path": "model/contracts/world_model_v1.json",
+        "source_id": "WM.VAR.LR"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
       },
       "summary": {
-        "en": "Externally supplied diagnostic ratio P(evidence|proposition true) / P(evidence|proposition false) from a defensible task-specific measurement model."
+        "en": "Externally justified diagnostic evidence ratio P(evidence|proposition true) / P(evidence|proposition false)."
       }
     },
     {
-      "id": "VAR.WORLD.POSTERIOR",
+      "id": "WM.VAR.POSTERIOR",
       "labels": {
         "alternative": {
           "und": [
@@ -3109,15 +3114,20 @@
       "semantic_type": "VARIABLE",
       "short_name": "Pwm",
       "source": {
-        "path": "model/variables.json",
-        "source_id": "VAR.WORLD.POSTERIOR"
+        "path": "model/contracts/world_model_v1.json",
+        "source_id": "WM.VAR.POSTERIOR"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
       },
       "summary": {
-        "en": "Normative binary proposition probability after a declared prior is updated with one or more defensible diagnostic likelihood ratios."
+        "en": "Normative proposition probability after applying one or more justified likelihood-ratio updates."
       }
     },
     {
-      "id": "VAR.WORLD.PRIOR",
+      "id": "WM.VAR.PRIOR",
       "labels": {
         "alternative": {
           "und": [
@@ -3135,15 +3145,20 @@
       "semantic_type": "VARIABLE",
       "short_name": "Pprior",
       "source": {
-        "path": "model/variables.json",
-        "source_id": "VAR.WORLD.PRIOR"
+        "path": "model/contracts/world_model_v1.json",
+        "source_id": "WM.VAR.PRIOR"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
       },
       "summary": {
-        "en": "Normative probability assigned to a binary proposition before the current diagnostic evidence item when the task supplies a defensible probabilistic prior."
+        "en": "Normative probability assigned to a binary proposition before the current diagnostic evidence item."
       }
     },
     {
-      "id": "VAR.WORLD.PROVENANCE",
+      "id": "WM.VAR.PROVENANCE",
       "labels": {
         "alternative": {
           "und": [
@@ -3161,15 +3176,21 @@
       "semantic_type": "VARIABLE",
       "short_name": "Prov",
       "source": {
-        "path": "model/variables.json",
-        "source_id": "VAR.WORLD.PROVENANCE"
+        "path": "model/contracts/world_model_v1.json",
+        "source_id": "WM.VAR.PROVENANCE"
+      },
+      "status_facets": {
+        "source_tags": [
+          "CONCEPTUAL",
+          "EMPIRICAL"
+        ]
       },
       "summary": {
-        "en": "Traceable record of an evidence item, source, acquisition context, and measurement assumptions relevant to a world-model update."
+        "en": "Traceable record of the evidence item, source, acquisition context and measurement assumptions used in an update."
       }
     },
     {
-      "id": "VAR.WORLD.UNCERTAINTY",
+      "id": "WM.VAR.UNCERTAINTY",
       "labels": {
         "alternative": {
           "und": [
@@ -3187,11 +3208,16 @@
       "semantic_type": "VARIABLE",
       "short_name": "Uwm",
       "source": {
-        "path": "model/variables.json",
-        "source_id": "VAR.WORLD.UNCERTAINTY"
+        "path": "model/contracts/world_model_v1.json",
+        "source_id": "WM.VAR.UNCERTAINTY"
+      },
+      "status_facets": {
+        "source_tags": [
+          "EXECUTABLE"
+        ]
       },
       "summary": {
-        "en": "Normalized binary Shannon entropy derived from Pwm, equal to one at p=0.5 and zero at p=0 or p=1."
+        "en": "Normalized binary Shannon entropy derived from Pwm; 1 at p=0.5 and 0 at p=0 or p=1."
       }
     }
   ],
@@ -5742,7 +5768,7 @@
       "target": "VAR.RELIABILITY.ESTIMATE"
     },
     {
-      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.WORLD.LIKELIHOOD_RATIO",
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.WM.VAR.LR",
       "layer": "DOCUMENTATION_RELATION",
       "relation_type": "USES_VARIABLE",
       "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
@@ -5750,10 +5776,10 @@
         "path": "model/theory_index.json",
         "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
       },
-      "target": "VAR.WORLD.LIKELIHOOD_RATIO"
+      "target": "WM.VAR.LR"
     },
     {
-      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.WORLD.POSTERIOR",
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.WM.VAR.POSTERIOR",
       "layer": "DOCUMENTATION_RELATION",
       "relation_type": "USES_VARIABLE",
       "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
@@ -5761,10 +5787,10 @@
         "path": "model/theory_index.json",
         "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
       },
-      "target": "VAR.WORLD.POSTERIOR"
+      "target": "WM.VAR.POSTERIOR"
     },
     {
-      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.WORLD.PRIOR",
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.WM.VAR.PRIOR",
       "layer": "DOCUMENTATION_RELATION",
       "relation_type": "USES_VARIABLE",
       "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
@@ -5772,10 +5798,10 @@
         "path": "model/theory_index.json",
         "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
       },
-      "target": "VAR.WORLD.PRIOR"
+      "target": "WM.VAR.PRIOR"
     },
     {
-      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.WORLD.PROVENANCE",
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.WM.VAR.PROVENANCE",
       "layer": "DOCUMENTATION_RELATION",
       "relation_type": "USES_VARIABLE",
       "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
@@ -5783,10 +5809,10 @@
         "path": "model/theory_index.json",
         "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
       },
-      "target": "VAR.WORLD.PROVENANCE"
+      "target": "WM.VAR.PROVENANCE"
     },
     {
-      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.VAR.WORLD.UNCERTAINTY",
+      "id": "SEMREL.DOC.THEORY.16.WORLD_MODEL_CONSTRUCTION.USES_VARIABLE.WM.VAR.UNCERTAINTY",
       "layer": "DOCUMENTATION_RELATION",
       "relation_type": "USES_VARIABLE",
       "source": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
@@ -5794,13 +5820,14 @@
         "path": "model/theory_index.json",
         "source_id": "THEORY.16.WORLD_MODEL_CONSTRUCTION"
       },
-      "target": "VAR.WORLD.UNCERTAINTY"
+      "target": "WM.VAR.UNCERTAINTY"
     }
   ],
   "schema_version": "1",
   "source_paths": [
     "model/computational_dependencies.json",
     "model/contracts/oa0_optimization_baseline.json",
+    "model/contracts/world_model_v1.json",
     "model/empirical_targets.json",
     "model/links.json",
     "model/modules.json",

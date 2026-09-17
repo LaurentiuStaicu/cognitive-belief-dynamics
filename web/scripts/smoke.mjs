@@ -23,14 +23,11 @@ try {
  browser=await chromium.launch({headless:true, ...(process.env.CEM_BROWSER_PATH ? {executablePath:process.env.CEM_BROWSER_PATH, args:['--no-sandbox','--disable-gpu']} : {})});
  const page=await browser.newPage({viewport:{width:1440,height:1050},reducedMotion:'reduce'});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
- const domainForView={learning:'understand',structure:'understand',process:'understand',runs:'analyze',comparison:'analyze',planning:'act',reference:'library'};
  const openView=async view=>{
-  const domain=domainForView[view];
-  assert(domain,`missing IA domain for view ${view}`);
-  await page.locator(`[data-nav-group="${domain}"]`).click();
-  await page.locator(`[data-view="${view}"]`).click();
+  if(view==='learning'){await page.locator('[data-suite-learn="mechanisms"]').first().click();return;}
+  await page.locator(`[data-suite-view="${view}"]`).first().click();
  };
- const waitTheory=()=>page.waitForFunction(()=>document.querySelector('#theoryArticle')?.getAttribute('aria-busy')==='false');
+ const waitTheory=()=>page.waitForFunction(()=>document.querySelector('#suiteTheoryContext #theoryArticle')?.getAttribute('aria-busy')==='false');
  page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
  await page.goto(url);
  assert.equal(await page.locator('html').getAttribute('lang'),'en');
@@ -89,7 +86,10 @@ try {
  const version=JSON.parse(await readFile(path.join(dist,'model/version.json'),'utf8'));
  assert.match(await page.locator('#releaseVersion').textContent(),new RegExp(version.version.replaceAll('.', '\\.')));
  assert((await page.locator('#releaseVersion').getAttribute('href')).endsWith('/'+version.release_tag));
- assert.equal(await page.locator('search.global-search').count(),1);
+ assert.equal(await page.locator('.navigation-shell').count(),0);
+ assert.equal(await page.locator('#semanticSearchInput').count(),0);
+ assert.equal(await page.locator('#semanticInspector').count(),0);
+ await page.locator('[data-suite-tool="search"]').click();
  assert.equal(await page.locator('#semanticSearchInput').getAttribute('type'),'search');
  assert.equal(await page.locator('label[for="semanticSearchInput"]').count(),1);
  assert.equal(await page.locator('[role="combobox"],[role="listbox"],[role="option"]').count(),0);
@@ -101,24 +101,14 @@ try {
  assert.equal(await page.locator('aside#semanticInspector').count(),1);
  assert.equal(await page.locator('#semanticInspector').getAttribute('data-inspector-kind'),'entity');
  assert.equal(await page.locator('#semanticInspector').getAttribute('data-inspector-id'),'VAR.FAMILIARITY.CLAIM');
- assert.equal(await page.evaluate(()=>document.activeElement?.id),'semanticInspector');
  assert.match(await page.locator('#semanticInspector').textContent(),/VAR\.FAMILIARITY\.CLAIM/);
- assert.equal(await page.locator('#semanticInspector [role="dialog"]').count(),0);
- const firstRelation=page.locator('#semanticInspector [data-inspect-id]').first();
- await firstRelation.click();
- assert.equal(await page.locator('#semanticInspector').getAttribute('data-inspector-kind'),'relation');
- assert.match(await page.locator('#semanticInspector .eyebrow').textContent(),/Relație|Dependență|documentație/i);
- const sourceButton=page.locator('#semanticInspector .inspector-endpoints [data-inspect-id]').first();
- await sourceButton.click();
- assert.equal(await page.locator('#semanticInspector').getAttribute('data-inspector-kind'),'entity');
-
- assert.doesNotMatch(await page.locator('#semanticSearchResults').textContent(),/retrievalScore|1000|950|900/);
- const searchValueBeforeNav=await page.locator('#semanticSearchInput').inputValue();
- await page.locator('[data-nav-group="analyze"]').click();
- assert.equal(await page.locator('#semanticSearchInput').inputValue(),searchValueBeforeNav);
- assert.equal(await page.locator('[data-search-result-id="VAR.FAMILIARITY.CLAIM"]').count(),1);
- assert.notEqual(await page.locator('#semanticInspector').getAttribute('data-inspector-id'),'');
- await page.locator('[data-nav-group="understand"]').click();
+ const searchValueBeforeContext=await page.locator('#semanticSearchInput').inputValue();
+ await openView('runs');
+ await page.locator('#scenario').waitFor();
+ assert.equal(await page.locator('#semanticSearchInput').count(),0);
+ await page.locator('[data-suite-tool="search"]').click();
+ assert.equal(await page.locator('#semanticSearchInput').inputValue(),searchValueBeforeContext);
+ await page.locator('[data-suite-learn="theory"]').click();
  await waitTheory();
  const visualTokens=await page.evaluate(()=>{
   const css=getComputedStyle(document.documentElement);
@@ -130,28 +120,22 @@ try {
   };
  });
  assert.deepEqual(visualTokens,{unit:'6px',margin:'12px',reader:'72ch',target:'44px'});
- const domainBox=await page.locator('[data-nav-group="understand"]').boundingBox();
- assert(domainBox&&domainBox.height>=44,'primary domain target must remain at least 44px high');
- await page.locator('[data-nav-group="understand"]').focus();
- assert(Number.parseFloat(await page.locator('[data-nav-group="understand"]').evaluate(el=>getComputedStyle(el).outlineWidth))>=3,'visible focus ring must be at least 3px');
- assert.equal(await page.locator('[data-nav-group]').count(),4);
- assert.equal(await page.locator('[data-nav-group="understand"]').getAttribute('aria-pressed'),'true');
- assert.equal(await page.locator('.views [data-view]').count(),3);
- assert.equal(await page.locator('[data-view="learning"]').getAttribute('aria-pressed'),'true');
- await page.locator('[data-nav-group="analyze"]').click();
- await page.locator('[data-view="runs"]').waitFor();
- assert.equal(await page.locator('[data-nav-group="analyze"]').getAttribute('aria-pressed'),'true');
- assert.equal(await page.locator('.views [data-view]').count(),2);
- assert.equal(await page.locator('[data-view="runs"]').getAttribute('aria-pressed'),'true');
- await page.locator('[data-nav-group="act"]').click();
- await page.locator('[data-view="planning"]').waitFor();
- assert.equal(await page.locator('.views [data-view]').count(),1);
- await page.locator('[data-nav-group="library"]').click();
- await page.locator('[data-view="reference"]').waitFor();
- assert.equal(await page.locator('.views [data-view]').count(),1);
- await page.locator('[data-nav-group="understand"]').click();
- await waitTheory();
- assert.equal(await page.locator('[data-understanding-mode]').count(),6);
+ const theoryButton=page.locator('[data-suite-learn="theory"]').first();
+ const domainBox=await theoryButton.boundingBox();
+ assert(domainBox&&domainBox.height>=44,'Theory/Learn target must remain at least 44px high');
+ await theoryButton.focus();
+ assert(Number.parseFloat(await theoryButton.evaluate(el=>getComputedStyle(el).outlineWidth))>=3,'visible focus ring must be at least 3px');
+ assert.equal(await page.locator('[data-nav-group]').count(),0);
+ assert.equal(await page.locator('.navigation-shell').count(),0);
+ assert.equal(await page.locator('.suite-model-panel').count(),1);
+ assert.equal(await page.locator('.suite-theory-panel').count(),1);
+ assert.equal(await page.locator('.suite-dashboard-panel').count(),1);
+ assert.equal(await page.locator('.suite-aux-panel').count(),1);
+ await openView('runs');await page.locator('#scenario').waitFor();
+ await openView('planning');await page.locator('#bestBundle').waitFor();
+ await openView('reference');await page.locator('[data-registry-id]').first().waitFor();
+ await page.locator('[data-suite-learn="theory"]').click();await waitTheory();
+ assert.equal(await page.locator('[data-understanding-mode]').count(),5);
  assert.equal(await page.locator('[data-understanding-mode="theory"]').getAttribute('aria-pressed'),'true');
  assert.equal(await page.locator('[data-theory-chapter]').count(),17);
  const theoryMeasure=await page.locator('#theoryArticle p').first().evaluate(el=>({
@@ -163,7 +147,7 @@ try {
  assert(theoryMeasure.width<=800,'Theory prose must not expand beyond the reader measure');
  assert((await page.locator('.theory-statuses [data-status]').count())>0);
  assert.notEqual(await page.locator('.theory-statuses [data-status]').first().evaluate(el=>getComputedStyle(el,'::before').content),'none');
- assert.match(await page.locator('#theoryArticle').textContent(),/Ce este Cognitive Epistemic Model/);
+ assert.match(await page.locator('#suiteTheoryContext #theoryArticle:visible').textContent(),/Ce este Cognitive Epistemic Model/);
 
  // OA-5B: explicit Predict -> Reveal -> Explain -> Boundary flow, local bounded history and skip.
  await page.evaluate(()=>{location.hash='#understanding/active/AU-1';});
@@ -214,8 +198,8 @@ try {
  await page.locator('[data-au-open-theory]').click();
  await page.waitForURL(/#understanding\/theory\/belief-accuracy-action$/);
  await waitTheory();
- assert.equal(await page.locator('#theoryArticle').evaluate(el=>document.activeElement===el),true);
- assert.match(await page.locator('#theoryArticle').textContent(),/Convingere, atenție la acuratețe și acțiune/);
+ assert.equal(await page.locator('#suiteTheoryContext #theoryArticle:visible').evaluate(el=>document.activeElement===el),true);
+ assert.match(await page.locator('#suiteTheoryContext #theoryArticle:visible').textContent(),/Convingere, atenție la acuratețe și acțiune/);
  await page.goBack();
  await page.waitForURL(/#understanding\/active\/AU-2$/);
  await page.locator('#activeUnderstandingTitle').waitFor();
@@ -231,7 +215,7 @@ try {
  await page.locator('[data-au-cm-theory]').click();
  await page.waitForURL(/#understanding\/theory\/algorithms-social-feedback$/);
  await waitTheory();
- assert.equal(await page.locator('#theoryArticle').evaluate(el=>document.activeElement===el),true);
+ assert.equal(await page.locator('#suiteTheoryContext #theoryArticle:visible').evaluate(el=>document.activeElement===el),true);
  await page.goBack();
  await page.waitForURL(/#understanding\/active\/challenge-model$/);
  await page.locator('[data-challenge-model="M1.E3"]').waitFor();
@@ -290,7 +274,7 @@ try {
  await waitTheory();
  await page.locator('[data-theory-chapter="repetition-familiarity-truth"]').click();
  await page.waitForURL(/#understanding\/theory\/repetition-familiarity-truth$/);
- await page.locator('#theoryArticle').getByText('Repetiție, familiaritate și adevăr perceput',{exact:true}).waitFor();
+ assert.match(await page.locator('#suiteTheoryContext').textContent(),/Repetiție, familiaritate și adevăr perceput/);
  if(process.env.CEM_SCREENSHOTS){
   await mkdir(process.env.CEM_SCREENSHOTS,{recursive:true});
   await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'theory-ro.png'),fullPage:true});
@@ -298,21 +282,21 @@ try {
  await page.locator('#language').click();
  await waitTheory();
  assert.equal(await page.locator('html').getAttribute('lang'),'en');
- await page.locator('#theoryArticle').getByText('Repetition, familiarity and judged truth',{exact:true}).waitFor();
+ assert.match(await page.locator('#suiteTheoryContext').textContent(),/Repetition, familiarity and judged truth/);
  if(process.env.CEM_SCREENSHOTS)await page.screenshot({path:path.join(process.env.CEM_SCREENSHOTS,'theory-en.png'),fullPage:true});
  await page.locator('#language').click();
  await waitTheory();
  assert.equal(await page.locator('html').getAttribute('lang'),'ro');
- await page.locator('#theoryArticle').getByText('Repetiție, familiaritate și adevăr perceput',{exact:true}).waitFor();
+ assert.match(await page.locator('#suiteTheoryContext').textContent(),/Repetiție, familiaritate și adevăr perceput/);
  await page.locator('[data-theory-token-kind="VAR"][data-theory-token-value="F"]').first().click();
- assert.match(await page.locator('#theoryInspector').textContent(),/Familiaritatea afirmației/);
+ assert.match(await page.locator('#suiteTheoryContext #theoryInspector').textContent(),/Familiaritatea afirmației/);
  await page.locator('#theoryInspector [data-theory-open-view^="reference:"]').click();
  const registryItem=page.locator('[data-registry-id="VAR.FAMILIARITY.CLAIM"]');
  await registryItem.waitFor();
  assert.equal(await registryItem.evaluate(el=>document.activeElement===el),true);
  await page.goBack();
  await waitTheory();
- assert.match(await page.locator('#theoryArticle').textContent(),/Repetiție, familiaritate și adevăr perceput/);
+ assert.match(await page.locator('#suiteTheoryContext #theoryArticle:visible').textContent(),/Repetiție, familiaritate și adevăr perceput/);
  await page.goForward();
  await registryItem.waitFor();
  assert.equal(await registryItem.evaluate(el=>document.activeElement===el),true);

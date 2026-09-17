@@ -52,10 +52,14 @@ def test_semantic_compiler_entity_coverage_matches_authoritative_sources():
         item["semantic_id"]
         for item in load(MODEL / "computational_dependencies.json")["extra_nodes"]
     }
+    expected |= {
+        item["id"]
+        for item in load(MODEL / "contracts" / "world_model_v1.json")["variables"]
+    }
 
     actual = {item["id"] for item in index["entities"]}
     assert actual == expected
-    assert len(actual) == 133
+    assert len(actual) == len(expected)
 
 
 def test_semantic_compiler_preserves_registered_links_exactly():

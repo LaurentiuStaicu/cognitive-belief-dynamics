@@ -68,6 +68,7 @@ def build_semantic_index(model_dir: str | Path) -> dict[str, Any]:
 
     baseline = _load(model_dir / "contracts" / "oa0_optimization_baseline.json")
     variables = _load(model_dir / "variables.json")
+    world_model_contract = _load(model_dir / "contracts" / "world_model_v1.json")
     modules = _load(model_dir / "modules.json")
     references = _load(model_dir / "references.json")
     validations = _load(model_dir / "validation_tests.json")
@@ -101,6 +102,28 @@ def build_semantic_index(model_dir: str | Path) -> dict[str, Any]:
             "related_ids": [item["conceptual_module"]],
         }
         entities.append(entity)
+
+    # MOD.14 scoped normative quantities remain outside the frozen R7 variable registry.
+    # They are semantic variables, but their authority is the module contract.
+    for item in world_model_contract["variables"]:
+        entities.append(
+            {
+                "id": item["id"],
+                "semantic_type": "VARIABLE",
+                "labels": _labels(
+                    item["label"],
+                    alternative={"und": [item["short_name"]]},
+                ),
+                "source": _source(
+                    "model/contracts/world_model_v1.json",
+                    item["id"],
+                ),
+                "short_name": item["short_name"],
+                "summary": {"en": item["definition"]},
+                "status_facets": {"source_tags": item["status"]},
+                "related_ids": [world_model_contract["module_id"]],
+            }
+        )
 
     for item in computational["extra_nodes"]:
         entities.append(
@@ -356,6 +379,7 @@ def build_semantic_index(model_dir: str | Path) -> dict[str, Any]:
             [
                 "model/computational_dependencies.json",
                 "model/contracts/oa0_optimization_baseline.json",
+                "model/contracts/world_model_v1.json",
                 "model/empirical_targets.json",
                 "model/links.json",
                 "model/modules.json",

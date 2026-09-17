@@ -1195,11 +1195,11 @@
       "MOD.14"
     ],
     "variable_ids": [
-      "VAR.WORLD.PRIOR",
-      "VAR.WORLD.LIKELIHOOD_RATIO",
-      "VAR.WORLD.POSTERIOR",
-      "VAR.WORLD.UNCERTAINTY",
-      "VAR.WORLD.PROVENANCE",
+      "WM.VAR.PRIOR",
+      "WM.VAR.LR",
+      "WM.VAR.POSTERIOR",
+      "WM.VAR.UNCERTAINTY",
+      "WM.VAR.PROVENANCE",
       "VAR.EXPOSURE.COUNT",
       "VAR.FAMILIARITY.CLAIM",
       "VAR.CORRECTION.ACCESS",

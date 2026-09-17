@@ -25,7 +25,6 @@ type WorldContract={
 };
 
 const esc=(value:string)=>value.replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]!));
-const clamp=(value:number,min:number,max:number)=>Math.min(max,Math.max(min,value));
 
 function posterior(prior:number,lr:number){
  if(!Number.isFinite(prior)||prior<0||prior>1)throw new Error('prior');
@@ -88,7 +87,7 @@ export async function mountWorldModel(host:HTMLElement,lang:Lang,navigate:(targe
     <p>${t('Calculatorul nu estimează convingerea unei persoane. Arată numai ce produce regula Bayes pentru un prior și un LR furnizate explicit.','The calculator does not estimate a person’s belief. It only shows what Bayes’ rule produces from an explicitly supplied prior and LR.')}</p>
     <div class="wm-calculator">
      <label>${t('Prior Pprior','Prior Pprior')} <input id="wmPrior" type="number" min="0" max="1" step="0.01" value="0.30"></label>
-     <label>${t('Raport diagnostic LR','Diagnostic LR')} <input id="wmLr" type="number" min="0.0001" step="0.1" value="3"></label>
+     <label>${t('Raport de verosimilitate diagnostic LR','Diagnostic likelihood ratio LR')} <input id="wmLr" type="number" min="0.0001" step="0.1" value="3"></label>
      <div class="wm-metrics"><div><span>Pwm</span><strong id="wmPosterior">—</strong></div><div><span>Uwm</span><strong id="wmUncertainty">—</strong></div><div><span>${t('Direcție','Direction')}</span><strong id="wmDirection">—</strong></div></div>
      <p id="wmCalcNote" class="wm-calc-note"></p>
     </div>
@@ -113,7 +112,7 @@ export async function mountWorldModel(host:HTMLElement,lang:Lang,navigate:(targe
  const noteEl=host.querySelector<HTMLElement>('#wmCalcNote')!;
  const update=()=>{
   try{
-   const p=clamp(Number(priorInput.value),0,1);
+   const p=Number(priorInput.value);
    const lr=Number(lrInput.value);
    const next=posterior(p,lr);
    posteriorEl.textContent=next.toFixed(3);
@@ -123,7 +122,7 @@ export async function mountWorldModel(host:HTMLElement,lang:Lang,navigate:(targe
    noteEl.dataset.state='ok';
   }catch{
    posteriorEl.textContent='—';uncertaintyEl.textContent='—';directionEl.textContent='—';
-   noteEl.textContent=t('LR trebuie să fie finit și strict pozitiv. Operatorul eșuează închis.','LR must be finite and strictly positive. The operator fails closed.');
+   noteEl.textContent=t('Priorul trebuie să fie în [0,1], iar LR trebuie să fie finit și strict pozitiv. Operatorul eșuează închis.','Prior must be within [0,1] and LR must be finite and strictly positive. The operator fails closed.');
    noteEl.dataset.state='error';
   }
  };
