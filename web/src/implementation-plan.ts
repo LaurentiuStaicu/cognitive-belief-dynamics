@@ -1,6 +1,6 @@
-import type {ActionCanvasProjection} from './action-canvas';
-import type {AdaptivePlanDraft,AdaptivePlanStep,StructuredTriggerCondition} from './adaptive-plan-runtime';
-import type {IndicatorProjection} from './indicator-objects';
+import type {ActionCanvasProjection} from './core/action-canvas';
+import type {AdaptivePlanDraft,AdaptivePlanStep,StructuredTriggerCondition} from './core/adaptive-plan-runtime';
+import type {IndicatorProjection} from './core/indicator-objects';
 
 type Copy={ro:string;en:string};
 
@@ -83,50 +83,14 @@ export function materializeIllustrativeImplementationPlan(input:MaterializeInput
  if(!input.case_id.startsWith('CEM.CASE.'))throw new Error('invalid case id');
  if(input.action_canvas.scope!=='ILLUSTRATIVE_UNCALIBRATED')throw new Error('only illustrative Action Canvas projections can be materialized in this slice');
  if(input.indicators.observation_boundary!=='SIMULATION_RESULT_IS_NOT_OBSERVED_OUTCOME')throw new Error('indicator observation boundary mismatch');
-
- const node=(stage:ActionCanvasProjection['nodes'][number]['stage'])=>{
-  const found=input.action_canvas.nodes.find(item=>item.stage===stage);
-  if(!found)throw new Error(`missing Action Canvas stage ${stage}`);
-  return found;
- };
+ const node=(stage:ActionCanvasProjection['nodes'][number]['stage'])=>{const found=input.action_canvas.nodes.find(item=>item.stage===stage);if(!found)throw new Error(`missing Action Canvas stage ${stage}`);return found;};
  const operationalIds=input.indicators.indicators.map(item=>item.definition.id);
  if(operationalIds.length===0)throw new Error('ImplementationPlan requires at least one operational Indicator');
  if(input.indicators.coverage.find(item=>item.stage==='INTERMEDIATE')?.status!=='NOT_OPERATIONALIZED')throw new Error('intermediate stage unexpectedly operationalized');
  if(input.indicators.coverage.find(item=>item.stage==='FINAL')?.status!=='NOT_OPERATIONALIZED')throw new Error('final stage unexpectedly operationalized');
-
- const token=(input.id??defaultId)();
- const timestamp=(input.now??(()=>new Date().toISOString()))();
- const toStage=(stage:ActionCanvasProjection['nodes'][number]['stage'])=>{
-  const item=node(stage);
-  return {label:clone(item.title),refs:[...item.refs]};
- };
-
- return {
-  object_type:'ImplementationPlan',
-  id:`CEM.IMPLEMENTATION.PLAN.${token}`,
-  case_id:input.case_id,
-  created_at:timestamp,
-  decision_analysis_id:`CEM.DECISION.ANALYSIS.RUNTIME.${token}`,
-  prospective_snapshot:{
-   id:`CEM.PROSPECTIVE.SNAPSHOT.${token}`,
-   frozen_at:timestamp,
-   revision_policy:'APPEND_ONLY_NO_RETROACTIVE_EDIT'
-  },
-  plan_scope:'ILLUSTRATIVE',
-  action_canvas:{
-   problem:toStage('PROBLEM'),
-   target_mechanism:toStage('TARGET_MECHANISM'),
-   intervention:toStage('INTERVENTION'),
-   proximal_result:{...toStage('PROXIMAL_RESULT'),indicator_ids:[...operationalIds]},
-   intermediate_result:{...toStage('INTERMEDIATE_RESULT'),indicator_ids:[]},
-   final_outcome:{...toStage('FINAL_OUTCOME'),indicator_ids:[]}
-  },
-  indicator_ids:[...operationalIds],
-  adaptive_plan:input.adaptive_plan.steps.map(canonicalAdaptiveStep),
-  status:'DRAFT'
- };
+ const token=(input.id??defaultId)();const timestamp=(input.now??(()=>new Date().toISOString()))();
+ const toStage=(stage:ActionCanvasProjection['nodes'][number]['stage'])=>{const item=node(stage);return {label:clone(item.title),refs:[...item.refs]};};
+ return {object_type:'ImplementationPlan',id:`CEM.IMPLEMENTATION.PLAN.${token}`,case_id:input.case_id,created_at:timestamp,decision_analysis_id:`CEM.DECISION.ANALYSIS.RUNTIME.${token}`,prospective_snapshot:{id:`CEM.PROSPECTIVE.SNAPSHOT.${token}`,frozen_at:timestamp,revision_policy:'APPEND_ONLY_NO_RETROACTIVE_EDIT'},plan_scope:'ILLUSTRATIVE',action_canvas:{problem:toStage('PROBLEM'),target_mechanism:toStage('TARGET_MECHANISM'),intervention:toStage('INTERVENTION'),proximal_result:{...toStage('PROXIMAL_RESULT'),indicator_ids:[...operationalIds]},intermediate_result:{...toStage('INTERMEDIATE_RESULT'),indicator_ids:[]},final_outcome:{...toStage('FINAL_OUTCOME'),indicator_ids:[]}},indicator_ids:[...operationalIds],adaptive_plan:input.adaptive_plan.steps.map(canonicalAdaptiveStep),status:'DRAFT'};
 }
 
-export function isAdaptivePlanReadyForFreeze(plan:AdaptivePlanDraft):boolean{
- try{requireCompleteAdaptivePlan(plan);return true;}catch{return false;}
-}
+export function isAdaptivePlanReadyForFreeze(plan:AdaptivePlanDraft):boolean{try{requireCompleteAdaptivePlan(plan);return true;}catch{return false;}}
