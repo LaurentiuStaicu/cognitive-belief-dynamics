@@ -128,7 +128,7 @@ try{
 
  await page.goto(url);
  await waitForSettledUi();
- assert.equal(await page.locator('html').getAttribute('lang'),'ro','document language must start in Romanian');
+ assert.equal(await page.locator('html').getAttribute('lang'),'en','document language must start in English');
  assert.match(await page.title(),/Cognitive Epistemic Model/i,'page title must describe the application');
 
  const duplicateIds=await page.evaluate(()=>{
@@ -148,11 +148,11 @@ try{
   assert.equal(await control.getAttribute('aria-pressed'),'true',`${domain}: Enter must activate primary navigation`);
  }
 
- // RO/EN language state must update the page language metadata.
- await page.locator('#language').click();
- assert.equal(await page.locator('html').getAttribute('lang'),'en');
+ // EN/RO language state must update the page language metadata.
  await page.locator('#language').click();
  assert.equal(await page.locator('html').getAttribute('lang'),'ro');
+ await page.locator('#language').click();
+ assert.equal(await page.locator('html').getAttribute('lang'),'en');
 
  // Audit every currently exposed primary/secondary surface at the normal desktop viewport.
  for(const [domain,views] of Object.entries(domains)){
