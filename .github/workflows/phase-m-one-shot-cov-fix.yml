@@ -1,0 +1,32 @@
+name: Phase M one-shot NumPy API correction
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-self-remove:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'm1-phase-m-protocol-robustness'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - name: Patch exact NumPy keyword and remove helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          file='src/cognitive_epistemic_model/calibration/m1_e4_protocol_robustness.py'
+          test "$(grep -o 'covariance=covariance' "$file" | wc -l)" -eq 1
+          sed -i 's/covariance=covariance/cov=covariance/' "$file"
+          rm .github/workflows/phase-m-one-shot-cov-fix.yml
+          git add "$file" .github/workflows/phase-m-one-shot-cov-fix.yml
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Phase M: fix NumPy multivariate normal keyword"
+          git push origin "HEAD:${GITHUB_HEAD_REF}"
