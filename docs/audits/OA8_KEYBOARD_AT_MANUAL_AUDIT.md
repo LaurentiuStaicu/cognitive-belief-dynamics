@@ -1,8 +1,14 @@
 # OA-8 Keyboard + Assistive Technology Manual Audit
 
-Status: PENDING_MANUAL_EXECUTION
+Status: DEFERRED_POST_V1
 
 Target: Cognitive Epistemic Model web application, WCAG 2.2 AA trust-hardening track.
+
+## Project scheduling decision
+
+The detailed manual keyboard + assistive-technology execution is intentionally deferred until after v1 (or immediately before any release claim that depends on manual AT evidence), so module development can proceed without repeatedly re-auditing a rapidly changing interface.
+
+This status is **not a PASS** and must not be used as evidence of complete WCAG 2.2 AA conformance. Automated accessibility, keyboard, reflow and semantic regression gates remain active during pre-v1 development. The task matrix below is preserved as the required execution protocol when the deferred audit resumes.
 
 This record is intentionally not a conformance statement. Automated browser checks are prerequisites only. W3C guidance states that no evaluation tool alone can determine accessibility and that knowledgeable human evaluation is required. WAI-ARIA APG also recommends testing relevant browser + assistive-technology combinations because interoperability varies.
 
@@ -63,8 +69,8 @@ Primary Linux matrix for the project's current desktop development environment:
 
 | Combination | Status | Notes |
 | --- | --- | --- |
-| Orca + Firefox | PENDING | Primary semantic/navigation audit |
-| Orca + Chromium | PENDING | Cross-browser AT spot-check |
+| Orca + Firefox | DEFERRED_POST_V1 | Primary semantic/navigation audit not completed |
+| Orca + Chromium | DEFERRED_POST_V1 | Cross-browser AT spot-check not completed |
 
 If another platform becomes a supported target before v1, add at least one relevant browser + AT combination for that platform rather than assuming Linux results generalize.
 
@@ -96,7 +102,7 @@ Use only:
 - `NOT_APPLICABLE` — criterion/task does not apply, with reason;
 - `NOT_TESTED` — not executed.
 
-`PENDING_MANUAL_EXECUTION` must remain the document-level status until every required task in the primary matrix has an explicit result.
+When the deferred audit resumes, document-level status must change from `DEFERRED_POST_V1` to `PENDING_MANUAL_EXECUTION` until every required task in the primary matrix has an explicit result.
 
 ## 7. Finding format
 
@@ -114,9 +120,9 @@ For each failure record:
 - remediation commit/PR once fixed;
 - retest result.
 
-## 8. Closure rule
+## 8. Closure rule for the deferred audit
 
-This audit is complete only when:
+This manual audit is complete only when:
 
 - keyboard-only manual traversal is recorded for all exposed surfaces;
 - the primary AT matrix is executed;
