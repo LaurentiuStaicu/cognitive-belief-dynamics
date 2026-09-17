@@ -82,6 +82,8 @@ def validate_theory_contract(
     modules = _load(model_dir / "modules.json")
     validations = _load(model_dir / "validation_tests.json")
     references = _load(model_dir / "references.json")
+    world_model_path = model_dir / "contracts" / "world_model_v1.json"
+    world_model_variables = _load(world_model_path).get("variables", []) if world_model_path.is_file() else []
 
     _validate_items(chapters, _load(schema_dir / "theory_index.schema.json"), "theory_index")
     _validate_items(glossary, _load(schema_dir / "theory_glossary.schema.json"), "theory_glossary")
@@ -101,8 +103,8 @@ def validate_theory_contract(
 
     chapter_ids = {item["id"] for item in chapters}
     module_ids = {item["id"] for item in modules}
-    variable_ids = {item["id"] for item in variables}
-    variable_tokens = variable_ids | {item["short_name"] for item in variables}
+    variable_ids = {item["id"] for item in variables} | {item["id"] for item in world_model_variables}
+    variable_tokens = variable_ids | {item["short_name"] for item in variables} | {item["short_name"] for item in world_model_variables}
     validation_ids = {item["id"] for item in validations}
     reference_ids = {item["id"] for item in references}
     mechanism_tokens = {
