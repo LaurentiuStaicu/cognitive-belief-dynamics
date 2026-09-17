@@ -38,7 +38,7 @@ try {
  assert(workspaceBeforeReload);
  const initialWorkspace=JSON.parse(workspaceBeforeReload);
  assert.equal(initialWorkspace.schema_version,'1');
- assert.equal(initialWorkspace.versions.software_version,'0.4.2a0');
+ assert.equal(initialWorkspace.versions.software_version,'0.4.3a0');
  assert.equal(initialWorkspace.versions.model_specification,'M1');
  assert.equal(initialWorkspace.versions.evidence_snapshot,'EVIDENCE.M1.2026-09-16.r1');
  assert.deepEqual(initialWorkspace.case.entity_refs,[]);
