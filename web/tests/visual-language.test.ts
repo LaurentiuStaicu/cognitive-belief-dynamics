@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {visualLanguage} from '../src/visual-language.ts';
+
+const visualCss=readFileSync(new URL('../src/visual-language.css',import.meta.url),'utf8');
 
 test('visual spacing uses the documented six-pixel rhythm and safe content margin',()=>{
  assert.equal(visualLanguage.spacing.unitPx,6);
@@ -20,6 +23,18 @@ test('interaction targets and focus indicators exceed project minimums',()=>{
  assert(visualLanguage.interaction.targetMinPx>=44);
  assert(visualLanguage.interaction.focusRingPx>=2);
  assert(visualLanguage.interaction.focusOffsetPx>=2);
+});
+
+test('VP-2 selected navigation states keep non-color visual cues',()=>{
+ assert.match(visualCss,/\.nav-groups button\[aria-pressed=true\]\{[^}]*font-weight:700;[^}]*box-shadow:inset 0 -3px 0 currentColor/s);
+ assert.match(visualCss,/\.views button\[aria-pressed=true\]\{[^}]*border-bottom-color:var\(--accent\);[^}]*font-weight:700/s);
+ assert.match(visualCss,/button\[aria-pressed=true\]\{font-weight:700\}/);
+});
+
+test('VP-2 disclosure and disabled controls retain explicit interaction treatment',()=>{
+ assert.match(visualCss,/summary\{min-height:var\(--vl-target-min\);[^}]*cursor:pointer/s);
+ assert.match(visualCss,/button:disabled,select:disabled,input\[type=number\]:disabled\{opacity:\.52;cursor:not-allowed\}/);
+ assert.match(visualCss,/button:hover:not\(:disabled\),\.button-link:hover\{background:var\(--vl-control-hover\)\}/);
 });
 
 test('adaptive breakpoints are ordered and preserve existing shell thresholds',()=>{
