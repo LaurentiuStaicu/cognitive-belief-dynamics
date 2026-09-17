@@ -22,7 +22,7 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - name: Apply shell and semantic migration
         run: python .github/scripts/mod14_infoclar_shell.py
-      - name: Harden migration regression gates
+      - name: Harden migration regression gates and product header
         run: |
           python - <<'PY'
           import json, re
@@ -48,9 +48,12 @@ jobs:
           c=css.read_text()
           c=c.replace('.cem-map-flow{display:grid;place-items:center;font-size:1.5rem;font-weight:700;color:var(--muted)}','.cem-map-flow{display:grid;place-items:center;font-size:1.5rem;font-weight:700;color:var(--muted);pointer-events:none}')
           contextual='#suiteTheoryContext .theory-layout{grid-template-columns:minmax(0,1fr)!important;gap:var(--vl-space-2)!important}#suiteTheoryContext .theory-chapters{position:static!important;max-height:none!important;min-width:0}#suiteTheoryContext .theory-chapter-list{display:none}#suiteTheoryContext .theory-chapter-select{display:block!important}#suiteTheoryContext .theory-reader,#suiteTheoryContext .theory-inspector{min-width:0}#suiteTheoryContext .theory-token{min-width:24px;max-width:100%;white-space:normal;overflow-wrap:anywhere}\n'
+          mechanisms_contextual='#suiteTheoryContext .understanding-workspace{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:var(--vl-space-2)!important}#suiteTheoryContext .understanding-workspace>*{min-width:0!important;max-width:100%!important}#suiteTheoryContext .prose-reader,#suiteTheoryContext .narrative-inspector{min-width:0!important;width:100%!important;max-width:100%!important}#suiteTheoryContext .narrative-inspector{position:static!important}#suiteTheoryContext .understanding-workspace details,#suiteTheoryContext .understanding-workspace summary{max-width:100%;overflow-wrap:anywhere}#suiteTheoryContext .understanding-workspace summary{display:block;width:100%;min-width:24px!important;min-height:32px}\n'
+          marker='@media(max-width:980px)'
           if contextual not in c:
-              marker='@media(max-width:980px)'
               c=c.replace(marker,contextual+marker)
+          if mechanisms_contextual not in c:
+              c=c.replace(marker,mechanisms_contextual+marker)
           css.write_text(c)
           smoke=Path('web/scripts/smoke.mjs')
           q=smoke.read_text()
@@ -60,6 +63,59 @@ jobs:
           q=q.replace("await page.locator('#suiteTheoryContext #theoryArticle:visible').getByText('Repetiție, familiaritate și adevăr perceput',{exact:true}).waitFor();","assert.match(await page.locator('#suiteTheoryContext').textContent(),/Repetiție, familiaritate și adevăr perceput/);")
           q=q.replace("await page.locator('#suiteTheoryContext #theoryArticle:visible').getByText('Repetition, familiarity and judged truth',{exact:true}).waitFor();","assert.match(await page.locator('#suiteTheoryContext').textContent(),/Repetition, familiarity and judged truth/);")
           smoke.write_text(q)
+          readme=Path('README.md')
+          current=readme.read_text()
+          marker='> **Alpha 0.4.3a0'
+          if marker not in current:
+              raise SystemExit('README release boundary not found')
+          tail=current[current.index(marker):]
+          header='''<!-- Shared InfoClar Model Suite product header reference: CEM / World3 / Macro -->
+<p align="center">
+  <img src="web/public/icon.svg" width="96" height="96" alt="Cognitive Epistemic Model icon">
+</p>
+
+<h1 align="center">Cognitive Epistemic Model</h1>
+
+<p align="center">
+  Understand belief-formation mechanisms, explore how factors interact, and compare priorities and actions through an evidence-aware research prototype.
+</p>
+
+<p align="center">
+  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.3a0"><img alt="Version 0.4.3a0" src="https://img.shields.io/badge/Version-0.4.3a0-4e9a06"></a>
+  <img alt="elementary OS: Web-first" src="https://img.shields.io/badge/elementary_OS-Web--first-64baff">
+  <a href="#releases-and-licensing"><img alt="License: MIT + CC BY 4.0" src="https://img.shields.io/badge/License-MIT_%2B_CC_BY_4.0-blue"></a>
+</p>
+
+<table align="center" role="presentation">
+  <tr>
+    <td align="center" width="220"><a href="https://laurentiustaicu.github.io/cognitive-epistemic-model/"><strong>Open Web App</strong></a></td>
+    <td align="center" width="220"><strong>Download Flatpak</strong><br><sub>Planned</sub></td>
+  </tr>
+</table>
+
+'''
+          readme.write_text(header+tail)
+          PY
+      - name: Validate standardized README product header
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text=Path('README.md').read_text()
+          header=text.split('> **Alpha',1)[0]
+          assert '<!-- Shared InfoClar Model Suite product header reference: CEM / World3 / Macro -->' in header
+          assert header.count('img.shields.io/badge/') == 3
+          badges=[header.index('/badge/Version-'),header.index('/badge/elementary_OS-'),header.index('/badge/License-')]
+          assert badges == sorted(badges)
+          for removed in ('/badge/stage-','/badge/app-Web','Flatpak-planned','InfoClar-v1.1','code_license-','/badge/docs-'):
+              assert removed not in header, removed
+          assert 'https://laurentiustaicu.github.io/cognitive-epistemic-model/' in header
+          assert '<a href="https://laurentiustaicu.github.io/cognitive-epistemic-model/"><strong>Open Web App</strong></a>' in header
+          assert '<strong>Download Flatpak</strong><br><sub>Planned</sub>' in header
+          flatpak_segment=header.split('<strong>Download Flatpak</strong>',1)[0].rsplit('<td',1)[-1]
+          assert '<a ' not in flatpak_segment
+          assert 'Original code: MIT.' in text
+          assert 'Original documentation and registries: CC BY 4.0.' in text
+          assert 'M1.E4' in text
           PY
       - name: Validate Python and regenerate exports
         run: |
