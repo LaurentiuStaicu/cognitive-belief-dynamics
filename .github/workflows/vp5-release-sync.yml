@@ -1,0 +1,43 @@
+name: VP-5 release metadata sync
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  sync-release-metadata:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'visual-polish-vp5-release-consolidation'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - name: Synchronize npm and canonical static exports
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -e .
+          PY_VERSION="$(python -c 'from cognitive_epistemic_model import __version__; print(__version__)')"
+          NPM_VERSION="$(python -c 'from cognitive_epistemic_model import __version__; print(__version__.replace("a", "-alpha."))')"
+          test "$PY_VERSION" = "0.4.3a0"
+          (cd web && npm version "$NPM_VERSION" --no-git-tag-version --allow-same-version)
+          python scripts/export_web.py
+          git add web/package.json web/package-lock.json web/public/model
+          if git diff --cached --quiet; then
+            echo "Release metadata already synchronized."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "VP-5: synchronize release metadata and canonical exports"
+          git push origin "HEAD:${GITHUB_HEAD_REF}"
