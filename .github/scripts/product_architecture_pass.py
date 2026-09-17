@@ -9,6 +9,13 @@ s=s.replace("chapterSlug:'editorial-selection'","chapterSlug:'editorial-selectio
 s=s.replace("chapterSlug:'presentation-framing-congruence'","chapterSlug:'framing-congruence'")
 product.write_text(s)
 
+# New persistent disclosures must remain real interaction targets in every contextual surface.
+css=root/'web/src/suite-overview.css'
+c=css.read_text()
+c=c.replace('.suite-learning-more summary{min-height:44px;display:flex;align-items:center;cursor:pointer}', '.suite-learning-more>summary{display:block;width:100%;min-width:24px;min-height:44px;cursor:pointer;overflow-wrap:anywhere}')
+c=c.replace('.suite-more-diagnostics>summary{min-height:44px;display:flex;align-items:center;cursor:pointer}', '.suite-more-diagnostics>summary{display:block;width:100%;min-width:24px;min-height:44px;cursor:pointer;overflow-wrap:anywhere}')
+css.write_text(c)
+
 # Connect the shared four-region shell to a persistent contextual CEM focus.
 main=root/'web/src/main.ts'
 s=main.read_text()
