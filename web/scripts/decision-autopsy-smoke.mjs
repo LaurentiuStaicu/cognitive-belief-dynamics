@@ -36,8 +36,7 @@ try{
   finally{db.close();}
  },{store,key});
 
- await page.locator('[data-nav-group="act"]').click();
- await page.locator('[data-view="planning"]').click();
+ await page.locator('[data-suite-view="planning"]').first().click();
  await page.locator('#bestBundle').waitFor();
  await page.locator('[data-plan-mask="2"] [data-inspect="2"]').click();
 
@@ -121,7 +120,4 @@ try{
  assert.equal(JSON.stringify(await readIdbRecord('reality_loop_objects',firstAutopsyId)),firstAutopsyBeforeRevision);
  assert.equal(JSON.stringify(await readIdbRecord('reality_loop_objects',planId)),frozenPlanBefore);
  assert.equal(errors.length,0,errors.join('\n'));
-}finally{
- if(browser)await browser.close();
- await new Promise(resolve=>server.close(resolve));
-}
+}finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}
