@@ -1,0 +1,57 @@
+name: Temporary InfoClar v1.1 branch patch
+
+on:
+  push:
+    branches: [uniformize-infoclar-v1-1-shell]
+    paths:
+      - .github/workflows/uniformize-v11-selfpatch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: uniformize-infoclar-v1-1-shell
+          fetch-depth: 0
+      - name: Apply deterministic source changes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          main=Path('web/src/main.ts')
+          s=main.read_text()
+          old="let lang:Lang = 'ro';"
+          new="let lang:Lang = 'en';"
+          assert old in s and new not in s
+          main.write_text(s.replace(old,new,1))
+
+          smoke=Path('web/scripts/smoke.mjs')
+          s=smoke.read_text()
+          old="await page.goto(url);await waitTheory();"
+          new="""await page.goto(url);
+ assert.equal(await page.locator('html').getAttribute('lang'),'en');
+ assert.equal((await page.locator('#language').textContent())?.trim(),'RO');
+ assert.equal(await page.locator('[data-suite-standard]').getAttribute('data-suite-standard'),'InfoClar Model Suite Design Standard v1.1');
+ assert.equal(await page.locator('.suite-model-panel').count(),1);
+ assert.equal(await page.locator('.suite-theory-panel').count(),1);
+ assert.equal(await page.locator('.suite-dashboard-panel').count(),1);
+ assert.equal(await page.locator('.suite-aux-panel').count(),1);
+ assert.equal(await page.locator('input[type=\"file\"]').count(),0);
+ await page.locator('#language').click();
+ assert.equal(await page.locator('html').getAttribute('lang'),'ro');
+ await page.locator('[data-suite-learn=\"theory\"]').click();
+ await waitTheory();"""
+          assert old in s
+          smoke.write_text(s.replace(old,new,1))
+          PY
+      - name: Commit branch patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/src/main.ts web/scripts/smoke.mjs
+          git commit -m "UI: set EN default and adapt browser smoke to v1.1 overview"
+          git push origin HEAD:uniformize-infoclar-v1-1-shell
