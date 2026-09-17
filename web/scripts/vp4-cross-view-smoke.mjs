@@ -22,17 +22,17 @@ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const url=`http://127.0.0.1:${server.address().port}${prefix}`;
 
 const contexts=[
- ['primary',null],
- ['theory','[data-suite-learn="theory"]'],
- ['world-model','[data-suite-learn="world-model"]'],
- ['mechanisms','[data-suite-learn="mechanisms"]'],
- ['runs','[data-suite-view="runs"]'],
- ['comparison','[data-suite-view="comparison"]'],
- ['planning','[data-suite-view="planning"]'],
- ['reference','[data-suite-view="reference"]'],
- ['process','[data-suite-view="process"]'],
- ['search','[data-suite-tool="search"]'],
- ['inspector','[data-suite-tool="inspector"]']
+ ['primary',null,null],
+ ['theory','[data-suite-learn="theory"]','corpus'],
+ ['world-model','[data-suite-learn="world-model"]','corpus'],
+ ['mechanisms','[data-suite-learn="mechanisms"]','corpus'],
+ ['runs','[data-suite-view="runs"]','infra'],
+ ['comparison','[data-suite-view="comparison"]','infra'],
+ ['planning','[data-suite-view="planning"]','infra'],
+ ['reference','[data-suite-view="reference"]','infra'],
+ ['process','[data-suite-view="process"]','infra'],
+ ['search','[data-suite-tool="search"]','infra'],
+ ['inspector','[data-suite-tool="inspector"]','infra']
 ];
 
 const overflowDiagnostic=page=>page.evaluate(()=>[...document.querySelectorAll('body *')]
@@ -47,11 +47,15 @@ const settle=async page=>{
  if(await visibleTheory.count())await page.waitForFunction(()=>[...document.querySelectorAll('#suiteTheoryContext #theoryArticle')].filter(el=>getComputedStyle(el).display!=='none').every(el=>el.getAttribute('aria-busy')!=='true'));
  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
 };
-
+const reveal=async(page,disclosure)=>{
+ if(disclosure==='corpus'){const d=page.locator('.corpus-navigator');if(!await d.evaluate(el=>el.open))await d.locator(':scope > summary').click();}
+ if(disclosure==='infra'){const d=page.locator('.infrastructure-tools');if(!await d.evaluate(el=>el.open))await d.locator(':scope > summary').click();}
+};
 const exercise=async(page,label)=>{
- for(const [name,selector] of contexts){
+ for(const [name,selector,disclosure] of contexts){
   await page.goto(url);
   await settle(page);
+  if(disclosure)await reveal(page,disclosure);
   if(selector){const control=page.locator(selector).first();await control.waitFor({state:'visible'});await control.click();await settle(page);}
   const fits=await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1&&document.body.scrollWidth<=innerWidth+1);
   if(!fits)assert.fail(`${label}/${name}: horizontal overflow ${JSON.stringify(await overflowDiagnostic(page))}`);
