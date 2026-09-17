@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this research software, please cite this repository."
 type: software
 title: "Cognitive Epistemic Model"
-version: 0.4.2a0
-date-released: 2026-09-16
+version: 0.4.3a0
+date-released: 2026-09-17
 authors:
   - family-names: "Staicu"
     given-names: "Laurentiu"

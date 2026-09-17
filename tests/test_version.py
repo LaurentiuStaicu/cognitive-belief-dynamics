@@ -77,5 +77,6 @@ def test_release_versions_are_consistent():
     assert (ROOT / 'docs/ODD_M1_E2.md').is_file()
     assert (ROOT / 'docs/ODD_M1_E3.md').is_file()
     assert (ROOT / 'docs/ALPHA_0.4.2a0_PLAN.md').is_file()
+    assert (ROOT / 'docs/ALPHA_0.4.3a0_OA_VP_CLOSURE_AUDIT.md').is_file()
     assert (ROOT / 'LICENSE').is_file()
     assert (ROOT / 'LICENSES/CC-BY-4.0.txt').is_file()

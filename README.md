@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.2a0"><img alt="Version 0.4.2a0" src="https://img.shields.io/badge/version-0.4.2a0-4e9a06"></a>
+  <a href="https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.3a0"><img alt="Version 0.4.3a0" src="https://img.shields.io/badge/version-0.4.3a0-4e9a06"></a>
   <img alt="Development stage: alpha" src="https://img.shields.io/badge/stage-alpha-e5a50a">
   <img alt="Available application: Web" src="https://img.shields.io/badge/app-Web-4a90d9">
   <img alt="elementary OS Flatpak: planned" src="https://img.shields.io/badge/elementary_OS_Flatpak-planned-64baff">
@@ -23,8 +23,10 @@
   </a>
 </p>
 
-> **Alpha 0.4.2a0.** M1 is a candidate, uncalibrated extension retaining the M0 baseline.
+> **Alpha 0.4.3a0 — Optimization & Visual Polish Consolidation.** M1 remains a candidate, uncalibrated extension retaining the M0 baseline.
 > Software tests do not establish psychological validity or population prevalence.
+
+This release consolidates the web Optimization Architecture through OA-8 and Visual Polish through VP-5. It does not activate M1.E4 or change the scientific outputs of the retained M0 / M1.E1–E3 mechanisms. See the [closure audit](docs/ALPHA_0.4.3a0_OA_VP_CLOSURE_AUDIT.md).
 
 ## Project priorities
 
@@ -152,10 +154,10 @@ checks. The initial live deployment was confirmed on 2026-09-13.
 
 ## Releases and licensing
 
-[Alpha 0.4.2a0 — release notes and downloads](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.2a0).
+[Alpha 0.4.3a0 — Optimization & Visual Polish Consolidation release notes and downloads](https://github.com/LaurentiuStaicu/cognitive-epistemic-model/releases/tag/v0.4.3a0).
 See [CHANGELOG.md](CHANGELOG.md). Releases attach the CI-verified web build and its
 SHA-256 checksum and release provenance attestation; GitHub also provides source archives. The native elementary OS
-Flatpak remains a near-v1 goal. This alpha has no native installer.
+Flatpak remains a near-v1 goal after the planned modules are integrated. This alpha has no native installer.
 
 Original code: MIT. Original documentation and registries: CC BY 4.0.
 See [LICENSING.md](LICENSING.md) for scope and third-party exclusions.
