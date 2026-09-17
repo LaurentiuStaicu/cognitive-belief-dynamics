@@ -63,7 +63,7 @@ def _participant_random_effects(
         raise ValueError("participant heterogeneity scales must be non-negative")
     covariance = np.asarray([[1.0, rho], [rho, 1.0]], dtype=float)
     standardized = rng.multivariate_normal(
-        mean=np.zeros(2, dtype=float), covariance=covariance, size=participants
+        mean=np.zeros(2, dtype=float), cov=covariance, size=participants
     )
     z_memory = standardized[:, 0]
     return z_memory * sigma_memory, standardized[:, 1] * sigma_bias, z_memory
