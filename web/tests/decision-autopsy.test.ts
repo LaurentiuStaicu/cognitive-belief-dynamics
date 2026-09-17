@@ -1,128 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import type {ImplementationPlan} from '../src/implementation-plan.ts';
-import type {ObservedOutcome} from '../src/observed-outcome.ts';
-import {materializeDecisionAutopsy,validateDecisionAutopsyReferences,type DecisionAutopsy} from '../src/decision-autopsy.ts';
+import type {ObservedOutcome} from '../src/core/observed-outcome.ts';
+import {materializeDecisionAutopsy,validateDecisionAutopsyReferences,type DecisionAutopsy} from '../src/core/decision-autopsy.ts';
 
-const plan:ImplementationPlan={
- object_type:'ImplementationPlan',
- id:'CEM.IMPLEMENTATION.PLAN.autopsy-test',
- case_id:'CEM.CASE.autopsy-test',
- created_at:'2026-09-17T04:00:00Z',
- decision_analysis_id:'CEM.DECISION.ANALYSIS.RUNTIME.autopsy-test',
- prospective_snapshot:{id:'CEM.PROSPECTIVE.SNAPSHOT.autopsy-test',frozen_at:'2026-09-17T04:00:00Z',revision_policy:'APPEND_ONLY_NO_RETROACTIVE_EDIT'},
- plan_scope:'ILLUSTRATIVE',
- action_canvas:{
-  problem:{label:{ro:'p',en:'p'},refs:['p']},
-  target_mechanism:{label:{ro:'m',en:'m'},refs:['m']},
-  intervention:{label:{ro:'i',en:'i'},refs:['i']},
-  proximal_result:{label:{ro:'r',en:'r'},refs:['r'],indicator_ids:['CEM.INDICATOR.M0.FALSE_SHARING.MEAN13']},
-  intermediate_result:{label:{ro:'ir',en:'ir'},refs:['ir'],indicator_ids:[]},
-  final_outcome:{label:{ro:'fo',en:'fo'},refs:['fo'],indicator_ids:[]}
- },
- indicator_ids:['CEM.INDICATOR.M0.FALSE_SHARING.MEAN13'],
- adaptive_plan:[
-  {id:'CEM.ADAPTIVE.STEP.RUNTIME.NOW',phase:'NOW',statement:{ro:'n',en:'n'}},
-  {id:'CEM.ADAPTIVE.STEP.RUNTIME.WATCH',phase:'WATCH',statement:{ro:'w',en:'w'},indicator_id:'CEM.INDICATOR.M0.FALSE_SHARING.MEAN13'},
-  {id:'CEM.ADAPTIVE.STEP.RUNTIME.IF',phase:'IF',statement:{ro:'if',en:'if'},trigger_condition:{ro:'x',en:'x'},trigger:{indicator_id:'CEM.INDICATOR.M0.FALSE_SHARING.MEAN13',comparator:'LTE',threshold:0.35,unit:'probability',origin:'USER_DECLARED'}},
-  {id:'CEM.ADAPTIVE.STEP.RUNTIME.THEN',phase:'THEN',statement:{ro:'t',en:'t'},action:{ro:'a',en:'a'}},
-  {id:'CEM.ADAPTIVE.STEP.RUNTIME.STOP',phase:'STOP',statement:{ro:'s',en:'s'},action:{ro:'a',en:'a'}},
-  {id:'CEM.ADAPTIVE.STEP.RUNTIME.REASSESS',phase:'REASSESS',statement:{ro:'r',en:'r'},action:{ro:'a',en:'a'}}
- ],
- status:'DRAFT'
-};
-
-const observed=(id:string,recorded_at='2026-09-17T04:10:00Z'):ObservedOutcome=>({
- object_type:'ObservedOutcome',
- id:`CEM.OBSERVED.OUTCOME.${id}`,
- case_id:plan.case_id,
- implementation_plan_id:plan.id,
- prospective_snapshot_id:plan.prospective_snapshot.id,
- indicator_id:'CEM.INDICATOR.M0.FALSE_SHARING.MEAN13',
- population:{label:{ro:'c',en:'c'},definition:{ro:'c',en:'c'}},
- context:{setting:{ro:'s',en:'s'},time_horizon:'30 days'},
- outcome:{name:{ro:'o',en:'o'},definition:{ro:'o',en:'o'},stage:'PROXIMAL'},
- feature_of_interest:'cohort',
- observed_property:'M0.SIMULATED.FALSE_SHARING.PROBABILITY.MEAN13',
- procedure:'manual',
- phenomenon_time:'2026-09-17T04:05:00Z',
- result_time:'2026-09-17T04:06:00Z',
- result:{value:0.31,unit:'probability'},
- source_refs:['source:test'],
- recorded_at,
- retrospective:true,
- mutation_policy:'APPEND_ONLY_NO_RETROACTIVE_PREDICTION_EDIT'
-});
-
+const plan:ImplementationPlan={object_type:'ImplementationPlan',id:'CEM.IMPLEMENTATION.PLAN.autopsy-test',case_id:'CEM.CASE.autopsy-test',created_at:'2026-09-17T04:00:00Z',decision_analysis_id:'CEM.DECISION.ANALYSIS.RUNTIME.autopsy-test',prospective_snapshot:{id:'CEM.PROSPECTIVE.SNAPSHOT.autopsy-test',frozen_at:'2026-09-17T04:00:00Z',revision_policy:'APPEND_ONLY_NO_RETROACTIVE_EDIT'},plan_scope:'ILLUSTRATIVE',action_canvas:{problem:{label:{ro:'p',en:'p'},refs:['p']},target_mechanism:{label:{ro:'m',en:'m'},refs:['m']},intervention:{label:{ro:'i',en:'i'},refs:['i']},proximal_result:{label:{ro:'r',en:'r'},refs:['r'],indicator_ids:['CEM.INDICATOR.M0.FALSE_SHARING.MEAN13']},intermediate_result:{label:{ro:'ir',en:'ir'},refs:['ir'],indicator_ids:[]},final_outcome:{label:{ro:'fo',en:'fo'},refs:['fo'],indicator_ids:[]}},indicator_ids:['CEM.INDICATOR.M0.FALSE_SHARING.MEAN13'],adaptive_plan:[{id:'CEM.ADAPTIVE.STEP.RUNTIME.NOW',phase:'NOW',statement:{ro:'n',en:'n'}},{id:'CEM.ADAPTIVE.STEP.RUNTIME.WATCH',phase:'WATCH',statement:{ro:'w',en:'w'},indicator_id:'CEM.INDICATOR.M0.FALSE_SHARING.MEAN13'},{id:'CEM.ADAPTIVE.STEP.RUNTIME.IF',phase:'IF',statement:{ro:'if',en:'if'},trigger_condition:{ro:'x',en:'x'},trigger:{indicator_id:'CEM.INDICATOR.M0.FALSE_SHARING.MEAN13',comparator:'LTE',threshold:0.35,unit:'probability',origin:'USER_DECLARED'}},{id:'CEM.ADAPTIVE.STEP.RUNTIME.THEN',phase:'THEN',statement:{ro:'t',en:'t'},action:{ro:'a',en:'a'}},{id:'CEM.ADAPTIVE.STEP.RUNTIME.STOP',phase:'STOP',statement:{ro:'s',en:'s'},action:{ro:'a',en:'a'}},{id:'CEM.ADAPTIVE.STEP.RUNTIME.REASSESS',phase:'REASSESS',statement:{ro:'r',en:'r'},action:{ro:'a',en:'a'}}],status:'DRAFT'};
+const observed=(id:string,recorded_at='2026-09-17T04:10:00Z'):ObservedOutcome=>({object_type:'ObservedOutcome',id:`CEM.OBSERVED.OUTCOME.${id}`,case_id:plan.case_id,implementation_plan_id:plan.id,prospective_snapshot_id:plan.prospective_snapshot.id,indicator_id:'CEM.INDICATOR.M0.FALSE_SHARING.MEAN13',population:{label:{ro:'c',en:'c'},definition:{ro:'c',en:'c'}},context:{setting:{ro:'s',en:'s'},time_horizon:'30 days'},outcome:{name:{ro:'o',en:'o'},definition:{ro:'o',en:'o'},stage:'PROXIMAL'},feature_of_interest:'cohort',observed_property:'M0.SIMULATED.FALSE_SHARING.PROBABILITY.MEAN13',procedure:'manual',phenomenon_time:'2026-09-17T04:05:00Z',result_time:'2026-09-17T04:06:00Z',result:{value:0.31,unit:'probability'},source_refs:['source:test'],recorded_at,retrospective:true,mutation_policy:'APPEND_ONLY_NO_RETROACTIVE_PREDICTION_EDIT'});
 const firstOutcome=observed('one');
-
-const materialize=(overrides:Partial<Parameters<typeof materializeDecisionAutopsy>[0]>={})=>materializeDecisionAutopsy({
- plan,
- outcomes:[firstOutcome],
- prior_autopsies:[],
- observed_outcome_ids:[firstOutcome.id],
- findings:['Observed value satisfied the user-declared IF condition'],
- proposal:{
-  target:'MODEL_ASSUMPTION',
-  rationale:'Manual retrospective rationale',
-  proposed_change:'Review the assumption in a new prospective revision',
-  status:'PROPOSED'
- },
- now:()=> '2026-09-17T04:20:00Z',
- id:()=> 'autopsy-one',
- ...overrides
-});
-
-test('OA-7 materializes a human-authored append-only DecisionAutopsy without mutating the prior prediction',()=>{
- const record=materialize();
- assert.equal(record.object_type,'DecisionAutopsy');
- assert.equal(record.id,'CEM.DECISION.AUTOPSY.autopsy-one');
- assert.equal(record.case_id,plan.case_id);
- assert.equal(record.implementation_plan_id,plan.id);
- assert.equal(record.decision_analysis_id,plan.decision_analysis_id);
- assert.deepEqual(record.observed_outcome_ids,[firstOutcome.id]);
- assert.equal(record.findings[0].ro,record.findings[0].en);
- assert.equal(record.revision_proposals[0].target,'MODEL_ASSUMPTION');
- assert.equal(record.revision_proposals[0].status,'PROPOSED');
- assert.equal(record.prior_prediction_mutated,false);
- assert.equal('revision_of_autopsy_id' in record,false);
-});
-
-test('OA-7 creates a revision as a new DecisionAutopsy linked to a persisted parent',()=>{
- const parent=materialize();
- const revision=materializeDecisionAutopsy({
-  plan,
-  outcomes:[firstOutcome],
-  prior_autopsies:[parent],
-  observed_outcome_ids:[firstOutcome.id],
-  findings:['Second human review after the first autopsy'],
-  proposal:{target:'IMPLEMENTATION_PLAN',rationale:'Updated manual rationale',proposed_change:'Create a new plan revision',status:'ACCEPTED'},
-  revision_of_autopsy_id:parent.id,
-  now:()=> '2026-09-17T04:30:00Z',
-  id:()=> 'autopsy-two'
- });
- assert.equal(revision.id,'CEM.DECISION.AUTOPSY.autopsy-two');
- assert.equal(revision.revision_of_autopsy_id,parent.id);
- assert.notEqual(revision.id,parent.id);
- assert.equal(revision.prior_prediction_mutated,false);
- assert.equal(parent.revision_of_autopsy_id,undefined);
- assert.equal(parent.revision_proposals[0].status,'PROPOSED');
-});
-
-test('OA-7 fails closed on missing observations, future observations and invalid revision parents',()=>{
- assert.throws(()=>materialize({observed_outcome_ids:[]}),/select at least one/);
- assert.throws(()=>materialize({outcomes:[]}),/not present in persisted input set/);
- const future=observed('future','2026-09-17T04:40:00Z');
- assert.throws(()=>materializeDecisionAutopsy({
-  plan,outcomes:[future],prior_autopsies:[],observed_outcome_ids:[future.id],findings:['x'],
-  proposal:{target:'INDICATOR',rationale:'r',proposed_change:'c',status:'PROPOSED'},
-  now:()=> '2026-09-17T04:20:00Z',id:()=> 'future-autopsy'
- }),/cannot predate ObservedOutcome/);
- assert.throws(()=>materialize({revision_of_autopsy_id:'CEM.DECISION.AUTOPSY.missing'}),/revision parent/);
-});
-
-test('OA-7 rejects provenance drift and any attempt to mark the prior prediction as mutated',()=>{
- const record=materialize();
- assert.throws(()=>validateDecisionAutopsyReferences({...record,implementation_plan_id:'CEM.IMPLEMENTATION.PLAN.other'},plan,[firstOutcome],[]),/ImplementationPlan reference mismatch/);
- assert.throws(()=>validateDecisionAutopsyReferences({...record,prior_prediction_mutated:true} as unknown as DecisionAutopsy,plan,[firstOutcome],[]),/must not mutate/);
-});
+const materialize=(overrides:Partial<Parameters<typeof materializeDecisionAutopsy>[0]>={})=>materializeDecisionAutopsy({plan,outcomes:[firstOutcome],prior_autopsies:[],observed_outcome_ids:[firstOutcome.id],findings:['Observed value satisfied the user-declared IF condition'],proposal:{target:'MODEL_ASSUMPTION',rationale:'Manual retrospective rationale',proposed_change:'Review the assumption in a new prospective revision',status:'PROPOSED'},now:()=> '2026-09-17T04:20:00Z',id:()=> 'autopsy-one',...overrides});
+test('OA-7 materializes a human-authored append-only DecisionAutopsy without mutating the prior prediction',()=>{const record=materialize();assert.equal(record.object_type,'DecisionAutopsy');assert.equal(record.id,'CEM.DECISION.AUTOPSY.autopsy-one');assert.equal(record.case_id,plan.case_id);assert.equal(record.implementation_plan_id,plan.id);assert.equal(record.decision_analysis_id,plan.decision_analysis_id);assert.deepEqual(record.observed_outcome_ids,[firstOutcome.id]);assert.equal(record.findings[0].ro,record.findings[0].en);assert.equal(record.revision_proposals[0].target,'MODEL_ASSUMPTION');assert.equal(record.revision_proposals[0].status,'PROPOSED');assert.equal(record.prior_prediction_mutated,false);assert.equal('revision_of_autopsy_id' in record,false);});
+test('OA-7 creates a revision as a new DecisionAutopsy linked to a persisted parent',()=>{const parent=materialize();const revision=materializeDecisionAutopsy({plan,outcomes:[firstOutcome],prior_autopsies:[parent],observed_outcome_ids:[firstOutcome.id],findings:['Second human review after the first autopsy'],proposal:{target:'IMPLEMENTATION_PLAN',rationale:'Updated manual rationale',proposed_change:'Create a new plan revision',status:'ACCEPTED'},revision_of_autopsy_id:parent.id,now:()=> '2026-09-17T04:30:00Z',id:()=> 'autopsy-two'});assert.equal(revision.id,'CEM.DECISION.AUTOPSY.autopsy-two');assert.equal(revision.revision_of_autopsy_id,parent.id);assert.notEqual(revision.id,parent.id);assert.equal(revision.prior_prediction_mutated,false);assert.equal(parent.revision_of_autopsy_id,undefined);assert.equal(parent.revision_proposals[0].status,'PROPOSED');});
+test('OA-7 fails closed on missing observations, future observations and invalid revision parents',()=>{assert.throws(()=>materialize({observed_outcome_ids:[]}),/select at least one/);assert.throws(()=>materialize({outcomes:[]}),/not present in persisted input set/);const future=observed('future','2026-09-17T04:40:00Z');assert.throws(()=>materializeDecisionAutopsy({plan,outcomes:[future],prior_autopsies:[],observed_outcome_ids:[future.id],findings:['x'],proposal:{target:'INDICATOR',rationale:'r',proposed_change:'c',status:'PROPOSED'},now:()=> '2026-09-17T04:20:00Z',id:()=> 'future-autopsy'}),/cannot predate ObservedOutcome/);assert.throws(()=>materialize({revision_of_autopsy_id:'CEM.DECISION.AUTOPSY.missing'}),/revision parent/);});
+test('OA-7 rejects provenance drift and any attempt to mark the prior prediction as mutated',()=>{const record=materialize();assert.throws(()=>validateDecisionAutopsyReferences({...record,implementation_plan_id:'CEM.IMPLEMENTATION.PLAN.other'},plan,[firstOutcome],[]),/ImplementationPlan reference mismatch/);assert.throws(()=>validateDecisionAutopsyReferences({...record,prior_prediction_mutated:true} as unknown as DecisionAutopsy,plan,[firstOutcome],[]),/must not mutate/);});
