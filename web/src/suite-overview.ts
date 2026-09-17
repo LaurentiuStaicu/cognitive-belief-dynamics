@@ -1,178 +1,140 @@
-import {cemDiagnostics,cemProductEdges,cemProductNodes,nodeById,type EpistemicLevel,type ProductLang} from './cem-product-map';
-import {evidenceForNode,intersections,interventionEvidence,pathwayById,questionPathways,semanticFamilies,theoryTopics} from './product-usefulness';
+import {cemProductEdges,cemProductNodes,nodeById,type EpistemicLevel,type ProductLang} from './cem-product-map';
+import {atlasGroups,edgeEvidenceFor,evidenceForNode,intersections,interventionEvidence,pathwayById,questionPathways,theoryTopics} from './product-usefulness';
 
 type Lang=ProductLang;
 type ContextView='structure'|'runs'|'comparison'|'planning'|'reference'|'process';
 type LearnMode='theory'|'mechanisms'|'world-model'|'tour'|'active';
 type AuxTool='search'|'inspector';
-type ExplorerMode='overview'|'question';
+type ProductView='home'|'pathway'|'interventions'|'atlas'|'theory'|'technical';
 
-type SuiteOverviewOptions={
- lang:Lang;
- selectedFocus:string;
- openFocus:(id:string)=>void;
- openUnderstanding:(mode:LearnMode)=>void;
- openTheoryChapter:(slug:string)=>void;
- openReference:(id:string)=>void;
- openView:(view:ContextView)=>void;
- openTool:(tool:AuxTool)=>void;
-};
+type SuiteOverviewOptions={lang:Lang;selectedFocus:string;openFocus:(id:string)=>void;openUnderstanding:(mode:LearnMode)=>void;openTheoryChapter:(slug:string)=>void;openReference:(id:string)=>void;openView:(view:ContextView)=>void;openTool:(tool:AuxTool)=>void;};
 
-let explorerMode:ExplorerMode='overview';
+let productView:ProductView='home';
 let activeQuestionId:string|undefined;
 let activeInterventionId='accuracy-prompts';
+let atlasFilter='major';
+let atlasZoom=1;
 
 const esc=(value:string)=>value.replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]??char));
-const statusLabel=(status:EpistemicLevel,lang:Lang)=>({EMPIRICAL:{ro:'EMPIRIC',en:'EMPIRICAL'},EXECUTABLE:{ro:'EXECUTABIL',en:'EXECUTABLE'},CONCEPTUAL:{ro:'CONCEPTUAL',en:'CONCEPTUAL'},INTERPRETIVE:{ro:'INTERPRETATIV',en:'INTERPRETIVE'}}[status][lang]);
-const externalLink=(url:string,label:string)=>`<a class="suite-evidence-link" href="${esc(url)}" target="_blank" rel="noreferrer">${esc(label)}</a>`;
+const clean=(value:string)=>value
+ .replace(/\bPwm\b/g,'normative proposition probability')
+ .replace(/\bUwm\b/g,'explicit uncertainty')
+ .replace(/\bPprior\b/g,'prior probability')
+ .replace(/\bLR\b/g,'likelihood ratio')
+ .replace(/\bAissue\b/g,'issue appraisal')
+ .replace(/\bSobs\b/g,'observed information balance')
+ .replace(/\bNexp\b/g,'exposure count')
+ .replace(/\bPengage\b/g,'engagement probability')
+ .replace(/\bEngageIntent\b/g,'engagement intention')
+ .replace(/\bPaccess\b/g,'access probability')
+ .replace(/\bPreviewImpression\b/g,'preview impression')
+ .replace(/\bHneg\b/g,'headline-negativity condition')
+ .replace(/\bEedit\b/g,'editorial selection policy')
+ .replace(/\bVcontent\b/g,'content valence')
+ .replace(/\bFpres\b/g,'presentation frame')
+ .replace(/\bGatt\b/g,'prior-attitude congruence')
+ .replace(/\bShare\b/g,'sharing outcome')
+ .replace(/\bDecisionEvent\b/g,'decision event')
+ .replace(/\bF\b/g,'familiarity state')
+ .replace(/\bB\b/g,'belief state')
+ .replace(/\bW\b/g,'accuracy weighting')
+ .replace(/\bC\b/g,'corrective accessibility')
+ .replace(/\bT\b/g,'estimated source reliability')
+ .replace(/\bProv\b/g,'provenance')
+ .replace(/\bMOD\.\d+\b/g,'the relevant CEM module')
+ .replace(/\b(?:REF|VAR|LINK|ODD)\.[A-Z0-9._-]+\b/gi,'technical record');
+const externalLink=(url:string,label:string)=>`<a class="evidence-source" href="${esc(url)}" target="_blank" rel="noreferrer">${esc(label)} ↗</a>`;
+const nodeName=(id:string,lang:Lang)=>clean(nodeById(id)?.label[lang]??id);
+const naturalStatus=(status:EpistemicLevel,lang:Lang)=>({EMPIRICAL:{en:'Empirical',ro:'Empiric'},EXECUTABLE:{en:'Executable in the reference model',ro:'Executabil în modelul de referință'},CONCEPTUAL:{en:'Conceptual',ro:'Conceptual'},INTERPRETIVE:{en:'Interpretive',ro:'Interpretativ'}}[status][lang]);
 
 export function mountSuiteOverview(host:HTMLElement,options:SuiteOverviewOptions){
  const {lang}=options;
  const t=(ro:string,en:string)=>lang==='ro'?ro:en;
  const selected=options.selectedFocus==='overview'?undefined:nodeById(options.selectedFocus);
- const activePath=explorerMode==='question'?pathwayById(activeQuestionId):undefined;
- const pathNodes=new Set(activePath?.nodes??[]);
- const pathEdges=new Set(activePath?.edgeIds??[]);
+ const activePath=pathwayById(activeQuestionId);
  const selectedEdges=selected?cemProductEdges.filter(edge=>edge.source===selected.id||edge.target===selected.id):[];
- const neighborIds=new Set(selectedEdges.flatMap(edge=>[edge.source,edge.target]));
- const nodeName=(id:string)=>nodeById(id)?.label[lang]??id;
- const statusBadges=(statuses:EpistemicLevel[])=>statuses.map(status=>`<span class="epistemic-status" data-status="${status}">${statusLabel(status,lang)}</span>`).join('');
-
- const nodeClass=(id:string)=>{
-  const classes=['cem-system-node'];
-  if(selected?.id===id)classes.push('is-selected');
-  if(activePath){
-   if(pathNodes.has(id))classes.push('is-path');else classes.push('is-dimmed');
-  }else if(selected){
-   if(neighborIds.has(id))classes.push('is-related');else classes.push('is-dimmed');
-  }
-  return classes.join(' ');
- };
- const edgeClass=(id:string,source:string,target:string,level:string)=>{
-  const classes=['cem-system-edge',level==='CONCEPTUAL'?'is-conceptual':'is-executable'];
-  if(activePath){if(pathEdges.has(id))classes.push('is-path');else classes.push('is-dimmed');}
-  else if(selected){if(source===selected.id||target===selected.id)classes.push('is-related');else classes.push('is-dimmed');}
-  return classes.join(' ');
- };
- const mapEdges=cemProductEdges.map(edge=>{
-  const source=nodeById(edge.source)!;const target=nodeById(edge.target)!;
-  return `<line class="${edgeClass(edge.id,edge.source,edge.target,edge.level)}" data-suite-edge="${edge.id}" x1="${source.x*10}" y1="${source.y*6.2}" x2="${target.x*10}" y2="${target.y*6.2}" marker-end="url(#cemArrow)"/>`;
- }).join('');
- const mapNodes=cemProductNodes.map(node=>`<button type="button" class="${nodeClass(node.id)}" data-suite-focus="${node.id}" aria-pressed="${selected?.id===node.id}" style="--node-x:${node.x}%;--node-y:${node.y}%" aria-label="${esc(node.label[lang])}: ${esc(node.summary[lang])}"><strong>${esc(node.label[lang])}</strong><small>${esc(node.identifiers.join(' · '))}</small></button>`).join('');
-
- const questionButtons=questionPathways.map(question=>`<button type="button" class="pathway-question ${activeQuestionId===question.id&&explorerMode==='question'?'is-active':''}" data-pathway-question="${question.id}" aria-pressed="${activeQuestionId===question.id&&explorerMode==='question'}">${esc(question.question[lang])}</button>`).join('');
- const familyChips=semanticFamilies.map(family=>`<span class="mechanism-family ${activePath&&intersections(family.nodes,activePath.nodes)?'is-active':''}" title="${esc(family.modules.join(' · '))}">${esc(family.label[lang])}</span>`).join('');
-
- const selectedEvidence=selected?evidenceForNode(selected.id):undefined;
- const upstream=selectedEdges.filter(edge=>edge.target===selected?.id).map(edge=>nodeName(edge.source));
- const downstream=selectedEdges.filter(edge=>edge.source===selected?.id).map(edge=>nodeName(edge.target));
- const neighbors=[...new Set(selectedEdges.flatMap(edge=>[edge.source,edge.target]).filter(id=>id!==selected?.id))].map(nodeName);
- const inputs=upstream.length?upstream.join(' · '):t('Nicio intrare explicită în harta de produs','No explicit upstream input in the product map');
- const outputs=downstream.length?downstream.join(' · '):t('Nicio ieșire explicită în harta de produs','No explicit downstream output in the product map');
- const evidenceSources=selectedEvidence?.sources??selected?.evidenceRefs.map(ref=>({label:ref,ref}))??[];
- const sourceMarkup=evidenceSources.length?evidenceSources.map(source=>'url' in source&&source.url?externalLink(source.url,source.label):`<button type="button" class="suite-reference-button" data-suite-reference="${esc('ref' in source&&source.ref?source.ref:source.label)}">${esc(source.label)}</button>`).join(''):`<span class="note">${t('Nu există o sinteză cantitativă legată direct de acest nod în catalogul de produs.','No quantitative synthesis is directly attached to this product node.')}</span>`;
-
- const mechanismPanel=selected?`<div class="mechanism-inspector">
-   <div class="mechanism-title-row"><div><p class="eyebrow">${t('MECANISM SELECTAT','SELECTED MECHANISM')}</p><h2>${esc(selected.label[lang])}</h2></div><div class="suite-diagnostic-statuses">${statusBadges(selected.statuses)}</div></div>
-   <p class="mechanism-definition">${esc(selected.summary[lang])}</p>
-   <dl class="mechanism-facts">
-    <dt>${t('Inputuri','Inputs')}</dt><dd>${esc(inputs)}</dd>
-    <dt>${t('Outputuri','Outputs')}</dt><dd>${esc(outputs)}</dd>
-    <dt>${t('Vecini','Neighbours')}</dt><dd>${esc(neighbors.join(' · ')||t('Niciunul în harta curentă','None in current map'))}</dd>
-    <dt>${t('Upstream','Upstream')}</dt><dd>${esc(upstream.join(' · ')||'—')}</dd>
-    <dt>${t('Downstream','Downstream')}</dt><dd>${esc(downstream.join(' · ')||'—')}</dd>
-    <dt>${t('Nivel de dovadă','Evidence level')}</dt><dd>${esc(selectedEvidence?.evidenceLevel[lang]??t('Vezi statutul epistemic și registrul de dovezi; nu există o sinteză de efect atașată.','See epistemic status and evidence registry; no effect synthesis is attached.'))}</dd>
-    <dt>${t('Tipul dovezii','Evidence type')}</dt><dd>${esc(selectedEvidence?.evidenceType[lang]??t('Registry / mechanism-specific evidence','Registry / mechanism-specific evidence'))}</dd>
-    <dt>${t('Dimensiunea efectului','Effect size')}</dt><dd>${esc(selectedEvidence?.effectSize?.[lang]??t('Nu este afișată: literatura auditată nu justifică o sinteză comparabilă direct pentru acest nod.','Not shown: the audited literature does not justify a directly comparable synthesis for this node.'))}</dd>
-    <dt>${t('Eterogenitate','Heterogeneity')}</dt><dd>${esc(selectedEvidence?.heterogeneity[lang]??selected.uncertainty[lang])}</dd>
-    <dt>${t('Explicații concurente','Competing explanations')}</dt><dd>${esc(selectedEvidence?.competing[lang]??t('Vezi teoria completă; harta nu transformă o asociere într-o singură explicație cauzală.','See the full theory; the map does not turn an association into one causal explanation.'))}</dd>
-    <dt>${t('Limitări','Limitations')}</dt><dd>${esc(selectedEvidence?.limitations[lang]??selected.limitation[lang])}</dd>
-   </dl>
-   <div class="mechanism-sources"><strong>${t('Surse','Sources')}</strong><div>${sourceMarkup}</div></div>
-   <details class="technical-identifiers"><summary>${t('Detalii tehnice secundare','Secondary technical details')}</summary><p><strong>${t('Identificatori','Identifiers')}:</strong> <code>${esc(selected.identifiers.join(' · '))}</code></p><p><strong>${t('Proveniență necesară','Required provenance')}:</strong> ${esc(selected.provenance[lang])}</p></details>
-   <button type="button" class="primary" data-suite-theory-chapter="${esc(selected.chapterSlug)}">${t('Deschide teoria completă a acestui mecanism','Open the full theory for this mechanism')}</button>
-  </div>`:`<div class="mechanism-inspector empty-mechanism"><p class="eyebrow">THEORY / LEARN</p><h2>${t('De la mecanism la teorie și surse','From mechanism to theory and sources')}</h2><p>${t('Selectează orice mecanism din hartă. Panoul va arăta definiția, intrările, ieșirile, vecinii, traseul upstream/downstream, statutul epistemic, dovezile, efectul numai când este comparabil, heterogenitatea, explicațiile concurente, limitele și sursele.','Select any mechanism in the map. This panel will show definition, inputs, outputs, neighbours, upstream/downstream path, epistemic status, evidence, effect only when comparable, heterogeneity, competing explanations, limitations and sources.')}</p><p class="boundary">${t('CEM nu atribuie vulnerabilitate sau probabilitate comportamentală unei persoane fără date și validare dedicate.','CEM does not assign an individual vulnerability or behavioral probability without dedicated data and validation.')}</p></div>`;
-
- const pathEvidenceNodes=(activePath?.nodes??cemProductNodes.map(node=>node.id)).map(id=>evidenceForNode(id)).filter(Boolean);
- const empiricalCount=(activePath?.nodes??cemProductNodes.map(node=>node.id)).map(id=>nodeById(id)).filter(node=>node?.statuses.includes('EMPIRICAL')).length;
- const conceptualCount=(activePath?.nodes??cemProductNodes.map(node=>node.id)).map(id=>nodeById(id)).filter(node=>node?.statuses.includes('CONCEPTUAL')&&!node?.statuses.includes('EMPIRICAL')).length;
- const effectCount=pathEvidenceNodes.filter(item=>item?.effectSize).length;
- const relevantDiagnostics=activePath?cemDiagnostics.filter(diag=>intersections(diag.mechanisms,activePath.nodes)):cemDiagnostics.slice(0,4);
- const dashboardDiagnostics=relevantDiagnostics.slice(0,3).map(diag=>`<article class="vulnerability-card"><div class="suite-diagnostic-statuses">${statusBadges(diag.statuses)}</div><h3>${esc(diag.title[lang])}</h3><p>${esc(diag.why[lang])}</p><p class="note"><strong>${t('Dovezi','Evidence')}:</strong> ${esc(diag.evidence[lang])}</p><p class="note"><strong>${t('Incertitudine','Uncertainty')}:</strong> ${esc(diag.uncertainty[lang])}</p><button type="button" data-suite-diagnostic-focus="${esc(diag.focus)}">${t('Vezi mecanismul','Inspect mechanism')}</button></article>`).join('');
- const pathwaySummary=activePath?`<div class="pathway-summary"><p class="eyebrow">${t('ÎNTREBARE ACTIVĂ','ACTIVE QUESTION')}</p><h3>${esc(activePath.question[lang])}</h3><p>${esc(activePath.why[lang])}</p><p class="boundary"><strong>${t('Limită','Boundary')}:</strong> ${esc(activePath.boundary[lang])}</p></div>`:`<div class="pathway-summary"><p class="eyebrow">SYSTEM OVERVIEW</p><h3>${t('Unde sunt mecanismele mai solide și unde sunt limitele?','Where are mechanisms stronger, and where are the boundaries?')}</h3><p>${t('Dashboard-ul descrie structura dovezilor și punctele de incertitudine ale modelului, nu un scor al utilizatorului. Alege o întrebare pentru a restrânge diagnosticul la pathway-ul relevant.','The dashboard describes the model evidence structure and uncertainty points, not a user score. Choose a question to narrow the diagnostics to the relevant pathway.')}</p></div>`;
-
- const relevantInterventions=activePath?interventionEvidence.filter(item=>intersections(item.targetNodes,activePath.nodes)):selected?interventionEvidence.filter(item=>item.targetNodes.includes(selected.id)):interventionEvidence;
+ const upstream=selectedEdges.filter(edge=>edge.target===selected?.id).map(edge=>nodeName(edge.source,lang));
+ const downstream=selectedEdges.filter(edge=>edge.source===selected?.id).map(edge=>nodeName(edge.target,lang));
+ const evidence=selected?evidenceForNode(selected.id):undefined;
+ const relevantInterventions=activePath?interventionEvidence.filter(item=>intersections(item.targetNodes,[...new Set(activePath.nodes)])):interventionEvidence;
  if(!relevantInterventions.some(item=>item.id===activeInterventionId))activeInterventionId=relevantInterventions[0]?.id??interventionEvidence[0].id;
- const activeIntervention=interventionEvidence.find(item=>item.id===activeInterventionId)??interventionEvidence[0];
- const interventionOptions=relevantInterventions.map(item=>`<option value="${item.id}" ${item.id===activeIntervention.id?'selected':''}>${esc(item.label[lang])}</option>`).join('');
- const interventionSources=activeIntervention.sources.map(source=>externalLink(source.url,source.label)).join('');
+ const intervention=interventionEvidence.find(item=>item.id===activeInterventionId)??interventionEvidence[0];
 
- const corpusTopics=theoryTopics.map(topic=>`<button type="button" class="corpus-topic" data-suite-theory-chapter="${esc(topic.chapterSlug)}"><strong>${esc(topic.label[lang])}</strong><small>${esc(topic.scope[lang])}</small><span>${esc(topic.modules.join(' · '))}</span></button>`).join('');
+ const nav=(view:ProductView,label:string)=>`<button type="button" class="product-nav-button" data-product-view="${view}" aria-current="${productView===view?'page':'false'}">${label}</button>`;
+ const chrome=`<div class="product-shell-header"><div><p class="eyebrow">COGNITIVE EPISTEMIC MODEL</p><h1>${t('Cum poate informația influența ceea ce percepem, reținem, credem, judecăm și facem?','How can information influence what we perceive, remember, believe, judge and do?')}</h1><p>${t('Explorează mecanismele, dovezile și intervențiile studiate. CEM explică relații și limite; nu prezice comportamentul unei persoane.','Explore mechanisms, evidence and studied interventions. CEM explains relations and limits; it does not predict an individual person’s behavior.')}</p></div><nav class="product-nav" aria-label="${t('Navigare produs','Product navigation')}">${nav('home',t('Întrebări','Questions'))}${nav('pathway',t('Pathway','Pathway'))}${nav('interventions',t('Intervenții','Interventions'))}${nav('atlas',t('Atlas complet','Full Model Atlas'))}${nav('theory',t('Theory / Learn','Theory / Learn'))}${nav('technical',t('Research / Proveniență','Research / Provenance'))}</nav></div>`;
 
- host.innerHTML=`<section class="suite-overview infoclar-primary-shell" data-suite-standard="InfoClar Model Suite Design Standard v1.1" aria-label="${t('Cognitive Epistemic Model — explorer de mecanisme','Cognitive Epistemic Model — mechanism explorer')}">
-  <div class="usefulness-orientation" role="note"><strong>${t('Ce încearcă să explice CEM?','What does CEM try to explain?')}</strong><span>${t('Cum informația disponibilă poate trece prin selecție, sursă, framing, atenție, familiaritate, memorie, priors, context social și incertitudine pentru a contribui la reprezentare, convingere, judecată și acțiune — și ce dovezi susțin fiecare legătură.','How available information can pass through selection, source, framing, attention, familiarity, memory, priors, social context and uncertainty to contribute to representation, belief, judgment and action — and what evidence supports each link.')}</span></div>
-  <div class="suite-grid">
-   <section class="panel suite-panel suite-model-panel" aria-labelledby="suiteModelTitle">
-    <div class="suite-panel-heading"><div><p class="eyebrow">MECHANISM EXPLORER</p><h1 id="suiteModelTitle">${t('Cum poate informația deveni percepție, memorie, convingere, judecată și acțiune','How information can become perception, memory, belief, judgment and action')}</h1></div></div>
-    <div class="explorer-mode-tabs" role="group" aria-label="${t('Mod de explorare','Explorer mode')}"><button type="button" data-explorer-mode="overview" aria-pressed="${explorerMode==='overview'}">SYSTEM OVERVIEW</button><button type="button" data-explorer-mode="question" aria-pressed="${explorerMode==='question'}">QUESTION / PATHWAY EXPLORER</button></div>
-    ${explorerMode==='question'?`<div class="question-library" aria-label="${t('Bibliotecă de întrebări','Question library')}">${questionButtons}</div>`:''}
-    <div class="mechanism-families" aria-label="${t('Familii semantice','Semantic families')}">${familyChips}</div>
-    <div class="cem-system-map" aria-label="${t('Hartă explorabilă a mecanismelor CEM','Explorable CEM mechanism map')}">
-     <div class="cem-map-stage-label stage-information">${t('INFORMAȚIE & ACCES','INFORMATION & ACCESS')}</div><div class="cem-map-stage-label stage-representation">${t('REPREZENTARE & MEMORIE','REPRESENTATION & MEMORY')}</div><div class="cem-map-stage-label stage-integration">${t('INTEGRARE & INCERTITUDINE','INTEGRATION & UNCERTAINTY')}</div><div class="cem-map-stage-label stage-judgment">${t('JUDECATĂ & ACȚIUNE','JUDGMENT & ACTION')}</div>
-     <svg class="cem-system-links" viewBox="0 0 1000 620" aria-hidden="true" preserveAspectRatio="none"><defs><marker id="cemArrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z"/></marker></defs>${mapEdges}</svg>${mapNodes}
-    </div>
-    ${activePath?`<div class="active-path-readout"><strong>${esc(activePath.question[lang])}</strong><span>${activePath.nodes.map(nodeName).map(esc).join(' → ')}</span><small>${esc(activePath.boundary[lang])}</small></div>`:`<div class="cem-map-guide"><strong>${t('Cum citești harta','How to read the map')}</strong><p>${t('Nodurile sunt mecanisme sau stări reale deja reprezentate în produs; liniile continue indică trasee executabile de referință, iar liniile întrerupte bridge-uri conceptuale. Nu sunt adăugate relații pentru densitate vizuală.','Nodes are real mechanisms or states already represented in the product; solid lines are executable reference paths and dashed lines are conceptual bridges. No relations are added for visual density.')}</p></div>`}
-   </section>
+ const home=()=>`<main class="questions-home" data-product-surface="home"><section class="home-intro"><p class="eyebrow">${t('ÎNCEPE CU UN FENOMEN','START WITH A PHENOMENON')}</p><h2>${t('Alege o întrebare umană, nu o variabilă a modelului','Choose a human question, not a model variable')}</h2><p>${t('Fiecare întrebare de mai jos este legată de mecanisme și relații deja existente în CEM și de literatura atașată acestora.','Each question below is tied to mechanisms and relations already present in CEM and to the literature attached to them.')}</p></section><div class="question-card-grid">${questionPathways.map(question=>`<button type="button" class="question-card" data-pathway-question="${question.id}"><span class="question-arrow" aria-hidden="true">→</span><strong>${esc(question.question[lang])}</strong><small>${esc(question.why[lang])}</small></button>`).join('')}</div><aside class="home-boundary"><strong>${t('Ce nu face această pagină','What this page does not do')}</strong><span>${t('Nu începe cu harta completă, nu afișează coduri interne și nu atribuie unui utilizator un scor de vulnerabilitate.','It does not start with the full model map, show internal codes, or assign the user a vulnerability score.')}</span></aside></main>`;
 
-   <section class="panel suite-panel suite-theory-panel" aria-labelledby="suiteTheoryTitle">
-    ${mechanismPanel}
-    <details class="corpus-navigator"><summary>${t('Corpus complet CEM — navigare progresivă EN/RO','Complete CEM corpus — progressive EN/RO navigation')}</summary><div class="corpus-topic-grid">${corpusTopics}</div><div class="suite-learning-actions"><button type="button" data-suite-learn="theory">${t('Deschide reader-ul complet','Open full reader')}</button><button type="button" data-suite-learn="mechanisms">${t('Mecanisme detaliate','Detailed mechanisms')}</button><button type="button" data-suite-learn="world-model">MOD.14</button><button type="button" data-suite-learn="tour">${t('Tur ghidat','Guided tour')}</button><button type="button" data-suite-learn="active">${t('Înțelegere activă','Active understanding')}</button></div></details>
-    <div id="suiteTheoryContext" class="suite-context-slot suite-theory-context" aria-live="polite"></div>
-   </section>
+ const pathwayFlow=()=>{
+  if(!activePath)return `<section class="empty-pathway"><h2>${t('Alege mai întâi o întrebare','Choose a question first')}</h2><p>${t('Pathway Explorer afișează numai mecanismele necesare pentru fenomenul selectat.','Pathway Explorer shows only the mechanisms needed for the selected phenomenon.')}</p><button type="button" class="primary" data-product-view="home">${t('Vezi întrebările','See questions')}</button></section>`;
+  const pieces:string[]=[];
+  activePath.nodes.forEach((nodeId,index)=>{
+   const node=nodeById(nodeId);if(!node)return;
+   pieces.push(`<button type="button" class="pathway-step ${selected?.id===nodeId?'is-selected':''}" data-suite-focus="${nodeId}" aria-label="${esc(clean(node.label[lang]))}"><span class="step-number">${index+1}</span><strong>${esc(clean(node.label[lang]))}</strong><small>${esc(clean(node.summary[lang]))}</small></button>`);
+   const edgeId=activePath.edgeIds[index];
+   if(edgeId){const relation=edgeEvidenceFor(edgeId);pieces.push(`<div class="pathway-connector" data-edge-status="${relation?.status??'CONCEPTUAL_HYPOTHESIS'}"><span class="connector-line" aria-hidden="true">→</span><span class="edge-status-badge">${esc(relation?.label[lang]??t('Relație înregistrată','Registered relation'))}</span><small>${esc(clean(relation?.explanation[lang]??t('Relație existentă în model.','Existing model relation.')))}</small></div>`);}
+  });
+  const secondary=activePath.secondary.map(branch=>`<details class="secondary-branch"><summary>+ ${esc(branch.label[lang])}</summary><p>${esc(branch.note[lang])}</p><div class="secondary-node-row">${branch.nodes.map(id=>`<button type="button" data-suite-focus="${id}">${esc(nodeName(id,lang))}</button>`).join('')}</div></details>`).join('');
+  return `<section class="pathway-workspace" data-product-surface="pathway"><div class="pathway-title-row"><div><p class="eyebrow">PATHWAY EXPLORER</p><h2>${esc(activePath.question[lang])}</h2><p>${esc(activePath.why[lang])}</p></div><button type="button" data-product-view="home">${t('Schimbă întrebarea','Change question')}</button></div><div class="relation-legend" aria-label="${t('Statutul legăturilor','Relation status legend')}">${['EMPIRICAL_CAUSAL_SUPPORT','EMPIRICAL_ASSOCIATION','EXECUTABLE_MODEL_RELATION','CONCEPTUAL_HYPOTHESIS','INTERPRETIVE_LINK','NORMATIVE_OPERATOR'].map(status=>`<span data-edge-status="${status}">${({EMPIRICAL_CAUSAL_SUPPORT:t('Suport cauzal empiric','Empirical causal support'),EMPIRICAL_ASSOCIATION:t('Asociere empirică','Empirical association'),EXECUTABLE_MODEL_RELATION:t('Relație executabilă','Executable model relation'),CONCEPTUAL_HYPOTHESIS:t('Ipoteză conceptuală','Conceptual hypothesis'),INTERPRETIVE_LINK:t('Legătură interpretativă','Interpretive link'),NORMATIVE_OPERATOR:t('Operator normativ','Normative operator')} as Record<string,string>)[status]}</span>`).join('')}</div><div class="pathway-scroll"><div class="pathway-flow">${pieces.join('')}</div></div><div class="secondary-branches"><h3>${t('Ramuri secundare','Secondary branches')}</h3>${secondary}</div><p class="pathway-boundary"><strong>${t('Limită a interpretării','Interpretation boundary')}:</strong> ${esc(activePath.boundary[lang])}</p>${pathwayDashboard()}</section>`;
+ };
 
-   <section class="panel suite-panel suite-dashboard-panel" aria-labelledby="suiteDashboardTitle">
-    <p class="eyebrow">EPISTEMIC MECHANISMS & VULNERABILITIES</p><h2 id="suiteDashboardTitle">${activePath?esc(activePath.question[lang]):t('Structura dovezilor și punctele de vulnerabilitate ale mecanismelor','Evidence structure and mechanism vulnerability points')}</h2>
-    ${pathwaySummary}
-    <div class="evidence-metrics"><div><strong>${empiricalCount}</strong><span>${t('noduri din selecție cu suport EMPIRICAL declarat','selected nodes with declared EMPIRICAL support')}</span></div><div><strong>${conceptualCount}</strong><span>${t('noduri conceptuale fără suport EMPIRICAL declarat','conceptual nodes without declared EMPIRICAL support')}</span></div><div><strong>${effectCount}</strong><span>${t('sinteze cu efect comparabil afișabil','comparable effect syntheses displayable')}</span></div></div>
-    <div class="suite-diagnostics">${dashboardDiagnostics||`<article class="vulnerability-card"><h3>${t('Modelul nu poate face aici o afirmație mai puternică','The model cannot make a stronger claim here')}</h3><p>${t('Pathway-ul selectat nu are un diagnostic validat suplimentar în registry. Absența unui card nu este dovadă de absență a mecanismului.','The selected pathway has no additional validated diagnostic in the registry. Absence of a card is not evidence that the mechanism is absent.')}</p></article>`}</div>
-    <div class="boundary no-personal-score"><strong>${t('Ce NU este acest dashboard','What this dashboard is NOT')}</strong><p>${t('Nu este un profil al utilizatorului, un scor de vulnerabilitate, o probabilitate personală de a crede misinformation sau o predicție de comportament individual.','It is not a user profile, vulnerability score, personal probability of believing misinformation, or individual behavioral prediction.')}</p></div>
-   </section>
+ const pathwayDashboard=()=>{
+  if(!activePath)return '';
+  const uniqueNodes=[...new Set(activePath.nodes)];
+  const evidenceItems=uniqueNodes.map(id=>evidenceForNode(id)).filter(Boolean);
+  const strongest=evidenceItems[0];
+  const moderatorText=evidenceItems.map(item=>item?.moderators[lang]).filter(Boolean).slice(0,2).join(' ');
+  const competing=evidenceItems.map(item=>item?.competing[lang]).filter(Boolean).slice(0,2).join(' ');
+  const uncertainty=evidenceItems.map(item=>item?.uncertainty[lang]).filter(Boolean).slice(0,2).join(' ');
+  const studied=relevantInterventions.slice(0,4).map(item=>item.label[lang]).join(' · ');
+  return `<section class="pathway-dashboard" aria-labelledby="dashboardTitle"><h3 id="dashboardTitle">${t('Ce știm despre acest pathway','What we know about this pathway')}</h3><div class="pathway-dashboard-grid"><article><span>${t('CELE MAI PUTERNICE DOVEZI','STRONGEST EVIDENCE')}</span><p>${esc(strongest?.strength[lang]??t('Nu există o sinteză cantitativă comparabilă pentru acest pathway.','No comparable quantitative synthesis is attached to this pathway.'))}</p></article><article><span>${t('INCERTITUDINI PRINCIPALE','MAIN UNCERTAINTIES')}</span><p>${esc(uncertainty||activePath.boundary[lang])}</p></article><article><span>${t('MODERATORI IMPORTANȚI','IMPORTANT MODERATORS')}</span><p>${esc(moderatorText||t('Dependența de sarcină, populație și context rămâne importantă.','Task, population and context dependence remain important.'))}</p></article><article><span>${t('EXPLICAȚII CONCURENTE','COMPETING EXPLANATIONS')}</span><p>${esc(competing||t('Pathway-ul nu exclude mecanisme alternative neidentificate de datele curente.','The pathway does not exclude alternative mechanisms not identified by current data.'))}</p></article><article><span>${t('INTERVENȚII STUDIATE','INTERVENTIONS STUDIED')}</span><p>${esc(studied||t('Nicio clasă de intervenție nu este legată direct de toate etapele acestui pathway.','No intervention class is directly linked to all stages of this pathway.'))}</p><button type="button" data-product-view="interventions">${t('Deschide Intervention Explorer','Open Intervention Explorer')}</button></article><article><span>${t('CE NU POATE AFIRMA CEM','WHAT CEM CANNOT CLAIM')}</span><p>${esc(activePath.boundary[lang])}</p></article></div></section>`;
+ };
 
-   <section class="panel suite-panel suite-aux-panel" aria-labelledby="suiteAuxTitle">
-    <p class="eyebrow">INTERVENTION EVIDENCE EXPLORER</p><h2 id="suiteAuxTitle">${t('Intervenții studiate empiric și mecanismele vizate','Empirically studied interventions and their target mechanisms')}</h2>
-    <p class="suite-panel-intro">${t('Acest panou organizează literatura; nu înseamnă „CEM recomandă automat această acțiune”. Contextul, populația, outcome-ul și heterogenitatea rămân parte din rezultat.','This panel organizes the literature; it does not mean “CEM automatically recommends this action”. Context, population, outcome and heterogeneity remain part of the result.')}</p>
-    <label class="intervention-picker"><span>${t('Intervenție','Intervention')}</span><select id="interventionEvidenceSelect">${interventionOptions}</select></label>
-    <article class="intervention-card">
-     <div class="intervention-heading"><h3>${esc(activeIntervention.label[lang])}</h3><span>${esc(activeIntervention.targetNodes.map(nodeName).join(' · '))}</span></div>
-     <dl class="mechanism-facts intervention-facts">
-      <dt>${t('Mecanism vizat','Target mechanism')}</dt><dd>${esc(activeIntervention.targetMechanism[lang])}</dd>
-      <dt>${t('Populație / context','Population / context')}</dt><dd>${esc(activeIntervention.population[lang])}</dd>
-      <dt>Outcome</dt><dd>${esc(activeIntervention.outcome[lang])}</dd>
-      <dt>${t('Efect','Effect estimate')}</dt><dd>${esc(activeIntervention.effect[lang])}</dd>
-      <dt>${t('Incertitudine','Uncertainty')}</dt><dd>${esc(activeIntervention.uncertainty[lang])}</dd>
-      <dt>${t('Eterogenitate','Heterogeneity')}</dt><dd>${esc(activeIntervention.heterogeneity[lang])}</dd>
-      <dt>${t('Durată','Duration')}</dt><dd>${esc(activeIntervention.duration[lang])}</dd>
-      <dt>${t('Condiții / moderatori','Conditions / moderators')}</dt><dd>${esc(activeIntervention.moderators[lang])}</dd>
-      <dt>${t('Posibile efecte adverse','Possible adverse effects')}</dt><dd>${esc(activeIntervention.adverse[lang])}</dd>
-      <dt>${t('Cât de direct susține CEM','Directness to CEM')}</dt><dd>${esc(activeIntervention.directness[lang])}</dd>
-     </dl>
-     <div class="mechanism-sources"><strong>${t('Surse auditate','Audited sources')}</strong><div>${interventionSources}</div></div>
-    </article>
-    <details class="infrastructure-tools"><summary>${t('Infrastructură și instrumente avansate păstrate contextual','Infrastructure and advanced tools kept contextual')}</summary><div class="suite-inline-actions"><button type="button" data-suite-view="reference">${t('Registru științific','Scientific registry')}</button><button type="button" data-suite-view="process">${t('Metodologie / Visual ODD','Methodology / Visual ODD')}</button><button type="button" data-suite-view="structure">${t('Dependențe tehnice','Technical dependencies')}</button><button type="button" data-suite-view="runs">${t('Rulări de referință','Reference runs')}</button><button type="button" data-suite-view="comparison">${t('Comparație','Comparison')}</button><button type="button" data-suite-view="planning">${t('Planificare','Planning')}</button><button type="button" data-suite-tool="search">${t('Semantic Spine Search','Semantic Spine Search')}</button><button type="button" data-suite-tool="inspector">${t('Inspector contextual','Contextual inspector')}</button></div></details>
-    <div id="suiteAuxContext" class="suite-context-slot suite-aux-context" aria-live="polite"></div>
-   </section>
-  </div>
- </section>`;
+ const evidenceCard=()=>{
+  if(!selected)return '';
+  if(!evidence)return `<article class="evidence-card"><h3>${t('Dovezi pentru acest mecanism','Evidence for this mechanism')}</h3><p>${t('CEM înregistrează acest mecanism, dar nu atașează aici o sinteză cantitativă comparabilă. Deschide capitolul Theory pentru argumentare, surse și limitări.','CEM registers this mechanism, but no comparable quantitative synthesis is attached here. Open the Theory chapter for rationale, sources and limitations.')}</p></article>`;
+  return `<article class="evidence-card"><div class="evidence-card-heading"><div><p class="eyebrow">EVIDENCE CARD</p><h3>${esc(evidence.strength[lang])}</h3></div></div><dl><dt>${t('Tipul studiilor','Study type')}</dt><dd>${esc(evidence.studyType[lang])}</dd><dt>${t('Număr de studii','Number of studies')}</dt><dd>${esc(evidence.studies[lang])}</dd><dt>${t('Populații / contexte','Populations / settings')}</dt><dd>${esc(evidence.populations[lang])}</dd>${evidence.effectSize?`<dt>${t('Estimare a efectului','Effect estimate')}</dt><dd class="effect-estimate">${esc(evidence.effectSize[lang])}</dd>`:''}<dt>${t('Incertitudine','Uncertainty')}</dt><dd>${esc(evidence.uncertainty[lang])}</dd><dt>${t('Eterogenitate','Heterogeneity')}</dt><dd>${esc(evidence.heterogeneity[lang])}</dd><dt>${t('Moderatori','Moderators')}</dt><dd>${esc(evidence.moderators[lang])}</dd><dt>${t('Calitate / risk of bias','Quality / risk of bias')}</dt><dd>${esc(evidence.quality[lang])}</dd><dt>${t('Replicare','Replication')}</dt><dd>${esc(evidence.replication[lang])}</dd></dl><div class="evidence-sources">${evidence.sources.map(source=>externalLink(source.url,source.label)).join('')}</div></article>`;
+ };
 
- host.querySelectorAll<HTMLButtonElement>('[data-explorer-mode]').forEach(button=>button.onclick=()=>{explorerMode=button.dataset.explorerMode as ExplorerMode;if(explorerMode==='question'&&!activeQuestionId)activeQuestionId=questionPathways[0].id;mountSuiteOverview(host,options);});
- host.querySelectorAll<HTMLButtonElement>('[data-pathway-question]').forEach(button=>button.onclick=()=>{explorerMode='question';activeQuestionId=button.dataset.pathwayQuestion;mountSuiteOverview(host,options);});
+ const mechanismDrawer=()=>selected?`<aside class="context-drawer" aria-label="${t('Detalii mecanism','Mechanism details')}"><div class="drawer-heading"><div><p class="eyebrow">${t('MECANISM SELECTAT','SELECTED MECHANISM')}</p><h2>${esc(clean(selected.label[lang]))}</h2></div><button type="button" class="drawer-close" data-close-mechanism aria-label="${t('Închide','Close')}">×</button></div><div class="mechanism-levels">${selected.statuses.map(status=>`<span>${esc(naturalStatus(status,lang))}</span>`).join('')}</div><section><h3>${t('CE ESTE?','WHAT IS IT?')}</h3><p>${esc(clean(selected.summary[lang]))}</p></section><section><h3>${t('CE ÎL INFLUENȚEAZĂ?','WHAT INFLUENCES IT?')}</h3><p>${esc(upstream.join(' · ')||t('Nu există o intrare directă în harta actuală.','No direct upstream relation is registered in the current product map.'))}</p></section><section><h3>${t('CE INFLUENȚEAZĂ?','WHAT DOES IT INFLUENCE?')}</h3><p>${esc(downstream.join(' · ')||t('Nu există o ieșire directă în harta actuală.','No direct downstream relation is registered in the current product map.'))}</p></section><section><h3>${t('CE DOVEZI ÎL SUSȚIN?','WHAT EVIDENCE SUPPORTS IT?')}</h3>${evidenceCard()}</section>${evidence?.effectSize?`<section><h3>${t('CÂT DE MARE ESTE EFECTUL?','HOW LARGE IS THE EFFECT?')}</h3><p class="effect-callout">${esc(evidence.effectSize[lang])}</p></section>`:''}<section><h3>${t('ÎN CE CONDIȚII?','UNDER WHAT CONDITIONS?')}</h3><p>${esc(evidence?.moderators[lang]??clean(selected.uncertainty[lang]))}</p></section><section><h3>${t('CE EXPLICAȚII CONCURENTE EXISTĂ?','WHAT COMPETING EXPLANATIONS EXIST?')}</h3><p>${esc(evidence?.competing[lang]??t('Modelul nu identifică o singură explicație cauzală pentru această relație. Vezi Theory pentru alternativele relevante.','The model does not identify a single causal explanation for this relation. See Theory for relevant alternatives.'))}</p></section><section><h3>${t('CARE SUNT LIMITĂRILE?','WHAT ARE THE LIMITATIONS?')}</h3><p>${esc(evidence?.limitations[lang]??clean(selected.limitation[lang]))}</p></section><div class="drawer-actions"><button type="button" class="primary" data-suite-theory-chapter="${esc(selected.chapterSlug)}">${t('Deschide teoria completă','Open full theory')}</button><button type="button" data-product-view="technical">${t('Proveniență tehnică','Technical provenance')}</button></div></aside>`:'';
+
+ const interventionsView=()=>`<main class="interventions-view" data-product-surface="interventions"><div class="section-heading"><div><p class="eyebrow">INTERVENTION EVIDENCE EXPLORER</p><h2>${t('Intervenții investigate empiric','Empirically studied interventions')}</h2><p>${t('Aceste carduri descriu ce a fost testat și cu ce rezultate. Nu reprezintă recomandări automate ale CEM.','These cards describe what has been tested and with what outcomes. They are not automatic CEM recommendations.')}</p></div></div><label class="intervention-select"><span>${t('Clasa de intervenție','Intervention class')}</span><select id="interventionEvidenceSelect">${interventionEvidence.map(item=>`<option value="${item.id}" ${item.id===intervention.id?'selected':''}>${esc(item.label[lang])}</option>`).join('')}</select></label><article class="intervention-detail"><h3>${esc(intervention.label[lang])}</h3><dl><dt>${t('Mecanism vizat','Target mechanism')}</dt><dd>${esc(intervention.targetMechanism[lang])}</dd><dt>${t('Tipul studiilor','Study type')}</dt><dd>${esc(intervention.studyType[lang])}</dd><dt>${t('Populație / context','Population / context')}</dt><dd>${esc(intervention.population[lang])}</dd><dt>Outcome</dt><dd>${esc(intervention.outcome[lang])}</dd><dt>${t('Estimare a efectului','Effect estimate')}</dt><dd>${esc(intervention.effect[lang])}</dd><dt>${t('Incertitudine','Uncertainty')}</dt><dd>${esc(intervention.uncertainty[lang])}</dd><dt>${t('Eterogenitate','Heterogeneity')}</dt><dd>${esc(intervention.heterogeneity[lang])}</dd><dt>${t('Durata efectului','Durability')}</dt><dd>${esc(intervention.duration[lang])}</dd><dt>${t('Moderatori','Moderators')}</dt><dd>${esc(intervention.moderators[lang])}</dd><dt>${t('Posibile efecte adverse / trade-offs','Possible harms / trade-offs')}</dt><dd>${esc(intervention.adverse[lang])}</dd><dt>${t('Cât de direct susține CEM','Directness to CEM')}</dt><dd>${esc(intervention.directness[lang])}</dd></dl><div class="evidence-sources">${intervention.sources.map(source=>externalLink(source.url,source.label)).join('')}</div><p class="nonrecommendation">${t('Intervention Evidence ≠ „CEM recomandă această acțiune”.','Intervention Evidence ≠ “CEM recommends this action”.')}</p></article></main>`;
+
+ const atlasView=()=>{
+  const visibleIds=atlasFilter==='major'?[]:atlasFilter==='all'?cemProductNodes.map(node=>node.id):(atlasGroups.find(group=>group.id===atlasFilter)?.nodes??[]);
+  const visible=new Set(visibleIds);
+  const relatedEdges=selected?cemProductEdges.filter(edge=>(edge.source===selected.id||edge.target===selected.id)&&visible.has(edge.source)&&visible.has(edge.target)):[];
+  const atlasNodes=cemProductNodes.filter(node=>visible.has(node.id)).map(node=>`<button type="button" class="atlas-node ${selected?.id===node.id?'is-selected':''}" data-suite-focus="${node.id}" style="--node-x:${node.x}%;--node-y:${node.y}%"><strong>${esc(clean(node.label[lang]))}</strong></button>`).join('');
+  const atlasEdges=relatedEdges.map(edge=>{const a=nodeById(edge.source)!;const b=nodeById(edge.target)!;const relation=edgeEvidenceFor(edge.id);return `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" class="atlas-edge" data-edge-status="${relation?.status??'CONCEPTUAL_HYPOTHESIS'}" marker-end="url(#atlasArrow)"/>`;}).join('');
+  const major=atlasGroups.map(group=>`<article class="atlas-major-group"><h3>${esc(group.label[lang])}</h3><p>${group.nodes.map(id=>nodeName(id,lang)).filter((value,index,array)=>array.indexOf(value)===index).join(' · ')}</p><button type="button" data-atlas-filter="${group.id}">${t('Extinde mecanismele','Expand mechanisms')}</button></article>`).join('');
+  return `<main class="atlas-view" data-product-surface="atlas"><div class="section-heading"><div><p class="eyebrow">FULL MODEL ATLAS</p><h2>${t('Harta completă este secundară și progresivă','The full model map is secondary and progressive')}</h2><p>${t('Implicit vezi doar nivelurile majore. Extinde o familie sau toate mecanismele; relațiile apar numai în jurul mecanismului selectat pentru a evita spaghetti graph.','By default you see only major levels. Expand a family or all mechanisms; relations appear only around the selected mechanism to avoid a spaghetti graph.')}</p></div></div><div class="atlas-controls"><label>${t('Filtru','Filter')}<select id="atlasFilter"><option value="major" ${atlasFilter==='major'?'selected':''}>${t('Niveluri majore','Major levels')}</option><option value="all" ${atlasFilter==='all'?'selected':''}>${t('Toate mecanismele','All mechanisms')}</option>${atlasGroups.map(group=>`<option value="${group.id}" ${atlasFilter===group.id?'selected':''}>${esc(group.label[lang])}</option>`).join('')}</select></label><label>${t('Zoom','Zoom')}<input id="atlasZoom" type="range" min="0.75" max="1.5" step="0.05" value="${atlasZoom}"></label></div>${atlasFilter==='major'?`<div class="atlas-major-grid">${major}</div>`:`<div class="atlas-scroll"><div class="atlas-map" style="--atlas-zoom:${atlasZoom}"><svg class="atlas-links" viewBox="0 0 100 100" aria-hidden="true"><defs><marker id="atlasArrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z"/></marker></defs>${atlasEdges}</svg>${atlasNodes}</div></div>`}<p class="atlas-note">${t('Selectarea unui mecanism arată numai relațiile directe înregistrate. Grosimea sau poziția nu reprezintă mărimea efectului.','Selecting a mechanism reveals only its directly registered relations. Thickness or position does not represent effect size.')}</p></main>`;
+ };
+
+ const theoryView=()=>`<main class="theory-view" data-product-surface="theory"><div class="section-heading"><div><p class="eyebrow">THEORY / LEARN</p><h2>${t('Manualul complet al CEM','The complete CEM manual')}</h2><p>${t('Poți parcurge manualul independent sau poți deschide direct capitolul relevant dintr-un pathway ori mecanism. Limbajul principal este conceptual și natural; identificatorii tehnici rămân în Research / Provenance.','Read the manual independently or open the relevant chapter directly from a pathway or mechanism. The primary language is conceptual and natural; technical identifiers remain in Research / Provenance.')}</p></div><button type="button" class="primary" data-suite-understanding="theory">${t('Deschide reader-ul complet','Open full reader')}</button></div><div class="theory-topic-grid">${theoryTopics.map(topic=>`<button type="button" class="theory-topic" data-suite-theory-chapter="${esc(topic.chapterSlug)}"><strong>${esc(topic.label[lang])}</strong><small>${esc(topic.scope[lang])}</small></button>`).join('')}</div><div id="suiteTheoryContext" class="suite-context-slot theory-context"></div></main>`;
+
+ const technicalView=()=>`<main class="technical-view" data-product-surface="technical"><div class="section-heading"><div><p class="eyebrow">RESEARCH / TECHNICAL PROVENANCE</p><h2>${t('Identificatori, registry și instrumente de audit','Identifiers, registry and audit tools')}</h2><p>${t('Această zonă este separată intenționat de experiența normală. Aici pot apărea codurile interne necesare cercetării și reproducerii.','This area is intentionally separated from the normal experience. Internal codes needed for research and reproducibility may appear here.')}</p></div></div>${selected?`<article class="technical-selected"><h3>${esc(selected.label[lang])}</h3><p><strong>Identifiers:</strong> <code>${esc(selected.identifiers.join(' · '))}</code></p><p><strong>Evidence registry:</strong> <code>${esc(selected.evidenceRefs.join(' · ')||'—')}</code></p><p><strong>Theory slug:</strong> <code>${esc(selected.chapterSlug)}</code></p><p><strong>Required provenance:</strong> ${esc(selected.provenance[lang])}</p></article>`:''}<div class="technical-actions"><button type="button" data-suite-tool="search">Semantic Search</button><button type="button" data-suite-tool="inspector">Semantic Inspector</button><button type="button" data-suite-view="structure">Structure</button><button type="button" data-suite-view="runs">Runs</button><button type="button" data-suite-view="comparison">Comparison</button><button type="button" data-suite-view="planning">Planning</button><button type="button" data-suite-view="reference">Reference registry</button><button type="button" data-suite-view="process">Process / ODD</button></div><details class="technical-node-register"><summary>${t('Registrul mecanismelor','Mechanism register')}</summary><div>${cemProductNodes.map(node=>`<p><strong>${esc(node.label[lang])}</strong> <code>${esc(node.id)} · ${esc(node.identifiers.join(' · '))}</code></p>`).join('')}</div></details><div id="suiteAuxContext" class="suite-context-slot"></div></main>`;
+
+ let content='';
+ if(productView==='home')content=home();
+ else if(productView==='pathway')content=pathwayFlow();
+ else if(productView==='interventions')content=interventionsView();
+ else if(productView==='atlas')content=atlasView();
+ else if(productView==='theory')content=theoryView();
+ else content=technicalView();
+ const hiddenTheory=productView==='theory'?'':`<div id="suiteTheoryContext" class="suite-context-slot" hidden></div>`;
+ const hiddenAux=productView==='technical'?'':`<div id="suiteAuxContext" class="suite-context-slot" hidden></div>`;
+ host.innerHTML=`<section class="suite-overview product-concept-shell" data-suite-standard="InfoClar Model Suite Design Standard v1.1">${chrome}${content}${hiddenTheory}${hiddenAux}${productView==='pathway'?mechanismDrawer():''}</section>`;
+
+ host.querySelectorAll<HTMLButtonElement>('[data-product-view]').forEach(button=>button.onclick=()=>{productView=button.dataset.productView as ProductView;if(productView==='pathway'&&!activeQuestionId)productView='home';mountSuiteOverview(host,options);});
+ host.querySelectorAll<HTMLButtonElement>('[data-pathway-question]').forEach(button=>button.onclick=()=>{activeQuestionId=button.dataset.pathwayQuestion;productView='pathway';options.openFocus('overview');});
  host.querySelectorAll<HTMLButtonElement>('[data-suite-focus]').forEach(button=>button.onclick=()=>options.openFocus(button.dataset.suiteFocus!));
- host.querySelectorAll<HTMLButtonElement>('[data-suite-diagnostic-focus]').forEach(button=>button.onclick=()=>options.openFocus(button.dataset.suiteDiagnosticFocus!));
- host.querySelectorAll<HTMLButtonElement>('[data-suite-learn]').forEach(button=>button.onclick=()=>options.openUnderstanding(button.dataset.suiteLearn as LearnMode));
- host.querySelectorAll<HTMLButtonElement>('[data-suite-theory-chapter]').forEach(button=>button.onclick=()=>options.openTheoryChapter(button.dataset.suiteTheoryChapter!));
- host.querySelectorAll<HTMLButtonElement>('[data-suite-reference]').forEach(button=>button.onclick=()=>options.openReference(button.dataset.suiteReference!));
- host.querySelectorAll<HTMLButtonElement>('[data-suite-view]').forEach(button=>button.onclick=()=>options.openView(button.dataset.suiteView as ContextView));
- host.querySelectorAll<HTMLButtonElement>('[data-suite-tool]').forEach(button=>button.onclick=()=>options.openTool(button.dataset.suiteTool as AuxTool));
- const interventionSelect=host.querySelector<HTMLSelectElement>('#interventionEvidenceSelect');
- if(interventionSelect)interventionSelect.onchange=()=>{activeInterventionId=interventionSelect.value;mountSuiteOverview(host,options);};
+ host.querySelectorAll<HTMLButtonElement>('[data-close-mechanism]').forEach(button=>button.onclick=()=>options.openFocus('overview'));
+ host.querySelectorAll<HTMLButtonElement>('[data-suite-theory-chapter]').forEach(button=>button.onclick=()=>{productView='theory';options.openTheoryChapter(button.dataset.suiteTheoryChapter!);});
+ host.querySelectorAll<HTMLButtonElement>('[data-suite-understanding]').forEach(button=>button.onclick=()=>{productView='theory';options.openUnderstanding(button.dataset.suiteUnderstanding as LearnMode);});
+ host.querySelectorAll<HTMLButtonElement>('[data-suite-view]').forEach(button=>button.onclick=()=>{productView='technical';options.openView(button.dataset.suiteView as ContextView);});
+ host.querySelectorAll<HTMLButtonElement>('[data-suite-tool]').forEach(button=>button.onclick=()=>{productView='technical';options.openTool(button.dataset.suiteTool as AuxTool);});
+ host.querySelectorAll<HTMLButtonElement>('[data-atlas-filter]').forEach(button=>button.onclick=()=>{atlasFilter=button.dataset.atlasFilter!;mountSuiteOverview(host,options);});
+ const interventionSelect=host.querySelector<HTMLSelectElement>('#interventionEvidenceSelect');if(interventionSelect)interventionSelect.onchange=()=>{activeInterventionId=interventionSelect.value;mountSuiteOverview(host,options);};
+ const atlasSelect=host.querySelector<HTMLSelectElement>('#atlasFilter');if(atlasSelect)atlasSelect.onchange=()=>{atlasFilter=atlasSelect.value;options.openFocus('overview');};
+ const atlasZoomInput=host.querySelector<HTMLInputElement>('#atlasZoom');if(atlasZoomInput)atlasZoomInput.oninput=()=>{atlasZoom=Number(atlasZoomInput.value);host.querySelector<HTMLElement>('.atlas-map')?.style.setProperty('--atlas-zoom',String(atlasZoom));};
 }
