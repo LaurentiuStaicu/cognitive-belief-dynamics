@@ -1166,5 +1166,132 @@
       "en": "The guided workflow does not replace scientific judgment or turn demonstrative outputs into real-world causal estimates.",
       "ro": "Fluxul ghidat nu înlocuiește judecata științifică și nu transformă outputurile demonstrative în estimări cauzale reale."
     }
+  },
+  {
+    "id": "THEORY.16.WORLD_MODEL_CONSTRUCTION",
+    "order": 16,
+    "label": {
+      "en": "World-model construction",
+      "ro": "Construirea modelului realității"
+    },
+    "summary": {
+      "en": "Explains how an internal representation can be constructed and revised from selected information, prior/memory, provenance/source cues, social context and uncertainty while keeping empirical, executable, conceptual and interpretive levels separate.",
+      "ro": "Explică modul în care o reprezentare internă poate fi construită și revizuită din informație selectată, informație anterioară/memorie, indicii de proveniență/sursă, context social și incertitudine, separând nivelurile empiric, executabil, conceptual și interpretativ."
+    },
+    "source_paths": {
+      "en": "docs/theory/en/16-world-model-construction.md",
+      "ro": "docs/theory/ro/16-construirea-modelului-realitatii.md"
+    },
+    "prerequisites": [
+      "THEORY.01.WORLD_INFORMATION_REPRESENTATION"
+    ],
+    "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE",
+      "CONCEPTUAL",
+      "INTERPRETIVE"
+    ],
+    "module_ids": [
+      "MOD.14"
+    ],
+    "variable_ids": [
+      "VAR.WORLD.PRIOR",
+      "VAR.WORLD.LIKELIHOOD_RATIO",
+      "VAR.WORLD.POSTERIOR",
+      "VAR.WORLD.UNCERTAINTY",
+      "VAR.WORLD.PROVENANCE",
+      "VAR.EXPOSURE.COUNT",
+      "VAR.FAMILIARITY.CLAIM",
+      "VAR.CORRECTION.ACCESS",
+      "VAR.RELIABILITY.ESTIMATE",
+      "VAR.BELIEF.CLAIM",
+      "VAR.OBSERVED.SAMPLE.BALANCE",
+      "VAR.ISSUE.APPRAISAL",
+      "VAR.PREVIEW.IMPRESSION",
+      "VAR.ACCESS"
+    ],
+    "mechanism_ids": [
+      "world-observe-select",
+      "world-prior-memory",
+      "world-provenance-source",
+      "world-social-context",
+      "world-normative-update",
+      "world-uncertainty",
+      "world-reassessment"
+    ],
+    "validation_ids": [],
+    "evidence_refs": [
+      "REF.WM.ERNST_BANKS.2002",
+      "REF.WM.KNILL_POUGET.2004",
+      "REF.WM.ZWAAN_RADVANSKY.1998",
+      "REF.WM.JOHNSON.1993",
+      "REF.WM.SPERBER.2010",
+      "REF.WM.ECKER.2022"
+    ],
+    "sources": [
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.WM.ERNST_BANKS.2002"
+      },
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.WM.KNILL_POUGET.2004"
+      },
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.WM.ZWAAN_RADVANSKY.1998"
+      },
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.WM.JOHNSON.1993"
+      },
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.WM.SPERBER.2010"
+      },
+      {
+        "role": "MODEL_EVIDENCE",
+        "ref": "REF.WM.ECKER.2022"
+      },
+      {
+        "role": "BACKGROUND_THEORY",
+        "ref": "https://doi.org/10.1038/4580"
+      }
+    ],
+    "code_refs": [
+      {
+        "id": "mod14.bayes_update",
+        "path": "src/cognitive_epistemic_model/world_model.py",
+        "symbol": "bayes_update",
+        "language": "PYTHON",
+        "release_pin_required": true
+      },
+      {
+        "id": "mod14.binary_uncertainty",
+        "path": "src/cognitive_epistemic_model/world_model.py",
+        "symbol": "binary_uncertainty",
+        "language": "PYTHON",
+        "release_pin_required": true
+      }
+    ],
+    "related_views": [
+      "learning",
+      "reference",
+      "process"
+    ],
+    "anchors": [
+      "what-is-being-constructed",
+      "the-mechanism-loop",
+      "empirical-layer",
+      "executable-layer-a-narrow-normative-reference",
+      "why-pwm-is-not-b",
+      "sources-provenance-and-epistemic-vigilance",
+      "falsification-and-uncertainty",
+      "boundaries"
+    ],
+    "what_it_does_not_claim": {
+      "en": "MOD.14 does not claim a universal Bayesian brain, a complete neural world model, a truth oracle, population calibration, or identity between Pwm and the existing descriptive belief state B.",
+      "ro": "MOD.14 nu afirmă existența unui creier bayesian universal, a unui model neuronal complet al lumii, a unui oracol al adevărului, a calibrării populaționale sau a identității dintre Pwm și starea descriptivă existentă de convingere B."
+    }
   }
 ]

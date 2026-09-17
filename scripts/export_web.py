@@ -104,6 +104,10 @@ def export():
             (ROOT / "model" / f"{name}.json").read_bytes()
         )
 
+    (DEST / "world_model_v1.json").write_bytes(
+        (ROOT / "model" / "contracts" / "world_model_v1.json").read_bytes()
+    )
+
     (DEST / "interventions.json").write_text(
         json.dumps(export_interventions(), separators=(",", ":")) + "\n"
     )

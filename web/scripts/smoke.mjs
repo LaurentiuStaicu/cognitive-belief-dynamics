@@ -151,9 +151,9 @@ try {
  assert.equal(await page.locator('.views [data-view]').count(),1);
  await page.locator('[data-nav-group="understand"]').click();
  await waitTheory();
- assert.equal(await page.locator('[data-understanding-mode]').count(),5);
+ assert.equal(await page.locator('[data-understanding-mode]').count(),6);
  assert.equal(await page.locator('[data-understanding-mode="theory"]').getAttribute('aria-pressed'),'true');
- assert.equal(await page.locator('[data-theory-chapter]').count(),16);
+ assert.equal(await page.locator('[data-theory-chapter]').count(),17);
  const theoryMeasure=await page.locator('#theoryArticle p').first().evaluate(el=>({
   maxWidth:getComputedStyle(el).maxWidth,
   width:el.getBoundingClientRect().width

@@ -33,7 +33,7 @@ test('English is the first-run default and the bilingual choice persists locally
 });
 
 test('overview is the default learning mode while deeper learning remains in the same app',()=>{
- assert.match(understandingSource,/type Mode='overview'\|'theory'\|'mechanisms'\|'tour'\|'active'/);
+ assert.match(understandingSource,/type Mode='overview'\|'theory'\|'mechanisms'\|'world-model'\|'tour'\|'active'/);
  assert.match(understandingSource,/saved:'overview'/);
  assert.match(understandingSource,/mountSuiteOverview/);
 });

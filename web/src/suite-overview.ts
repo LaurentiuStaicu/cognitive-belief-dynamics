@@ -8,7 +8,7 @@ type SuiteOverviewOptions={
  moduleCount:number;
  referenceCount:number;
  validationCount:number;
- openUnderstanding:(mode:'theory'|'mechanisms'|'tour'|'active')=>void;
+ openUnderstanding:(mode:'theory'|'mechanisms'|'world-model'|'tour'|'active')=>void;
  openView:(view:'structure'|'runs'|'comparison'|'planning'|'reference'|'process')=>void;
 };
 
@@ -41,6 +41,7 @@ export function mountSuiteOverview(host:HTMLElement,options:SuiteOverviewOptions
       <span class="cem-map-label">${t('Stări cognitive','Cognitive states')}</span>
       <button type="button" class="cem-node" data-suite-learn="mechanisms"><strong>${t('Familiaritate','Familiarity')}</strong><small>F</small></button>
       <button type="button" class="cem-node" data-suite-learn="mechanisms"><strong>${t('Evaluare și acces','Evaluation & access')}</strong><small>Aissue · Paccess · Pengage</small></button>
+      <button type="button" class="cem-node" data-suite-learn="world-model"><strong>${t('Model intern și incertitudine','Internal model & uncertainty')}</strong><small>Pprior · LR → Pwm · Uwm</small></button>
       <button type="button" class="cem-node" data-suite-learn="mechanisms"><strong>${t('Convingere și acuratețe','Belief & accuracy')}</strong><small>B · W</small></button>
      </div>
      <div class="cem-map-flow" aria-hidden="true">→</div>
@@ -59,6 +60,7 @@ export function mountSuiteOverview(host:HTMLElement,options:SuiteOverviewOptions
     <p>${t('Teoria explică ce reprezintă fiecare variabilă, ce relații sunt executabile, ce este doar conceptual și unde sunt limitele de interpretare.','Theory explains what each variable represents, which relations are executable, what remains conceptual and where interpretation must stop.')}</p>
     <div class="suite-learning-actions">
      <button type="button" class="primary" data-suite-learn="theory">${t('Deschide teoria','Open theory')}</button>
+     <button type="button" data-suite-learn="world-model">${t('MOD.14 · Modelul realității','MOD.14 · World model')}</button>
      <button type="button" data-suite-learn="tour">${t('Tur ghidat','Guided tour')}</button>
      <button type="button" data-suite-learn="active">${t('Învățare activă','Active learning')}</button>
      <button type="button" data-suite-view="process">${t('Metodologie','Methodology')}</button>
@@ -93,6 +95,6 @@ export function mountSuiteOverview(host:HTMLElement,options:SuiteOverviewOptions
   </div>
  </section>`;
 
- host.querySelectorAll<HTMLButtonElement>('[data-suite-learn]').forEach(button=>button.onclick=()=>options.openUnderstanding(button.dataset.suiteLearn as 'theory'|'mechanisms'|'tour'|'active'));
+ host.querySelectorAll<HTMLButtonElement>('[data-suite-learn]').forEach(button=>button.onclick=()=>options.openUnderstanding(button.dataset.suiteLearn as 'theory'|'mechanisms'|'world-model'|'tour'|'active'));
  host.querySelectorAll<HTMLButtonElement>('[data-suite-view]').forEach(button=>button.onclick=()=>options.openView(button.dataset.suiteView as 'structure'|'runs'|'comparison'|'planning'|'reference'|'process'));
 }

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run test:workspace && npm run test:ia && npm run test:visual && npm run test:oa4 && npm run test:oa5a && npm run test:oa5c && npm run test:oa5d && npm run test:oa6b && npm run test:oa6c && npm run test:oa6d && npm run test:oa6e && npm run test:oa7 && tsc --noEmit && vite build --base=./ && npm run test:performance",
+    "build": "npm run test:workspace && npm run test:ia && npm run test:visual && npm run test:oa4 && npm run test:oa5a && npm run test:oa5c && npm run test:oa5d && npm run test:oa6b && npm run test:oa6c && npm run test:oa6d && npm run test:oa6e && npm run test:oa7 && npm run test:mod14 && tsc --noEmit && vite build --base=./ && npm run test:performance",
     "prebuild": "node scripts/sync-model.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "test:browser": "node scripts/smoke.mjs && node scripts/vp4-cross-view-smoke.mjs && node scripts/decision-autopsy-smoke.mjs && npm run test:a11y",
@@ -23,7 +23,8 @@
     "test:oa6c": "node --test tests/decision-uncertainty-ui.test.ts",
     "test:oa6d": "node --test tests/information-priority.test.ts tests/adaptive-reassessment.test.ts",
     "test:oa6e": "node --test tests/decision-uncertainty-closure.test.ts",
-    "test:oa7": "node --test tests/action-canvas.test.ts tests/indicator-objects.test.ts tests/signposts-triggers.test.ts tests/adaptive-plan-runtime.test.ts tests/implementation-plan.test.ts tests/observed-outcome.test.ts tests/trigger-evaluation.test.ts tests/decision-autopsy.test.ts"
+    "test:oa7": "node --test tests/action-canvas.test.ts tests/indicator-objects.test.ts tests/signposts-triggers.test.ts tests/adaptive-plan-runtime.test.ts tests/implementation-plan.test.ts tests/observed-outcome.test.ts tests/trigger-evaluation.test.ts tests/decision-autopsy.test.ts",
+    "test:mod14": "node --test tests/world-model.test.ts"
   },
   "dependencies": {
     "cytoscape": "^3.31.0",

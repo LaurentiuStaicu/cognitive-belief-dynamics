@@ -243,22 +243,25 @@
       "ro": "Construirea modelului realității"
     },
     "short_definition": {
-      "en": "Conceptual distinction between external world state, information reaching the agent, and the internal representation built from it.",
-      "ro": "Distincție conceptuală între starea externă a lumii, informația care ajunge la agent și reprezentarea internă construită din aceasta."
+      "en": "Agent-relative, partial and revisable internal representation constructed from selected observations, prior information, memory, provenance/source cues, social context and uncertainty.",
+      "ro": "Reprezentare internă relativă la agent, parțială și revizuibilă, construită din observații selectate, informație anterioară, memorie, indicii de proveniență/sursă, context social și incertitudine."
     },
     "what_it_is_not": {
-      "en": "A complete neural predictive-coding implementation.",
-      "ro": "Nu este o implementare neuronală completă de predictive coding."
+      "en": "External reality itself, a truth oracle, a complete neural predictive-coding implementation, or a population-calibrated belief model.",
+      "ro": "Nu este realitatea externă însăși, un oracol al adevărului, o implementare neuronală completă de predictive coding sau un model de convingere calibrat populațional."
     },
     "epistemic_status": [
+      "EMPIRICAL",
+      "EXECUTABLE",
       "CONCEPTUAL",
-      "EXECUTABLE"
+      "INTERPRETIVE"
     ],
     "executable": true,
     "target": "MOD.14",
     "related_chapters": [
       "THEORY.01.WORLD_INFORMATION_REPRESENTATION",
-      "THEORY.09.EDITORIAL_SELECTION"
+      "THEORY.09.EDITORIAL_SELECTION",
+      "THEORY.16.WORLD_MODEL_CONSTRUCTION"
     ]
   },
   {
@@ -489,6 +492,187 @@
     "target": "learning:access",
     "related_chapters": [
       "THEORY.11.ALGORITHMS_SOCIAL_FEEDBACK"
+    ]
+  },
+  {
+    "id": "GLOSS.MECH.WORLD_OBSERVE_SELECT",
+    "kind": "MECHANISM",
+    "token": "world-observe-select",
+    "label": {
+      "en": "Observation and selection",
+      "ro": "Observare și selecție"
+    },
+    "short_definition": {
+      "en": "Empirical/conceptual gate separating information availability from what is actually observed or encoded.",
+      "ro": "Poartă empirică/conceptuală care separă disponibilitatea informației de ceea ce este efectiv observat sau encodat."
+    },
+    "what_it_is_not": {
+      "en": "A universal coefficient or population-calibrated law unless explicitly marked executable for the narrow normative reference.",
+      "ro": "Nu este un coeficient universal sau o lege calibrată populațional decât dacă este marcat explicit executabil pentru referința normativă îngustă."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "CONCEPTUAL"
+    ],
+    "executable": false,
+    "target": "MOD.14",
+    "related_chapters": [
+      "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+    ]
+  },
+  {
+    "id": "GLOSS.MECH.WORLD_PRIOR_MEMORY",
+    "kind": "MECHANISM",
+    "token": "world-prior-memory",
+    "label": {
+      "en": "Prior and memory retrieval",
+      "ro": "Recuperarea informației anterioare și a memoriei"
+    },
+    "short_definition": {
+      "en": "Task-dependent use of stored information and schemas during construction or revision of an internal representation.",
+      "ro": "Utilizarea dependentă de sarcină a informației stocate și a schemelor în construirea sau revizuirea reprezentării interne."
+    },
+    "what_it_is_not": {
+      "en": "A universal coefficient or population-calibrated law unless explicitly marked executable for the narrow normative reference.",
+      "ro": "Nu este un coeficient universal sau o lege calibrată populațional decât dacă este marcat explicit executabil pentru referința normativă îngustă."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "CONCEPTUAL"
+    ],
+    "executable": false,
+    "target": "MOD.14",
+    "related_chapters": [
+      "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+    ]
+  },
+  {
+    "id": "GLOSS.MECH.WORLD_PROVENANCE_SOURCE",
+    "kind": "MECHANISM",
+    "token": "world-provenance-source",
+    "label": {
+      "en": "Provenance and source evaluation",
+      "ro": "Evaluarea provenienței și a sursei"
+    },
+    "short_definition": {
+      "en": "Source attribution and source-related evaluation kept distinct from objective reliability and from diagnostic likelihood ratios.",
+      "ro": "Atribuirea sursei și evaluarea legată de sursă, păstrate distincte de fiabilitatea obiectivă și de rapoartele de verosimilitate diagnostice."
+    },
+    "what_it_is_not": {
+      "en": "A universal coefficient or population-calibrated law unless explicitly marked executable for the narrow normative reference.",
+      "ro": "Nu este un coeficient universal sau o lege calibrată populațional decât dacă este marcat explicit executabil pentru referința normativă îngustă."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "CONCEPTUAL"
+    ],
+    "executable": false,
+    "target": "MOD.14",
+    "related_chapters": [
+      "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+    ]
+  },
+  {
+    "id": "GLOSS.MECH.WORLD_SOCIAL_CONTEXT",
+    "kind": "MECHANISM",
+    "token": "world-social-context",
+    "label": {
+      "en": "Social-context interpretation",
+      "ro": "Interpretarea contextului social"
+    },
+    "short_definition": {
+      "en": "Interpretation of communicated information in social context without a generic conformity coefficient.",
+      "ro": "Interpretarea informației comunicate în context social fără un coeficient generic de conformism."
+    },
+    "what_it_is_not": {
+      "en": "A universal coefficient or population-calibrated law unless explicitly marked executable for the narrow normative reference.",
+      "ro": "Nu este un coeficient universal sau o lege calibrată populațional decât dacă este marcat explicit executabil pentru referința normativă îngustă."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "CONCEPTUAL"
+    ],
+    "executable": false,
+    "target": "MOD.14",
+    "related_chapters": [
+      "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+    ]
+  },
+  {
+    "id": "GLOSS.MECH.WORLD_NORMATIVE_UPDATE",
+    "kind": "MECHANISM",
+    "token": "world-normative-update",
+    "label": {
+      "en": "Normative proposition update",
+      "ro": "Actualizarea normativă a propoziției"
+    },
+    "short_definition": {
+      "en": "Executable odds-form Bayesian reference update using an explicit prior and defensible diagnostic likelihood ratio.",
+      "ro": "Actualizare bayesiană executabilă de referință, în forma odds, folosind un prior explicit și un raport diagnostic justificabil."
+    },
+    "what_it_is_not": {
+      "en": "A universal coefficient or population-calibrated law unless explicitly marked executable for the narrow normative reference.",
+      "ro": "Nu este un coeficient universal sau o lege calibrată populațional decât dacă este marcat explicit executabil pentru referința normativă îngustă."
+    },
+    "epistemic_status": [
+      "EXECUTABLE"
+    ],
+    "executable": true,
+    "target": "#understanding/world-model",
+    "related_chapters": [
+      "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+    ]
+  },
+  {
+    "id": "GLOSS.MECH.WORLD_UNCERTAINTY",
+    "kind": "MECHANISM",
+    "token": "world-uncertainty",
+    "label": {
+      "en": "Explicit proposition uncertainty",
+      "ro": "Incertitudine explicită a propoziției"
+    },
+    "short_definition": {
+      "en": "Executable binary-entropy indicator derived from the normative proposition posterior.",
+      "ro": "Indicator executabil de entropie binară derivat din posteriorul normativ al propoziției."
+    },
+    "what_it_is_not": {
+      "en": "A universal coefficient or population-calibrated law unless explicitly marked executable for the narrow normative reference.",
+      "ro": "Nu este un coeficient universal sau o lege calibrată populațional decât dacă este marcat explicit executabil pentru referința normativă îngustă."
+    },
+    "epistemic_status": [
+      "EXECUTABLE",
+      "CONCEPTUAL"
+    ],
+    "executable": true,
+    "target": "#understanding/world-model",
+    "related_chapters": [
+      "THEORY.16.WORLD_MODEL_CONSTRUCTION"
+    ]
+  },
+  {
+    "id": "GLOSS.MECH.WORLD_REASSESSMENT",
+    "kind": "MECHANISM",
+    "token": "world-reassessment",
+    "label": {
+      "en": "Contradiction and reassessment",
+      "ro": "Contradicție și reevaluare"
+    },
+    "short_definition": {
+      "en": "Revision pathway triggered by counterevidence, corrections or source reappraisal; descriptive dynamics remain task-specific.",
+      "ro": "Traseu de revizuire declanșat de dovezi contrare, corecții sau reevaluarea sursei; dinamica descriptivă rămâne specifică sarcinii."
+    },
+    "what_it_is_not": {
+      "en": "A universal coefficient or population-calibrated law unless explicitly marked executable for the narrow normative reference.",
+      "ro": "Nu este un coeficient universal sau o lege calibrată populațional decât dacă este marcat explicit executabil pentru referința normativă îngustă."
+    },
+    "epistemic_status": [
+      "EMPIRICAL",
+      "CONCEPTUAL"
+    ],
+    "executable": false,
+    "target": "MOD.14",
+    "related_chapters": [
+      "THEORY.16.WORLD_MODEL_CONSTRUCTION"
     ]
   }
 ]

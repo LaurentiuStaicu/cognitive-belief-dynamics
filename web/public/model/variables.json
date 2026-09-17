@@ -321,5 +321,86 @@
       0,
       1
     ]
+  },
+  {
+    "id": "VAR.WORLD.PRIOR",
+    "short_name": "Pprior",
+    "ontology_type": "EXOGENOUS_INPUT",
+    "entity_type": "PropositionState",
+    "conceptual_module": "MOD.14",
+    "label": {
+      "en": "Prior proposition probability",
+      "ro": "Probabilitatea anterioară a propoziției"
+    },
+    "definition": "Normative probability assigned to a binary proposition before the current diagnostic evidence item when the task supplies a defensible probabilistic prior.",
+    "what_it_is_not": "The descriptive CEM belief B, ground truth, or population prevalence unless a task explicitly defines it that way.",
+    "range": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "VAR.WORLD.LIKELIHOOD_RATIO",
+    "short_name": "LR",
+    "ontology_type": "EXOGENOUS_INPUT",
+    "entity_type": "EvidenceRecord",
+    "conceptual_module": "MOD.14",
+    "label": {
+      "en": "Diagnostic likelihood ratio",
+      "ro": "Raport de verosimilitate diagnostic"
+    },
+    "definition": "Externally supplied diagnostic ratio P(evidence|proposition true) / P(evidence|proposition false) from a defensible task-specific measurement model.",
+    "what_it_is_not": "Source trust, familiarity, amount of evidence, social agreement, salience, or subjective confidence.",
+    "range": [
+      0,
+      1000000
+    ]
+  },
+  {
+    "id": "VAR.WORLD.POSTERIOR",
+    "short_name": "Pwm",
+    "ontology_type": "DERIVED_METRIC",
+    "entity_type": "PropositionState",
+    "conceptual_module": "MOD.14",
+    "label": {
+      "en": "Normative world-model posterior",
+      "ro": "Posteriorul normativ al modelului realității"
+    },
+    "definition": "Normative binary proposition probability after a declared prior is updated with one or more defensible diagnostic likelihood ratios.",
+    "what_it_is_not": "VAR.BELIEF.CLAIM B, knowledge, truth, ideology, or a calibrated population opinion.",
+    "range": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "VAR.WORLD.UNCERTAINTY",
+    "short_name": "Uwm",
+    "ontology_type": "DERIVED_METRIC",
+    "entity_type": "PropositionState",
+    "conceptual_module": "MOD.14",
+    "label": {
+      "en": "Normative proposition uncertainty",
+      "ro": "Incertitudinea normativă a propoziției"
+    },
+    "definition": "Normalized binary Shannon entropy derived from Pwm, equal to one at p=0.5 and zero at p=0 or p=1.",
+    "what_it_is_not": "The decision-uncertainty registry, metacognitive confidence, model misspecification, or unknown unknowns.",
+    "range": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "VAR.WORLD.PROVENANCE",
+    "short_name": "Prov",
+    "ontology_type": "OBSERVABLE",
+    "entity_type": "EvidenceRecord",
+    "conceptual_module": "MOD.14",
+    "label": {
+      "en": "Evidence provenance record",
+      "ro": "Înregistrarea provenienței dovezii"
+    },
+    "definition": "Traceable record of an evidence item, source, acquisition context, and measurement assumptions relevant to a world-model update.",
+    "what_it_is_not": "Objective truth certification or the agent-relative source-reliability estimate T."
   }
 ]

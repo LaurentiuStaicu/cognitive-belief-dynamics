@@ -55,7 +55,7 @@ def test_semantic_compiler_entity_coverage_matches_authoritative_sources():
 
     actual = {item["id"] for item in index["entities"]}
     assert actual == expected
-    assert len(actual) == 114
+    assert len(actual) == 133
 
 
 def test_semantic_compiler_preserves_registered_links_exactly():
@@ -93,7 +93,7 @@ def test_semantic_compiler_documentation_relations_are_resolved():
         if relation["layer"] == "DOCUMENTATION_RELATION"
     ]
 
-    assert len(documentation) == 162
+    assert len(documentation) == 199
     for relation in documentation:
         assert relation["source"] in entity_ids
         assert relation["target"] in entity_ids
@@ -128,9 +128,9 @@ def test_semantic_compiler_counts_all_three_relation_layers():
     assert counts == {
         "REGISTERED_EVIDENCE_RELATION": 10,
         "COMPUTATIONAL_DEPENDENCY": 17,
-        "DOCUMENTATION_RELATION": 162,
+        "DOCUMENTATION_RELATION": 199,
     }
-    assert len(index["relations"]) == 189
+    assert len(index["relations"]) == 226
 
 
 def test_semantic_related_ids_all_resolve():

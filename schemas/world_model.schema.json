@@ -20,7 +20,7 @@
     "cross_links": {"type":"array","minItems":1,"items":{"type":"object","additionalProperties":false,"required":["target","role"],"properties":{"target":{"type":"string","minLength":1},"role":{"type":"string","minLength":10}}}},
     "falsification_and_tests": {"type":"array","minItems":3,"items":{"type":"object","additionalProperties":false,"required":["claim","weakening_condition","scope"],"properties":{"claim":{"type":"string","minLength":10},"weakening_condition":{"type":"string","minLength":20},"scope":{"type":"string","minLength":5}}}},
     "limitations": {"type":"array","minItems":5,"items":{"type":"string","minLength":10}},
-    "references": {"type":"array","minItems":4,"items":{"type":"object","additionalProperties":false,"required":["id","citation","doi","url","supports"],"properties":{"id":{"type":"string","pattern":"^WM\\.REF\\."},"citation":{"type":"string","minLength":20},"doi":{"type":"string","minLength":5},"url":{"type":"string","format":"uri"},"supports":{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","pattern":"^WM\\.MECH\\."}}}}}
+    "references": {"type":"array","minItems":4,"items":{"type":"object","additionalProperties":false,"required":["id","citation","doi","url","supports"],"properties":{"id":{"type":"string","pattern":"^REF\\.WM\\."},"citation":{"type":"string","minLength":20},"doi":{"type":"string","minLength":5},"url":{"type":"string","format":"uri"},"supports":{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","pattern":"^WM\\.MECH\\."}}}}}
   },
   "$defs": {
     "bilingual": {"type":"object","additionalProperties":false,"required":["en","ro"],"properties":{"en":{"type":"string","minLength":1},"ro":{"type":"string","minLength":1}}},
