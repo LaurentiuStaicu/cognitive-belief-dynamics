@@ -43,7 +43,7 @@ type Frame = {time:number; familiarity:number; correction:number; reliability:nu
 type Run = {id:string; seed:number; prior:number; parameters:Record<string,number>; frames:Frame[]};
 type Reference = {id:string; citation:string; url:string; access_url:string; checked_on:string; review_scope:string};
 type Module = {id:string;label:Record<Lang,string>};
-let lang:Lang = 'ro';
+let lang:Lang = 'en';
 let view:AppView = 'learning';
 let planning:PlanningData;
 let decisionUncertainty:DecisionUncertaintyRegistry;
