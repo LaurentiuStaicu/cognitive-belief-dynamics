@@ -147,6 +147,58 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,su
 [data-status="META_ANALYTIC"]::before{content:"MA"}
 [data-status="CANDIDATE"]::before{content:"?"}
 [data-status="REFERENCE_CANDIDATE"]::before{content:"R"}
+
+/* VP-3: charts and data-dense surfaces. Preserve exact-value alternatives and non-color series cues. */
+.chart-wrap,.comparison-plot,.narrative-chart{
+ overflow-x:auto;
+ max-width:100%;
+ background:var(--vl-surface-inset);
+ border:1px solid var(--vl-border-soft);
+ border-radius:var(--vl-radius-md);
+ padding:var(--vl-space-2);
+ scrollbar-gutter:stable;
+ overscroll-behavior-inline:contain;
+}
+.chart-wrap svg,.comparison-plot svg,.narrative-chart svg{
+ display:block;
+ width:100%;
+ min-width:36rem;
+ font-variant-numeric:tabular-nums;
+}
+.chart-wrap svg text,.comparison-plot svg text,.narrative-chart svg text{fill:var(--muted);font-size:.78rem}
+.chart-wrap svg polyline,.comparison-plot svg polyline,.narrative-chart svg polyline{vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.legend,.comparison-legend,.narrative-legend{align-items:center;gap:var(--vl-space-2);margin-block:var(--vl-space-2) var(--vl-space-3);font-size:var(--vl-text-sm)}
+.legend span::before,.comparison-legend span::before{width:1.75rem}
+.narrative-legend span{width:1.75rem}
+polyline.narrative-driver{stroke-dasharray:none}
+polyline.narrative-belief{stroke-dasharray:10 4}
+polyline.narrative-sharing{stroke-dasharray:2 4}
+.narrative-legend .driver span{border-top-style:solid}
+.narrative-legend .belief span{border-top-style:dashed}
+.narrative-legend .sharing span{border-top-style:dotted}
+.chart-readout{
+ min-height:2.75rem;
+ padding:var(--vl-space-2) var(--vl-space-3);
+ border:1px solid var(--vl-border-soft);
+ border-radius:var(--vl-radius-md);
+ background:var(--vl-surface-inset);
+ font-variant-numeric:tabular-nums;
+}
+.metrics strong,.comparison-metrics strong,.narrative-values dd,.planner-metrics strong{font-variant-numeric:tabular-nums}
+.table-scroll{
+ max-width:100%;
+ overflow:auto;
+ border:1px solid var(--vl-border-soft);
+ border-radius:var(--vl-radius-md);
+ background:var(--vl-surface-raised);
+ scrollbar-gutter:stable;
+}
+.table-scroll table{margin:0;min-width:40rem;font-variant-numeric:tabular-nums}
+.table-scroll caption{padding:var(--vl-space-2) var(--vl-space-3);font-weight:600;text-align:left;background:var(--vl-surface-inset);border-bottom:1px solid var(--vl-border-soft)}
+.table-scroll th,.table-scroll td{padding:.65rem .75rem;line-height:1.45}
+.table-scroll thead th{position:sticky;top:0;z-index:1;background:var(--vl-surface-inset);font-weight:650}
+.table-scroll tbody tr:last-child th,.table-scroll tbody tr:last-child td{border-bottom:0}
+
 @media(max-width:1050px){
  .workspace{padding-left:max(var(--vl-content-margin-min),1.2rem);padding-right:max(var(--vl-content-margin-min),1.2rem)}
 }
@@ -158,6 +210,8 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,su
  .nav-groups button{text-align:left}
  .views{display:grid;grid-template-columns:1fr;gap:0;border-bottom:0}
  .views button{text-align:left;border-bottom:1px solid var(--vl-border)}
+ .chart-wrap,.comparison-plot,.narrative-chart{padding:var(--vl-space-1)}
+ .table-scroll table{min-width:44rem}
 }
 @media(max-width:420px){.nav-groups{grid-template-columns:1fr}}
 @media(forced-colors:active){
@@ -165,4 +219,6 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,su
  .theory-statuses [data-status],.epistemic-status{border:1px solid CanvasText}
  .nav-groups button[aria-pressed=true],.views button[aria-pressed=true],button[aria-pressed=true]{outline:2px solid Highlight;outline-offset:1px}
  button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid Highlight}
+ .chart-wrap,.comparison-plot,.narrative-chart,.table-scroll,.chart-readout{border-color:CanvasText;background:Canvas}
+ .table-scroll caption,.table-scroll thead th{border-color:CanvasText;background:Canvas}
 }
