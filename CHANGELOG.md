@@ -1,5 +1,17 @@
 # Changelog
 
+## Alpha 0.4.3a0 — Optimization & Visual Polish Consolidation
+
+- Consolidate the web Optimization Architecture critical path through OA-8: architecture/baseline contract, Semantic Spine, local Workspace + Provenance, four-surface IA, Universal Inspector + Search, Active Understanding, Decision Under Uncertainty, Reality Loop and Trust Hardening.
+- Keep SimulationResult, DecisionAnalysis, ImplementationPlan and ObservedOutcome distinct; persisted observations and trigger evaluations cannot rewrite prospective plans and do not execute automatic real-world actions.
+- Strengthen trust gates with Dependency Review, CodeQL, SPDX SBOM validation, import/security hardening, performance budgets, WCAG-oriented checks and reproducible release provenance.
+- Complete Visual Polish VP-0–VP-4: system-first typography, spacing/surfaces, consistent navigation/control states, accessible chart/table treatment and cross-view responsive closure.
+- Add non-color chart-series cues, exact-value/table alternatives and regression tests for selected/focus/disabled interaction states.
+- Gate all seven top-level views at 320 CSS px in light/dark and at 200% text without document-level horizontal overflow.
+- Bump software/release metadata to `0.4.3a0` / npm `0.4.3-alpha.0`; deterministic scientific exports change only in software-version metadata.
+- Keep active model specification M1 with retained M0 baseline and evidence snapshot `EVIDENCE.M1.2026-09-16.r1`; M1.E4/Pencode/EVSD/2HT are not activated by this release.
+- Defer the native elementary OS / Flatpak implementation until all planned modules are integrated and the product is near version 1.0; the current official application remains Web.
+
 ## Alpha 0.4.2a0 — M1.E3 Headline Access Gate
 
 - Add a separate `PreviewImpression → Access` stage after the M1.E2 presentation layer, without coupling it to M0 belief/sharing or M1.E2 engagement.
