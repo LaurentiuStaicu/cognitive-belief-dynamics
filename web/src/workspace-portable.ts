@@ -10,8 +10,16 @@ const WORKSPACE_ACTIVE_KEY='cem.workspace.v1.active';
 const WORKSPACE_RECOVERY_KEY='cem.workspace.v1.recovery';
 export const WORKSPACE_IMPORT_ORIGINAL_KEY='cem.workspace.v1.import.original';
 
+// Import limits are an input-safety envelope, not part of the scientific workspace schema.
+// They prevent a local untrusted file from causing unbounded parsing/cloning/provenance work.
+export const MAX_WORKSPACE_IMPORT_BYTES=5*1024*1024;
+export const MAX_WORKSPACE_IMPORT_DEPTH=64;
+export const MAX_WORKSPACE_IMPORT_NODES=100_000;
+
 export class WorkspaceImportError extends Error{}
 export class UnsupportedWorkspaceSchemaError extends WorkspaceImportError{}
+export class WorkspaceImportLimitError extends WorkspaceImportError{}
+export class InvalidWorkspaceShapeError extends WorkspaceImportError{}
 
 export type LegacyWorkspaceV0={
  schema_version:'0';
@@ -122,6 +130,36 @@ function migrateV0(source:LegacyWorkspaceV0,now:()=>string,id:()=>string):Worksp
  return appendActivity(base,'MIGRATE',now,id);
 }
 
+function byteLength(text:string):number{return new TextEncoder().encode(text).byteLength;}
+
+function assertImportEnvelope(text:string,parsed:unknown):void{
+ const bytes=byteLength(text);
+ if(bytes>MAX_WORKSPACE_IMPORT_BYTES){
+  throw new WorkspaceImportLimitError(`workspace import exceeds ${MAX_WORKSPACE_IMPORT_BYTES} byte limit`);
+ }
+ if(typeof parsed!=='object'||parsed===null||Array.isArray(parsed)){
+  throw new InvalidWorkspaceShapeError('workspace import must be a JSON object');
+ }
+
+ let nodes=0;
+ const stack:Array<{value:unknown;depth:number}>=[{value:parsed,depth:1}];
+ while(stack.length){
+  const {value,depth}=stack.pop()!;
+  nodes+=1;
+  if(nodes>MAX_WORKSPACE_IMPORT_NODES){
+   throw new WorkspaceImportLimitError(`workspace import exceeds ${MAX_WORKSPACE_IMPORT_NODES} node limit`);
+  }
+  if(depth>MAX_WORKSPACE_IMPORT_DEPTH){
+   throw new WorkspaceImportLimitError(`workspace import exceeds ${MAX_WORKSPACE_IMPORT_DEPTH} level depth limit`);
+  }
+  if(Array.isArray(value)){
+   for(const child of value)stack.push({value:child,depth:depth+1});
+  }else if(typeof value==='object'&&value!==null){
+   for(const child of Object.values(value as Record<string,unknown>))stack.push({value:child,depth:depth+1});
+  }
+ }
+}
+
 export function workspaceFileName(document:WorkspaceDocument):string{
  const stem=document.case.id.replace(/^CEM\.CASE\./,'')||'workspace';
  return `${stem}.cem.json`;
@@ -132,12 +170,16 @@ export function serializeWorkspace(document:WorkspaceDocument):string{
 }
 
 export function importWorkspaceText(text:string,options:ImportOptions):WorkspaceImportResult{
+ if(byteLength(text)>MAX_WORKSPACE_IMPORT_BYTES){
+  throw new WorkspaceImportLimitError(`workspace import exceeds ${MAX_WORKSPACE_IMPORT_BYTES} byte limit`);
+ }
  const now=options.now??nowDefault;
  const id=options.id??idDefault;
  let parsed:unknown;
  try{parsed=JSON.parse(text);}catch(error){throw new WorkspaceImportError(`invalid workspace JSON: ${String(error)}`);}
+ assertImportEnvelope(text,parsed);
  const original=clone(parsed);
- const version=(parsed as {schema_version?:unknown})?.schema_version;
+ const version=(parsed as {schema_version?:unknown}).schema_version;
  let document:WorkspaceDocument;
  let migrated_from:WorkspaceImportResult['migrated_from'];
  if(version==='1'){
@@ -171,6 +213,11 @@ export function downloadWorkspace(document:WorkspaceDocument):void{
  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
-export async function readWorkspaceFile(file:File):Promise<string>{return file.text();}
+export async function readWorkspaceFile(file:File):Promise<string>{
+ if(file.size>MAX_WORKSPACE_IMPORT_BYTES){
+  throw new WorkspaceImportLimitError(`workspace file exceeds ${MAX_WORKSPACE_IMPORT_BYTES} byte limit`);
+ }
+ return file.text();
+}
 
 function documentGlobal():Document{return globalThis.document;}
