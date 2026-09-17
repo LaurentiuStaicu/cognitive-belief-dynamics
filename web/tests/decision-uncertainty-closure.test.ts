@@ -16,10 +16,25 @@ const scientificBaseline={
  '../../model/links.json':'d81ba2c8c07a3ad5165feaa7be55397b74a366ed'
 } as const;
 
-test('OA-6E preserves the R7 baseline scientific artifacts byte-for-byte',async()=>{
+const releaseVersionedArtifacts=new Set([
+ '../public/model/interventions.json',
+ '../public/model/runs.json',
+ '../public/model/explanations.json'
+]);
+
+const normalizeReleaseMetadata=(relative:string,content:Buffer)=>{
+ if(!releaseVersionedArtifacts.has(relative))return content;
+ const current=content.toString('utf8');
+ assert(current.includes('0.4.3a0'),`${relative}: current release metadata missing`);
+ const normalized=current.replaceAll('0.4.3a0','0.4.2a0');
+ assert.equal(normalized.includes('0.4.3a0'),false,`${relative}: unexpected additional current-version payload`);
+ return Buffer.from(normalized);
+};
+
+test('OA-6E preserves the R7 baseline scientific artifacts byte-for-byte modulo release metadata',async()=>{
  for(const [relative,expected] of Object.entries(scientificBaseline)){
   const content=await readFile(new URL(relative,import.meta.url));
-  assert.equal(gitBlobSha(content),expected,relative);
+  assert.equal(gitBlobSha(normalizeReleaseMetadata(relative,content)),expected,relative);
  }
 });
 
