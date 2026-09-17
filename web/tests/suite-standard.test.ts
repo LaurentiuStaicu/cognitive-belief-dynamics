@@ -24,9 +24,11 @@ test('cognitive diagram stays model-specific instead of imposing a suite-generic
  assert.match(overviewSource,/cem-mechanism-map/);
 });
 
-test('English is the pre-v1 default and Romanian remains available',()=>{
+test('English is the first-run default and the bilingual choice persists locally',()=>{
  assert.match(indexSource,/<html lang="en">/);
- assert.match(mainSource,/let lang:Lang = 'en';/);
+ assert.match(mainSource,/cem\.ui\.language/);
+ assert.match(mainSource,/savedLanguage==='ro'\|\|savedLanguage==='en'\?savedLanguage:'en'/);
+ assert.match(mainSource,/localStorage\.setItem\('cem\.ui\.language',lang\)/);
  assert.match(mainSource,/lang==='ro'\?'EN':'RO'/);
 });
 
