@@ -1,0 +1,42 @@
+name: MOD14 deterministic integration helper
+
+on:
+  push:
+    branches: [mod14-world-model-construction]
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Apply deterministic MOD.14 integration
+        run: python .github/scripts/mod14_integrate.py
+      - name: Install Python package
+        run: python -m pip install -e .
+      - name: Regenerate Semantic Spine and web exports
+        run: |
+          python scripts/export_semantic.py
+          python scripts/export_web.py
+          node web/scripts/sync-model.mjs
+      - name: Commit deterministic outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'MOD14: integrate registries, Semantic Spine and InfoClar UI'
+          git push
