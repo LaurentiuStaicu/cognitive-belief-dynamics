@@ -219,10 +219,18 @@ export function mountObservedOutcomeRecorder(
   </form>
   <p class="note">${t('Textele libere sunt păstrate verbatim în ambele câmpuri bilingve; recorderul nu inventează traduceri. Pentru indicatorii M0, unitatea este probability și sunt acceptate numai valori 0–1.','Free text is preserved verbatim in both bilingual fields; the recorder does not invent translations. For the current M0 indicators, the unit is probability and only values from 0 to 1 are accepted.')}</p>
   <p id="observedOutcomeStatus" class="note" aria-live="polite"></p>
+  <div id="decisionAutopsyHost"></div>
  </section>`;
 
  const form=host.querySelector<HTMLFormElement>('#observedOutcomeForm')!;
  const status=host.querySelector<HTMLElement>('#observedOutcomeStatus')!;
+ const autopsyHost=host.querySelector<HTMLElement>('#decisionAutopsyHost')!;
+ const autopsyController=import('./decision-autopsy-browser').then(({mountPersistedDecisionAutopsy})=>
+  mountPersistedDecisionAutopsy(autopsyHost,{plan,lang})
+ ).catch(error=>{
+  autopsyHost.innerHTML=`<p class="note">${t(`Autopsia decizională nu a putut fi inițializată: ${String(error)}`,`Decision autopsy could not be initialized: ${String(error)}`)}</p>`;
+  return undefined;
+ });
  form.onsubmit=async event=>{
   event.preventDefault();
   const submit=form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
@@ -256,6 +264,8 @@ export function mountObservedOutcomeRecorder(
    const stored=await input.persist(record);
    host.dataset.observedOutcomeId=stored.id;
    status.textContent=t(`Observație adăugată append-only: ${stored.id}`,`Append-only observation saved: ${stored.id}`);
+   const refreshAutopsy=await autopsyController;
+   await refreshAutopsy?.();
   }catch(error){
    status.textContent=t(`Înregistrarea a eșuat: ${String(error)}`,`Observation failed: ${String(error)}`);
   }finally{submit.disabled=false;}
