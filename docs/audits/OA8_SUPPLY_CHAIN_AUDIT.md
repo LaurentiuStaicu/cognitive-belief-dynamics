@@ -1,8 +1,10 @@
 # OA-8D Supply-Chain Audit — Dependency Review + SBOM
 
-Status: PENDING_CI
+Status: COMPLETE
 
 Date: 2026-09-17
+
+Integrated commit: `2bab46009cd1099b80ca307522d2ad63e5dd34ea`
 
 Scope: OA-8D trust-hardening slice only.
 
@@ -35,15 +37,22 @@ OA-8D changes only GitHub Actions and documentation. It does not alter:
 - web runtime behavior;
 - decision/reality-loop contracts.
 
-## Closure checklist
+## Closure evidence
 
-- [ ] Verify model and web — green on exact PR head
-- [ ] Dependency Review — green on exact PR head
-- [ ] CodeQL Python — green on exact PR head
-- [ ] CodeQL JavaScript/TypeScript — green on exact PR head
-- [ ] SPDX SBOM inventory assertion — green
-- [ ] SBOM workflow artifact present
-- [ ] post-merge Verify model and web — green
-- [ ] post-merge CodeQL — green
+On PR #78 head `8a4fa0c31687d1bd9dce699728eeb55f17a3baa6`:
 
-Do not change `Status` to `COMPLETE` before all applicable closure checks are evidenced on the integrated commit.
+- [x] Verify model and web #298 — green
+- [x] Dependency Review #2 — green after Dependency Graph enablement
+- [x] CodeQL Python #19 — green
+- [x] CodeQL JavaScript/TypeScript #19 — green
+- [x] SPDX SBOM inventory assertion — green
+- [x] SBOM workflow artifact present
+
+On integrated commit `2bab46009cd1099b80ca307522d2ad63e5dd34ea`:
+
+- [x] post-merge Verify model and web #299 — green
+- [x] post-merge CodeQL #20 Python — green
+- [x] post-merge CodeQL #20 JavaScript/TypeScript — green
+- [x] post-merge SBOM generation, validation and artifact upload — green
+
+OA-8D is therefore integrated and complete within its declared scope.
