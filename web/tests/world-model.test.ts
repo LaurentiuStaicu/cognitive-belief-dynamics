@@ -6,6 +6,7 @@ const contract=JSON.parse(await readFile(new URL('../../model/contracts/world_mo
 const source=await readFile(new URL('../src/world-model.ts',import.meta.url),'utf8');
 const understanding=await readFile(new URL('../src/understanding.ts',import.meta.url),'utf8');
 const overview=await readFile(new URL('../src/suite-overview.ts',import.meta.url),'utf8');
+const usefulness=await readFile(new URL('../src/product-usefulness.ts',import.meta.url),'utf8');
 
 test('MOD.14 UI exposes all epistemic levels and a mechanism-first InfoClar surface',()=>{
  const levels=new Set(contract.epistemic_levels.map((item:{level:string})=>item.level));
@@ -16,10 +17,13 @@ test('MOD.14 UI exposes all epistemic levels and a mechanism-first InfoClar surf
  assert(source.includes('EVIDENCE · LIMITS · CROSS-LINKS'));
 });
 
-test('MOD.14 is reachable from the shared Theory/Learn architecture',()=>{
+test('MOD.14 remains reachable from the shared Theory/Learn architecture without restoring cockpit chrome',()=>{
  assert(understanding.includes("'world-model'"));
  assert(understanding.includes('mountWorldModel'));
- assert(overview.includes('data-suite-learn="world-model"'));
+ assert(usefulness.includes("chapterSlug:'world-model-construction'"));
+ assert(overview.includes('data-suite-theory-chapter'));
+ assert(overview.includes('Theory / Learn'));
+ assert.equal(overview.includes('data-suite-learn="world-model"'),false);
 });
 
 test('MOD.14 browser calculator keeps normative posterior distinct from belief B',()=>{
