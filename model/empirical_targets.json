@@ -41,7 +41,7 @@
         ]
       }
     ],
-    "model_match": "Alpha 0.4 uses the negative-versus-neutral direction and nested-null contrast as validation targets. Published magnitudes are context only and are not used to set the appraisal gain.",
+    "model_match": "The current CEM uses the negative-versus-neutral direction and nested-null contrast as validation targets. Published magnitudes are context only and are not used to set the appraisal gain.",
     "limitations": "The experiment varies sentence selection by tone and therefore combines information-selection and tone variation. The M1 scalar variables and bounded linear appraisal update are model constructs, not measured states from the study."
   },
   {
@@ -78,7 +78,7 @@
         "estimate_pp": 14
       }
     ],
-    "model_match": "Alpha 0.4.1 uses the cross-country confirmation-greater-than-refutation engagement direction as the target for the frame-only candidate. The published percentage-point effects are context only and do not set beta_frame.",
+    "model_match": "The current CEM uses the cross-country confirmation-greater-than-refutation engagement direction as the target for the frame-only candidate. The published percentage-point effects are context only and do not set beta_frame.",
     "limitations": "Aggregate engagement combines like, share and comment. Share alone is statistically significant only in Argentina, so the target validates active-engagement intent rather than the retained M0 Share process."
   },
   {
@@ -115,7 +115,7 @@
         "estimate_pp": 6.8
       }
     ],
-    "model_match": "Alpha 0.4.1 uses the positive confirmation-by-congruence interaction and near-zero counter-attitudinal confirmation main effect as the differential target that distinguishes frame×congruence from frame-only.",
+    "model_match": "The current CEM uses the positive confirmation-by-congruence interaction and near-zero counter-attitudinal confirmation main effect as the differential target that distinguishes frame×congruence from frame-only.",
     "limitations": "The published interaction is defined using partisan congruence with 2023 runoff vote choice. M1 generalizes this only to a task-specific message–prior-attitude congruence relation and does not create a stable ideology or party-identity trait."
   },
   {
@@ -164,7 +164,7 @@
         "magnitude_use": "MAGNITUDE_CONTEXT_ONLY"
       }
     ],
-    "model_match": "Alpha 0.4.2 uses only the directional higher-Hneg to higher-Paccess pattern. The CEM binary Hneg cue and demonstrative logistic coefficient are not fitted to the source study's continuous standardized predictor or reported magnitude.",
+    "model_match": "The current CEM uses only the directional higher-Hneg to higher-Paccess pattern. The CEM binary Hneg cue and demonstrative logistic coefficient are not fitted to the source study's continuous standardized predictor or reported magnitude.",
     "limitations": "The primary causal evidence comes from historical Upworthy field experiments. A 2024 archive correction identifies a period with likely randomization problems; archive maintainers report the Robertson results remain nearly identical when restricted to reliable tests. Recent preliminary experimental work reports no expected negativity-bias effect in a different context, so CEM treats the direction as a bounded candidate rather than a universal constant."
   }
 ]
