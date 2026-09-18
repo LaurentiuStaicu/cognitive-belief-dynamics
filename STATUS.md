@@ -6,6 +6,14 @@ Cognitive Belief Dynamics (CBD) v0.1.0 is the initial public scientific-core bas
 
 The repository is intentionally maintained as a scientific model core. The v0.1.0 baseline contains the canonical model specification, computational engine, schemas, empirical/evidence contracts, calibration artifacts, synthetic recovery benchmarks, integrity hashes, and scripts needed to reproduce retained model-building results. It does not include an end-user product layer.
 
+## Canonical modeling paradigm
+
+**Cognitive Belief Dynamics (CBD) is an event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking; it is not currently a formal System Dynamics model.**
+
+CBD contains persistent agent states, memory, saturation, decay, nonlinear transformations, temporal ordering, and stochastic decisions. These features make it a dynamical model, but the current implementation does not contain the closed endogenous feedback structure required to classify it as System Dynamics in the strict sense. In particular, actions such as Share do not automatically generate future exposure, and event schedules remain externally supplied.
+
+This paradigm statement is canonical for the project. CBD must not be converted into System Dynamics, an agent-based network model, or another paradigm merely for methodological uniformity with the rest of the model suite. A paradigm change is justified only if the scientific question requires endogenous feedback, interaction, or emergence that the present event-driven state-transition architecture cannot represent adequately. Any such change must be explicit, scientifically justified, documented in this file before integration, and accompanied by a revised system boundary, state/update specification, evidence bridge, verification plan, and validation strategy.
+
 ## Current scientific boundary
 
 CBD combines several epistemic levels that must remain distinct:
