@@ -26,5 +26,5 @@
     "held_out": "predictive_log_likelihood",
     "decision": "select a family only when both diagnostics favor the same candidate; otherwise INCONCLUSIVE"
   },
-  "interpretation_boundary": "This configuration is a prospective synthetic design benchmark. It does not calibrate M1.E4, select the true recognition architecture, activate EVSD/2HT in CEM, or identify Pencode."
+  "interpretation_boundary": "This configuration is a prospective synthetic design benchmark. It does not calibrate M1.E4, select the true recognition architecture, activate EVSD/2HT in CBD, or identify Pencode."
 }
