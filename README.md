@@ -9,6 +9,6 @@
   <img alt="License: MIT / CC BY 4.0" src="https://img.shields.io/badge/license-MIT%20%2F%20CC%20BY%204.0-lightgrey?style=flat-square">
 </p>
 
-Cognitive Belief Dynamics (CBD) is a research model of cognitive and epistemic mechanisms linking information exposure, belief updating, uncertainty, and action. The repository contains the canonical model specification, computational engine, schemas, calibration and benchmark artifacts, and scripts directly required to reproduce those model-building results. It is maintained as a scientific model core rather than an end-user application.
+Cognitive Belief Dynamics (CBD) is a research model of cognitive and epistemic mechanisms linking information exposure, belief updating, uncertainty and action. The repository contains the canonical model specification, computational engine, schemas, calibration and benchmark artifacts and scripts directly required to reproduce those model-building results. It is maintained as a scientific model core rather than an end-user application.
 
 **Current status:** initial research release / scientific-core baseline. Version numbers identify frozen repository artifacts and do not by themselves imply empirical validation of the full model. See [STATUS.md](STATUS.md) for the current scientific scope and validation boundary, and [CITATION.cff](CITATION.cff) for citation metadata.
