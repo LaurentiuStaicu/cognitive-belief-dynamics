@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://laurentiustaicu.github.io/cognitive-epistemic-model/schemas/world_model.schema.json",
-  "title": "CEM MOD.14 world-model contract",
+  "$id": "https://laurentiustaicu.github.io/cognitive-belief-dynamics/schemas/world_model.schema.json",
+  "title": "CBD MOD.14 world-model contract",
   "type": "object",
   "additionalProperties": false,
   "required": ["contract_id","module_id","title","purpose","scope_boundary","epistemic_levels","variables","mechanisms","relations","temporal_model","executable_specification","cross_links","falsification_and_tests","limitations","references"],
