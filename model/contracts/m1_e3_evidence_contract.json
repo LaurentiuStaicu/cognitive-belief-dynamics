@@ -52,7 +52,7 @@
       "candidate_scope": "SELECTED_CUE",
       "independence_group": "UPWORTHY_ARCHIVE_2013_2015",
       "data_access": "OPEN",
-      "data_license_note": "Underlying Upworthy Research Archive is CC BY 4.0; no source lexicon is redistributed by CEM.",
+      "data_license_note": "Underlying Upworthy Research Archive is CC BY 4.0; no source lexicon is redistributed by CBD.",
       "checked_on": "2026-09-16",
       "review_scope": "FULL_TEXT",
       "notes": "Registered Report. Directional target is higher negative-language content associated with greater click propensity within same-story headline experiments. Published magnitudes are context only.",
@@ -254,7 +254,7 @@
       "candidate_scope": "IMPLEMENTATION_CONSTRAINT",
       "independence_group": "LICENSING_NRC",
       "data_access": "NOT_APPLICABLE",
-      "data_license_note": "Lexicons may be used under stated terms but must not be redistributed by CEM.",
+      "data_license_note": "Lexicons may be used under stated terms but must not be redistributed by CBD.",
       "checked_on": "2026-09-16",
       "review_scope": "FULL_TEXT",
       "notes": "Implementation constraint only; reinforces the decision to avoid runtime dependence on redistributable sentiment dictionaries."
