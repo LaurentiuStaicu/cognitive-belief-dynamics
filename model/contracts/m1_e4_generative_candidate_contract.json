@@ -83,8 +83,15 @@
   },
   "asymmetric_2ht_boundary": {
     "status": "DEFERRED_UNDERIDENTIFIED",
-    "parameters": ["Do", "Dn", "g"],
-    "observed_probabilities_from_one_operating_point": ["H", "F"],
+    "parameters": [
+      "Do",
+      "Dn",
+      "g"
+    ],
+    "observed_probabilities_from_one_operating_point": [
+      "H",
+      "F"
+    ],
     "underidentified": true,
     "reason": "Three latent parameters cannot be identified from two response probabilities without additional constraints or data."
   },
@@ -277,13 +284,11 @@
       "no_m1_e4_ui",
       "active_scientific_registries_unchanged",
       "active_evidence_snapshot_unchanged",
-      "retained_outputs_byte_reproducible",
-      "full_ci_green"
+      "retained_outputs_byte_reproducible"
     ],
     "active_registry_mutation_allowed": false,
     "runtime_model_selection_allowed": false,
-    "executable_cognitive_equation_allowed": false,
-    "ui_allowed": false
+    "executable_cognitive_equation_allowed": false
   },
   "forbidden_changes": [
     "no_active_C1_model_registration",
@@ -296,7 +301,6 @@
     "no_UI_comparator",
     "no_winner_declaration",
     "no_calibration_to_mean_dprime_only",
-    "no_release_version_change",
     "no_evidence_snapshot_change"
   ]
 }

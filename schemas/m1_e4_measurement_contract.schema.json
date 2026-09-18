@@ -23,17 +23,33 @@
     "forbidden_changes"
   ],
   "properties": {
-    "id": {"const": "CONTRACT.M1.E4.MEASUREMENT.2026-09-16"},
-    "status": {"const": "PHASE_B_MEASUREMENT_ONLY"},
-    "model_extension": {"const": "M1.E4"},
-    "scope": {"type": "string", "minLength": 30},
+    "id": {
+      "const": "CONTRACT.M1.E4.MEASUREMENT.2026-09-16"
+    },
+    "status": {
+      "const": "PHASE_B_MEASUREMENT_ONLY"
+    },
+    "model_extension": {
+      "const": "M1.E4"
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 30
+    },
     "conditioning_event": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "requires_access"],
+      "required": [
+        "id",
+        "requires_access"
+      ],
       "properties": {
-        "id": {"const": "PreviewImpression"},
-        "requires_access": {"const": false}
+        "id": {
+          "const": "PreviewImpression"
+        },
+        "requires_access": {
+          "const": false
+        }
       }
     },
     "source_task": {
@@ -46,26 +62,47 @@
         "source_terminology_note"
       ],
       "properties": {
-        "primary_source_id": {"const": "SRC.M1.E4.MEAS.SHULMAN.2024"},
-        "reported_probe_count": {"const": 24},
-        "target_foil_split_known_from_main_text": {"const": false},
-        "source_terminology_note": {"type": "string", "minLength": 30}
+        "primary_source_id": {
+          "const": "SRC.M1.E4.MEAS.SHULMAN.2024"
+        },
+        "reported_probe_count": {
+          "const": 24
+        },
+        "target_foil_split_known_from_main_text": {
+          "const": false
+        },
+        "source_terminology_note": {
+          "type": "string",
+          "minLength": 30
+        }
       }
     },
     "raw_cells": {
       "type": "array",
       "minItems": 4,
       "maxItems": 4,
-      "items": {"$ref": "#/$defs/rawCell"}
+      "items": {
+        "$ref": "#/$defs/rawCell"
+      }
     },
     "rate_definitions": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["hit_rate", "false_alarm_rate", "raw_counts_must_remain_reconstructable"],
+      "required": [
+        "hit_rate",
+        "false_alarm_rate",
+        "raw_counts_must_remain_reconstructable"
+      ],
       "properties": {
-        "hit_rate": {"const": "Nhit / (Nhit + Nmiss)"},
-        "false_alarm_rate": {"const": "Nfa / (Nfa + Ncr)"},
-        "raw_counts_must_remain_reconstructable": {"const": true}
+        "hit_rate": {
+          "const": "Nhit / (Nhit + Nmiss)"
+        },
+        "false_alarm_rate": {
+          "const": "Nfa / (Nfa + Ncr)"
+        },
+        "raw_counts_must_remain_reconstructable": {
+          "const": true
+        }
       }
     },
     "reference_estimator": {
@@ -80,8 +117,12 @@
         "measurement_boundary"
       ],
       "properties": {
-        "family": {"const": "EQUAL_VARIANCE_GAUSSIAN_YES_NO_SDT"},
-        "inverse_cdf": {"const": "STANDARD_NORMAL"},
+        "family": {
+          "const": "EQUAL_VARIANCE_GAUSSIAN_YES_NO_SDT"
+        },
+        "inverse_cdf": {
+          "const": "STANDARD_NORMAL"
+        },
         "extreme_rate_correction": {
           "type": "object",
           "additionalProperties": false,
@@ -94,24 +135,45 @@
             "source_exact_replication_claim"
           ],
           "properties": {
-            "method": {"const": "HAUTUS_LOG_LINEAR"},
-            "apply_to_all_cells": {"const": true},
-            "corrected_hit_rate": {"const": "(Nhit + 0.5) / (Nhit + Nmiss + 1)"},
-            "corrected_false_alarm_rate": {"const": "(Nfa + 0.5) / (Nfa + Ncr + 1)"},
-            "source_id": {"const": "SRC.M1.E4.MEAS.HAUTUS.1995"},
-            "source_exact_replication_claim": {"const": false}
+            "method": {
+              "const": "HAUTUS_LOG_LINEAR"
+            },
+            "apply_to_all_cells": {
+              "const": true
+            },
+            "corrected_hit_rate": {
+              "const": "(Nhit + 0.5) / (Nhit + Nmiss + 1)"
+            },
+            "corrected_false_alarm_rate": {
+              "const": "(Nfa + 0.5) / (Nfa + Ncr + 1)"
+            },
+            "source_id": {
+              "const": "SRC.M1.E4.MEAS.HAUTUS.1995"
+            },
+            "source_exact_replication_claim": {
+              "const": false
+            }
           }
         },
-        "drecog_formula": {"const": "Phi^-1(Hstar) - Phi^-1(Fstar)"},
-        "crecog_formula": {"const": "-0.5 * (Phi^-1(Hstar) + Phi^-1(Fstar))"},
-        "measurement_boundary": {"type": "string", "minLength": 30}
+        "drecog_formula": {
+          "const": "Phi^-1(Hstar) - Phi^-1(Fstar)"
+        },
+        "crecog_formula": {
+          "const": "-0.5 * (Phi^-1(Hstar) + Phi^-1(Fstar))"
+        },
+        "measurement_boundary": {
+          "type": "string",
+          "minLength": 30
+        }
       }
     },
     "measurement_quantities": {
       "type": "array",
       "minItems": 3,
       "maxItems": 3,
-      "items": {"$ref": "#/$defs/measurementQuantity"}
+      "items": {
+        "$ref": "#/$defs/measurementQuantity"
+      }
     },
     "identifiability": {
       "type": "object",
@@ -126,35 +188,60 @@
         "drecog_alone_identifies": {
           "type": "array",
           "minItems": 1,
-          "items": {"type": "string", "minLength": 10}
+          "items": {
+            "type": "string",
+            "minLength": 10
+          }
         },
         "drecog_alone_does_not_identify": {
           "type": "array",
           "minItems": 6,
           "uniqueItems": true,
-          "items": {"type": "string", "minLength": 5}
+          "items": {
+            "type": "string",
+            "minLength": 5
+          }
         },
         "drecog_plus_crecog_reference_inverse": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["z_hit", "z_false_alarm", "boundary"],
+          "required": [
+            "z_hit",
+            "z_false_alarm",
+            "boundary"
+          ],
           "properties": {
-            "z_hit": {"const": "Drecog / 2 - Crecog"},
-            "z_false_alarm": {"const": "-Drecog / 2 - Crecog"},
-            "boundary": {"type": "string", "minLength": 30}
+            "z_hit": {
+              "const": "Drecog / 2 - Crecog"
+            },
+            "z_false_alarm": {
+              "const": "-Drecog / 2 - Crecog"
+            },
+            "boundary": {
+              "type": "string",
+              "minLength": 30
+            }
           }
         },
         "pencode": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["status", "forbidden_shortcuts"],
+          "required": [
+            "status",
+            "forbidden_shortcuts"
+          ],
           "properties": {
-            "status": {"const": "NOT_IDENTIFIED_BY_CURRENT_MEASUREMENT"},
+            "status": {
+              "const": "NOT_IDENTIFIED_BY_CURRENT_MEASUREMENT"
+            },
             "forbidden_shortcuts": {
               "type": "array",
               "minItems": 4,
               "uniqueItems": true,
-              "items": {"type": "string", "minLength": 5}
+              "items": {
+                "type": "string",
+                "minLength": 5
+              }
             }
           }
         }
@@ -170,26 +257,42 @@
         "single_operating_point_sufficient_for_richer_model"
       ],
       "properties": {
-        "equal_variance_status": {"const": "REFERENCE_MEASUREMENT_ASSUMPTION_ONLY"},
-        "reason": {"type": "string", "minLength": 30},
-        "richer_model_requirement": {"type": "string", "minLength": 30},
-        "single_operating_point_sufficient_for_richer_model": {"const": false}
+        "equal_variance_status": {
+          "const": "REFERENCE_MEASUREMENT_ASSUMPTION_ONLY"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 30
+        },
+        "richer_model_requirement": {
+          "type": "string",
+          "minLength": 30
+        },
+        "single_operating_point_sufficient_for_richer_model": {
+          "const": false
+        }
       }
     },
     "sources": {
       "type": "array",
       "minItems": 4,
-      "items": {"$ref": "#/$defs/source"}
+      "items": {
+        "$ref": "#/$defs/source"
+      }
     },
     "validation_contract": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["planned_patterns"],
+      "required": [
+        "planned_patterns"
+      ],
       "properties": {
         "planned_patterns": {
           "type": "array",
           "minItems": 7,
-          "items": {"$ref": "#/$defs/validationPattern"}
+          "items": {
+            "$ref": "#/$defs/validationPattern"
+          }
         }
       }
     },
@@ -203,19 +306,30 @@
         "acceptance_boundary"
       ],
       "properties": {
-        "authorized_now": {"const": false},
+        "authorized_now": {
+          "const": false
+        },
         "required_future_comparison": {
           "type": "array",
           "minItems": 2,
-          "items": {"type": "string", "minLength": 20}
+          "items": {
+            "type": "string",
+            "minLength": 20
+          }
         },
         "evaluation_levels": {
           "type": "array",
           "minItems": 4,
           "uniqueItems": true,
-          "items": {"type": "string", "minLength": 3}
+          "items": {
+            "type": "string",
+            "minLength": 3
+          }
         },
-        "acceptance_boundary": {"type": "string", "minLength": 30}
+        "acceptance_boundary": {
+          "type": "string",
+          "minLength": 30
+        }
       }
     },
     "promotion_gate": {
@@ -225,48 +339,99 @@
         "requirements",
         "active_registry_mutation_allowed",
         "executable_cognitive_equation_allowed",
-        "measurement_formula_documentation_allowed",
-        "ui_allowed"
+        "measurement_formula_documentation_allowed"
       ],
       "properties": {
         "requirements": {
           "type": "array",
           "minItems": 12,
           "uniqueItems": true,
-          "items": {"type": "string", "minLength": 5}
+          "items": {
+            "type": "string",
+            "minLength": 5
+          }
         },
-        "active_registry_mutation_allowed": {"const": false},
-        "executable_cognitive_equation_allowed": {"const": false},
-        "measurement_formula_documentation_allowed": {"const": true},
-        "ui_allowed": {"const": false}
+        "active_registry_mutation_allowed": {
+          "const": false
+        },
+        "executable_cognitive_equation_allowed": {
+          "const": false
+        },
+        "measurement_formula_documentation_allowed": {
+          "const": true
+        }
       }
     },
     "forbidden_changes": {
       "type": "array",
       "minItems": 10,
       "uniqueItems": true,
-      "items": {"type": "string", "minLength": 5}
+      "items": {
+        "type": "string",
+        "minLength": 5
+      }
     }
   },
   "$defs": {
     "rawCell": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "short_name", "definition", "standard_sdt_role"],
+      "required": [
+        "id",
+        "short_name",
+        "definition",
+        "standard_sdt_role"
+      ],
       "properties": {
-        "id": {"type": "string", "pattern": "^MEAS\\.N(HIT|MISS|FA|CR)$"},
-        "short_name": {"enum": ["Nhit", "Nmiss", "Nfa", "Ncr"]},
-        "definition": {"type": "string", "minLength": 20},
-        "standard_sdt_role": {"enum": ["HIT", "MISS", "FALSE_ALARM", "CORRECT_REJECTION"]}
+        "id": {
+          "type": "string",
+          "pattern": "^MEAS\\.N(HIT|MISS|FA|CR)$"
+        },
+        "short_name": {
+          "enum": [
+            "Nhit",
+            "Nmiss",
+            "Nfa",
+            "Ncr"
+          ]
+        },
+        "definition": {
+          "type": "string",
+          "minLength": 20
+        },
+        "standard_sdt_role": {
+          "enum": [
+            "HIT",
+            "MISS",
+            "FALSE_ALARM",
+            "CORRECT_REJECTION"
+          ]
+        }
       }
     },
     "measurementQuantity": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "short_name", "role", "status", "definition", "what_it_is_not"],
+      "required": [
+        "id",
+        "short_name",
+        "role",
+        "status",
+        "definition",
+        "what_it_is_not"
+      ],
       "properties": {
-        "id": {"type": "string", "pattern": "^PLANNED\\.MEAS\\.[A-Z0-9_.-]+$"},
-        "short_name": {"enum": ["Drecog", "Crecog", "Msep"]},
+        "id": {
+          "type": "string",
+          "pattern": "^PLANNED\\.MEAS\\.[A-Z0-9_.-]+$"
+        },
+        "short_name": {
+          "enum": [
+            "Drecog",
+            "Crecog",
+            "Msep"
+          ]
+        },
         "role": {
           "enum": [
             "PRIMARY_VALIDATION_METRIC",
@@ -274,20 +439,47 @@
             "REFERENCE_MEASUREMENT_MODEL_BRIDGE"
           ]
         },
-        "status": {"enum": ["MEASUREMENT_ONLY", "MEASUREMENT_MODEL_ONLY"]},
-        "definition": {"type": "string", "minLength": 20},
-        "reference_identity": {"type": "string"},
-        "what_it_is_not": {"type": "string", "minLength": 20}
+        "status": {
+          "enum": [
+            "MEASUREMENT_ONLY",
+            "MEASUREMENT_MODEL_ONLY"
+          ]
+        },
+        "definition": {
+          "type": "string",
+          "minLength": 20
+        },
+        "reference_identity": {
+          "type": "string"
+        },
+        "what_it_is_not": {
+          "type": "string",
+          "minLength": 20
+        }
       }
     },
     "source": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "citation", "doi", "role"],
+      "required": [
+        "id",
+        "citation",
+        "doi",
+        "role"
+      ],
       "properties": {
-        "id": {"type": "string", "pattern": "^SRC\\.M1\\.E4\\.MEAS\\.[A-Z0-9_.-]+$"},
-        "citation": {"type": "string", "minLength": 30},
-        "doi": {"type": "string", "pattern": "^10\\.\\d{4,9}/\\S+$"},
+        "id": {
+          "type": "string",
+          "pattern": "^SRC\\.M1\\.E4\\.MEAS\\.[A-Z0-9_.-]+$"
+        },
+        "citation": {
+          "type": "string",
+          "minLength": 30
+        },
+        "doi": {
+          "type": "string",
+          "pattern": "^10\\.\\d{4,9}/\\S+$"
+        },
         "role": {
           "enum": [
             "PRIMARY_TASK_AND_REPORTED_DPRIME",
@@ -301,13 +493,35 @@
     "validationPattern": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "name", "claim_scope", "status", "pattern"],
+      "required": [
+        "id",
+        "name",
+        "claim_scope",
+        "status",
+        "pattern"
+      ],
       "properties": {
-        "id": {"type": "string", "pattern": "^VAL\\.M1\\.(M01|M02|MN01|MN02|MN03|MN04|MN05)$"},
-        "name": {"type": "string", "minLength": 5},
-        "claim_scope": {"enum": ["MEASUREMENT_PATTERN", "NEGATIVE_CONSTRAINT"]},
-        "status": {"const": "PLANNED_ONLY"},
-        "pattern": {"type": "string", "minLength": 20}
+        "id": {
+          "type": "string",
+          "pattern": "^VAL\\.M1\\.(M01|M02|MN01|MN02|MN03|MN04|MN05)$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 5
+        },
+        "claim_scope": {
+          "enum": [
+            "MEASUREMENT_PATTERN",
+            "NEGATIVE_CONSTRAINT"
+          ]
+        },
+        "status": {
+          "const": "PLANNED_ONLY"
+        },
+        "pattern": {
+          "type": "string",
+          "minLength": 20
+        }
       }
     }
   }
