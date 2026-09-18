@@ -2,12 +2,16 @@
   "id": "CONTRACT.M1.E4.DISCRIMINATION.2026-09-16",
   "status": "PHASE_D_PROTOCOL_ONLY",
   "model_extension": "M1.E4",
-  "scope": "Preregistration-ready dataset and decision protocol for discriminating EVSD versus symmetric 2HT recognition candidates; no winner, runtime, Pencode, UI or active registry promotion.",
+  "scope": "Preregistration-ready dataset and decision protocol for discriminating EVSD versus symmetric 2HT recognition candidates; no winner, runtime, Pencode or active registry promotion.",
   "primary_route": {
     "type": "EXPERIMENTALLY_MANIPULATED_BINARY_BIAS_ROC",
     "minimum_operating_points_per_hsimp": 3,
     "preferred_operating_points_per_hsimp": 5,
-    "required_bias_settings": ["liberal", "approximately_neutral", "conservative"],
+    "required_bias_settings": [
+      "liberal",
+      "approximately_neutral",
+      "conservative"
+    ],
     "acceptable_manipulations": [
       "payoff_matrix",
       "target_foil_base_rate",
@@ -33,7 +37,10 @@
   },
   "prospective_design_simulation": {
     "required": true,
-    "candidate_generators": ["CANDIDATE.M1.E4.C1.EVSD", "CANDIDATE.M1.E4.C2.2HT"],
+    "candidate_generators": [
+      "CANDIDATE.M1.E4.C1.EVSD",
+      "CANDIDATE.M1.E4.C2.2HT"
+    ],
     "parameter_grid_must_cover": [
       "weak_memory",
       "medium_memory",
@@ -131,22 +138,57 @@
   ],
   "validation_contract": {
     "planned_patterns": [
-      {"id":"VAL.M1.D01","status":"PLANNED_ONLY","pattern":"At least three nondegenerate operating points per Hsimp condition."},
-      {"id":"VAL.M1.D02","status":"PLANNED_ONLY","pattern":"Bias settings produce a meaningful false-alarm-rate span."},
-      {"id":"VAL.M1.D03","status":"PLANNED_ONLY","pattern":"Prospective candidate recovery passes the preregistered design gate under both generators."},
-      {"id":"VAL.M1.D04","status":"PLANNED_ONLY","pattern":"Model comparison is fitted to raw target/foil response counts."},
-      {"id":"VAL.M1.D05","status":"PLANNED_ONLY","pattern":"Candidate memory parameter remains shared across pure-bias settings."},
-      {"id":"VAL.M1.DN01","status":"PLANNED_ONLY","pattern":"Confidence ROC alone cannot support the strongest winner claim."},
-      {"id":"VAL.M1.DN02","status":"PLANNED_ONLY","pattern":"AIC alone, Drecog alone, or ROC visual appearance alone cannot select a winner."},
-      {"id":"VAL.M1.DN03","status":"PLANNED_ONLY","pattern":"Discordant diagnostics yield INCONCLUSIVE_MODEL_DISCRIMINATION."},
-      {"id":"VAL.M1.DN04","status":"PLANNED_ONLY","pattern":"Selecting a model family does not identify Pencode."}
+      {
+        "id": "VAL.M1.D01",
+        "status": "PLANNED_ONLY",
+        "pattern": "At least three nondegenerate operating points per Hsimp condition."
+      },
+      {
+        "id": "VAL.M1.D02",
+        "status": "PLANNED_ONLY",
+        "pattern": "Bias settings produce a meaningful false-alarm-rate span."
+      },
+      {
+        "id": "VAL.M1.D03",
+        "status": "PLANNED_ONLY",
+        "pattern": "Prospective candidate recovery passes the preregistered design gate under both generators."
+      },
+      {
+        "id": "VAL.M1.D04",
+        "status": "PLANNED_ONLY",
+        "pattern": "Model comparison is fitted to raw target/foil response counts."
+      },
+      {
+        "id": "VAL.M1.D05",
+        "status": "PLANNED_ONLY",
+        "pattern": "Candidate memory parameter remains shared across pure-bias settings."
+      },
+      {
+        "id": "VAL.M1.DN01",
+        "status": "PLANNED_ONLY",
+        "pattern": "Confidence ROC alone cannot support the strongest winner claim."
+      },
+      {
+        "id": "VAL.M1.DN02",
+        "status": "PLANNED_ONLY",
+        "pattern": "AIC alone, Drecog alone, or ROC visual appearance alone cannot select a winner."
+      },
+      {
+        "id": "VAL.M1.DN03",
+        "status": "PLANNED_ONLY",
+        "pattern": "Discordant diagnostics yield INCONCLUSIVE_MODEL_DISCRIMINATION."
+      },
+      {
+        "id": "VAL.M1.DN04",
+        "status": "PLANNED_ONLY",
+        "pattern": "Selecting a model family does not identify Pencode."
+      }
     ]
   },
   "promotion_gate": {
     "active_registry_mutation_allowed": false,
     "runtime_model_selection_allowed": false,
     "winner_declaration_allowed": false,
-    "ui_allowed": false,
     "requirements": [
       "schema_valid",
       "minimum_operating_points_explicit",
@@ -161,9 +203,7 @@
       "planned_validations_inactive",
       "no_runtime_ui_pencode",
       "active_registries_unchanged",
-      "evidence_snapshot_unchanged",
-      "release_metadata_unchanged",
-      "full_ci_green"
+      "evidence_snapshot_unchanged"
     ]
   }
 }

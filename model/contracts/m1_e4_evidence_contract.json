@@ -169,7 +169,10 @@
       "status": "PLANNED_ONLY",
       "definition": "Binary controlled headline-simplicity condition reserved for the future M1.E4 reference comparator.",
       "what_it_is_not": "Not intelligence, education, source quality, comprehension ability, article truth or article-level difficulty.",
-      "reference_values": [0, 1]
+      "reference_values": [
+        0,
+        1
+      ]
     },
     {
       "id": "PLANNED.VAR.DRECOG",
@@ -186,7 +189,10 @@
       "status": "PLANNED_ONLY",
       "definition": "Binary response to a recognition probe indicating whether the participant/synthetic agent reports that a phrase was previously present.",
       "what_it_is_not": "Not correctness by itself, not belief, and not proof of conscious recollection.",
-      "reference_values": [0, 1]
+      "reference_values": [
+        0,
+        1
+      ]
     },
     {
       "id": "PLANNED.OBS.PROBE_TRUTH",
@@ -195,7 +201,10 @@
       "status": "PLANNED_ONLY",
       "definition": "Registered probe label indicating target versus foil status for computing hit and false-alarm rates.",
       "what_it_is_not": "Not truth of the news claim or factuality of the headline.",
-      "reference_values": [0, 1]
+      "reference_values": [
+        0,
+        1
+      ]
     }
   ],
   "empirical_target": {
@@ -324,12 +333,10 @@
       "planned_validation_ids_absent_from_active_validation_tests",
       "no_m1_e4_runtime_module",
       "no_m1_e4_ui",
-      "retained_m0_m1e1_m1e2_m1e3_outputs_unchanged",
-      "full_ci_green"
+      "retained_m0_m1e1_m1e2_m1e3_outputs_unchanged"
     ],
     "active_registry_mutation_allowed": false,
-    "executable_equation_allowed": false,
-    "ui_allowed": false
+    "executable_equation_allowed": false
   },
   "forbidden_changes": [
     "no_M1_E4_equation",

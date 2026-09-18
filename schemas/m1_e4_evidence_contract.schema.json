@@ -21,62 +21,105 @@
     "forbidden_changes"
   ],
   "properties": {
-    "id": {"const": "CONTRACT.M1.E4.2026-09-16"},
-    "status": {"const": "PHASE_A_EVIDENCE_SCHEMA_ONLY"},
-    "model_extension": {"const": "M1.E4"},
-    "scope": {"type": "string", "minLength": 30},
+    "id": {
+      "const": "CONTRACT.M1.E4.2026-09-16"
+    },
+    "status": {
+      "const": "PHASE_A_EVIDENCE_SCHEMA_ONLY"
+    },
+    "model_extension": {
+      "const": "M1.E4"
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 30
+    },
     "stage_decision": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["conditioning_event", "requires_access", "rationale"],
+      "required": [
+        "conditioning_event",
+        "requires_access",
+        "rationale"
+      ],
       "properties": {
-        "conditioning_event": {"const": "PreviewImpression"},
-        "requires_access": {"const": false},
-        "rationale": {"type": "string", "minLength": 30}
+        "conditioning_event": {
+          "const": "PreviewImpression"
+        },
+        "requires_access": {
+          "const": false
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 30
+        }
       }
     },
     "construct_decision": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["selected", "deferred"],
+      "required": [
+        "selected",
+        "deferred"
+      ],
       "properties": {
-        "selected": {"$ref": "#/$defs/constructCandidate"},
+        "selected": {
+          "$ref": "#/$defs/constructCandidate"
+        },
         "deferred": {
           "type": "array",
           "minItems": 2,
-          "items": {"$ref": "#/$defs/constructCandidate"}
+          "items": {
+            "$ref": "#/$defs/constructCandidate"
+          }
         }
       }
     },
     "cue_decision": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["selected"],
+      "required": [
+        "selected"
+      ],
       "properties": {
-        "selected": {"$ref": "#/$defs/cueCandidate"}
+        "selected": {
+          "$ref": "#/$defs/cueCandidate"
+        }
       }
     },
     "sources": {
       "type": "array",
       "minItems": 6,
-      "items": {"$ref": "#/$defs/source"}
+      "items": {
+        "$ref": "#/$defs/source"
+      }
     },
     "planned_quantities": {
       "type": "array",
       "minItems": 4,
-      "items": {"$ref": "#/$defs/plannedQuantity"}
+      "items": {
+        "$ref": "#/$defs/plannedQuantity"
+      }
     },
-    "empirical_target": {"$ref": "#/$defs/empiricalTarget"},
-    "boundary_target": {"$ref": "#/$defs/boundaryTarget"},
+    "empirical_target": {
+      "$ref": "#/$defs/empiricalTarget"
+    },
+    "boundary_target": {
+      "$ref": "#/$defs/boundaryTarget"
+    },
     "validation_contract": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["planned_patterns"],
+      "required": [
+        "planned_patterns"
+      ],
       "properties": {
         "planned_patterns": {
           "type": "array",
           "minItems": 5,
-          "items": {"$ref": "#/$defs/validationPattern"}
+          "items": {
+            "$ref": "#/$defs/validationPattern"
+          }
         }
       }
     },
@@ -84,44 +127,102 @@
       "type": "array",
       "minItems": 8,
       "uniqueItems": true,
-      "items": {"type": "string", "minLength": 3}
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
     },
     "promotion_gate": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["requirements", "active_registry_mutation_allowed", "executable_equation_allowed", "ui_allowed"],
+      "required": [
+        "requirements",
+        "active_registry_mutation_allowed",
+        "executable_equation_allowed"
+      ],
       "properties": {
         "requirements": {
           "type": "array",
           "minItems": 10,
           "uniqueItems": true,
-          "items": {"type": "string", "minLength": 5}
+          "items": {
+            "type": "string",
+            "minLength": 5
+          }
         },
-        "active_registry_mutation_allowed": {"const": false},
-        "executable_equation_allowed": {"const": false},
-        "ui_allowed": {"const": false}
+        "active_registry_mutation_allowed": {
+          "const": false
+        },
+        "executable_equation_allowed": {
+          "const": false
+        }
       }
     },
     "forbidden_changes": {
       "type": "array",
       "minItems": 8,
       "uniqueItems": true,
-      "items": {"type": "string", "minLength": 5}
+      "items": {
+        "type": "string",
+        "minLength": 5
+      }
     }
   },
   "$defs": {
     "constructCandidate": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "label", "short_name", "ontology_type", "decision", "basis", "limitations"],
+      "required": [
+        "id",
+        "label",
+        "short_name",
+        "ontology_type",
+        "decision",
+        "basis",
+        "limitations"
+      ],
       "properties": {
-        "id": {"type": "string", "pattern": "^CANDIDATE_[A-Z]$"},
-        "label": {"type": "string", "minLength": 5},
-        "short_name": {"type": "string", "minLength": 1},
-        "ontology_type": {"enum": ["DERIVED_METRIC", "STATE_FAST"]},
-        "decision": {"enum": ["SELECTED_FOR_NEXT_PHASE", "DEFERRED_NOT_REJECTED", "REJECTED"]},
-        "basis": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 10}},
-        "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 10}}
+        "id": {
+          "type": "string",
+          "pattern": "^CANDIDATE_[A-Z]$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 5
+        },
+        "short_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ontology_type": {
+          "enum": [
+            "DERIVED_METRIC",
+            "STATE_FAST"
+          ]
+        },
+        "decision": {
+          "enum": [
+            "SELECTED_FOR_NEXT_PHASE",
+            "DEFERRED_NOT_REJECTED",
+            "REJECTED"
+          ]
+        },
+        "basis": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 10
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
       }
     },
     "cueCandidate": {
@@ -140,27 +241,63 @@
         "divergence_from_source"
       ],
       "properties": {
-        "id": {"const": "CUE_S"},
-        "label": {"type": "string", "minLength": 5},
-        "short_name": {"const": "Hsimp"},
-        "ontology_type": {"const": "CONTENT_ATTRIBUTE"},
-        "decision": {"const": "SELECTED_FOR_NEXT_PHASE"},
+        "id": {
+          "const": "CUE_S"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 5
+        },
+        "short_name": {
+          "const": "Hsimp"
+        },
+        "ontology_type": {
+          "const": "CONTENT_ATTRIBUTE"
+        },
+        "decision": {
+          "const": "SELECTED_FOR_NEXT_PHASE"
+        },
         "reference_encoding": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["type", "control", "treatment", "control_label", "treatment_label"],
+          "required": [
+            "type",
+            "control",
+            "treatment",
+            "control_label",
+            "treatment_label"
+          ],
           "properties": {
-            "type": {"const": "BINARY"},
-            "control": {"const": 0},
-            "treatment": {"const": 1},
-            "control_label": {"const": "complex_control"},
-            "treatment_label": {"const": "simpler_headline"}
+            "type": {
+              "const": "BINARY"
+            },
+            "control": {
+              "const": 0
+            },
+            "treatment": {
+              "const": 1
+            },
+            "control_label": {
+              "const": "complex_control"
+            },
+            "treatment_label": {
+              "const": "simpler_headline"
+            }
           }
         },
-        "strategy": {"const": "PRECOMPUTED_CONTROLLED_STIMULUS_METADATA"},
-        "runtime_liwc_dependency": {"const": false},
-        "exact_replication_claim": {"const": false},
-        "divergence_from_source": {"type": "string", "minLength": 30}
+        "strategy": {
+          "const": "PRECOMPUTED_CONTROLLED_STIMULUS_METADATA"
+        },
+        "runtime_liwc_dependency": {
+          "const": false
+        },
+        "exact_replication_claim": {
+          "const": false
+        },
+        "divergence_from_source": {
+          "type": "string",
+          "minLength": 30
+        }
       }
     },
     "source": {
@@ -181,12 +318,31 @@
         "notes"
       ],
       "properties": {
-        "id": {"type": "string", "pattern": "^SRC\\.M1\\.E4\\.[A-Z0-9_.-]+$"},
-        "citation": {"type": "string", "minLength": 20},
-        "doi": {"type": "string", "pattern": "^10\\.\\d{4,9}/\\S+$"},
-        "url": {"type": "string", "pattern": "^https://\\S+$"},
-        "source_type": {"const": "PEER_REVIEWED_ARTICLE"},
-        "study_type": {"enum": ["EXPERIMENTAL", "OBSERVATIONAL"]},
+        "id": {
+          "type": "string",
+          "pattern": "^SRC\\.M1\\.E4\\.[A-Z0-9_.-]+$"
+        },
+        "citation": {
+          "type": "string",
+          "minLength": 20
+        },
+        "doi": {
+          "type": "string",
+          "pattern": "^10\\.\\d{4,9}/\\S+$"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://\\S+$"
+        },
+        "source_type": {
+          "const": "PEER_REVIEWED_ARTICLE"
+        },
+        "study_type": {
+          "enum": [
+            "EXPERIMENTAL",
+            "OBSERVATIONAL"
+          ]
+        },
         "evidence_role": {
           "enum": [
             "PRIMARY_RECOGNITION_TARGET",
@@ -196,25 +352,75 @@
             "BACKGROUND_STAGE_ARCHITECTURE"
           ]
         },
-        "independence_group": {"type": "string", "minLength": 5},
-        "data_access": {"enum": ["OPEN", "RESTRICTED", "PARTIAL", "AGGREGATED"]},
-        "checked_on": {"const": "2026-09-16"},
-        "review_scope": {"enum": ["FULL_TEXT", "ABSTRACT_AND_METHODS"]},
-        "notes": {"type": "string", "minLength": 30}
+        "independence_group": {
+          "type": "string",
+          "minLength": 5
+        },
+        "data_access": {
+          "enum": [
+            "OPEN",
+            "RESTRICTED",
+            "PARTIAL",
+            "AGGREGATED"
+          ]
+        },
+        "checked_on": {
+          "const": "2026-09-16"
+        },
+        "review_scope": {
+          "enum": [
+            "FULL_TEXT",
+            "ABSTRACT_AND_METHODS"
+          ]
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 30
+        }
       }
     },
     "plannedQuantity": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "short_name", "ontology_type", "status", "definition", "what_it_is_not"],
+      "required": [
+        "id",
+        "short_name",
+        "ontology_type",
+        "status",
+        "definition",
+        "what_it_is_not"
+      ],
       "properties": {
-        "id": {"type": "string", "pattern": "^PLANNED\\.(VAR|OBS)\\.[A-Z0-9_.-]+$"},
-        "short_name": {"type": "string", "minLength": 1},
-        "ontology_type": {"enum": ["CONTENT_ATTRIBUTE", "DERIVED_METRIC", "OBSERVABLE"]},
-        "status": {"const": "PLANNED_ONLY"},
-        "definition": {"type": "string", "minLength": 15},
-        "what_it_is_not": {"type": "string", "minLength": 15},
-        "reference_values": {"type": "array", "minItems": 1}
+        "id": {
+          "type": "string",
+          "pattern": "^PLANNED\\.(VAR|OBS)\\.[A-Z0-9_.-]+$"
+        },
+        "short_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ontology_type": {
+          "enum": [
+            "CONTENT_ATTRIBUTE",
+            "DERIVED_METRIC",
+            "OBSERVABLE"
+          ]
+        },
+        "status": {
+          "const": "PLANNED_ONLY"
+        },
+        "definition": {
+          "type": "string",
+          "minLength": 15
+        },
+        "what_it_is_not": {
+          "type": "string",
+          "minLength": 15
+        },
+        "reference_values": {
+          "type": "array",
+          "minItems": 1
+        }
       }
     },
     "empiricalTarget": {
@@ -234,23 +440,55 @@
         "limitations"
       ],
       "properties": {
-        "id": {"const": "PLANNED.TARGET.M1.E4.SHULMAN_2024"},
-        "pattern_id": {"const": "VAL.M1.005"},
-        "source_id": {"const": "SRC.M1.E4.SHULMAN_GENERAL.2024"},
-        "use": {"const": "DIRECTIONAL_VALIDATION_ONLY"},
-        "outcome": {"const": "signal-detection recognition sensitivity d-prime"},
-        "comparison": {"type": "string", "minLength": 20},
-        "direction": {"const": "SIMPLER_HEADLINE_HIGHER_DPRIME"},
+        "id": {
+          "const": "PLANNED.TARGET.M1.E4.SHULMAN_2024"
+        },
+        "pattern_id": {
+          "const": "VAL.M1.005"
+        },
+        "source_id": {
+          "const": "SRC.M1.E4.SHULMAN_GENERAL.2024"
+        },
+        "use": {
+          "const": "DIRECTIONAL_VALIDATION_ONLY"
+        },
+        "outcome": {
+          "const": "signal-detection recognition sensitivity d-prime"
+        },
+        "comparison": {
+          "type": "string",
+          "minLength": 20
+        },
+        "direction": {
+          "const": "SIMPLER_HEADLINE_HIGHER_DPRIME"
+        },
         "design": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["design_family", "n_recruited", "n_probe_items", "preregistered", "source_note"],
+          "required": [
+            "design_family",
+            "n_recruited",
+            "n_probe_items",
+            "preregistered",
+            "source_note"
+          ],
           "properties": {
-            "design_family": {"const": "PREREGISTERED_PARTICIPANT_SDT_EXPERIMENT"},
-            "n_recruited": {"const": 524},
-            "n_probe_items": {"const": 24},
-            "preregistered": {"const": true},
-            "source_note": {"type": "string", "minLength": 30}
+            "design_family": {
+              "const": "PREREGISTERED_PARTICIPANT_SDT_EXPERIMENT"
+            },
+            "n_recruited": {
+              "const": 524
+            },
+            "n_probe_items": {
+              "const": 24
+            },
+            "preregistered": {
+              "const": true
+            },
+            "source_note": {
+              "type": "string",
+              "minLength": 30
+            }
           }
         },
         "effect_context": {
@@ -259,42 +497,104 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["metric", "value", "use"],
+            "required": [
+              "metric",
+              "value",
+              "use"
+            ],
             "properties": {
-              "metric": {"enum": ["DPRIME_MEAN", "T_STATISTIC", "COHENS_D"]},
-              "condition": {"type": "string"},
-              "value": {"type": "number"},
-              "sd": {"type": "number"},
-              "df": {"type": "integer"},
-              "p_upper_bound": {"type": "number"},
-              "use": {"const": "MAGNITUDE_CONTEXT_ONLY"}
+              "metric": {
+                "enum": [
+                  "DPRIME_MEAN",
+                  "T_STATISTIC",
+                  "COHENS_D"
+                ]
+              },
+              "condition": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              },
+              "sd": {
+                "type": "number"
+              },
+              "df": {
+                "type": "integer"
+              },
+              "p_upper_bound": {
+                "type": "number"
+              },
+              "use": {
+                "const": "MAGNITUDE_CONTEXT_ONLY"
+              }
             }
           }
         },
-        "model_match": {"type": "string", "minLength": 30},
-        "limitations": {"type": "string", "minLength": 30}
+        "model_match": {
+          "type": "string",
+          "minLength": 30
+        },
+        "limitations": {
+          "type": "string",
+          "minLength": 30
+        }
       }
     },
     "boundaryTarget": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "source_id", "outcome", "comparison", "expected_interpretation", "effect_context"],
+      "required": [
+        "id",
+        "source_id",
+        "outcome",
+        "comparison",
+        "expected_interpretation",
+        "effect_context"
+      ],
       "properties": {
-        "id": {"const": "PLANNED.BOUNDARY.M1.E4.SHULMAN_PROFESSIONALS_2024"},
-        "source_id": {"const": "SRC.M1.E4.SHULMAN_PROFESSIONALS.2024"},
-        "outcome": {"const": "signal-detection recognition sensitivity d-prime"},
-        "comparison": {"type": "string", "minLength": 20},
-        "expected_interpretation": {"const": "NO_UNIVERSAL_SIMPLICITY_EFFECT"},
+        "id": {
+          "const": "PLANNED.BOUNDARY.M1.E4.SHULMAN_PROFESSIONALS_2024"
+        },
+        "source_id": {
+          "const": "SRC.M1.E4.SHULMAN_PROFESSIONALS.2024"
+        },
+        "outcome": {
+          "const": "signal-detection recognition sensitivity d-prime"
+        },
+        "comparison": {
+          "type": "string",
+          "minLength": 20
+        },
+        "expected_interpretation": {
+          "const": "NO_UNIVERSAL_SIMPLICITY_EFFECT"
+        },
         "effect_context": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["metric", "value", "df", "p_value", "cohens_d"],
+          "required": [
+            "metric",
+            "value",
+            "df",
+            "p_value",
+            "cohens_d"
+          ],
           "properties": {
-            "metric": {"const": "T_STATISTIC"},
-            "value": {"const": -0.44},
-            "df": {"const": 165},
-            "p_value": {"const": 0.66},
-            "cohens_d": {"const": 0.07}
+            "metric": {
+              "const": "T_STATISTIC"
+            },
+            "value": {
+              "const": -0.44
+            },
+            "df": {
+              "const": 165
+            },
+            "p_value": {
+              "const": 0.66
+            },
+            "cohens_d": {
+              "const": 0.07
+            }
           }
         }
       }
@@ -302,13 +602,35 @@
     "validationPattern": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "name", "claim_scope", "status", "pattern"],
+      "required": [
+        "id",
+        "name",
+        "claim_scope",
+        "status",
+        "pattern"
+      ],
       "properties": {
-        "id": {"type": "string", "pattern": "^VAL\\.M1\\.(005|N07|N08|N09|N10)$"},
-        "name": {"type": "string", "minLength": 5},
-        "claim_scope": {"enum": ["DESCRIPTIVE_PATTERN", "NEGATIVE_CONSTRAINT"]},
-        "status": {"const": "PLANNED_ONLY"},
-        "pattern": {"type": "string", "minLength": 20}
+        "id": {
+          "type": "string",
+          "pattern": "^VAL\\.M1\\.(005|N07|N08|N09|N10)$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 5
+        },
+        "claim_scope": {
+          "enum": [
+            "DESCRIPTIVE_PATTERN",
+            "NEGATIVE_CONSTRAINT"
+          ]
+        },
+        "status": {
+          "const": "PLANNED_ONLY"
+        },
+        "pattern": {
+          "type": "string",
+          "minLength": 20
+        }
       }
     }
   }
