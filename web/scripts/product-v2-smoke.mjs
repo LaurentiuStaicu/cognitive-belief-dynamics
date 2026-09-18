@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {chromium} from 'playwright';
 
 const dist=fileURLToPath(new URL('../dist/',import.meta.url));
-const prefix='/cognitive-epistemic-model/';
+const prefix='/cognitive-belief-dynamics/';
 const screenshotDir=process.env.CEM_SCREENSHOTS||'';
 if(screenshotDir)await mkdir(screenshotDir,{recursive:true});
 const server=createServer(async(req,res)=>{try{const pathname=new URL(req.url,'http://localhost').pathname;if(!pathname.startsWith(prefix)){res.writeHead(404).end();return;}const file=path.resolve(dist,decodeURIComponent(pathname.slice(prefix.length))||'index.html');if(!file.startsWith(dist)){res.writeHead(403).end();return;}const data=await readFile(file);res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.md':'text/markdown'})[path.extname(file)]||'application/octet-stream');res.end(data);}catch{res.writeHead(404).end();}});
@@ -71,5 +71,5 @@ try{
   }
   assert.deepEqual(errors,[],`${viewport.name}: runtime/resource errors`);await page.close();
  }
- console.log('CEM product-v2 curated pathway expansion, usefulness, responsive and code-hygiene gate passed');
+ console.log('CBD product-v2 curated pathway expansion, usefulness, responsive and code-hygiene gate passed');
 }finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}
