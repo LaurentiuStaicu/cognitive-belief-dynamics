@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use Cognitive Belief Dynamics in research, please cite this version."
+type: software
+title: "Cognitive Belief Dynamics"
+version: 0.1.0
+date-released: 2026-09-18
+authors:
+  - family-names: "Staicu"
+    given-names: "Laurentiu"
+repository-code: "https://github.com/LaurentiuStaicu/cognitive-belief-dynamics"
+url: "https://github.com/LaurentiuStaicu/cognitive-belief-dynamics"
+license: MIT
+abstract: "A research model of cognitive and epistemic mechanisms linking information exposure, belief updating, uncertainty, and action, maintained as a scientific model core."
+keywords:
+  - cognitive modeling
+  - belief dynamics
+  - epistemic modeling
+  - computational social science
+  - research software
