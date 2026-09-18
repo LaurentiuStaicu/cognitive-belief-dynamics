@@ -1,0 +1,37 @@
+name: Scientific verification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install scientific core and test dependencies
+        run: python -m pip install '.[test]'
+
+      - name: Run scientific verification harness
+        run: python -m pytest
+
+      - name: Validate canonical registries from checkout
+        run: cemodel validate --root .
+
+      - name: Verify installed package resources outside checkout
+        working-directory: /tmp
+        run: |
+          cemodel validate
+          cemodel demo
