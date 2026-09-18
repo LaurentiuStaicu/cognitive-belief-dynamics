@@ -12,7 +12,7 @@ class WorldModelInputError(ValueError):
 class PropositionState:
     """Narrow normative proposition state for MOD.14.
 
-    This is deliberately not the descriptive CEM belief state B. It is a
+    This is deliberately not the descriptive CBD belief state B. It is a
     proposition-level reference computation whose inputs must come from an
     explicit domain-specific measurement model.
     """
