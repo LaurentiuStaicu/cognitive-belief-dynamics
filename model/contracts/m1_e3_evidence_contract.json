@@ -129,7 +129,7 @@
       "candidate_scope": "SELECTED_CUE",
       "independence_group": "WECHAT_2021_QIU",
       "data_access": "PARTIAL",
-      "data_license_note": "Article is open access; source-platform data access is not a CEM runtime dependency.",
+      "data_license_note": "Article is open access; source-platform data access is not a CBD runtime dependency.",
       "checked_on": "2026-09-16",
       "review_scope": "FULL_TEXT",
       "notes": "More than 100,000 WeChat articles show lower headline valence predicts more reads after controls. Predictive observational support, not randomized causal replication."
@@ -398,7 +398,7 @@
     },
     "runtime_lexicon_dependency": false,
     "exact_replication_claim": false,
-    "divergence_from_source": "CEM freezes a binary controlled condition for model discrimination rather than reproducing the source paper's continuous LIWC negative-word proportion or its reported effect-size scale.",
+    "divergence_from_source": "CBD freezes a binary controlled condition for model discrimination rather than reproducing the source paper's continuous LIWC negative-word proportion or its reported effect-size scale.",
     "restricted_resources_not_redistributed": [
       "LIWC software and dictionaries",
       "NRC sentiment/emotion lexicons",
