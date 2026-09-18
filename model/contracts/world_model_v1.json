@@ -10,8 +10,8 @@
     "ro": "Descrie modul în care o reprezentare a realității relativă la agent poate fi construită și revizuită din informația observată, informația anterioară, memorie, indicii despre sursă/proveniență, context social și incertitudine explicită, păstrând separat efectele susținute empiric de calculul normativ și de teoria interpretativă."
   },
   "scope_boundary": {
-    "en": "This module is not a calibrated population model, not a claim that the brain literally implements Bayes' rule, not a truth oracle and not a replacement for the existing CEM belief variable B. Its executable operator is a normative proposition-level reference update available only when a prior probability and a defensible diagnostic likelihood ratio are supplied.",
-    "ro": "Acest modul nu este un model calibrat populațional, nu afirmă că creierul implementează literal regula lui Bayes, nu este un oracol al adevărului și nu înlocuiește variabila CEM existentă B pentru convingere. Operatorul executabil este o actualizare normativă de referință la nivel de propoziție, disponibilă numai când sunt furnizate o probabilitate anterioară și un raport de verosimilitate diagnostic justificabil."
+    "en": "This module is not a calibrated population model, not a claim that the brain literally implements Bayes' rule, not a truth oracle and not a replacement for the existing CBD belief variable B. Its executable operator is a normative proposition-level reference update available only when a prior probability and a defensible diagnostic likelihood ratio are supplied.",
+    "ro": "Acest modul nu este un model calibrat populațional, nu afirmă că creierul implementează literal regula lui Bayes, nu este un oracol al adevărului și nu înlocuiește variabila CBD existentă B pentru convingere. Operatorul executabil este o actualizare normativă de referință la nivel de propoziție, disponibilă numai când sunt furnizate o probabilitate anterioară și un raport de verosimilitate diagnostic justificabil."
   },
   "epistemic_levels": [
     {
@@ -20,7 +20,7 @@
         "Controlled cue-integration studies show that humans can combine uncertain sensory estimates in ways close to reliability-weighted maximum-likelihood predictions in specific tasks.",
         "Prior knowledge and schemas can influence interpretation, encoding and retrieval, but the direction and magnitude are task- and context-dependent rather than a universal scalar coefficient.",
         "Source monitoring and source-related evaluation affect how communicated information is attributed and used.",
-        "Repeated exposure can increase perceived truth or plausibility in some tasks; CEM already represents familiarity separately and MOD.14 does not duplicate it.",
+        "Repeated exposure can increase perceived truth or plausibility in some tasks; CBD already represents familiarity separately and MOD.14 does not duplicate it.",
         "Confidence and metacognitive quality are distinct from objective accuracy; uncertainty display must not be treated as knowledge certification."
       ]
     },
@@ -36,7 +36,7 @@
       "level": "CONCEPTUAL",
       "claims": [
         "The world-model cycle organizes observation/selection, memory/prior retrieval, source and provenance evaluation, social-context interpretation, proposition revision, uncertainty retention and contradiction-driven reassessment.",
-        "Existing CEM variables are inputs or neighboring constructs where appropriate; no universal coefficients are assigned to attention, memory, familiarity, source reliability or social context without an empirical measurement bridge."
+        "Existing CBD variables are inputs or neighboring constructs where appropriate; no universal coefficients are assigned to attention, memory, familiarity, source reliability or social context without an empirical measurement bridge."
       ]
     },
     {
@@ -187,7 +187,7 @@
         "CONCEPTUAL",
         "EMPIRICAL"
       ],
-      "description": "Source attribution and task-relevant source evaluation condition how communicated information is used. Existing CEM source-reliability learning remains distinct."
+      "description": "Source attribution and task-relevant source evaluation condition how communicated information is used. Existing CBD source-reliability learning remains distinct."
     },
     {
       "id": "WM.MECH.SOCIAL_CONTEXT",
@@ -234,7 +234,7 @@
         "CONCEPTUAL",
         "EMPIRICAL"
       ],
-      "description": "Counterevidence, corrections or source reappraisal can trigger revision. Existing CEM correction accessibility and continued-influence constructs remain the relevant neighboring mechanisms."
+      "description": "Counterevidence, corrections or source reappraisal can trigger revision. Existing CBD correction accessibility and continued-influence constructs remain the relevant neighboring mechanisms."
     }
   ],
   "relations": [
