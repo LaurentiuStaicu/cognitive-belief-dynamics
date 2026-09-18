@@ -108,7 +108,7 @@ def test_phase_d_forbids_registry_runtime_ui_and_release_changes():
     assert gate["active_registry_mutation_allowed"] is False
     assert gate["runtime_model_selection_allowed"] is False
     assert gate["winner_declaration_allowed"] is False
-    assert gate["ui_allowed"] is False
+    assert not (ROOT / "web").exists()
 
     assert not (ROOT / "src/cognitive_epistemic_model/recognition.py").exists()
     assert not (ROOT / "src/cognitive_epistemic_model/encoding.py").exists()
