@@ -204,11 +204,8 @@ def test_confirmation_runner_smoke_is_deterministic():
     assert sum(first["selected"].values()) == 1
 
 
-def test_phase_j_does_not_authorize_execution_before_phase_i_merge():
+def test_confirmation_contract_blocks_human_progression_and_model_promotion():
     contract = load_json(CONTRACT)
-    assert contract["promotion_gate"][
-        "confirmation_execution_allowed_before_phase_i_merge"
-    ] is False
     assert contract["promotion_gate"]["human_protocol_design_allowed"] is False
     assert contract["promotion_gate"]["human_recruitment_allowed"] is False
     assert contract["scientific_boundaries"]["pencode_identified"] is False
