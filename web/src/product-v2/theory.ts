@@ -28,7 +28,7 @@ function naturalize(raw:string,language:Language,d:Data){
  let text=raw.replace(/\[\[(VAR|MODULE|MECH|CONCEPT|VAL|REF|VIEW|CODE):([^\]]+)\]\]/g,(_,kind:string,value:string)=>{
   const key=value.trim();
   if(kind==='VAR')return variable.get(key)??(language==='ro'?'variabilă a mecanismului':'mechanism variable');
-  if(kind==='MODULE')return modules.get(key)??(language==='ro'?'modul CEM':'CEM module');
+  if(kind==='MODULE')return modules.get(key)??(language==='ro'?'modul CBD':'CBD module');
   if(kind==='MECH'||kind==='CONCEPT')return glossary.get(key)??key.replace(/[-_]/g,' ');
   if(kind==='VAL')return validations.get(key)??(language==='ro'?'test de validare':'validation test');
   if(kind==='REF')return refs.get(key)?.citation??(language==='ro'?'sursă științifică':'scientific source');
@@ -44,7 +44,7 @@ function naturalize(raw:string,language:Language,d:Data){
  for(const [key,value] of Object.entries(short))text=text.replace(new RegExp(`\\b${key}\\b`,'g'),value[language]);
  text=text.replace(/\bM0(?:\.[A-Za-z0-9._-]+)?\b/g,language==='ro'?'modelul executabil de referință':'the reference executable model');
  text=text.replace(/\bM1(?:\.[A-Za-z0-9._-]+)?\b/g,language==='ro'?'stratul de validare empirică':'the empirical validation layer');
- text=text.replace(/\bMOD\.[A-Za-z0-9._-]+\b/g,language==='ro'?'modul CEM':'CEM module');
+ text=text.replace(/\bMOD\.[A-Za-z0-9._-]+\b/g,language==='ro'?'modul CBD':'CBD module');
  text=text.replace(/\b(?:ODD|REF|VAR|LINK|CODE|VAL)\.[A-Za-z0-9._-]+\b/g,language==='ro'?'înregistrare tehnică':'technical record');
  text=text.replace(/(?:docs|web|src|model|tests|scripts)\/[A-Za-z0-9_./-]+\.(?:md|ts|tsx|js|mjs|json|py|css)/g,language==='ro'?'resursă tehnică':'technical resource');
  return text;
@@ -113,7 +113,7 @@ export async function mountTheory(host:HTMLElement,options:Options){
   const file=current.source_paths[language].split('/').pop()!;
   const response=await fetch(`./theory/${language}/${file}`);if(!response.ok)throw new Error(`theory: HTTP ${response.status}`);
   const raw=await response.text();
-  reader.innerHTML=`<p class="eyebrow">${language==='ro'?'TEORIE CEM':'CEM THEORY'} · ${String(current.order).padStart(2,'0')}</p><div class="theory-v2-article">${markdown(raw,language,d)}</div><div class="boundary"><strong>${language==='ro'?'Ce nu afirmă acest capitol':'What this chapter does not claim'}</strong><p>${esc(naturalize(current.what_it_does_not_claim[language],language,d))}</p></div>${chapterSources(current,d,language)}`;
+  reader.innerHTML=`<p class="eyebrow">${language==='ro'?'TEORIE CBD':'CBD THEORY'} · ${String(current.order).padStart(2,'0')}</p><div class="theory-v2-article">${markdown(raw,language,d)}</div><div class="boundary"><strong>${language==='ro'?'Ce nu afirmă acest capitol':'What this chapter does not claim'}</strong><p>${esc(naturalize(current.what_it_does_not_claim[language],language,d))}</p></div>${chapterSources(current,d,language)}`;
   reader.setAttribute('aria-busy','false');reader.focus({preventScroll:false});
  };
  host.querySelector<HTMLButtonElement>('[data-theory-back]')!.onclick=options.onBack;
