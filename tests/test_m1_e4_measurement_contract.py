@@ -124,7 +124,7 @@ def test_m1_e4_phase_b_forbids_runtime_ui_and_release_mutation():
     assert gate["active_registry_mutation_allowed"] is False
     assert gate["executable_cognitive_equation_allowed"] is False
     assert gate["measurement_formula_documentation_allowed"] is True
-    assert gate["ui_allowed"] is False
+    assert not (ROOT / "web").exists()
 
     assert not (ROOT / "src/cognitive_epistemic_model/recognition.py").exists()
     assert not (ROOT / "src/cognitive_epistemic_model/encoding.py").exists()
