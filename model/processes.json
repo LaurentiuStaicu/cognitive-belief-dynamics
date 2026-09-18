@@ -164,7 +164,7 @@
       "en": "Current M0 reference runs operate at agent, claim/item and source levels.",
       "ro": "Rulările de referință M0 actuale operează la nivel de agent, afirmație/item și sursă."
     },
-    "code_ref": "scripts/export_web.py",
+    "code_ref": "src/cognitive_epistemic_model/simulation.py",
     "status": "implemented_m0"
   },
   {
