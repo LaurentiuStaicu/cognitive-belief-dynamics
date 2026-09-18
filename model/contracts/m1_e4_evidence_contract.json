@@ -72,7 +72,7 @@
       "strategy": "PRECOMPUTED_CONTROLLED_STIMULUS_METADATA",
       "runtime_liwc_dependency": false,
       "exact_replication_claim": false,
-      "divergence_from_source": "CEM freezes the experimentally controlled simple-versus-complex condition as metadata instead of reproducing the publication's composite simplicity index or proprietary LIWC-derived components at runtime."
+      "divergence_from_source": "CBD freezes the experimentally controlled simple-versus-complex condition as metadata instead of reproducing the publication's composite simplicity index or proprietary LIWC-derived components at runtime."
     }
   },
   "sources": [
@@ -220,7 +220,7 @@
       "n_recruited": 524,
       "n_probe_items": 24,
       "preregistered": true,
-      "source_note": "Study 3 recruited N=524. The published SDT comparison reports t(483)=6.01; CEM does not infer an analyzed-N value beyond what is directly reported."
+      "source_note": "Study 3 recruited N=524. The published SDT comparison reports t(483)=6.01; CBD does not infer an analyzed-N value beyond what is directly reported."
     },
     "effect_context": [
       {
@@ -250,7 +250,7 @@
         "use": "MAGNITUDE_CONTEXT_ONLY"
       }
     ],
-    "model_match": "A future M1.E4 candidate may use only the directional simpler-Hsimp to higher-Drecog pattern. Published d-prime means and Cohen's d do not set an event-level CEM encoding coefficient.",
+    "model_match": "A future M1.E4 candidate may use only the directional simpler-Hsimp to higher-Drecog pattern. Published d-prime means and Cohen's d do not set an event-level CBD encoding coefficient.",
     "limitations": "Recognition sensitivity is a delayed task-level outcome and cannot uniquely identify attention allocation or an event-level encoding probability. The primary sample is crowdsourced U.S. adults, and the same publication reports a professional-writer null boundary."
   },
   "boundary_target": {
