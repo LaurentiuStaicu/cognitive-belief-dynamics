@@ -1,4 +1,4 @@
-# CEM frontend rebuild — clean-slate product contract
+# CBD frontend rebuild — clean-slate product contract
 
 Status: prototype gate. MOD.15, Flatpak, human calibration, new mechanisms and Full Model Atlas expansion remain blocked.
 
@@ -12,11 +12,11 @@ The product is question/pathway-first. Technical registries are implementation i
 
 The new web entry point must not mount, wrap, hide, or route into the prior InfoClar shell, old navigation, old four-quadrant layout, old dashboard, old Mechanism Explorer, old Full Model Atlas, legacy rails, inspector, Search UI or registry-facing components. Their history remains in Git. Scientific model code, M1/MOD.14 results, Semantic Spine, evidence/theory/source registries, scientific exports, domain logic, translations and non-visual adapters remain authoritative and unchanged.
 
-## World3 → CEM design token mapping
+## World3 → CBD design token mapping
 
 Reference audited from `world3-empirical-flatpak/web/src/style.css` and `web/src/main.ts` on `main`.
 
-| World3 token / convention | CEM v2 token / convention | Rule |
+| World3 token / convention | CBD v2 token / convention | Rule |
 | --- | --- | --- |
 | `Inter, ui-sans-serif, system-ui...` | identical font stack | no alternate product font |
 | page `#f5f6f8` / muted surface `#f8f9fb` | `--page`, `--surface-muted` | same suite background family |
@@ -33,7 +33,7 @@ Reference audited from `world3-empirical-flatpak/web/src/style.css` and `web/src
 | mobile breakpoint `620px` | `620px` | pathway becomes vertical sequence |
 | dark mode via `prefers-color-scheme` | same mechanism and contrast family | no separate theme language |
 
-CEM intentionally does **not** copy World3's 2-column/2×2 product layout. World3 is temporal/scenario-first; CEM is mechanism/pathway-first.
+CBD intentionally does **not** copy World3's 2-column/2×2 product layout. World3 is temporal/scenario-first; CBD is mechanism/pathway-first.
 
 ## Prototype vertical slice
 
@@ -47,12 +47,12 @@ The pathway must be visually traceable end-to-end without horizontal scrolling a
 
 ## Evidence discipline
 
-The 2026 Ye et al. systematic review/meta-analysis is the anchor for the illusory-truth phenomenon: 182 studies, 366 effect sizes, N=31,184, PEESE-adjusted g=0.37 (95% CI 0.30–0.44), substantial within- and between-study heterogeneity. This estimate constrains claims about the phenomenon; it must not become a universal CEM coefficient or an individual prediction.
+The 2026 Ye et al. systematic review/meta-analysis is the anchor for the illusory-truth phenomenon: 182 studies, 366 effect sizes, N=31,184, PEESE-adjusted g=0.37 (95% CI 0.30–0.44), substantial within- and between-study heterogeneity. This estimate constrains claims about the phenomenon; it must not become a universal CBD coefficient or an individual prediction.
 
-The reader must distinguish the robust experimental endpoint effect (repetition can raise judged truth on average) from the exact mediation and functional form used inside CEM, which remain more uncertain/model-specific.
+The reader must distinguish the robust experimental endpoint effect (repetition can raise judged truth on average) from the exact mediation and functional form used inside CBD, which remain more uncertain/model-specific.
 
 ## Prototype acceptance gate
 
-Before expansion to additional questions, automated browser checks and manual screenshots at 1440×900, 1366×768 and mobile must show that a new user can: identify CEM's problem, choose the repetition question, follow cause → mechanism → outcome, distinguish empirical/model/conceptual relations, inspect effect magnitude and uncertainty, see moderators and limitations, inspect at least one studied intervention, and open a clean theory reader without encountering internal codes.
+Before expansion to additional questions, automated browser checks and manual screenshots at 1440×900, 1366×768 and mobile must show that a new user can: identify CBD's problem, choose the repetition question, follow cause → mechanism → outcome, distinguish empirical/model/conceptual relations, inspect effect magnitude and uncertainty, see moderators and limitations, inspect at least one studied intervention, and open a clean theory reader without encountering internal codes.
 
 If the path is not immediately traceable, the prototype fails and expansion stops.
