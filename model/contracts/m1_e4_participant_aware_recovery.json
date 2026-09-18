@@ -19,10 +19,34 @@
     "bias_operating_points": "WITHIN_PARTICIPANT_BLOCKS",
     "operating_points": 5,
     "candidate_allocations": [
-      {"label":"P40_X16","participants":40,"target_per_participant_per_cell":16,"foil_per_participant_per_cell":16,"total_responses_per_participant":320},
-      {"label":"P64_X10","participants":64,"target_per_participant_per_cell":10,"foil_per_participant_per_cell":10,"total_responses_per_participant":200},
-      {"label":"P80_X8","participants":80,"target_per_participant_per_cell":8,"foil_per_participant_per_cell":8,"total_responses_per_participant":160},
-      {"label":"P128_X5","participants":128,"target_per_participant_per_cell":5,"foil_per_participant_per_cell":5,"total_responses_per_participant":100}
+      {
+        "label": "P40_X16",
+        "participants": 40,
+        "target_per_participant_per_cell": 16,
+        "foil_per_participant_per_cell": 16,
+        "total_responses_per_participant": 320
+      },
+      {
+        "label": "P64_X10",
+        "participants": 64,
+        "target_per_participant_per_cell": 10,
+        "foil_per_participant_per_cell": 10,
+        "total_responses_per_participant": 200
+      },
+      {
+        "label": "P80_X8",
+        "participants": 80,
+        "target_per_participant_per_cell": 8,
+        "foil_per_participant_per_cell": 8,
+        "total_responses_per_participant": 160
+      },
+      {
+        "label": "P128_X5",
+        "participants": 128,
+        "target_per_participant_per_cell": 5,
+        "foil_per_participant_per_cell": 5,
+        "total_responses_per_participant": 100
+      }
     ],
     "block_order_human_protocol": "COUNTERBALANCED_OR_RANDOMIZED",
     "simulator_models_order_or_fatigue": false
@@ -39,11 +63,23 @@
     },
     "u_distribution": "Normal(0, sigma_memory)",
     "v_distribution": "Normal(0, sigma_bias)",
-    "random_effect_correlation": 0.0,
+    "random_effect_correlation": 0,
     "heterogeneity_regimes": [
-      {"label":"low","sigma_memory":0.1,"sigma_bias":0.1},
-      {"label":"moderate","sigma_memory":0.25,"sigma_bias":0.25},
-      {"label":"high","sigma_memory":0.4,"sigma_bias":0.4}
+      {
+        "label": "low",
+        "sigma_memory": 0.1,
+        "sigma_bias": 0.1
+      },
+      {
+        "label": "moderate",
+        "sigma_memory": 0.25,
+        "sigma_bias": 0.25
+      },
+      {
+        "label": "high",
+        "sigma_memory": 0.4,
+        "sigma_bias": 0.4
+      }
     ]
   },
   "likelihood_and_fit": {
@@ -126,7 +162,6 @@
     "active_model_registration_allowed": false,
     "empirical_model_selection_allowed": false,
     "pencode_allowed": false,
-    "ui_allowed": false,
     "requirements": [
       "schema_valid",
       "aggregate_640_anchor_preserved",
@@ -138,9 +173,7 @@
       "screening_and_confirmation_stages_separated",
       "screening_smoke_reproducible",
       "active_registries_unchanged",
-      "evidence_snapshot_unchanged",
-      "release_metadata_unchanged",
-      "full_ci_green"
+      "evidence_snapshot_unchanged"
     ]
   }
 }

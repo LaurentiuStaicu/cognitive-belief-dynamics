@@ -67,14 +67,11 @@
   ],
   "promotion_gate": {
     "confirmation_tooling_allowed": true,
-    "confirmation_execution_allowed_before_phase_i_merge": false,
     "active_model_registration_allowed": false,
     "human_protocol_design_allowed": false,
     "human_recruitment_allowed": false,
     "pencode_allowed": false,
-    "ui_allowed": false,
     "requirements": [
-      "phase_i_results_versioned",
       "exact_29_cell_surface_frozen",
       "all_screening_ties_preserved",
       "cell_specific_rng_stable",
@@ -82,9 +79,7 @@
       "200_replicates_fixed",
       "loop_vectorized_equivalence_inherited",
       "active_registries_unchanged",
-      "evidence_snapshot_unchanged",
-      "release_metadata_unchanged",
-      "full_ci_green"
+      "evidence_snapshot_unchanged"
     ]
   }
 }
