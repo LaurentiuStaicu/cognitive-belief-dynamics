@@ -11,7 +11,7 @@
     "primary_source_id": "SRC.M1.E4.MEAS.SHULMAN.2024",
     "reported_probe_count": 24,
     "target_foil_split_known_from_main_text": false,
-    "source_terminology_note": "The article prose uses the word hit broadly while explaining correct recognition responses. CEM does not inherit that wording and uses standard yes/no SDT contingency definitions."
+    "source_terminology_note": "The article prose uses the word hit broadly while explaining correct recognition responses. CBD does not inherit that wording and uses standard yes/no SDT contingency definitions."
   },
   "raw_cells": [
     {
@@ -57,7 +57,7 @@
     },
     "drecog_formula": "Phi^-1(Hstar) - Phi^-1(Fstar)",
     "crecog_formula": "-0.5 * (Phi^-1(Hstar) + Phi^-1(Fstar))",
-    "measurement_boundary": "The estimator is a transparent CEM reference convention. It does not establish that recognition-memory evidence distributions have equal variance or that the Shulman source used the same extreme-rate correction."
+    "measurement_boundary": "The estimator is a transparent CBD reference convention. It does not establish that recognition-memory evidence distributions have equal variance or that the Shulman source used the same extreme-rate correction."
   },
   "measurement_quantities": [
     {
@@ -65,7 +65,7 @@
       "short_name": "Drecog",
       "role": "PRIMARY_VALIDATION_METRIC",
       "status": "MEASUREMENT_ONLY",
-      "definition": "Signal-detection sensitivity derived from target/foil recognition responses under the registered CEM reference estimator.",
+      "definition": "Signal-detection sensitivity derived from target/foil recognition responses under the registered CBD reference estimator.",
       "what_it_is_not": "Not attention, gaze, fixation, event-level encoding probability, recollection, familiarity, comprehension or belief."
     },
     {
@@ -155,7 +155,7 @@
         "name": "SDT reconstruction",
         "claim_scope": "MEASUREMENT_PATTERN",
         "status": "PLANNED_ONLY",
-        "pattern": "Registered hit, miss, false-alarm and correct-rejection counts must yield finite Drecog and Crecog under the CEM reference estimator."
+        "pattern": "Registered hit, miss, false-alarm and correct-rejection counts must yield finite Drecog and Crecog under the CBD reference estimator."
       },
       {
         "id": "VAL.M1.M02",
@@ -197,7 +197,7 @@
         "name": "Standard SDT cell ontology",
         "claim_scope": "NEGATIVE_CONSTRAINT",
         "status": "PLANNED_ONLY",
-        "pattern": "CEM must retain standard hit, miss, false-alarm and correct-rejection definitions even where source prose uses broader informal terminology."
+        "pattern": "CBD must retain standard hit, miss, false-alarm and correct-rejection definitions even where source prose uses broader informal terminology."
       }
     ]
   },
