@@ -10,18 +10,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_registry_schema_and_semantic_validation():
     counts = validate_model_dir(ROOT / "model", ROOT / "schemas")
-    assert counts["modules"] == 20
-    assert counts["variables"] >= 7
-    assert counts["links"] >= 3
-    assert counts["subsystems"] == 8
-    assert counts["processes"] >= 13
-    assert counts["empirical_targets"] >= 1
-    assert counts["theory_chapters"] == 17
-    assert counts["theory_glossary"] >= 15
-    assert counts["theory_tokens"] >= 60
-    assert counts["semantic_entities"] == 133
-    assert counts["semantic_relations"] == 226
-    assert counts["computational_dependencies"] == 17
+    assert counts == {
+        "modules": 20,
+        "variables": 19,
+        "links": 10,
+        "references": 16,
+        "subsystems": 8,
+        "processes": 22,
+        "empirical_targets": 4,
+        "computational_dependencies": 17,
+    }
 
 
 @pytest.mark.parametrize("registry", ["modules", "variables", "links", "subsystems", "processes", "empirical_targets"])
