@@ -181,7 +181,7 @@ def test_benchmark_does_not_turn_model_recovery_into_empirical_winner_claim():
     assert contract["promotion_gate"]["active_model_registration_allowed"] is False
     assert contract["promotion_gate"]["winner_declaration_allowed"] is False
     assert contract["promotion_gate"]["pencode_allowed"] is False
-    assert contract["promotion_gate"]["ui_allowed"] is False
+    assert not (ROOT / "web").exists()
     assert contract["design_gate"]["ci_smoke_run_is_authoritative"] is False
 
     snapshot = json.loads((ROOT / "model/evidence_snapshot.json").read_text())
