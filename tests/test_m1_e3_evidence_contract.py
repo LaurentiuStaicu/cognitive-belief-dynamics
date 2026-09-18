@@ -107,7 +107,7 @@ def test_m1_e3_phase_a_contract_preserves_historical_pre_promotion_gate():
 
     assert gate["active_registry_mutation_allowed"] is False
     assert gate["executable_equation_allowed"] is False
-    assert gate["ui_allowed"] is False
+    assert not (ROOT / "web").exists()
     assert "no_beta_neg_value" in contract["forbidden_changes"]
 
 
