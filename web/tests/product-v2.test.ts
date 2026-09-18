@@ -77,9 +77,9 @@ test('normal pathway/intervention product copy contains no registry identifiers 
  for(const pattern of banned)assert(!pattern.test(publicCopy),`public copy leaks ${pattern}`);
 });
 
-test('World3 visual family is explicit but CEM does not copy the World3 layout',()=>{
+test('World3 visual family is explicit but CBD does not copy the World3 layout',()=>{
  for(const token of ['#f5f6f8','#ffffff','#dfe3e8','0 8px 28px rgba(35, 45, 60, 0.08)','14px','1120px','620px'])assert(style.includes(token),`missing World3-aligned token ${token}`);
- assert(contract.includes('World3 → CEM design token mapping'));
+ assert(contract.includes('World3 → CBD design token mapping'));
  assert(contract.includes('does **not** copy World3\'s 2-column/2×2 product layout'));
 });
 
