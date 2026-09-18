@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://laurentiustaicu.github.io/cognitive-epistemic-model/schemas/computational_dependencies.schema.json",
-  "title": "CEM Computational Dependencies",
+  "$id": "https://laurentiustaicu.github.io/cognitive-belief-dynamics/schemas/computational_dependencies.schema.json",
+  "title": "CBD Computational Dependencies",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "model_scope", "purpose", "boundary", "extra_nodes", "variable_graph_map", "dependencies"],
