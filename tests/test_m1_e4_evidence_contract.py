@@ -134,7 +134,7 @@ def test_m1_e4_phase_a_forbids_runtime_and_ui():
     gate = contract["promotion_gate"]
     assert gate["active_registry_mutation_allowed"] is False
     assert gate["executable_equation_allowed"] is False
-    assert gate["ui_allowed"] is False
+    assert not (ROOT / "web").exists()
 
     forbidden = set(contract["forbidden_changes"])
     assert "no_M1_E4_equation" in forbidden
