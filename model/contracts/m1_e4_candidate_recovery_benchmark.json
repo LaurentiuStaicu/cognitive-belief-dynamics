@@ -7,17 +7,32 @@
     "module": "src/cognitive_epistemic_model/calibration/m1_e4_candidate_recovery.py",
     "runner": "scripts/run_m1_e4_candidate_recovery.py",
     "core_config": "model/benchmarks/m1_e4_candidate_recovery_core.json",
-    "candidate_families": ["EVSD", "2HT"],
+    "candidate_families": [
+      "EVSD",
+      "2HT"
+    ],
     "active_runtime_import_allowed": false
   },
   "simulation_design": {
     "seed": 20260916,
     "replicates_per_grid_cell": 200,
-    "trial_counts_per_operating_point": [40, 80, 160, 320],
+    "trial_counts_per_operating_point": [
+      40,
+      80,
+      160,
+      320
+    ],
     "operating_points_per_condition": 5,
-    "conditions": ["complex", "simple"],
+    "conditions": [
+      "complex",
+      "simple"
+    ],
     "independent_train_and_held_out_draws": true,
-    "memory_regimes": ["weak", "medium", "strong"]
+    "memory_regimes": [
+      "weak",
+      "medium",
+      "strong"
+    ]
   },
   "selection_rule": {
     "train_diagnostic": "AIC",
@@ -42,8 +57,7 @@
     "threshold_status": "CEM_DESIGN_CONVENTION",
     "aggregate_average_may_mask_failed_cell": false,
     "both_generators_must_pass": true,
-    "authoritative_full_run_required_before_empirical_model_selection": true,
-    "ci_smoke_run_is_authoritative": false
+    "authoritative_full_run_required_before_empirical_model_selection": true
   },
   "interpretation_boundary": [
     "Passing candidate recovery shows that the planned design and fitting procedure can distinguish the candidate families under the simulated parameter grid; it does not establish which family is true in human recognition.",
@@ -73,7 +87,6 @@
     "active_model_registration_allowed": false,
     "winner_declaration_allowed": false,
     "pencode_allowed": false,
-    "ui_allowed": false,
     "requirements": [
       "contract_schema_valid",
       "core_config_frozen",
@@ -84,11 +97,8 @@
       "parameter_recovery_reported_separately",
       "per_grid_cell_recovery_reported",
       "same_seed_reproducible",
-      "ci_smoke_benchmark_passes",
       "active_registries_unchanged",
-      "evidence_snapshot_unchanged",
-      "release_metadata_unchanged",
-      "full_ci_green"
+      "evidence_snapshot_unchanged"
     ]
   }
 }

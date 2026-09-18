@@ -1,92 +1,272 @@
 {
-  "$schema":"https://json-schema.org/draft/2020-12/schema",
-  "$id":"https://example.org/schemas/m1_e4_candidate_recovery_benchmark.schema.json",
-  "type":"object",
-  "additionalProperties":false,
-  "required":[
-    "id","status","model_extension","scope","implementation","simulation_design",
-    "selection_rule","required_outputs","design_gate","interpretation_boundary",
-    "method_sources","promotion_gate"
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/m1_e4_candidate_recovery_benchmark.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "model_extension",
+    "scope",
+    "implementation",
+    "simulation_design",
+    "selection_rule",
+    "required_outputs",
+    "design_gate",
+    "interpretation_boundary",
+    "method_sources",
+    "promotion_gate"
   ],
-  "properties":{
-    "id":{"const":"CONTRACT.M1.E4.RECOVERY_BENCHMARK.2026-09-16"},
-    "status":{"const":"PHASE_E_SYNTHETIC_BENCHMARK_TOOL_ONLY"},
-    "model_extension":{"const":"M1.E4"},
-    "scope":{"type":"string","minLength":40},
-    "implementation":{
-      "type":"object","additionalProperties":false,
-      "required":["module","runner","core_config","candidate_families","active_runtime_import_allowed"],
-      "properties":{
-        "module":{"const":"src/cognitive_epistemic_model/calibration/m1_e4_candidate_recovery.py"},
-        "runner":{"const":"scripts/run_m1_e4_candidate_recovery.py"},
-        "core_config":{"const":"model/benchmarks/m1_e4_candidate_recovery_core.json"},
-        "candidate_families":{"type":"array","minItems":2,"maxItems":2,"uniqueItems":true,"items":{"enum":["EVSD","2HT"]}},
-        "active_runtime_import_allowed":{"const":false}
+  "properties": {
+    "id": {
+      "const": "CONTRACT.M1.E4.RECOVERY_BENCHMARK.2026-09-16"
+    },
+    "status": {
+      "const": "PHASE_E_SYNTHETIC_BENCHMARK_TOOL_ONLY"
+    },
+    "model_extension": {
+      "const": "M1.E4"
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 40
+    },
+    "implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "module",
+        "runner",
+        "core_config",
+        "candidate_families",
+        "active_runtime_import_allowed"
+      ],
+      "properties": {
+        "module": {
+          "const": "src/cognitive_epistemic_model/calibration/m1_e4_candidate_recovery.py"
+        },
+        "runner": {
+          "const": "scripts/run_m1_e4_candidate_recovery.py"
+        },
+        "core_config": {
+          "const": "model/benchmarks/m1_e4_candidate_recovery_core.json"
+        },
+        "candidate_families": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "EVSD",
+              "2HT"
+            ]
+          }
+        },
+        "active_runtime_import_allowed": {
+          "const": false
+        }
       }
     },
-    "simulation_design":{
-      "type":"object","additionalProperties":false,
-      "required":["seed","replicates_per_grid_cell","trial_counts_per_operating_point","operating_points_per_condition","conditions","independent_train_and_held_out_draws","memory_regimes"],
-      "properties":{
-        "seed":{"const":20260916},
-        "replicates_per_grid_cell":{"const":200},
-        "trial_counts_per_operating_point":{"type":"array","minItems":4,"uniqueItems":true,"items":{"type":"integer","minimum":1}},
-        "operating_points_per_condition":{"const":5},
-        "conditions":{"type":"array","minItems":2,"maxItems":2,"uniqueItems":true,"items":{"enum":["complex","simple"]}},
-        "independent_train_and_held_out_draws":{"const":true},
-        "memory_regimes":{"type":"array","minItems":3,"uniqueItems":true}
+    "simulation_design": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seed",
+        "replicates_per_grid_cell",
+        "trial_counts_per_operating_point",
+        "operating_points_per_condition",
+        "conditions",
+        "independent_train_and_held_out_draws",
+        "memory_regimes"
+      ],
+      "properties": {
+        "seed": {
+          "const": 20260916
+        },
+        "replicates_per_grid_cell": {
+          "const": 200
+        },
+        "trial_counts_per_operating_point": {
+          "type": "array",
+          "minItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "operating_points_per_condition": {
+          "const": 5
+        },
+        "conditions": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "complex",
+              "simple"
+            ]
+          }
+        },
+        "independent_train_and_held_out_draws": {
+          "const": true
+        },
+        "memory_regimes": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true
+        }
       }
     },
-    "selection_rule":{
-      "type":"object","additionalProperties":false,
-      "required":["train_diagnostic","held_out_diagnostic","decisive_selection","discordant_or_tied_selection","universal_delta_aic_cutoff"],
-      "properties":{
-        "train_diagnostic":{"const":"AIC"},
-        "held_out_diagnostic":{"const":"PREDICTIVE_LOG_LIKELIHOOD"},
-        "decisive_selection":{"type":"string","minLength":20},
-        "discordant_or_tied_selection":{"const":"INCONCLUSIVE"},
-        "universal_delta_aic_cutoff":{"const":false}
+    "selection_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "train_diagnostic",
+        "held_out_diagnostic",
+        "decisive_selection",
+        "discordant_or_tied_selection",
+        "universal_delta_aic_cutoff"
+      ],
+      "properties": {
+        "train_diagnostic": {
+          "const": "AIC"
+        },
+        "held_out_diagnostic": {
+          "const": "PREDICTIVE_LOG_LIKELIHOOD"
+        },
+        "decisive_selection": {
+          "type": "string",
+          "minLength": 20
+        },
+        "discordant_or_tied_selection": {
+          "const": "INCONCLUSIVE"
+        },
+        "universal_delta_aic_cutoff": {
+          "const": false
+        }
       }
     },
-    "required_outputs":{"type":"array","minItems":8,"uniqueItems":true},
-    "design_gate":{
-      "type":"object","additionalProperties":false,
-      "required":["minimum_recovery_probability_each_core_grid_cell","threshold_status","aggregate_average_may_mask_failed_cell","both_generators_must_pass","authoritative_full_run_required_before_empirical_model_selection","ci_smoke_run_is_authoritative"],
-      "properties":{
-        "minimum_recovery_probability_each_core_grid_cell":{"const":0.8},
-        "threshold_status":{"const":"CEM_DESIGN_CONVENTION"},
-        "aggregate_average_may_mask_failed_cell":{"const":false},
-        "both_generators_must_pass":{"const":true},
-        "authoritative_full_run_required_before_empirical_model_selection":{"const":true},
-        "ci_smoke_run_is_authoritative":{"const":false}
+    "required_outputs": {
+      "type": "array",
+      "minItems": 8,
+      "uniqueItems": true
+    },
+    "design_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimum_recovery_probability_each_core_grid_cell",
+        "threshold_status",
+        "aggregate_average_may_mask_failed_cell",
+        "both_generators_must_pass",
+        "authoritative_full_run_required_before_empirical_model_selection"
+      ],
+      "properties": {
+        "minimum_recovery_probability_each_core_grid_cell": {
+          "const": 0.8
+        },
+        "threshold_status": {
+          "const": "CEM_DESIGN_CONVENTION"
+        },
+        "aggregate_average_may_mask_failed_cell": {
+          "const": false
+        },
+        "both_generators_must_pass": {
+          "const": true
+        },
+        "authoritative_full_run_required_before_empirical_model_selection": {
+          "const": true
+        }
       }
     },
-    "interpretation_boundary":{"type":"array","minItems":4,"items":{"type":"string","minLength":20}},
-    "method_sources":{"type":"array","minItems":3,"items":{"$ref":"#/$defs/source"}},
-    "promotion_gate":{
-      "type":"object","additionalProperties":false,
-      "required":["benchmark_code_allowed","active_model_registration_allowed","winner_declaration_allowed","pencode_allowed","ui_allowed","requirements"],
-      "properties":{
-        "benchmark_code_allowed":{"const":true},
-        "active_model_registration_allowed":{"const":false},
-        "winner_declaration_allowed":{"const":false},
-        "pencode_allowed":{"const":false},
-        "ui_allowed":{"const":false},
-        "requirements":{"type":"array","minItems":12,"uniqueItems":true}
+    "interpretation_boundary": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "string",
+        "minLength": 20
+      }
+    },
+    "method_sources": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "promotion_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "benchmark_code_allowed",
+        "active_model_registration_allowed",
+        "winner_declaration_allowed",
+        "pencode_allowed",
+        "requirements"
+      ],
+      "properties": {
+        "benchmark_code_allowed": {
+          "const": true
+        },
+        "active_model_registration_allowed": {
+          "const": false
+        },
+        "winner_declaration_allowed": {
+          "const": false
+        },
+        "pencode_allowed": {
+          "const": false
+        },
+        "requirements": {
+          "type": "array",
+          "minItems": 12,
+          "uniqueItems": true
+        }
       }
     }
   },
-  "$defs":{
-    "source":{
-      "type":"object","additionalProperties":false,
-      "required":["id","role"],
-      "properties":{
-        "id":{"type":"string","pattern":"^SRC\\.M1\\.E4\\.RECOVERY\\.[A-Z0-9_.-]+$"},
-        "doi":{"type":"string","pattern":"^10\\.\\d{4,9}/\\S+$"},
-        "url":{"type":"string","pattern":"^https://\\S+$"},
-        "role":{"type":"string","minLength":10}
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "role"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^SRC\\.M1\\.E4\\.RECOVERY\\.[A-Z0-9_.-]+$"
+        },
+        "doi": {
+          "type": "string",
+          "pattern": "^10\\.\\d{4,9}/\\S+$"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://\\S+$"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 10
+        }
       },
-      "anyOf":[{"required":["doi"]},{"required":["url"]}]
+      "anyOf": [
+        {
+          "required": [
+            "doi"
+          ]
+        },
+        {
+          "required": [
+            "url"
+          ]
+        }
+      ]
     }
   }
 }

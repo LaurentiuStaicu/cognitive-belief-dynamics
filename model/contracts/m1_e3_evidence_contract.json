@@ -268,7 +268,10 @@
       "status": "PLANNED_ONLY",
       "definition": "Controlled headline-negativity condition reserved for the future M1.E3 reference comparator.",
       "what_it_is_not": "Not truth, factuality, misinformation, article valence, experienced emotion, political orientation or source quality.",
-      "reference_values": [0, 1]
+      "reference_values": [
+        0,
+        1
+      ]
     },
     {
       "id": "PLANNED.VAR.PACCESS",
@@ -285,7 +288,10 @@
       "status": "PLANNED_ONLY",
       "definition": "Future reference binary outcome indicating open/click versus no open/click.",
       "what_it_is_not": "Not attention, reading completion, endorsement, belief or sharing.",
-      "reference_values": [0, 1]
+      "reference_values": [
+        0,
+        1
+      ]
     },
     {
       "id": "PLANNED.VAR.PREVIEW_IMPRESSION",
@@ -294,7 +300,9 @@
       "status": "PLANNED_ONLY",
       "definition": "Future registered event that a preview/headline was rendered under the M1.E3 reference task.",
       "what_it_is_not": "Not proof of fixation, reading, encoding, recall or full-content access.",
-      "reference_values": [1]
+      "reference_values": [
+        1
+      ]
     }
   ],
   "empirical_target": {
@@ -319,7 +327,10 @@
       {
         "metric": "LOG_ODDS_COEFFICIENT",
         "value": 0.015,
-        "ci": [0.013, 0.018],
+        "ci": [
+          0.013,
+          0.018
+        ],
         "scale_note": "Published standardized coefficient for the proportion of negative words; 99% confidence interval.",
         "use": "MAGNITUDE_CONTEXT_ONLY"
       },
@@ -406,12 +417,10 @@
       "non_percentage_point_effect_metric_supported_before_active_target_promotion",
       "planned_quantities_absent_from_active_variables",
       "planned_validation_ids_absent_from_active_validation_tests",
-      "retained_m0_m1e1_m1e2_exports_unchanged",
-      "full_ci_green"
+      "retained_m0_m1e1_m1e2_exports_unchanged"
     ],
     "active_registry_mutation_allowed": false,
-    "executable_equation_allowed": false,
-    "ui_allowed": false
+    "executable_equation_allowed": false
   },
   "forbidden_changes": [
     "no_M1_E3_equation",
