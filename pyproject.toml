@@ -3,9 +3,9 @@ requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [project]
-name = "cognitive-epistemic-model"
+name = "cognitive-belief-dynamics"
 dynamic = ["version"]
-description = "Computational engine and calibration artifacts for the Cognitive Epistemic Model"
+description = "Computational engine and calibration artifacts for Cognitive Belief Dynamics"
 readme = "README.md"
 requires-python = ">=3.12"
 license = {text = "MIT"}
