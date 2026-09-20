@@ -6,6 +6,7 @@ All notable public scientific-core releases of Cognitive Belief Dynamics (CBD) a
 
 ### Repository governance
 
+- added GitHub Actions validation for Python 3.12 package build, clean wheel import/version verification, source compilation and the retained pytest suite, with superseded branch runs canceled automatically;
 - added CBD-specific contribution and support guidance;
 - added structured reproducibility and scientific/model issue forms;
 - added a pull-request checklist preserving the event-driven paradigm and the synthetic-recovery versus human-validation boundary;
