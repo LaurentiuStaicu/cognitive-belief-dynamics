@@ -1,0 +1,53 @@
+name: Scientific / model issue
+description: Report or discuss a CBD mechanism, evidence, benchmark, validation, or paradigm concern.
+title: "[Scientific]: "
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - State/update mechanism
+        - Evidence / provenance
+        - Calibration
+        - Synthetic recovery / identifiability
+        - Human-validation boundary
+        - Paradigm / systems-thinking boundary
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: statement
+    attributes:
+      label: Issue or proposal
+    validations:
+      required: true
+  - type: textarea
+    id: facts
+    attributes:
+      label: Observed facts
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources / evidence
+    validations:
+      required: true
+  - type: textarea
+    id: interpretation
+    attributes:
+      label: Interpretation
+      description: Keep inference separate from observed facts.
+  - type: checkboxes
+    id: integrity
+    attributes:
+      label: Scientific integrity
+      options:
+        - label: I am not treating synthetic recovery as human validation.
+          required: true
+        - label: I am not relabeling CBD as System Dynamics merely for suite consistency.
+          required: true
+        - label: I am not treating Pencode as identified without new evidence.
+          required: true
