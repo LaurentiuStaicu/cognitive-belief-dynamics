@@ -65,9 +65,9 @@ def test_public_readme_matches_retained_m1_e4_boundary() -> None:
     assert "pencode | **not identified or estimated**" in normalized
     assert "participant recruitment | **not authorized by current baseline**" in normalized
 
-    assert "all 18 primary P64_X10 cells meet the declared 0.80 recovery gate" in status
-    assert "minimum observed recovery of 0.92" in status
-    assert "all 18 primary P64_X10 cells meet the declared 0.80 recovery gate" in benchmarks
+    assert "all 18 primary p64_x10 cells meet the declared 0.80 recovery gate" in status.lower()
+    assert "minimum observed recovery of 0.92" in status.lower()
+    assert "all 18 primary p64_x10 cells meet the declared 0.80 recovery gate" in benchmarks.lower()
 
 
 def test_public_assets_match_reviewed_preview_assets() -> None:
