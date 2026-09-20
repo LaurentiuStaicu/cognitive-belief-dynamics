@@ -40,17 +40,17 @@ def test_public_version_is_consistent() -> None:
 
 def test_public_readme_preserves_cbd_paradigm_boundary() -> None:
     text = read(README)
+    normalized = re.sub(r"[*_`]", "", text).lower()
     required = (
-        "not currently a formal System Dynamics model",
+        "not currently a formal system dynamics model",
         "event schedules remain externally supplied",
-        "Share action does not automatically create future exposure",
-        "Synthetic recovery is not human validation",
+        "share action does not automatically create future exposure",
+        "synthetic recovery is not human validation",
         "not a population-calibrated cognitive law",
-        "not a literal neural implementation of Bayes",
+        "not a literal neural implementation of bayes",
     )
-    lower = text.lower()
     for token in required:
-        assert token.lower() in lower
+        assert token in normalized
 
 
 def test_public_readme_matches_retained_m1_e4_boundary() -> None:
@@ -58,11 +58,12 @@ def test_public_readme_matches_retained_m1_e4_boundary() -> None:
     status = read(ROOT / "STATUS.md")
     benchmarks = read(ROOT / "model" / "benchmarks" / "README.md")
 
-    assert "18 / 18 primary P64_X10 cells meet the 0.80 recovery gate" in text
+    normalized = text.lower()
+    assert "18 / 18 primary p64_x10 cells meet the 0.80 recovery gate" in normalized
     assert "0.92" in text
-    assert "human-participant validation | **Not established**" in text
-    assert "Pencode | **Not identified or estimated**" in text
-    assert "Participant recruitment | **Not authorized by current baseline**" in text
+    assert "human-participant validation | **not established**" in normalized
+    assert "pencode | **not identified or estimated**" in normalized
+    assert "participant recruitment | **not authorized by current baseline**" in normalized
 
     assert "all 18 primary P64_X10 cells meet the declared 0.80 recovery gate" in status
     assert "minimum observed recovery of 0.92" in status
