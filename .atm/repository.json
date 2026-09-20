@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "repository_id": "cbd",
+  "acronym": "CBD",
+  "display_name": "Cognitive Belief Dynamics",
+  "version_source": {
+    "type": "cff",
+    "path": "CITATION.cff"
+  },
+  "status_source": "STATUS.md",
+  "required_paths": [
+    "CITATION.cff",
+    "STATUS.md",
+    "model/variables.json",
+    "model/processes.json",
+    "model/links.json",
+    "model/contracts/world_model_v1.json"
+  ],
+  "retrieval": {
+    "canonical": [
+      "STATUS.md",
+      "README.md",
+      "CITATION.cff",
+      "model/contracts/world_model_v1.json"
+    ],
+    "structural": [
+      "model/variables.json",
+      "model/processes.json",
+      "model/links.json",
+      "model/modules.json",
+      "model/subsystems.json",
+      "model/contracts"
+    ],
+    "evidence": [
+      "model/evidence_snapshot.json",
+      "model/empirical_targets.json",
+      "model/validation_tests.json",
+      "model/references.json",
+      "model/benchmarks/results"
+    ],
+    "tabular": [
+      "model/benchmarks/results"
+    ],
+    "implementation": [
+      "src/cognitive_epistemic_model"
+    ],
+    "exclude": [
+      ".github",
+      "__pycache__"
+    ]
+  }
+}
