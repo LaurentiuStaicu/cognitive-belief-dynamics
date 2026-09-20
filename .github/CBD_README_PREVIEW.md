@@ -79,7 +79,7 @@ The figure is an orientation view, not a causal-loop diagram. It deliberately av
 | Pencode | **Not identified or estimated** |
 | Participant recruitment | **Not authorized by current baseline** |
 
-MOD.14 provides a transparent normative reference computation when a defensible prior probability and diagnostic likelihood ratio are supplied. It is **not** a population-calibrated cognitive law, a claim that the brain literally implements Bayes, or a truth oracle.
+MOD.14 provides a transparent normative reference computation when a defensible prior probability and diagnostic likelihood ratio are supplied. It is **not** a population-calibrated cognitive law, **not a literal neural implementation of Bayes**, and not a truth oracle.
 
 For the exact current scientific boundary, see [STATUS.md](../STATUS.md).
 
