@@ -2,6 +2,15 @@
 
 All notable public scientific-core releases of Cognitive Belief Dynamics (CBD) are recorded here.
 
+## Unreleased
+
+### Repository governance
+
+- added CBD-specific contribution and support guidance;
+- added structured reproducibility and scientific/model issue forms;
+- added a pull-request checklist preserving the event-driven paradigm and the synthetic-recovery versus human-validation boundary;
+- deferred security-policy and code-of-conduct adoption until private reporting and enforcement routes are explicitly configured.
+
 ## 0.1.0 - 2026-09-18
 
 Initial public scientific-core baseline.
