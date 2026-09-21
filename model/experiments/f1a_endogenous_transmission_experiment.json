@@ -1,6 +1,6 @@
 {
   "id": "CONTRACT.F1A.ENDOGENOUS_TRANSMISSION.2026-09-21",
-  "status": "STRUCTURAL_SYNTHETIC_EXPERIMENT_ONLY",
+  "status": "SYNTHETIC_EXECUTABLE",
   "feedback_family": "F1a",
   "baseline": {
     "release": "v0.1.1",
@@ -124,6 +124,7 @@
     "empirical_parameter_claim_allowed": false,
     "evidence_set_expansion_allowed": false,
     "canonical_paradigm_change_allowed": false,
-    "next_status_candidate": "SYNTHETIC_EXECUTABLE"
+    "next_status_candidate": "RECOVERY_TESTED",
+    "automatic_further_promotion_allowed": false
   }
 }
