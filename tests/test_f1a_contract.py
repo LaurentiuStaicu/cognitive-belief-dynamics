@@ -6,7 +6,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTRACT = ROOT / "model" / "contracts" / "f1a_endogenous_transmission_experiment.json"
+CONTRACT = ROOT / "model" / "experiments" / "f1a_endogenous_transmission_experiment.json"
 SCHEMA = ROOT / "schemas" / "f1a_endogenous_transmission_experiment.schema.json"
 
 
