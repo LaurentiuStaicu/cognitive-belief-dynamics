@@ -18,7 +18,8 @@ Scientific-core maintenance, reproducibility, evidence-metadata audit and reposi
 - restored complete canonical M1.E4 status reporting so the participant-confirmation pass and the distinct Phase M robustness failure are always reported together;
 - retained the v0.1.0 scientific equations, benchmark values, thresholds and seeds unchanged;
 - content-audited empirical-target/sample metadata and advanced the retained evidence-set metadata to `EVIDENCE.M1.2026-09-21.r2`;
-- corrected the M1.E3 Mattis et al. Journal of Communication citation/DOI and replaced the Nickl preprint access link with its canonical DOI route.
+- corrected the M1.E3 Mattis et al. Journal of Communication citation/DOI and replaced the Nickl preprint access link with its canonical DOI route;
+- added a versioned machine-readable content/data audit covering every current reference, empirical target, variable, link, process and scientific contract, with repaired findings and unresolved gaps separated explicitly.
 
 ### Repository and continuity
 
