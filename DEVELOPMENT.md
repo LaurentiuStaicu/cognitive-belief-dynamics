@@ -101,6 +101,10 @@ The content audit identified two M0 descriptive patterns whose executable depend
 
 The default `ModelParams` values are demonstrative rather than population estimates. The current dataclass does not enforce a complete scientific parameter-domain contract for arbitrary user-supplied alpha/beta values. Existing state updates remain bounded where implemented, but this is an open model-governance item: parameter admissibility should be specified prospectively before exposing free parameter editing or calibration. No bounds are invented in v0.1.1 merely to make the API stricter.
 
+### Runtime input-domain validation
+
+Runtime domain enforcement is currently uneven. Some domains (for example `evidence_signal` and `correction_direction`) are rejected when the belief function executes, while probability-like inputs passed through `logit()` are clamped and dataclass annotations such as boolean event fields are not runtime validators. This is recorded as an API/scientific-boundary gap rather than silently changed in v0.1.1. A future hardening release should define admissible domains and rejection-versus-clamping semantics explicitly before changing runtime behavior.
+
 ### Product layer
 
 The scientific-core repository does not currently contain an end-user application. Product/interface work must consume the scientific core without silently changing its claims or contracts.
