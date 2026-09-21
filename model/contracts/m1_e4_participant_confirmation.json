@@ -79,7 +79,7 @@
       "200_replicates_fixed",
       "loop_vectorized_equivalence_inherited",
       "active_registries_unchanged",
-      "evidence_snapshot_unchanged"
+      "evidence_set_membership_unchanged"
     ]
   }
 }
