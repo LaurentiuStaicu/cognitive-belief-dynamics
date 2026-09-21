@@ -571,5 +571,88 @@
       "area": "M1.E4 item heterogeneity",
       "summary": "The retained participant-level aggregate representation does not preserve item identity; a crossed participant-item model requires a new prospective contract."
     }
-  ]
+  ],
+  "benchmark_artifacts": [
+    {
+      "path": "model/benchmarks/m1_e4_candidate_recovery_core.json",
+      "kind": "CONFIG",
+      "status": "VERIFIED_CONTENT",
+      "note": "Core 200-replicate synthetic recovery design; trial-count grid, generators, regimes, threshold and selection rule were cross-checked against the authoritative CSV."
+    },
+    {
+      "path": "model/benchmarks/m1_e4_candidate_recovery_trial_count_refinement.json",
+      "kind": "CONFIG",
+      "status": "VERIFIED_CONTENT",
+      "note": "Controlled refinement changes only the trial-count axis relative to the core design; all listed refined cells are represented in the authoritative CSV."
+    },
+    {
+      "path": "model/benchmarks/m1_e4_participant_aware_screening.json",
+      "kind": "CONFIG",
+      "status": "VERIFIED_CONTENT",
+      "note": "Four allocations × three heterogeneity levels × two generators × three memory regimes define 72 screening cells at 50 replicates each."
+    },
+    {
+      "path": "model/benchmarks/m1_e4_participant_confirmation_200.json",
+      "kind": "CONFIG",
+      "status": "VERIFIED_CONTENT",
+      "note": "The frozen confirmation surface contains 29 cells: all 18 P64_X10 primary cells plus 11 boundary minimum-with-ties cells, with screening recovery values matching the screening CSV."
+    },
+    {
+      "path": "model/benchmarks/m1_e4_protocol_robustness_200.json",
+      "kind": "CONFIG",
+      "status": "VERIFIED_CONTENT",
+      "note": "Nine misspecification profiles × two generators define 18 Phase M cells at 200 replicates each; profile values remain demonstrative rather than population estimates."
+    },
+    {
+      "path": "model/benchmarks/results/m1_e4_candidate_recovery_authoritative_2026-09-16.csv",
+      "kind": "AUTHORITATIVE_RESULT",
+      "status": "VERIFIED_CONTENT",
+      "note": "24 rows; every row has 200 replicates, probabilities sum to 1, and the pass flag matches the 0.80 gate. Minimum recovery is 0.225."
+    },
+    {
+      "path": "model/benchmarks/results/m1_e4_trial_count_refinement_authoritative_2026-09-16.csv",
+      "kind": "AUTHORITATIVE_RESULT",
+      "status": "VERIFIED_CONTENT",
+      "note": "18 rows across 480/640/960 trials per operating point; every row has 200 replicates, probabilities sum to 1, and every cell passes 0.80; minimum recovery is 0.835."
+    },
+    {
+      "path": "model/benchmarks/results/m1_e4_participant_screening_authoritative_2026-09-16.csv",
+      "kind": "AUTHORITATIVE_RESULT",
+      "status": "VERIFIED_CONTENT",
+      "note": "72 rows at 50 replicates; probabilities sum to 1 and all cells pass the screening threshold, with minimum recovery 0.88."
+    },
+    {
+      "path": "model/benchmarks/results/m1_e4_participant_confirmation_authoritative_2026-09-16.json",
+      "kind": "AUTHORITATIVE_RESULT",
+      "status": "VERIFIED_CONTENT",
+      "note": "29 selected cells and 5,800 total replicates; selected counts reproduce reported probabilities, three wrong-family selections occur overall, and all 18 primary P64_X10 cells pass with minimum recovery 0.92."
+    },
+    {
+      "path": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.json",
+      "kind": "AUTHORITATIVE_RESULT",
+      "status": "VERIFIED_CONTENT",
+      "note": "18 cells and 3,600 total replicates; aggregate correct/wrong/inconclusive counts reproduce the header, the minimum recovery is 0.56, and exactly three EVSD cells fail the 0.80 formal gate."
+    }
+  ],
+  "benchmark_numeric_checks": {
+    "core_recovery_rows": 24,
+    "refinement_rows": 18,
+    "screening_rows": 72,
+    "confirmation_rows": 29,
+    "confirmation_primary_rows": 18,
+    "confirmation_primary_min_recovery": 0.92,
+    "confirmation_total_replicates": 5800,
+    "confirmation_wrong_family_total": 3,
+    "robustness_rows": 18,
+    "robustness_total_replicates": 3600,
+    "robustness_correct_family_total": 3169,
+    "robustness_wrong_family_total": 25,
+    "robustness_inconclusive_total": 406,
+    "robustness_min_recovery": 0.56,
+    "robustness_failed_cells": [
+      "COMBINED_ADVERSE__EVSD",
+      "ITEM_HIGH__EVSD",
+      "ITEM_MODERATE__EVSD"
+    ]
+  }
 }
