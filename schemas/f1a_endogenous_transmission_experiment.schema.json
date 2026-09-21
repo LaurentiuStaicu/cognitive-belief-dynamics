@@ -19,6 +19,7 @@
     "provenance_contract",
     "verification_gates",
     "interpretation_boundary",
+    "recovery_evidence",
     "promotion_gate"
   ],
   "properties": {
@@ -26,7 +27,7 @@
       "const": "CONTRACT.F1A.ENDOGENOUS_TRANSMISSION.2026-09-21"
     },
     "status": {
-      "const": "SYNTHETIC_EXECUTABLE"
+      "const": "RECOVERY_TESTED"
     },
     "feedback_family": {
       "const": "F1a"
@@ -356,10 +357,46 @@
           "const": false
         },
         "next_status_candidate": {
-          "const": "RECOVERY_TESTED"
+          "const": "EMPIRICALLY_CONSTRAINED"
         },
         "automatic_further_promotion_allowed": {
           "const": false
+        }
+      }
+    },
+    "recovery_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "promotion_record",
+        "authoritative_result",
+        "recovery_parameter",
+        "recovery_parameter_runtime_status",
+        "minimum_core_recovery_probability",
+        "stress_minimum_recovery_probability",
+        "result_reproduced_byte_for_byte"
+      ],
+      "properties": {
+        "promotion_record": {
+          "const": "model/experiments/f1a_recovery_promotion_2026-09-21.json"
+        },
+        "authoritative_result": {
+          "const": "model/benchmarks/results/f1a_transmission_recovery_authoritative_2026-09-21.json"
+        },
+        "recovery_parameter": {
+          "const": "q_transmit"
+        },
+        "recovery_parameter_runtime_status": {
+          "const": "CALIBRATION_ONLY_NOT_ACTIVE_RUNTIME"
+        },
+        "minimum_core_recovery_probability": {
+          "const": 0.885
+        },
+        "stress_minimum_recovery_probability": {
+          "const": 0.725
+        },
+        "result_reproduced_byte_for_byte": {
+          "const": true
         }
       }
     }
