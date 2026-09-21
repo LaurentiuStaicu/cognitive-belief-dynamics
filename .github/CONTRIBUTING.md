@@ -19,15 +19,18 @@ Unless an explicit paradigm change is scientifically justified and reviewed:
 
 ## Contribution types
 
-Useful work includes computational-engine fixes, schemas/contracts, synthetic benchmark reproduction, evidence/provenance corrections, documentation, calibration methodology and carefully justified model-structure proposals.
+Useful work includes computational-engine fixes, schemas/contracts, synthetic benchmark reproduction, evidence/provenance corrections, documentation, recovery/validation methodology, prospective calibration proposals, and carefully justified model-structure proposals.
 
 ## Verification
 
-Use Python 3.12+ and run:
+Use Python 3.12+ and follow the same verification path as the public CI baseline:
 
 ```bash
-python -m unittest discover -s tests -v
+python -m pytest
+cemodel validate --root .
 ```
+
+For an exact GitHub-hosted Ubuntu / CPython 3.12 reproduction, use the pinned installation commands in [README.md](../README.md) and `requirements/ci-py312-linux.lock.txt`.
 
 For changes affecting retained M1.E4 results, rerun the relevant scripts under [scripts/](../scripts/) and document exactly which retained artifact changes.
 
