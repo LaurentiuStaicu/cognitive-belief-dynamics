@@ -125,6 +125,17 @@ The validation gate builds source and wheel distributions, verifies a clean whee
 
 The lock file is an exact CI snapshot, not a universal cross-platform dependency lock. `pyproject.toml` remains the supported dependency-range declaration for ordinary installations.
 
+### Post-merge public repository metadata
+
+The repository code/content release and the live GitHub repository metadata are separate publication surfaces. After the v0.1.1 merge/tag/release, review the live repository **About** metadata before considering public presentation fully closed:
+
+- add a concise set of repository topics for discoverability (candidate scope: cognitive-modeling, belief-dynamics, computational-social-science, research-software, systems-thinking, python);
+- verify or remove the current homepage URL `https://laurentiustaicu.github.io/cognitive-belief-dynamics/`; no Pages source/workflow is present in the v0.1.1 scientific-core branch and no recent Pages-like workflow was found during the release audit;
+- decide separately whether a custom social-preview image is desired; this is a live repository presentation choice, not a scientific release blocker;
+- review Community Standards after release. CONTRIBUTING, SUPPORT, issue forms, PR template, LICENSE and CITATION are present. CODE_OF_CONDUCT and SECURITY are optional follow-up governance items; SECURITY should not promise a private reporting route until one is actually configured.
+
+These live metadata changes are not encoded by merging PR #112 and therefore must not be assumed complete merely because the release branch is green.
+
 ## Release procedure
 
 For a new release:
