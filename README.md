@@ -72,9 +72,9 @@ The figure is an orientation view, not a causal-loop diagram. It deliberately av
 | Formal System Dynamics classification | **No** |
 | Public scientific-core release | **v0.1.0** |
 | Evidence levels | **Executable / empirical / conceptual / interpretive** |
-| M1.E4 participant-aware confirmation | **18 / 18 primary P64_X10 cells meet the 0.80 recovery gate** |
-| Minimum observed primary-cell recovery | **0.92** |
-| M1.E4 result type | **Synthetic recovery / identifiability-discrimination only** |
+| M1.E4 participant-aware confirmation | **PASS — 18 / 18 primary P64_X10 cells meet the 0.80 recovery gate** |
+| Minimum observed participant-confirmation recovery | **0.92** |
+| Phase M protocol robustness | **PROTOCOL_ROBUSTNESS_FAIL — 3 / 18 cells below 0.80; minimum recovery 0.56** |\n| M1.E4 result type | **Synthetic recovery / identifiability-discrimination only** |
 | Human-participant validation | **Not established** |
 | Pencode | **Not identified or estimated** |
 | Participant recruitment | **Not authorized by current baseline** |
