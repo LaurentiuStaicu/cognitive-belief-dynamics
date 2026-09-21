@@ -105,7 +105,8 @@
       "preregistration_note": "The article states that its hypotheses were preregistered on OSF before data collection; the registered H1 is the confirmation-greater-than-refutation engagement contrast used by this target.",
       "study_preregistered": true,
       "target_analysis_registration_status": "PREREGISTERED",
-      "analysis_base_note": "The 9,512 value is the total across four country experiments. The registered effects are country-specific contrasts (Argentina 2,349; Brazil 2,401; Chile 2,384; Colombia 2,378), so 9,512 must not be read as one pooled regression N."
+      "analysis_base_note": "The 9,512 value is the total across four country experiments. The registered effects are country-specific contrasts (Argentina 2,349; Brazil 2,401; Chile 2,384; Colombia 2,378), so 9,512 must not be read as one pooled regression N.",
+      "effect_estimate_note": "CBD records the main-text substantive percentage-point differences from the unadjusted/restricted condition comparison (Argentina 18.2 pp; Brazil 13 pp; Chile 15 pp; Colombia 14 pp). These should not be replaced by the adjusted/unrestricted Table 2 coefficients (approximately 18.8, 13.1, 15.2, and 14.7 pp), which are a different specification."
     },
     "effects": [
       {
