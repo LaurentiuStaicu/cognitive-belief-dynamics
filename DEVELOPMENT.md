@@ -133,6 +133,7 @@ The repository code/content release and the live GitHub repository metadata are 
 - protect the default `main` branch (or create an equivalent active ruleset): require the `CBD validation` status check before merge, block force pushes and branch deletion, and preserve pull-request-based integration. The release audit observed `main` as unprotected; this is a repository-governance gap, not a scientific-model defect;
 - verify or remove the current homepage URL `https://laurentiustaicu.github.io/cognitive-belief-dynamics/`; no Pages source/workflow is present in the v0.1.1 scientific-core branch and no recent Pages-like workflow was found during the release audit;
 - decide separately whether a custom social-preview image is desired; this is a live repository presentation choice, not a scientific release blocker;
+- optionally enable Zenodo GitHub integration after the repository presentation is stable. `CITATION.cff` is already present and can supply software-release metadata; a Zenodo-archived release would add a persistent DOI/version archive without changing CBD's scientific status;
 - review Community Standards after release. CONTRIBUTING, SUPPORT, issue forms, PR template, LICENSE and CITATION are present. CODE_OF_CONDUCT and SECURITY are optional follow-up governance items; SECURITY should not promise a private reporting route until one is actually configured.
 
 These live metadata changes are not encoded by merging PR #112 and therefore must not be assumed complete merely because the release branch is green.
@@ -142,7 +143,7 @@ These live metadata changes are not encoded by merging PR #112 and therefore mus
 For a new release:
 
 1. decide whether the change is patch/minor/major based on the software/repository API and scientific scope;
-2. update package version, `CITATION.cff`, `STATUS.md`, `CHANGELOG.md`, README, release note, release manifest and CI version assertion together;
+2. update package version, `CITATION.cff`, `STATUS.md`, `CHANGELOG.md`, README, release note, release manifest and CI version assertion together; verify that `CITATION.cff` `date-released` equals the actual publication date rather than a stale planned date;
 3. run the full `CBD validation` workflow;
 4. review scientific boundaries and retained-result wording against authoritative artifacts;
 5. obtain explicit merge approval;
