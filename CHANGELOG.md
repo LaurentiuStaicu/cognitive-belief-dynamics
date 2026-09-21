@@ -4,7 +4,14 @@ All notable public scientific-core releases of Cognitive Belief Dynamics (CBD) a
 
 ## Unreleased
 
-No unreleased changes are recorded after the v0.1.1 release candidate.
+### Progressive endogenization research
+
+- adds an optional future-event scheduler around the unchanged `Simulator.step()` cognitive transition path;
+- adds an explicit static directed synthetic network fixture and deterministic forced pass-through transmission policy;
+- establishes the first F1a synthetic executable edge: realised Share(A) → delayed Exposure(B) → existing Familiarity(B) update;
+- preserves v0.1.1 open-loop behavior when the endogenous layer is not invoked;
+- adds separate scheduler provenance, horizon/max-event guards, backward-equivalence tests, property tests, a strict experiment contract/schema and an ODD supplement;
+- classifies F1a as `SYNTHETIC_EXECUTABLE` only; it is not recovery-tested, empirically constrained or active, and the canonical System Dynamics boundary is unchanged.
 
 ## 0.1.1 - 2026-09-21
 
