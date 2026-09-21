@@ -26,7 +26,8 @@
     "phase_m_shard_checksums": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.shards.sha256",
     "benchmark_provenance_index": "model/benchmarks/results/PROVENANCE.md",
     "content_audit": "model/audits/content_audit_2026-09-21.json",
-    "content_audit_schema": "schemas/content_audit.schema.json"
+    "content_audit_schema": "schemas/content_audit.schema.json",
+    "benchmark_checksum_semantics": "model/benchmarks/results/checksum_semantics.json"
   },
   "scientific_boundaries": {
     "paradigm": "EVENT_DRIVEN_COGNITIVE_STATE_TRANSITION_AGENT_LEVEL_STOCHASTIC_DYNAMICAL_MODEL",
