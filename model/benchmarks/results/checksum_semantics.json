@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "purpose": "Declare exactly what each retained M1.E4 checksum manifest hashes. A .sha256 filename identifies a benchmark family, not necessarily the retained result file beside it.",
+  "entries": [
+    {
+      "phase": "F",
+      "checksum_file": "model/benchmarks/results/m1_e4_candidate_recovery_authoritative_2026-09-16.sha256",
+      "retained_result": "model/benchmarks/results/m1_e4_candidate_recovery_authoritative_2026-09-16.csv",
+      "hashed_target_kind": "HISTORICAL_AUTHORITATIVE_AGGREGATE_JSON",
+      "hashed_target": "m1_e4_candidate_recovery_authoritative.json",
+      "hashed_target_present_in_checkout": false,
+      "verification_scope": "Historical digest/target identity only; the original authoritative JSON bytes are not retained in the current checkout."
+    },
+    {
+      "phase": "G",
+      "checksum_file": "model/benchmarks/results/m1_e4_trial_count_refinement_authoritative_2026-09-16.sha256",
+      "retained_result": "model/benchmarks/results/m1_e4_trial_count_refinement_authoritative_2026-09-16.csv",
+      "hashed_target_kind": "HISTORICAL_AUTHORITATIVE_AGGREGATE_JSON",
+      "hashed_target": "m1_e4_trial_count_refinement_authoritative.json",
+      "hashed_target_present_in_checkout": false,
+      "verification_scope": "Historical digest/target identity only; the original authoritative JSON bytes are not retained in the current checkout."
+    },
+    {
+      "phase": "I",
+      "checksum_file": "model/benchmarks/results/m1_e4_participant_screening_authoritative_2026-09-16.sha256",
+      "retained_result": "model/benchmarks/results/m1_e4_participant_screening_authoritative_2026-09-16.csv",
+      "hashed_target_kind": "HISTORICAL_SHARD_RESULT_JSON_SET",
+      "hashed_target": "screen-*/result.json",
+      "hashed_target_present_in_checkout": false,
+      "expected_target_count": 12,
+      "verification_scope": "Historical shard-manifest structure and target identity only; the 12 shard result.json files are not retained in the current checkout."
+    },
+    {
+      "phase": "K",
+      "checksum_file": "model/benchmarks/results/m1_e4_participant_confirmation_authoritative_2026-09-16.sha256",
+      "retained_result": "model/benchmarks/results/m1_e4_participant_confirmation_authoritative_2026-09-16.json",
+      "hashed_target_kind": "RETAINED_AUTHORITATIVE_RESULT_JSON",
+      "hashed_target": "model/benchmarks/results/m1_e4_participant_confirmation_authoritative_2026-09-16.json",
+      "hashed_target_present_in_checkout": true,
+      "verification_scope": "Digest is recomputed from the retained authoritative JSON by CI."
+    },
+    {
+      "phase": "M",
+      "checksum_file": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.sha256",
+      "retained_result": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.json",
+      "hashed_target_kind": "HISTORICAL_ACTIONS_SOURCE_AGGREGATE_JSON",
+      "hashed_target": "phase-m-summary.json",
+      "hashed_target_present_in_checkout": false,
+      "verification_scope": "Digest identifies the authoritative GitHub Actions source aggregate and is cross-checked against the retained normalized result and provenance sidecar; it is not the byte hash of the retained normalized JSON."
+    }
+  ]
+}
