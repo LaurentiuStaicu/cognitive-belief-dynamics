@@ -96,10 +96,7 @@
     },
     "definition": "Conceptual count/history of exposure events for an agent–information-item relation. The current M0 Simulator consumes discrete ExposureEvent objects and does not persist or read an Nexp counter in the familiarity equation.",
     "what_it_is_not": "Familiarity itself, or a persisted M0 simulator state/count.",
-    "range": [
-      0,
-      1000000
-    ]
+    "domain_note": "Conceptual non-negative integer event count/history. No scientific upper bound is asserted by the current model, and M0 does not persist this quantity as runtime state."
   },
   {
     "id": "VAR.ACTION.SHARE",
