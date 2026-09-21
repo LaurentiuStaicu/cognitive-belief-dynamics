@@ -622,6 +622,14 @@
       "path": "LICENSING.md",
       "summary": "Licensing language referred broadly to 'calibration artifacts' and did not explicitly state that restricted third-party lexicons cited as implementation constraints are not redistributed or relicensed by CBD.",
       "resolution": "Reworded original-data scope as synthetic recovery/validation artifacts and explicitly excluded third-party papers/datasets/lexicons from CBD relicensing, including LIWC/NRC redistribution boundaries."
+    },
+    {
+      "id": "CA.F020",
+      "severity": "MEDIUM",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "model/contracts/m1_e4_evidence_contract.json",
+      "summary": "The professional-writer boundary target retained t(165) but did not record the Study 4 recruited sample size N=249, leaving room to misread test degrees of freedom as the analysis sample size.",
+      "resolution": "Added a boundary-target design block with n_recruited=249 and preregistered=true, while explicitly refusing to infer an analyzed-N from df=165."
     }
   ],
   "open_gaps": [
