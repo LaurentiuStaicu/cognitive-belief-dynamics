@@ -6,7 +6,7 @@
     "url": "https://doi.org/10.1016/S0022-5371(77)80012-1",
     "access_url": "https://hasherlab.psych.utoronto.ca/abstracts/hasher_etal_JVLVB_77.htm",
     "study_type": "EXPERIMENTAL",
-    "checked_on": "2026-09-13",
+    "checked_on": "2026-09-21",
     "review_scope": "ABSTRACT"
   },
   {
@@ -16,7 +16,7 @@
     "url": "https://doi.org/10.1177/1088868309352251",
     "access_url": "https://methexp.uni-koeln.de/files/Dech%C3%AAne-Stahl-Hansen-W%C3%A4nke-2010.pdf",
     "study_type": "META_ANALYTIC",
-    "checked_on": "2026-09-13",
+    "checked_on": "2026-09-21",
     "review_scope": "ABSTRACT_AND_SELECTED_SECTIONS"
   },
   {
@@ -26,7 +26,7 @@
     "url": "https://doi.org/10.1038/s41586-021-03344-2",
     "access_url": "https://www.media.mit.edu/publications/shifting-attention-to-accuracy-can-reduce-misinformation-online/",
     "study_type": "EXPERIMENTAL",
-    "checked_on": "2026-09-13",
+    "checked_on": "2026-09-21",
     "review_scope": "ABSTRACT"
   },
   {
@@ -36,7 +36,7 @@
     "url": "https://doi.org/10.1038/s41598-025-29519-9",
     "access_url": "https://www.nature.com/articles/s41598-025-29519-9",
     "study_type": "EXPERIMENTAL",
-    "checked_on": "2026-09-15",
+    "checked_on": "2026-09-21",
     "review_scope": "ABSTRACT_AND_SELECTED_SECTIONS"
   },
   {
@@ -46,7 +46,7 @@
     "url": "https://doi.org/10.1038/s41598-024-53337-0",
     "access_url": "https://www.nature.com/articles/s41598-024-53337-0",
     "study_type": "EXPERIMENTAL",
-    "checked_on": "2026-09-15",
+    "checked_on": "2026-09-21",
     "review_scope": "FULL_TEXT"
   },
   {
@@ -56,7 +56,7 @@
     "url": "https://doi.org/10.1057/s41599-026-08888-0",
     "access_url": "https://www.nature.com/articles/s41599-026-08888-0",
     "study_type": "EXPERIMENTAL",
-    "checked_on": "2026-09-15",
+    "checked_on": "2026-09-21",
     "review_scope": "FULL_TEXT"
   },
   {
@@ -66,7 +66,7 @@
     "url": "https://doi.org/10.1038/s41562-023-01538-4",
     "access_url": "https://www.nature.com/articles/s41562-023-01538-4",
     "study_type": "EXPERIMENTAL",
-    "checked_on": "2026-09-16",
+    "checked_on": "2026-09-21",
     "review_scope": "FULL_TEXT"
   },
   {
@@ -76,7 +76,7 @@
     "url": "https://doi.org/10.1038/s41597-021-00934-7",
     "access_url": "https://www.nature.com/articles/s41597-021-00934-7",
     "study_type": "DATA_PROVENANCE",
-    "checked_on": "2026-09-16",
+    "checked_on": "2026-09-21",
     "review_scope": "FULL_TEXT"
   },
   {
@@ -86,7 +86,7 @@
     "url": "https://doi.org/10.1038/s41597-024-03600-w",
     "access_url": "https://www.nature.com/articles/s41597-024-03600-w",
     "study_type": "CORRECTION",
-    "checked_on": "2026-09-16",
+    "checked_on": "2026-09-21",
     "review_scope": "FULL_TEXT"
   },
   {
@@ -94,9 +94,9 @@
     "citation": "Nickl, P. L., Hills, T., & Lorenz-Spreen, P. (2025). The effects of an experimental attention economy on the production and consumption of news headlines. PsyArXiv preprint.",
     "doi": "10.31234/osf.io/ntsg9_v1",
     "url": "https://doi.org/10.31234/osf.io/ntsg9_v1",
-    "access_url": "https://www.psychologicalscience.org/conventions/archive/2026annual/paper/61983/",
+    "access_url": "https://doi.org/10.31234/osf.io/ntsg9_v1",
     "study_type": "EXPERIMENTAL",
-    "checked_on": "2026-09-16",
+    "checked_on": "2026-09-21",
     "review_scope": "ABSTRACT_AND_SELECTED_SECTIONS"
   },
   {
@@ -106,7 +106,7 @@
     "url": "https://doi.org/10.1038/415429a",
     "access_url": "https://doi.org/10.1038/415429a",
     "study_type": "EXPERIMENTAL",
-    "checked_on": "2026-09-17",
+    "checked_on": "2026-09-21",
     "review_scope": "ABSTRACT_AND_SELECTED_SECTIONS"
   },
   {
@@ -116,7 +116,7 @@
     "url": "https://doi.org/10.1016/j.tins.2004.10.007",
     "access_url": "https://doi.org/10.1016/j.tins.2004.10.007",
     "study_type": "REVIEW",
-    "checked_on": "2026-09-17",
+    "checked_on": "2026-09-21",
     "review_scope": "ABSTRACT_AND_SELECTED_SECTIONS"
   },
   {
@@ -126,7 +126,7 @@
     "url": "https://doi.org/10.1037/0033-2909.123.2.162",
     "access_url": "https://doi.org/10.1037/0033-2909.123.2.162",
     "study_type": "REVIEW",
-    "checked_on": "2026-09-17",
+    "checked_on": "2026-09-21",
     "review_scope": "ABSTRACT_AND_SELECTED_SECTIONS"
   },
   {
@@ -136,7 +136,7 @@
     "url": "https://doi.org/10.1037/0033-2909.114.1.3",
     "access_url": "https://doi.org/10.1037/0033-2909.114.1.3",
     "study_type": "REVIEW",
-    "checked_on": "2026-09-17",
+    "checked_on": "2026-09-21",
     "review_scope": "ABSTRACT_AND_SELECTED_SECTIONS"
   },
   {
@@ -146,7 +146,7 @@
     "url": "https://doi.org/10.1111/j.1468-0017.2010.01394.x",
     "access_url": "https://doi.org/10.1111/j.1468-0017.2010.01394.x",
     "study_type": "THEORETICAL",
-    "checked_on": "2026-09-17",
+    "checked_on": "2026-09-21",
     "review_scope": "ABSTRACT_AND_SELECTED_SECTIONS"
   },
   {
@@ -156,7 +156,7 @@
     "url": "https://doi.org/10.1038/s44159-021-00006-y",
     "access_url": "https://doi.org/10.1038/s44159-021-00006-y",
     "study_type": "REVIEW",
-    "checked_on": "2026-09-17",
+    "checked_on": "2026-09-21",
     "review_scope": "ABSTRACT_AND_SELECTED_SECTIONS"
   }
 ]
