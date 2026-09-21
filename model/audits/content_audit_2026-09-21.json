@@ -598,6 +598,14 @@
       "path": "pyproject.toml",
       "summary": "The package description used the phrase 'calibration artifacts', which could be read as empirical/population calibration despite the canonical status explicitly stating that full-model population calibration is not established.",
       "resolution": "Reworded the package description to 'scientific model, recovery, and validation artifacts'; calibration/recovery code paths remain unchanged."
+    },
+    {
+      "id": "CA.F017",
+      "severity": "MEDIUM",
+      "status": "REPAIRED_METADATA",
+      "path": "model/computational_dependencies.json",
+      "summary": "COMPDEP.CORRECTION_DIRECTION.BELIEF pointed code_file to simulation.py even though the displayed beta_correction × C × direction term is implemented in model.py; simulation.py only retains and supplies the correction-direction input.",
+      "resolution": "Defined code_file as the displayed-formula implementation file, changed this dependency to model.py, added input_binding_file=simulation.py, and added CI checks that all declared code files exist."
     }
   ],
   "open_gaps": [
