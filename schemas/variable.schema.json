@@ -2,17 +2,83 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.org/schemas/variable.schema.json",
   "type": "object",
-  "required": ["id","short_name","ontology_type","entity_type","conceptual_module","label","definition","what_it_is_not"],
+  "required": [
+    "id",
+    "short_name",
+    "ontology_type",
+    "entity_type",
+    "conceptual_module",
+    "label",
+    "definition",
+    "what_it_is_not"
+  ],
   "properties": {
-    "id": {"type":"string","pattern":"^VAR\\.[A-Z0-9_.-]+$"},
-    "short_name": {"type":"string","minLength":1},
-    "ontology_type": {"enum":["ENTITY","STATE_FAST","STATE_SLOW","PARAMETER","EXOGENOUS_INPUT","CONTENT_ATTRIBUTE","POLICY","PROCESS","OBSERVABLE","DERIVED_METRIC"]},
-    "entity_type": {"type":"string","minLength":1},
-    "conceptual_module": {"type":"string","pattern":"^MOD\\.[0-9]{2}$"},
-    "label": {"type":"object","required":["en","ro"],"properties":{"en":{"type":"string"},"ro":{"type":"string"}},"additionalProperties":false},
-    "definition": {"type":"string","minLength":5},
-    "what_it_is_not": {"type":"string","minLength":3},
-    "range": {"type":"array","items":{"type":"number"},"minItems":2,"maxItems":2}
+    "id": {
+      "type": "string",
+      "pattern": "^VAR\\.[A-Z0-9_.-]+$"
+    },
+    "short_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ontology_type": {
+      "enum": [
+        "ENTITY",
+        "STATE_FAST",
+        "STATE_SLOW",
+        "PARAMETER",
+        "EXOGENOUS_INPUT",
+        "CONTENT_ATTRIBUTE",
+        "POLICY",
+        "PROCESS",
+        "OBSERVABLE",
+        "DERIVED_METRIC"
+      ]
+    },
+    "entity_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "conceptual_module": {
+      "type": "string",
+      "pattern": "^MOD\\.[0-9]{2}$"
+    },
+    "label": {
+      "type": "object",
+      "required": [
+        "en",
+        "ro"
+      ],
+      "properties": {
+        "en": {
+          "type": "string"
+        },
+        "ro": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "definition": {
+      "type": "string",
+      "minLength": 5
+    },
+    "what_it_is_not": {
+      "type": "string",
+      "minLength": 3
+    },
+    "range": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "domain_note": {
+      "type": "string",
+      "minLength": 15
+    }
   },
   "additionalProperties": true
 }
