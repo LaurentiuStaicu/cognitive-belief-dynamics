@@ -13,6 +13,8 @@ CONTRACT = ROOT / "model" / "experiments" / "f1a_transmission_recovery_contract.
 SCHEMA = ROOT / "schemas" / "f1a_transmission_recovery_contract.schema.json"
 CONFIG = ROOT / "model" / "benchmarks" / "f1a_transmission_recovery_core.json"
 RESULT = ROOT / "model" / "benchmarks" / "results" / "f1a_transmission_recovery_authoritative_2026-09-21.json"
+PROMOTION = ROOT / "model" / "experiments" / "f1a_recovery_promotion_2026-09-21.json"
+PROMOTION_SCHEMA = ROOT / "schemas" / "f1a_recovery_promotion.schema.json"
 
 
 def load(path: Path) -> dict:
@@ -151,3 +153,25 @@ def test_authoritative_f1a_recovery_result_reports_expected_limitations() -> Non
     for row in result["core_grid_results"] + result["stress_grid_results"]:
         assert row["maximum_delay_realization_error"] == 0.0
         assert row["maximum_familiarity_consistency_error"] == 0.0
+
+
+def test_f1a_recovery_promotion_record_matches_strict_schema_and_result() -> None:
+    promotion = load(PROMOTION)
+    schema = load(PROMOTION_SCHEMA)
+    result = load(RESULT)
+    Draft202012Validator.check_schema(schema)
+    Draft202012Validator(schema).validate(promotion)
+
+    assert promotion["decision"] == "PROMOTE_TO_RECOVERY_TESTED"
+    assert promotion["new_stage"] == "RECOVERY_TESTED"
+    assert promotion["authoritative_result"]["minimum_core_recovery_probability"] == result["minimum_core_grid_recovery_probability"]
+    assert promotion["authoritative_result"]["all_core_cells_pass"] is result["all_core_grid_cells_pass"]
+    assert promotion["authoritative_result"]["promotion_candidate"] is result["promotion_candidate"]
+    assert promotion["ci_evidence"]["result_reproduced_exactly"] is True
+    assert promotion["next_gate"] == {
+        "candidate_stage": "EMPIRICALLY_CONSTRAINED",
+        "automatic_promotion_allowed": False,
+        "empirical_evidence_bridge_required": True,
+        "measurement_observability_contract_required": True,
+        "active_runtime_registration_allowed": False,
+    }
