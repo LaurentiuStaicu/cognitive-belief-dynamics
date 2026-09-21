@@ -67,5 +67,28 @@
         "membership_change": false
       }
     ]
-  }
+  },
+  "historical_provenance_documents": [
+    {
+      "path": "docs/ALPHA_0.4.3a0_PARTICIPANT_SCREENING_RESULTS.md",
+      "purpose": "Phase I authoritative participant-aware screening audit",
+      "historical_source_commit": "b9c2940bef24d98848f5325e8e6a7e6e2bb41092",
+      "historical_blob_sha": "f5eec38afeccd25a611ff55eefabdbf4077dca8d",
+      "restored_byte_identical": true
+    },
+    {
+      "path": "docs/ALPHA_0.4.3a0_PHASE_L_HUMAN_PROTOCOL_ROBUSTNESS.md",
+      "purpose": "Phase L prospective human-protocol robustness contract",
+      "historical_source_commit": "a6a677f772887a31b993f37cf8a675163cd4c8e2",
+      "historical_blob_sha": "5e7789edca653c0a633b28ed07f0f3795e0eeaa8",
+      "restored_byte_identical": true
+    },
+    {
+      "path": "docs/ALPHA_0.4.3a0_PHASE_M_PROTOCOL_ROBUSTNESS.md",
+      "purpose": "Phase M prospective protocol-robustness stress-gate contract",
+      "historical_source_commit": "b223e4e98f3bb82e57f1c8c7df8b801406b12a4f",
+      "historical_blob_sha": "de73dd741c6675ba08626b3ccd46df39bf07dbba",
+      "restored_byte_identical": true
+    }
+  ]
 }
