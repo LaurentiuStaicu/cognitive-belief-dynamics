@@ -15,6 +15,7 @@
 <p align="center"><small>
 <a href="#what-is-cbd">Overview</a> ·
 <a href="#model-at-a-glance">Model structure</a> ·
+<a href="#quick-start">Quick start</a> ·
 <a href="#scientific-status">Scientific status</a> ·
 <a href="#reproduce-the-computational-baseline">Reproduce</a> ·
 <a href="#audit-evidence-and-provenance">Audit & provenance</a> ·
@@ -91,9 +92,23 @@ It does **not** establish population calibration of the full model, human valida
 
 The v0.1.1 maintenance release changes verification, provenance, status reporting, reproducibility metadata, repository presentation and evidence metadata. It does **not** change model equations, retained benchmark values, thresholds or seeds. The retained evidence set is unchanged, while its metadata snapshot advances to the content-audited `EVIDENCE.M1.2026-09-21.r2`.
 
+### Quick start
+
+For ordinary local use, package metadata requires **Python 3.12 or newer**:
+
+~~~bash
+git clone https://github.com/LaurentiuStaicu/cognitive-belief-dynamics.git
+cd cognitive-belief-dynamics
+python -m pip install .
+cemodel validate --root .
+cemodel demo
+~~~
+
+This uses the supported dependency ranges declared in [pyproject.toml](pyproject.toml). For exact release/CI reproduction with the frozen platform-scoped dependency snapshot, use the procedure below.
+
 ### Reproduce the computational baseline
 
-CBD requires **Python 3.12 or newer**. The canonical GitHub CI snapshot is scoped to GitHub-hosted Ubuntu and CPython 3.12:
+The canonical GitHub CI reproduction path is scoped to GitHub-hosted Ubuntu and **CPython 3.12**:
 
 ~~~bash
 python -m pip install "pip==26.2.1"
