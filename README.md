@@ -117,7 +117,7 @@ The canonical registry validator checks schema conformance, duplicate IDs, modul
 
 The retained evidence set is indexed by [model/evidence_snapshot.json](model/evidence_snapshot.json). v0.1.1 advances its metadata to **EVIDENCE.M1.2026-09-21.r2** after source-level content auditing; this is not a new systematic review or calibration dataset. All four current empirical targets remain **directional validation only**, with sample-flow, representativeness and archive-integrity qualifiers preserved explicitly.
 
-Authoritative M1.E4 results and their provenance/checksum artifacts are retained under [model/benchmarks/results/](model/benchmarks/results/). v0.1.1 release traceability is summarized in [releases/v0.1.1.manifest.json](releases/v0.1.1.manifest.json).
+Authoritative M1.E4 results and their provenance/checksum artifacts are retained under [model/benchmarks/results/](model/benchmarks/results/). The source/data/semantic audit is retained as [model/audits/content_audit_2026-09-21.json](model/audits/content_audit_2026-09-21.json), with complete registry/contract coverage enforced by CI. v0.1.1 release traceability is summarized in [releases/v0.1.1.manifest.json](releases/v0.1.1.manifest.json).
 
 ### Repository map
 
@@ -127,6 +127,7 @@ Authoritative M1.E4 results and their provenance/checksum artifacts are retained
 | [model/](model/) | Canonical variables, processes, links, modules, evidence and targets |
 | [model/contracts/](model/contracts/) | Evidence, measurement, recovery and world-model contracts |
 | [model/benchmarks/](model/benchmarks/) | Frozen synthetic benchmark configurations and retained outputs |
+| [model/audits/](model/audits/) | Versioned scientific content/data audits and open audit gaps |
 | [schemas/](schemas/) | JSON schemas for canonical artifacts |
 | [scripts/](scripts/) | Retained M1.E4 benchmark execution scripts |
 | [tests/](tests/) | Scientific, structural, release and regression verification |
