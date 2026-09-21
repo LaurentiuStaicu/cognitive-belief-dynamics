@@ -606,6 +606,14 @@
       "path": "model/computational_dependencies.json",
       "summary": "COMPDEP.CORRECTION_DIRECTION.BELIEF pointed code_file to simulation.py even though the displayed beta_correction × C × direction term is implemented in model.py; simulation.py only retains and supplies the correction-direction input.",
       "resolution": "Defined code_file as the displayed-formula implementation file, changed this dependency to model.py, added input_binding_file=simulation.py, and added CI checks that all declared code files exist."
+    },
+    {
+      "id": "CA.F018",
+      "severity": "HIGH",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "model/benchmarks/results",
+      "summary": "The five primary .sha256 files have heterogeneous historical semantics: Phase F/G hash non-retained aggregate JSONs, Phase I hashes 12 non-retained shard JSONs, Phase K hashes the retained authoritative JSON, and Phase M hashes the non-retained Actions source aggregate rather than the normalized retained JSON.",
+      "resolution": "Added machine-readable checksum_semantics.json, documented the distinction in PROVENANCE.md, and added CI that recomputes Phase K while cross-checking the historical target semantics for F/G/I/M."
     }
   ],
   "open_gaps": [
