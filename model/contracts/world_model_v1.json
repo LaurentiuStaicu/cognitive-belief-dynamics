@@ -59,8 +59,8 @@
         "EXECUTABLE"
       ],
       "range": [
-        0.0,
-        1.0
+        0,
+        1
       ],
       "definition": "Normative probability assigned to a binary proposition before the current diagnostic evidence item.",
       "not_equivalent_to": [
@@ -80,16 +80,17 @@
         "EXECUTABLE"
       ],
       "range": [
-        0.0,
+        0,
         null
       ],
-      "definition": "Externally justified diagnostic evidence ratio P(evidence|proposition true) / P(evidence|proposition false).",
+      "definition": "Externally justified, strictly positive diagnostic evidence ratio P(evidence|proposition true) / P(evidence|proposition false).",
       "not_equivalent_to": [
         "source trust",
         "familiarity",
         "evidence amount",
         "subjective confidence"
-      ]
+      ],
+      "range_note": "The numeric range is 0 < LR < infinity; the lower endpoint 0 is excluded and non-finite values are invalid."
     },
     {
       "id": "WM.VAR.POSTERIOR",
@@ -102,8 +103,8 @@
         "EXECUTABLE"
       ],
       "range": [
-        0.0,
-        1.0
+        0,
+        1
       ],
       "definition": "Normative proposition probability after applying one or more justified likelihood-ratio updates.",
       "not_equivalent_to": [
@@ -124,8 +125,8 @@
         "EXECUTABLE"
       ],
       "range": [
-        0.0,
-        1.0
+        0,
+        1
       ],
       "definition": "Normalized binary Shannon entropy derived from Pwm; 1 at p=0.5 and 0 at p=0 or p=1.",
       "not_equivalent_to": [
