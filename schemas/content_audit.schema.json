@@ -18,7 +18,9 @@
     "processes",
     "scientific_contracts",
     "repaired_findings",
-    "open_gaps"
+    "open_gaps",
+    "benchmark_artifacts",
+    "benchmark_numeric_checks"
   ],
   "properties": {
     "schema_version": {
@@ -86,6 +88,117 @@
       "minItems": 1,
       "items": {
         "$ref": "#/$defs/gap"
+      }
+    },
+    "benchmark_artifacts": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "kind",
+          "status",
+          "note"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 10
+          },
+          "kind": {
+            "enum": [
+              "CONFIG",
+              "AUTHORITATIVE_RESULT"
+            ]
+          },
+          "status": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "minLength": 20
+          }
+        }
+      }
+    },
+    "benchmark_numeric_checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "core_recovery_rows",
+        "refinement_rows",
+        "screening_rows",
+        "confirmation_rows",
+        "confirmation_primary_rows",
+        "confirmation_primary_min_recovery",
+        "confirmation_total_replicates",
+        "confirmation_wrong_family_total",
+        "robustness_rows",
+        "robustness_total_replicates",
+        "robustness_correct_family_total",
+        "robustness_wrong_family_total",
+        "robustness_inconclusive_total",
+        "robustness_min_recovery",
+        "robustness_failed_cells"
+      ],
+      "properties": {
+        "core_recovery_rows": {
+          "const": 24
+        },
+        "refinement_rows": {
+          "const": 18
+        },
+        "screening_rows": {
+          "const": 72
+        },
+        "confirmation_rows": {
+          "const": 29
+        },
+        "confirmation_primary_rows": {
+          "const": 18
+        },
+        "confirmation_primary_min_recovery": {
+          "const": 0.92
+        },
+        "confirmation_total_replicates": {
+          "const": 5800
+        },
+        "confirmation_wrong_family_total": {
+          "const": 3
+        },
+        "robustness_rows": {
+          "const": 18
+        },
+        "robustness_total_replicates": {
+          "const": 3600
+        },
+        "robustness_correct_family_total": {
+          "const": 3169
+        },
+        "robustness_wrong_family_total": {
+          "const": 25
+        },
+        "robustness_inconclusive_total": {
+          "const": 406
+        },
+        "robustness_min_recovery": {
+          "const": 0.56
+        },
+        "robustness_failed_cells": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "COMBINED_ADVERSE__EVSD",
+              "ITEM_HIGH__EVSD",
+              "ITEM_MODERATE__EVSD"
+            ]
+          }
+        }
       }
     }
   },
