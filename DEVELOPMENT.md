@@ -23,10 +23,10 @@ If a chat, issue comment, branch description, or external note conflicts with th
 
 ## Current release line
 
-- immutable baseline release: **v0.1.0**, tagged at the historical scientific-core snapshot;
-- maintenance release candidate: **v0.1.1**;
-- v0.1.1 changes repository verification, provenance checking, canonical status reporting, reproducibility metadata, presentation, and evidence metadata after source-level content audit;
-- v0.1.1 does **not** change the scientific equations, retained benchmark values, thresholds, or seeds. The evidence **set** is retained, while `model/evidence_snapshot.json` advances to an audited r2 metadata snapshot.
+- immutable public baseline release: **v0.1.1**, tagged at commit `9bc57322f7d2e1d53bf9c33e67f083e667a64569`;
+- v0.1.1 preserves the v0.1.0 scientific equations and retained benchmark values while adding the audited maintenance/reproducibility/provenance improvements recorded in the release manifest;
+- the current `main` line is post-release research development. It contains the optional F1a progressive-endogenization layer at `SYNTHETIC_EXECUTABLE` status while retaining v0.1.1 as the package/citation version until a separate release decision is made;
+- F1a is not part of the immutable v0.1.1 tag and does not retroactively change that release.
 
 ## Audited canonical model surface
 
@@ -85,13 +85,26 @@ The 20-module registry is a conceptual map, not a claim that all modules are exe
 
 ### Endogenous feedback
 
-CBD is currently an event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking. Event schedules remain externally supplied and Share does not automatically create future exposure.
+The immutable v0.1.1 release remains the open-loop baseline: event schedules are externally supplied and Share does not create future exposure.
 
-The future research program is **progressive endogenization**, tracked in GitHub Issue #110. The first candidate closure is:
+Post-release `main` now contains the first optional progressive-endogenization experiment, F1a:
 
-`Share -> transmission/network -> delayed Exposure -> Familiarity/Belief -> Action/Share`
+`realised Share(A) -> synthetic directed transmission -> delayed Exposure(B) -> existing Familiarity(B) update`
 
-No such loop is active in v0.1.1. The model should be reclassified as formal System Dynamics only if the implemented scientific structure eventually justifies that term. A hybrid event-driven / agent-network / System Dynamics architecture remains an acceptable future outcome.
+Its machine-readable contract is `model/experiments/f1a_endogenous_transmission_experiment.json`; the scheduler/network documentation is `docs/ODD_ENDOGENOUS_SCHEDULER.md`. The experiment is classified **SYNTHETIC_EXECUTABLE** because the causal edge is implemented, deterministic under its declared fixture/seed, backward-equivalent to the open-loop runner when unused, and covered by structural/property tests.
+
+F1a remains deliberately narrow:
+- the synthetic network is static, directed and unweighted;
+- the forced pass-through policy is an architecture fixture, not an empirical diffusion law;
+- generated events use strictly positive abstract delay;
+- no recipient DecisionEvent is generated;
+- no source-selection, platform-ranking or adaptive-network process is introduced;
+- the v0.1.1 cognitive transition equations remain owned by `Simulator.step()`;
+- no automatic further maturity promotion is allowed.
+
+The next possible validation-ladder stage is **RECOVERY_TESTED**. Reaching it requires a prospective recovery/sensitivity design that tests whether the synthetic closure and any future estimable transmission parameters can be recovered or discriminated under controlled simulated conditions, while retaining the open-loop baseline as a negative/reference mode.
+
+The canonical paradigm remains an event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking. F1a alone is not a basis for formal System Dynamics reclassification.
 
 ### M1.E4 item heterogeneity
 
@@ -125,18 +138,19 @@ The validation gate builds source and wheel distributions, verifies a clean whee
 
 The lock file is an exact CI snapshot, not a universal cross-platform dependency lock. `pyproject.toml` remains the supported dependency-range declaration for ordinary installations.
 
-### Post-merge public repository metadata
+### Post-release repository governance
 
-The repository code/content release and the live GitHub repository metadata are separate publication surfaces. After the v0.1.1 merge/tag/release, review the live repository **About** metadata before considering public presentation fully closed:
+The mandatory v0.1.1 publication/governance pass is complete:
 
-- add a concise set of repository topics for discoverability (candidate scope: cognitive-modeling, belief-dynamics, computational-social-science, research-software, systems-thinking, python);
-- protect the default `main` branch (or create an equivalent active ruleset): require the `CBD validation` status check before merge, block force pushes and branch deletion, and preserve pull-request-based integration. The release audit observed `main` as unprotected; this is a repository-governance gap, not a scientific-model defect;
-- verify the current GitHub Pages homepage `https://laurentiustaicu.github.io/cognitive-belief-dynamics/` after merge. Repository metadata reports `has_pages=true`. A dedicated Pages workflow or `gh-pages` branch is not visible in the current scientific-core branch, but GitHub Pages can publish from a branch and can use `README.md` as an entry file, so absence of a dedicated site workflow is not evidence that the homepage is stale. Confirm the configured publishing source and rendered v0.1.1 content before changing or removing the homepage URL;
-- decide separately whether a custom social-preview image is desired; this is a live repository presentation choice, not a scientific release blocker;
-- optionally enable Zenodo GitHub integration after the repository presentation is stable. `CITATION.cff` is already present and can supply software-release metadata; a Zenodo-archived release would add a persistent DOI/version archive without changing CBD's scientific status;
-- review Community Standards after release. CONTRIBUTING, SUPPORT, issue forms, PR template, LICENSE and CITATION are present. CODE_OF_CONDUCT and SECURITY are optional follow-up governance items; SECURITY should not promise a private reporting route until one is actually configured.
+- v0.1.1 is published as an immutable GitHub release on the exact validated release commit;
+- repository topics are populated;
+- the active `main` ruleset requires pull-request integration and the `Build and test CBD` status check, blocks force pushes/deletion, and preserves merge commits;
+- CodeQL default setup is enabled and has successfully analyzed Python and GitHub Actions;
+- secret scanning and push protection are enabled;
+- Dependabot vulnerability alerts and security updates are enabled;
+- GitHub Pages publishes from `main` / root and has completed a successful build on the v0.1.1 release commit.
 
-These live metadata changes are not encoded by merging PR #112 and therefore must not be assumed complete merely because the release branch is green.
+Optional archive/discovery work such as Zenodo, Software Heritage, social preview and future REUSE/SPDX per-file metadata may be added later, but these items do not block the current scientific research program.
 
 ## Release procedure
 
@@ -155,13 +169,12 @@ Released tags are immutable historical snapshots and must not be rewritten to co
 
 ## Current next gates
 
-1. Complete and visually review the v0.1.1 professional landing page/release candidate.
-2. Require green full CI on the exact release-candidate head.
-3. Merge only after explicit approval.
-4. Tag and publish v0.1.1 from the exact merged commit.
-5. Verify the published release metadata and latest-release badge.
-6. Resume scientific research from Issue #110: progressive endogenization and feedback-loop closure.
-7. Treat any future M1.E4 item-heterogeneity redesign as a new prospective post-M1 research program.
+1. Integrate F1a only after green CI on the exact `SYNTHETIC_EXECUTABLE` head and preserve the merge-commit provenance boundary.
+2. Verify the automatic post-merge `main` validation before treating the integration as complete.
+3. Design the prospective F1a **RECOVERY_TESTED** phase: synthetic operating points, recovery targets, sensitivity/negative controls, and explicit failure criteria.
+4. Do not introduce empirical reach probabilities, network parameters, real-time delay semantics, platform ranking, recipient decision generation or source-selection behavior without separate evidence/measurement contracts.
+5. Reassess whether the scientifically useful next step is deeper F1a validation, a carefully defined F1b/full-loop extension, or holding the architecture at the synthetic executable stage.
+6. Treat any future M1.E4 item-heterogeneity redesign as a separate prospective post-M1 research program.
 
 ## How to resume after context loss
 
