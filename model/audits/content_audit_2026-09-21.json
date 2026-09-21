@@ -302,8 +302,8 @@
     },
     {
       "id": "LINK.HEADLINE_NEGATIVITY.ACCESS_PROBABILITY",
-      "status": "VERIFIED_BOUNDED",
-      "note": "Evidence direction/role was checked against cited sources; registered functional forms remain model-derived or reference candidates unless explicitly stated otherwise."
+      "status": "VERIFIED_WITH_QUALIFICATION",
+      "note": "The positive polarity is the selected M1.E3 reference-candidate direction (higher Hneg -> higher Paccess), not a universal empirical sign. The registered counterevidence and source/context limitations bound external generalization."
     },
     {
       "id": "LINK.ACCESS_PROBABILITY.ACCESS",
@@ -646,6 +646,14 @@
       "path": "docs/ + model/benchmarks/*.json",
       "summary": "Three benchmark provenance fields referenced historical Phase I/L/M documents that had been removed by the scientific-core reset, leaving valid-looking but dangling source paths in the retained confirmation and Phase M configurations.",
       "resolution": "Restored all three documents byte-for-byte from their original historical PR-head commits and added CI requiring every declared benchmark source_* path to resolve. Current blob SHAs exactly match the historical source blobs."
+    },
+    {
+      "id": "CA.F023",
+      "severity": "LOW",
+      "status": "REPAIRED_METADATA",
+      "path": "schemas/link.schema.json",
+      "summary": "The polarity field lacked an explicit semantic boundary, allowing a positive candidate-model direction to be misread as a universal empirical effect despite separate counterevidence/limitations.",
+      "resolution": "Defined polarity as the direction of the registered relation within its declared scope; evidence status and limitations determine empirical generalizability. The M1.E3 negativity link is retained as positive only for the selected reference candidate."
     }
   ],
   "open_gaps": [
