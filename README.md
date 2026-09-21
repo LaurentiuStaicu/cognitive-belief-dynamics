@@ -164,6 +164,6 @@ The next long-term scientific direction is progressive endogenization and feedba
 
 For reproducible software/test problems or scientific/model concerns, use the structured repository issue forms. See [Contributing](.github/CONTRIBUTING.md) and [Support](.github/SUPPORT.md).
 
-If you use CBD in research, cite the exact released version using [CITATION.cff](CITATION.cff). GitHub releases/tags provide immutable version points; release-specific notes are retained under [releases/](releases/).
+If you use CBD in research, cite the exact released version using [CITATION.cff](CITATION.cff). Released version tags are treated as immutable historical version points by project policy and must not be rewritten; release-specific notes are retained under [releases/](releases/).
 
 CBD is maintained by **Laurentiu Staicu**. Source code and schemas are MIT licensed; original model registries, synthetic recovery/validation artifacts, benchmark outputs, audit metadata and other original model data are CC BY 4.0 where applicable. Third-party papers, datasets and lexicons retain their original terms. See [LICENSING.md](LICENSING.md).
