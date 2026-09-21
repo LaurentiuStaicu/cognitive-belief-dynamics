@@ -119,3 +119,33 @@ def test_embedded_source_identifier_duplicates_do_not_conflict() -> None:
             continue
         identifiers.setdefault(item["id"], set()).add(item["identifier"])
     assert all(len(values) == 1 for values in identifiers.values())
+
+
+def test_empirical_target_design_structure_is_semantically_explicit() -> None:
+    targets = {x["id"]: x for x in load(ROOT / "model" / "empirical_targets.json")}
+    for target in targets.values():
+        study = target["study"]
+        if "design_family" in study:
+            continue
+        assert "event_count" not in study
+        assert study["design_structure"]
+
+    tohidi = {
+        row["unit_type"]: row["count"]
+        for row in targets["TARGET.M1.E1.TOHIDI_2025"]["study"]["design_structure"]
+    }
+    assert tohidi == {"news_events": 7, "framing_conditions": 3}
+
+    aruguete = {
+        row["unit_type"]: row["count"]
+        for row in targets["TARGET.M1.E2.ARUGUETE_2024"]["study"]["design_structure"]
+    }
+    assert aruguete["countries"] == 4
+    assert aruguete["primary_frame_arms"] == 2
+
+    alvarado = {
+        row["unit_type"]: row["count"]
+        for row in targets["TARGET.M1.E2.ALVARADO_2026"]["study"]["design_structure"]
+    }
+    assert alvarado["facebook_style_posts"] == 8
+    assert alvarado["candidates"] * alvarado["claim_contents"] * alvarado["frame_types"] == 8
