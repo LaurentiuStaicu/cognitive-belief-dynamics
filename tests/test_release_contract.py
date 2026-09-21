@@ -27,7 +27,10 @@ def test_version_surfaces_are_consistent() -> None:
     assert f"## {VERSION} - {RELEASE_DATE}" in read("CHANGELOG.md")
     assert f"# Cognitive Belief Dynamics v{VERSION}" in read(f"releases/v{VERSION}.md")
     workflow = read(".github/workflows/cbd-validation.yml")
-    assert f"cbd.__version__ == '{VERSION}'" in workflow
+    assert re.search(
+        rf"cbd\.__version__\s*==\s*['\"]{re.escape(VERSION)}['\"]",
+        workflow,
+    )
 
 
 def test_python_distribution_metadata_preserves_dual_license_scope() -> None:
