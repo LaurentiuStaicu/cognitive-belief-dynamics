@@ -135,7 +135,7 @@
     {
       "id": "TARGET.M1.E2.ALVARADO_2026",
       "status": "REPAIRED_QUALIFIED",
-      "note": "Published effects retained; 2075/2074/2044/1901 sample-flow bases and documented composition deviations are now preserved."
+      "note": "Published interaction effects retained; 2075/2074/2044/1901 sample-flow bases and composition deviations are preserved. The study is preregistered, but the Confirmation × Partisan Alignment analysis used by this CBD target was added at peer review and is marked post-hoc/reviewer-requested."
     },
     {
       "id": "TARGET.M1.E3.ROBERTSON_2023",
@@ -550,6 +550,14 @@
       "path": "model/empirical_targets.json",
       "summary": "Preregistration was stored only as a boolean for survey experiments, obscuring where and how the claim was verified.",
       "resolution": "Added study-level preregistration notes: Tohidi/AsPredicted, Aruguete/OSF, and Alvarado/OSF with the source-documented field-date typo qualification."
+    },
+    {
+      "id": "CA.F011",
+      "severity": "HIGH",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "model/empirical_targets.json",
+      "summary": "A single preregistered=true flag for Alvarado could be read as claiming preregistration of the Confirmation × Partisan Alignment target analysis, although the supplementary file states those interaction models were added during revision at Reviewer 1's request.",
+      "resolution": "Replaced the ambiguous survey-study preregistration field with study_preregistered plus target_analysis_registration_status. Alvarado is now STUDY preregistered but its CBD target analysis is explicitly POST_HOC_REVIEWER_REQUESTED; Tohidi and Aruguete targets remain PREREGISTERED."
     }
   ],
   "open_gaps": [
