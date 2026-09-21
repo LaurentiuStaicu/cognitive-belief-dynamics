@@ -34,7 +34,8 @@
           "count": 3,
           "description": "Positive, neutral, and negative article conditions; each participant was assigned to one event and one frame."
         }
-      ]
+      ],
+      "preregistration_note": "The article reports preregistration at AsPredicted.org (5mzn-n7dj) and states that the comprehension-check exclusion rule was preregistered."
     },
     "effects": [
       {
@@ -99,7 +100,8 @@
           "count": 2,
           "description": "Confirmation and refutation frames are the primary randomized contrast; additional brand/label or placebo variants differ by country."
         }
-      ]
+      ],
+      "preregistration_note": "The article states that its hypotheses were preregistered on the Open Science Framework before data collection."
     },
     "effects": [
       {
@@ -181,7 +183,8 @@
           "count": 2,
           "description": "Confirmation versus refutation framing."
         }
-      ]
+      ],
+      "preregistration_note": "The supplementary file documents OSF preregistration on 2023-11-18 before field completion and notes a preregistration-abstract typo that gave November 2022 instead of the correct November 2023 field date."
     },
     "effects": [
       {
