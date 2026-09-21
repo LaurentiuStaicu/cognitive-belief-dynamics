@@ -92,3 +92,20 @@ def test_benchmark_provenance_index_preserves_known_run_ids() -> None:
     ):
         assert run_id in text
     assert "not invented" in text.lower()
+
+
+def test_atm_repository_manifest_paths_resolve() -> None:
+    manifest = json.loads((ROOT / ".atm" / "repository.json").read_text(encoding="utf-8"))
+
+    file_paths = [
+        manifest["version_source"]["path"],
+        manifest["status_source"],
+        *manifest["required_paths"],
+        *manifest["retrieval"]["canonical"],
+    ]
+    for path in file_paths:
+        assert (ROOT / path).is_file(), path
+
+    for group in ("structural", "evidence", "tabular", "implementation"):
+        for path in manifest["retrieval"][group]:
+            assert (ROOT / path).exists(), path
