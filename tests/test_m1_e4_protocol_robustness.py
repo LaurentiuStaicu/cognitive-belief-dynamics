@@ -265,6 +265,12 @@ def test_phase_m_does_not_promote_m1_e4_or_change_scientific_boundary():
     snapshot = json.loads((ROOT / "model/evidence_snapshot.json").read_text())
     active_variables = (ROOT / "model/variables.json").read_text().lower()
 
-    assert snapshot["id"] == "EVIDENCE.M1.2026-09-16.r1"
+    assert snapshot["model_specification"] == "M1"
+    release_manifest = json.loads((ROOT / "releases/v0.1.1.manifest.json").read_text())
+    evidence_revision = release_manifest["evidence_metadata_revision"]
+    assert evidence_revision["prior_snapshot"] == "EVIDENCE.M1.2026-09-16.r1"
+    assert evidence_revision["release_snapshot"] == snapshot["id"]
+    assert evidence_revision["evidence_set_changed"] is False
+    assert evidence_revision["metadata_corrected_or_qualified"] is True
     assert '"pencode"' not in active_variables
     assert not (ROOT / "web").exists()
