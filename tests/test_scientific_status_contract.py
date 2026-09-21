@@ -24,8 +24,12 @@ def test_status_preserves_canonical_event_driven_paradigm_boundary() -> None:
         "dynamical model informed by systems thinking"
     ) in status
     assert "not currently a formal system dynamics model" in status
-    assert "share do not automatically generate future exposure" in status
-    assert "event schedules remain externally supplied" in status
+    assert "frozen v0.1.1 release remains an open-loop baseline" in status
+    assert "event schedules are externally supplied" in status
+    assert "share does not automatically generate future exposure" in status
+    assert "synthetic_executable" in status
+    assert "inactive by default" in status
+    assert "does not by itself close the full share→exposure→decision→share loop" in status
 
 
 def test_status_reports_confirmation_pass_and_protocol_robustness_fail_together() -> None:
