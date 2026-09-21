@@ -1,8 +1,8 @@
 {
-  "contract_version": "1.0",
-  "frozen_on": "2026-09-20",
-  "implementation_status": "PREVIEW_ONLY_PUBLIC_README_UNCHANGED",
-  "purpose": "Define a professional CBD repository landing page using the shared scientific-model suite shell while preserving CBD's event-driven cognitive state-transition paradigm and evidence-level boundaries.",
+  "contract_version": "1.1",
+  "frozen_on": "2026-09-21",
+  "implementation_status": "PUBLIC_README_V0_1_1_RELEASE_CONTRACT",
+  "purpose": "Define the public professional CBD repository landing page while preserving the canonical event-driven paradigm, scientific boundaries, reproducibility routes and release traceability.",
   "suite_visual_shell": {
     "icon_width_px": 112,
     "title_html": "h2 centered",
@@ -26,67 +26,70 @@
   "canonical_identity": {
     "plain_language_purpose": "CBD models how agent-level cognitive states can change over ordered information events through memory, decay, nonlinear transformations and stochastic decisions.",
     "technical_identity": "An event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking; not currently a formal System Dynamics model.",
-    "paradigm_boundary": "Persistent state, temporal ordering and nonlinear/stochastic updates do not by themselves imply closed endogenous System Dynamics feedback."
+    "paradigm_boundary": "Persistent state, temporal ordering and nonlinear/stochastic updates do not by themselves imply closed endogenous System Dynamics feedback.",
+    "future_direction": "Progressive endogenization and feedback-loop closure are a research program, not an active v0.1.1 capability."
   },
-  "current_public_state": {
-    "version": "0.1.0",
-    "release_status": "initial public scientific-core baseline",
-    "evidence_levels": [
-      "EXECUTABLE",
-      "EMPIRICAL",
-      "CONCEPTUAL",
-      "INTERPRETIVE"
-    ],
-    "mod14_boundary": "Normative proposition-level Bayesian reference operator; not a calibrated population model, literal Bayesian-brain claim or truth oracle.",
-    "m1_e4_participant_confirmation": {
-      "type": "synthetic model-recovery / identifiability-discrimination result",
+  "release_state": {
+    "version": "0.1.1",
+    "release_type": "scientific-core maintenance",
+    "scientific_model_change": false,
+    "evidence_snapshot_change": false,
+    "prior_release": "v0.1.0"
+  },
+  "audited_surface": {
+    "conceptual_modules": 20,
+    "registered_variables": 19,
+    "registered_processes": 22,
+    "implemented_m0_processes": 12,
+    "candidate_processes": 10,
+    "registered_links": 10,
+    "registered_references": 16,
+    "registered_subsystems": 8,
+    "empirical_targets": 4
+  },
+  "m1_e4": {
+    "participant_confirmation": {
       "primary_cells": 18,
       "recovery_gate": 0.8,
-      "minimum_observed_recovery": 0.92,
-      "human_validation": false
+      "minimum_recovery": 0.92
     },
+    "phase_m": {
+      "status": "PROTOCOL_ROBUSTNESS_FAIL",
+      "cells": 18,
+      "failed_cells": 3,
+      "minimum_recovery": 0.56
+    },
+    "human_validation": false,
     "pencode_identified": false,
-    "participant_recruitment_authorized": false,
-    "formal_system_dynamics": false
+    "recruitment_authorized": false
   },
-  "first_page_order": [
-    "What is CBD?",
-    "Model at a glance",
-    "How CBD is structured",
-    "Scientific status at a glance",
-    "What CBD establishes and does not establish",
-    "Reproduce the computational baseline",
-    "Evidence, contracts and provenance",
-    "Repository map",
-    "Where should I start?",
-    "Documentation",
-    "Support, citation and license"
-  ],
   "conceptual_figure": {
     "layout": "persistent agent state -> event-driven updates -> memory/decay/nonlinear/stochastic transformations -> evidence-level interpretation -> validation boundary",
+    "light_asset": "assets/readme/cbd-concept-overview-light.svg",
+    "dark_asset": "assets/readme/cbd-concept-overview-dark.svg",
     "prohibited": [
       "closed causal-loop notation implying formal System Dynamics",
       "presenting Share as automatically generating future exposure",
       "presenting synthetic recovery as human validation",
       "presenting MOD.14 as a literal brain mechanism or truth oracle",
       "presenting Pencode as identified"
-    ],
-    "light_asset": ".github/readme-assets/cbd-concept-overview-light.svg",
-    "dark_asset": ".github/readme-assets/cbd-concept-overview-dark.svg"
+    ]
   },
-  "validation_source": ".github/workflows/cbd-validation.yml",
-  "licensing_boundary": {
-    "code_and_schemas": "MIT",
-    "original_model_registries_artifacts_and_benchmark_outputs": "CC BY 4.0 where applicable",
-    "detailed_scope": "LICENSING.md"
+  "reproducibility": {
+    "workflow": ".github/workflows/cbd-validation.yml",
+    "ci_lock": "requirements/ci-py312-linux.lock.txt",
+    "continuity": "DEVELOPMENT.md",
+    "release_manifest": "releases/v0.1.1.manifest.json"
   },
-  "public_readme_boundary": {
-    "replacement_authorized": false,
-    "diagram_publication_authorized": false,
-    "reason": "This branch is a design/review preview only. Public README and assets remain unchanged until visual/editorial review."
+  "publication_gate": {
+    "merge_requires_explicit_approval": true,
+    "final_ci_must_pass": true,
+    "visual_review_required": true,
+    "tag_and_release_after_merge": "v0.1.1"
   },
-  "release_boundary": {
-    "version_bump_required": false,
-    "current_public_version": "0.1.0"
+  "public_readme_quality_budget": {
+    "maximum_words": 1800,
+    "maximum_primary_headings": 14,
+    "maximum_primary_header_badges": 3
   }
 }
