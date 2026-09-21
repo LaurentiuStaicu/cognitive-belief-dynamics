@@ -618,6 +618,20 @@
       "severity": "MEDIUM",
       "area": "M1.E4 item heterogeneity",
       "summary": "The retained participant-level aggregate representation does not preserve item identity; a crossed participant-item model requires a new prospective contract."
+    },
+    {
+      "id": "CA.G007",
+      "status": "OPEN_GAP",
+      "severity": "EVIDENCE_BRIDGE",
+      "area": "M0 correction evidence bridge",
+      "summary": "VAL.M0.002 is tested as a descriptive pattern and C -> B exists in computational dependencies, but links.json has no dedicated empirical correction-accessibility -> belief relation/reference. The exponential accessibility-decay implementation is not empirically identified by the current evidence set."
+    },
+    {
+      "id": "CA.G008",
+      "status": "OPEN_GAP",
+      "severity": "EVIDENCE_BRIDGE",
+      "area": "M0 source-reliability evidence bridge",
+      "summary": "VAL.M0.003 and T -> B computational dependence exist, but links.json has no dedicated empirical reliability -> belief relation/reference. The current source_weight mapping is explicitly a modelling choice. Relevant external literature should enter only through a future versioned evidence refresh."
     }
   ],
   "benchmark_artifacts": [
@@ -855,13 +869,13 @@
     },
     {
       "id": "VAL.M0.002",
-      "status": "VERIFIED_BOUNDED",
-      "note": "Descriptive pattern is a model evaluation target; passing the software/reference test is not equivalent to population-level empirical validation."
+      "status": "OPEN_GAP",
+      "note": "The descriptive correction/regression pattern is scientifically plausible and consistent with the broader correction literature, but CBD r2 does not yet register a dedicated correction-accessibility -> belief empirical link/reference. The specific exponential accessibility-decay bridge remains a model construct and must not be presented as empirically identified."
     },
     {
       "id": "VAL.M0.003",
-      "status": "VERIFIED_BOUNDED",
-      "note": "Descriptive pattern is a model evaluation target; passing the software/reference test is not equivalent to population-level empirical validation."
+      "status": "OPEN_GAP",
+      "note": "The descriptive source-reliability weighting phenomenon has external experimental support, but CBD r2 does not yet register a dedicated reliability -> belief empirical link/reference. The executable source_weight mapping (2T-1), including evidence-sign reversal below T=0.5, is a model choice rather than an established psychological law."
     },
     {
       "id": "VAL.M0.004",
