@@ -24,8 +24,8 @@ If a chat, issue comment, branch description, or external note conflicts with th
 
 - immutable baseline release: **v0.1.0**, tagged at the historical scientific-core snapshot;
 - maintenance release candidate: **v0.1.1**;
-- v0.1.1 changes repository verification, provenance checking, canonical status reporting, reproducibility metadata and presentation;
-- v0.1.1 does **not** change the scientific equations, retained benchmark values, thresholds, seeds, or evidence snapshot.
+- v0.1.1 changes repository verification, provenance checking, canonical status reporting, reproducibility metadata, presentation, and evidence metadata after source-level content audit;
+- v0.1.1 does **not** change the scientific equations, retained benchmark values, thresholds, or seeds. The evidence **set** is retained, while `model/evidence_snapshot.json` advances to an audited r2 metadata snapshot.
 
 ## Audited canonical model surface
 
@@ -62,7 +62,7 @@ The current repository has uniform machine-readable provenance sidecars for the 
 
 ### Evidence scope
 
-`model/evidence_snapshot.json` is a bounded evidence snapshot, not a systematic review or calibration dataset. Its current `as_of` date is 2026-09-16. Evidence refreshes must be explicit snapshots rather than silent replacements.
+`model/evidence_snapshot.json` is a bounded evidence snapshot, not a systematic review or calibration dataset. v0.1.1 advances it to `EVIDENCE.M1.2026-09-21.r2` after source-level content auditing. The evidence set is retained; r2 records corrected/qualified metadata (including sample-flow and archive-integrity context) rather than silently altering r1.
 
 ### Conceptual modules versus executable model
 
