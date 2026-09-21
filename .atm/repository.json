@@ -38,7 +38,8 @@
       "model/empirical_targets.json",
       "model/validation_tests.json",
       "model/references.json",
-      "model/benchmarks/results"
+      "model/benchmarks/results",
+      "model/audits"
     ],
     "tabular": [
       "model/benchmarks/results"
