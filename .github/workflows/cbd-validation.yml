@@ -28,8 +28,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install build and test tools
-        run: python -m pip install --upgrade pip build pytest
+      - name: Install build and scientific-test tools
+        run: python -m pip install --upgrade pip build "pytest>=8" "hypothesis>=6"
 
       - name: Build source and wheel distributions
         run: python -m build
@@ -50,5 +50,14 @@ jobs:
       - name: Compile Python sources
         run: python -m compileall -q src scripts tests
 
-      - name: Run retained CBD tests
-        run: python -m pytest -q
+      - name: Run retained CBD scientific verification harness
+        run: python -m pytest
+
+      - name: Validate canonical registries from checkout
+        run: cemodel validate --root .
+
+      - name: Verify installed package resources outside checkout
+        working-directory: /tmp
+        run: |
+          cemodel validate
+          cemodel demo
