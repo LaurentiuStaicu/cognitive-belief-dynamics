@@ -75,3 +75,18 @@ def test_content_audit_covers_primary_benchmark_configs_and_results() -> None:
         "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.json",
     }
     assert {item["path"] for item in audit["benchmark_artifacts"]} == expected
+
+
+def test_content_audit_covers_modules_subsystems_and_validation_patterns() -> None:
+    audit = load(AUDIT)
+    expected = {
+        "modules": {x["id"] for x in load(ROOT / "model/modules.json")},
+        "subsystems": {x["id"] for x in load(ROOT / "model/subsystems.json")},
+        "validation_patterns": {x["id"] for x in load(ROOT / "model/validation_tests.json")},
+    }
+    for key, ids in expected.items():
+        assert {x["id"] for x in audit[key]} == ids
+
+    assert len(audit["modules"]) == 20
+    assert len(audit["subsystems"]) == 8
+    assert len(audit["validation_patterns"]) == 15
