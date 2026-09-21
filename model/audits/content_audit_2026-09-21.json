@@ -292,8 +292,8 @@
     },
     {
       "id": "LINK.CONGRUENCE.ENGAGEMENT",
-      "status": "VERIFIED_BOUNDED",
-      "note": "Evidence direction/role was checked against cited sources; registered functional forms remain model-derived or reference candidates unless explicitly stated otherwise."
+      "status": "VERIFIED_WITH_QUALIFICATION",
+      "note": "Experimental interaction direction matches the published reviewer-requested analysis, but the target interaction was not preregistered even though the study itself was. The relation remains task-specific and the CBD functional form is model-derived."
     },
     {
       "id": "LINK.ENGAGEMENT.PROBABILITY.INTENT",
@@ -574,6 +574,14 @@
       "path": "model/empirical_targets.json",
       "summary": "Aruguete reports both main-text unadjusted substantive differences and adjusted Table 2 coefficients, creating a plausible future false-positive audit mismatch (18.2 pp versus about 18.8 pp in Argentina).",
       "resolution": "Kept the existing CBD values because they match the source's main-text substantive differences and added an explicit effect_estimate_note distinguishing them from the adjusted Table 2 specification."
+    },
+    {
+      "id": "CA.F014",
+      "severity": "MEDIUM",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "model/links.json",
+      "summary": "LINK.CONGRUENCE.ENGAGEMENT cited the Alvarado experimental interaction without recording that the specific Confirmation × Partisan Alignment models were added during peer-review revision.",
+      "resolution": "Added the registration-status qualification to the link's evidence limitations and marked the audit record VERIFIED_WITH_QUALIFICATION."
     }
   ],
   "open_gaps": [
