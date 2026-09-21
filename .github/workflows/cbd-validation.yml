@@ -45,19 +45,7 @@ jobs:
           /tmp/cbd-clean/bin/python -m pip install -c "$CBD_CI_CONSTRAINTS" dist/*.whl
           (
             cd /tmp
-            /tmp/cbd-clean/bin/python - <<'PY'
-            import cognitive_epistemic_model as cbd
-            from importlib.metadata import metadata
-
-            assert cbd.__version__ == "0.1.1"
-            package_metadata = metadata("cognitive-belief-dynamics")
-            assert package_metadata["License-Expression"] == "MIT AND CC-BY-4.0"
-            assert set(package_metadata.get_all("License-File") or []) == {
-                "LICENSE",
-                "LICENSES/CC-BY-4.0.txt",
-                "LICENSING.md",
-            }
-            PY
+            /tmp/cbd-clean/bin/python -c 'import cognitive_epistemic_model as cbd; from importlib.metadata import metadata; m = metadata("cognitive-belief-dynamics"); assert cbd.__version__ == "0.1.1"; assert m["License-Expression"] == "MIT AND CC-BY-4.0"; assert set(m.get_all("License-File") or []) == {"LICENSE", "LICENSES/CC-BY-4.0.txt", "LICENSING.md"}'
           )
 
       - name: Install built wheel for repository tests
