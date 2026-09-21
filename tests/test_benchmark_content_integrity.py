@@ -194,3 +194,116 @@ def test_declared_benchmark_source_paths_exist() -> None:
         "source_phase_l_document",
         "source_phase_m_document",
     }
+
+
+def test_participant_screening_design_arithmetic_is_self_consistent() -> None:
+    config = json.loads((BENCH / "m1_e4_participant_aware_screening.json").read_text())
+    assert config["design_structure"]["operating_points"] == 5
+    assert config["confirmation_replicates"] == 200
+    assert config["screening_gate"]["confirmation_replicates"] == 200
+    assert config["screening_gate"]["confirmation_required"] is True
+    assert config["screening_gate"]["screening_replicates_are_authoritative_for_human_protocol"] is False
+
+    for allocation in config["participant_allocations"]:
+        assert (
+            allocation["participants"]
+            * allocation["target_trials_per_participant_per_cell"]
+            == config["aggregate_target_per_cell"]
+            == 640
+        )
+        assert (
+            allocation["participants"]
+            * allocation["foil_trials_per_participant_per_cell"]
+            == config["aggregate_foil_per_cell"]
+            == 640
+        )
+        expected_total = (
+            (allocation["target_trials_per_participant_per_cell"]
+             + allocation["foil_trials_per_participant_per_cell"])
+            * config["design_structure"]["operating_points"]
+            * 2
+        )
+        assert allocation["total_responses_per_participant"] == expected_total
+
+
+def test_confirmation_selection_policy_is_exactly_reconstructed_from_screening() -> None:
+    rows = read_csv("m1_e4_participant_screening_authoritative_2026-09-16.csv")
+    config = json.loads((BENCH / "m1_e4_participant_confirmation_200.json").read_text())
+
+    expected_primary = {
+        f'{row["allocation"]}__{row["heterogeneity"]}__{row["generator"]}__{row["regime"]}'
+        for row in rows
+        if row["allocation"] == "P64_X10"
+    }
+
+    expected_boundary: set[str] = set()
+    for allocation in ("P40_X16", "P80_X8", "P128_X5"):
+        for generator in ("EVSD", "2HT"):
+            group = [
+                row for row in rows
+                if row["allocation"] == allocation and row["generator"] == generator
+            ]
+            minimum = min(float(row["recovery_probability"]) for row in group)
+            expected_boundary |= {
+                f'{row["allocation"]}__{row["heterogeneity"]}__{row["generator"]}__{row["regime"]}'
+                for row in group
+                if float(row["recovery_probability"]) == minimum
+            }
+
+    selected_primary = {
+        row["cell_id"] for row in config["selected_cells"]
+        if row["role"] == "PRIMARY_P64_FULL_GRID"
+    }
+    selected_boundary = {
+        row["cell_id"] for row in config["selected_cells"]
+        if row["role"] == "BOUNDARY_MINIMUM_WITH_TIES"
+    }
+
+    assert selected_primary == expected_primary
+    assert selected_boundary == expected_boundary
+    assert len(expected_primary) == config["selection_policy"]["primary_cells"] == 18
+    assert len(expected_boundary) == config["selection_policy"]["boundary_cells"] == 11
+    assert len(expected_primary | expected_boundary) == config["selection_policy"]["selected_cells_total"] == 29
+
+
+def test_confirmation_gate_and_precision_metadata_match_executable_values() -> None:
+    config = json.loads((BENCH / "m1_e4_participant_confirmation_200.json").read_text())
+    screening = json.loads((BENCH / "m1_e4_participant_aware_screening.json").read_text())
+    assert config["replicates_per_cell"] == screening["confirmation_replicates"] == 200
+    assert config["formal_gate"]["primary_all_cells_recovery_at_least"] == config["recovery_threshold"] == 0.8
+    assert config["robustness_sensitivity"]["wilson_interval_level"] == 0.95
+    assert config["robustness_sensitivity"]["replaces_formal_gate"] is False
+
+
+def test_phase_m_design_counts_gate_and_mcse_metadata_recompute() -> None:
+    config = json.loads((BENCH / "m1_e4_protocol_robustness_200.json").read_text())
+    assert len(config["profiles"]) == 9
+    assert len(config["generators"]) == 2
+    assert config["selected_cells_total"] == len(config["profiles"]) * len(config["generators"]) == 18
+    assert config["formal_gate"]["all_18_cells_recovery_at_least"] == config["recovery_threshold"] == 0.8
+    assert config["formal_gate"]["point_estimate_gate_is_authoritative"] is True
+    assert config["precision_sensitivity"]["replaces_formal_gate"] is False
+
+    n = config["replicates_per_cell"]
+    expected_max = math.sqrt(0.25 / n)
+    expected_at_gate = math.sqrt(
+        config["recovery_threshold"] * (1.0 - config["recovery_threshold"]) / n
+    )
+    assert probability_close(config["precision_sensitivity"]["mcse_max_at_200"], expected_max)
+    assert probability_close(
+        config["precision_sensitivity"]["mcse_at_recovery_0_8"], expected_at_gate
+    )
+
+
+def test_phase_m_allocation_response_arithmetic_is_self_consistent() -> None:
+    config = json.loads((BENCH / "m1_e4_protocol_robustness_200.json").read_text())
+    allocation = config["allocation"]
+    per_participant = (
+        (allocation["target_trials_per_participant_per_cell"]
+         + allocation["foil_trials_per_participant_per_cell"])
+        * allocation["bias_operating_points"]
+        * allocation["hsimp_conditions"]
+    )
+    assert allocation["label"] == "P64_X10"
+    assert allocation["generated_participants"] == 64
+    assert per_participant == 200
