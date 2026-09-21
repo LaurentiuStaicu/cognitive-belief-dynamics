@@ -25,12 +25,12 @@ def test_public_readme_header_is_suite_consistent() -> None:
 
 
 def test_public_readme_preserves_current_paradigm_boundary() -> None:
-    text = re.sub(r"[*_`]", "", read(README)).lower()
+    text = re.sub(r"[*`]", "", read(README)).replace("_", " ").lower()
     required = (
         "not currently a formal system dynamics model",
         "v0.1.1 release baseline",
         "share action does not automatically create future exposure in that release",
-        "synthetic_executable",
+        "synthetic executable",
         "not recovery-tested",
         "not empirically constrained",
     )
