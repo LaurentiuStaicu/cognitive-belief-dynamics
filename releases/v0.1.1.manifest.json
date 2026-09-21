@@ -23,7 +23,8 @@
     "phase_m_result": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.json",
     "phase_m_provenance": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.provenance.json",
     "phase_m_checksum": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.sha256",
-    "phase_m_shard_checksums": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.shards.sha256"
+    "phase_m_shard_checksums": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.shards.sha256",
+    "benchmark_provenance_index": "model/benchmarks/results/PROVENANCE.md"
   },
   "scientific_boundaries": {
     "paradigm": "EVENT_DRIVEN_COGNITIVE_STATE_TRANSITION_AGENT_LEVEL_STOCHASTIC_DYNAMICAL_MODEL",
