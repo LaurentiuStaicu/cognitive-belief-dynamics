@@ -534,6 +534,14 @@
       "path": "STATUS.md",
       "summary": "Canonical STATUS text still stated that the evidence snapshot was unchanged after the source-level content audit advanced metadata from r1 to r2.",
       "resolution": "STATUS now distinguishes an unchanged evidence set from the explicitly versioned metadata revision EVIDENCE.M1.2026-09-16.r1 -> EVIDENCE.M1.2026-09-21.r2."
+    },
+    {
+      "id": "CA.F009",
+      "severity": "MEDIUM",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "model/empirical_targets.json",
+      "summary": "The generic study field event_count conflated non-equivalent design units across experiments: seven news events in Tohidi, four countries in Aruguete, and an incorrect value of two for an Alvarado design containing eight randomized posts.",
+      "resolution": "Replaced event_count with an explicit design_structure array. Tohidi records 7 events and 3 frames; Aruguete records 4 country experiments and 2 primary frame arms; Alvarado records 8 posts from 2 candidates × 2 claim contents × 2 frame types."
     }
   ],
   "open_gaps": [
