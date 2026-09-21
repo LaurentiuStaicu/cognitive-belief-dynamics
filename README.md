@@ -151,4 +151,4 @@ For reproducible software/test problems or scientific/model concerns, use the st
 
 If you use CBD in research, cite the exact released version using [CITATION.cff](CITATION.cff). GitHub releases/tags provide immutable version points; release-specific notes are retained under [releases/](releases/).
 
-CBD is maintained by **Laurentiu Staicu**. Source code and schemas are MIT licensed; original model registries, calibration artifacts, benchmark outputs and other original model data are CC BY 4.0 where applicable. See [LICENSING.md](LICENSING.md).
+CBD is maintained by **Laurentiu Staicu**. Source code and schemas are MIT licensed; original model registries, synthetic recovery/validation artifacts, benchmark outputs, audit metadata and other original model data are CC BY 4.0 where applicable. Third-party papers, datasets and lexicons retain their original terms. See [LICENSING.md](LICENSING.md).
