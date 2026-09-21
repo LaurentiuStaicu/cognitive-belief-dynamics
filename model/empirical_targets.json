@@ -36,7 +36,8 @@
       ],
       "preregistration_note": "AsPredicted #194569 (registered 2024-10-17 before data collection) specifies seven topics, three framing conditions, the first principal component of topic-specific questions, treatment comparisons, and the attention-check exclusion rule used by the registered target.",
       "study_preregistered": true,
-      "target_analysis_registration_status": "PREREGISTERED"
+      "target_analysis_registration_status": "PREREGISTERED",
+      "analysis_base_note": "The registered effects use the preregistered post-exclusion results base of 1,910 respondents from 2,141 randomized recruits."
     },
     "effects": [
       {
@@ -103,7 +104,8 @@
       ],
       "preregistration_note": "The article states that its hypotheses were preregistered on OSF before data collection; the registered H1 is the confirmation-greater-than-refutation engagement contrast used by this target.",
       "study_preregistered": true,
-      "target_analysis_registration_status": "PREREGISTERED"
+      "target_analysis_registration_status": "PREREGISTERED",
+      "analysis_base_note": "The 9,512 value is the total across four country experiments. The registered effects are country-specific contrasts (Argentina 2,349; Brazil 2,401; Chile 2,384; Colombia 2,378), so 9,512 must not be read as one pooled regression N."
     },
     "effects": [
       {
@@ -187,7 +189,8 @@
       ],
       "preregistration_note": "The study was preregistered on OSF on 2023-11-18 before field completion. However, the Confirmation × Partisan Alignment interaction models used by this CBD target were added during revision in response to Reviewer 1 and therefore are not treated as preregistered target analyses.",
       "study_preregistered": true,
-      "target_analysis_registration_status": "POST_HOC_REVIEWER_REQUESTED"
+      "target_analysis_registration_status": "POST_HOC_REVIEWER_REQUESTED",
+      "analysis_base_note": "The CBD interaction-effect target uses the 1,901 complete-case regression base; other descriptive and treatment-distribution tables use the larger bases preserved in sample_flow."
     },
     "effects": [
       {
