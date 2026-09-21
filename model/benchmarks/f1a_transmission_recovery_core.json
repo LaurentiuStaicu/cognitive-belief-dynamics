@@ -1,0 +1,107 @@
+{
+  "benchmark_id": "BENCH.F1A.TRANSMISSION_RECOVERY.CORE.2026-09-21",
+  "status": "PROSPECTIVE_SYNTHETIC_RECOVERY_DESIGN",
+  "baseline": {
+    "f1a_merge_commit": "88921e63a45eff0c4be75a902ebcb8a4097ef546",
+    "f1a_status": "SYNTHETIC_EXECUTABLE"
+  },
+  "seed": 20260921,
+  "replicates_per_grid_cell": 200,
+  "generator": {
+    "parameter": "q_transmit",
+    "interpretation": "Synthetic probability that a realised Share traverses one declared eligible directed edge and becomes a realised recipient ExposureEvent.",
+    "empirical_parameter": false,
+    "grid": [
+      0.1,
+      0.25,
+      0.5,
+      0.75,
+      0.9
+    ]
+  },
+  "observation_design": {
+    "network_nodes": [
+      "A",
+      "B"
+    ],
+    "directed_edge": [
+      "A",
+      "B"
+    ],
+    "claim_id": "C1",
+    "source_id": "S1",
+    "sender_sharing_bias": 100,
+    "sender_bias_role": "EXTREME_SYNTHETIC_FIXTURE_TO_ISOLATE_TRANSMISSION_FROM_SHARE_PROPENSITY",
+    "decision_spacing": 10,
+    "abstract_delays": [
+      1,
+      4
+    ],
+    "core_opportunity_counts": [
+      50,
+      100
+    ],
+    "stress_opportunity_counts": [
+      25
+    ],
+    "all_shares_must_be_realised": true,
+    "recipient_decision_generated": false
+  },
+  "estimator": {
+    "name": "BINOMIAL_MLE_FROM_OBSERVED_SHARE_EDGE_OPPORTUNITIES",
+    "formula": "q_hat = realised_endogenous_exposures / realised_share_edge_opportunities",
+    "absolute_error_tolerance": 0.1
+  },
+  "recovery_gate": {
+    "minimum_recovery_probability_each_core_cell": 0.8,
+    "threshold_status": "CBD_SYNTHETIC_DESIGN_CONVENTION",
+    "all_core_cells_must_pass": true,
+    "stress_cells_are_gating": false
+  },
+  "prospective_exact_binomial_coverage": {
+    "purpose": "Analytical pre-run check that the chosen core opportunity counts can exceed the declared recovery gate under the idealized generator.",
+    "tolerance": 0.1,
+    "minimum_over_q_grid": {
+      "25": 0.754348,
+      "50": 0.88108,
+      "100": 0.9648
+    },
+    "interpretation": "N=25 is retained as a non-gating stress condition because the idealized exact-binomial recovery probability can fall below 0.80; N=50 and N=100 are the prospective core conditions."
+  },
+  "deterministic_controls": {
+    "q_zero": {
+      "q_transmit": 0,
+      "opportunities": 50,
+      "delay": 2,
+      "required_exposures": 0
+    },
+    "q_one": {
+      "q_transmit": 1,
+      "opportunities": 50,
+      "delay": 2,
+      "required_exposures": 50,
+      "must_match_forced_pass_through_count": true
+    }
+  },
+  "required_outputs": [
+    "per-grid-cell recovery probability",
+    "per-grid-cell q_hat mean",
+    "per-grid-cell q_hat bias",
+    "per-grid-cell q_hat MAE",
+    "per-grid-cell q_hat RMSE",
+    "per-grid-cell mean realised exposure count",
+    "per-grid-cell delay realization error",
+    "per-grid-cell familiarity consistency error",
+    "minimum core-grid recovery probability",
+    "all-core-grid-cells-pass flag",
+    "stress-grid results reported separately",
+    "deterministic q=0 and q=1 control results"
+  ],
+  "interpretation_boundary": [
+    "This benchmark tests synthetic parameter recoverability and scheduler/transmission measurement integrity only.",
+    "q_transmit is not an estimate of human sharing, platform reach, ranking, attention, or real-world diffusion.",
+    "The estimator conditions on realised Share-edge opportunities and therefore does not jointly identify sharing propensity and transmission probability.",
+    "Delay values are controlled abstract-time design factors and are checked for realization accuracy; they are not empirically estimated.",
+    "Passing the benchmark can support RECOVERY_TESTED status only; it cannot establish EMPIRICALLY_CONSTRAINED or ACTIVE status."
+  ]
+}
