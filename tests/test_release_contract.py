@@ -163,3 +163,9 @@ def test_readme_has_distinct_quick_start_and_exact_reproduction_paths() -> None:
     assert "cemodel demo" in readme
     assert "### Reproduce the computational baseline" in readme
     assert "requirements/ci-py312-linux.lock.txt" in readme
+
+
+def test_readme_does_not_claim_platform_enforced_release_immutability() -> None:
+    readme = read("README.md")
+    assert "GitHub releases/tags provide immutable version points" not in readme
+    assert "treated as immutable historical version points by project policy" in readme
