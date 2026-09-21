@@ -131,3 +131,8 @@ def test_canonical_registry_schemas_reject_unknown_top_level_fields() -> None:
     ):
         schema = json.loads((ROOT / "schemas" / name).read_text(encoding="utf-8"))
         assert schema.get("additionalProperties") is False, name
+
+
+def test_conceptual_module_registry_retains_complete_mod01_to_mod20_surface() -> None:
+    modules = json.loads((ROOT / "model" / "modules.json").read_text(encoding="utf-8"))
+    assert {item["id"] for item in modules} == {f"MOD.{i:02d}" for i in range(1, 21)}
