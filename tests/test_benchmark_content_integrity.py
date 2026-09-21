@@ -72,7 +72,7 @@ def test_confirmation_selection_is_exactly_derived_from_screening_surface() -> N
         for row in rows
     }
     config = json.loads((BENCH / "m1_e4_participant_confirmation_200.json").read_text())
-    assert len(config["selected_cells"]) == config["selected_cells_total"] == 29
+    assert len(config["selected_cells"]) == config["selection_policy"]["selected_cells_total"] == 29
     assert sum(cell["role"] == "PRIMARY_P64_FULL_GRID" for cell in config["selected_cells"]) == 18
     for cell in config["selected_cells"]:
         assert cell["cell_id"] in screening
