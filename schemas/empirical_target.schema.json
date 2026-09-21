@@ -160,6 +160,10 @@
             "analysis_base_note": {
               "type": "string",
               "minLength": 20
+            },
+            "effect_estimate_note": {
+              "type": "string",
+              "minLength": 20
             }
           }
         },
