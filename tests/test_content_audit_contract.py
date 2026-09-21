@@ -90,3 +90,32 @@ def test_content_audit_covers_modules_subsystems_and_validation_patterns() -> No
     assert len(audit["modules"]) == 20
     assert len(audit["subsystems"]) == 8
     assert len(audit["validation_patterns"]) == 15
+
+
+def _embedded_contract_sources() -> set[tuple[str, str]]:
+    pairs: set[tuple[str, str]] = set()
+    for path in sorted((ROOT / "model" / "contracts").glob("*.json")):
+        contract = load(path)
+        for key in ("sources", "references"):
+            values = contract.get(key, [])
+            if isinstance(values, list):
+                for source in values:
+                    if isinstance(source, dict) and source.get("id"):
+                        pairs.add((str(path.relative_to(ROOT)), source["id"]))
+    return pairs
+
+
+def test_content_audit_covers_every_embedded_contract_source() -> None:
+    audit = load(AUDIT)
+    actual = {(item["path"], item["id"]) for item in audit["embedded_contract_sources"]}
+    assert actual == _embedded_contract_sources()
+
+
+def test_embedded_source_identifier_duplicates_do_not_conflict() -> None:
+    audit = load(AUDIT)
+    identifiers: dict[str, set[str]] = {}
+    for item in audit["embedded_contract_sources"]:
+        if item["identifier"] == "NO_EXTERNAL_IDENTIFIER":
+            continue
+        identifiers.setdefault(item["id"], set()).add(item["identifier"])
+    assert all(len(values) == 1 for values in identifiers.values())
