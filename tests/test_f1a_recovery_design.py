@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from math import comb
 from pathlib import Path
@@ -11,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "model" / "experiments" / "f1a_transmission_recovery_contract.json"
 SCHEMA = ROOT / "schemas" / "f1a_transmission_recovery_contract.schema.json"
 CONFIG = ROOT / "model" / "benchmarks" / "f1a_transmission_recovery_core.json"
+RESULT = ROOT / "model" / "benchmarks" / "results" / "f1a_transmission_recovery_authoritative_2026-09-21.json"
 
 
 def load(path: Path) -> dict:
@@ -104,3 +106,48 @@ def test_recovery_document_matches_frozen_boundary() -> None:
         "EMPIRICALLY_CONSTRAINED",
     ):
         assert token in text
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def test_authoritative_f1a_recovery_result_preserves_frozen_provenance() -> None:
+    result = load(RESULT)
+    assert result["status"] == "AUTHORITATIVE_SYNTHETIC_RECOVERY_RESULT"
+    assert result["authoritative"] is True
+    assert result["replicates_per_grid_cell"] == 200
+    assert result["provenance"]["replicate_override"] is None
+    assert result["provenance"]["config_sha256"] == sha256(CONFIG)
+    assert result["provenance"]["contract_sha256"] == sha256(CONTRACT)
+    assert result["provenance"]["source_commit"] == "8cea4e0b51b5413f2f3c76cafacde7f05fc842f9"
+
+
+def test_authoritative_f1a_recovery_result_meets_only_declared_core_gate() -> None:
+    result = load(RESULT)
+    assert result["minimum_core_grid_recovery_probability"] == pytest.approx(0.885)
+    assert result["all_core_grid_cells_pass"] is True
+    assert result["controls"]["all_controls_pass"] is True
+    assert result["structural_checks"]["all_structural_checks_pass"] is True
+    assert result["sensitivity_checks"]["all_monotonic"] is True
+    assert result["promotion_candidate"] is True
+
+    core = result["core_grid_results"]
+    stress = result["stress_grid_results"]
+    assert len(core) == 20
+    assert len(stress) == 10
+    assert all(row["passes_recovery_gate"] is True for row in core)
+    assert all(row["passes_recovery_gate"] is None for row in stress)
+    assert any(row["recovery_probability"] < 0.80 for row in stress)
+
+
+def test_authoritative_f1a_recovery_result_reports_expected_limitations() -> None:
+    result = load(RESULT)
+    boundary = result["interpretation_boundary"].lower()
+    assert "best-case synthetic recovery benchmark only" in boundary
+    assert "does not establish an empirical transmission mechanism" in boundary
+    assert "active status" in boundary
+
+    for row in result["core_grid_results"] + result["stress_grid_results"]:
+        assert row["maximum_delay_realization_error"] == 0.0
+        assert row["maximum_familiarity_consistency_error"] == 0.0
