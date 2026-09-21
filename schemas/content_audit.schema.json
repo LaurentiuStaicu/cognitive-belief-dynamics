@@ -20,7 +20,10 @@
     "repaired_findings",
     "open_gaps",
     "benchmark_artifacts",
-    "benchmark_numeric_checks"
+    "benchmark_numeric_checks",
+    "modules",
+    "subsystems",
+    "validation_patterns"
   ],
   "properties": {
     "schema_version": {
@@ -200,6 +203,15 @@
           }
         }
       }
+    },
+    "modules": {
+      "$ref": "#/$defs/records"
+    },
+    "subsystems": {
+      "$ref": "#/$defs/records"
+    },
+    "validation_patterns": {
+      "$ref": "#/$defs/records"
     }
   },
   "$defs": {
