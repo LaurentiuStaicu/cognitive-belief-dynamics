@@ -27,6 +27,8 @@ MOD.14 includes a normative proposition-level Bayesian reference operator and ex
 
 M1.E4 currently has retained synthetic model-recovery and protocol-robustness results. In the participant-aware confirmation benchmark, all 18 primary P64_X10 cells meet the declared 0.80 recovery gate, with a minimum observed recovery of 0.92. These are synthetic identifiability/discrimination results only. They do not establish EVSD or 2HT as the true human recognition architecture, identify Pencode, or constitute human validation.
 
+Separately, the authoritative Phase M protocol-robustness stress gate closed with `PROTOCOL_ROBUSTNESS_FAIL`: 3 of 18 prospectively frozen cells fell below the 0.80 recovery gate (`ITEM_MODERATE__EVSD` = 0.780, `ITEM_HIGH__EVSD` = 0.560, `COMBINED_ADVERSE__EVSD` = 0.585), with a minimum recovery probability of 0.56. This does not erase the participant-aware confirmation result; it shows that candidate-family recovery is not robust across all frozen stress conditions. Phase M remains synthetic and does not select a human recognition architecture, identify Pencode, validate a human sample size, or authorize participant recruitment.
+
 ## Not established in v0.1.0
 
 The following are outside the validated scope of this release:
