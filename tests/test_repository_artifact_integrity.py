@@ -117,3 +117,17 @@ def test_exposure_count_does_not_assert_arbitrary_upper_bound() -> None:
     assert "range" not in nexp
     assert "non-negative integer" in nexp["domain_note"]
     assert "No scientific upper bound" in nexp["domain_note"]
+
+
+def test_canonical_registry_schemas_reject_unknown_top_level_fields() -> None:
+    for name in (
+        "module.schema.json",
+        "variable.schema.json",
+        "link.schema.json",
+        "reference.schema.json",
+        "subsystem.schema.json",
+        "process.schema.json",
+        "empirical_target.schema.json",
+    ):
+        schema = json.loads((ROOT / "schemas" / name).read_text(encoding="utf-8"))
+        assert schema.get("additionalProperties") is False, name
