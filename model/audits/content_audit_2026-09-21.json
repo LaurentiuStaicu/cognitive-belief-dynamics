@@ -670,6 +670,14 @@
       "path": "schemas/link.schema.json + schemas/variable.schema.json",
       "summary": "Variables and links were the only canonical registry schemas that allowed arbitrary top-level properties, so misspelled scientific metadata fields could pass schema validation silently.",
       "resolution": "Set additionalProperties=false for both schemas after confirming all current registry fields are explicitly declared; added a CI assertion that all canonical registry schemas remain top-level strict."
+    },
+    {
+      "id": "CA.F026",
+      "severity": "LOW",
+      "status": "REPAIRED_METADATA",
+      "path": ".github/CONTRIBUTING.md + .github/ISSUE_TEMPLATE/bug.yml",
+      "summary": "Contributor guidance still used unittest discovery instead of the canonical pytest/cemodel validation path, and the bug template hard-coded v0.1.0 as its version example.",
+      "resolution": "Aligned contribution verification with pytest + cemodel validate and made the bug-template version prompt release-generic with v0.1.1 as an example."
     }
   ],
   "open_gaps": [
