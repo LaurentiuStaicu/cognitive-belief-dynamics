@@ -149,3 +149,22 @@ def test_empirical_target_design_structure_is_semantically_explicit() -> None:
     }
     assert alvarado["facebook_style_posts"] == 8
     assert alvarado["candidates"] * alvarado["claim_contents"] * alvarado["frame_types"] == 8
+
+
+def test_empirical_target_registration_status_distinguishes_study_and_analysis() -> None:
+    targets = {x["id"]: x for x in load(ROOT / "model" / "empirical_targets.json")}
+    for target in targets.values():
+        study = target["study"]
+        if "design_family" in study:
+            continue
+        assert "preregistered" not in study
+        assert study["study_preregistered"] is True
+        assert study["target_analysis_registration_status"] in {
+            "PREREGISTERED",
+            "POST_HOC_REVIEWER_REQUESTED",
+            "NOT_ESTABLISHED",
+        }
+
+    assert targets["TARGET.M1.E1.TOHIDI_2025"]["study"]["target_analysis_registration_status"] == "PREREGISTERED"
+    assert targets["TARGET.M1.E2.ARUGUETE_2024"]["study"]["target_analysis_registration_status"] == "PREREGISTERED"
+    assert targets["TARGET.M1.E2.ALVARADO_2026"]["study"]["target_analysis_registration_status"] == "POST_HOC_REVIEWER_REQUESTED"
