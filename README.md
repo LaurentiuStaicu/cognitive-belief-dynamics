@@ -28,6 +28,8 @@
 
 Cognitive Belief Dynamics (CBD) is a scientific model core for representing how persistent agent-level cognitive states can change across ordered information events through memory, saturation, decay, nonlinear transformations and stochastic decisions.
 
+In practical terms, CBD provides a transparent research framework for testing how repeated exposure, corrective context, estimated source reliability and decision context can alter modeled states and probabilistic decisions over time, while keeping executable assumptions separate from empirical evidence and interpretation.
+
 CBD is a **dynamical model informed by systems thinking**, but it is **not currently a formal System Dynamics model**. The current event schedule is externally supplied and a Share action does not automatically create future exposure. Progressive endogenization and feedback-loop closure are an explicit future research direction, not an already implemented capability.
 
 CBD separates executable relations from empirical evidence, conceptual organization and interpretive theory. Synthetic recovery, normative reference calculations and evidence metadata therefore remain bounded by their actual validation status.
