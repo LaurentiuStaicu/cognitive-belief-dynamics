@@ -31,7 +31,9 @@
       "model/links.json",
       "model/modules.json",
       "model/subsystems.json",
-      "model/contracts"
+      "model/contracts",
+      "model/experiments",
+      "docs/ODD_ENDOGENOUS_SCHEDULER.md"
     ],
     "evidence": [
       "model/evidence_snapshot.json",
