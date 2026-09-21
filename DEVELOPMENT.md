@@ -64,6 +64,10 @@ The current repository has uniform machine-readable provenance sidecars for the 
 
 `model/evidence_snapshot.json` is a bounded evidence snapshot, not a systematic review or calibration dataset. v0.1.1 advances it to `EVIDENCE.M1.2026-09-21.r2` after source-level content auditing. The evidence set is retained; r2 records corrected/qualified metadata (including sample-flow and archive-integrity context) rather than silently altering r1.
 
+### Registry semantics versus runtime storage
+
+The content audit distinguishes a registered model variable from a persisted runtime field. `F`, `C`, and `T` are persisted in `AgentState`; `Nexp` is a conceptual/exogenous exposure count while M0 consumes discrete `ExposureEvent` objects; `B` and `W` are computed at decision time and are not automatically persisted between events. Registry definitions state these distinctions explicitly so `STATE_FAST` is not misread as a storage guarantee.
+
 ### Conceptual modules versus executable model
 
 The 20-module registry is a conceptual map, not a claim that all modules are executable. The current executable core is narrower. In particular, Platform / Network, AI System, and Learning / Adaptation remain future subsystems.
@@ -83,6 +87,10 @@ No such loop is active in v0.1.1. The model should be reclassified as formal Sys
 Phase M shows an asymmetric loss of EVSD-family recovery under item-level heterogeneity. The current participant-level aggregate count representation does not preserve item identity, so a future crossed participant-item model would require a new prospective data/measurement contract rather than a post-hoc patch to M1.
 
 M1 remains closed at the retained pre-human boundary.
+
+### Parameter-domain audit
+
+The default `ModelParams` values are demonstrative rather than population estimates. The current dataclass does not enforce a complete scientific parameter-domain contract for arbitrary user-supplied alpha/beta values. Existing state updates remain bounded where implemented, but this is an open model-governance item: parameter admissibility should be specified prospectively before exposing free parameter editing or calibration. No bounds are invented in v0.1.1 merely to make the API stricter.
 
 ### Product layer
 
