@@ -558,6 +558,14 @@
       "path": "model/empirical_targets.json",
       "summary": "A single preregistered=true flag for Alvarado could be read as claiming preregistration of the Confirmation × Partisan Alignment target analysis, although the supplementary file states those interaction models were added during revision at Reviewer 1's request.",
       "resolution": "Replaced the ambiguous survey-study preregistration field with study_preregistered plus target_analysis_registration_status. Alvarado is now STUDY preregistered but its CBD target analysis is explicitly POST_HOC_REVIEWER_REQUESTED; Tohidi and Aruguete targets remain PREREGISTERED."
+    },
+    {
+      "id": "CA.F012",
+      "severity": "MEDIUM",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "model/empirical_targets.json",
+      "summary": "The generic n_analyzed field could be misread as the N of a single statistical model. This was especially misleading for Aruguete, where 9,512 is the sum of four country experiments and the retained effects are country-specific.",
+      "resolution": "Added analysis_base_note to every survey target, explicitly distinguishing the results base used by each registered effect and warning that Aruguete's 9,512 is not a pooled regression N."
     }
   ],
   "open_gaps": [
