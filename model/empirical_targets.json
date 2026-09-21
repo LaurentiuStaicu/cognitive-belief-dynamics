@@ -9,7 +9,6 @@
       "preregistered": true,
       "n_recruited": 2141,
       "n_analyzed": 1910,
-      "event_count": 7,
       "sampling_method": "Curated high-quality Amazon Mechanical Turk adult sample collected in October 2024.",
       "sample_flow": [
         {
@@ -23,7 +22,19 @@
           "note": "Respondents failing at least two of three instruction-comprehension checks were excluded as preregistered."
         }
       ],
-      "representativeness_note": "The source describes a curated MTurk sample, not a probability-based nationally representative sample."
+      "representativeness_note": "The source describes a curated MTurk sample, not a probability-based nationally representative sample.",
+      "design_structure": [
+        {
+          "unit_type": "news_events",
+          "count": 7,
+          "description": "Seven selected real-world news events spanning multiple topics."
+        },
+        {
+          "unit_type": "framing_conditions",
+          "count": 3,
+          "description": "Positive, neutral, and negative article conditions; each participant was assigned to one event and one frame."
+        }
+      ]
     },
     "effects": [
       {
@@ -68,7 +79,6 @@
       "preregistered": true,
       "n_recruited": 9512,
       "n_analyzed": 9512,
-      "event_count": 4,
       "sampling_method": "Netquest online panels stratified by age, education, gender, and region against current census data in Argentina, Brazil, Chile, and Colombia.",
       "sample_flow": [
         {
@@ -77,7 +87,19 @@
           "note": "Argentina 2349; Brazil 2401; Chile 2384; Colombia 2378."
         }
       ],
-      "representativeness_note": "The source reports stratification to census demographics and robustness weights for minor education/gender deviations; the sample comes from online panels rather than a simple probability sample."
+      "representativeness_note": "The source reports stratification to census demographics and robustness weights for minor education/gender deviations; the sample comes from online panels rather than a simple probability sample.",
+      "design_structure": [
+        {
+          "unit_type": "countries",
+          "count": 4,
+          "description": "Separate survey experiments in Argentina, Brazil, Chile, and Colombia."
+        },
+        {
+          "unit_type": "primary_frame_arms",
+          "count": 2,
+          "description": "Confirmation and refutation frames are the primary randomized contrast; additional brand/label or placebo variants differ by country."
+        }
+      ]
     },
     "effects": [
       {
@@ -114,7 +136,6 @@
       "preregistered": true,
       "n_recruited": 2075,
       "n_analyzed": 1901,
-      "event_count": 2,
       "sampling_method": "Netquest Behavior Panel of Argentine adults using non-interlocking quotas on age, sex, and province calibrated to the adult population.",
       "sample_flow": [
         {
@@ -138,7 +159,29 @@
           "note": "Regression base after excluding missing treatment assignment or model covariates."
         }
       ],
-      "representativeness_note": "The paper describes the design as nationally representative, while its supplement documents quota-panel deviations: women 62.1% vs 51.3% population, tertiary-or-higher education 51.5% vs 37.0%, and AMBA 61.7% vs 45.0%."
+      "representativeness_note": "The paper describes the design as nationally representative, while its supplement documents quota-panel deviations: women 62.1% vs 51.3% population, tertiary-or-higher education 51.5% vs 37.0%, and AMBA 61.7% vs 45.0%.",
+      "design_structure": [
+        {
+          "unit_type": "facebook_style_posts",
+          "count": 8,
+          "description": "Eight randomized posts from the factorial combination of two candidates, two inflation-control claim contents, and two frame types."
+        },
+        {
+          "unit_type": "candidates",
+          "count": 2,
+          "description": "Javier Milei and Sergio Massa."
+        },
+        {
+          "unit_type": "claim_contents",
+          "count": 2,
+          "description": "Candidate can versus cannot control inflation."
+        },
+        {
+          "unit_type": "frame_types",
+          "count": 2,
+          "description": "Confirmation versus refutation framing."
+        }
+      ]
     },
     "effects": [
       {
