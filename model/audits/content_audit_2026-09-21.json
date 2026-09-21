@@ -662,5 +662,226 @@
       "ITEM_HIGH__EVSD",
       "ITEM_MODERATE__EVSD"
     ]
-  }
+  },
+  "modules": [
+    {
+      "id": "MOD.01",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.02",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.03",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.04",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.05",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.06",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.07",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.08",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.09",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.10",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.11",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.12",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.13",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.14",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.15",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.16",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.17",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.18",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.19",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    },
+    {
+      "id": "MOD.20",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Conceptual module label is retained as taxonomy only; module registration does not by itself imply variables, executable processes, empirical calibration, or a closed feedback loop."
+    }
+  ],
+  "subsystems": [
+    {
+      "id": "SUB.WORLD_INFORMATION",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Subsystem is explicitly partial; its description is broader than the currently executable variables/processes and must not be read as complete implementation."
+    },
+    {
+      "id": "SUB.HUMAN_AGENT",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Subsystem is explicitly partial; its description is broader than the currently executable variables/processes and must not be read as complete implementation."
+    },
+    {
+      "id": "SUB.SOURCES_INSTITUTIONS",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Subsystem is explicitly partial; its description is broader than the currently executable variables/processes and must not be read as complete implementation."
+    },
+    {
+      "id": "SUB.MEDIA_STRATEGIC_ACTORS",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Subsystem is explicitly partial; its description is broader than the currently executable variables/processes and must not be read as complete implementation."
+    },
+    {
+      "id": "SUB.PLATFORM_NETWORK",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Subsystem is explicitly future; description is roadmap scope and not current executable functionality."
+    },
+    {
+      "id": "SUB.AI_SYSTEM",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Subsystem is explicitly future; description is roadmap scope and not current executable functionality."
+    },
+    {
+      "id": "SUB.LEARNING_ADAPTATION",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Subsystem is explicitly future; description is roadmap scope and not current executable functionality."
+    },
+    {
+      "id": "SUB.OBSERVATION_VALIDATION",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Subsystem status is active for observation/validation infrastructure; this status does not imply empirical validation of the full CBD model."
+    }
+  ],
+  "validation_patterns": [
+    {
+      "id": "VAL.M0.001",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Descriptive pattern is a model evaluation target; passing the software/reference test is not equivalent to population-level empirical validation."
+    },
+    {
+      "id": "VAL.M0.002",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Descriptive pattern is a model evaluation target; passing the software/reference test is not equivalent to population-level empirical validation."
+    },
+    {
+      "id": "VAL.M0.003",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Descriptive pattern is a model evaluation target; passing the software/reference test is not equivalent to population-level empirical validation."
+    },
+    {
+      "id": "VAL.M0.004",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Descriptive pattern is a model evaluation target; passing the software/reference test is not equivalent to population-level empirical validation."
+    },
+    {
+      "id": "VAL.M0.N01",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Negative constraint is checked as a model-boundary/invariant condition rather than positive empirical evidence."
+    },
+    {
+      "id": "VAL.M1.001",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Descriptive pattern is a model evaluation target; passing the software/reference test is not equivalent to population-level empirical validation."
+    },
+    {
+      "id": "VAL.M1.N01",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Negative constraint is checked as a model-boundary/invariant condition rather than positive empirical evidence."
+    },
+    {
+      "id": "VAL.M1.002",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Descriptive pattern is a model evaluation target; passing the software/reference test is not equivalent to population-level empirical validation."
+    },
+    {
+      "id": "VAL.M1.003",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Descriptive pattern is a model evaluation target; passing the software/reference test is not equivalent to population-level empirical validation."
+    },
+    {
+      "id": "VAL.M1.N02",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Negative constraint is checked as a model-boundary/invariant condition rather than positive empirical evidence."
+    },
+    {
+      "id": "VAL.M1.N03",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Negative constraint is checked as a model-boundary/invariant condition rather than positive empirical evidence."
+    },
+    {
+      "id": "VAL.M1.004",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Descriptive pattern is a model evaluation target; passing the software/reference test is not equivalent to population-level empirical validation."
+    },
+    {
+      "id": "VAL.M1.N04",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Negative constraint is checked as a model-boundary/invariant condition rather than positive empirical evidence."
+    },
+    {
+      "id": "VAL.M1.N05",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Negative constraint is checked as a model-boundary/invariant condition rather than positive empirical evidence."
+    },
+    {
+      "id": "VAL.M1.N06",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Negative constraint is checked as a model-boundary/invariant condition rather than positive empirical evidence."
+    }
+  ]
 }
