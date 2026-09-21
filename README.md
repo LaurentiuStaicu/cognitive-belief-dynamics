@@ -30,7 +30,7 @@ Cognitive Belief Dynamics (CBD) is a scientific model core for representing how 
 
 In practical terms, CBD provides a transparent research framework for testing how repeated exposure, corrective context, estimated source reliability and decision context can alter modeled states and probabilistic decisions over time, while keeping executable assumptions separate from empirical evidence and interpretation.
 
-CBD is a **dynamical model informed by systems thinking**, but it is **not currently a formal System Dynamics model**. The current event schedule is externally supplied and a Share action does not automatically create future exposure. Progressive endogenization and feedback-loop closure are an explicit future research direction, not an already implemented capability.
+CBD is a **dynamical model informed by systems thinking**, but it is **not currently a formal System Dynamics model**. The frozen **v0.1.1 release baseline** remains externally scheduled and a Share action does not automatically create future exposure in that release. Post-v0.1.1 `main` now contains an optional F1a research layer classified **SYNTHETIC_EXECUTABLE**: when explicitly invoked with a synthetic directed network and transmission policy, a realised Share can enqueue a delayed `ExposureEvent` for an eligible recipient, which then enters the existing familiarity update through `Simulator.step()`. This layer is not recovery-tested, empirically constrained or active by default, and it does not constitute a complete Share→Exposure→Decision→Share loop or a System Dynamics reclassification.
 
 CBD separates executable relations from empirical evidence, conceptual organization and interpretive theory. Synthetic recovery, normative reference calculations and evidence metadata therefore remain bounded by their actual validation status.
 
@@ -43,6 +43,7 @@ CBD separates executable relations from empirical evidence, conceptual organizat
 | Current M0 simulator events | Exposure, Correction, SourceFeedback, Decision |
 | Persistent/slow states | Familiarity, corrective-context accessibility, estimated source reliability |
 | Core dynamics | Temporal ordering, saturation, decay, nonlinear transformations, seeded stochastic decisions |
+| Post-release F1a research | **SYNTHETIC_EXECUTABLE** optional Share → delayed Exposure bridge; synthetic, inactive by default and not empirically constrained |
 | Conceptual registry | 20 modules; conceptual coverage is broader than executable coverage |
 | Registered processes | 22 total: 12 implemented M0, 10 candidate |
 | Subsystems | 8 total: 4 partial, 3 future, 1 active |
