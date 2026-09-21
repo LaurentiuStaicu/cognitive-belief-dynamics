@@ -630,6 +630,14 @@
       "path": "model/contracts/m1_e4_evidence_contract.json",
       "summary": "The professional-writer boundary target retained t(165) but did not record the Study 4 recruited sample size N=249, leaving room to misread test degrees of freedom as the analysis sample size.",
       "resolution": "Added a boundary-target design block with n_recruited=249 and preregistered=true, while explicitly refusing to infer an analyzed-N from df=165."
+    },
+    {
+      "id": "CA.F021",
+      "severity": "HIGH",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "model/contracts/m1_e4_*",
+      "summary": "Several frozen M1.E4 phase guards used literal evidence_snapshot_unchanged wording. After the v0.1.1 source-level audit advanced metadata r1 -> r2 without changing source membership, that wording could falsely imply a scientific-contract violation.",
+      "resolution": "Reworded the guards to evidence_set_membership_unchanged (or no evidence-set membership change without a versioned refresh), preserving the original scientific freeze while allowing explicit metadata revisions."
     }
   ],
   "open_gaps": [
