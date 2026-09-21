@@ -12,9 +12,9 @@
     "Do not relabel CBD as System Dynamics merely for suite uniformity.",
     "Synthetic recovery/identifiability results are not human validation.",
     "MOD.14 Bayesian reference behavior is not a claim that the brain literally implements Bayes.",
-    "Pencode is not identified/estimated in v0.1.0.",
+    "Pencode is not identified/estimated in v0.1.1.",
     "Participant recruitment is not authorized by current retained evidence."
   ],
-  "current_public_version": "0.1.0",
+  "current_public_version": "0.1.1",
   "version_bump_required": false
 }
