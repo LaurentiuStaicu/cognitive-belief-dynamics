@@ -89,7 +89,7 @@ v0.1.1 provides a versioned scientific core with canonical registries, schemas, 
 
 It does **not** establish population calibration of the full model, human validation of M1.E4, EVSD or 2HT as human truth, identification of Pencode, authorization for participant recruitment, a general-purpose truth/prediction/diagnostic system, or an end-user production application.
 
-The v0.1.1 maintenance release changes verification, provenance, status reporting, reproducibility metadata and repository presentation. It does **not** change model equations, retained benchmark values, thresholds, seeds or the evidence snapshot.
+The v0.1.1 maintenance release changes verification, provenance, status reporting, reproducibility metadata, repository presentation and evidence metadata. It does **not** change model equations, retained benchmark values, thresholds or seeds. The retained evidence set is unchanged, while its metadata snapshot advances to the content-audited `EVIDENCE.M1.2026-09-21.r2`.
 
 ### Reproduce the computational baseline
 
@@ -115,7 +115,7 @@ Retained M1.E4 benchmark scripts are under [scripts/](scripts/); results must be
 
 The canonical registry validator checks schema conformance, duplicate IDs, module/variable/link references, evidence references, empirical-target links, DOI consistency, the evidence snapshot and the computational-dependency contract.
 
-The retained evidence snapshot is [model/evidence_snapshot.json](model/evidence_snapshot.json), currently bounded to **2026-09-16**. It is explicitly not a systematic review or a calibration dataset. All four current empirical targets are used for **directional validation only**.
+The retained evidence set is indexed by [model/evidence_snapshot.json](model/evidence_snapshot.json). v0.1.1 advances its metadata to **EVIDENCE.M1.2026-09-21.r2** after source-level content auditing; this is not a new systematic review or calibration dataset. All four current empirical targets remain **directional validation only**, with sample-flow, representativeness and archive-integrity qualifiers preserved explicitly.
 
 Authoritative M1.E4 results and their provenance/checksum artifacts are retained under [model/benchmarks/results/](model/benchmarks/results/). v0.1.1 release traceability is summarized in [releases/v0.1.1.manifest.json](releases/v0.1.1.manifest.json).
 
