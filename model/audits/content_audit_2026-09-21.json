@@ -178,7 +178,7 @@
       "id": "VAR.EXPOSURE.COUNT",
       "short_name": "Nexp",
       "status": "REPAIRED_QUALIFIED",
-      "note": "Conceptual/exogenous exposure count; M0 processes ExposureEvent objects and does not persist an Nexp counter."
+      "note": "Conceptual/exogenous non-negative exposure event count; M0 processes ExposureEvent objects and does not persist an Nexp counter. The former arbitrary upper bound of 1,000,000 was removed because it had no scientific or runtime justification."
     },
     {
       "id": "VAR.ACTION.SHARE",
@@ -654,6 +654,14 @@
       "path": "schemas/link.schema.json",
       "summary": "The polarity field lacked an explicit semantic boundary, allowing a positive candidate-model direction to be misread as a universal empirical effect despite separate counterevidence/limitations.",
       "resolution": "Defined polarity as the direction of the registered relation within its declared scope; evidence status and limitations determine empirical generalizability. The M1.E3 negativity link is retained as positive only for the selected reference candidate."
+    },
+    {
+      "id": "CA.F024",
+      "severity": "MEDIUM",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "model/variables.json",
+      "summary": "Nexp carried range [0, 1000000] even though the current simulator does not store/read an Nexp counter and the upper bound had no scientific or implementation justification.",
+      "resolution": "Removed the arbitrary numeric range and added an explicit domain note: conceptual non-negative integer event count/history with no asserted scientific upper bound in the current model."
     }
   ],
   "open_gaps": [
