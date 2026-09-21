@@ -115,4 +115,10 @@ def test_phase_d_forbids_registry_runtime_ui_and_release_changes():
     assert not (ROOT / "web/src/recognition-stage.ts").exists()
 
     snapshot = json.loads((ROOT / "model/evidence_snapshot.json").read_text())
-    assert snapshot["id"] == "EVIDENCE.M1.2026-09-16.r1"
+    assert snapshot["model_specification"] == "M1"
+    release_manifest = json.loads((ROOT / "releases/v0.1.1.manifest.json").read_text())
+    evidence_revision = release_manifest["evidence_metadata_revision"]
+    assert evidence_revision["prior_snapshot"] == "EVIDENCE.M1.2026-09-16.r1"
+    assert evidence_revision["release_snapshot"] == snapshot["id"]
+    assert evidence_revision["evidence_set_changed"] is False
+    assert evidence_revision["metadata_corrected_or_qualified"] is True
