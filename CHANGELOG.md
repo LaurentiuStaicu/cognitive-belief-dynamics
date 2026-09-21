@@ -4,17 +4,33 @@ All notable public scientific-core releases of Cognitive Belief Dynamics (CBD) a
 
 ## Unreleased
 
-### Repository governance
+No unreleased changes are recorded after the v0.1.1 release candidate.
 
-- completed Repair D canonical-status recovery by reporting the retained M1.E4 participant-confirmation pass and distinct Phase M `PROTOCOL_ROBUSTNESS_FAIL` together in `STATUS.md` and the benchmark guide, with regression tests tied to the authoritative result;
-- completed Repair C scientific-integrity hardening with machine-verifiable authoritative Phase M result/provenance checks and a platform-scoped Python 3.12/Linux CI dependency snapshot applied consistently to build, clean-wheel and repository-test installs;
-- restored the full scientific verification harness from the pre-reset scientific baseline onto current `main`, repaired three stale M1.E4 schema `minItems` counts left behind when obsolete UI/release/CI gate requirements were removed, and extended the existing CBD validation workflow rather than reviving the superseded CI workflow;
-- prepared a suite-consistent professional CBD landing-page preview with grayscale header, canonical paradigm/evidence boundaries, responsive conceptual figure, validated build/test route, evidence/provenance routing and reader navigation; the public README remains unchanged pending visual review;
-- added GitHub Actions validation for Python 3.12 package build, clean wheel import/version verification, source compilation and the retained pytest suite, with superseded branch runs canceled automatically;
-- added CBD-specific contribution and support guidance;
-- added structured reproducibility and scientific/model issue forms;
-- added a pull-request checklist preserving the event-driven paradigm and the synthetic-recovery versus human-validation boundary;
-- deferred security-policy and code-of-conduct adoption until private reporting and enforcement routes are explicitly configured.
+## 0.1.1 - 2026-09-21
+
+Scientific-core maintenance, reproducibility and repository-presentation release. No model equation, retained benchmark result, threshold, seed or evidence snapshot changes.
+
+### Scientific integrity and reproducibility
+
+- restored the full scientific verification harness from the pre-reset scientific baseline and repaired three stale M1.E4 schema gate counts left behind by the scientific-core reset;
+- added machine-verifiable authoritative Phase M result/provenance checks preserving the retained `PROTOCOL_ROBUSTNESS_FAIL`;
+- added a platform-scoped CPython 3.12/Linux CI dependency snapshot and applied it consistently to build, clean-wheel and repository-test installs;
+- restored complete canonical M1.E4 status reporting so the participant-confirmation pass and the distinct Phase M robustness failure are always reported together;
+- retained the v0.1.0 scientific equations, benchmark values, thresholds, seeds and evidence snapshot unchanged.
+
+### Repository and continuity
+
+- publishes the professional suite-consistent CBD landing page with light/dark conceptual assets and explicit scientific boundaries;
+- adds release/readme regression checks for version consistency, local links, scientific-status consistency and Markdown integrity;
+- adds `DEVELOPMENT.md` as the repository-side handoff/continuity surface for future work independent of any chat history;
+- adds a machine-readable v0.1.1 release manifest linking the canonical status, citation, reproducibility lock, authoritative Phase M artifacts and development-continuity surface;
+- extends the Ask the Model repository manifest so continuity and changelog information are part of canonical retrieval.
+
+### Governance and integration
+
+- retains the single `CBD validation` workflow for package build, clean-wheel verification, compilation, the scientific pytest harness, checkout registry validation and installed-package validation;
+- retains CBD-specific contribution/support guidance, reproducibility/scientific issue forms and pull-request integrity checks;
+- preserves the event-driven paradigm boundary while recording progressive endogenization and feedback-loop closure as a future research program rather than an already implemented capability.
 
 ## 0.1.0 - 2026-09-18
 
