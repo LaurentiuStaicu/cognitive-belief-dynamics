@@ -143,8 +143,8 @@
       "en": "In the 2026 study, the Confirmation × Partisan Congruence interaction is positive and significant for engagement, likes, and shares, while the confirmation main effect for counter-attitudinal audiences is near zero."
     },
     "evidence_limitations": {
-      "ro": "Congruența publicată este definită prin potrivirea cu votul din 2023; M1 o generalizează numai ca relație task-specifică, nu ca trăsătură ideologică stabilă.",
-      "en": "Published congruence is defined through matching the respondent's 2023 runoff vote; M1 generalizes it only as a task-specific relation, not a stable ideological trait."
+      "ro": "Congruența publicată este definită prin potrivirea cu votul respondentului din turul al doilea din 2023; M1 o generalizează numai ca relație specifică sarcinii, nu ca trăsătură ideologică stabilă. Studiul a fost preregistrat, dar modelele de interacțiune Confirmation × Partisan Alignment folosite de acest link/target CBD au fost adăugate în revizia peer-review la cererea Reviewer 1 și nu sunt tratate drept analize preregistrate ale țintei.",
+      "en": "Published congruence is defined through matching the respondent's 2023 runoff vote; M1 generalizes it only as a task-specific relation, not a stable ideological trait. The study was preregistered, but the Confirmation × Partisan Alignment interaction models used by this CBD link/target were added during peer-review revision at Reviewer 1's request and are therefore not treated as preregistered target analyses."
     }
   },
   {
