@@ -108,3 +108,25 @@ def test_release_manifest_distinguishes_executable_and_metadata_changes() -> Non
     assert manifest["retained_benchmark_result_change"] is False
     assert manifest["scientific_metadata_change"] is True
     assert "metadata" in manifest["scientific_model_change_definition"].lower()
+
+
+def test_contract_source_set_identity_matches_current_contracts() -> None:
+    manifest = json.loads(read(f"releases/v{VERSION}.manifest.json"))
+    identity = manifest["contract_source_set_identity"]
+
+    current: set[tuple[str, str]] = set()
+    for path in sorted((ROOT / "model" / "contracts").glob("*.json")):
+        contract = json.loads(path.read_text(encoding="utf-8"))
+        for key in ("sources", "references"):
+            for source in contract.get(key, []):
+                if isinstance(source, dict) and source.get("id"):
+                    current.add((str(path.relative_to(ROOT)), source["id"]))
+
+    assert len(current) == identity["release_source_occurrences"] == 39
+    assert identity["prior_source_occurrences"] == 39
+    assert identity["source_membership_changed"] is False
+    correction = identity["identifier_corrections"][0]
+    assert correction["source_id"] == "SRC.M1.E3.MATTIS_HEITZ.2025"
+    assert correction["prior_doi"] == "10.1093/joc/jqaf030"
+    assert correction["corrected_doi"] == "10.1093/joc/jqaf019"
+    assert correction["membership_change"] is False
