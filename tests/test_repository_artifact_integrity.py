@@ -109,3 +109,11 @@ def test_atm_repository_manifest_paths_resolve() -> None:
     for group in ("structural", "evidence", "tabular", "implementation"):
         for path in manifest["retrieval"][group]:
             assert (ROOT / path).exists(), path
+
+
+def test_exposure_count_does_not_assert_arbitrary_upper_bound() -> None:
+    variables = json.loads((ROOT / "model" / "variables.json").read_text(encoding="utf-8"))
+    nexp = next(item for item in variables if item["id"] == "VAR.EXPOSURE.COUNT")
+    assert "range" not in nexp
+    assert "non-negative integer" in nexp["domain_note"]
+    assert "No scientific upper bound" in nexp["domain_note"]
