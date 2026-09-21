@@ -148,3 +148,18 @@ def test_restored_historical_provenance_documents_match_original_git_blobs() -> 
         assert item["restored_byte_identical"] is True
         assert _git_blob_sha(path) == item["historical_blob_sha"]
         assert len(item["historical_source_commit"]) == 40
+
+
+def test_community_health_contract_tracks_release_version() -> None:
+    contract = json.loads(read(".github/community_health_contract.json"))
+    assert contract["current_public_version"] == VERSION
+    assert all("v0.1.0" not in item for item in contract["invariants"])
+
+
+def test_readme_has_distinct_quick_start_and_exact_reproduction_paths() -> None:
+    readme = read("README.md")
+    assert "### Quick start" in readme
+    assert "python -m pip install ." in readme
+    assert "cemodel demo" in readme
+    assert "### Reproduce the computational baseline" in readme
+    assert "requirements/ci-py312-linux.lock.txt" in readme
