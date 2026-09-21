@@ -566,6 +566,14 @@
       "path": "model/empirical_targets.json",
       "summary": "The generic n_analyzed field could be misread as the N of a single statistical model. This was especially misleading for Aruguete, where 9,512 is the sum of four country experiments and the retained effects are country-specific.",
       "resolution": "Added analysis_base_note to every survey target, explicitly distinguishing the results base used by each registered effect and warning that Aruguete's 9,512 is not a pooled regression N."
+    },
+    {
+      "id": "CA.F013",
+      "severity": "TRACEABILITY",
+      "status": "REPAIRED_METADATA",
+      "path": "model/empirical_targets.json",
+      "summary": "Aruguete reports both main-text unadjusted substantive differences and adjusted Table 2 coefficients, creating a plausible future false-positive audit mismatch (18.2 pp versus about 18.8 pp in Argentina).",
+      "resolution": "Kept the existing CBD values because they match the source's main-text substantive differences and added an explicit effect_estimate_note distinguishing them from the adjusted Table 2 specification."
     }
   ],
   "open_gaps": [
