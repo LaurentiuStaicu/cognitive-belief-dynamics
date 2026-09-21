@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "release": "0.1.1",
+  "date": "2026-09-21",
+  "release_type": "SCIENTIFIC_CORE_MAINTENANCE",
+  "base_release": "v0.1.0",
+  "scientific_model_change": false,
+  "canonical_surfaces": {
+    "status": "STATUS.md",
+    "citation": "CITATION.cff",
+    "changelog": "CHANGELOG.md",
+    "readme": "README.md",
+    "development_continuity": "DEVELOPMENT.md"
+  },
+  "reproducibility": {
+    "workflow": ".github/workflows/cbd-validation.yml",
+    "ci_environment": "requirements/ci-py312-linux.lock.txt",
+    "package_version_source": "src/cognitive_epistemic_model/__init__.py",
+    "registry_validator": "src/cognitive_epistemic_model/registry.py"
+  },
+  "retained_scientific_artifacts": {
+    "evidence_snapshot": "model/evidence_snapshot.json",
+    "phase_m_result": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.json",
+    "phase_m_provenance": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.provenance.json",
+    "phase_m_checksum": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.sha256",
+    "phase_m_shard_checksums": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.shards.sha256",
+    "benchmark_provenance_index": "model/benchmarks/results/PROVENANCE.md",
+    "content_audit": "model/audits/content_audit_2026-09-21.json",
+    "content_audit_schema": "schemas/content_audit.schema.json",
+    "benchmark_checksum_semantics": "model/benchmarks/results/checksum_semantics.json"
+  },
+  "scientific_boundaries": {
+    "paradigm": "EVENT_DRIVEN_COGNITIVE_STATE_TRANSITION_AGENT_LEVEL_STOCHASTIC_DYNAMICAL_MODEL",
+    "formal_system_dynamics": false,
+    "human_validation": false,
+    "pencode_identified": false,
+    "participant_recruitment_authorized": false
+  },
+  "evidence_metadata_revision": {
+    "prior_snapshot": "EVIDENCE.M1.2026-09-16.r1",
+    "release_snapshot": "EVIDENCE.M1.2026-09-21.r2",
+    "evidence_set_changed": false,
+    "metadata_corrected_or_qualified": true
+  },
+  "evidence_set_identity": {
+    "definition": "SHA-256 of sorted model/references.json IDs joined by newline with a trailing newline",
+    "prior_release": "v0.1.0",
+    "prior_release_git_object": "bb7699fedacc7b39dce7399a30cbe9c2e79ed8ed",
+    "reference_count": 16,
+    "prior_reference_ids_sha256": "d8209f0f4bb5c1dcb2b04a8d2ee73e80f869da063fa1891081b009e543c0ed99",
+    "release_reference_ids_sha256": "d8209f0f4bb5c1dcb2b04a8d2ee73e80f869da063fa1891081b009e543c0ed99"
+  },
+  "executable_equation_change": false,
+  "retained_benchmark_result_change": false,
+  "scientific_metadata_change": true,
+  "scientific_model_change_definition": "False means no executable equation, state-transition structure, benchmark threshold/seed, or retained numerical result was changed; scientific metadata and evidence qualifications were audited and revised.",
+  "contract_source_set_identity": {
+    "prior_release": "v0.1.0",
+    "prior_source_occurrences": 39,
+    "release_source_occurrences": 39,
+    "source_membership_changed": false,
+    "identifier_corrections": [
+      {
+        "source_id": "SRC.M1.E3.MATTIS_HEITZ.2025",
+        "prior_doi": "10.1093/joc/jqaf030",
+        "corrected_doi": "10.1093/joc/jqaf019",
+        "membership_change": false
+      }
+    ]
+  },
+  "historical_provenance_documents": [
+    {
+      "path": "docs/ALPHA_0.4.3a0_PARTICIPANT_SCREENING_RESULTS.md",
+      "purpose": "Phase I authoritative participant-aware screening audit",
+      "historical_source_commit": "b9c2940bef24d98848f5325e8e6a7e6e2bb41092",
+      "historical_blob_sha": "f5eec38afeccd25a611ff55eefabdbf4077dca8d",
+      "restored_byte_identical": true
+    },
+    {
+      "path": "docs/ALPHA_0.4.3a0_PHASE_L_HUMAN_PROTOCOL_ROBUSTNESS.md",
+      "purpose": "Phase L prospective human-protocol robustness contract",
+      "historical_source_commit": "a6a677f772887a31b993f37cf8a675163cd4c8e2",
+      "historical_blob_sha": "5e7789edca653c0a633b28ed07f0f3795e0eeaa8",
+      "restored_byte_identical": true
+    },
+    {
+      "path": "docs/ALPHA_0.4.3a0_PHASE_M_PROTOCOL_ROBUSTNESS.md",
+      "purpose": "Phase M prospective protocol-robustness stress-gate contract",
+      "historical_source_commit": "b223e4e98f3bb82e57f1c8c7df8b801406b12a4f",
+      "historical_blob_sha": "de73dd741c6675ba08626b3ccd46df39bf07dbba",
+      "restored_byte_identical": true
+    }
+  ]
+}

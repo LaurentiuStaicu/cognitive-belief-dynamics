@@ -203,7 +203,7 @@
       "planned_validations_inactive",
       "no_runtime_ui_pencode",
       "active_registries_unchanged",
-      "evidence_snapshot_unchanged"
+      "evidence_set_membership_unchanged"
     ]
   }
 }

@@ -4,68 +4,161 @@
   "title": "CBD Computational Dependencies",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "model_scope", "purpose", "boundary", "extra_nodes", "variable_graph_map", "dependencies"],
+  "required": [
+    "schema_version",
+    "model_scope",
+    "purpose",
+    "boundary",
+    "extra_nodes",
+    "variable_graph_map",
+    "dependencies"
+  ],
   "properties": {
-    "schema_version": {"const": "1"},
-    "model_scope": {"const": "M0"},
-    "purpose": {"const": "COMPUTATIONAL_EXPLANATION_ONLY"},
-    "boundary": {"type": "string", "minLength": 1},
+    "schema_version": {
+      "const": "1"
+    },
+    "model_scope": {
+      "const": "M0"
+    },
+    "purpose": {
+      "const": "COMPUTATIONAL_EXPLANATION_ONLY"
+    },
+    "boundary": {
+      "type": "string",
+      "minLength": 1
+    },
     "extra_nodes": {
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
-      "items": {"$ref": "#/$defs/node"}
+      "items": {
+        "$ref": "#/$defs/node"
+      }
     },
     "variable_graph_map": {
       "type": "object",
       "minProperties": 1,
-      "additionalProperties": {"type": "string", "pattern": "^VAR\\.[A-Z0-9_.-]+$"}
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^VAR\\.[A-Z0-9_.-]+$"
+      }
     },
     "dependencies": {
       "type": "array",
       "minItems": 1,
-      "items": {"$ref": "#/$defs/dependency"}
+      "items": {
+        "$ref": "#/$defs/dependency"
+      }
     }
   },
   "$defs": {
     "labels": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["ro", "en"],
+      "required": [
+        "ro",
+        "en"
+      ],
       "properties": {
-        "ro": {"type": "string", "minLength": 1},
-        "en": {"type": "string", "minLength": 1}
+        "ro": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "node": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["graph_id", "semantic_id", "kind", "label"],
+      "required": [
+        "graph_id",
+        "semantic_id",
+        "kind",
+        "label"
+      ],
       "properties": {
-        "graph_id": {"type": "string", "minLength": 1},
-        "semantic_id": {"type": "string", "pattern": "^COMP\\.NODE\\.[A-Z0-9_.-]+$"},
-        "kind": {"enum": ["input", "output"]},
-        "label": {"$ref": "#/$defs/labels"}
+        "graph_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "semantic_id": {
+          "type": "string",
+          "pattern": "^COMP\\.NODE\\.[A-Z0-9_.-]+$"
+        },
+        "kind": {
+          "enum": [
+            "input",
+            "output"
+          ]
+        },
+        "label": {
+          "$ref": "#/$defs/labels"
+        }
       }
     },
     "dependency": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "id", "graph_id", "source_graph_id", "target_graph_id",
-        "source_semantic_id", "target_semantic_id", "description", "formula", "code_file"
+        "id",
+        "graph_id",
+        "source_graph_id",
+        "target_graph_id",
+        "source_semantic_id",
+        "target_semantic_id",
+        "description",
+        "formula",
+        "code_file"
       ],
       "properties": {
-        "id": {"type": "string", "pattern": "^COMPDEP\\.[A-Z0-9_.-]+$"},
-        "graph_id": {"type": "string", "minLength": 1},
-        "source_graph_id": {"type": "string", "minLength": 1},
-        "target_graph_id": {"type": "string", "minLength": 1},
-        "source_semantic_id": {"type": "string", "minLength": 1},
-        "target_semantic_id": {"type": "string", "minLength": 1},
-        "description": {"$ref": "#/$defs/labels"},
-        "formula": {"type": "string", "minLength": 1},
-        "code_file": {"type": "string", "minLength": 1},
-        "registered_relation_id": {"type": "string", "pattern": "^LINK\\.[A-Z0-9_.-]+$"}
+        "id": {
+          "type": "string",
+          "pattern": "^COMPDEP\\.[A-Z0-9_.-]+$"
+        },
+        "graph_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_graph_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_graph_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_semantic_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_semantic_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "$ref": "#/$defs/labels"
+        },
+        "formula": {
+          "type": "string",
+          "minLength": 1
+        },
+        "code_file": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Package-relative Python filename under src/cognitive_epistemic_model/ that implements the displayed formula for this dependency."
+        },
+        "registered_relation_id": {
+          "type": "string",
+          "pattern": "^LINK\\.[A-Z0-9_.-]+$"
+        },
+        "input_binding_file": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Optional package-relative Python filename that binds/stores/supplies the input when that responsibility is distinct from formula implementation."
+        }
       }
     }
   }

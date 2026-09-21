@@ -21,6 +21,8 @@
       "STATUS.md",
       "README.md",
       "CITATION.cff",
+      "CHANGELOG.md",
+      "DEVELOPMENT.md",
       "model/contracts/world_model_v1.json"
     ],
     "structural": [
@@ -36,7 +38,8 @@
       "model/empirical_targets.json",
       "model/validation_tests.json",
       "model/references.json",
-      "model/benchmarks/results"
+      "model/benchmarks/results",
+      "model/audits"
     ],
     "tabular": [
       "model/benchmarks/results"

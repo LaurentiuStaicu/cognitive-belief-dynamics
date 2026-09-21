@@ -154,11 +154,13 @@ def test_m1_e3_phase_b_promotion_matches_the_approved_phase_a_contract():
     assert active_effects["RELATIVE_CHANGE_PERCENT"]["estimate"] == planned_effects["RELATIVE_CHANGE_PERCENT"]["value"]
 
 
-def test_m1_e3_phase_b_advances_evidence_snapshot_but_not_phase_a_contract():
+def test_m1_e3_phase_b_and_later_content_audits_advance_snapshot_without_rewriting_phase_a_contract():
     contract = load_contract()
     snapshot = json.loads((ROOT / "model/evidence_snapshot.json").read_text())
 
-    assert snapshot["id"] == "EVIDENCE.M1.2026-09-16.r1"
+    assert snapshot["model_specification"] == "M1"
+    assert snapshot["as_of"] >= "2026-09-16"
+    assert snapshot["id"].startswith("EVIDENCE.M1.")
 
     def all_keys(value):
         if isinstance(value, dict):

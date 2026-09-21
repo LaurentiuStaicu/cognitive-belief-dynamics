@@ -173,7 +173,7 @@
       "screening_and_confirmation_stages_separated",
       "screening_smoke_reproducible",
       "active_registries_unchanged",
-      "evidence_snapshot_unchanged"
+      "evidence_set_membership_unchanged"
     ]
   }
 }

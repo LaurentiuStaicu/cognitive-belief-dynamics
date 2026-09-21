@@ -8,67 +8,100 @@
       "graph_id": "P",
       "semantic_id": "COMP.NODE.SHARE_PROBABILITY",
       "kind": "output",
-      "label": {"ro": "P(distribuire)", "en": "P(share)"}
+      "label": {
+        "ro": "P(distribuire)",
+        "en": "P(share)"
+      }
     },
     {
       "graph_id": "Prior",
       "semantic_id": "COMP.NODE.PRIOR_BELIEF_INPUT",
       "kind": "input",
-      "label": {"ro": "Convingere inițială", "en": "Prior belief"}
+      "label": {
+        "ro": "Convingere inițială",
+        "en": "Prior belief"
+      }
     },
     {
       "graph_id": "Evidence",
       "semantic_id": "COMP.NODE.EVIDENCE_SIGNAL_INPUT",
       "kind": "input",
-      "label": {"ro": "Semnal de evidență", "en": "Evidence signal"}
+      "label": {
+        "ro": "Semnal de evidență",
+        "en": "Evidence signal"
+      }
     },
     {
       "graph_id": "Direction",
       "semantic_id": "COMP.NODE.CORRECTION_DIRECTION_INPUT",
       "kind": "input",
-      "label": {"ro": "Direcția corecției", "en": "Correction direction"}
+      "label": {
+        "ro": "Direcția corecției",
+        "en": "Correction direction"
+      }
     },
     {
       "graph_id": "Cue",
       "semantic_id": "COMP.NODE.ACCURACY_CUE_INPUT",
       "kind": "input",
-      "label": {"ro": "Indiciu de acuratețe", "en": "Accuracy cue"}
+      "label": {
+        "ro": "Indiciu de acuratețe",
+        "en": "Accuracy cue"
+      }
     },
     {
       "graph_id": "Baseline",
       "semantic_id": "COMP.NODE.BASELINE_ACCURACY_INPUT",
       "kind": "input",
-      "label": {"ro": "Acuratețe de bază", "en": "Baseline accuracy"}
+      "label": {
+        "ro": "Acuratețe de bază",
+        "en": "Baseline accuracy"
+      }
     },
     {
       "graph_id": "Reward",
       "semantic_id": "COMP.NODE.REWARD_BIAS_INPUT",
       "kind": "input",
-      "label": {"ro": "Recompensă și bias", "en": "Reward and bias"}
+      "label": {
+        "ro": "Recompensă și bias",
+        "en": "Reward and bias"
+      }
     },
     {
       "graph_id": "Feedback",
       "semantic_id": "COMP.NODE.SOURCE_FEEDBACK_INPUT",
       "kind": "input",
-      "label": {"ro": "Feedback despre sursă", "en": "Source feedback"}
+      "label": {
+        "ro": "Feedback despre sursă",
+        "en": "Source feedback"
+      }
     },
     {
       "graph_id": "Correction",
       "semantic_id": "COMP.NODE.CORRECTION_EVENT_INPUT",
       "kind": "input",
-      "label": {"ro": "Eveniment corectiv", "en": "Corrective event"}
+      "label": {
+        "ro": "Eveniment corectiv",
+        "en": "Corrective event"
+      }
     },
     {
       "graph_id": "Time",
       "semantic_id": "COMP.NODE.ELAPSED_TIME_INPUT",
       "kind": "input",
-      "label": {"ro": "Timp scurs", "en": "Elapsed time"}
+      "label": {
+        "ro": "Timp scurs",
+        "en": "Elapsed time"
+      }
     },
     {
       "graph_id": "Random",
       "semantic_id": "COMP.NODE.RANDOM_DRAW_INPUT",
       "kind": "input",
-      "label": {"ro": "Extragere aleatoare", "en": "Random draw"}
+      "label": {
+        "ro": "Extragere aleatoare",
+        "en": "Random draw"
+      }
     }
   ],
   "variable_graph_map": {
@@ -218,11 +251,12 @@
       "source_semantic_id": "COMP.NODE.CORRECTION_DIRECTION_INPUT",
       "target_semantic_id": "VAR.BELIEF.CLAIM",
       "description": {
-        "ro": "Ultimul eveniment corectiv fixează direcția în intervalul −1…1. Fără un astfel de eveniment, direcția implicită este zero.",
-        "en": "The latest corrective event sets direction in −1…1. Without such an event the default direction is zero."
+        "ro": "Cel mai recent eveniment corectiv furnizează o direcție în [-1,1]; simulation.py reține această intrare, iar model.py o aplică asupra convingerii prin termenul de corecție. Fără eveniment corectiv, direcția implicită este zero.",
+        "en": "The latest corrective event supplies a direction in [-1,1]; simulation.py retains that input, while model.py applies it to belief through the correction term. Without a corrective event, direction defaults to zero."
       },
       "formula": "zB += βcorrection × C × direction",
-      "code_file": "simulation.py"
+      "code_file": "model.py",
+      "input_binding_file": "simulation.py"
     },
     {
       "id": "COMPDEP.ACCURACY_CUE.ACCURACY_SALIENCE",

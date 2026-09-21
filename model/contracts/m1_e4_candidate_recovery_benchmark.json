@@ -98,7 +98,7 @@
       "per_grid_cell_recovery_reported",
       "same_seed_reproducible",
       "active_registries_unchanged",
-      "evidence_snapshot_unchanged"
+      "evidence_set_membership_unchanged"
     ]
   }
 }

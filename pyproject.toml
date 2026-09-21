@@ -5,10 +5,11 @@ build-backend = "hatchling.build"
 [project]
 name = "cognitive-belief-dynamics"
 dynamic = ["version"]
-description = "Computational engine and calibration artifacts for Cognitive Belief Dynamics"
+description = "Computational engine and scientific model, recovery, and validation artifacts for Cognitive Belief Dynamics"
 readme = "README.md"
 requires-python = ">=3.12"
-license = {text = "MIT"}
+license = "MIT AND CC-BY-4.0"
+license-files = ["LICENSE", "LICENSES/CC-BY-4.0.txt", "LICENSING.md"]
 authors = [{name = "Laurentiu Staicu"}]
 dependencies = [
   "numpy>=2.0",

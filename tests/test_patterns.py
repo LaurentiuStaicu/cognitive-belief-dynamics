@@ -1,6 +1,6 @@
 from cognitive_epistemic_model.model import accuracy_weight, compute_belief, share_probability
 from cognitive_epistemic_model.state import ModelParams
-from cognitive_epistemic_model.updates import decay_correction, update_familiarity
+from cognitive_epistemic_model.updates import decay_correction, update_familiarity, update_reliability
 
 P = ModelParams()
 
@@ -34,19 +34,43 @@ def test_val_m0_002_correction_and_regression():
     assert later > immediately
 
 
-def test_val_m0_003_source_reliability_weighting():
-    low = belief(evidence=0.8, reliability=0.55)
-    high = belief(evidence=0.8, reliability=0.90)
+def test_val_m0_003_learned_source_reliability_weighting():
+    initial = 0.5
+    learned_unreliable = update_reliability(initial, P.alpha_t, 0.0)
+    learned_reliable = update_reliability(initial, P.alpha_t, 1.0)
+    assert learned_reliable > initial > learned_unreliable
+
+    low = belief(evidence=0.8, reliability=learned_unreliable)
+    high = belief(evidence=0.8, reliability=learned_reliable)
     assert high > low
 
 
-def test_val_m0_004_accuracy_salience_reduces_false_sharing_when_reward_competes():
-    b = 0.2
+def test_val_m0_004_accuracy_salience_improves_true_false_sharing_discernment():
     w0 = accuracy_weight(0.25, False, P.beta_accuracy_cue)
     w1 = accuracy_weight(0.25, True, P.beta_accuracy_cue)
-    p0 = share_probability(belief=b, accuracy_weight_value=w0, reward_context=1.0, sharing_bias=0.0, params=P)
-    p1 = share_probability(belief=b, accuracy_weight_value=w1, reward_context=1.0, sharing_bias=0.0, params=P)
-    assert p1 < p0
+
+    false_without = share_probability(
+        belief=0.2, accuracy_weight_value=w0, reward_context=1.0,
+        sharing_bias=0.0, params=P,
+    )
+    true_without = share_probability(
+        belief=0.8, accuracy_weight_value=w0, reward_context=1.0,
+        sharing_bias=0.0, params=P,
+    )
+    false_with = share_probability(
+        belief=0.2, accuracy_weight_value=w1, reward_context=1.0,
+        sharing_bias=0.0, params=P,
+    )
+    true_with = share_probability(
+        belief=0.8, accuracy_weight_value=w1, reward_context=1.0,
+        sharing_bias=0.0, params=P,
+    )
+
+    discernment_without = true_without - false_without
+    discernment_with = true_with - false_with
+
+    assert false_with < false_without
+    assert discernment_with > discernment_without
 
 
 def test_val_m0_n01_belief_not_action():

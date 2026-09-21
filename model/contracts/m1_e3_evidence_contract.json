@@ -93,9 +93,9 @@
       "independence_group": "UPWORTHY_ARCHIVE_2013_2015",
       "data_access": "OPEN",
       "data_license_note": "Correction to the open archive documentation.",
-      "checked_on": "2026-09-16",
+      "checked_on": "2026-09-21",
       "review_scope": "FULL_TEXT",
-      "notes": "Reports likely randomization problems between 25 June 2013 and 10 January 2014. Must accompany any causal use of the archive.",
+      "notes": "Reports 7,004 A/B tests (22% of the archive) as potentially affected by likely caching-related randomization problems and recommends omitting experiments from 25 June 2013 through 10 January 2014 for causal analyses. Must accompany any causal use of the archive.",
       "supplemental_urls": [
         "https://upworthy.natematias.com/2024-06-upworthy-archive-update.html"
       ]
@@ -198,7 +198,7 @@
       "independence_group": "NICKL_ATTENTION_ECONOMY_2025",
       "data_access": "OPEN",
       "data_license_note": "Preprint-level evidence; conference presentation is the same project, not a second study.",
-      "checked_on": "2026-09-16",
+      "checked_on": "2026-09-21",
       "review_scope": "ABSTRACT_AND_SELECTED_SECTIONS",
       "notes": "Two-stage producer/consumer experiment. APS 2026 abstract reports no expected negativity-bias effect; preprint reports more informative headlines were more likely to be clicked.",
       "supplemental_urls": [
@@ -208,9 +208,9 @@
     {
       "id": "SRC.M1.E3.MATTIS_HEITZ.2025",
       "publication_key": "MATTIS_HEITZ_2025_NUDGES",
-      "citation": "Mattis, N., & Heitz, L. (2025). Nudges for news recommenders: prominent article positioning increases selection, engagement, and recall of environmental news, but reducing complexity does not. Journal of Communication, 75(6), 437-450.",
-      "doi": "10.1093/joc/jqaf030",
-      "url": "https://doi.org/10.1093/joc/jqaf030",
+      "citation": "Mattis, N., Heitz, L., Masur, P. K., Moeller, J., & van Atteveldt, W. (2025). Nudges for news recommenders: prominent article positioning increases selection, engagement, and recall of environmental news, but reducing complexity does not. Journal of Communication, 75(6), 437-449.",
+      "doi": "10.1093/joc/jqaf019",
+      "url": "https://doi.org/10.1093/joc/jqaf019",
       "source_type": "PEER_REVIEWED_ARTICLE",
       "study_type": "EXPERIMENTAL",
       "evidence_role": "CONTEXT_BOUNDARY",
@@ -218,9 +218,9 @@
       "independence_group": "INFORMFULLY_UK_2025",
       "data_access": "OPEN",
       "data_license_note": "Article and linked research infrastructure/dataset are publicly described; intervention concerns article-text complexity rather than a headline-only simplicity manipulation.",
-      "checked_on": "2026-09-16",
+      "checked_on": "2026-09-21",
       "review_scope": "FULL_TEXT",
-      "notes": "Preregistered seven-day UK field experiment. Reduced article-text complexity did not significantly affect selection, reading time or recall; not a direct replication of headline simplicity."
+      "notes": "Preregistered seven-day UK field experiment (N=502). Automated article rewriting to lower text complexity did not significantly improve selection, engagement, or recall; the intervention concerns article-text complexity rather than a headline-only simplicity manipulation."
     },
     {
       "id": "SRC.M1.E3.LIWC_POLICY.2026",

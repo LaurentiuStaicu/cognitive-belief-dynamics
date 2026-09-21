@@ -78,3 +78,22 @@ def test_contract_keeps_computation_separate_from_evidence_registry():
         "LINK.ACCURACY.ACTION",
     }
     assert len(registered) < len(data["dependencies"])
+
+
+def test_dependency_code_files_resolve_to_actual_package_files():
+    data = load(DATA)
+    package = ROOT / "src" / "cognitive_epistemic_model"
+    for item in data["dependencies"]:
+        assert (package / item["code_file"]).is_file(), item["id"]
+        if "input_binding_file" in item:
+            assert (package / item["input_binding_file"]).is_file(), item["id"]
+
+
+def test_correction_direction_dependency_separates_formula_and_binding():
+    data = load(DATA)
+    item = next(
+        dep for dep in data["dependencies"]
+        if dep["id"] == "COMPDEP.CORRECTION_DIRECTION.BELIEF"
+    )
+    assert item["code_file"] == "model.py"
+    assert item["input_binding_file"] == "simulation.py"

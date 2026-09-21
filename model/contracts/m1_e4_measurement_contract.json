@@ -229,7 +229,7 @@
       "no_runtime_recognition_or_encoding_module",
       "no_m1_e4_ui",
       "active_scientific_registries_unchanged",
-      "active_evidence_snapshot_unchanged",
+      "active_evidence_set_membership_unchanged",
       "retained_outputs_byte_reproducible"
     ],
     "active_registry_mutation_allowed": false,
@@ -248,6 +248,6 @@
     "no_beta_simp_value",
     "no_attention_state",
     "no_source_exact_replication_claim_without_source_code_verification",
-    "no_evidence_snapshot_change"
+    "no_evidence_set_membership_change_without_versioned_refresh"
   ]
 }

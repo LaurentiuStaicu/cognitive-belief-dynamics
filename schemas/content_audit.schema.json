@@ -1,0 +1,395 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "audit_id",
+    "as_of",
+    "release_candidate",
+    "purpose",
+    "evidence_snapshot",
+    "status_vocabulary",
+    "audit_dimensions",
+    "references",
+    "empirical_targets",
+    "variables",
+    "links",
+    "processes",
+    "scientific_contracts",
+    "repaired_findings",
+    "open_gaps",
+    "benchmark_artifacts",
+    "benchmark_numeric_checks",
+    "modules",
+    "subsystems",
+    "validation_patterns",
+    "embedded_contract_sources"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "audit_id": {
+      "const": "CBD.CONTENT_AUDIT.2026-09-21.r1"
+    },
+    "as_of": {
+      "const": "2026-09-21"
+    },
+    "release_candidate": {
+      "const": "0.1.1"
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 40
+    },
+    "evidence_snapshot": {
+      "const": "EVIDENCE.M1.2026-09-21.r2"
+    },
+    "status_vocabulary": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "audit_dimensions": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "references": {
+      "$ref": "#/$defs/records"
+    },
+    "empirical_targets": {
+      "$ref": "#/$defs/records"
+    },
+    "variables": {
+      "$ref": "#/$defs/variable_records"
+    },
+    "links": {
+      "$ref": "#/$defs/records"
+    },
+    "processes": {
+      "$ref": "#/$defs/records"
+    },
+    "scientific_contracts": {
+      "$ref": "#/$defs/path_records"
+    },
+    "repaired_findings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "open_gaps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/gap"
+      }
+    },
+    "benchmark_artifacts": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "kind",
+          "status",
+          "note"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 10
+          },
+          "kind": {
+            "enum": [
+              "CONFIG",
+              "AUTHORITATIVE_RESULT"
+            ]
+          },
+          "status": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "minLength": 20
+          }
+        }
+      }
+    },
+    "benchmark_numeric_checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "core_recovery_rows",
+        "refinement_rows",
+        "screening_rows",
+        "confirmation_rows",
+        "confirmation_primary_rows",
+        "confirmation_primary_min_recovery",
+        "confirmation_total_replicates",
+        "confirmation_wrong_family_total",
+        "robustness_rows",
+        "robustness_total_replicates",
+        "robustness_correct_family_total",
+        "robustness_wrong_family_total",
+        "robustness_inconclusive_total",
+        "robustness_min_recovery",
+        "robustness_failed_cells"
+      ],
+      "properties": {
+        "core_recovery_rows": {
+          "const": 24
+        },
+        "refinement_rows": {
+          "const": 18
+        },
+        "screening_rows": {
+          "const": 72
+        },
+        "confirmation_rows": {
+          "const": 29
+        },
+        "confirmation_primary_rows": {
+          "const": 18
+        },
+        "confirmation_primary_min_recovery": {
+          "const": 0.92
+        },
+        "confirmation_total_replicates": {
+          "const": 5800
+        },
+        "confirmation_wrong_family_total": {
+          "const": 3
+        },
+        "robustness_rows": {
+          "const": 18
+        },
+        "robustness_total_replicates": {
+          "const": 3600
+        },
+        "robustness_correct_family_total": {
+          "const": 3169
+        },
+        "robustness_wrong_family_total": {
+          "const": 25
+        },
+        "robustness_inconclusive_total": {
+          "const": 406
+        },
+        "robustness_min_recovery": {
+          "const": 0.56
+        },
+        "robustness_failed_cells": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "COMBINED_ADVERSE__EVSD",
+              "ITEM_HIGH__EVSD",
+              "ITEM_MODERATE__EVSD"
+            ]
+          }
+        }
+      }
+    },
+    "modules": {
+      "$ref": "#/$defs/records"
+    },
+    "subsystems": {
+      "$ref": "#/$defs/records"
+    },
+    "validation_patterns": {
+      "$ref": "#/$defs/records"
+    },
+    "embedded_contract_sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "id",
+          "identifier",
+          "status",
+          "note"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^model/contracts/.+\\.json$"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "identifier": {
+            "type": "string",
+            "minLength": 3
+          },
+          "status": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "minLength": 20
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status",
+          "note"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "checked_on": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    },
+    "variable_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "short_name",
+          "status",
+          "note"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "short_name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    },
+    "path_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "status",
+          "note"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "severity",
+        "status",
+        "path",
+        "summary",
+        "resolution"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "resolution": {
+          "type": "string"
+        }
+      }
+    },
+    "gap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "status",
+        "severity",
+        "area",
+        "summary"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "const": "OPEN_GAP"
+        },
+        "severity": {
+          "type": "string"
+        },
+        "area": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -47,7 +47,8 @@
         "non_monotonic",
         "context_dependent",
         "unknown"
-      ]
+      ],
+      "description": "Direction of the registered relation within its declared model/evidence scope. A positive or negative value is not, by itself, a claim of a universal empirical effect; evidence status and evidence_limitations bound generalization."
     },
     "mechanism_evidence_status": {
       "enum": [
@@ -123,5 +124,5 @@
       "additionalProperties": false
     }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }

@@ -2,9 +2,9 @@
 
 ## Release status
 
-Cognitive Belief Dynamics (CBD) v0.1.0 is the initial public scientific-core baseline. The version identifies a frozen software and model-artifact snapshot. It does not represent a claim that the full cognitive model has been empirically validated, population-calibrated, or established as a general model of human cognition.
+Cognitive Belief Dynamics (CBD) v0.1.1 is the current scientific-core maintenance release. It preserves the v0.1.0 scientific model and retained benchmark results while repairing verification coverage, provenance checks, canonical status reporting, reproducibility metadata, evidence metadata, and repository presentation. The version identifies a frozen software and model-artifact snapshot; it does not represent a claim that the full cognitive model has been empirically validated, population-calibrated, or established as a general model of human cognition.
 
-The repository is intentionally maintained as a scientific model core. The v0.1.0 baseline contains the canonical model specification, computational engine, schemas, empirical/evidence contracts, calibration artifacts, synthetic recovery benchmarks, integrity hashes, and scripts needed to reproduce retained model-building results. It does not include an end-user product layer.
+The repository is intentionally maintained as a scientific model core. The v0.1.1 snapshot contains the canonical model specification, computational engine, schemas, empirical/evidence contracts, calibration/recovery diagnostics, synthetic recovery benchmarks, integrity hashes, reproducibility constraints, and scripts needed to reproduce retained model-building results. These diagnostic/recovery surfaces must not be interpreted as empirical population calibration. No model equation, retained benchmark value, threshold, or seed is changed by the v0.1.1 maintenance release. The retained evidence **set** is unchanged, while its metadata snapshot advances from `EVIDENCE.M1.2026-09-16.r1` to the content-audited `EVIDENCE.M1.2026-09-21.r2`. It does not include an end-user product layer.
 
 ## Canonical modeling paradigm
 
@@ -16,7 +16,9 @@ This paradigm statement is canonical for the project. CBD must not be converted 
 
 ## Current scientific boundary
 
-CBD combines several epistemic levels that must remain distinct:
+CBD combines several epistemic levels that must remain distinct. The source/data content audit for this release is retained in `model/audits/content_audit_2026-09-21.json`; a passing audit means the declared metadata and internal numerical relationships were checked, not that every conceptual mechanism is empirically validated:
+
+
 
 - **Executable:** explicitly implemented mathematical or computational relations.
 - **Empirical:** claims linked to external evidence within the scope recorded by the model contracts.
@@ -29,7 +31,7 @@ M1.E4 currently has retained synthetic model-recovery and protocol-robustness re
 
 Separately, the authoritative Phase M protocol-robustness stress gate closed with `PROTOCOL_ROBUSTNESS_FAIL`: 3 of 18 prospectively frozen cells fell below the 0.80 recovery gate (`ITEM_MODERATE__EVSD` = 0.780, `ITEM_HIGH__EVSD` = 0.560, `COMBINED_ADVERSE__EVSD` = 0.585), with a minimum recovery probability of 0.56. This does not erase the participant-aware confirmation result; it shows that candidate-family recovery is not robust across all frozen stress conditions. Phase M remains synthetic and does not select a human recognition architecture, identify Pencode, validate a human sample size, or authorize participant recruitment.
 
-## Not established in v0.1.0
+## Not established in v0.1.1
 
 The following are outside the validated scope of this release:
 

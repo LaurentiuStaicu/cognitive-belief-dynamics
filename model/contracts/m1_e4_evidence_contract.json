@@ -265,6 +265,12 @@
       "df": 165,
       "p_value": 0.66,
       "cohens_d": 0.07
+    },
+    "design": {
+      "design_family": "PREREGISTERED_PROFESSIONAL_WRITER_SDT_EXPERIMENT",
+      "n_recruited": 249,
+      "preregistered": true,
+      "source_note": "Study 4 recruited N=249 professional writers/journalists. The published SDT null reports t(165)=-0.44; CBD does not infer an analyzed-N value from the test degrees of freedom."
     }
   },
   "validation_contract": {
