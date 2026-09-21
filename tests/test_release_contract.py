@@ -130,3 +130,21 @@ def test_contract_source_set_identity_matches_current_contracts() -> None:
     assert correction["prior_doi"] == "10.1093/joc/jqaf030"
     assert correction["corrected_doi"] == "10.1093/joc/jqaf019"
     assert correction["membership_change"] is False
+
+
+def _git_blob_sha(path: Path) -> str:
+    data = path.read_bytes()
+    payload = b"blob " + str(len(data)).encode("ascii") + b"\0" + data
+    return hashlib.sha1(payload).hexdigest()
+
+
+def test_restored_historical_provenance_documents_match_original_git_blobs() -> None:
+    manifest = json.loads(read(f"releases/v{VERSION}.manifest.json"))
+    docs = manifest["historical_provenance_documents"]
+    assert len(docs) == 3
+    for item in docs:
+        path = ROOT / item["path"]
+        assert path.is_file()
+        assert item["restored_byte_identical"] is True
+        assert _git_blob_sha(path) == item["historical_blob_sha"]
+        assert len(item["historical_source_commit"]) == 40
