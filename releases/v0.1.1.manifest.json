@@ -32,5 +32,11 @@
     "human_validation": false,
     "pencode_identified": false,
     "participant_recruitment_authorized": false
+  },
+  "evidence_metadata_revision": {
+    "prior_snapshot": "EVIDENCE.M1.2026-09-16.r1",
+    "release_snapshot": "EVIDENCE.M1.2026-09-21.r2",
+    "evidence_set_changed": false,
+    "metadata_corrected_or_qualified": true
   }
 }
