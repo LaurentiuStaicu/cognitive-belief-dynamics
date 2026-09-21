@@ -67,7 +67,8 @@
             "design_structure",
             "preregistration_note",
             "study_preregistered",
-            "target_analysis_registration_status"
+            "target_analysis_registration_status",
+            "analysis_base_note"
           ],
           "properties": {
             "randomized": {
@@ -155,6 +156,10 @@
                 "POST_HOC_REVIEWER_REQUESTED",
                 "NOT_ESTABLISHED"
               ]
+            },
+            "analysis_base_note": {
+              "type": "string",
+              "minLength": 20
             }
           }
         },
