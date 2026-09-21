@@ -80,5 +80,5 @@
       "minLength": 15
     }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }
