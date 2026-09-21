@@ -99,3 +99,12 @@ def test_evidence_set_identity_fingerprint_matches_current_registry() -> None:
     assert digest == identity["release_reference_ids_sha256"]
     assert identity["prior_reference_ids_sha256"] == identity["release_reference_ids_sha256"]
     assert identity["prior_release"] == "v0.1.0"
+
+
+def test_release_manifest_distinguishes_executable_and_metadata_changes() -> None:
+    manifest = json.loads(read(f"releases/v{VERSION}.manifest.json"))
+    assert manifest["scientific_model_change"] is False
+    assert manifest["executable_equation_change"] is False
+    assert manifest["retained_benchmark_result_change"] is False
+    assert manifest["scientific_metadata_change"] is True
+    assert "metadata" in manifest["scientific_model_change_definition"].lower()
