@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import tomllib
 from pathlib import Path
 
 import cognitive_epistemic_model as cbd
@@ -27,6 +28,18 @@ def test_version_surfaces_are_consistent() -> None:
     assert f"# Cognitive Belief Dynamics v{VERSION}" in read(f"releases/v{VERSION}.md")
     workflow = read(".github/workflows/cbd-validation.yml")
     assert f"cbd.__version__ == '{VERSION}'" in workflow
+
+
+def test_python_distribution_metadata_preserves_dual_license_scope() -> None:
+    project = tomllib.loads(read("pyproject.toml"))["project"]
+    assert project["license"] == "MIT AND CC-BY-4.0"
+    assert set(project["license-files"]) == {
+        "LICENSE",
+        "LICENSES/CC-BY-4.0.txt",
+        "LICENSING.md",
+    }
+    for path in project["license-files"]:
+        assert (ROOT / path).is_file()
 
 
 def test_release_manifest_routes_exist() -> None:
