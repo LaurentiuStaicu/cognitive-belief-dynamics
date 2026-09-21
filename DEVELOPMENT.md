@@ -41,7 +41,7 @@ At the v0.1.1 preparation point, the canonical registries contain:
 - 4 empirical targets, all used for directional validation only;
 - 17 dependencies in the frozen M0 computational-dependency contract.
 
-`cemodel validate` checks schemas, duplicate IDs, module/variable/link/reference integrity, DOI consistency, evidence targets, validation-pattern references, the evidence snapshot and the computational-dependency contract. Dedicated tests cover M0 behavior, M1.E1-E3 candidate surfaces, M1.E4 contracts/recovery/authoritative results, MOD.14/world-model behavior, structural integrity and CI reproducibility.
+`cemodel validate` checks schemas, duplicate IDs, module/variable/link/reference integrity, DOI consistency, evidence targets, validation-pattern references, the evidence snapshot and the computational-dependency contract. Dedicated tests cover M0 behavior, M1.E1-E3 candidate surfaces, M1.E4 contracts/recovery/authoritative results, MOD.14/world-model behavior, structural integrity and CI reproducibility. The v0.1.1 release gate also parses every repository JSON artifact in the canonical artifact roots, validates every JSON Schema as Draft 2020-12, and requires an explicit schema mapping for every scientific contract.
 
 ## Retained M1.E4 scientific state
 
@@ -55,6 +55,10 @@ The failing cells are `ITEM_MODERATE__EVSD`, `ITEM_HIGH__EVSD` and `COMBINED_ADV
 These are synthetic model-recovery / misspecification results. They do not identify EVSD or 2HT as human truth, identify Pencode, validate a human sample size, or authorize recruitment.
 
 ## Known audit boundaries and open scientific gaps
+
+### Benchmark provenance maturity
+
+The current repository has uniform machine-readable provenance sidecars for the later participant-confirmation and Phase M robustness results. Earlier Phase F/G/I results predate that convention: their exact commit/run/artifact information was recorded in historical PR audit records plus retained checksum files rather than uniform sidecars. v0.1.1 centralizes the verified historical trace in `model/benchmarks/results/PROVENANCE.md` without inventing missing fields. This is a traceability improvement, not a change to any result.
 
 ### Evidence scope
 
