@@ -23,7 +23,8 @@
     "benchmark_numeric_checks",
     "modules",
     "subsystems",
-    "validation_patterns"
+    "validation_patterns",
+    "embedded_contract_sources"
   ],
   "properties": {
     "schema_version": {
@@ -212,6 +213,42 @@
     },
     "validation_patterns": {
       "$ref": "#/$defs/records"
+    },
+    "embedded_contract_sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "id",
+          "identifier",
+          "status",
+          "note"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^model/contracts/.+\\.json$"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "identifier": {
+            "type": "string",
+            "minLength": 3
+          },
+          "status": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "minLength": 20
+          }
+        }
+      }
     }
   },
   "$defs": {
