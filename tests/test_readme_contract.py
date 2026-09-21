@@ -28,10 +28,11 @@ def test_public_readme_preserves_current_paradigm_boundary() -> None:
     text = re.sub(r"[*_`]", "", read(README)).lower()
     required = (
         "not currently a formal system dynamics model",
-        "event schedule is externally supplied",
-        "share action does not automatically create future exposure",
-        "progressive endogenization",
-        "not an already implemented capability",
+        "v0.1.1 release baseline",
+        "share action does not automatically create future exposure in that release",
+        "synthetic_executable",
+        "not recovery-tested",
+        "not empirically constrained",
     )
     for token in required:
         assert token in text
