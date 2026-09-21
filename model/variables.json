@@ -60,8 +60,8 @@
       "en": "Belief (claim plausibility)",
       "ro": "Convingere (plauzibilitatea afirmației)"
     },
-    "definition": "Latent propensity to judge a claim as true at a given time.",
-    "what_it_is_not": "Knowledge, ideology, or identity commitment.",
+    "definition": "Decision-time latent propensity to judge a claim as true, computed from the registered prior and current M0 inputs at a DecisionEvent.",
+    "what_it_is_not": "Knowledge, ideology, identity commitment, or a belief value automatically persisted as the prior for the next decision.",
     "range": [
       0,
       1
@@ -77,8 +77,8 @@
       "en": "Accuracy salience",
       "ro": "Saliența acurateții"
     },
-    "definition": "Contextual decision weight placed on accuracy when acting/sharing.",
-    "what_it_is_not": "General rationality or System 2 activation.",
+    "definition": "Decision-time contextual weight placed on accuracy when acting/sharing, computed from the agent accuracy baseline plus the current accuracy cue.",
+    "what_it_is_not": "General rationality, System 2 activation, or a persistent state stored between M0 events.",
     "range": [
       0,
       1
@@ -94,8 +94,8 @@
       "en": "Exposure count",
       "ro": "Numărul de expuneri"
     },
-    "definition": "Count or history of exposures of an agent to an information item.",
-    "what_it_is_not": "Familiarity itself.",
+    "definition": "Conceptual count/history of exposure events for an agent–information-item relation. The current M0 Simulator consumes discrete ExposureEvent objects and does not persist or read an Nexp counter in the familiarity equation.",
+    "what_it_is_not": "Familiarity itself, or a persisted M0 simulator state/count.",
     "range": [
       0,
       1000000
