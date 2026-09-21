@@ -44,7 +44,7 @@ def test_status_reports_confirmation_pass_and_protocol_robustness_fail_together(
         assert "all 18 primary p64_x10 cells meet the declared 0.80 recovery gate" in lower
         assert "0.92" in text
         assert "PROTOCOL_ROBUSTNESS_FAIL" in text
-        assert "3 of 18" in text
+        assert "3 of 18" in lower or "three of 18" in lower
         assert "0.56" in text
         for cell_id in result["formal_failed_cells"]:
             assert cell_id in text
