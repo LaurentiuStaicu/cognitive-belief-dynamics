@@ -48,5 +48,9 @@
     "reference_count": 16,
     "prior_reference_ids_sha256": "d8209f0f4bb5c1dcb2b04a8d2ee73e80f869da063fa1891081b009e543c0ed99",
     "release_reference_ids_sha256": "d8209f0f4bb5c1dcb2b04a8d2ee73e80f869da063fa1891081b009e543c0ed99"
-  }
+  },
+  "executable_equation_change": false,
+  "retained_benchmark_result_change": false,
+  "scientific_metadata_change": true,
+  "scientific_model_change_definition": "False means no executable equation, state-transition structure, benchmark threshold/seed, or retained numerical result was changed; scientific metadata and evidence qualifications were audited and revised."
 }
