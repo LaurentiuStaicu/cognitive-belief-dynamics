@@ -168,3 +168,11 @@ def test_empirical_target_registration_status_distinguishes_study_and_analysis()
     assert targets["TARGET.M1.E1.TOHIDI_2025"]["study"]["target_analysis_registration_status"] == "PREREGISTERED"
     assert targets["TARGET.M1.E2.ARUGUETE_2024"]["study"]["target_analysis_registration_status"] == "PREREGISTERED"
     assert targets["TARGET.M1.E2.ALVARADO_2026"]["study"]["target_analysis_registration_status"] == "POST_HOC_REVIEWER_REQUESTED"
+
+
+def test_m1_e4_contracts_distinguish_evidence_set_freeze_from_metadata_snapshot_revision() -> None:
+    for path in sorted((ROOT / "model" / "contracts").glob("m1_e4_*.json")):
+        text = path.read_text(encoding="utf-8")
+        assert "evidence_snapshot_unchanged" not in text
+        assert "active_evidence_snapshot_unchanged" not in text
+        assert "no_evidence_snapshot_change" not in text
