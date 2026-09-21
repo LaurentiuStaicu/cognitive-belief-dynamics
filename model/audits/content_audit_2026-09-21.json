@@ -614,6 +614,14 @@
       "path": "model/benchmarks/results",
       "summary": "The five primary .sha256 files have heterogeneous historical semantics: Phase F/G hash non-retained aggregate JSONs, Phase I hashes 12 non-retained shard JSONs, Phase K hashes the retained authoritative JSON, and Phase M hashes the non-retained Actions source aggregate rather than the normalized retained JSON.",
       "resolution": "Added machine-readable checksum_semantics.json, documented the distinction in PROVENANCE.md, and added CI that recomputes Phase K while cross-checking the historical target semantics for F/G/I/M."
+    },
+    {
+      "id": "CA.F019",
+      "severity": "MEDIUM",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "LICENSING.md",
+      "summary": "Licensing language referred broadly to 'calibration artifacts' and did not explicitly state that restricted third-party lexicons cited as implementation constraints are not redistributed or relicensed by CBD.",
+      "resolution": "Reworded original-data scope as synthetic recovery/validation artifacts and explicitly excluded third-party papers/datasets/lexicons from CBD relicensing, including LIWC/NRC redistribution boundaries."
     }
   ],
   "open_gaps": [
