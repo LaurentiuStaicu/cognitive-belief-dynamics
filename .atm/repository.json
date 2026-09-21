@@ -33,7 +33,8 @@
       "model/subsystems.json",
       "model/contracts",
       "model/experiments",
-      "docs/ODD_ENDOGENOUS_SCHEDULER.md"
+      "docs/ODD_ENDOGENOUS_SCHEDULER.md",
+      "docs/F1A_RECOVERY_DESIGN.md"
     ],
     "evidence": [
       "model/evidence_snapshot.json",
