@@ -8,7 +8,7 @@ No unreleased changes are recorded after the v0.1.1 release candidate.
 
 ## 0.1.1 - 2026-09-21
 
-Scientific-core maintenance, reproducibility and repository-presentation release. No model equation, retained benchmark result, threshold, seed or evidence snapshot changes.
+Scientific-core maintenance, reproducibility, evidence-metadata audit and repository-presentation release. No model equation, retained benchmark result, threshold or seed changes. The retained evidence set is unchanged, while its metadata snapshot advances from r1 to content-audited r2.
 
 ### Scientific integrity and reproducibility
 
@@ -16,7 +16,9 @@ Scientific-core maintenance, reproducibility and repository-presentation release
 - added machine-verifiable authoritative Phase M result/provenance checks preserving the retained `PROTOCOL_ROBUSTNESS_FAIL`;
 - added a platform-scoped CPython 3.12/Linux CI dependency snapshot and applied it consistently to build, clean-wheel and repository-test installs;
 - restored complete canonical M1.E4 status reporting so the participant-confirmation pass and the distinct Phase M robustness failure are always reported together;
-- retained the v0.1.0 scientific equations, benchmark values, thresholds, seeds and evidence snapshot unchanged.
+- retained the v0.1.0 scientific equations, benchmark values, thresholds and seeds unchanged;
+- content-audited empirical-target/sample metadata and advanced the retained evidence-set metadata to `EVIDENCE.M1.2026-09-21.r2`;
+- corrected the M1.E3 Mattis et al. Journal of Communication citation/DOI and replaced the Nickl preprint access link with its canonical DOI route.
 
 ### Repository and continuity
 
