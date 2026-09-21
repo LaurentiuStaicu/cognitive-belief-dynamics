@@ -1,0 +1,363 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/f1a_endogenous_transmission_experiment.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "feedback_family",
+    "baseline",
+    "scope",
+    "implementation_boundary",
+    "scheduler",
+    "network_fixture",
+    "transmission_policy",
+    "authoritative_fixture",
+    "cognitive_boundary",
+    "rng_contract",
+    "provenance_contract",
+    "verification_gates",
+    "interpretation_boundary",
+    "promotion_gate"
+  ],
+  "properties": {
+    "id": {
+      "const": "CONTRACT.F1A.ENDOGENOUS_TRANSMISSION.2026-09-21"
+    },
+    "status": {
+      "const": "STRUCTURAL_SYNTHETIC_EXPERIMENT_ONLY"
+    },
+    "feedback_family": {
+      "const": "F1a"
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "release",
+        "commit",
+        "open_loop_preserved"
+      ],
+      "properties": {
+        "release": {
+          "const": "v0.1.1"
+        },
+        "commit": {
+          "const": "9bc57322f7d2e1d53bf9c33e67f083e667a64569"
+        },
+        "open_loop_preserved": {
+          "const": true
+        }
+      }
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 80
+    },
+    "implementation_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "modules",
+        "reuses_existing_simulator_step",
+        "public_api_export_allowed",
+        "protected_files"
+      ],
+      "properties": {
+        "modules": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "reuses_existing_simulator_step": {
+          "const": true
+        },
+        "public_api_export_allowed": {
+          "const": false
+        },
+        "protected_files": {
+          "type": "array",
+          "minItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "scheduler": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "queue_key",
+        "time_scale",
+        "generated_delay_rule",
+        "same_time_rule",
+        "canonical_log_owner",
+        "max_events_guard",
+        "horizon_guard"
+      ],
+      "properties": {
+        "queue_key": {
+          "type": "array",
+          "const": [
+            "event.time",
+            "sequence_id"
+          ]
+        },
+        "time_scale": {
+          "const": "ABSTRACT_EVENT_TIME"
+        },
+        "generated_delay_rule": {
+          "const": "STRICTLY_POSITIVE"
+        },
+        "same_time_rule": {
+          "const": "EARLIER_INSERTION_SEQUENCE_FIRST"
+        },
+        "canonical_log_owner": {
+          "const": "Simulator.step"
+        },
+        "max_events_guard": {
+          "const": true
+        },
+        "horizon_guard": {
+          "const": true
+        }
+      }
+    },
+    "network_fixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "edge_semantics",
+        "adaptive",
+        "ranking_model"
+      ],
+      "properties": {
+        "type": {
+          "const": "STATIC_DIRECTED_UNWEIGHTED"
+        },
+        "edge_semantics": {
+          "const": "SYNTHETIC_ELIGIBLE_TRANSMISSION"
+        },
+        "adaptive": {
+          "const": false
+        },
+        "ranking_model": {
+          "const": false
+        }
+      }
+    },
+    "transmission_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "mode",
+        "empirical_calibration",
+        "direct_cognitive_state_mutation_allowed"
+      ],
+      "properties": {
+        "id": {
+          "const": "POLICY.F1A.FORCED_PASS_THROUGH.V1"
+        },
+        "mode": {
+          "const": "FORCED_PASS_THROUGH_AFTER_REALISED_SHARE"
+        },
+        "empirical_calibration": {
+          "const": false
+        },
+        "direct_cognitive_state_mutation_allowed": {
+          "const": false
+        }
+      }
+    },
+    "authoritative_fixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agents",
+        "directed_edge",
+        "claim_id",
+        "source_id",
+        "simulator_seed",
+        "sender_sharing_bias",
+        "sender_bias_role",
+        "decision_time",
+        "synthetic_delay",
+        "recipient_decision_generated"
+      ],
+      "properties": {
+        "agents": {
+          "type": "array",
+          "const": [
+            "A",
+            "B"
+          ]
+        },
+        "directed_edge": {
+          "type": "array",
+          "const": [
+            "A",
+            "B"
+          ]
+        },
+        "claim_id": {
+          "const": "C1"
+        },
+        "source_id": {
+          "const": "S1"
+        },
+        "simulator_seed": {
+          "const": 20260921
+        },
+        "sender_sharing_bias": {
+          "const": 100
+        },
+        "sender_bias_role": {
+          "const": "EXTREME_SYNTHETIC_SOFTWARE_FIXTURE_FOR_CODE_PATH_COVERAGE"
+        },
+        "decision_time": {
+          "const": 1
+        },
+        "synthetic_delay": {
+          "const": 2
+        },
+        "recipient_decision_generated": {
+          "const": false
+        }
+      }
+    },
+    "cognitive_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generated_event_represents",
+        "recipient_exposure_uses_existing_familiarity_update",
+        "recipient_decision_generation",
+        "source_reliability_update",
+        "belief_persistence_change",
+        "share_is_belief_or_endorsement"
+      ],
+      "properties": {
+        "generated_event_represents": {
+          "const": "REALISED_COGNITIVE_EXPOSURE"
+        },
+        "recipient_exposure_uses_existing_familiarity_update": {
+          "const": true
+        },
+        "recipient_decision_generation": {
+          "const": false
+        },
+        "source_reliability_update": {
+          "const": false
+        },
+        "belief_persistence_change": {
+          "const": false
+        },
+        "share_is_belief_or_endorsement": {
+          "const": false
+        }
+      }
+    },
+    "rng_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cognitive_rng_semantics_changed",
+        "new_rng_streams_required",
+        "policy_is_deterministic",
+        "future_stochastic_network_streams_must_be_isolated"
+      ],
+      "properties": {
+        "cognitive_rng_semantics_changed": {
+          "const": false
+        },
+        "new_rng_streams_required": {
+          "const": false
+        },
+        "policy_is_deterministic": {
+          "const": true
+        },
+        "future_stochastic_network_streams_must_be_isolated": {
+          "const": true
+        }
+      }
+    },
+    "provenance_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "separate_scheduler_trace",
+        "causal_parentage_distinct_from_scheduler_sequence",
+        "required_fields"
+      ],
+      "properties": {
+        "separate_scheduler_trace": {
+          "const": true
+        },
+        "causal_parentage_distinct_from_scheduler_sequence": {
+          "const": true
+        },
+        "required_fields": {
+          "type": "array",
+          "minItems": 13,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "verification_gates": {
+      "type": "array",
+      "minItems": 12,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "interpretation_boundary": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string",
+        "minLength": 40
+      }
+    },
+    "promotion_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "active_model_registration_allowed",
+        "empirical_parameter_claim_allowed",
+        "evidence_set_expansion_allowed",
+        "canonical_paradigm_change_allowed",
+        "next_status_candidate"
+      ],
+      "properties": {
+        "active_model_registration_allowed": {
+          "const": false
+        },
+        "empirical_parameter_claim_allowed": {
+          "const": false
+        },
+        "evidence_set_expansion_allowed": {
+          "const": false
+        },
+        "canonical_paradigm_change_allowed": {
+          "const": false
+        },
+        "next_status_candidate": {
+          "const": "SYNTHETIC_EXECUTABLE"
+        }
+      }
+    }
+  }
+}
