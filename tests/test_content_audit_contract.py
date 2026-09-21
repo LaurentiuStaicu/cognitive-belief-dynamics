@@ -58,3 +58,20 @@ def test_content_audit_is_tied_to_r2_evidence_metadata() -> None:
     snapshot = load(ROOT / "model" / "evidence_snapshot.json")
     assert audit["evidence_snapshot"] == snapshot["id"]
     assert snapshot["id"] == "EVIDENCE.M1.2026-09-21.r2"
+
+
+def test_content_audit_covers_primary_benchmark_configs_and_results() -> None:
+    audit = load(AUDIT)
+    expected = {
+        "model/benchmarks/m1_e4_candidate_recovery_core.json",
+        "model/benchmarks/m1_e4_candidate_recovery_trial_count_refinement.json",
+        "model/benchmarks/m1_e4_participant_aware_screening.json",
+        "model/benchmarks/m1_e4_participant_confirmation_200.json",
+        "model/benchmarks/m1_e4_protocol_robustness_200.json",
+        "model/benchmarks/results/m1_e4_candidate_recovery_authoritative_2026-09-16.csv",
+        "model/benchmarks/results/m1_e4_trial_count_refinement_authoritative_2026-09-16.csv",
+        "model/benchmarks/results/m1_e4_participant_screening_authoritative_2026-09-16.csv",
+        "model/benchmarks/results/m1_e4_participant_confirmation_authoritative_2026-09-16.json",
+        "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.json",
+    }
+    assert {item["path"] for item in audit["benchmark_artifacts"]} == expected
