@@ -9,7 +9,21 @@
       "preregistered": true,
       "n_recruited": 2141,
       "n_analyzed": 1910,
-      "event_count": 7
+      "event_count": 7,
+      "sampling_method": "Curated high-quality Amazon Mechanical Turk adult sample collected in October 2024.",
+      "sample_flow": [
+        {
+          "stage": "randomized_recruited",
+          "n": 2141,
+          "note": "Participants were randomized across seven events and three framing conditions."
+        },
+        {
+          "stage": "preregistered_analysis",
+          "n": 1910,
+          "note": "Respondents failing at least two of three instruction-comprehension checks were excluded as preregistered."
+        }
+      ],
+      "representativeness_note": "The source describes a curated MTurk sample, not a probability-based nationally representative sample."
     },
     "effects": [
       {
@@ -42,7 +56,7 @@
       }
     ],
     "model_match": "The current CBD uses the negative-versus-neutral direction and nested-null contrast as validation targets. Published magnitudes are context only and are not used to set the appraisal gain.",
-    "limitations": "The experiment varies sentence selection by tone and therefore combines information-selection and tone variation. The M1 scalar variables and bounded linear appraisal update are model constructs, not measured states from the study."
+    "limitations": "The experiment varies sentence selection by tone and therefore combines information-selection and tone variation. The M1 scalar variables and bounded linear appraisal update are model constructs, not measured states from the study. The participant pool was a curated Amazon Mechanical Turk sample, so population representativeness should not be inferred."
   },
   {
     "id": "TARGET.M1.E2.ARUGUETE_2024",
@@ -54,7 +68,16 @@
       "preregistered": true,
       "n_recruited": 9512,
       "n_analyzed": 9512,
-      "event_count": 4
+      "event_count": 4,
+      "sampling_method": "Netquest online panels stratified by age, education, gender, and region against current census data in Argentina, Brazil, Chile, and Colombia.",
+      "sample_flow": [
+        {
+          "stage": "total_adult_respondents",
+          "n": 9512,
+          "note": "Argentina 2349; Brazil 2401; Chile 2384; Colombia 2378."
+        }
+      ],
+      "representativeness_note": "The source reports stratification to census demographics and robustness weights for minor education/gender deviations; the sample comes from online panels rather than a simple probability sample."
     },
     "effects": [
       {
@@ -79,7 +102,7 @@
       }
     ],
     "model_match": "The current CBD uses the cross-country confirmation-greater-than-refutation engagement direction as the target for the frame-only candidate. The published percentage-point effects are context only and do not set beta_frame.",
-    "limitations": "Aggregate engagement combines like, share and comment. Share alone is statistically significant only in Argentina, so the target validates active-engagement intent rather than the retained M0 Share process."
+    "limitations": "Aggregate engagement combines like, share and comment. Share alone is statistically significant only in Argentina, so the target validates active-engagement intent rather than the retained M0 Share process. The four-country samples were recruited from Netquest online panels with demographic stratification and robustness weighting; this supports balanced experimental contrasts but should not be read as unrestricted population representativeness."
   },
   {
     "id": "TARGET.M1.E2.ALVARADO_2026",
@@ -91,7 +114,31 @@
       "preregistered": true,
       "n_recruited": 2075,
       "n_analyzed": 1901,
-      "event_count": 2
+      "event_count": 2,
+      "sampling_method": "Netquest Behavior Panel of Argentine adults using non-interlocking quotas on age, sex, and province calibrated to the adult population.",
+      "sample_flow": [
+        {
+          "stage": "achieved_panel",
+          "n": 2075,
+          "note": "Base used for descriptive population-benchmark comparisons."
+        },
+        {
+          "stage": "consent_and_screening_complete",
+          "n": 2074,
+          "note": "Supplementary-information enrollment base."
+        },
+        {
+          "stage": "treatment_distribution",
+          "n": 2044,
+          "note": "Cases with usable treatment assignment."
+        },
+        {
+          "stage": "complete_case_regression",
+          "n": 1901,
+          "note": "Regression base after excluding missing treatment assignment or model covariates."
+        }
+      ],
+      "representativeness_note": "The paper describes the design as nationally representative, while its supplement documents quota-panel deviations: women 62.1% vs 51.3% population, tertiary-or-higher education 51.5% vs 37.0%, and AMBA 61.7% vs 45.0%."
     },
     "effects": [
       {
@@ -116,7 +163,7 @@
       }
     ],
     "model_match": "The current CBD uses the positive confirmation-by-congruence interaction and near-zero counter-attitudinal confirmation main effect as the differential target that distinguishes frame×congruence from frame-only.",
-    "limitations": "The published interaction is defined using partisan congruence with 2023 runoff vote choice. M1 generalizes this only to a task-specific message–prior-attitude congruence relation and does not create a stable ideology or party-identity trait."
+    "limitations": "The published interaction is defined using partisan congruence with 2023 runoff vote choice. M1 generalizes this only to a task-specific message–prior-attitude congruence relation and does not create a stable ideology or party-identity trait. The supplement documents multiple analysis bases (2075 achieved panel, 2074 consent/screening, 2044 treatment-distribution, 1901 complete-case regression) and notable composition deviations despite population-calibrated quotas; those bases must not be collapsed into a single unqualified N."
   },
   {
     "id": "TARGET.M1.E3.ROBERTSON_2023",
@@ -140,7 +187,8 @@
       "n_variants": 53699,
       "n_impressions_min": 205000000,
       "n_clicks": 2778124,
-      "count_note": "Main Results text reports 53,699 headlines in the filtered confirmatory sample; two figure captions report 53,669. CBD records the main-text count and preserves this 30-headline publication discrepancy as provenance context."
+      "count_note": "Main Results text reports 53,699 headlines in the filtered confirmatory sample; two figure captions report 53,669. CBD records the main-text count and preserves this 30-headline publication discrepancy as provenance context.",
+      "randomization_integrity_note": "The Upworthy tests were designed as randomized A/B experiments, but the 2024 archive correction identifies 7,004 tests (22% of the archive) as potentially affected by a caching-related randomization problem and recommends omitting experiments from 2013-06-25 through 2014-01-10 for causal analyses. Archive maintainers report the Robertson findings were nearly identical when re-run on tests judged reliable."
     },
     "effects": [
       {
@@ -165,6 +213,6 @@
       }
     ],
     "model_match": "The current CBD uses only the directional higher-Hneg to higher-Paccess pattern. The CBD binary Hneg cue and demonstrative logistic coefficient are not fitted to the source study's continuous standardized predictor or reported magnitude.",
-    "limitations": "The primary causal evidence comes from historical Upworthy field experiments. A 2024 archive correction identifies a period with likely randomization problems; archive maintainers report the Robertson results remain nearly identical when restricted to reliable tests. Recent preliminary experimental work reports no expected negativity-bias effect in a different context, so CBD treats the direction as a bounded candidate rather than a universal constant."
+    "limitations": "The primary causal evidence comes from historical Upworthy field experiments. The 2024 archive correction identifies 7,004 A/B tests (22% of the archive) as potentially affected and recommends excluding 2013-06-25 through 2014-01-10 for causal analyses; archive maintainers separately report the Robertson findings were nearly identical on tests judged reliable. Recent preprint-level experimental counterevidence from a different attention-economy task did not recover the expected negativity advantage, so CBD treats the direction as a bounded candidate rather than a universal constant."
   }
 ]
