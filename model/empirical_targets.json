@@ -6,7 +6,6 @@
     "use": "DIRECTIONAL_VALIDATION_ONLY",
     "study": {
       "randomized": true,
-      "preregistered": true,
       "n_recruited": 2141,
       "n_analyzed": 1910,
       "sampling_method": "Curated high-quality Amazon Mechanical Turk adult sample collected in October 2024.",
@@ -35,7 +34,9 @@
           "description": "Positive, neutral, and negative article conditions; each participant was assigned to one event and one frame."
         }
       ],
-      "preregistration_note": "The article reports preregistration at AsPredicted.org (5mzn-n7dj) and states that the comprehension-check exclusion rule was preregistered."
+      "preregistration_note": "AsPredicted #194569 (registered 2024-10-17 before data collection) specifies seven topics, three framing conditions, the first principal component of topic-specific questions, treatment comparisons, and the attention-check exclusion rule used by the registered target.",
+      "study_preregistered": true,
+      "target_analysis_registration_status": "PREREGISTERED"
     },
     "effects": [
       {
@@ -77,7 +78,6 @@
     "use": "DIRECTIONAL_VALIDATION_ONLY",
     "study": {
       "randomized": true,
-      "preregistered": true,
       "n_recruited": 9512,
       "n_analyzed": 9512,
       "sampling_method": "Netquest online panels stratified by age, education, gender, and region against current census data in Argentina, Brazil, Chile, and Colombia.",
@@ -101,7 +101,9 @@
           "description": "Confirmation and refutation frames are the primary randomized contrast; additional brand/label or placebo variants differ by country."
         }
       ],
-      "preregistration_note": "The article states that its hypotheses were preregistered on the Open Science Framework before data collection."
+      "preregistration_note": "The article states that its hypotheses were preregistered on OSF before data collection; the registered H1 is the confirmation-greater-than-refutation engagement contrast used by this target.",
+      "study_preregistered": true,
+      "target_analysis_registration_status": "PREREGISTERED"
     },
     "effects": [
       {
@@ -135,7 +137,6 @@
     "use": "DIRECTIONAL_VALIDATION_ONLY",
     "study": {
       "randomized": true,
-      "preregistered": true,
       "n_recruited": 2075,
       "n_analyzed": 1901,
       "sampling_method": "Netquest Behavior Panel of Argentine adults using non-interlocking quotas on age, sex, and province calibrated to the adult population.",
@@ -184,7 +185,9 @@
           "description": "Confirmation versus refutation framing."
         }
       ],
-      "preregistration_note": "The supplementary file documents OSF preregistration on 2023-11-18 before field completion and notes a preregistration-abstract typo that gave November 2022 instead of the correct November 2023 field date."
+      "preregistration_note": "The study was preregistered on OSF on 2023-11-18 before field completion. However, the Confirmation × Partisan Alignment interaction models used by this CBD target were added during revision in response to Reviewer 1 and therefore are not treated as preregistered target analyses.",
+      "study_preregistered": true,
+      "target_analysis_registration_status": "POST_HOC_REVIEWER_REQUESTED"
     },
     "effects": [
       {
