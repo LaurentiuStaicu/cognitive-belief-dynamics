@@ -590,6 +590,14 @@
       "path": "tests/test_patterns.py",
       "summary": "Two M0 scientific pattern tests were weaker than their registered claims: VAL.M0.003 injected reliability levels instead of testing learning, and VAL.M0.004 tested only reduced false sharing rather than true-versus-false sharing discernment.",
       "resolution": "VAL.M0.003 now derives high/low reliability from feedback learning starting at the same baseline. VAL.M0.004 now compares the true-minus-false sharing-probability gap before and after the accuracy cue while retaining the false-sharing reduction check."
+    },
+    {
+      "id": "CA.F016",
+      "severity": "MEDIUM",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "pyproject.toml",
+      "summary": "The package description used the phrase 'calibration artifacts', which could be read as empirical/population calibration despite the canonical status explicitly stating that full-model population calibration is not established.",
+      "resolution": "Reworded the package description to 'scientific model, recovery, and validation artifacts'; calibration/recovery code paths remain unchanged."
     }
   ],
   "open_gaps": [
