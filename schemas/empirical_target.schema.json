@@ -65,7 +65,8 @@
             "preregistered",
             "n_recruited",
             "n_analyzed",
-            "design_structure"
+            "design_structure",
+            "preregistration_note"
           ],
           "properties": {
             "randomized": {
@@ -142,6 +143,10 @@
                   }
                 }
               }
+            },
+            "preregistration_note": {
+              "type": "string",
+              "minLength": 15
             }
           }
         },
