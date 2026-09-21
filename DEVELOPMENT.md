@@ -61,6 +61,12 @@ These are synthetic model-recovery / misspecification results. They do not ident
 
 ## Known audit boundaries and open scientific gaps
 
+### Restored historical provenance documents
+
+Three benchmark configurations retained source-document paths that became dangling during the scientific-core reset. v0.1.1 restores the exact historical Phase I screening audit, Phase L robustness contract and Phase M robustness contract from their original PR-head commits. Their Git blob SHAs match the historical blobs byte-for-byte. These files are historical snapshots: references inside them to Alpha 0.4.3a0 and evidence snapshot r1 describe the phase at the time it was frozen and do not supersede current `STATUS.md`, the v0.1.1 release manifest or evidence snapshot r2.
+
+CI now requires every declared benchmark `source_*` path to resolve.
+
 ### Benchmark provenance maturity
 
 The current repository has uniform machine-readable provenance sidecars for the later participant-confirmation and Phase M robustness results. Earlier Phase F/G/I results predate that convention: their exact commit/run/artifact information was recorded in historical PR audit records plus retained checksum files rather than uniform sidecars. v0.1.1 centralizes the verified historical trace in `model/benchmarks/results/PROVENANCE.md` without inventing missing fields. This is a traceability improvement, not a change to any result.
