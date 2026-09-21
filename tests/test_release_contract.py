@@ -69,3 +69,19 @@ def test_development_handoff_has_source_of_truth_and_resume_protocol() -> None:
         "Issue #110",
     ):
         assert token in text
+
+
+def test_evidence_metadata_revision_is_consistent_across_release_surfaces() -> None:
+    manifest = json.loads(read(f"releases/v{VERSION}.manifest.json"))
+    revision = manifest["evidence_metadata_revision"]
+    snapshot = json.loads(read("model/evidence_snapshot.json"))
+    assert revision["release_snapshot"] == snapshot["id"] == "EVIDENCE.M1.2026-09-21.r2"
+    assert revision["prior_snapshot"] == "EVIDENCE.M1.2026-09-16.r1"
+    assert revision["evidence_set_changed"] is False
+    assert revision["metadata_corrected_or_qualified"] is True
+
+    for path in ("README.md", "STATUS.md", "DEVELOPMENT.md", f"releases/v{VERSION}.md"):
+        surface = read(path)
+        assert "EVIDENCE.M1.2026-09-21.r2" in surface
+
+    assert "evidence snapshot is changed" not in read("STATUS.md").lower()
