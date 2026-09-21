@@ -20,6 +20,9 @@ Scientific-core maintenance, reproducibility, evidence-metadata audit and reposi
 - content-audited empirical-target/sample metadata and advanced the retained evidence-set metadata to `EVIDENCE.M1.2026-09-21.r2`;
 - corrected the M1.E3 Mattis et al. Journal of Communication citation/DOI and replaced the Nickl preprint access link with its canonical DOI route;
 - added a versioned machine-readable content/data audit covering every current reference, empirical target, variable, link, process and scientific contract, with repaired findings and unresolved gaps separated explicitly.
+- audited empirical-target study design units, analysis bases and preregistration semantics, including the distinction between a preregistered study and Alvarado's reviewer-requested post-hoc interaction analysis;
+- strengthened M0 pattern tests so source-reliability learning and true-versus-false sharing discernment are tested as claimed, while preserving incomplete M0 correction/source evidence bridges as explicit open gaps;
+- verified against tag v0.1.0 that both the 16-reference registry membership and all 39 embedded contract-source memberships are unchanged; r2 repairs metadata rather than adding evidence.
 
 ### Repository and continuity
 
