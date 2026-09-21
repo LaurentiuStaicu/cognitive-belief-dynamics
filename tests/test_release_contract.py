@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -85,3 +86,16 @@ def test_evidence_metadata_revision_is_consistent_across_release_surfaces() -> N
         assert "EVIDENCE.M1.2026-09-21.r2" in surface
 
     assert "evidence snapshot is changed" not in read("STATUS.md").lower()
+
+
+def test_evidence_set_identity_fingerprint_matches_current_registry() -> None:
+    manifest = json.loads(read(f"releases/v{VERSION}.manifest.json"))
+    identity = manifest["evidence_set_identity"]
+    references = json.loads(read("model/references.json"))
+    payload = "\n".join(sorted(item["id"] for item in references)) + "\n"
+    digest = hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+    assert len(references) == identity["reference_count"] == 16
+    assert digest == identity["release_reference_ids_sha256"]
+    assert identity["prior_reference_ids_sha256"] == identity["release_reference_ids_sha256"]
+    assert identity["prior_release"] == "v0.1.0"
