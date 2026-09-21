@@ -1,6 +1,6 @@
 # ODD supplement — F1a endogenous transmission experiment
 
-Status: **STRUCTURAL_SYNTHETIC_EXPERIMENT_ONLY**
+Status: **SYNTHETIC_EXECUTABLE**
 
 This supplement documents only the experimental F1a scheduler/network layer. It does not reclassify CBD as an agent-based model or as formal System Dynamics, and it does not alter the v0.1.1 cognitive equations.
 
@@ -96,4 +96,4 @@ No empirical network or platform dataset is used. All F1a network/transmission i
 
 ## Interpretation boundary
 
-Passing F1a establishes an executable endogenous causal edge relative to the open-loop baseline. It does not establish a complete Share→Exposure→Decision→Share loop, empirical diffusion validity, or a formal System Dynamics structure.
+F1a is now classified as SYNTHETIC_EXECUTABLE: the endogenous causal edge is implemented and verified against the open-loop baseline. This does not establish a complete Share→Exposure→Decision→Share loop, recovery-tested behavior, empirical diffusion validity, or a formal System Dynamics structure.
