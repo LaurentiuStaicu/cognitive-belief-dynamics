@@ -662,6 +662,14 @@
       "path": "model/variables.json",
       "summary": "Nexp carried range [0, 1000000] even though the current simulator does not store/read an Nexp counter and the upper bound had no scientific or implementation justification.",
       "resolution": "Removed the arbitrary numeric range and added an explicit domain note: conceptual non-negative integer event count/history with no asserted scientific upper bound in the current model."
+    },
+    {
+      "id": "CA.F025",
+      "severity": "MEDIUM",
+      "status": "REPAIRED_METADATA",
+      "path": "schemas/link.schema.json + schemas/variable.schema.json",
+      "summary": "Variables and links were the only canonical registry schemas that allowed arbitrary top-level properties, so misspelled scientific metadata fields could pass schema validation silently.",
+      "resolution": "Set additionalProperties=false for both schemas after confirming all current registry fields are explicitly declared; added a CI assertion that all canonical registry schemas remain top-level strict."
     }
   ],
   "open_gaps": [
