@@ -174,3 +174,23 @@ def test_phase_m_authoritative_result_recomputes_from_cell_counts() -> None:
         "ITEM_MODERATE__EVSD",
     ]
     assert result["status"] == "PROTOCOL_ROBUSTNESS_FAIL"
+
+
+def test_declared_benchmark_source_paths_exist() -> None:
+    configs = [
+        json.loads((BENCH / "m1_e4_participant_confirmation_200.json").read_text()),
+        json.loads((BENCH / "m1_e4_protocol_robustness_200.json").read_text()),
+    ]
+    checked = []
+    for config in configs:
+        for key, value in config.items():
+            if key.startswith("source_") and isinstance(value, str):
+                checked.append((key, value))
+                assert (ROOT / value).is_file(), f"{key} -> {value}"
+    assert {key for key, _ in checked} == {
+        "source_screening_config",
+        "source_screening_results",
+        "source_phase_i_document",
+        "source_phase_l_document",
+        "source_phase_m_document",
+    }
