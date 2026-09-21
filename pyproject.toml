@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "cognitive-belief-dynamics"
 dynamic = ["version"]
-description = "Computational engine and calibration artifacts for Cognitive Belief Dynamics"
+description = "Computational engine and scientific model, recovery, and validation artifacts for Cognitive Belief Dynamics"
 readme = "README.md"
 requires-python = ">=3.12"
 license = {text = "MIT"}
