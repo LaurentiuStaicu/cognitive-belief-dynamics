@@ -31,7 +31,7 @@ If a chat, issue comment, branch description, or external note conflicts with th
 
 At the v0.1.1 preparation point, the canonical registries contain:
 
-- 20 conceptual modules;
+- 20 conceptual modules; 7 currently have variables assigned in `model/variables.json`, while 13 have no registered variables/link endpoints through that registry and therefore remain conceptual expansion territory rather than executable modules;
 - 19 registered variables;
 - 22 registered processes: 12 `implemented_m0` and 10 `candidate`;
 - 10 registered links;
