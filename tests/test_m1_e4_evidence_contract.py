@@ -84,6 +84,9 @@ def test_m1_e4_preserves_professional_writer_null_as_boundary():
     boundary = load_contract()["boundary_target"]
     assert boundary["source_id"] == "SRC.M1.E4.SHULMAN_PROFESSIONALS.2024"
     assert boundary["expected_interpretation"] == "NO_UNIVERSAL_SIMPLICITY_EFFECT"
+    assert boundary["design"]["n_recruited"] == 249
+    assert boundary["design"]["preregistered"] is True
+    assert "does not infer" in boundary["design"]["source_note"]
     effect = boundary["effect_context"]
     assert effect == {
         "metric": "T_STATISTIC",
