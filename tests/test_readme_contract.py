@@ -92,6 +92,13 @@ def test_public_readme_matches_retained_m1_e4_boundary() -> None:
     }
 
 
+def test_scientific_markdown_has_no_literal_newline_escapes() -> None:
+    status = read(ROOT / "STATUS.md")
+    benchmarks = read(ROOT / "model" / "benchmarks" / "README.md")
+    assert r"\\n\\n" not in status
+    assert r"\\n\\n" not in benchmarks
+
+
 def test_public_assets_match_reviewed_preview_assets() -> None:
     assert LIGHT.is_file()
     assert DARK.is_file()
