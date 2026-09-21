@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "release": "0.1.1",
+  "date": "2026-09-21",
+  "release_type": "SCIENTIFIC_CORE_MAINTENANCE",
+  "base_release": "v0.1.0",
+  "scientific_model_change": false,
+  "canonical_surfaces": {
+    "status": "STATUS.md",
+    "citation": "CITATION.cff",
+    "changelog": "CHANGELOG.md",
+    "readme": "README.md",
+    "development_continuity": "DEVELOPMENT.md"
+  },
+  "reproducibility": {
+    "workflow": ".github/workflows/cbd-validation.yml",
+    "ci_environment": "requirements/ci-py312-linux.lock.txt",
+    "package_version_source": "src/cognitive_epistemic_model/__init__.py",
+    "registry_validator": "src/cognitive_epistemic_model/registry.py"
+  },
+  "retained_scientific_artifacts": {
+    "evidence_snapshot": "model/evidence_snapshot.json",
+    "phase_m_result": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.json",
+    "phase_m_provenance": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.provenance.json",
+    "phase_m_checksum": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.sha256",
+    "phase_m_shard_checksums": "model/benchmarks/results/m1_e4_protocol_robustness_authoritative_2026-09-17.shards.sha256"
+  },
+  "scientific_boundaries": {
+    "paradigm": "EVENT_DRIVEN_COGNITIVE_STATE_TRANSITION_AGENT_LEVEL_STOCHASTIC_DYNAMICAL_MODEL",
+    "formal_system_dynamics": false,
+    "human_validation": false,
+    "pencode_identified": false,
+    "participant_recruitment_authorized": false
+  }
+}
