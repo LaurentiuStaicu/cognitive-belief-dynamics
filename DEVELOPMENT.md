@@ -106,6 +106,8 @@ The next possible validation-ladder stage is **RECOVERY_TESTED**. Reaching it re
 
 The canonical paradigm remains an event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking. F1a alone is not a basis for formal System Dynamics reclassification.
 
+The progressive-endogenization research program and its validation ladder remain tracked in GitHub **Issue #110**.
+
 ### M1.E4 item heterogeneity
 
 Phase M shows an asymmetric loss of EVSD-family recovery under item-level heterogeneity. The current participant-level aggregate count representation does not preserve item identity, so a future crossed participant-item model would require a new prospective data/measurement contract rather than a post-hoc patch to M1.
