@@ -13,10 +13,11 @@ When resuming work, use this order:
 1. `STATUS.md` — current scientific paradigm and validation boundary.
 2. `model/` registries and `model/contracts/` — canonical model structure, evidence, measurement and benchmark contracts.
 3. `model/benchmarks/results/` plus provenance/checksum files — retained authoritative numerical results.
-4. `tests/` and `.github/workflows/cbd-validation.yml` — executable verification gates.
-5. `requirements/ci-py312-linux.lock.txt` — frozen GitHub-hosted Ubuntu / CPython 3.12 CI environment snapshot.
-6. `CHANGELOG.md`, `CITATION.cff` and `releases/` — version/release history and citation metadata.
-7. this file — current development queue and continuity notes.
+4. `model/audits/` — versioned source/data/semantic audits, repaired findings, and explicit open gaps.
+5. `tests/` and `.github/workflows/cbd-validation.yml` — executable verification gates.
+6. `requirements/ci-py312-linux.lock.txt` — frozen GitHub-hosted Ubuntu / CPython 3.12 CI environment snapshot.
+7. `CHANGELOG.md`, `CITATION.cff` and `releases/` — version/release history and citation metadata.
+8. this file — current development queue and continuity notes.
 
 If a chat, issue comment, branch description, or external note conflicts with these surfaces, the repository sources above take precedence.
 
@@ -42,6 +43,10 @@ At the v0.1.1 preparation point, the canonical registries contain:
 - 17 dependencies in the frozen M0 computational-dependency contract.
 
 `cemodel validate` checks schemas, duplicate IDs, module/variable/link/reference integrity, DOI consistency, evidence targets, validation-pattern references, the evidence snapshot and the computational-dependency contract. Dedicated tests cover M0 behavior, M1.E1-E3 candidate surfaces, M1.E4 contracts/recovery/authoritative results, MOD.14/world-model behavior, structural integrity and CI reproducibility. The v0.1.1 release gate also parses every repository JSON artifact in the canonical artifact roots, validates every JSON Schema as Draft 2020-12, and requires an explicit schema mapping for every scientific contract.
+
+## Content/data audit state
+
+v0.1.1 includes `model/audits/content_audit_2026-09-21.json`. It audits bibliographic identity, reported numerical values, source-versus-repository claims, source-to-model mappings, registry/contract/code concordance, and explicit non-claims. CI requires coverage of every current reference, empirical target, variable, link, process and scientific contract. Repaired metadata and unresolved gaps are recorded separately; a passing content-audit contract therefore does not mean that every conceptual mechanism is empirically established.
 
 ## Retained M1.E4 scientific state
 
