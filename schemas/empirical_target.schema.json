@@ -62,17 +62,15 @@
           "additionalProperties": false,
           "required": [
             "randomized",
-            "preregistered",
             "n_recruited",
             "n_analyzed",
             "design_structure",
-            "preregistration_note"
+            "preregistration_note",
+            "study_preregistered",
+            "target_analysis_registration_status"
           ],
           "properties": {
             "randomized": {
-              "type": "boolean"
-            },
-            "preregistered": {
               "type": "boolean"
             },
             "n_recruited": {
@@ -147,6 +145,16 @@
             "preregistration_note": {
               "type": "string",
               "minLength": 15
+            },
+            "study_preregistered": {
+              "type": "boolean"
+            },
+            "target_analysis_registration_status": {
+              "enum": [
+                "PREREGISTERED",
+                "POST_HOC_REVIEWER_REQUESTED",
+                "NOT_ESTABLISHED"
+              ]
             }
           }
         },
