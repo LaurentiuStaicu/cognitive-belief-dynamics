@@ -57,6 +57,16 @@ jobs:
       - name: Run retained CBD scientific verification harness
         run: python -m pytest
 
+      - name: Run authoritative F1a recovery candidate
+        if: github.event_name == 'pull_request' && github.head_ref == 'research/f1a-recovery-benchmark'
+        run: |
+          python scripts/run_f1a_transmission_recovery.py \
+            --output /tmp/f1a-transmission-recovery.json \
+            --source-commit "${{ github.event.pull_request.head.sha }}"
+          echo "F1A_RECOVERY_JSON_BEGIN"
+          cat /tmp/f1a-transmission-recovery.json
+          echo "F1A_RECOVERY_JSON_END"
+
       - name: Validate canonical registries from checkout
         run: cemodel validate --root .
 
