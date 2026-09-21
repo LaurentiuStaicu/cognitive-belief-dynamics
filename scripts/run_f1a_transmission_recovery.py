@@ -38,6 +38,11 @@ def main() -> int:
     )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
+        "--source-commit",
+        default=None,
+        help="Exact source commit for provenance; defaults to git rev-parse HEAD.",
+    )
+    parser.add_argument(
         "--replicates",
         type=int,
         default=None,
@@ -57,7 +62,7 @@ def main() -> int:
 
     result = run_recovery_benchmark(config, authoritative=authoritative)
     result["provenance"] = {
-        "source_commit": git_head(),
+        "source_commit": args.source_commit or git_head(),
         "config_path": str(args.config),
         "config_sha256": sha256(args.config),
         "contract_path": str(args.contract),
