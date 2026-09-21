@@ -21,6 +21,8 @@
       "STATUS.md",
       "README.md",
       "CITATION.cff",
+      "CHANGELOG.md",
+      "DEVELOPMENT.md",
       "model/contracts/world_model_v1.json"
     ],
     "structural": [
