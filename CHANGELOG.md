@@ -22,7 +22,12 @@ Scientific-core maintenance, reproducibility, evidence-metadata audit and reposi
 - added a versioned machine-readable content/data audit covering every current reference, empirical target, variable, link, process and scientific contract, with repaired findings and unresolved gaps separated explicitly.
 - audited empirical-target study design units, analysis bases and preregistration semantics, including the distinction between a preregistered study and Alvarado's reviewer-requested post-hoc interaction analysis;
 - strengthened M0 pattern tests so source-reliability learning and true-versus-false sharing discernment are tested as claimed, while preserving incomplete M0 correction/source evidence bridges as explicit open gaps;
-- verified against tag v0.1.0 that both the 16-reference registry membership and all 39 embedded contract-source memberships are unchanged; r2 repairs metadata rather than adding evidence.
+- verified against tag v0.1.0 that both the 16-reference registry membership and all 39 embedded contract-source memberships are unchanged; r2 repairs metadata rather than adding evidence;
+- restored three historical Phase I/L/M provenance documents byte-for-byte from their original PR-head commits and made benchmark `source_*` paths CI-verifiable;
+- documented heterogeneous historical checksum semantics for Phase F/G/I/K/M and made Phase K byte-digest and Phase M source-aggregate linkage executable CI checks;
+- removed the unsupported `Nexp <= 1,000,000` metadata bound and replaced it with an explicit unbounded non-negative conceptual-domain note;
+- made variable/link registry schemas reject unknown top-level fields so scientific metadata typos fail validation;
+- clarified M1.E4 historical phase guards as evidence-set-membership freezes rather than prohibitions on later versioned metadata corrections.
 
 ### Repository and continuity
 
