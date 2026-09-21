@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 
@@ -57,17 +58,38 @@ def test_public_readme_matches_retained_m1_e4_boundary() -> None:
     text = read(README)
     status = read(ROOT / "STATUS.md")
     benchmarks = read(ROOT / "model" / "benchmarks" / "README.md")
+    robustness = json.loads(
+        read(
+            ROOT
+            / "model"
+            / "benchmarks"
+            / "results"
+            / "m1_e4_protocol_robustness_authoritative_2026-09-17.json"
+        )
+    )
 
     normalized = text.lower()
     assert "18 / 18 primary p64_x10 cells meet the 0.80 recovery gate" in normalized
     assert "0.92" in text
+    assert "protocol_robustness_fail" in normalized
+    assert "3 / 18 cells below 0.80" in normalized
+    assert "minimum recovery 0.56" in normalized
     assert "human-participant validation | **not established**" in normalized
     assert "pencode | **not identified or estimated**" in normalized
     assert "participant recruitment | **not authorized by current baseline**" in normalized
 
     assert "all 18 primary p64_x10 cells meet the declared 0.80 recovery gate" in status.lower()
     assert "minimum observed recovery of 0.92" in status.lower()
+    assert "protocol_robustness_fail" in status.lower()
     assert "all 18 primary p64_x10 cells meet the declared 0.80 recovery gate" in benchmarks.lower()
+    assert "protocol_robustness_fail" in benchmarks.lower()
+    assert robustness["status"] == "PROTOCOL_ROBUSTNESS_FAIL"
+    assert robustness["minimum_recovery_probability"] == 0.56
+    assert set(robustness["formal_failed_cells"]) == {
+        "ITEM_MODERATE__EVSD",
+        "ITEM_HIGH__EVSD",
+        "COMBINED_ADVERSE__EVSD",
+    }
 
 
 def test_public_assets_match_reviewed_preview_assets() -> None:
