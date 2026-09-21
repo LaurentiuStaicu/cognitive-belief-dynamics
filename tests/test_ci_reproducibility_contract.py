@@ -60,6 +60,7 @@ def test_validation_workflow_uses_lock_for_all_install_surfaces() -> None:
     assert "requirements/ci-py312-linux.lock.txt" in workflow
     assert 'pip==26.2.1' in workflow
     assert "python -m build --no-isolation" in workflow
-    assert '-c "$CBD_CI_CONSTRAINTS"' in workflow\n    assert workflow.count("-c requirements/ci-py312-linux.lock.txt") >= 2\n    assert workflow.count("requirements/ci-py312-linux.lock.txt") >= 3
-    assert "-c requirements/ci-py312-linux.lock.txt" in workflow
+    assert '-c "$CBD_CI_CONSTRAINTS"' in workflow
+    assert workflow.count("-c requirements/ci-py312-linux.lock.txt") >= 2
+    assert workflow.count("requirements/ci-py312-linux.lock.txt") >= 3
     assert "pip freeze" not in workflow
