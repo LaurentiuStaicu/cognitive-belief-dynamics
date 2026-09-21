@@ -223,7 +223,7 @@
         },
         "requirements": {
           "type": "array",
-          "minItems": 12,
+          "minItems": 11,
           "uniqueItems": true
         }
       }
