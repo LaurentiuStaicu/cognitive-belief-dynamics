@@ -526,6 +526,14 @@
       "path": "model/evidence_snapshot.json",
       "summary": "Source-level metadata corrections require a new evidence metadata revision rather than claiming the r1 snapshot is unchanged.",
       "resolution": "Advanced to EVIDENCE.M1.2026-09-21.r2 while explicitly retaining the same evidence set and unchanged model equations/benchmark results."
+    },
+    {
+      "id": "CA.F008",
+      "severity": "TRACEABILITY",
+      "status": "REPAIRED_METADATA",
+      "path": "STATUS.md",
+      "summary": "Canonical STATUS text still stated that the evidence snapshot was unchanged after the source-level content audit advanced metadata from r1 to r2.",
+      "resolution": "STATUS now distinguishes an unchanged evidence set from the explicitly versioned metadata revision EVIDENCE.M1.2026-09-16.r1 -> EVIDENCE.M1.2026-09-21.r2."
     }
   ],
   "open_gaps": [
