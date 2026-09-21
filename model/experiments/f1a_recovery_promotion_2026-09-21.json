@@ -1,0 +1,71 @@
+{
+  "id": "PROMOTION.F1A.RECOVERY_TESTED.2026-09-21",
+  "feedback_family": "F1a",
+  "decision": "PROMOTE_TO_RECOVERY_TESTED",
+  "date": "2026-09-21",
+  "prior_stage": "SYNTHETIC_EXECUTABLE",
+  "new_stage": "RECOVERY_TESTED",
+  "frozen_design": {
+    "config_path": "model/benchmarks/f1a_transmission_recovery_core.json",
+    "config_sha256": "eb65fdb9d8fe455ae3215d675f4d106b82e1e385eb984e317d58d0693ace4233",
+    "contract_path": "model/experiments/f1a_transmission_recovery_contract.json",
+    "contract_sha256": "37e52eea6cf048d6f9f2cbf9de6d216d70db4bb0aa00735ae16aaa774783a279",
+    "prospective_status": "PROSPECTIVE_SYNTHETIC_RECOVERY_DESIGN"
+  },
+  "authoritative_result": {
+    "path": "model/benchmarks/results/f1a_transmission_recovery_authoritative_2026-09-21.json",
+    "git_blob_sha": "58ed25a6fc7392b13bb7f26aae5d58134be3edd4",
+    "source_commit": "8cea4e0b51b5413f2f3c76cafacde7f05fc842f9",
+    "benchmark_id": "BENCH.F1A.TRANSMISSION_RECOVERY.CORE.2026-09-21",
+    "replicates_per_grid_cell": 200,
+    "core_cells": 20,
+    "stress_cells": 10,
+    "minimum_core_recovery_probability": 0.885,
+    "minimum_stress_recovery_probability": 0.725,
+    "all_core_cells_pass": true,
+    "all_controls_pass": true,
+    "all_structural_checks_pass": true,
+    "all_monotonic_sensitivity_checks_pass": true,
+    "promotion_candidate": true
+  },
+  "ci_evidence": {
+    "authoritative_candidate_run": 160,
+    "authoritative_candidate_head": "8cea4e0b51b5413f2f3c76cafacde7f05fc842f9",
+    "retained_result_reproducibility_run": 163,
+    "retained_result_reproducibility_head": "0f795d3179d1135f0ea0e7bc549c330889dcf6d9",
+    "reproducibility_mode": "BYTE_FOR_BYTE_RERUN_FROM_FROZEN_CONFIG_AND_CONTRACT",
+    "result_reproduced_exactly": true
+  },
+  "satisfied_gates": [
+    "prospective_design_frozen_before_authoritative_result",
+    "exact_binomial_pre_run_feasibility_check",
+    "isolated_transmission_rng",
+    "same_seed_reproducibility",
+    "iteration_order_invariance",
+    "all_core_grid_cells_meet_0_80_gate",
+    "stress_cells_reported_separately",
+    "q_zero_control_pass",
+    "q_one_control_pass",
+    "q_one_matches_forced_pass_through_count",
+    "delay_realization_pass",
+    "familiarity_consistency_pass",
+    "full_cbd_suite_green",
+    "authoritative_result_byte_reproducible"
+  ],
+  "interpretation_boundary": [
+    "RECOVERY_TESTED means the declared synthetic q_transmit generator/estimator can recover known generating values under the frozen synthetic design.",
+    "The result is a best-case synthetic identifiability result and does not show that Bernoulli edge transmission is a true human or platform mechanism.",
+    "The q_transmit grid is not empirically estimated and has no population, social-network, ranking, attention, or platform interpretation.",
+    "The benchmark conditions on realised Share-edge opportunities and does not jointly identify sharing propensity and transmission probability.",
+    "The delay values remain abstract design factors and are not empirical time estimates.",
+    "Recipient Decision generation remains absent, so the full Share-to-Exposure-to-Decision-to-Share feedback loop is still not closed.",
+    "RECOVERY_TESTED remains below EMPIRICALLY_CONSTRAINED and ACTIVE and does not justify formal System Dynamics classification."
+  ],
+  "next_gate": {
+    "candidate_stage": "EMPIRICALLY_CONSTRAINED",
+    "automatic_promotion_allowed": false,
+    "empirical_evidence_bridge_required": true,
+    "measurement_observability_contract_required": true,
+    "active_runtime_registration_allowed": false
+  }
+}

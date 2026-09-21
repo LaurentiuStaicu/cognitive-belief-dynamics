@@ -36,7 +36,7 @@ def test_f1a_contract_preserves_v011_scientific_boundaries() -> None:
         "empirical_parameter_claim_allowed": False,
         "evidence_set_expansion_allowed": False,
         "canonical_paradigm_change_allowed": False,
-        "next_status_candidate": "RECOVERY_TESTED",
+        "next_status_candidate": "EMPIRICALLY_CONSTRAINED",
         "automatic_further_promotion_allowed": False,
     }
 
@@ -55,7 +55,7 @@ def test_f1a_protected_core_files_are_declared() -> None:
 def test_f1a_odd_supplement_is_explicitly_synthetic() -> None:
     text = (ROOT / "docs" / "ODD_ENDOGENOUS_SCHEDULER.md").read_text(encoding="utf-8")
     for token in (
-        "SYNTHETIC_EXECUTABLE",
+        "RECOVERY_TESTED",
         "abstract event time",
         "ForcedPassThroughPolicy",
         "does not reclassify CBD",
@@ -111,3 +111,15 @@ def test_authoritative_f1a_fixture_executes_from_contract() -> None:
     assert result.log[0].observation["share"] is True
     assert result.log[1].agent_id == "B"
     assert agents["B"].f(fixture["claim_id"]) == simulator.params.alpha_f
+
+
+def test_f1a_recovery_evidence_is_linked_but_not_active() -> None:
+    contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
+    evidence = contract["recovery_evidence"]
+    assert contract["status"] == "RECOVERY_TESTED"
+    assert evidence["minimum_core_recovery_probability"] == 0.885
+    assert evidence["stress_minimum_recovery_probability"] == 0.725
+    assert evidence["result_reproduced_byte_for_byte"] is True
+    assert evidence["recovery_parameter_runtime_status"] == "CALIBRATION_ONLY_NOT_ACTIVE_RUNTIME"
+    assert contract["promotion_gate"]["empirical_parameter_claim_allowed"] is False
+    assert contract["promotion_gate"]["active_model_registration_allowed"] is False

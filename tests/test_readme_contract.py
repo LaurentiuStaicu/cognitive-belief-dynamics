@@ -30,8 +30,9 @@ def test_public_readme_preserves_current_paradigm_boundary() -> None:
         "not currently a formal system dynamics model",
         "v0.1.1 release baseline",
         "share action does not automatically create future exposure in that release",
-        "synthetic executable",
-        "not recovery-tested",
+        "recovery tested",
+        "minimum recovery probability 0.885",
+        "calibration-only",
         "not empirically constrained",
     )
     for token in required:

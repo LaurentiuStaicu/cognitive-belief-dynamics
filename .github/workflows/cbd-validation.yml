@@ -57,6 +57,17 @@ jobs:
       - name: Run retained CBD scientific verification harness
         run: python -m pytest
 
+      - name: Verify retained authoritative F1a recovery result
+        if: ${{ hashFiles('model/benchmarks/results/f1a_transmission_recovery_authoritative_2026-09-21.json') != '' }}
+        run: |
+          SOURCE_COMMIT="$(python -c 'import json; print(json.load(open("model/benchmarks/results/f1a_transmission_recovery_authoritative_2026-09-21.json"))["provenance"]["source_commit"])')"
+          python scripts/run_f1a_transmission_recovery.py \
+            --output /tmp/f1a-transmission-recovery.json \
+            --source-commit "$SOURCE_COMMIT"
+          diff -u \
+            model/benchmarks/results/f1a_transmission_recovery_authoritative_2026-09-21.json \
+            /tmp/f1a-transmission-recovery.json
+
       - name: Validate canonical registries from checkout
         run: cemodel validate --root .
 

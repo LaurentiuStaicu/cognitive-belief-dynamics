@@ -11,7 +11,9 @@ All notable public scientific-core releases of Cognitive Belief Dynamics (CBD) a
 - establishes the first F1a synthetic executable edge: realised Share(A) → delayed Exposure(B) → existing Familiarity(B) update;
 - preserves v0.1.1 open-loop behavior when the endogenous layer is not invoked;
 - adds separate scheduler provenance, horizon/max-event guards, backward-equivalence tests, property tests, a strict experiment contract/schema and an ODD supplement;
-- classifies F1a as `SYNTHETIC_EXECUTABLE` only; it is not recovery-tested, empirically constrained or active, and the canonical System Dynamics boundary is unchanged.
+- prospectively freezes a synthetic `q_transmit` recovery design before execution, with 20 core cells and 10 explicitly non-gating stress cells;
+- retains an authoritative 200-replicate-per-cell recovery result: all 20 core cells pass the 0.80 gate, minimum core recovery 0.885, deterministic/structural controls pass, and the result reproduces byte-for-byte in CI;
+- advances F1a to `RECOVERY_TESTED` only; `q_transmit` remains calibration-only, F1a is not empirically constrained or active, and the canonical System Dynamics boundary is unchanged.
 
 ## 0.1.1 - 2026-09-21
 

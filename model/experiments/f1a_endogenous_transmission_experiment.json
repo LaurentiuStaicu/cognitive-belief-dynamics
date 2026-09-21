@@ -1,6 +1,6 @@
 {
   "id": "CONTRACT.F1A.ENDOGENOUS_TRANSMISSION.2026-09-21",
-  "status": "SYNTHETIC_EXECUTABLE",
+  "status": "RECOVERY_TESTED",
   "feedback_family": "F1a",
   "baseline": {
     "release": "v0.1.1",
@@ -124,7 +124,16 @@
     "empirical_parameter_claim_allowed": false,
     "evidence_set_expansion_allowed": false,
     "canonical_paradigm_change_allowed": false,
-    "next_status_candidate": "RECOVERY_TESTED",
+    "next_status_candidate": "EMPIRICALLY_CONSTRAINED",
     "automatic_further_promotion_allowed": false
+  },
+  "recovery_evidence": {
+    "promotion_record": "model/experiments/f1a_recovery_promotion_2026-09-21.json",
+    "authoritative_result": "model/benchmarks/results/f1a_transmission_recovery_authoritative_2026-09-21.json",
+    "recovery_parameter": "q_transmit",
+    "recovery_parameter_runtime_status": "CALIBRATION_ONLY_NOT_ACTIVE_RUNTIME",
+    "minimum_core_recovery_probability": 0.885,
+    "stress_minimum_recovery_probability": 0.725,
+    "result_reproduced_byte_for_byte": true
   }
 }

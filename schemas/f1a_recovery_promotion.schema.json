@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/f1a_recovery_promotion.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "feedback_family",
+    "decision",
+    "date",
+    "prior_stage",
+    "new_stage",
+    "frozen_design",
+    "authoritative_result",
+    "ci_evidence",
+    "satisfied_gates",
+    "interpretation_boundary",
+    "next_gate"
+  ],
+  "properties": {
+    "id": {
+      "const": "PROMOTION.F1A.RECOVERY_TESTED.2026-09-21"
+    },
+    "feedback_family": {
+      "const": "F1a"
+    },
+    "decision": {
+      "const": "PROMOTE_TO_RECOVERY_TESTED"
+    },
+    "date": {
+      "const": "2026-09-21"
+    },
+    "prior_stage": {
+      "const": "SYNTHETIC_EXECUTABLE"
+    },
+    "new_stage": {
+      "const": "RECOVERY_TESTED"
+    },
+    "frozen_design": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "config_path",
+        "config_sha256",
+        "contract_path",
+        "contract_sha256",
+        "prospective_status"
+      ],
+      "properties": {
+        "config_path": {
+          "const": "model/benchmarks/f1a_transmission_recovery_core.json"
+        },
+        "config_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "contract_path": {
+          "const": "model/experiments/f1a_transmission_recovery_contract.json"
+        },
+        "contract_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "prospective_status": {
+          "const": "PROSPECTIVE_SYNTHETIC_RECOVERY_DESIGN"
+        }
+      }
+    },
+    "authoritative_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "git_blob_sha",
+        "source_commit",
+        "benchmark_id",
+        "replicates_per_grid_cell",
+        "core_cells",
+        "stress_cells",
+        "minimum_core_recovery_probability",
+        "minimum_stress_recovery_probability",
+        "all_core_cells_pass",
+        "all_controls_pass",
+        "all_structural_checks_pass",
+        "all_monotonic_sensitivity_checks_pass",
+        "promotion_candidate"
+      ],
+      "properties": {
+        "path": {
+          "const": "model/benchmarks/results/f1a_transmission_recovery_authoritative_2026-09-21.json"
+        },
+        "git_blob_sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "source_commit": {
+          "const": "8cea4e0b51b5413f2f3c76cafacde7f05fc842f9"
+        },
+        "benchmark_id": {
+          "const": "BENCH.F1A.TRANSMISSION_RECOVERY.CORE.2026-09-21"
+        },
+        "replicates_per_grid_cell": {
+          "const": 200
+        },
+        "core_cells": {
+          "const": 20
+        },
+        "stress_cells": {
+          "const": 10
+        },
+        "minimum_core_recovery_probability": {
+          "const": 0.885
+        },
+        "minimum_stress_recovery_probability": {
+          "const": 0.725
+        },
+        "all_core_cells_pass": {
+          "const": true
+        },
+        "all_controls_pass": {
+          "const": true
+        },
+        "all_structural_checks_pass": {
+          "const": true
+        },
+        "all_monotonic_sensitivity_checks_pass": {
+          "const": true
+        },
+        "promotion_candidate": {
+          "const": true
+        }
+      }
+    },
+    "ci_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authoritative_candidate_run",
+        "authoritative_candidate_head",
+        "retained_result_reproducibility_run",
+        "retained_result_reproducibility_head",
+        "reproducibility_mode",
+        "result_reproduced_exactly"
+      ],
+      "properties": {
+        "authoritative_candidate_run": {
+          "const": 160
+        },
+        "authoritative_candidate_head": {
+          "const": "8cea4e0b51b5413f2f3c76cafacde7f05fc842f9"
+        },
+        "retained_result_reproducibility_run": {
+          "const": 163
+        },
+        "retained_result_reproducibility_head": {
+          "const": "0f795d3179d1135f0ea0e7bc549c330889dcf6d9"
+        },
+        "reproducibility_mode": {
+          "const": "BYTE_FOR_BYTE_RERUN_FROM_FROZEN_CONFIG_AND_CONTRACT"
+        },
+        "result_reproduced_exactly": {
+          "const": true
+        }
+      }
+    },
+    "satisfied_gates": {
+      "type": "array",
+      "minItems": 14,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "interpretation_boundary": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "string",
+        "minLength": 40
+      }
+    },
+    "next_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_stage",
+        "automatic_promotion_allowed",
+        "empirical_evidence_bridge_required",
+        "measurement_observability_contract_required",
+        "active_runtime_registration_allowed"
+      ],
+      "properties": {
+        "candidate_stage": {
+          "const": "EMPIRICALLY_CONSTRAINED"
+        },
+        "automatic_promotion_allowed": {
+          "const": false
+        },
+        "empirical_evidence_bridge_required": {
+          "const": true
+        },
+        "measurement_observability_contract_required": {
+          "const": true
+        },
+        "active_runtime_registration_allowed": {
+          "const": false
+        }
+      }
+    }
+  }
+}

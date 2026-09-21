@@ -87,22 +87,27 @@ The 20-module registry is a conceptual map, not a claim that all modules are exe
 
 The immutable v0.1.1 release remains the open-loop baseline: event schedules are externally supplied and Share does not create future exposure.
 
-Post-release `main` now contains the first optional progressive-endogenization experiment, F1a:
+Post-release `main` contains the first optional progressive-endogenization experiment, F1a:
 
 `realised Share(A) -> synthetic directed transmission -> delayed Exposure(B) -> existing Familiarity(B) update`
 
-Its machine-readable contract is `model/experiments/f1a_endogenous_transmission_experiment.json`; the scheduler/network documentation is `docs/ODD_ENDOGENOUS_SCHEDULER.md`. The experiment is classified **SYNTHETIC_EXECUTABLE** because the causal edge is implemented, deterministic under its declared fixture/seed, backward-equivalent to the open-loop runner when unused, and covered by structural/property tests.
+Its machine-readable contract is `model/experiments/f1a_endogenous_transmission_experiment.json`; the scheduler/network documentation is `docs/ODD_ENDOGENOUS_SCHEDULER.md`. F1a is now classified **RECOVERY_TESTED**.
+
+The recovery step was prospective rather than post-hoc. The frozen design (`model/benchmarks/f1a_transmission_recovery_core.json`) defined a calibration-only conditional transmission parameter `q_transmit`, 20 gating core cells, 10 non-gating N=25 stress cells, 200 replicates per cell, the estimator, error tolerance, and the 0.80 recovery gate before the authoritative result was accepted. The retained result is `model/benchmarks/results/f1a_transmission_recovery_authoritative_2026-09-21.json`; the explicit promotion record is `model/experiments/f1a_recovery_promotion_2026-09-21.json`.
+
+All 20 core cells passed, with minimum recovery probability 0.885. The stress grid intentionally includes cells below 0.80 (minimum 0.725), consistent with the pre-run exact-binomial analysis that made N=25 non-gating. q=0/q=1 controls, delay realization, familiarity consistency, sensitivity monotonicity, isolated RNG behavior and byte-for-byte rerun reproducibility all pass.
 
 F1a remains deliberately narrow:
-- the synthetic network is static, directed and unweighted;
-- the forced pass-through policy is an architecture fixture, not an empirical diffusion law;
-- generated events use strictly positive abstract delay;
+- `q_transmit` is calibration-only and is not imported into the active runtime policy;
+- no empirical reach, attention, ranking, platform, population or social-network parameter is claimed;
+- the synthetic network remains static, directed and unweighted;
+- generated events use strictly positive abstract delay with no empirical time unit;
 - no recipient DecisionEvent is generated;
 - no source-selection, platform-ranking or adaptive-network process is introduced;
 - the v0.1.1 cognitive transition equations remain owned by `Simulator.step()`;
 - no automatic further maturity promotion is allowed.
 
-The next possible validation-ladder stage is **RECOVERY_TESTED**. Reaching it requires a prospective recovery/sensitivity design that tests whether the synthetic closure and any future estimable transmission parameters can be recovered or discriminated under controlled simulated conditions, while retaining the open-loop baseline as a negative/reference mode.
+The next possible validation-ladder stage is **EMPIRICALLY_CONSTRAINED**. Reaching it requires a separate evidence and measurement/observability bridge; the recovery benchmark alone cannot supply empirical meaning or activate `q_transmit`.
 
 The canonical paradigm remains an event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking. F1a alone is not a basis for formal System Dynamics reclassification.
 
@@ -171,11 +176,11 @@ Released tags are immutable historical snapshots and must not be rewritten to co
 
 ## Current next gates
 
-1. Integrate F1a only after green CI on the exact `SYNTHETIC_EXECUTABLE` head and preserve the merge-commit provenance boundary.
-2. Verify the automatic post-merge `main` validation before treating the integration as complete.
-3. Design the prospective F1a **RECOVERY_TESTED** phase: synthetic operating points, recovery targets, sensitivity/negative controls, and explicit failure criteria.
-4. Do not introduce empirical reach probabilities, network parameters, real-time delay semantics, platform ranking, recipient decision generation or source-selection behavior without separate evidence/measurement contracts.
-5. Reassess whether the scientifically useful next step is deeper F1a validation, a carefully defined F1b/full-loop extension, or holding the architecture at the synthetic executable stage.
+1. Integrate the F1a recovery result only after green CI on the exact `RECOVERY_TESTED` candidate head and preserve the merge-commit provenance boundary.
+2. Verify automatic post-merge `main` validation, retained-result byte reproducibility, CodeQL and Pages after integration.
+3. Do not advance F1a to `EMPIRICALLY_CONSTRAINED` without a separate prospective evidence/measurement contract that states what real-world quantity would correspond to Share-edge opportunities, realised recipient exposure, network eligibility and delay.
+4. Do not introduce empirical reach probabilities, adaptive network parameters, real-time delay semantics, platform ranking, recipient decision generation or source-selection behavior by inference from the synthetic recovery result.
+5. Reassess whether the scientifically useful next step is an empirical-observability/evidence audit for F1a, a separately contracted F1b/full-loop experiment, or holding F1a at `RECOVERY_TESTED`.
 6. Treat any future M1.E4 item-heterogeneity redesign as a separate prospective post-M1 research program.
 
 ## How to resume after context loss
