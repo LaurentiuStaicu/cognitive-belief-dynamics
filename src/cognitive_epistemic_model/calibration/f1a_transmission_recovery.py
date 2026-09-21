@@ -499,7 +499,7 @@ def run_recovery_benchmark(config: dict, *, authoritative: bool = True) -> dict:
                     "q_hat_means": means,
                     "non_decreasing": all(
                         right + 1e-12 >= left
-                        for left, right in zip(means, means[1:], strict=True)
+                        for left, right in zip(means, means[1:])
                     ),
                 }
             )
