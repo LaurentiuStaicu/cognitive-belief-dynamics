@@ -93,6 +93,10 @@ Phase M shows an asymmetric loss of EVSD-family recovery under item-level hetero
 
 M1 remains closed at the retained pre-human boundary.
 
+### M0 evidence-bridge gaps
+
+The content audit identified two M0 descriptive patterns whose executable dependencies exist but whose empirical bridge is not yet represented as a dedicated `links.json` relation: `VAL.M0.002` (correction / partial regression) and `VAL.M0.003` (source-reliability weighting). External literature supports the broad phenomena, but v0.1.1 does not silently expand the r2 evidence set or promote the current functional forms to empirical laws. A future versioned evidence refresh should decide which sources, constructs, and limitations belong in those links.
+
 ### Parameter-domain audit
 
 The default `ModelParams` values are demonstrative rather than population estimates. The current dataclass does not enforce a complete scientific parameter-domain contract for arbitrary user-supplied alpha/beta values. Existing state updates remain bounded where implemented, but this is an open model-governance item: parameter admissibility should be specified prospectively before exposing free parameter editing or calibration. No bounds are invented in v0.1.1 merely to make the API stricter.
