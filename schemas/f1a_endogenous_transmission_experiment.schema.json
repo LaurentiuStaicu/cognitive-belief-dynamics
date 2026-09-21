@@ -26,7 +26,7 @@
       "const": "CONTRACT.F1A.ENDOGENOUS_TRANSMISSION.2026-09-21"
     },
     "status": {
-      "const": "STRUCTURAL_SYNTHETIC_EXPERIMENT_ONLY"
+      "const": "SYNTHETIC_EXECUTABLE"
     },
     "feedback_family": {
       "const": "F1a"
@@ -339,7 +339,8 @@
         "empirical_parameter_claim_allowed",
         "evidence_set_expansion_allowed",
         "canonical_paradigm_change_allowed",
-        "next_status_candidate"
+        "next_status_candidate",
+        "automatic_further_promotion_allowed"
       ],
       "properties": {
         "active_model_registration_allowed": {
@@ -355,7 +356,10 @@
           "const": false
         },
         "next_status_candidate": {
-          "const": "SYNTHETIC_EXECUTABLE"
+          "const": "RECOVERY_TESTED"
+        },
+        "automatic_further_promotion_allowed": {
+          "const": false
         }
       }
     }
