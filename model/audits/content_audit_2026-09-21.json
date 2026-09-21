@@ -664,6 +664,13 @@
       "severity": "EVIDENCE_BRIDGE",
       "area": "M0 source-reliability evidence bridge",
       "summary": "VAL.M0.003 and T -> B computational dependence exist, but links.json has no dedicated empirical reliability -> belief relation/reference. The current source_weight mapping is explicitly a modelling choice. Relevant external literature should enter only through a future versioned evidence refresh."
+    },
+    {
+      "id": "CA.G009",
+      "status": "OPEN_GAP",
+      "severity": "ENGINEERING_SCIENTIFIC_BOUNDARY",
+      "area": "runtime input and state domains",
+      "summary": "Runtime validation is not uniform: some semantic domains are enforced only when a downstream function executes, while logit clamps out-of-range probability-like inputs and dataclass type hints are not runtime validators. A future API-hardening change must define rejection versus clamping semantics before changing behavior."
     }
   ],
   "benchmark_artifacts": [
