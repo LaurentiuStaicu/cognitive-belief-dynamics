@@ -1,0 +1,575 @@
+{
+  "schema_version": 1,
+  "audit_id": "CBD.CONTENT_AUDIT.2026-09-21.r1",
+  "as_of": "2026-09-21",
+  "release_candidate": "0.1.1",
+  "purpose": "Audit the scientific data, factual metadata, semantic definitions, source claims, and registry-to-code concordance of the CBD scientific core. Structural JSON validity alone is explicitly insufficient.",
+  "evidence_snapshot": "EVIDENCE.M1.2026-09-21.r2",
+  "status_vocabulary": [
+    "VERIFIED_BIBLIOGRAPHY",
+    "VERIFIED_CONTENT",
+    "VERIFIED_CODE_CONCORDANCE",
+    "VERIFIED_BOUNDED",
+    "VERIFIED_WITH_QUALIFICATION",
+    "REPAIRED_METADATA",
+    "REPAIRED_QUALIFIED",
+    "OPEN_GAP"
+  ],
+  "audit_dimensions": [
+    "bibliographic identity and DOI",
+    "reported numerical values and units",
+    "source claim versus repository claim",
+    "source-to-model construct mapping",
+    "registry-contract-code concordance",
+    "limitations and non-claims"
+  ],
+  "references": [
+    {
+      "id": "REF.HASHER.1977",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.DECHENE.2010",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.PENNYCOOK.2021",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.TOHIDI.2025",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.ARUGUETE.2024",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.ALVARADO.2026",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.ROBERTSON.2023.NEGATIVITY",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.MATIAS.2021.UPWORTHY",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.MATIAS.2024.UPWORTHY_CORRECTION",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.NICKL.2025.ATTENTION_ECONOMY",
+      "status": "REPAIRED_METADATA",
+      "checked_on": "2026-09-21",
+      "note": "Canonical DOI route restored as access URL; source remains preprint-level evidence."
+    },
+    {
+      "id": "REF.WM.ERNST_BANKS.2002",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.WM.KNILL_POUGET.2004",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.WM.ZWAAN_RADVANSKY.1998",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.WM.JOHNSON.1993",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.WM.SPERBER.2010",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    },
+    {
+      "id": "REF.WM.ECKER.2022",
+      "status": "VERIFIED_BIBLIOGRAPHY",
+      "checked_on": "2026-09-21",
+      "note": "Bibliographic identity, DOI and role were checked against publisher/DOI records or the registered primary source."
+    }
+  ],
+  "empirical_targets": [
+    {
+      "id": "TARGET.M1.E1.TOHIDI_2025",
+      "status": "VERIFIED_WITH_QUALIFICATION",
+      "note": "Published N and effect values retained; MTurk sampling and preregistered exclusion flow made explicit."
+    },
+    {
+      "id": "TARGET.M1.E2.ARUGUETE_2024",
+      "status": "VERIFIED_WITH_QUALIFICATION",
+      "note": "Country Ns and engagement contrasts retained; Netquest panel stratification/weighting boundary made explicit."
+    },
+    {
+      "id": "TARGET.M1.E2.ALVARADO_2026",
+      "status": "REPAIRED_QUALIFIED",
+      "note": "Published effects retained; 2075/2074/2044/1901 sample-flow bases and documented composition deviations are now preserved."
+    },
+    {
+      "id": "TARGET.M1.E3.ROBERTSON_2023",
+      "status": "REPAIRED_QUALIFIED",
+      "note": "Confirmatory RCT counts/effects retained; 2024 Upworthy randomization-integrity correction and reliable-subset qualification are explicit."
+    }
+  ],
+  "variables": [
+    {
+      "id": "VAR.FAMILIARITY.CLAIM",
+      "short_name": "F",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.CORRECTION.ACCESS",
+      "short_name": "C",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.RELIABILITY.ESTIMATE",
+      "short_name": "T",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.BELIEF.CLAIM",
+      "short_name": "B",
+      "status": "REPAIRED_QUALIFIED",
+      "note": "Computed at DecisionEvent; it is not automatically persisted as the next prior."
+    },
+    {
+      "id": "VAR.ACCURACY.SALIENCE",
+      "short_name": "W",
+      "status": "REPAIRED_QUALIFIED",
+      "note": "Computed at DecisionEvent from baseline plus cue; it is not a persisted AgentState field."
+    },
+    {
+      "id": "VAR.EXPOSURE.COUNT",
+      "short_name": "Nexp",
+      "status": "REPAIRED_QUALIFIED",
+      "note": "Conceptual/exogenous exposure count; M0 processes ExposureEvent objects and does not persist an Nexp counter."
+    },
+    {
+      "id": "VAR.ACTION.SHARE",
+      "short_name": "Share",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.CONTENT.VALENCE",
+      "short_name": "Vcontent",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.EDITORIAL.EMPHASIS",
+      "short_name": "Eedit",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.OBSERVED.SAMPLE.BALANCE",
+      "short_name": "Sobs",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.ISSUE.APPRAISAL",
+      "short_name": "Aissue",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.PRESENTATION.FRAME",
+      "short_name": "Fpres",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.ATTITUDE.CONGRUENCE",
+      "short_name": "Gatt",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.ENGAGEMENT.PROBABILITY",
+      "short_name": "Pengage",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.ENGAGEMENT.INTENT",
+      "short_name": "EngageIntent",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.HEADLINE.NEGATIVITY",
+      "short_name": "Hneg",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.ACCESS.PROBABILITY",
+      "short_name": "Paccess",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.ACCESS",
+      "short_name": "Access",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    },
+    {
+      "id": "VAR.PREVIEW.IMPRESSION",
+      "short_name": "PreviewImpression",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Definition/range/role is concordant with the current reference implementation or explicitly bounded candidate implementation."
+    }
+  ],
+  "links": [
+    {
+      "id": "LINK.EXPOSURE.FAMILIARITY",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Evidence direction/role was checked against cited sources; registered functional forms remain model-derived or reference candidates unless explicitly stated otherwise."
+    },
+    {
+      "id": "LINK.FAMILIARITY.BELIEF",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Evidence direction/role was checked against cited sources; registered functional forms remain model-derived or reference candidates unless explicitly stated otherwise."
+    },
+    {
+      "id": "LINK.ACCURACY.ACTION",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Evidence direction/role was checked against cited sources; registered functional forms remain model-derived or reference candidates unless explicitly stated otherwise."
+    },
+    {
+      "id": "LINK.EDITORIAL.OBSERVED_SAMPLE",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Evidence direction/role was checked against cited sources; registered functional forms remain model-derived or reference candidates unless explicitly stated otherwise."
+    },
+    {
+      "id": "LINK.OBSERVED_SAMPLE.APPRAISAL",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Evidence direction/role was checked against cited sources; registered functional forms remain model-derived or reference candidates unless explicitly stated otherwise."
+    },
+    {
+      "id": "LINK.PRESENTATION.ENGAGEMENT",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Evidence direction/role was checked against cited sources; registered functional forms remain model-derived or reference candidates unless explicitly stated otherwise."
+    },
+    {
+      "id": "LINK.CONGRUENCE.ENGAGEMENT",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Evidence direction/role was checked against cited sources; registered functional forms remain model-derived or reference candidates unless explicitly stated otherwise."
+    },
+    {
+      "id": "LINK.ENGAGEMENT.PROBABILITY.INTENT",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Evidence direction/role was checked against cited sources; registered functional forms remain model-derived or reference candidates unless explicitly stated otherwise."
+    },
+    {
+      "id": "LINK.HEADLINE_NEGATIVITY.ACCESS_PROBABILITY",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Evidence direction/role was checked against cited sources; registered functional forms remain model-derived or reference candidates unless explicitly stated otherwise."
+    },
+    {
+      "id": "LINK.ACCESS_PROBABILITY.ACCESS",
+      "status": "VERIFIED_BOUNDED",
+      "note": "Evidence direction/role was checked against cited sources; registered functional forms remain model-derived or reference candidates unless explicitly stated otherwise."
+    }
+  ],
+  "processes": [
+    {
+      "id": "ODD.INIT.AGENT",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Code reference and described M0 behavior agree with the executable implementation."
+    },
+    {
+      "id": "ODD.INIT.PARAMS",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Code reference and described M0 behavior agree with the executable implementation."
+    },
+    {
+      "id": "ODD.PROCESS.SCHEDULE",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Code reference and described M0 behavior agree with the executable implementation."
+    },
+    {
+      "id": "ODD.PROCESS.EXPOSURE",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Code reference and described M0 behavior agree with the executable implementation."
+    },
+    {
+      "id": "ODD.PROCESS.CORRECTION",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Code reference and described M0 behavior agree with the executable implementation."
+    },
+    {
+      "id": "ODD.PROCESS.SOURCE",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Code reference and described M0 behavior agree with the executable implementation."
+    },
+    {
+      "id": "ODD.PROCESS.BELIEF",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Code reference and described M0 behavior agree with the executable implementation."
+    },
+    {
+      "id": "ODD.PROCESS.ACTION",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Code reference and described M0 behavior agree with the executable implementation."
+    },
+    {
+      "id": "ODD.OBS.LOG",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Code reference and described M0 behavior agree with the executable implementation."
+    },
+    {
+      "id": "ODD.OBS.PATTERNS",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Code reference and described M0 behavior agree with the executable implementation."
+    },
+    {
+      "id": "ODD.SCALE.TIME",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Code reference and described M0 behavior agree with the executable implementation."
+    },
+    {
+      "id": "ODD.SCALE.LEVELS",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Code reference and described M0 behavior agree with the executable implementation."
+    },
+    {
+      "id": "ODD.M1.PROCESS.EDITORIAL_SELECTION",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Candidate/reference code or test surface exists; candidate status is preserved and not promoted to validated M0 behavior."
+    },
+    {
+      "id": "ODD.M1.PROCESS.ISSUE_APPRAISAL",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Candidate/reference code or test surface exists; candidate status is preserved and not promoted to validated M0 behavior."
+    },
+    {
+      "id": "ODD.M1.OBS.EDITORIAL_PATTERN",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Candidate/reference code or test surface exists; candidate status is preserved and not promoted to validated M0 behavior."
+    },
+    {
+      "id": "ODD.M1.PROCESS.PRESENTATION_FRAME",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Candidate/reference code or test surface exists; candidate status is preserved and not promoted to validated M0 behavior."
+    },
+    {
+      "id": "ODD.M1.PROCESS.CONGRUENCE",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Candidate/reference code or test surface exists; candidate status is preserved and not promoted to validated M0 behavior."
+    },
+    {
+      "id": "ODD.M1.PROCESS.ENGAGEMENT_MODELS",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Candidate/reference code or test surface exists; candidate status is preserved and not promoted to validated M0 behavior."
+    },
+    {
+      "id": "ODD.M1.OBS.PRESENTATION_PATTERN",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Candidate/reference code or test surface exists; candidate status is preserved and not promoted to validated M0 behavior."
+    },
+    {
+      "id": "ODD.M1.PROCESS.PREVIEW_IMPRESSION",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Candidate/reference code or test surface exists; candidate status is preserved and not promoted to validated M0 behavior."
+    },
+    {
+      "id": "ODD.M1.PROCESS.ACCESS_MODELS",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Candidate/reference code or test surface exists; candidate status is preserved and not promoted to validated M0 behavior."
+    },
+    {
+      "id": "ODD.M1.OBS.ACCESS_PATTERN",
+      "status": "VERIFIED_CODE_CONCORDANCE",
+      "note": "Candidate/reference code or test surface exists; candidate status is preserved and not promoted to validated M0 behavior."
+    }
+  ],
+  "scientific_contracts": [
+    {
+      "path": "model/contracts/m1_e3_evidence_contract.json",
+      "status": "REPAIRED_METADATA",
+      "note": "Mattis et al. citation/DOI repaired; Upworthy integrity details tightened; source roles retained."
+    },
+    {
+      "path": "model/contracts/m1_e4_evidence_contract.json",
+      "status": "VERIFIED_CONTENT",
+      "note": "Primary Shulman Study 3 values and Study 4 professional null checked against the source; independent/context boundaries retained."
+    },
+    {
+      "path": "model/contracts/m1_e4_measurement_contract.json",
+      "status": "VERIFIED_CONTENT",
+      "note": "SDT cell ontology, d-prime/criterion formulae and cited measurement references checked; equal-variance and correction assumptions remain explicit."
+    },
+    {
+      "path": "model/contracts/m1_e4_generative_candidate_contract.json",
+      "status": "VERIFIED_CONTENT",
+      "note": "Recognition-model source DOIs and model-class boundary references checked; candidate comparison is not human-model identification."
+    },
+    {
+      "path": "model/contracts/m1_e4_discrimination_protocol.json",
+      "status": "VERIFIED_CONTENT",
+      "note": "Protocol source DOIs and decision boundaries checked; the 0.80 recovery gate remains a project design convention, not an external empirical constant."
+    },
+    {
+      "path": "model/contracts/m1_e4_candidate_recovery_benchmark.json",
+      "status": "VERIFIED_CONTENT",
+      "note": "Synthetic benchmark contract is internally consistent with retained configuration/results and does not make an empirical human claim."
+    },
+    {
+      "path": "model/contracts/m1_e4_participant_aware_recovery.json",
+      "status": "VERIFIED_CONTENT",
+      "note": "Participant-aware synthetic recovery contract remains simulation-only and preserves aggregate-design boundaries."
+    },
+    {
+      "path": "model/contracts/m1_e4_participant_confirmation.json",
+      "status": "VERIFIED_CONTENT",
+      "note": "Prospective 29-cell confirmation surface and 200-replicate gate remain frozen synthetic design metadata."
+    },
+    {
+      "path": "model/contracts/world_model_v1.json",
+      "status": "VERIFIED_WITH_QUALIFICATION",
+      "note": "Bayesian operator and entropy implementation agree with code; LR strict positivity is now explicit. Empirical cognitive references remain contextual support, not evidence that humans literally implement the normative operator."
+    }
+  ],
+  "repaired_findings": [
+    {
+      "id": "CA.F001",
+      "severity": "ERROR",
+      "status": "REPAIRED_METADATA",
+      "path": "model/contracts/m1_e3_evidence_contract.json",
+      "summary": "Mattis et al. 2025 citation used the wrong DOI/pages and incomplete authorship in the M1.E3 copy.",
+      "resolution": "Corrected to DOI 10.1093/joc/jqaf019, pages 437-449, and the five-author publication record."
+    },
+    {
+      "id": "CA.F002",
+      "severity": "LOW",
+      "status": "REPAIRED_METADATA",
+      "path": "model/references.json",
+      "summary": "Nickl preprint access_url pointed to a conference presentation page rather than the canonical preprint route.",
+      "resolution": "Access URL normalized to the DOI route while retaining the preprint evidence status."
+    },
+    {
+      "id": "CA.F003",
+      "severity": "MEDIUM",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "model/empirical_targets.json",
+      "summary": "Alvarado sample metadata collapsed several distinct analysis bases into recruited/analyzed only.",
+      "resolution": "Preserved achieved-panel, consent/screening, treatment-distribution and complete-case regression Ns plus representativeness caveats."
+    },
+    {
+      "id": "CA.F004",
+      "severity": "MEDIUM",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "model/empirical_targets.json",
+      "summary": "Upworthy causal-use limitation did not record the exact scale/period of the archive randomization problem.",
+      "resolution": "Recorded 7,004 tests (22%) and the affected 2013-06-25 through 2014-01-10 interval, while retaining the reliable-subset robustness note."
+    },
+    {
+      "id": "CA.F005",
+      "severity": "MEDIUM",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "model/variables.json",
+      "summary": "Nexp, B and W definitions could be read as persisted runtime states despite different M0 implementation semantics.",
+      "resolution": "Definitions now distinguish conceptual event count from stored state and decision-time computed quantities from persisted AgentState fields."
+    },
+    {
+      "id": "CA.F006",
+      "severity": "LOW",
+      "status": "REPAIRED_QUALIFIED",
+      "path": "model/contracts/world_model_v1.json",
+      "summary": "LR range metadata visually admitted zero while executable code correctly rejects LR <= 0.",
+      "resolution": "Added an explicit strict-positive range note and aligned the definition with executable preconditions."
+    },
+    {
+      "id": "CA.F007",
+      "severity": "TRACEABILITY",
+      "status": "REPAIRED_METADATA",
+      "path": "model/evidence_snapshot.json",
+      "summary": "Source-level metadata corrections require a new evidence metadata revision rather than claiming the r1 snapshot is unchanged.",
+      "resolution": "Advanced to EVIDENCE.M1.2026-09-21.r2 while explicitly retaining the same evidence set and unchanged model equations/benchmark results."
+    }
+  ],
+  "open_gaps": [
+    {
+      "id": "CA.G001",
+      "status": "OPEN_GAP",
+      "severity": "MEDIUM",
+      "area": "parameter domains",
+      "summary": "ModelParams defaults are demonstrative, but arbitrary user-supplied alpha/beta values do not yet have a complete scientific admissibility contract. No unsupported bounds are invented in v0.1.1."
+    },
+    {
+      "id": "CA.G002",
+      "status": "OPEN_GAP",
+      "severity": "SCIENTIFIC_BOUNDARY",
+      "area": "evidence synthesis",
+      "summary": "The evidence registry is a bounded snapshot, not a systematic review, meta-analysis, or calibration dataset."
+    },
+    {
+      "id": "CA.G003",
+      "status": "OPEN_GAP",
+      "severity": "SCIENTIFIC_BOUNDARY",
+      "area": "conceptual coverage",
+      "summary": "Thirteen of twenty conceptual modules currently have no variables registered through variables.json; their presence is a roadmap, not executable coverage."
+    },
+    {
+      "id": "CA.G004",
+      "status": "OPEN_GAP",
+      "severity": "SCIENTIFIC_BOUNDARY",
+      "area": "endogeneity",
+      "summary": "Event schedules remain externally supplied and Share does not generate future exposure; feedback closure is future research under Issue #110."
+    },
+    {
+      "id": "CA.G005",
+      "status": "OPEN_GAP",
+      "severity": "SCIENTIFIC_BOUNDARY",
+      "area": "human validation",
+      "summary": "Synthetic recovery does not establish a human recognition architecture, identify Pencode, or authorize recruitment."
+    },
+    {
+      "id": "CA.G006",
+      "status": "OPEN_GAP",
+      "severity": "MEDIUM",
+      "area": "M1.E4 item heterogeneity",
+      "summary": "The retained participant-level aggregate representation does not preserve item identity; a crossed participant-item model requires a new prospective contract."
+    }
+  ]
+}
