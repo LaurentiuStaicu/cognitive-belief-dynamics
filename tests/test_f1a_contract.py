@@ -36,7 +36,8 @@ def test_f1a_contract_preserves_v011_scientific_boundaries() -> None:
         "empirical_parameter_claim_allowed": False,
         "evidence_set_expansion_allowed": False,
         "canonical_paradigm_change_allowed": False,
-        "next_status_candidate": "SYNTHETIC_EXECUTABLE",
+        "next_status_candidate": "RECOVERY_TESTED",
+        "automatic_further_promotion_allowed": False,
     }
 
 
@@ -54,7 +55,7 @@ def test_f1a_protected_core_files_are_declared() -> None:
 def test_f1a_odd_supplement_is_explicitly_synthetic() -> None:
     text = (ROOT / "docs" / "ODD_ENDOGENOUS_SCHEDULER.md").read_text(encoding="utf-8")
     for token in (
-        "STRUCTURAL_SYNTHETIC_EXPERIMENT_ONLY",
+        "SYNTHETIC_EXECUTABLE",
         "abstract event time",
         "ForcedPassThroughPolicy",
         "does not reclassify CBD",
