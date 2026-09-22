@@ -95,6 +95,22 @@ It remains distinct from the synthetic dyadic:
 
 `q_transmit = P(CBD ExposureEvent | realised Share-edge opportunity)`.
 
+## Public privacy controls now confirmed
+
+The González-Bailón et al. paper explicitly states that, to protect privacy:
+
+- the academic analysis did not use individual-level data;
+- exposure and engagement metrics were analyzed in aggregate;
+- URL analysis was limited to URLs shared more than 100 times by U.S.-based users during the observation period.
+
+The >100-share inclusion threshold is explicitly described as a privacy-related threshold in the paper.
+
+These controls explain part of the released analysis surface, but they do **not** prove that the ICPSR release applies no additional disclosure controls. The public material audited so far does not establish whether released audience counts are additionally suppressed, perturbed, rounded, estimated, or transformed.
+
+Therefore the known privacy architecture is:
+
+`AGGREGATE_ONLY + URL_SHARE_THRESHOLD_GT_100 + POSSIBLE_ADDITIONAL_RELEASE_CONTROLS_UNRESOLVED`.
+
 ## What remains unresolved before calculation
 
 The public material audited here still does not expose enough detail to authorize numerical pairing.
