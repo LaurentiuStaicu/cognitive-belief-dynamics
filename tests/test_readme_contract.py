@@ -138,12 +138,14 @@ def test_public_readme_stays_within_quality_budget() -> None:
     assert len(table_separators) <= budget["maximum_tables"]
 
 
-def test_public_readme_uses_tables_only_for_compact_structural_content() -> None:
+def test_public_readme_uses_mobile_readable_structured_lists() -> None:
     text = read(README)
-    assert text.count("| Concept | What it represents in CBD |") == 1
+    assert "| Concept | What it represents in CBD |" not in text
     assert "| Area | Current model | Possible mature direction, if supported |" not in text
     assert "| Research question | What CBD provides |" not in text
     assert "| If you want to… | Start here |" not in text
+    assert "**Information history:**" in text
+    assert "**Probabilistic action:**" in text
     assert "**Information sequence:** Current —" in text
     assert "**Empirical status:** Current —" in text
 
