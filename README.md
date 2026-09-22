@@ -25,11 +25,13 @@
 
 ### What is CBD?
 
-Cognitive Belief Dynamics (CBD) is a scientific model for studying how an agent's cognitive state can evolve over time as information is encountered, remembered, corrected, re-evaluated and acted upon.
+Cognitive Belief Dynamics (CBD) is a scientific model for studying how the cognitive state of a modeled agent — an abstract representation of an information-processing individual — can evolve over time as information is encountered, remembered, corrected, re-evaluated and acted upon.
 
 Its central premise is that responses to information are **history-dependent**. The same message may have different effects depending on what an agent has previously seen, what corrective context remains accessible, how reliable the source is believed to be, and what incentives or accuracy cues are present when a decision is made.
 
 CBD therefore represents cognition as a **dynamic process rather than a sequence of isolated reactions**. Earlier events can leave persistent effects, some of those effects can decay, repeated exposure can accumulate, and later decisions can depend on the state produced by the preceding history.
+
+Its scope is intentionally narrower than cognition as a whole. CBD focuses on information-related state change and decision processes that are explicitly represented in the model; it does not claim to reproduce the full range of human cognitive processes.
 
 Technically, CBD is an **event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking**. It is **not currently a formal System Dynamics model** because the present architecture does not yet implement a complete set of closed endogenous feedback loops.
 
@@ -70,13 +72,13 @@ CBD is designed to support controlled research questions about information-proce
 
 | Research question | What CBD provides |
 | --- | --- |
-| How can repeated exposure change later responses? | A persistent familiarity mechanism with bounded accumulation |
-| How can the timing of corrections matter? | Corrective context that can persist and decay over time |
-| How can judgments about a source affect later processing? | A source-reliability state that can be updated from feedback |
-| Why can event order matter even when the same events occur? | State that carries information from earlier events into later ones |
-| How can accuracy cues or incentives alter a decision? | Decision context that can change the relative influence of accuracy-related and other factors |
-| How can uncertainty be represented without forcing identical outcomes? | Probabilistic decisions with reproducible stochastic simulation |
-| How might information eventually propagate between agents? | A limited research path toward linking one agent's sharing action to another agent's later exposure |
+| How can repeated exposure change later responses? | Familiarity can accumulate across repeated exposures while remaining bounded |
+| How can the timing of corrections matter? | Corrective context can remain available for a period and become less accessible with time |
+| How can judgments about a source affect later processing? | The model can track perceived source reliability and revise it when feedback is supplied |
+| Why can event order matter even when the same events occur? | Earlier events can change the state carried into later events |
+| How can accuracy cues or incentives alter a decision? | The context at decision time can change the balance between accuracy-related and other influences |
+| How can uncertainty be represented without forcing identical outcomes? | Decisions can remain probabilistic while simulations remain reproducible |
+| How might information eventually propagate between agents? | An experimental path can link one agent's sharing action to another agent's later exposure |
 
 These capabilities make CBD suitable for exploring **mechanisms, temporal ordering, path dependence, uncertainty and candidate feedback structures** under explicit assumptions.
 
@@ -102,7 +104,7 @@ For the exact current implementation, evidence qualifications and open scientifi
 
 ### Research direction
 
-CBD is intended to become more endogenous only where the scientific question and evidence justify doing so. The distinction between present capability and intended mature direction is deliberate.
+CBD is intended to generate more of its own future information sequence from earlier modeled actions only where the scientific question and evidence justify doing so. The distinction between present capability and intended mature direction is deliberate.
 
 | Area | Current model | Intended mature direction, if evidence supports it |
 | --- | --- | --- |
@@ -113,7 +115,7 @@ CBD is intended to become more endogenous only where the scientific question and
 | Learning / adaptation | Not part of the stable executable core | Explicit adaptation mechanisms with defined states and validation rules |
 | Empirical status | Computational, synthetic and component-level evidence with explicit limits | Calibration and validation appropriate to each mechanism and population of interest |
 
-A more mature CBD may therefore represent a cycle in which a decision to share affects another agent's exposure, that exposure changes the recipient's state, and the recipient's later state influences another decision. Whether such a structure should remain an event-driven agent model or justify a stronger System Dynamics classification must be determined by the actual scientific structure, not by a desire for uniformity across projects.
+A more mature CBD may therefore represent a cycle in which a decision to share affects another agent's exposure, that exposure changes the recipient's state, and the recipient's later state influences another decision. Whether such a structure should remain an event-driven agent model or eventually justify describing CBD as a formal System Dynamics model must be determined by the actual scientific structure, not by a desire for uniformity across projects.
 
 The objective is not maximum complexity. It is a model in which every added mechanism has a clear role, explicit assumptions, traceable evidence and an appropriate validation strategy.
 
