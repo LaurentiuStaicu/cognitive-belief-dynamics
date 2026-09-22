@@ -1,5 +1,5 @@
 {
-  "contract_version": "2.2",
+  "contract_version": "2.3",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -35,8 +35,9 @@
   ],
   "information_architecture": [
     "What is CBD?",
+    "Research purpose",
     "Conceptual model",
-    "What CBD can be used to study",
+    "Research questions CBD can explore",
     "Current capabilities and scientific limits",
     "Research direction",
     "Using and reproducing CBD",
@@ -56,7 +57,9 @@
     "tagline_is_plain_language_before_technical_identity": true,
     "conceptual_understanding_before_implementation_detail": true,
     "no_procedural_walkthrough_of_internal_model_mechanics": true,
-    "technical_run_instructions_are_secondary_to_scientific_explanation": true
+    "technical_run_instructions_are_secondary_to_scientific_explanation": true,
+    "statement_of_need_precedes_model_detail": true,
+    "model_purpose_must_distinguish_simulation_from_empirical_establishment": true
   },
   "public_readme_forbidden_internal_terms": [
     "M0",
