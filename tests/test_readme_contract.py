@@ -38,12 +38,11 @@ def test_public_readme_follows_reader_oriented_information_order() -> None:
     text = read(README)
     sections = (
         "### What is CBD?",
-        "### Model at a glance",
-        "### How CBD works",
-        "### Current capabilities and limits",
+        "### Conceptual model",
+        "### What CBD can be used to study",
+        "### Current capabilities and scientific limits",
         "### Research direction",
-        "### Quick start",
-        "### Reproduce the computational baseline",
+        "### Using and reproducing CBD",
         "### Where to go next",
         "### Support, citation and license",
     )
@@ -63,8 +62,8 @@ def test_public_readme_explains_current_model_and_scientific_boundaries() -> Non
     required = (
         "event-driven cognitive state-transition and agent-level stochastic dynamical model",
         "not currently a formal system dynamics model",
-        "stable release baseline is externally scheduled",
-        "seeded random draw",
+        "stable release baseline remains externally scheduled",
+        "probabilistic decisions with reproducible stochastic simulation",
         "not currently a validated predictor of individual or population human behavior",
         "a truth detector, a diagnostic system or an automatic judge",
         "do not by themselves establish human validation",
@@ -81,8 +80,11 @@ def test_public_readme_routes_audit_detail_to_reference_files() -> None:
     assert "[CHANGELOG.md](CHANGELOG.md)" in text
     assert "[model/](model/)" in text
     assert "Internal experiment identifiers, audit codes, benchmark cell counts and development gates" in text
-    assert "### Model at a glance" in text
-    assert "### Current capabilities and limits" in text
+    assert "### Conceptual model" in text
+    assert "### What CBD can be used to study" in text
+    assert "### Current capabilities and scientific limits" in text
+    assert "**1. The agent carries state forward.**" not in text
+    assert "### How CBD works" not in text
 
 
 def test_public_readme_local_links_resolve() -> None:
@@ -116,6 +118,7 @@ def test_public_readme_stays_within_quality_budget() -> None:
 
 def test_public_readme_reproducibility_routes_are_current() -> None:
     text = read(README)
+    assert "### Using and reproducing CBD" in text
     assert "requirements/ci-py312-linux.lock.txt" in text
     assert "python -m build --no-isolation" in text
     assert "cemodel validate --root ." in text
