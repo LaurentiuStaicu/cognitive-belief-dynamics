@@ -38,7 +38,8 @@
       "docs/F1A_EMPIRICAL_OBSERVABILITY_AUDIT.md",
       "docs/F1A_PLATFORM_VIEW_BRIDGE_DESIGN.md",
       "docs/F1A_SOMAR_PUBLIC_CODEBOOK_AUDIT.md",
-      "docs/F1A_SOMAR_COUNT_SEMANTICS_AUDIT.md"
+      "docs/F1A_SOMAR_COUNT_SEMANTICS_AUDIT.md",
+      "docs/F1A_SOMAR_COLUMN_PRIVACY_AUDIT.md"
     ],
     "evidence": [
       "model/evidence_snapshot.json",
