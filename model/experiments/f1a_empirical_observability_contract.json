@@ -59,20 +59,26 @@
     },
     {
       "id": "DATA.BLUESKY.ATPROTO.PROSPECTIVE",
-      "citation": "Bluesky HTTP API and feed-generator architecture",
-      "access_state": "PROSPECTIVE_INSTRUMENTATION_DESIGN",
+      "citation": "Bluesky AT Protocol app.bsky.feed.defs interaction lexicon and social-app interaction-delivery implementation notes",
+      "access_state": "PROSPECTIVE_PROTOCOL_CAPABILITY_DEPLOYMENT_ACCESS_UNVERIFIED",
       "observed": [
-        "authenticated_feed_requests_if_instrumented",
-        "returned_feed_candidate_uris_if_instrumented"
+        "feed_requests_and_returned_candidate_uris_if_instrumented",
+        "protocol_lexicon_defines_interaction_seen_token",
+        "interaction_item_at_uri",
+        "interaction_feed_context",
+        "interaction_request_id"
       ],
       "can_constrain": [
-        "candidate_delivery_process_under_prospective_instrumentation"
+        "candidate_delivery_process_under_prospective_instrumentation",
+        "platform_seen_event_if_current_client_emission_and_research_access_are_verified"
       ],
       "missing_for_q_transmit": [
-        "proof_of_rendered_view_without_client_instrumentation",
+        "verified_third_party_delivery_of_interaction_seen_at_study_start",
+        "privacy_permission_and_consent_contract",
+        "historical_public_seen_event_dataset",
         "cognitive_exposure_measurement_bridge"
       ],
-      "verdict": "PROSPECTIVE_INSTRUMENTATION_CANDIDATE"
+      "verdict": "PROSPECTIVE_INSTRUMENTATION_CANDIDATE_DEPLOYMENT_ACCESS_PRIVACY_REVIEW_REQUIRED"
     },
     {
       "id": "DATA.SNAP.HIGGS",
