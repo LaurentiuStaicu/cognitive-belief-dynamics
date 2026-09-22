@@ -206,3 +206,19 @@ def test_public_readme_pages_sensitive_links_use_github_urls() -> None:
     )
     for target in forbidden_relative_targets:
         assert target not in text
+
+
+
+def test_public_readme_section_hierarchy_is_uniform() -> None:
+    text = read(README)
+    section_headings = re.findall(r"(?m)^(#{1,6})\s+(.+)$", text)
+    assert section_headings
+    assert all(level == "###" for level, _ in section_headings)
+
+
+def test_public_readme_collapsible_reproduction_markup_is_balanced() -> None:
+    text = read(README)
+    assert text.count("<details>") == 1
+    assert text.count("</details>") == 1
+    assert text.count("<summary>") == 1
+    assert text.count("</summary>") == 1
