@@ -1,5 +1,5 @@
 {
-  "contract_version": "3.6",
+  "contract_version": "3.7",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -21,7 +21,7 @@
     ],
     "header_badges": [
       "release",
-      "Scientific CI",
+      "CBD validation",
       "license"
     ],
     "tagline": "one centered sentence",
@@ -66,7 +66,8 @@
     "tables_reserved_for_true_comparison_or_compact_structural_mapping": true,
     "first_section_should_establish_identity_scope_and_paradigm_without_extended_status_detail": true,
     "multi_column_comparison_tables_must_be_avoided_when_they_degrade_narrow_screen_readability": true,
-    "definition_mappings_should_use_reader_friendly_lists_instead_of_tables": true
+    "definition_mappings_should_use_reader_friendly_lists_instead_of_tables": true,
+    "approved_icon_and_badge_labels_are_frozen_without_explicit_user_approval": true
   },
   "public_readme_forbidden_internal_terms": [
     "M0",
