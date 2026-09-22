@@ -68,15 +68,13 @@ If two agents receive the same final message through different prior histories, 
 
 CBD is designed to support controlled research questions about information-processing dynamics rather than to produce a single universal prediction.
 
-| Research question | What CBD provides |
-| --- | --- |
-| How can repeated exposure change later responses? | Familiarity can accumulate across repeated exposures while remaining bounded |
-| How can the timing of corrections matter? | Corrective context can remain available for a period and become less accessible with time |
-| How can judgments about a source affect later processing? | The model can track perceived source reliability and revise it when feedback is supplied |
-| Why can event order matter even when the same events occur? | Earlier events can change the state carried into later events |
-| How can accuracy cues or incentives alter a decision? | The context at decision time can change the balance between accuracy-related and other influences |
-| How can uncertainty be represented without forcing identical outcomes? | Decisions can remain probabilistic while simulations remain reproducible |
-| How might information eventually propagate between agents? | An experimental path can link one agent's sharing action to another agent's later exposure |
+- **Repeated exposure:** how can repeated encounters with the same claim change later responses? CBD allows familiarity to accumulate while remaining bounded.
+- **Timing of corrections:** how can a correction matter differently depending on when it occurs? Corrective context can remain available for a period and become less accessible with time.
+- **Source judgments:** how can perceived source reliability affect later processing? CBD can revise that estimate when feedback is supplied.
+- **Event order:** why can the same set of events lead to different later states when the order changes? Earlier events can alter the state carried into later ones.
+- **Decision context:** how can accuracy cues or incentives alter a judgment or sharing decision? Their influence is represented at the moment of decision.
+- **Uncertainty:** how can the model avoid forcing identical outcomes from identical-looking situations? Decisions can remain probabilistic while simulations remain reproducible.
+- **Inter-agent propagation:** how might one agent's action eventually affect another agent's information history? An experimental path can link sharing to a later exposure.
 
 These capabilities make CBD suitable for exploring **mechanisms, temporal ordering, path dependence, uncertainty and possible feedback structures** under explicit assumptions.
 
@@ -160,16 +158,14 @@ A passing computational baseline means that the declared software, schemas, test
 
 ### Where to go next
 
-| If you want to… | Start here |
-| --- | --- |
-| Understand the exact current scientific boundary | [STATUS.md](STATUS.md) |
-| Inspect model definitions and evidence records | [model/](model/) |
-| Inspect the executable implementation | [src/cognitive_epistemic_model/](src/cognitive_epistemic_model/) |
-| Review reproducibility and verification | [schemas/](schemas/) and [tests/](tests/) |
-| See what changed and why | [CHANGELOG.md](CHANGELOG.md) |
-| Continue development or recover project context | [DEVELOPMENT.md](DEVELOPMENT.md) |
-| Reproduce a released snapshot | [releases/](releases/) and the corresponding Git tag |
-| Cite CBD | [CITATION.cff](CITATION.cff) |
+- **Current scientific boundary:** [STATUS.md](STATUS.md)
+- **Model definitions and evidence records:** [model/](model/)
+- **Executable implementation:** [src/cognitive_epistemic_model/](src/cognitive_epistemic_model/)
+- **Reproducibility and verification:** [schemas/](schemas/) and [tests/](tests/)
+- **Change history:** [CHANGELOG.md](CHANGELOG.md)
+- **Development continuity:** [DEVELOPMENT.md](DEVELOPMENT.md)
+- **Released snapshots:** [releases/](releases/) and the corresponding Git tag
+- **Citation:** [CITATION.cff](CITATION.cff)
 
 
 ### Support, citation and license
