@@ -119,6 +119,15 @@ def test_public_readme_stays_within_quality_budget() -> None:
     assert len(words) <= budget["maximum_words"]
     assert len(headings) <= budget["maximum_primary_headings"]
     assert len(re.findall(r"<img alt=", text.split("---", 1)[0])) <= budget["maximum_primary_header_badges"]
+    assert len(re.findall(r"(?m)^\|.*\|\s*$", text)) <= 2 + (budget["maximum_tables"] * 20)
+
+
+def test_public_readme_uses_tables_only_for_structural_or_comparative_content() -> None:
+    text = read(README)
+    assert text.count("| Concept | What it represents in CBD |") == 1
+    assert text.count("| Area | Current model | Intended mature direction, if evidence supports it |") == 1
+    assert "| Research question | What CBD provides |" not in text
+    assert "| If you want to… | Start here |" not in text
 
 
 def test_public_readme_reproducibility_routes_are_current() -> None:
