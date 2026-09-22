@@ -1,0 +1,257 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/f1a_empirical_observability_contract.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "feedback_family",
+    "current_stage",
+    "candidate_stage",
+    "promotion_authorized",
+    "estimand",
+    "required_measurements",
+    "construct_separation",
+    "candidate_sources",
+    "partial_constraint_policy",
+    "empirical_promotion_gate",
+    "interpretation_boundary"
+  ],
+  "properties": {
+    "id": {
+      "const": "CONTRACT.F1A.EMPIRICAL_OBSERVABILITY.2026-09-22"
+    },
+    "status": {
+      "const": "EMPIRICAL_BRIDGE_AUDIT_ONLY"
+    },
+    "feedback_family": {
+      "const": "F1a"
+    },
+    "current_stage": {
+      "const": "RECOVERY_TESTED"
+    },
+    "candidate_stage": {
+      "const": "EMPIRICALLY_CONSTRAINED"
+    },
+    "promotion_authorized": {
+      "const": false
+    },
+    "estimand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "definition",
+        "active_runtime_parameter",
+        "empirical_estimation_authorized"
+      ],
+      "properties": {
+        "name": {
+          "const": "q_transmit"
+        },
+        "definition": {
+          "type": "string",
+          "minLength": 40
+        },
+        "active_runtime_parameter": {
+          "const": false
+        },
+        "empirical_estimation_authorized": {
+          "const": false
+        }
+      }
+    },
+    "required_measurements": {
+      "type": "array",
+      "minItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "construct_separation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network_eligibility_not_exposure",
+        "feed_candidate_not_impression",
+        "impression_not_automatically_cognitive_exposure",
+        "repost_not_exposure",
+        "like_not_exposure",
+        "downstream_action_not_denominator"
+      ],
+      "properties": {
+        "network_eligibility_not_exposure": {
+          "const": true
+        },
+        "feed_candidate_not_impression": {
+          "const": true
+        },
+        "impression_not_automatically_cognitive_exposure": {
+          "const": true
+        },
+        "repost_not_exposure": {
+          "const": true
+        },
+        "like_not_exposure": {
+          "const": true
+        },
+        "downstream_action_not_denominator": {
+          "const": true
+        }
+      }
+    },
+    "candidate_sources": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "citation",
+          "access_state",
+          "observed",
+          "can_constrain",
+          "missing_for_q_transmit",
+          "verdict"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 8
+          },
+          "citation": {
+            "type": "string",
+            "minLength": 20
+          },
+          "access_state": {
+            "type": "string",
+            "minLength": 10
+          },
+          "observed": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "can_constrain": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "missing_for_q_transmit": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "verdict": {
+            "type": "string",
+            "minLength": 12
+          }
+        }
+      }
+    },
+    "partial_constraint_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "topology_constraints_allowed",
+        "action_constraints_allowed",
+        "stage_promotion_from_partial_constraints_allowed",
+        "q_transmit_must_remain_calibration_only_until_direct_bridge"
+      ],
+      "properties": {
+        "topology_constraints_allowed": {
+          "const": true
+        },
+        "action_constraints_allowed": {
+          "const": true
+        },
+        "stage_promotion_from_partial_constraints_allowed": {
+          "const": false
+        },
+        "q_transmit_must_remain_calibration_only_until_direct_bridge": {
+          "const": true
+        }
+      }
+    },
+    "empirical_promotion_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dataset_and_version_frozen",
+        "observational_unit_defined",
+        "numerator_defined",
+        "denominator_defined",
+        "eligibility_candidate_impression_cognitive_exposure_separated",
+        "item_source_transmitter_identity_defined",
+        "missingness_handling_defined",
+        "negative_opportunities_observable",
+        "target_population_platform_time_period_defined",
+        "uncertainty_quantified",
+        "falsification_or_negative_controls_defined",
+        "action_only_proxy_for_exposure_forbidden",
+        "all_requirements_must_be_satisfied_before_promotion"
+      ],
+      "properties": {
+        "dataset_and_version_frozen": {
+          "const": true
+        },
+        "observational_unit_defined": {
+          "const": true
+        },
+        "numerator_defined": {
+          "const": true
+        },
+        "denominator_defined": {
+          "const": true
+        },
+        "eligibility_candidate_impression_cognitive_exposure_separated": {
+          "const": true
+        },
+        "item_source_transmitter_identity_defined": {
+          "const": true
+        },
+        "missingness_handling_defined": {
+          "const": true
+        },
+        "negative_opportunities_observable": {
+          "const": true
+        },
+        "target_population_platform_time_period_defined": {
+          "const": true
+        },
+        "uncertainty_quantified": {
+          "const": true
+        },
+        "falsification_or_negative_controls_defined": {
+          "const": true
+        },
+        "action_only_proxy_for_exposure_forbidden": {
+          "const": true
+        },
+        "all_requirements_must_be_satisfied_before_promotion": {
+          "const": true
+        }
+      }
+    },
+    "interpretation_boundary": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string",
+        "minLength": 20
+      }
+    }
+  }
+}
