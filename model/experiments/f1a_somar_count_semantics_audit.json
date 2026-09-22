@@ -33,7 +33,9 @@
     "repeated_view_volume_separate_from_unique_audience",
     "potential_exposed_engaged_audiences_are_distinct_funnel_stages",
     "owner_all_category_means_users_pages_groups_combined",
-    "study_inventory_is_ranked_into_feed"
+    "study_inventory_is_ranked_into_feed",
+    "analysis_uses_aggregate_not_individual_level_exposure_engagement_metrics",
+    "url_inclusion_requires_more_than_100_us_shares_for_privacy"
   ],
   "unresolved_blockers": [
     "exact_potential_audience_column_name",
@@ -61,6 +63,7 @@
     "The candidate r_view uses unique-user audience counts in both numerator and denominator.",
     "A valid r_view would constrain only the aggregate PotentialDelivery-to-PlatformView component.",
     "The FIES funnel supports study-specific subset interpretation but is not a universal Facebook transmission law.",
+    "Public FIES documentation confirms aggregate-only analysis and a privacy-motivated greater-than-100-share URL inclusion threshold, but does not establish absence of additional release disclosure controls.",
     "PlatformView remains distinct from CBD cognitive ExposureEvent.",
     "F1a remains RECOVERY_TESTED."
   ]
