@@ -176,15 +176,16 @@ Released tags are immutable historical snapshots and must not be rewritten to co
 
 ## Current next gates
 
-1. Keep F1a at **RECOVERY_TESTED**. The SOMAR public-codebook audit establishes structural pairing plausibility only; it does not authorize numerical analysis or ladder promotion.
-2. Inspect the public political-segregation data dictionary / variable-description definitions for the URL-level potential-exposure, actual-exposure and engagement tables. Freeze the exact variable names before any calculation.
-3. Resolve whether audience fields are unique/deduplicated/estimated users, how repeated views are counted, whether owner_type=`all` is a recomputed union or another aggregation, and how suppression/rounding/missingness are represented.
-4. Verify that potential and actual URL rows use compatible URL canonicalization, population filters, periods and owner-type semantics, and that actual audience is subset-compatible with potential audience.
-5. Only after every hard gate is satisfied may a prospective empirical-analysis contract authorize calculation of aggregate `r_view = actual_view_audience / potential_audience`. Such a quantity would constrain PotentialDelivery→PlatformView only and is not dyadic `q_transmit`.
-6. If any compatibility requirement fails, retain the negative result; do not swap denominators, reinterpret missing rows as zeros, or redefine the estimand post hoc.
-7. Keep the separate PlatformView→CBD CognitiveExposure bridge unresolved until a defensible measurement model is prospectively specified.
-8. Do not begin recipient Decision generation or the full Share→Exposure→Decision→Share loop until the source-attribution, item-identity and decision-opportunity contracts identified in Issue #110 are resolved.
-9. Treat any future M1.E4 item-heterogeneity redesign as a separate prospective post-M1 research program.
+1. Keep F1a at **RECOVERY_TESTED**. Public FIES documentation now resolves Audience versus Content views semantics and the intended potential→exposed→engaged funnel, but no numerical empirical component has yet been estimated.
+2. Treat candidate `r_view` only as `exposed_audience_users / potential_audience_users`. Never substitute `content_views` for exposed audience: Content views are screen-appearance counts and can include repeated views, whereas Audience is a user/participant count viewed at least once.
+3. Resolve the exact released column names and definitions for potential audience and exposed audience in ICPSR 300450 and 300470.
+4. Audit privacy/disclosure controls: suppression/minimum-cell rules, perturbation/noise, rounding, estimated-count semantics, and how such transformations affect ratios.
+5. Freeze missing/suppressed/structural-zero handling, absent-URL semantics, URL canonicalization, release-version row linkage and any table-specific filters before pairing rows.
+6. Treat owner_type=`all` as the documented combined posts-from-users/Pages/groups category, but do not assume its audience count equals a simple sum of the three component rows because users can overlap.
+7. Only after the `COLUMN_IDENTITY_AND_PRIVACY_RULES_AUDIT` passes may a separate prospective empirical-analysis contract authorize an `r_view` calculation. If any gate fails, retain the negative result rather than substituting a different denominator post hoc.
+8. Keep PlatformView→CBD CognitiveExposure unresolved until a prospective cognitive measurement bridge is justified; even a valid FIES `r_view` is not dyadic `q_transmit`.
+9. Do not begin recipient Decision generation or the full Share→Exposure→Decision→Share loop until source-attribution, item-identity and decision-opportunity contracts identified in Issue #110 are resolved.
+10. Treat any future M1.E4 item-heterogeneity redesign as a separate prospective post-M1 research program.
 
 ## How to resume after context loss
 
