@@ -1,0 +1,67 @@
+{
+  "id": "AUDIT.F1A.SOMAR.COUNT_SEMANTICS.2026-09-22",
+  "status": "COUNT_SEMANTICS_PARTIALLY_RESOLVED",
+  "feedback_family": "F1a",
+  "current_stage": "RECOVERY_TESTED",
+  "empirical_promotion_authorized": false,
+  "numerical_calculation_authorized": false,
+  "resolved_semantics": {
+    "audience": "NUMBER_OF_USERS_OR_PARTICIPANTS_WHO_VIEWED_ORGANIC_CONTENT_AT_LEAST_ONCE",
+    "content_views": "NUMBER_OF_TIMES_CONTENT_APPEARED_ON_SCREEN",
+    "facebook_view_threshold": "VISIBLE_PORTION_RENDERED_MORE_THAN_250_MS",
+    "repeated_views_can_increase_content_views": true,
+    "potential_audience": "USERS_WHO_COULD_POTENTIALLY_SEE_CONTENT_BECAUSE_SHARED_BY_CONNECTION",
+    "exposed_audience": "UNIQUE_USERS_WHO_SAW_POST_CONTAINING_URL_IN_FEED",
+    "engaged_audience": "UNIQUE_USERS_WHO_CLICKED_REACTED_LIKED_RESHARED_OR_COMMENTED",
+    "owner_all": "POSTS_FROM_USERS_PAGES_AND_GROUPS",
+    "owner_all_simple_sum_assumed": false,
+    "inventory_ranked_into_feed": true
+  },
+  "candidate_component_quantity": {
+    "id": "CANDIDATE.R_VIEW.URL_OWNER",
+    "formula": "exposed_audience_users / potential_audience_users",
+    "numerator_semantics": "UNIQUE_USERS_VIEWED_AT_LEAST_ONCE",
+    "denominator_semantics": "UNIQUE_USERS_POTENTIALLY_ELIGIBLE_VIA_CONNECTION_INVENTORY",
+    "content_views_allowed_as_numerator": false,
+    "status": "CONCEPTUALLY_JUSTIFIED_NUMERICALLY_BLOCKED",
+    "equivalent_to_q_transmit": false
+  },
+  "resolved_blockers": [
+    "audience_is_user_count_not_view_event_count",
+    "content_views_include_screen_appearance_count",
+    "facebook_view_operational_threshold_over_250_ms_visible_render",
+    "repeated_view_volume_separate_from_unique_audience",
+    "potential_exposed_engaged_audiences_are_distinct_funnel_stages",
+    "owner_all_category_means_users_pages_groups_combined",
+    "study_inventory_is_ranked_into_feed"
+  ],
+  "unresolved_blockers": [
+    "exact_potential_audience_column_name",
+    "exact_exposed_audience_column_name",
+    "released_count_raw_transformed_privacy_protected_or_estimated_semantics",
+    "suppression_minimum_cell_perturbation_rounding_rules",
+    "missing_suppressed_vs_structural_zero_encoding",
+    "absent_url_row_semantics",
+    "url_canonicalization_and_key_identity",
+    "owner_all_deduplicated_union_and_overlap_handling",
+    "table_specific_additional_filter_compatibility",
+    "weighting_or_estimation_for_released_audience_counts",
+    "release_version_row_linkage_rule"
+  ],
+  "next_gate": {
+    "name": "COLUMN_IDENTITY_AND_PRIVACY_RULES_AUDIT",
+    "exact_columns_required": true,
+    "privacy_disclosure_rules_required": true,
+    "missingness_policy_required": true,
+    "url_linkage_rule_required": true,
+    "automatic_calculation_allowed": false
+  },
+  "interpretation_boundary": [
+    "Audience counts and content-view counts are different estimands and must not be substituted.",
+    "The candidate r_view uses unique-user audience counts in both numerator and denominator.",
+    "A valid r_view would constrain only the aggregate PotentialDelivery-to-PlatformView component.",
+    "The FIES funnel supports study-specific subset interpretation but is not a universal Facebook transmission law.",
+    "PlatformView remains distinct from CBD cognitive ExposureEvent.",
+    "F1a remains RECOVERY_TESTED."
+  ]
+}
