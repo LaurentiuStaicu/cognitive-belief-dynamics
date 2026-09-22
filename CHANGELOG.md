@@ -16,6 +16,7 @@ All notable public scientific-core releases of Cognitive Belief Dynamics (CBD) a
 - advances F1a to `RECOVERY_TESTED` only; `q_transmit` remains calibration-only, F1a is not empirically constrained or active, and the canonical System Dynamics boundary is unchanged.
 - adds a post-recovery empirical-observability audit: Bluesky/SNAP-style public data may constrain topology and action components, but no current audited public source supplies the recipient-specific exposure/impression and negative-opportunity measurements required to estimate the present `q_transmit`; no empirical promotion is authorized.
 - adds a platform-view component bridge based on SOMAR/FIES public metadata, separating potential delivery, actual platform view and cognitive exposure; candidate aggregate view/engagement ratios remain restricted-codebook-gated and are explicitly not `q_transmit`.
+- audits the public SOMAR project codebook and confirms structural compatibility across URL-level potential exposure, actual exposure and engagement (URL × owner type, common study period and broad active-user population), while keeping all numerical pairing blocked pending exact variable/count/privacy semantics.
 
 ## 0.1.1 - 2026-09-21
 
