@@ -171,7 +171,6 @@ A passing computational baseline means that the declared software, schemas, test
 | Reproduce a released snapshot | [releases/](releases/) and the corresponding Git tag |
 | Cite CBD | [CITATION.cff](CITATION.cff) |
 
-The landing page explains the model and its public scientific boundary. Internal experiment identifiers, audit codes, benchmark cell counts and development gates remain in the technical records where they support traceability, reproducibility and continuation of work.
 
 ### Support, citation and license
 
