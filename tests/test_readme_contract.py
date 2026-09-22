@@ -31,7 +31,7 @@ def test_public_readme_header_is_suite_consistent() -> None:
     assert len(re.findall(r'<a href=', nav_match.group(1))) <= contract["public_readme_quality_budget"]["maximum_quick_navigation_links"]
 
     assert "event-driven cognitive state-transition and agent-level stochastic dynamical model" not in header.lower()
-    assert "A research model of how information exposure, memory, corrective context" in header
+    assert "A research model for studying how information exposure, memory, corrective context" in header
 
 
 def test_public_readme_first_section_stays_compact() -> None:
@@ -144,7 +144,7 @@ def test_public_readme_uses_mobile_readable_structured_lists() -> None:
     assert "| If you want to… | Start here |" not in text
     assert "**Information history:**" in text
     assert "**Probabilistic action:**" in text
-    assert "**Information sequence:** Current —" in text
+    assert "**Information sequence:** Current released baseline —" in text
     assert "**Empirical status:** Current —" in text
 
 
