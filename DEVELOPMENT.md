@@ -25,7 +25,7 @@ If a chat, issue comment, branch description, or external note conflicts with th
 
 - immutable public baseline release: **v0.1.1**, tagged at commit `9bc57322f7d2e1d53bf9c33e67f083e667a64569`;
 - v0.1.1 preserves the v0.1.0 scientific equations and retained benchmark values while adding the audited maintenance/reproducibility/provenance improvements recorded in the release manifest;
-- the current `main` line is post-release research development. It contains the optional F1a progressive-endogenization layer at `SYNTHETIC_EXECUTABLE` status while retaining v0.1.1 as the package/citation version until a separate release decision is made;
+- the current `main` line is post-release research development. It contains the optional F1a progressive-endogenization layer at `RECOVERY_TESTED` status while retaining v0.1.1 as the package/citation version until a separate release decision is made;
 - F1a is not part of the immutable v0.1.1 tag and does not retroactively change that release.
 
 ## Audited canonical model surface
@@ -176,12 +176,13 @@ Released tags are immutable historical snapshots and must not be rewritten to co
 
 ## Current next gates
 
-1. Integrate the F1a recovery result only after green CI on the exact `RECOVERY_TESTED` candidate head and preserve the merge-commit provenance boundary.
-2. Verify automatic post-merge `main` validation, retained-result byte reproducibility, CodeQL and Pages after integration.
-3. Do not advance F1a to `EMPIRICALLY_CONSTRAINED` without a separate prospective evidence/measurement contract that states what real-world quantity would correspond to Share-edge opportunities, realised recipient exposure, network eligibility and delay.
-4. Do not introduce empirical reach probabilities, adaptive network parameters, real-time delay semantics, platform ranking, recipient decision generation or source-selection behavior by inference from the synthetic recovery result.
-5. Reassess whether the scientifically useful next step is an empirical-observability/evidence audit for F1a, a separately contracted F1b/full-loop experiment, or holding F1a at `RECOVERY_TESTED`.
-6. Treat any future M1.E4 item-heterogeneity redesign as a separate prospective post-M1 research program.
+1. Keep F1a at **RECOVERY_TESTED** while conducting a separate empirical-observability/evidence audit; the synthetic recovery benchmark is not itself empirical evidence.
+2. Define the measurement bridge required for any future `EMPIRICALLY_CONSTRAINED` promotion, including the exact real-world counterparts of realised Share-edge opportunities, realised recipient exposure, network eligibility, item identity/provenance, and delay.
+3. Treat public repost/follower/feed-output datasets as potentially useful for topology, activity, item-lineage and timing constraints, but do not infer user-level realised exposure from them unless the dataset explicitly observes impressions/views at the required unit.
+4. Keep `q_transmit` calibration-only until its numerator and denominator are both observable or defensibly measured under a prospective empirical contract; do not substitute repost/adoption probability for exposure probability.
+5. Reassess restricted/controlled platform datasets separately when their codebooks/access conditions are available; do not claim observability from dataset descriptions alone.
+6. Do not begin recipient Decision generation or the full Share→Exposure→Decision→Share loop until the source-attribution, item-identity and decision-opportunity contracts identified in Issue #110 are resolved.
+7. Treat any future M1.E4 item-heterogeneity redesign as a separate prospective post-M1 research program.
 
 ## How to resume after context loss
 
