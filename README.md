@@ -10,7 +10,7 @@
   <a href="LICENSING.md"><img alt="MIT / CC BY 4.0" src="https://img.shields.io/badge/license-MIT%20%2F%20CC%20BY%204.0-a0a0a0?style=flat-square"></a>
 </p>
 
-<p align="center"><small><strong>A research model of how information exposure, memory, corrective context, perceived source reliability and decision context influence modeled cognitive states and probabilistic sharing decisions over time.</strong></small></p>
+<p align="center"><small><strong>A research model for studying how information exposure, memory, corrective context, perceived source reliability and decision context influence modeled cognitive states and probabilistic sharing decisions over time.</strong></small></p>
 
 <p align="center"><small>
 <a href="#what-is-cbd">Overview</a> ·
@@ -80,9 +80,9 @@ The repository links modeled relationships to cited research and records scope l
 
 ### Current capabilities and scientific limits
 
-CBD currently supports a working agent-level simulation in which exposure, correction and source feedback can alter persistent agent state, while decision events evaluate the state accumulated up to that point in the current decision context. At decision time, the model can produce belief-related outputs, a sharing probability and a probabilistic share / no-share outcome.
+CBD currently supports a working agent-level simulation in which exposure, correction and source feedback can alter persistent agent state, while decision events evaluate the state accumulated up to that point in the current decision context. At decision time, the model can produce a modeled belief value, a sharing probability and a probabilistic share / no-share outcome.
 
-In the stable model, the sequence of information-related events is **supplied from outside the model**. CBD therefore represents how an agent changes across that history, but it does not yet generate a complete social information environment on its own.
+In the released baseline, the sequence of information-related events is **supplied from outside the model**. CBD therefore represents how an agent changes across that history, but it does not yet generate a complete social information environment on its own.
 
 Current development also contains a limited optional research path in which a sharing action can generate a later exposure for another eligible agent. This extends the model toward inter-agent propagation, but it does not yet create a complete self-sustaining feedback system.
 
@@ -102,7 +102,7 @@ For the exact current implementation, evidence qualifications and unresolved sci
 
 CBD is intended to generate more of its own future information sequence from earlier modeled actions only where the scientific question and evidence justify doing so. The distinction between present capability and intended mature direction is deliberate.
 
-- **Information sequence:** Current — supplied from outside the stable model. Possible mature direction — more future events arise from earlier modeled actions.
+- **Information sequence:** Current released baseline — supplied from outside the model. Possible mature direction — more future events arise from earlier modeled actions.
 - **Inter-agent propagation:** Current — limited sharing-to-exposure research path. Possible mature direction — empirically constrained propagation across agents and networks.
 - **Network / platform context:** Current — supplied when needed. Possible mature direction — evidence-grounded effects on exposure and action.
 - **Feedback:** Current — no complete action-to-information-to-action cycle. Possible mature direction — closed feedback where scientifically necessary.
