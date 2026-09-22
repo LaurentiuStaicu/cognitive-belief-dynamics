@@ -34,6 +34,18 @@ def test_public_readme_header_is_suite_consistent() -> None:
     assert "A research model for studying how information exposure, memory, corrective context" in header
 
 
+def test_public_readme_first_section_stays_compact() -> None:
+    text = read(README)
+    contract = json.loads(read(CONTRACT))
+    intro = text.split("### What is CBD?", 1)[1].split("### Research purpose", 1)[0]
+    paragraphs = [
+        block.strip()
+        for block in re.split(r"\n\s*\n", intro)
+        if block.strip() and not block.strip().startswith("<")
+    ]
+    assert len(paragraphs) <= contract["public_readme_quality_budget"]["maximum_intro_paragraphs"]
+
+
 def test_public_readme_follows_reader_oriented_information_order() -> None:
     text = read(README)
     sections = (
