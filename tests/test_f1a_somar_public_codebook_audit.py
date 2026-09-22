@@ -73,7 +73,7 @@ def test_document_preserves_nonclaim_boundary() -> None:
         "public_codebook_compatibility_audit",
         "pairing_design_plausible / numerical_pairing_not_yet_authorized",
         "not authorized for calculation yet",
-        "not the dyadic synthetic",
+        "it would not be the dyadic synthetic",
         "variable-level count semantics and privacy/aggregation rules",
         "f1a remains **recovery_tested**",
     ):
