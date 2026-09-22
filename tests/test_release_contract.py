@@ -175,12 +175,12 @@ def test_community_health_contract_tracks_release_version() -> None:
     assert all("v0.1.0" not in item for item in contract["invariants"])
 
 
-def test_readme_has_distinct_quick_start_and_exact_reproduction_paths() -> None:
+def test_readme_has_compact_use_and_exact_reproduction_paths() -> None:
     readme = read("README.md")
-    assert "### Quick start" in readme
+    assert "### Using and reproducing CBD" in readme
     assert "python -m pip install ." in readme
     assert "cemodel demo" in readme
-    assert "### Reproduce the computational baseline" in readme
+    assert "Exact CI-oriented reproduction" in readme
     assert "requirements/ci-py312-linux.lock.txt" in readme
 
 
