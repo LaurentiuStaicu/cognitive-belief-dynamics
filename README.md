@@ -10,16 +10,14 @@
   <a href="LICENSING.md"><img alt="MIT / CC BY 4.0" src="https://img.shields.io/badge/license-MIT%20%2F%20CC%20BY%204.0-a0a0a0?style=flat-square"></a>
 </p>
 
-<p align="center"><small><strong>An event-driven cognitive state-transition and agent-level stochastic dynamical model for studying how information, memory, uncertainty and context can change modeled agent states and decisions over time.</strong></small></p>
+<p align="center"><small><strong>A research model of how information exposure, memory, corrective context, source reliability and decision context can shape evolving agent states and probabilistic sharing decisions.</strong></small></p>
 
 <p align="center"><small>
 <a href="#what-is-cbd">Overview</a> ·
-<a href="#how-cbd-works">How it works</a> ·
-<a href="#what-cbd-can-do-today">Capabilities</a> ·
+<a href="#model-at-a-glance">Model</a> ·
+<a href="#current-capabilities-and-limits">Capabilities & limits</a> ·
 <a href="#research-direction">Research direction</a> ·
-<a href="#limitations-and-scientific-boundaries">Limitations</a> ·
 <a href="#quick-start">Quick start</a> ·
-<a href="#reproduce-the-computational-baseline">Reproduce</a> ·
 <a href="#where-to-go-next">Documentation</a>
 </small></p>
 
@@ -27,80 +25,86 @@
 
 ### What is CBD?
 
-Cognitive Belief Dynamics (CBD) is a scientific model core for studying how an agent's modeled cognitive state can change across a sequence of information-related events.
+Cognitive Belief Dynamics (CBD) is a scientific model core for studying how a modeled agent's cognitive state can change across a sequence of information-related events.
 
-The central idea is simple: what happens now can depend on what happened before. Repeated exposure can increase familiarity, corrective information can remain accessible and then fade with time, feedback about a source can change estimated source reliability, and the agent's current state can influence a later probabilistic decision.
+The central idea is that a response to information need not depend only on the current message. Earlier exposure can increase familiarity, corrective information can remain accessible and later fade, feedback can change an agent's estimate of source reliability, and the state accumulated so far can influence a later decision.
 
-CBD is therefore a **dynamical model**: state persists through time, event order matters, some effects accumulate or decay, and decisions are not represented as fixed one-step responses.
+This makes CBD a **dynamical model**: state persists through time, event order matters, some effects accumulate or decay, and action is probabilistic rather than represented as a fixed one-step response.
 
-Technically, CBD is an **event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking**. It is **not currently a formal System Dynamics model** because the present architecture does not yet contain a complete set of closed endogenous feedback loops.
+Technically, CBD is an **event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking**. It is **not currently a formal System Dynamics model** because the present architecture does not yet implement a complete set of closed endogenous feedback loops.
 
-<p align="center"><code>information event → agent state update → memory / decay → decision context → probabilistic action</code></p>
+CBD is intended as a transparent research model and computational reference implementation. It is not an end-user application and it is not a validated general model of human cognition.
+
+### Model at a glance
+
+| Dimension | Current CBD representation |
+| --- | --- |
+| Unit of analysis | A modeled agent whose state persists across events |
+| Time | Ordered discrete events; elapsed time also matters for decay |
+| Persistent state | Familiarity, corrective-context accessibility and estimated source reliability |
+| Baseline agent inputs | Prior belief, accuracy orientation and sharing bias |
+| Core event types | Exposure, correction, source feedback and decision |
+| Decision-time context | Evidence signal, accuracy cue and reward context |
+| Core dynamics | Bounded accumulation, temporal decay and nonlinear transformations |
+| Decision output | Computed belief, sharing probability and a seeded stochastic share / no-share action |
+| Current endogeneity | Stable release baseline is externally scheduled; limited inter-agent event generation exists only as an optional research path |
+| Scientific boundary | Computational and synthetic verification do not by themselves establish human or population validation |
+| Modeling paradigm | Event-driven agent-level dynamical model; not currently formal System Dynamics |
+
+<p align="center"><code>event → state update → persisted memory / elapsed-time effects → decision context → probabilistic action</code></p>
 
 ### How CBD works
 
-CBD represents agents, persistent state, ordered events and decision rules. The model advances when an event occurs rather than by continuously updating every variable at every instant.
+CBD advances when a relevant event occurs. This event-driven architecture is useful for questions in which exposure, correction, source feedback and decisions occur at identifiable times while agent state must persist between those events.
 
-**1. An agent carries state forward.**  
-The executable core stores quantities such as familiarity with a claim, accessibility of corrective context and an estimated reliability for a source. It also stores baseline inputs used when a decision is made, such as prior belief, accuracy orientation and sharing bias.
+**1. The agent carries state forward.**  
+The executable core stores familiarity with claims, accessibility of corrective context and estimated reliability for sources. It also stores baseline inputs used when a decision is evaluated.
 
-**2. Events change only the parts of state they are meant to affect.**  
-An exposure increases familiarity using a bounded saturating update. A correction increases access to corrective context. Source feedback moves the estimated reliability of a source toward the observed outcome. These updates are explicit and inspectable.
+**2. Each event has a defined role.**  
+Exposure increases familiarity through a bounded saturating update. A correction increases access to corrective context. Source feedback adjusts the estimated reliability of the source toward the observed outcome. The model changes only the quantities associated with the event being processed.
 
-**3. Time can change what remains available.**  
-Corrective-context accessibility decays as time passes. This means that identical events can have different consequences depending on their timing and on the state accumulated beforehand.
+**3. Timing changes later state.**  
+Corrective-context accessibility decays as time passes. Two otherwise identical sequences can therefore produce different later states when their timing differs.
 
-**4. A decision combines current state and current context.**  
-At decision time, CBD combines prior belief, familiarity, an evidence signal, estimated source reliability and accessible corrective context. Accuracy cues and reward context can alter the weight given to accuracy versus other incentives. Nonlinear transformations keep the resulting quantities bounded.
+**4. A decision combines state with current context.**  
+At decision time, CBD combines prior belief, familiarity, an evidence signal, source-reliability estimate and accessible corrective context. Accuracy cues and reward context can alter how accuracy-related and other incentives contribute to the decision calculation.
 
-**5. Action is probabilistic rather than predetermined.**  
-The model computes a sharing probability and uses a seeded random draw to determine whether sharing occurs. The seed makes a run reproducible while preserving stochastic behavior.
+**5. Action remains stochastic.**  
+The model converts the decision state into a sharing probability and uses a seeded random draw to determine whether sharing occurs. The seed makes the same run reproducible without making the underlying decision rule deterministic.
 
-Every processed event is logged with its time, agent, input payload, state change and, when applicable, decision output. This makes the computational path inspectable rather than hiding the result behind a single final number.
+Every processed event is logged with its time, agent, event payload, state change and, when applicable, decision output. The computational path can therefore be inspected event by event.
 
-### What CBD can do today
+### Current capabilities and limits
 
-The current repository can:
+| CBD can currently… | Current boundary |
+| --- | --- |
+| Simulate ordered exposure, correction, source-feedback and decision events | Events are supplied to the stable release baseline from outside the model |
+| Preserve state across events | Only explicitly implemented state variables persist |
+| Represent familiarity accumulation and corrective-context decay | These are formal model mechanisms, not automatically established human cognitive laws |
+| Update an estimated source-reliability state from feedback | The estimate is a model state, not a guarantee of real-world source quality |
+| Compute decision-time belief and sharing probability | Outputs depend on the supplied model inputs and parameters |
+| Produce reproducible stochastic share / no-share actions | Reproducibility comes from seeded randomness; it does not remove stochasticity |
+| Log state transitions and observations | The log supports inspection and testing, not causal proof by itself |
+| Validate schemas, registries and repository cross-references | Software/scientific-integrity checks are distinct from empirical validation |
+| Experimentally schedule a delayed exposure for another eligible agent after sharing | This optional research path does not yet form a complete self-sustaining social-information feedback system |
 
-- simulate ordered exposure, correction, source-feedback and decision events for one or more agents;
-- preserve agent state across events so that earlier events can influence later ones;
-- represent bounded accumulation, temporal decay and nonlinear transformations;
-- compute belief-related and sharing outcomes from the modeled state and decision context;
-- generate seeded stochastic decisions that can be reproduced exactly when the same inputs and seed are used;
-- record event-by-event state changes and observations for inspection and testing;
-- validate the repository's scientific registries, schemas and cross-references through the supplied command-line validator.
+CBD is **not currently a validated predictor of individual or population human behavior**, a truth detector, a diagnostic system or an automatic judge of whether a claim is correct. The conceptual model is broader than the currently executable core, and synthetic recovery or software verification do **not** by themselves establish human validation.
 
-The stable release baseline uses externally supplied event schedules. Current development work also includes an optional research path in which a realised sharing action can schedule a delayed exposure for another eligible agent under an explicitly supplied network and transmission policy. This is a limited research capability, not a complete self-sustaining social-information system.
-
-The exact release-versus-development boundary changes as the research progresses. [STATUS.md](STATUS.md) is the canonical source for that boundary.
+For the exact current implementation, evidence qualifications and open scientific gates, [STATUS.md](STATUS.md) is the canonical source.
 
 ### Research direction
 
-CBD is intended to evolve by adding endogenous behavior only where the scientific question and evidence justify it.
+CBD is intended to become more endogenous only where the scientific question and evidence justify doing so.
 
-A mature version may progressively allow more future events to arise from earlier modeled actions: for example, a decision to share may influence another agent's exposure, that exposure may alter later state, and later state may affect another decision. Network, platform and learning mechanisms can be added only when their system boundary, measurement meaning and validation strategy are explicit.
+A more mature model may allow additional future events to arise from earlier modeled actions. For example, a decision to share may contribute to another agent's later exposure; that exposure may alter the recipient's state; and the recipient's later state may influence another decision. Network, platform and learning mechanisms can be integrated only when their system boundary, measurement meaning and validation strategy are explicit.
 
-This direction does **not** imply that CBD must become a classical System Dynamics model. The modeling paradigm should change only if the scientific problem requires structures that the event-driven agent-level architecture cannot represent adequately.
+This direction does **not** require CBD to become a classical System Dynamics model. A change of modeling paradigm should occur only if the scientific problem requires feedback, interaction or emergence that the event-driven agent-level architecture cannot represent adequately.
 
-The aim is therefore not to maximize model complexity. It is to make each added mechanism explicit, testable, traceable and scientifically defensible.
-
-### Limitations and scientific boundaries
-
-CBD should not be interpreted as more than the evidence and implementation support.
-
-- It is **not currently a complete endogenous System Dynamics model**.
-- It is **not a validated predictor of individual human behavior or population behavior**.
-- It is **not a truth detector, diagnostic system or automatic judge of whether a claim is correct**.
-- A computationally executable mechanism is not automatically an empirically established cognitive law.
-- Synthetic recovery, simulation tests and software verification can show that a mechanism is implemented or recoverable under controlled conditions; they do **not** by themselves establish human validation.
-- The conceptual model is broader than the currently executable core. A concept being documented in the repository does not mean that it already runs in the simulator.
-- Empirical evidence is retained with explicit scope and qualification. Partial evidence for one component must not be generalized into validation of the whole model.
-
-For the exact current scientific state, evidence qualifications and open research gates, use [STATUS.md](STATUS.md) rather than inferring them from this introductory page.
+The objective is therefore not maximum complexity. It is a model in which each added mechanism is explicit, testable, traceable and scientifically defensible.
 
 ### Quick start
 
-CBD requires **Python 3.12 or newer**.
+CBD requires **Python 3.12 or newer** and Git if you want to clone the repository.
 
 **1. Check Python**
 
@@ -108,7 +112,7 @@ CBD requires **Python 3.12 or newer**.
 python --version
 ~~~
 
-The reported version must be 3.12 or newer. If your default Python is older, use a Python 3.12+ environment before continuing.
+**Expected result:** Python reports version 3.12 or newer. If your default Python is older, switch to a Python 3.12+ environment before continuing.
 
 **2. Clone the repository**
 
@@ -117,19 +121,23 @@ git clone https://github.com/LaurentiuStaicu/cognitive-belief-dynamics.git
 cd cognitive-belief-dynamics
 ~~~
 
-**3. Install the package**
+For routine development or experimentation, using an isolated Python environment is recommended before installing the package.
+
+**3. Install CBD**
 
 ~~~bash
 python -m pip install .
 ~~~
 
-**4. Validate the repository**
+**Expected result:** installation completes without a dependency or build error.
+
+**4. Validate the checkout**
 
 ~~~bash
 cemodel validate --root .
 ~~~
 
-A successful validation prints the registry counts and returns without an error. A validation failure should not be ignored: it can indicate a schema, reference or checkout-consistency problem.
+**Expected result:** the command prints the canonical registry counts and exits successfully. A validation failure should be investigated rather than ignored because it can indicate a schema, reference or checkout-consistency problem.
 
 **5. Run the demonstration**
 
@@ -137,13 +145,13 @@ A successful validation prints the registry counts and returns without an error.
 cemodel demo
 ~~~
 
-The demo processes two exposures followed by a decision for one example agent and prints the event log as JSON. The output lets you see the ordered events, the state changes they produced and the final decision observation.
+**Expected result:** JSON output showing two exposures followed by a decision for one example agent. The log exposes event order, state changes and the final decision observation.
 
-If the cemodel command is not found after installation, confirm that you are using the same Python environment in which the package was installed.
+If `cemodel` is not found after installation, confirm that the shell is using the same Python environment in which CBD was installed.
 
 ### Reproduce the computational baseline
 
-For exact CI-oriented reproduction, the canonical path is scoped to GitHub-hosted Ubuntu and **CPython 3.12**:
+For exact CI-oriented reproduction, the canonical reference path is scoped to GitHub-hosted Ubuntu and **CPython 3.12**:
 
 ~~~bash
 python -m pip install "pip==26.2.1"
@@ -172,7 +180,7 @@ A passing computational baseline means that the declared software, schemas, test
 | Reproduce a released snapshot | [releases/](releases/) and the corresponding Git tag |
 | Cite CBD | [CITATION.cff](CITATION.cff) |
 
-The public landing page describes the model and its usable scientific boundary. Internal experiment identifiers, audit codes, benchmark cell counts and development gates are retained in the technical files where they support traceability, reproducibility and continuation of work.
+The landing page explains the model and its public scientific boundary. Internal experiment identifiers, audit codes, benchmark cell counts and development gates remain in the technical records where they support traceability, reproducibility and continuation of work.
 
 ### Support, citation and license
 
