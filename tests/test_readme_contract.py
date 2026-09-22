@@ -63,7 +63,7 @@ def test_public_readme_explains_current_model_and_scientific_boundaries() -> Non
     required = (
         "event-driven cognitive state-transition and agent-level stochastic dynamical model",
         "not currently a formal system dynamics model",
-        "stable release baseline uses externally supplied event schedules",
+        "stable release baseline is externally scheduled",
         "seeded random draw",
         "not currently a validated predictor of individual or population human behavior",
         "a truth detector, a diagnostic system or an automatic judge",
