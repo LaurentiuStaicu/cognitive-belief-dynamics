@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/f1a_somar_count_semantics_audit.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "feedback_family",
+    "current_stage",
+    "empirical_promotion_authorized",
+    "numerical_calculation_authorized",
+    "resolved_semantics",
+    "candidate_component_quantity",
+    "resolved_blockers",
+    "unresolved_blockers",
+    "next_gate",
+    "interpretation_boundary"
+  ],
+  "properties": {
+    "id": {
+      "const": "AUDIT.F1A.SOMAR.COUNT_SEMANTICS.2026-09-22"
+    },
+    "status": {
+      "const": "COUNT_SEMANTICS_PARTIALLY_RESOLVED"
+    },
+    "feedback_family": {
+      "const": "F1a"
+    },
+    "current_stage": {
+      "const": "RECOVERY_TESTED"
+    },
+    "empirical_promotion_authorized": {
+      "const": false
+    },
+    "numerical_calculation_authorized": {
+      "const": false
+    },
+    "resolved_semantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "audience",
+        "content_views",
+        "facebook_view_threshold",
+        "repeated_views_can_increase_content_views",
+        "potential_audience",
+        "exposed_audience",
+        "engaged_audience",
+        "owner_all",
+        "owner_all_simple_sum_assumed",
+        "inventory_ranked_into_feed"
+      ],
+      "properties": {
+        "audience": {
+          "const": "NUMBER_OF_USERS_OR_PARTICIPANTS_WHO_VIEWED_ORGANIC_CONTENT_AT_LEAST_ONCE"
+        },
+        "content_views": {
+          "const": "NUMBER_OF_TIMES_CONTENT_APPEARED_ON_SCREEN"
+        },
+        "facebook_view_threshold": {
+          "const": "VISIBLE_PORTION_RENDERED_MORE_THAN_250_MS"
+        },
+        "repeated_views_can_increase_content_views": {
+          "const": true
+        },
+        "potential_audience": {
+          "const": "USERS_WHO_COULD_POTENTIALLY_SEE_CONTENT_BECAUSE_SHARED_BY_CONNECTION"
+        },
+        "exposed_audience": {
+          "const": "UNIQUE_USERS_WHO_SAW_POST_CONTAINING_URL_IN_FEED"
+        },
+        "engaged_audience": {
+          "const": "UNIQUE_USERS_WHO_CLICKED_REACTED_LIKED_RESHARED_OR_COMMENTED"
+        },
+        "owner_all": {
+          "const": "POSTS_FROM_USERS_PAGES_AND_GROUPS"
+        },
+        "owner_all_simple_sum_assumed": {
+          "const": false
+        },
+        "inventory_ranked_into_feed": {
+          "const": true
+        }
+      }
+    },
+    "candidate_component_quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "formula",
+        "numerator_semantics",
+        "denominator_semantics",
+        "content_views_allowed_as_numerator",
+        "status",
+        "equivalent_to_q_transmit"
+      ],
+      "properties": {
+        "id": {
+          "const": "CANDIDATE.R_VIEW.URL_OWNER"
+        },
+        "formula": {
+          "const": "exposed_audience_users / potential_audience_users"
+        },
+        "numerator_semantics": {
+          "const": "UNIQUE_USERS_VIEWED_AT_LEAST_ONCE"
+        },
+        "denominator_semantics": {
+          "const": "UNIQUE_USERS_POTENTIALLY_ELIGIBLE_VIA_CONNECTION_INVENTORY"
+        },
+        "content_views_allowed_as_numerator": {
+          "const": false
+        },
+        "status": {
+          "const": "CONCEPTUALLY_JUSTIFIED_NUMERICALLY_BLOCKED"
+        },
+        "equivalent_to_q_transmit": {
+          "const": false
+        }
+      }
+    },
+    "resolved_blockers": {
+      "type": "array",
+      "minItems": 7,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "unresolved_blockers": {
+      "type": "array",
+      "minItems": 11,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "exact_columns_required",
+        "privacy_disclosure_rules_required",
+        "missingness_policy_required",
+        "url_linkage_rule_required",
+        "automatic_calculation_allowed"
+      ],
+      "properties": {
+        "name": {
+          "const": "COLUMN_IDENTITY_AND_PRIVACY_RULES_AUDIT"
+        },
+        "exact_columns_required": {
+          "const": true
+        },
+        "privacy_disclosure_rules_required": {
+          "const": true
+        },
+        "missingness_policy_required": {
+          "const": true
+        },
+        "url_linkage_rule_required": {
+          "const": true
+        },
+        "automatic_calculation_allowed": {
+          "const": false
+        }
+      }
+    },
+    "interpretation_boundary": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "string",
+        "minLength": 20
+      }
+    }
+  }
+}
