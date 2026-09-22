@@ -1,5 +1,5 @@
 {
-  "contract_version": "2.5",
+  "contract_version": "2.6",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -109,5 +109,11 @@
     "maximum_primary_header_badges": 3,
     "maximum_quick_navigation_links": 6,
     "maximum_tables": 2
+  },
+  "post_merge_metadata_sync": {
+    "repository_description": "A research model of how information exposure, memory, corrective context, perceived source reliability and decision context shape evolving cognitive states and sharing decisions.",
+    "homepage": "preserve existing GitHub Pages URL",
+    "topics": "preserve current research-software and modeling topics",
+    "rationale": "Keep GitHub About metadata aligned with the approved public landing-page message without changing live repository metadata before merge approval."
   }
 }
