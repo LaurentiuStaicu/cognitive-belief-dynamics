@@ -108,14 +108,14 @@ For the exact current implementation, evidence qualifications and unresolved sci
 
 CBD is intended to generate more of its own future information sequence from earlier modeled actions only where the scientific question and evidence justify doing so. The distinction between present capability and intended mature direction is deliberate.
 
-| Area | Current model | Intended mature direction, if evidence supports it |
+| Area | Current model | Possible mature direction, if supported |
 | --- | --- | --- |
-| Information sequence | Supplied from outside the stable model | More future events can arise from earlier modeled actions |
-| Inter-agent propagation | Limited optional sharing-to-exposure research path | Empirically constrained propagation across agents and networks |
-| Network / platform context | Supplied explicitly when needed | Evidence-grounded mechanisms for how network and platform structure shape exposure and action |
-| Feedback | No complete cycle in which modeled actions generate later information conditions and subsequent modeled actions | Closed feedback structures where they are scientifically necessary |
-| Broader adaptation | The current simulator updates specific modeled states but does not implement a general adaptive learning system | Additional adaptation mechanisms only when their states, evidence and validation rules are explicit |
-| Empirical status | Computational, synthetic and component-level evidence with explicit limits | Calibration and validation appropriate to each mechanism and population of interest |
+| Information sequence | Supplied from outside the stable model | More future events arise from earlier modeled actions |
+| Inter-agent propagation | Limited sharing-to-exposure research path | Empirically constrained propagation across agents and networks |
+| Network / platform context | Supplied when needed | Evidence-grounded effects on exposure and action |
+| Feedback | No complete action-to-information-to-action cycle | Closed feedback where scientifically necessary |
+| Broader adaptation | Specific states update; no general adaptive learning system | Additional adaptation with explicit states, evidence and validation |
+| Empirical status | Computational, synthetic and component-level evidence | Calibration and validation appropriate to each mechanism and population |
 
 A more mature CBD may represent a cycle in which sharing affects another agent's exposure, that exposure changes the recipient's state, and the recipient's later state influences another decision. Whether this should remain an event-driven agent model or eventually justify describing CBD as formal System Dynamics must follow the scientific structure, not a desire for uniformity across projects.
 
