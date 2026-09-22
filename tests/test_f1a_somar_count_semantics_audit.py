@@ -80,3 +80,12 @@ def test_document_preserves_numerical_block_and_stage_boundary() -> None:
         "f1a therefore remains **recovery_tested**",
     ):
         assert token in text
+
+
+def test_known_privacy_controls_are_resolved_but_additional_release_controls_remain_open() -> None:
+    audit = load(CONTRACT)
+    resolved = set(audit["resolved_blockers"])
+    assert "analysis_uses_aggregate_not_individual_level_exposure_engagement_metrics" in resolved
+    assert "url_inclusion_requires_more_than_100_us_shares_for_privacy" in resolved
+    unresolved = set(audit["unresolved_blockers"])
+    assert "suppression_minimum_cell_perturbation_rounding_rules" in unresolved
