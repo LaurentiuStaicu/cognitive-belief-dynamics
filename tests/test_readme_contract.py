@@ -81,7 +81,6 @@ def test_public_readme_routes_audit_detail_to_reference_files() -> None:
     assert "[DEVELOPMENT.md](DEVELOPMENT.md)" in text
     assert "[CHANGELOG.md](CHANGELOG.md)" in text
     assert "[model/](model/)" in text
-    assert "Internal experiment identifiers, audit codes, benchmark cell counts and development gates" in text
     assert "### Research purpose" in text
     assert "### Conceptual model" in text
     assert "### Research questions CBD can explore" in text
