@@ -126,7 +126,7 @@ def test_public_readme_stays_within_quality_budget() -> None:
 def test_public_readme_uses_tables_only_for_structural_or_comparative_content() -> None:
     text = read(README)
     assert text.count("| Concept | What it represents in CBD |") == 1
-    assert text.count("| Area | Current model | Intended mature direction, if evidence supports it |") == 1
+    assert text.count("| Area | Current model | Possible mature direction, if supported |") == 1
     assert "| Research question | What CBD provides |" not in text
     assert "| If you want to… | Start here |" not in text
 
