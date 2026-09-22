@@ -55,6 +55,12 @@ def test_public_candidate_sources_are_component_constraints_only() -> None:
     assert higgs["verdict"] == "PARTIAL_EMPIRICAL_CONSTRAINT_ONLY_HISTORICAL"
     assert "recipient_specific_impression_log" in higgs["missing_for_q_transmit"]
 
+    prospective = sources["DATA.BLUESKY.ATPROTO.PROSPECTIVE"]
+    assert "protocol_lexicon_defines_interaction_seen_token" in prospective["observed"]
+    assert "interaction_request_id" in prospective["observed"]
+    assert "cognitive_exposure_measurement_bridge" in prospective["missing_for_q_transmit"]
+    assert "DEPLOYMENT_ACCESS_PRIVACY_REVIEW_REQUIRED" in prospective["verdict"]
+
     meta = sources["DATA.META.FIES.2020.SOMAR"]
     assert meta["verdict"] == "ACCESS_AND_MEASUREMENT_REVIEW_REQUIRED"
 
@@ -75,6 +81,8 @@ def test_empirical_observability_audit_states_current_blocker() -> None:
         "F1a remains **RECOVERY_TESTED**",
         "reposts are not exposure logs",
         "Feed output is a candidate-delivery surface",
+        "interactionSeen",
+        "platform-level seen event",
         "No empirical promotion is authorized by this audit",
     ):
         assert token.lower() in text.lower()
