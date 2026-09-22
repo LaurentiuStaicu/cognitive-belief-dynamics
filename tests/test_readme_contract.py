@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -15,6 +16,16 @@ def read(path: Path) -> str:
 
 def normalized_public_text() -> str:
     return read(README).replace("**", "").replace(chr(96), "").replace("_", " ")
+
+
+def test_approved_icon_is_byte_stable() -> None:
+    contract = json.loads(read(CONTRACT))
+    icon_path = ROOT / contract["suite_visual_shell"]["approved_icon_path"]
+    data = icon_path.read_bytes()
+    git_blob = hashlib.sha1(
+        f"blob {len(data)}\0".encode("ascii") + data
+    ).hexdigest()
+    assert git_blob == contract["suite_visual_shell"]["approved_icon_git_blob_sha"]
 
 
 def test_public_readme_header_is_suite_consistent() -> None:
