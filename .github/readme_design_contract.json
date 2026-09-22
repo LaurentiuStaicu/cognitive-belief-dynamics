@@ -1,5 +1,5 @@
 {
-  "contract_version": "4.3",
+  "contract_version": "4.4",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -147,5 +147,13 @@
     "github_pages_url": "https://laurentiustaicu.github.io/cognitive-belief-dynamics/",
     "github_pages_boundary": "A Pages URL is configured, but main currently contains no dedicated index.md, index.html, _config.yml, Gemfile, CNAME or .nojekyll site source. Do not treat GitHub Pages as the canonical landing-page source unless a separate site is explicitly designed and versioned.",
     "historical_conceptual_assets": "assets/readme/ retained for traceability; not part of the current landing page unless explicitly referenced by README.md"
+  },
+  "post_merge_verification": {
+    "main_readme": "Confirm root README.md on main renders the approved reader-oriented structure and frozen visual identity.",
+    "about_description": "Update the live GitHub About description to post_merge_metadata_sync.repository_description and verify it is not truncated or misleading.",
+    "topics": "Confirm the audited topic list is unchanged.",
+    "homepage": "Confirm the existing GitHub Pages URL remains intentional and does not present a conflicting source of truth.",
+    "ci": "Confirm the required Build and test CBD check is green on the merge commit.",
+    "release_boundary": "Do not create a new release or alter CITATION.cff as part of this documentation merge."
   }
 }
