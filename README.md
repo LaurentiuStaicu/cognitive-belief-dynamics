@@ -10,7 +10,7 @@
   <a href="LICENSING.md"><img alt="MIT / CC BY 4.0" src="https://img.shields.io/badge/license-MIT%20%2F%20CC%20BY%204.0-a0a0a0?style=flat-square"></a>
 </p>
 
-<p align="center"><small><strong>A research model for studying how information exposure, memory, corrective context, perceived source reliability and decision context can shape evolving cognitive states and probabilistic sharing decisions.</strong></small></p>
+<p align="center"><small><strong>A research model of how information exposure, memory, corrective context, perceived source reliability and decision context influence modeled cognitive states and probabilistic sharing decisions over time.</strong></small></p>
 
 <p align="center"><small>
 <a href="#what-is-cbd">Overview</a> ·
