@@ -1,5 +1,5 @@
 {
-  "contract_version": "3.9",
+  "contract_version": "4.0",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -104,8 +104,8 @@
     "visual_review_required": true,
     "model_or_data_change_allowed": false,
     "version_change_required": false,
-    "merge_method": "squash",
-    "merge_rationale": "Collapse iterative review commits into one coherent landing-page redesign commit on main while retaining the full branch/PR history in GitHub.",
+    "merge_method": "merge_commit",
+    "merge_rationale": "Preserve the repository's established pull-request integration convention and full branch-level traceability. Recent main history integrates PRs with explicit merge commits (for example PR #119, #120 and #121).",
     "version_rationale": "This PR changes repository presentation, documentation contracts and regression tests only. It does not change the scientific model, package API, data, retained results or release metadata; v0.1.1 therefore remains the current citable release. Any future version change must be decided independently at the next release gate based on the full Unreleased change set.",
     "release_action_on_merge": "none",
     "citation_on_merge": "CITATION.cff remains at v0.1.1 until a separate release decision is approved."
