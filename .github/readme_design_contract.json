@@ -1,5 +1,5 @@
 {
-  "contract_version": "4.5",
+  "contract_version": "4.6",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -68,7 +68,8 @@
     "public_page_should_explain_evidence_architecture_without_audit_granularity": true,
     "first_section_should_establish_identity_scope_and_paradigm_without_extended_status_detail": true,
     "approved_icon_and_badge_labels_are_frozen_without_explicit_user_approval": true,
-    "public_landing_page_is_table_free_for_responsive_readability": true
+    "public_landing_page_is_table_free_for_responsive_readability": true,
+    "pages_sensitive_repository_directories_and_dot_paths_use_absolute_github_links": true
   },
   "public_readme_forbidden_internal_terms": [
     "M0",
@@ -146,7 +147,8 @@
     "archived_preview_status": "non-canonical historical review artifact",
     "github_pages_url": "https://laurentiustaicu.github.io/cognitive-belief-dynamics/",
     "github_pages_boundary": "GitHub Pages is configured from main / root. GitHub Pages can use README.md itself as the entry file when no index.html or index.md is present, so Pages may render the same canonical README through a separate presentation surface. README.md remains the canonical content source; Pages must not introduce divergent scientific or release claims.",
-    "historical_conceptual_assets": "assets/readme/ retained for traceability; not part of the current landing page unless explicitly referenced by README.md"
+    "historical_conceptual_assets": "assets/readme/ retained for traceability; not part of the current landing page unless explicitly referenced by README.md",
+    "dual_surface_link_policy": "Normal Markdown documents may use repository-relative links because GitHub and the default jekyll-relative-links plugin can render them. Repository directories without an index and dot-prefixed .github paths use absolute GitHub browser URLs so links remain valid when README.md is rendered through GitHub Pages."
   },
   "post_merge_verification": {
     "main_readme": "Confirm root README.md on main renders the approved reader-oriented structure and frozen visual identity.",
