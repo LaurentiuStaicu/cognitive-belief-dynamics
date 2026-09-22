@@ -17,7 +17,8 @@ When resuming work, use this order:
 5. `tests/` and `.github/workflows/cbd-validation.yml` — executable verification gates.
 6. `requirements/ci-py312-linux.lock.txt` — frozen GitHub-hosted Ubuntu / CPython 3.12 CI environment snapshot.
 7. `CHANGELOG.md`, `CITATION.cff` and `releases/` — version/release history and citation metadata.
-8. this file — current development queue and continuity notes.
+8. `README.md` plus `.github/readme_design_contract.json` — canonical repository landing-page presentation and its frozen editorial/visual rules.
+9. this file — current development queue and continuity notes.
 
 If a chat, issue comment, branch description, or external note conflicts with these surfaces, the repository sources above take precedence.
 
@@ -157,7 +158,7 @@ The mandatory v0.1.1 publication/governance pass is complete:
 - CodeQL default setup is enabled and has successfully analyzed Python and GitHub Actions;
 - secret scanning and push protection are enabled;
 - Dependabot vulnerability alerts and security updates are enabled;
-- GitHub Pages publishes from `main` / root and has completed a successful build on the v0.1.1 release commit.
+- GitHub Pages publishes from `main` / root and has completed a successful build on the v0.1.1 release commit. GitHub Pages may use the root `README.md` itself as the site entry file when no `index.html` or `index.md` is present. The root `README.md` therefore remains the canonical content source even when the same content is rendered through the Pages URL; Pages must not introduce divergent scientific, release or visual-identity claims.
 
 Optional archive/discovery work such as Zenodo, Software Heritage, social preview and future REUSE/SPDX per-file metadata may be added later, but these items do not block the current scientific research program.
 

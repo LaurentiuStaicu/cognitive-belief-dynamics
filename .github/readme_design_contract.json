@@ -1,8 +1,13 @@
 {
-  "contract_version": "1.1",
-  "frozen_on": "2026-09-21",
-  "implementation_status": "PUBLIC_README_V0_1_1_RELEASE_CONTRACT",
-  "purpose": "Define the public professional CBD repository landing page while preserving the canonical event-driven paradigm, scientific boundaries, reproducibility routes and release traceability.",
+  "contract_version": "4.8",
+  "frozen_on": "2026-09-22",
+  "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
+  "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
+  "suite_reference_order": [
+    "Ask the Model (AtM): primary reference for progressive, user-oriented explanation and first-use clarity",
+    "Romanian Monetary Dynamics (RMD): secondary reference for adapting the shared presentation system to a scientific-model repository"
+  ],
+  "design_principle": "Shared presentation system, project-specific information architecture.",
   "suite_visual_shell": {
     "icon_width_px": 112,
     "title_html": "h2 centered",
@@ -21,77 +26,139 @@
     ],
     "tagline": "one centered sentence",
     "quick_navigation": "one compact centered row",
-    "body_typography": "normal GitHub Markdown size"
+    "body_typography": "normal GitHub Markdown size",
+    "approved_icon_path": "assets/icon.png",
+    "approved_icon_git_blob_sha": "12ac958f345598831277988e1d196944037b461d",
+    "visual_identity_frozen": true
   },
+  "primary_audiences": [
+    "new reader trying to understand the model",
+    "researcher evaluating scope and limitations",
+    "developer or reviewer looking for the route into technical documentation"
+  ],
+  "information_architecture": [
+    "What is CBD?",
+    "Research purpose",
+    "Conceptual model",
+    "Research questions CBD can explore",
+    "Scientific foundations",
+    "Current capabilities and scientific limits",
+    "Research direction",
+    "Using and reproducing CBD",
+    "Where to go next",
+    "Support, citation and license"
+  ],
+  "editorial_rules": {
+    "explain_before_reference": true,
+    "phenomenon_before_implementation": true,
+    "current_capability_future_direction_and_limitations_must_be_separate": true,
+    "public_narrative_describes_model_not_development_history": true,
+    "internal_identifiers_belong_in_reference_files": true,
+    "audit_granularity_belongs_in_status_development_changelog_docs_and_machine_readable_artifacts": true,
+    "plain_language_before_specialist_terms": true,
+    "no_claim_may_exceed_current_implementation_or_evidence": true,
+    "compact_navigation_prioritizes_reader_tasks": true,
+    "tagline_is_plain_language_before_technical_identity": true,
+    "conceptual_understanding_before_implementation_detail": true,
+    "no_procedural_walkthrough_of_internal_model_mechanics": true,
+    "technical_run_instructions_are_secondary_to_scientific_explanation": true,
+    "statement_of_need_precedes_model_detail": true,
+    "model_purpose_must_distinguish_simulation_from_empirical_establishment": true,
+    "evidence_levels_must_not_be_conflated": true,
+    "public_page_should_explain_evidence_architecture_without_audit_granularity": true,
+    "first_section_should_establish_identity_scope_and_paradigm_without_extended_status_detail": true,
+    "approved_icon_and_badge_labels_are_frozen_without_explicit_user_approval": true,
+    "public_landing_page_is_table_free_for_responsive_readability": true,
+    "versioned_repository_content_uses_relative_file_links": true,
+    "current_github_ui_and_dot_path_policies_may_use_absolute_links": true,
+    "clone_instructions_must_describe_default_branch_behavior_accurately": true
+  },
+  "public_readme_forbidden_internal_terms": [
+    "M0",
+    "M1.E4",
+    "F1a",
+    "RECOVERY_TESTED",
+    "q_transmit",
+    "P64_X10",
+    "PROTOCOL_ROBUSTNESS_FAIL",
+    "Pencode",
+    "MOD.14"
+  ],
   "canonical_identity": {
-    "plain_language_purpose": "CBD models how agent-level cognitive states can change over ordered information events through memory, decay, nonlinear transformations and stochastic decisions.",
+    "plain_language_purpose": "CBD studies how information-related history and decision context influence modeled cognitive states and probabilistic sharing decisions over time.",
     "technical_identity": "An event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking; not currently a formal System Dynamics model.",
-    "paradigm_boundary": "Persistent state, temporal ordering and nonlinear/stochastic updates do not by themselves imply closed endogenous System Dynamics feedback.",
-    "future_direction": "Progressive endogenization and feedback-loop closure are a research program, not an active v0.1.1 capability."
+    "paradigm_boundary": "Persistent state, temporal ordering and nonlinear or stochastic updates do not by themselves imply closed endogenous System Dynamics feedback.",
+    "research_direction": "Progressive endogenization is admissible only when scientifically justified, explicitly bounded and supported by an appropriate evidence and validation strategy."
   },
-  "release_state": {
-    "version": "0.1.1",
-    "release_type": "scientific-core maintenance",
-    "scientific_model_change": false,
-    "evidence_snapshot_change": true,
-    "prior_release": "v0.1.0",
-    "evidence_set_change": false,
-    "evidence_snapshot": "EVIDENCE.M1.2026-09-21.r2"
-  },
-  "audited_surface": {
-    "conceptual_modules": 20,
-    "registered_variables": 19,
-    "registered_processes": 22,
-    "implemented_m0_processes": 12,
-    "candidate_processes": 10,
-    "registered_links": 10,
-    "registered_references": 16,
-    "registered_subsystems": 8,
-    "empirical_targets": 4
-  },
-  "m1_e4": {
-    "participant_confirmation": {
-      "primary_cells": 18,
-      "recovery_gate": 0.8,
-      "minimum_recovery": 0.92
-    },
-    "phase_m": {
-      "status": "PROTOCOL_ROBUSTNESS_FAIL",
-      "cells": 18,
-      "failed_cells": 3,
-      "minimum_recovery": 0.56
-    },
-    "human_validation": false,
-    "pencode_identified": false,
-    "recruitment_authorized": false
-  },
-  "conceptual_figure": {
-    "layout": "persistent agent state -> event-driven updates -> memory/decay/nonlinear/stochastic transformations -> evidence-level interpretation -> validation boundary",
-    "light_asset": "assets/readme/cbd-concept-overview-light.svg",
-    "dark_asset": "assets/readme/cbd-concept-overview-dark.svg",
-    "prohibited": [
-      "closed causal-loop notation implying formal System Dynamics",
-      "presenting Share as automatically generating future exposure",
-      "presenting synthetic recovery as human validation",
-      "presenting MOD.14 as a literal brain mechanism or truth oracle",
-      "presenting Pencode as identified"
-    ]
-  },
+  "required_public_boundaries": [
+    "not currently a formal System Dynamics model",
+    "not a validated predictor of individual or population human behavior",
+    "not a truth detector or diagnostic system",
+    "synthetic or computational validation is not human validation",
+    "conceptual coverage is broader than executable coverage"
+  ],
   "reproducibility": {
     "workflow": ".github/workflows/cbd-validation.yml",
     "ci_lock": "requirements/ci-py312-linux.lock.txt",
     "continuity": "DEVELOPMENT.md",
-    "release_manifest": "releases/v0.1.1.manifest.json"
+    "scientific_status": "STATUS.md",
+    "release_history": "CHANGELOG.md"
   },
   "publication_gate": {
     "merge_requires_explicit_approval": true,
     "final_ci_must_pass": true,
     "visual_review_required": true,
-    "tag_and_release_after_merge": "v0.1.1"
+    "model_or_data_change_allowed": false,
+    "version_change_required": false,
+    "merge_method": "merge_commit",
+    "merge_rationale": "Preserve the repository's established pull-request integration convention and full branch-level traceability. Recent main history integrates PRs with explicit merge commits (for example PR #119, #120 and #121).",
+    "version_rationale": "This PR changes repository presentation, documentation contracts and regression tests only. It does not change the scientific model, package API, data, retained results or release metadata; v0.1.1 therefore remains the current citable release. Any future version change must be decided independently at the next release gate based on the full Unreleased change set.",
+    "release_action_on_merge": "none",
+    "citation_on_merge": "CITATION.cff remains at v0.1.1 until a separate release decision is approved."
   },
   "public_readme_quality_budget": {
     "maximum_words": 1800,
-    "maximum_primary_headings": 14,
-    "maximum_primary_header_badges": 3
+    "maximum_primary_headings": 12,
+    "maximum_primary_header_badges": 3,
+    "maximum_quick_navigation_links": 6,
+    "maximum_tables": 0,
+    "maximum_intro_paragraphs": 4,
+    "maximum_intro_words": 190
+  },
+  "post_merge_metadata_sync": {
+    "repository_description": "Research model for studying how information exposure, memory, corrective context, perceived source reliability and decision context influence modeled cognitive states and sharing decisions over time.",
+    "homepage": "preserve existing GitHub Pages URL",
+    "topics": [
+      "belief-dynamics",
+      "cognitive-modeling",
+      "computational-social-science",
+      "epistemic-modeling",
+      "event-driven-simulation",
+      "python",
+      "research-software",
+      "scientific-computing",
+      "stochastic-modeling"
+    ],
+    "rationale": "Keep the GitHub About description concise and aligned with the approved landing-page message while preserving the fuller probabilistic wording in the README tagline.",
+    "topics_audit": "PASS — current topics align with the repository purpose and do not misclassify CBD as formal System Dynamics.",
+    "description_length_characters": 199
+  },
+  "publication_surfaces": {
+    "canonical_repository_landing": "README.md",
+    "archived_preview": ".github/CBD_README_PREVIEW.md",
+    "archived_preview_status": "non-canonical historical review artifact",
+    "github_pages_url": "https://laurentiustaicu.github.io/cognitive-belief-dynamics/",
+    "github_pages_boundary": "GitHub Pages is configured from main / root. GitHub Pages can use README.md itself as the entry file when no index.html or index.md is present, so Pages may render the same canonical README through a separate presentation surface. README.md remains the canonical content source; Pages must not introduce divergent scientific or release claims.",
+    "historical_conceptual_assets": "assets/readme/ retained for traceability; not part of the current landing page unless explicitly referenced by README.md",
+    "dual_surface_link_policy": "Versioned repository artifacts use concrete repository-relative file links so GitHub resolves them on the current branch or tag, local clones remain navigable, and GitHub Pages can serve the files directly. Current GitHub UI/policy surfaces such as Releases, Actions and dot-prefixed .github policy files may use absolute GitHub URLs.",
+    "tag_fidelity_priority": "Do not hardcode main for versioned scientific, implementation, schema or test artifacts; historical tag READMEs must resolve to the corresponding tagged content."
+  },
+  "post_merge_verification": {
+    "main_readme": "Confirm root README.md on main renders the approved reader-oriented structure and frozen visual identity.",
+    "about_description": "Update the live GitHub About description to post_merge_metadata_sync.repository_description and verify it is not truncated or misleading.",
+    "topics": "Confirm the audited topic list is unchanged.",
+    "homepage": "Confirm the existing GitHub Pages URL renders from the approved main/root source and does not diverge in scientific, release or visual-identity claims from the canonical README.md.",
+    "ci": "Confirm the required Build and test CBD check is green on the merge commit.",
+    "release_boundary": "Do not create a new release or alter CITATION.cff as part of this documentation merge."
   }
 }

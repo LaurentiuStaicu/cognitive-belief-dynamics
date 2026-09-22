@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -7,77 +8,112 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
 CONTRACT = ROOT / ".github" / "readme_design_contract.json"
-LIGHT = ROOT / "assets" / "readme" / "cbd-concept-overview-light.svg"
-DARK = ROOT / "assets" / "readme" / "cbd-concept-overview-dark.svg"
 
 
 def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
+def normalized_public_text() -> str:
+    return read(README).replace("**", "").replace(chr(96), "").replace("_", " ")
+
+
+def test_approved_icon_is_byte_stable() -> None:
+    contract = json.loads(read(CONTRACT))
+    icon_path = ROOT / contract["suite_visual_shell"]["approved_icon_path"]
+    data = icon_path.read_bytes()
+    git_blob = hashlib.sha1(
+        f"blob {len(data)}\0".encode("ascii") + data
+    ).hexdigest()
+    assert git_blob == contract["suite_visual_shell"]["approved_icon_git_blob_sha"]
+
+
 def test_public_readme_header_is_suite_consistent() -> None:
     text = read(README)
     header = text.split("---", 1)[0]
+    contract = json.loads(read(CONTRACT))
     assert 'width="112"' in header
     assert len(re.findall(r"<img alt=", header)) == 3
     assert "CBD validation" in header
     assert "MIT / CC BY 4.0" in header
 
+    nav_match = re.search(r'<p align="center"><small>\s*(.*?)\s*</small></p>', header, re.S)
+    assert nav_match is not None
+    assert len(re.findall(r'<a href=', nav_match.group(1))) <= contract["public_readme_quality_budget"]["maximum_quick_navigation_links"]
 
-def test_public_readme_preserves_current_paradigm_boundary() -> None:
-    text = re.sub(r"[*`]", "", read(README)).replace("_", " ").lower()
+    assert "event-driven cognitive state-transition and agent-level stochastic dynamical model" not in header.lower()
+    assert "A research model for studying how information exposure, memory, corrective context" in header
+
+
+def test_public_readme_first_section_stays_compact() -> None:
+    text = read(README)
+    contract = json.loads(read(CONTRACT))
+    intro = text.split("### What is CBD?", 1)[1].split("### Research purpose", 1)[0]
+    paragraphs = [
+        block.strip()
+        for block in re.split(r"\n\s*\n", intro)
+        if block.strip() and not block.strip().startswith("<")
+    ]
+    assert len(paragraphs) <= contract["public_readme_quality_budget"]["maximum_intro_paragraphs"]
+    intro_plain = re.sub(r"<[^>]+>", " ", intro)
+    intro_words = re.findall(r"\b[\w][\w./+-]*\b", intro_plain)
+    assert len(intro_words) <= contract["public_readme_quality_budget"]["maximum_intro_words"]
+
+
+def test_public_readme_follows_reader_oriented_information_order() -> None:
+    text = read(README)
+    sections = (
+        "### What is CBD?",
+        "### Research purpose",
+        "### Conceptual model",
+        "### Research questions CBD can explore",
+        "### Scientific foundations",
+        "### Current capabilities and scientific limits",
+        "### Research direction",
+        "### Using and reproducing CBD",
+        "### Where to go next",
+        "### Support, citation and license",
+    )
+    positions = [text.index(section) for section in sections]
+    assert positions == sorted(positions)
+
+
+def test_public_readme_avoids_internal_development_identifiers() -> None:
+    text = normalized_public_text()
+    contract = json.loads(read(CONTRACT))
+    for token in contract["public_readme_forbidden_internal_terms"]:
+        assert token.lower() not in text.lower()
+
+
+def test_public_readme_explains_current_model_and_scientific_boundaries() -> None:
+    text = normalized_public_text().lower()
     required = (
+        "event-driven cognitive state-transition and agent-level stochastic dynamical model",
         "not currently a formal system dynamics model",
-        "v0.1.1 release baseline",
-        "share action does not automatically create future exposure in that release",
-        "recovery tested",
-        "minimum recovery probability 0.885",
-        "calibration-only",
-        "not empirically constrained",
+        "sequence of information-related events is supplied from outside the model",
+        "decisions can remain probabilistic while simulations remain reproducible",
+        "not currently a validated predictor of individual or population human behavior",
+        "a truth detector, a diagnostic system or an automatic judge",
+        "do not by themselves establish human validation",
+        "not every concept documented in cbd is currently implemented in the simulator",
     )
     for token in required:
         assert token in text
 
 
-def test_public_readme_reports_full_m1_e4_boundary() -> None:
+def test_public_readme_routes_audit_detail_to_reference_files() -> None:
     text = read(README)
-    lower = text.lower()
-    result = json.loads(
-        read(
-            ROOT
-            / "model"
-            / "benchmarks"
-            / "results"
-            / "m1_e4_protocol_robustness_authoritative_2026-09-17.json"
-        )
-    )
-    assert "18 / 18 primary p64_x10 cells meet the 0.80 recovery gate" in lower
-    assert "0.92" in text
-    assert "PROTOCOL_ROBUSTNESS_FAIL" in text
-    assert "3 / 18 cells below 0.80" in lower
-    assert "minimum recovery 0.56" in lower
-    for cell_id in result["formal_failed_cells"]:
-        assert cell_id in text
-    assert "human-participant validation | **not established**" in lower
-    assert "pencode | **not identified or estimated**" in lower
-
-
-def test_public_readme_distinguishes_conceptual_and_executable_scope() -> None:
-    text = read(README)
-    assert "20 modules" in text
-    assert "12 implemented M0" in text
-    assert "10 candidate" in text
-    assert "Platform / Network, AI System, and Learning / Adaptation remain **future**" in text
-
-
-def test_public_assets_exist_and_are_theme_aware() -> None:
-    assert LIGHT.is_file()
-    assert DARK.is_file()
-    text = read(README)
-    assert "assets/readme/cbd-concept-overview-light.svg" in text
-    assert "assets/readme/cbd-concept-overview-dark.svg" in text
-    assert "prefers-color-scheme: dark" in text
-    assert "prefers-color-scheme: light" in text
+    assert "[STATUS.md](STATUS.md)" in text
+    assert "[DEVELOPMENT.md](DEVELOPMENT.md)" in text
+    assert "[CHANGELOG.md](CHANGELOG.md)" in text
+    assert "[variables registry](model/variables.json)" in text
+    assert "### Research purpose" in text
+    assert "### Conceptual model" in text
+    assert "### Research questions CBD can explore" in text
+    assert "### Scientific foundations" in text
+    assert "### Current capabilities and scientific limits" in text
+    assert "**1. The agent carries state forward.**" not in text
+    assert "### How CBD works" not in text
 
 
 def test_public_readme_local_links_resolve() -> None:
@@ -107,15 +143,30 @@ def test_public_readme_stays_within_quality_budget() -> None:
     assert len(words) <= budget["maximum_words"]
     assert len(headings) <= budget["maximum_primary_headings"]
     assert len(re.findall(r"<img alt=", text.split("---", 1)[0])) <= budget["maximum_primary_header_badges"]
+    table_separators = re.findall(r"(?m)^\|\s*:?-{3,}[^\n]*\|\s*$", text)
+    assert len(table_separators) <= budget["maximum_tables"]
+
+
+def test_public_readme_uses_mobile_readable_structured_lists() -> None:
+    text = read(README)
+    assert "| Concept | What it represents in CBD |" not in text
+    assert "| Area | Current model | Possible mature direction, if supported |" not in text
+    assert "| Research question | What CBD provides |" not in text
+    assert "| If you want to… | Start here |" not in text
+    assert "**Information history:**" in text
+    assert "**Probabilistic action:**" in text
+    assert "**Information sequence:** Current released baseline —" in text
+    assert "**Empirical status:** Current —" in text
 
 
 def test_public_readme_reproducibility_routes_are_current() -> None:
     text = read(README)
+    assert "### Using and reproducing CBD" in text
     assert "requirements/ci-py312-linux.lock.txt" in text
     assert "python -m build --no-isolation" in text
     assert "cemodel validate --root ." in text
+    assert "https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/actions/workflows/cbd-validation.yml" in text
     assert "DEVELOPMENT.md" in text
-    assert "releases/v0.1.1.manifest.json" in text
 
 
 def test_public_markdown_has_no_literal_newline_escapes() -> None:
@@ -128,3 +179,60 @@ def test_public_markdown_has_no_literal_newline_escapes() -> None:
         ROOT / "releases" / "v0.1.1.md",
     ):
         assert r"\n" not in read(path)
+
+
+def test_public_readme_versioned_links_follow_current_branch_or_tag() -> None:
+    text = read(README)
+    required_relative_targets = (
+        "](model/variables.json)",
+        "](model/links.json)",
+        "](model/evidence_snapshot.json)",
+        "](src/cognitive_epistemic_model/model.py)",
+        "](src/cognitive_epistemic_model/simulation.py)",
+        "](tests/test_ci_reproducibility_contract.py)",
+        "](schemas/variable.schema.json)",
+    )
+    for target in required_relative_targets:
+        assert target in text
+
+    forbidden_main_pins = (
+        "/tree/main/model",
+        "/tree/main/src/cognitive_epistemic_model",
+        "/tree/main/schemas",
+        "/tree/main/tests",
+        "/tree/main/releases",
+    )
+    for target in forbidden_main_pins:
+        assert target not in text
+
+    current_ui_targets = (
+        "https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/releases",
+        "https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/actions/workflows/cbd-validation.yml",
+        "https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/blob/main/.github/CONTRIBUTING.md",
+        "https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/blob/main/.github/SUPPORT.md",
+    )
+    for target in current_ui_targets:
+        assert target in text
+
+
+
+def test_public_readme_section_hierarchy_is_uniform() -> None:
+    text = read(README)
+    section_headings = re.findall(r"(?m)^(#{1,6})\s+(.+)$", text)
+    assert section_headings
+    assert all(level == "###" for level, _ in section_headings)
+
+
+def test_public_readme_collapsible_reproduction_markup_is_balanced() -> None:
+    text = read(README)
+    assert text.count("<details>") == 1
+    assert text.count("</details>") == 1
+    assert text.count("<summary>") == 1
+    assert text.count("</summary>") == 1
+
+
+
+def test_public_readme_clone_wording_matches_git_default_branch_behavior() -> None:
+    text = read(README)
+    assert "To inspect the current default-branch state, clone the repository and run:" in text
+    assert "current development branch can be cloned" not in text

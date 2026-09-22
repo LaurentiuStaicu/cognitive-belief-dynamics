@@ -22,7 +22,10 @@ def test_version_surfaces_are_consistent() -> None:
     citation = read("CITATION.cff")
     assert re.search(rf"(?m)^version:\s*{re.escape(VERSION)}\s*$", citation)
     assert re.search(rf"(?m)^date-released:\s*{RELEASE_DATE}\s*$", citation)
-    assert f"v{VERSION}" in read("README.md")
+    readme = read("README.md")
+    assert "releases/latest" in readme
+    assert "shields.io/github/v/tag/LaurentiuStaicu/cognitive-belief-dynamics" in readme
+    assert f"v{VERSION}" not in readme
     assert f"v{VERSION}" in read("STATUS.md")
     assert f"## {VERSION} - {RELEASE_DATE}" in read("CHANGELOG.md")
     assert f"# Cognitive Belief Dynamics v{VERSION}" in read(f"releases/v{VERSION}.md")
@@ -97,10 +100,11 @@ def test_evidence_metadata_revision_is_consistent_across_release_surfaces() -> N
     assert revision["evidence_set_changed"] is False
     assert revision["metadata_corrected_or_qualified"] is True
 
-    for path in ("README.md", "STATUS.md", "DEVELOPMENT.md", f"releases/v{VERSION}.md"):
+    for path in ("STATUS.md", "DEVELOPMENT.md", f"releases/v{VERSION}.md"):
         surface = read(path)
         assert "EVIDENCE.M1.2026-09-21.r2" in surface
 
+    assert "EVIDENCE.M1.2026-09-21.r2" not in read("README.md")
     assert "evidence snapshot is changed" not in read("STATUS.md").lower()
 
 
@@ -172,12 +176,12 @@ def test_community_health_contract_tracks_release_version() -> None:
     assert all("v0.1.0" not in item for item in contract["invariants"])
 
 
-def test_readme_has_distinct_quick_start_and_exact_reproduction_paths() -> None:
+def test_readme_has_compact_use_and_exact_reproduction_paths() -> None:
     readme = read("README.md")
-    assert "### Quick start" in readme
+    assert "### Using and reproducing CBD" in readme
     assert "python -m pip install ." in readme
     assert "cemodel demo" in readme
-    assert "### Reproduce the computational baseline" in readme
+    assert "Exact CI-oriented reproduction" in readme
     assert "requirements/ci-py312-linux.lock.txt" in readme
 
 
