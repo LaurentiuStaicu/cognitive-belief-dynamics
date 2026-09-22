@@ -1,5 +1,5 @@
 {
-  "contract_version": "4.1",
+  "contract_version": "4.2",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -26,7 +26,10 @@
     ],
     "tagline": "one centered sentence",
     "quick_navigation": "one compact centered row",
-    "body_typography": "normal GitHub Markdown size"
+    "body_typography": "normal GitHub Markdown size",
+    "approved_icon_path": "assets/icon.png",
+    "approved_icon_git_blob_sha": "12ac958f345598831277988e1d196944037b461d",
+    "visual_identity_frozen": true
   },
   "primary_audiences": [
     "new reader trying to understand the model",
