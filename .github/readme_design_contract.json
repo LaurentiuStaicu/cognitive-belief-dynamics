@@ -1,5 +1,5 @@
 {
-  "contract_version": "2.7",
+  "contract_version": "2.8",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -63,7 +63,8 @@
     "model_purpose_must_distinguish_simulation_from_empirical_establishment": true,
     "evidence_levels_must_not_be_conflated": true,
     "public_page_should_explain_evidence_architecture_without_audit_granularity": true,
-    "tables_reserved_for_true_comparison_or_compact_structural_mapping": true
+    "tables_reserved_for_true_comparison_or_compact_structural_mapping": true,
+    "first_section_should_establish_identity_scope_and_paradigm_without_extended_status_detail": true
   },
   "public_readme_forbidden_internal_terms": [
     "M0",
@@ -108,7 +109,8 @@
     "maximum_primary_headings": 12,
     "maximum_primary_header_badges": 3,
     "maximum_quick_navigation_links": 6,
-    "maximum_tables": 2
+    "maximum_tables": 2,
+    "maximum_intro_paragraphs": 4
   },
   "post_merge_metadata_sync": {
     "repository_description": "A research model of how information exposure, memory, corrective context, perceived source reliability and decision context shape evolving cognitive states and sharing decisions.",
