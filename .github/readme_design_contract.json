@@ -1,5 +1,5 @@
 {
-  "contract_version": "4.2",
+  "contract_version": "4.3",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -125,8 +125,20 @@
   "post_merge_metadata_sync": {
     "repository_description": "Research model for studying how information exposure, memory, corrective context, perceived source reliability and decision context influence modeled cognitive states and sharing decisions over time.",
     "homepage": "preserve existing GitHub Pages URL",
-    "topics": "preserve current research-software and modeling topics",
-    "rationale": "Keep the GitHub About description concise and aligned with the approved landing-page message while preserving the fuller probabilistic wording in the README tagline."
+    "topics": [
+      "belief-dynamics",
+      "cognitive-modeling",
+      "computational-social-science",
+      "epistemic-modeling",
+      "event-driven-simulation",
+      "python",
+      "research-software",
+      "scientific-computing",
+      "stochastic-modeling"
+    ],
+    "rationale": "Keep the GitHub About description concise and aligned with the approved landing-page message while preserving the fuller probabilistic wording in the README tagline.",
+    "topics_audit": "PASS — current topics align with the repository purpose and do not misclassify CBD as formal System Dynamics.",
+    "description_length_characters": 199
   },
   "publication_surfaces": {
     "canonical_repository_landing": "README.md",
