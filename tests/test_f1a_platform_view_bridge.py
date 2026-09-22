@@ -101,7 +101,7 @@ def test_bridge_document_states_non_promotion_boundary() -> None:
         "platformview",
         "cognitiveexposure",
         "codebook gate before numerical analysis",
-        "not the dyadic f1a `q_transmit`",
+        "`r_view` is **not** the dyadic f1a `q_transmit`",
         "no numerical bridge is authorized",
     ):
         assert token in text
