@@ -1,0 +1,85 @@
+{
+  "id": "AUDIT.F1A.SOMAR.COLUMN_PRIVACY.2026-09-22",
+  "status": "DOCUMENTATION_ARTIFACTS_LOCATED_COLUMN_CONTENTS_UNVERIFIED",
+  "feedback_family": "F1a",
+  "current_stage": "RECOVERY_TESTED",
+  "empirical_promotion_authorized": false,
+  "numerical_calculation_authorized": false,
+  "verified_studies": {
+    "potential_exposure": {
+      "icpsr": "300450",
+      "level": "URL",
+      "catalog_semantics": "POTENTIAL_AUDIENCE_SIZE"
+    },
+    "exposure": {
+      "icpsr": "300470",
+      "level": "URL",
+      "catalog_semantics": "CONTENT_VIEWS_AND_AUDIENCE_SIZE"
+    },
+    "engagement": {
+      "icpsr": "300475",
+      "level": "URL",
+      "catalog_semantics": "ENGAGEMENT_VOLUME_CONTENT_VIEWS_AND_AUDIENCE_SIZE"
+    }
+  },
+  "verified_legacy_documentation": {
+    "data_dictionary_filename": "data_dictionary_political_segregation_paper.xlsx",
+    "variable_descriptions_filename": "variables_political_segregation_paper.csv",
+    "project_codebook_filename": "US2020_FB&IG_Elections_External_Codebook.pdf",
+    "glossary_filename": "US2020_Glossary.xlsx",
+    "exact_dictionary_contents_inspected": false,
+    "current_release_version_linkage_verified": false
+  },
+  "verified_table_names": [
+    "potential_exposure_facebook_posts_with_civic_news_urls",
+    "exposure_facebook_posts_with_civic_news_urls",
+    "engagement_facebook_posts_with_civic_news_urls"
+  ],
+  "privacy_state": {
+    "aggregate_only": true,
+    "url_share_threshold_gt_100_us_users": true,
+    "additional_release_controls_verified": false,
+    "differential_privacy_assumed_from_other_meta_products": false
+  },
+  "candidate_component_quantity": {
+    "id": "CANDIDATE.R_VIEW.URL_OWNER",
+    "formula": "exposed_audience_users / potential_audience_users",
+    "exact_numerator_column_verified": false,
+    "exact_denominator_column_verified": false,
+    "status": "CONCEPTUALLY_JUSTIFIED_NUMERICALLY_BLOCKED",
+    "equivalent_to_q_transmit": false
+  },
+  "unresolved_blockers": [
+    "exact_potential_audience_column_name",
+    "exact_exposed_audience_column_name",
+    "owner_type_column_identity",
+    "url_key_column_identity_and_canonicalization",
+    "released_count_raw_transformed_privacy_protected_or_estimated_semantics",
+    "suppression_minimum_cell_perturbation_rounding_rules",
+    "missing_suppressed_vs_structural_zero_encoding",
+    "absent_url_row_semantics",
+    "owner_all_deduplicated_union_and_overlap_handling",
+    "table_specific_additional_filter_compatibility",
+    "weighting_or_estimation_for_released_audience_counts",
+    "release_version_row_linkage_rule"
+  ],
+  "next_gate": {
+    "name": "OFFICIAL_VARIABLE_DICTIONARY_CONTENT_ACCESS",
+    "acceptable_sources": [
+      "PUBLIC_ICPSR_SOMAR_DICTIONARY_DOWNLOAD",
+      "OFFICIAL_ICPSR_VARIABLE_ENDPOINT",
+      "APPROVED_SOMAR_VDE_RELEASE_DOCUMENTATION"
+    ],
+    "guessed_column_names_allowed": false,
+    "automatic_calculation_allowed": false
+  },
+  "interpretation_boundary": [
+    "Catalog prose labels do not establish physical release column names.",
+    "Legacy metadata verifies that dedicated dictionary and variable-description artifacts existed, but the exact dictionary contents were not inspected in this audit.",
+    "General Meta differential-privacy statements for other Data for Good products are not imported as FIES-specific disclosure rules.",
+    "A negative documentation-access result is retained rather than replacing the denominator or inferring field names.",
+    "A valid future r_view would constrain only the aggregate PotentialDelivery-to-PlatformView component.",
+    "PlatformView remains distinct from CBD cognitive ExposureEvent.",
+    "F1a remains RECOVERY_TESTED."
+  ]
+}
