@@ -23,7 +23,7 @@ def test_public_readme_header_is_suite_consistent() -> None:
     contract = json.loads(read(CONTRACT))
     assert 'width="112"' in header
     assert len(re.findall(r"<img alt=", header)) == 3
-    assert "CBD validation" in header
+    assert "Scientific CI" in header
     assert "MIT / CC BY 4.0" in header
 
     nav_match = re.search(r'<p align="center"><small>\s*(.*?)\s*</small></p>', header, re.S)
