@@ -7,12 +7,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
 CONTRACT = ROOT / ".github" / "readme_design_contract.json"
-LIGHT = ROOT / "assets" / "readme" / "cbd-concept-overview-light.svg"
-DARK = ROOT / "assets" / "readme" / "cbd-concept-overview-dark.svg"
 
 
 def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")
+
+
+def normalized_public_text() -> str:
+    return read(README).replace("**", "").replace(chr(96), "").replace("_", " ")
 
 
 def test_public_readme_header_is_suite_consistent() -> None:
@@ -24,60 +26,53 @@ def test_public_readme_header_is_suite_consistent() -> None:
     assert "MIT / CC BY 4.0" in header
 
 
-def test_public_readme_preserves_current_paradigm_boundary() -> None:
-    text = re.sub(r"[*`]", "", read(README)).replace("_", " ").lower()
+def test_public_readme_follows_reader_oriented_information_order() -> None:
+    text = read(README)
+    sections = (
+        "### What is CBD?",
+        "### How CBD works",
+        "### What CBD can do today",
+        "### Research direction",
+        "### Limitations and scientific boundaries",
+        "### Quick start",
+        "### Reproduce the computational baseline",
+        "### Where to go next",
+        "### Support, citation and license",
+    )
+    positions = [text.index(section) for section in sections]
+    assert positions == sorted(positions)
+
+
+def test_public_readme_avoids_internal_development_identifiers() -> None:
+    text = normalized_public_text()
+    contract = json.loads(read(CONTRACT))
+    for token in contract["public_readme_forbidden_internal_terms"]:
+        assert token.lower() not in text.lower()
+
+
+def test_public_readme_explains_current_model_and_scientific_boundaries() -> None:
+    text = normalized_public_text().lower()
     required = (
+        "event-driven cognitive state-transition and agent-level stochastic dynamical model",
         "not currently a formal system dynamics model",
-        "v0.1.1 release baseline",
-        "share action does not automatically create future exposure in that release",
-        "recovery tested",
-        "minimum recovery probability 0.885",
-        "calibration-only",
-        "not empirically constrained",
+        "stable release baseline uses externally supplied event schedules",
+        "seeded random draw",
+        "not a validated predictor of individual human behavior or population behavior",
+        "not a truth detector, diagnostic system or automatic judge",
+        "do not by themselves establish human validation",
+        "conceptual model is broader than the currently executable core",
     )
     for token in required:
         assert token in text
 
 
-def test_public_readme_reports_full_m1_e4_boundary() -> None:
+def test_public_readme_routes_audit_detail_to_reference_files() -> None:
     text = read(README)
-    lower = text.lower()
-    result = json.loads(
-        read(
-            ROOT
-            / "model"
-            / "benchmarks"
-            / "results"
-            / "m1_e4_protocol_robustness_authoritative_2026-09-17.json"
-        )
-    )
-    assert "18 / 18 primary p64_x10 cells meet the 0.80 recovery gate" in lower
-    assert "0.92" in text
-    assert "PROTOCOL_ROBUSTNESS_FAIL" in text
-    assert "3 / 18 cells below 0.80" in lower
-    assert "minimum recovery 0.56" in lower
-    for cell_id in result["formal_failed_cells"]:
-        assert cell_id in text
-    assert "human-participant validation | **not established**" in lower
-    assert "pencode | **not identified or estimated**" in lower
-
-
-def test_public_readme_distinguishes_conceptual_and_executable_scope() -> None:
-    text = read(README)
-    assert "20 modules" in text
-    assert "12 implemented M0" in text
-    assert "10 candidate" in text
-    assert "Platform / Network, AI System, and Learning / Adaptation remain **future**" in text
-
-
-def test_public_assets_exist_and_are_theme_aware() -> None:
-    assert LIGHT.is_file()
-    assert DARK.is_file()
-    text = read(README)
-    assert "assets/readme/cbd-concept-overview-light.svg" in text
-    assert "assets/readme/cbd-concept-overview-dark.svg" in text
-    assert "prefers-color-scheme: dark" in text
-    assert "prefers-color-scheme: light" in text
+    assert "[STATUS.md](STATUS.md)" in text
+    assert "[DEVELOPMENT.md](DEVELOPMENT.md)" in text
+    assert "[CHANGELOG.md](CHANGELOG.md)" in text
+    assert "[model/](model/)" in text
+    assert "Internal experiment identifiers, audit codes, benchmark cell counts and development gates" in text
 
 
 def test_public_readme_local_links_resolve() -> None:
@@ -114,8 +109,8 @@ def test_public_readme_reproducibility_routes_are_current() -> None:
     assert "requirements/ci-py312-linux.lock.txt" in text
     assert "python -m build --no-isolation" in text
     assert "cemodel validate --root ." in text
+    assert ".github/workflows/cbd-validation.yml" in text
     assert "DEVELOPMENT.md" in text
-    assert "releases/v0.1.1.manifest.json" in text
 
 
 def test_public_markdown_has_no_literal_newline_escapes() -> None:
