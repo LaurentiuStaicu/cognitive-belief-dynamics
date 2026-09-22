@@ -74,7 +74,7 @@ def test_document_preserves_numerical_block_and_stage_boundary() -> None:
     text = DOC.read_text(encoding="utf-8").lower()
     for token in (
         "count_semantics_partially_resolved",
-        "content views / potential_audience_users",
+        "content_views / potential_audience_users",
         "column_identity_and_privacy_rules_unresolved",
         "numerical `r_view` calculation remains unauthorized",
         "f1a therefore remains **recovery_tested**",
