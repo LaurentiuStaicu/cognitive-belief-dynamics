@@ -82,7 +82,7 @@ These capabilities make CBD suitable for exploring **mechanisms, temporal orderi
 
 ### Current capabilities and scientific limits
 
-CBD currently supports a working agent-level simulation in which exposure, correction, source feedback and decision events can alter persistent agent state and influence later decisions.
+CBD currently supports a working agent-level simulation in which exposure, correction and source feedback can alter persistent agent state, while decision events evaluate the state accumulated up to that point in the current decision context.
 
 In the stable model, the sequence of information-related events is **supplied from outside the model**. CBD therefore represents how an agent changes across that history, but it does not yet generate a complete social information environment on its own.
 
