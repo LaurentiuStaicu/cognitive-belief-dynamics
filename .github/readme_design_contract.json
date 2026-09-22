@@ -97,6 +97,7 @@
   "public_readme_quality_budget": {
     "maximum_words": 1800,
     "maximum_primary_headings": 12,
-    "maximum_primary_header_badges": 3
+    "maximum_primary_header_badges": 3,
+    "maximum_quick_navigation_links": 6
   }
 }
