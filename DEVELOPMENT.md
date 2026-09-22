@@ -158,7 +158,7 @@ The mandatory v0.1.1 publication/governance pass is complete:
 - CodeQL default setup is enabled and has successfully analyzed Python and GitHub Actions;
 - secret scanning and push protection are enabled;
 - Dependabot vulnerability alerts and security updates are enabled;
-- GitHub Pages publishes from `main` / root and has completed a successful build on the v0.1.1 release commit. The root `README.md` remains the canonical repository landing page; Pages is a separate publication surface and must not silently become a second source of truth unless a dedicated site is explicitly designed, versioned and documented.
+- GitHub Pages publishes from `main` / root and has completed a successful build on the v0.1.1 release commit. GitHub Pages may use the root `README.md` itself as the site entry file when no `index.html` or `index.md` is present. The root `README.md` therefore remains the canonical content source even when the same content is rendered through the Pages URL; Pages must not introduce divergent scientific, release or visual-identity claims.
 
 Optional archive/discovery work such as Zenodo, Software Heritage, social preview and future REUSE/SPDX per-file metadata may be added later, but these items do not block the current scientific research program.
 
