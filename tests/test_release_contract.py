@@ -25,6 +25,7 @@ def test_version_surfaces_are_consistent() -> None:
     readme = read("README.md")
     assert "releases/latest" in readme
     assert "shields.io/github/v/tag/LaurentiuStaicu/cognitive-belief-dynamics" in readme
+    assert f"v{VERSION}" not in readme
     assert f"v{VERSION}" in read("STATUS.md")
     assert f"## {VERSION} - {RELEASE_DATE}" in read("CHANGELOG.md")
     assert f"# Cognitive Belief Dynamics v{VERSION}" in read(f"releases/v{VERSION}.md")
