@@ -1,5 +1,5 @@
 {
-  "contract_version": "3.1",
+  "contract_version": "3.2",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -102,7 +102,9 @@
     "final_ci_must_pass": true,
     "visual_review_required": true,
     "model_or_data_change_allowed": false,
-    "version_change_required": false
+    "version_change_required": false,
+    "merge_method": "squash",
+    "merge_rationale": "Collapse iterative review commits into one coherent landing-page redesign commit on main while retaining the full branch/PR history in GitHub."
   },
   "public_readme_quality_budget": {
     "maximum_words": 1800,
