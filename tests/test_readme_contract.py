@@ -30,10 +30,10 @@ def test_public_readme_follows_reader_oriented_information_order() -> None:
     text = read(README)
     sections = (
         "### What is CBD?",
+        "### Model at a glance",
         "### How CBD works",
-        "### What CBD can do today",
+        "### Current capabilities and limits",
         "### Research direction",
-        "### Limitations and scientific boundaries",
         "### Quick start",
         "### Reproduce the computational baseline",
         "### Where to go next",
@@ -57,8 +57,8 @@ def test_public_readme_explains_current_model_and_scientific_boundaries() -> Non
         "not currently a formal system dynamics model",
         "stable release baseline uses externally supplied event schedules",
         "seeded random draw",
-        "not a validated predictor of individual human behavior or population behavior",
-        "not a truth detector, diagnostic system or automatic judge",
+        "not currently a validated predictor of individual or population human behavior",
+        "a truth detector, a diagnostic system or an automatic judge",
         "do not by themselves establish human validation",
         "conceptual model is broader than the currently executable core",
     )
@@ -73,6 +73,8 @@ def test_public_readme_routes_audit_detail_to_reference_files() -> None:
     assert "[CHANGELOG.md](CHANGELOG.md)" in text
     assert "[model/](model/)" in text
     assert "Internal experiment identifiers, audit codes, benchmark cell counts and development gates" in text
+    assert "### Model at a glance" in text
+    assert "### Current capabilities and limits" in text
 
 
 def test_public_readme_local_links_resolve() -> None:
