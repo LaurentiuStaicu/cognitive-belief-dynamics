@@ -119,7 +119,8 @@ def test_public_readme_stays_within_quality_budget() -> None:
     assert len(words) <= budget["maximum_words"]
     assert len(headings) <= budget["maximum_primary_headings"]
     assert len(re.findall(r"<img alt=", text.split("---", 1)[0])) <= budget["maximum_primary_header_badges"]
-    assert len(re.findall(r"(?m)^\|.*\|\s*$", text)) <= 2 + (budget["maximum_tables"] * 20)
+    table_separators = re.findall(r"(?m)^\|\s*:?-{3,}[^\n]*\|\s*$", text)
+    assert len(table_separators) <= budget["maximum_tables"]
 
 
 def test_public_readme_uses_tables_only_for_structural_or_comparative_content() -> None:
