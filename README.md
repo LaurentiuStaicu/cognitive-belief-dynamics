@@ -27,11 +27,11 @@
 
 Cognitive Belief Dynamics (CBD) studies how the cognitive state of a modeled agent — a simplified representation of an information-processing individual — can evolve as information is encountered, remembered, corrected, re-evaluated and acted upon.
 
-Its central premise is that responses to information are **history-dependent**. The same message may have different effects depending on prior exposure, accessible corrective context, perceived source reliability and the incentives or accuracy cues present when a decision is made. Earlier effects can persist or decay, repeated exposure can accumulate, and later decisions can depend on the preceding history.
+Its central premise is that responses to information are **history-dependent**. The same message may have different effects depending on prior exposure, accessible corrective context, perceived source reliability and the context in which a later decision is made.
 
-CBD therefore represents information-related cognition as a **dynamic process rather than a sequence of isolated reactions**. Its scope is intentionally narrower than cognition as a whole and does not claim to reproduce the full range of human cognitive processes.
+CBD therefore represents information-related cognition as a **dynamic process rather than a sequence of isolated reactions**: earlier effects can persist or decay, repeated exposure can accumulate, and later decisions can depend on the preceding history. Its scope is intentionally narrower than cognition as a whole.
 
-Technically, CBD is an **event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking**. It is **not currently a formal System Dynamics model** because it does not yet contain a complete set of closed endogenous feedback loops — cycles in which modeled actions generate later conditions that feed back into subsequent modeled actions. CBD is a transparent research model and computational reference implementation, not an end-user application, truth-assessment system or validated general model of human cognition.
+Technically, CBD is an **event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking**. It is **not currently a formal System Dynamics model** because it lacks a complete set of closed endogenous feedback loops. CBD is a research model and computational reference implementation, not an end-user application, truth-assessment system or validated general model of human cognition.
 
 ### Research purpose
 
