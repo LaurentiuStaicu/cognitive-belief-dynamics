@@ -82,13 +82,13 @@ These capabilities make CBD suitable for exploring **mechanisms, temporal orderi
 
 ### Scientific foundations
 
-CBD separates evidence for a **phenomenon** from evidence for a particular **model mechanism, functional form or parameter value**. Support for one level is not automatically treated as validation of the others.
+CBD separates evidence for a **phenomenon** from evidence for a particular **model mechanism, mathematical form or parameter value**. Support for one level is not automatically treated as validation of the others.
 
 The repository links modeled relationships to cited research and records scope limitations alongside those links. See [references](model/references.json), [evidence-linked model relations](model/links.json) and the current [evidence snapshot](model/evidence_snapshot.json). The retained evidence set is an auditable project resource, not a systematic review or a population-calibration dataset.
 
 ### Current capabilities and scientific limits
 
-CBD currently supports a working agent-level simulation in which exposure, correction and source feedback can alter persistent agent state, while decision events evaluate the state accumulated up to that point in the current decision context.
+CBD currently supports a working agent-level simulation in which exposure, correction and source feedback can alter persistent agent state, while decision events evaluate the state accumulated up to that point in the current decision context. At decision time, the model can produce belief-related outputs, a sharing probability and a probabilistic share / no-share outcome.
 
 In the stable model, the sequence of information-related events is **supplied from outside the model**. CBD therefore represents how an agent changes across that history, but it does not yet generate a complete social information environment on its own.
 
