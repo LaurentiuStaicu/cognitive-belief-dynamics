@@ -80,6 +80,12 @@ CBD is designed to support controlled research questions about information-proce
 
 These capabilities make CBD suitable for exploring **mechanisms, temporal ordering, path dependence, uncertainty and candidate feedback structures** under explicit assumptions.
 
+### Scientific foundations
+
+CBD separates evidence for a **phenomenon** from evidence for a particular **model mechanism, functional form or parameter value**. Support for one level is not automatically treated as validation of the others.
+
+The repository links modeled relationships to cited research and records scope limitations alongside those links. See [references](model/references.json), [evidence-linked model relations](model/links.json) and the current [evidence snapshot](model/evidence_snapshot.json). The retained evidence set is an auditable project resource, not a systematic review or a population-calibration dataset.
+
 ### Current capabilities and scientific limits
 
 CBD currently supports a working agent-level simulation in which exposure, correction and source feedback can alter persistent agent state, while decision events evaluate the state accumulated up to that point in the current decision context.
