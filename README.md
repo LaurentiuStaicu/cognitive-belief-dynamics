@@ -42,7 +42,7 @@ CBD is intended as a transparent research model and computational reference impl
 | Unit of analysis | A modeled agent whose state persists across events |
 | Time | Ordered discrete events; elapsed time also matters for decay |
 | Persistent state | Familiarity, corrective-context accessibility and estimated source reliability |
-| Baseline agent inputs | Prior belief, accuracy orientation and sharing bias |
+| Baseline agent inputs | Prior belief, accuracy baseline and sharing bias |
 | Core event types | Exposure, correction, source feedback and decision |
 | Decision-time context | Evidence signal, accuracy cue and reward context |
 | Core dynamics | Bounded accumulation, temporal decay and nonlinear transformations |
@@ -114,12 +114,16 @@ python --version
 
 **Expected result:** Python reports version 3.12 or newer. If your default Python is older, switch to a Python 3.12+ environment before continuing.
 
-**2. Clone the repository**
+**2. Choose the snapshot you want to use**
+
+For current development and the newest research state:
 
 ~~~bash
 git clone https://github.com/LaurentiuStaicu/cognitive-belief-dynamics.git
 cd cognitive-belief-dynamics
 ~~~
+
+The default branch can contain scientifically reviewed work added after the latest public release. If you need a frozen, citable and reproducible snapshot instead, use the corresponding tag from [Releases](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/releases).
 
 For routine development or experimentation, using an isolated Python environment is recommended before installing the package.
 
