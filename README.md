@@ -14,11 +14,11 @@
 
 <p align="center"><small>
 <a href="#what-is-cbd">Overview</a> ·
-<a href="#research-purpose">Purpose</a> ·
 <a href="#conceptual-model">Conceptual model</a> ·
 <a href="#research-questions-cbd-can-explore">Research questions</a> ·
 <a href="#current-capabilities-and-scientific-limits">Capabilities & limits</a> ·
-<a href="#using-and-reproducing-cbd">Use & reproduce</a>
+<a href="#using-and-reproducing-cbd">Use & reproduce</a> ·
+<a href="#where-to-go-next">Documentation</a>
 </small></p>
 
 ---
