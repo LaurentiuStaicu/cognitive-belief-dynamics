@@ -94,13 +94,22 @@ For the exact current implementation, evidence qualifications and open scientifi
 
 ### Research direction
 
-CBD is intended to become more endogenous only where the scientific question and evidence justify doing so.
+CBD is intended to become more endogenous only where the scientific question and evidence justify doing so. The table below separates present capability from the intended mature direction; the right-hand column is a research objective, not a claim about the current model.
 
-A more mature model may allow additional future events to arise from earlier modeled actions. For example, a decision to share may contribute to another agent's later exposure; that exposure may alter the recipient's state; and the recipient's later state may influence another decision. Network, platform and learning mechanisms can be integrated only when their system boundary, measurement meaning and validation strategy are explicit.
+| Area | Current model | Intended mature direction, if evidence supports it |
+| --- | --- | --- |
+| Event generation | Stable release baseline is externally scheduled | More future events can arise from earlier modeled actions |
+| Inter-agent propagation | Limited optional research path can turn sharing into a delayed exposure for another eligible agent | Empirically constrained propagation across agents and networks |
+| Network / platform context | Supplied explicitly in the current research path | Evidence-grounded network and platform mechanisms where they materially affect exposure or action |
+| Feedback | No complete endogenous cognitive-social feedback system | Closed feedback structures only where required by the scientific question |
+| Learning / adaptation | Not part of the stable executable core | Explicit adaptation mechanisms with defined state, evidence and validation rules |
+| Validation | Computational, synthetic and component-level evidence with explicit limits | Empirical calibration and validation appropriate to each mechanism and population of interest |
+
+A more mature model may therefore allow a decision to share to contribute to another agent's later exposure, that exposure to alter the recipient's state, and that state to influence another decision. Such extensions must preserve explicit system boundaries, measurement meaning and validation strategy.
 
 This direction does **not** require CBD to become a classical System Dynamics model. A change of modeling paradigm should occur only if the scientific problem requires feedback, interaction or emergence that the event-driven agent-level architecture cannot represent adequately.
 
-The objective is therefore not maximum complexity. It is a model in which each added mechanism is explicit, testable, traceable and scientifically defensible.
+The objective is not maximum complexity. It is a model in which every added mechanism is explicit, testable, traceable and scientifically defensible.
 
 ### Quick start
 
