@@ -45,12 +45,10 @@ The model is primarily intended for researchers, model reviewers and developers 
 
 CBD organizes the problem around four connected ideas.
 
-| Concept | What it represents in CBD |
-| --- | --- |
-| **Information history** | What the agent has been exposed to, corrected about or told about a source over time |
-| **Evolving cognitive state** | Persistent quantities that summarize how earlier information remains relevant to later processing |
-| **Decision context** | The information and incentives present when the agent must form a judgment or decide whether to share |
-| **Probabilistic action** | The fact that the same modeled state does not force a single deterministic behavior |
+- **Information history:** what the agent has been exposed to, corrected about or told about a source over time.
+- **Evolving cognitive state:** persistent quantities that summarize how earlier information remains relevant to later processing.
+- **Decision context:** the information and incentives present when the agent must form a judgment or decide whether to share.
+- **Probabilistic action:** the same modeled state does not force a single deterministic behavior.
 
 The current model represents several mechanisms that connect these ideas. Repeated exposure can increase familiarity with a claim. Corrective information can remain accessible and then become less available with time. Feedback can change the agent's estimate of a source's reliability. Prior belief, evidence, familiarity, corrective context and decision incentives can then combine to influence belief-related and sharing outcomes.
 
