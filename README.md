@@ -25,21 +25,21 @@
 
 ### What is CBD?
 
-Cognitive Belief Dynamics (CBD) is a scientific model for studying how the cognitive state of a modeled agent — an abstract representation of an information-processing individual — can evolve over time as information is encountered, remembered, corrected, re-evaluated and acted upon.
+Cognitive Belief Dynamics (CBD) studies how the cognitive state of a modeled agent — a simplified representation of an information-processing individual — can evolve as information is encountered, remembered, corrected, re-evaluated and acted upon.
 
 Its central premise is that responses to information are **history-dependent**. The same message may have different effects depending on what an agent has previously seen, what corrective context remains accessible, how reliable the source is believed to be, and what incentives or accuracy cues are present when a decision is made.
 
-CBD therefore represents cognition as a **dynamic process rather than a sequence of isolated reactions**. Earlier events can leave persistent effects, some of those effects can decay, repeated exposure can accumulate, and later decisions can depend on the state produced by the preceding history.
+CBD therefore represents cognition as a **dynamic process rather than a sequence of isolated reactions**. Earlier effects can persist or decay, repeated exposure can accumulate, and later decisions can depend on the preceding history.
 
 Its scope is intentionally narrower than cognition as a whole. CBD focuses on information-related state change and decision processes that are explicitly represented in the model; it does not claim to reproduce the full range of human cognitive processes.
 
 Technically, CBD is an **event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking**. It is **not currently a formal System Dynamics model** because it does not yet contain a complete set of closed endogenous feedback loops — cycles in which modeled actions generate later conditions that feed back into subsequent modeled actions.
 
-CBD is intended as a transparent research model and computational reference implementation. It is not an end-user application, a truth-assessment system or a validated general model of human cognition.
+CBD is a transparent research model and computational reference implementation, not an end-user application, truth-assessment system or validated general model of human cognition.
 
 ### Research purpose
 
-CBD addresses a problem that is difficult to study with isolated, one-step representations: the effect of information can depend on **what happened before**, **when it happened** and **what context is present when a later judgment or action is made**. Exposure, correction, memory, source evaluation and decision context are therefore represented within a common temporal framework rather than as independent one-time effects.
+CBD addresses a problem that one-step representations handle poorly: information effects can depend on **what happened before**, **when it happened** and **what context is present at a later judgment or action**. Exposure, correction, memory, source evaluation and decision context are therefore represented within one temporal framework.
 
 CBD does not replace empirical research with simulation. Its purpose is to make assumptions explicit enough to inspect, combine, challenge and progressively test against evidence, helping separate the consequences of a declared mechanism from claims that have actually been established empirically.
 
