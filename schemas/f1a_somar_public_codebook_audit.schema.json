@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/f1a_somar_public_codebook_audit.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "feedback_family",
+    "current_stage",
+    "empirical_promotion_authorized",
+    "numerical_pairing_authorized",
+    "verdict",
+    "audited_sources",
+    "confirmed_compatibility",
+    "candidate_pairing_keys",
+    "candidate_component_quantity",
+    "unresolved_requirements",
+    "hard_gates",
+    "interpretation_boundary",
+    "next_gate"
+  ],
+  "properties": {
+    "id": {
+      "const": "AUDIT.F1A.SOMAR.PUBLIC_CODEBOOK.2026-09-22"
+    },
+    "status": {
+      "const": "PUBLIC_CODEBOOK_COMPATIBILITY_AUDIT"
+    },
+    "feedback_family": {
+      "const": "F1a"
+    },
+    "current_stage": {
+      "const": "RECOVERY_TESTED"
+    },
+    "empirical_promotion_authorized": {
+      "const": false
+    },
+    "numerical_pairing_authorized": {
+      "const": false
+    },
+    "verdict": {
+      "const": "PAIRING_DESIGN_PLAUSIBLE_NUMERICAL_PAIRING_NOT_YET_AUTHORIZED"
+    },
+    "audited_sources": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "confirmed_compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit_level",
+        "owner_type_rows",
+        "time_period_start",
+        "time_period_end",
+        "population_scope",
+        "active_user_age_minimum",
+        "broad_content_surface_compatible",
+        "shared_more_than_100_times_threshold_documented",
+        "potential_exposure_semantics",
+        "actual_exposure_semantics",
+        "engagement_semantics",
+        "science_paper_orders_potential_actual_engagement"
+      ],
+      "properties": {
+        "unit_level": {
+          "const": "URL"
+        },
+        "owner_type_rows": {
+          "const": [
+            "user",
+            "Page",
+            "group",
+            "all"
+          ]
+        },
+        "time_period_start": {
+          "const": "2020-09-01"
+        },
+        "time_period_end": {
+          "const": "2021-02-01"
+        },
+        "population_scope": {
+          "const": "ADULT_US_FACEBOOK_MONTHLY_ACTIVE_USERS"
+        },
+        "active_user_age_minimum": {
+          "const": 18
+        },
+        "broad_content_surface_compatible": {
+          "const": true
+        },
+        "shared_more_than_100_times_threshold_documented": {
+          "const": true
+        },
+        "potential_exposure_semantics": {
+          "type": "string",
+          "minLength": 30
+        },
+        "actual_exposure_semantics": {
+          "type": "string",
+          "minLength": 20
+        },
+        "engagement_semantics": {
+          "type": "string",
+          "minLength": 20
+        },
+        "science_paper_orders_potential_actual_engagement": {
+          "const": true
+        }
+      }
+    },
+    "candidate_pairing_keys": {
+      "const": [
+        "url",
+        "post_owner_type"
+      ]
+    },
+    "candidate_component_quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "formula",
+        "status",
+        "equivalent_to_q_transmit",
+        "role"
+      ],
+      "properties": {
+        "id": {
+          "const": "CANDIDATE.R_VIEW.URL_OWNER"
+        },
+        "formula": {
+          "const": "actual_view_audience / potential_audience"
+        },
+        "status": {
+          "const": "NOT_AUTHORIZED_FOR_CALCULATION"
+        },
+        "equivalent_to_q_transmit": {
+          "const": false
+        },
+        "role": {
+          "const": "AGGREGATE_POTENTIAL_DELIVERY_TO_PLATFORM_VIEW_CONSTRAINT"
+        }
+      }
+    },
+    "unresolved_requirements": {
+      "type": "array",
+      "minItems": 14,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "hard_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "public_variable_dictionary_or_equivalent_inspected",
+        "exact_variable_names_frozen",
+        "numerator_denominator_same_count_semantics",
+        "pairing_keys_frozen",
+        "missing_suppression_policy_frozen",
+        "population_and_period_compatibility_verified",
+        "actual_subset_compatibility_verified",
+        "no_post_hoc_denominator_substitution",
+        "all_must_be_satisfied_before_calculation"
+      ],
+      "properties": {
+        "public_variable_dictionary_or_equivalent_inspected": {
+          "const": true
+        },
+        "exact_variable_names_frozen": {
+          "const": true
+        },
+        "numerator_denominator_same_count_semantics": {
+          "const": true
+        },
+        "pairing_keys_frozen": {
+          "const": true
+        },
+        "missing_suppression_policy_frozen": {
+          "const": true
+        },
+        "population_and_period_compatibility_verified": {
+          "const": true
+        },
+        "actual_subset_compatibility_verified": {
+          "const": true
+        },
+        "no_post_hoc_denominator_substitution": {
+          "const": true
+        },
+        "all_must_be_satisfied_before_calculation": {
+          "const": true
+        }
+      }
+    },
+    "interpretation_boundary": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "string",
+        "minLength": 20
+      }
+    },
+    "next_gate": {
+      "const": "VARIABLE_DICTIONARY_AND_COUNT_SEMANTICS_AUDIT"
+    }
+  }
+}
