@@ -1,0 +1,161 @@
+{
+  "id": "CONTRACT.F1A.PLATFORM_VIEW_BRIDGE.2026-09-22",
+  "status": "EMPIRICAL_COMPONENT_BRIDGE_DESIGN_ONLY",
+  "feedback_family": "F1a",
+  "current_stage": "RECOVERY_TESTED",
+  "promotion_authorized": false,
+  "runtime_change_authorized": false,
+  "purpose": "Separate empirically observable platform opportunity/view stages from the existing CBD cognitive ExposureEvent so real platform data can constrain components without silently redefining q_transmit.",
+  "constructs": {
+    "potential_delivery": {
+      "role": "PLATFORM_OPPORTUNITY",
+      "definition": "Content is eligible or potentially available to a recipient under the dataset/platform-specific relation and observation window.",
+      "maps_directly_to_cognitive_exposure": false
+    },
+    "platform_view": {
+      "role": "PLATFORM_OBSERVATION",
+      "definition": "A platform-recorded content view or seen event under the source dataset's operational definition.",
+      "maps_directly_to_cognitive_exposure": false
+    },
+    "cognitive_exposure": {
+      "role": "CBD_EXISTING_EXPOSURE_EVENT",
+      "definition": "Existing CBD ExposureEvent entering the Familiarity update.",
+      "existing_runtime_construct": true,
+      "empirical_mapping_required": true
+    }
+  },
+  "synthetic_parameter_boundary": {
+    "parameter": "q_transmit",
+    "recovery_definition": "P(realised recipient ExposureEvent | realised Share-edge opportunity)",
+    "status": "CALIBRATION_ONLY_NOT_ACTIVE_RUNTIME",
+    "direct_empirical_estimation_authorized": false,
+    "reason": "The recovered synthetic shortcut may conflate potential delivery, platform view, and cognitive exposure."
+  },
+  "candidate_component_quantities": [
+    {
+      "id": "CANDIDATE.R_VIEW.AGGREGATE",
+      "definition": "observed platform-view audience / potential audience",
+      "level": "AGGREGATE_URL_OR_DOMAIN_ONLY_UNLESS_CODEBOOK_PROVES_FINER_UNIT",
+      "current_status": "CODEBOOK_GATED_NOT_AUTHORIZED_FOR_CALCULATION",
+      "equivalent_to_q_transmit": false
+    },
+    {
+      "id": "CANDIDATE.R_ENGAGE_GIVEN_VIEW",
+      "definition": "engaged audience / viewed audience",
+      "level": "AGGREGATE_UNLESS_CODEBOOK_PROVES_FINER_UNIT",
+      "current_status": "CODEBOOK_GATED_NOT_AUTHORIZED_FOR_CALCULATION",
+      "equivalent_to_cognitive_exposure_probability": false
+    }
+  ],
+  "source_mapping": [
+    {
+      "id": "ICPSR.300450",
+      "title": "Potential Exposure to Facebook Posts with Civic News URLs",
+      "time_period": "2020-09-01/2021-02-01",
+      "public_unit": "URL_LEVEL_STUDY_PERIOD_AGGREGATE",
+      "documented_measurement": "users who potentially viewed posts with civic-news URLs shared by one of their connections; potential audience size",
+      "bridge_role": "POTENTIAL_DELIVERY",
+      "dyadic_share_view_lineage_publicly_documented": false,
+      "restricted_access": true
+    },
+    {
+      "id": "ICPSR.300470",
+      "title": "Exposure to Facebook Posts with Civic News URLs",
+      "time_period": "2020-09-01/2021-02-01",
+      "public_unit": "URL_LEVEL_STUDY_PERIOD_AGGREGATE",
+      "documented_measurement": "users who viewed posts with civic-news URLs; content views and audience size",
+      "bridge_role": "PLATFORM_VIEW",
+      "dyadic_share_view_lineage_publicly_documented": false,
+      "restricted_access": true
+    },
+    {
+      "id": "ICPSR.300475",
+      "title": "Engagement with Facebook Posts with Civic News URLs",
+      "time_period": "2020-09-01/2021-02-01",
+      "public_unit": "URL_LEVEL_STUDY_PERIOD_AGGREGATE",
+      "documented_measurement": "users who engaged with posts and engagement volume; content views and audience size included",
+      "bridge_role": "DOWNSTREAM_PLATFORM_ACTION",
+      "dyadic_share_view_lineage_publicly_documented": false,
+      "restricted_access": true
+    },
+    {
+      "id": "ICPSR.300446",
+      "title": "Passive-Tracking Participants' Daily Views of Facebook Posts with Civic News Domains",
+      "time_period": "2020-09-01/2020-12-31",
+      "public_unit": "PARTICIPANT_DAILY_DOMAIN_LEVEL_AGGREGATE",
+      "documented_measurement": "participants' daily views of posts with civic-news domains",
+      "bridge_role": "PARTICIPANT_LEVEL_PLATFORM_VIEW_TIMING",
+      "dyadic_share_view_lineage_publicly_documented": false,
+      "restricted_access": true
+    },
+    {
+      "id": "ICPSR.300458",
+      "title": "Participant Exposure to Deceptive Online Networks",
+      "time_period": "2020-09-24/2020-11-03",
+      "public_unit": "PARTICIPANT_X_NETWORK_AGGREGATE",
+      "documented_measurement": "participant exposure and engagement with a specific deceptive online network aggregated over a period",
+      "bridge_role": "PARTICIPANT_SOURCE_GROUP_EXPOSURE",
+      "dyadic_share_view_lineage_publicly_documented": false,
+      "restricted_access": true
+    },
+    {
+      "id": "ICPSR.300396",
+      "title": "Facebook Intervention Experiment Participants",
+      "time_period": "2020-09-23/2020-12-22",
+      "public_unit": "PARTICIPANT_LEVEL_AGGREGATE",
+      "documented_measurement": "user attributes, user connections, time spent, content views, content engagement",
+      "bridge_role": "PARTICIPANT_LEVEL_BRIDGE_FEASIBILITY",
+      "dyadic_share_view_lineage_publicly_documented": false,
+      "restricted_access": true
+    },
+    {
+      "id": "ATPROTO.INTERACTION_SEEN",
+      "title": "AT Protocol feed interactionSeen",
+      "time_period": "PROSPECTIVE_ONLY",
+      "public_unit": "ITEM_REQUEST_LINKABLE_IF_DEPLOYED_AND_ACCESSIBLE",
+      "documented_measurement": "protocol token for feed item seen by user with item/request context fields",
+      "bridge_role": "PROSPECTIVE_PLATFORM_SEEN_EVENT",
+      "dyadic_share_view_lineage_publicly_documented": false,
+      "restricted_access": false
+    }
+  ],
+  "codebook_gate": {
+    "required_before_numerical_analysis": true,
+    "requirements": [
+      "exact_variable_names_and_definitions",
+      "row_unit_and_grouping_keys",
+      "unique_user_vs_event_count_semantics",
+      "repeated_view_handling",
+      "potential_and_actual_population_filter_compatibility",
+      "time_window_compatibility",
+      "content_url_domain_normalization",
+      "privacy_suppression_rounding_rules",
+      "missingness_rules",
+      "weighting_sampling_rules",
+      "participant_connection_to_item_share_view_linkability",
+      "sender_recipient_lineage_presence_or_absence"
+    ]
+  },
+  "evidence_interpretation": {
+    "platform_view_is_directly_observable_candidate": true,
+    "platform_view_equals_cognitive_exposure": false,
+    "potential_delivery_equals_platform_view": false,
+    "engagement_equals_exposure": false,
+    "aggregate_ratio_equals_dyadic_probability": false,
+    "component_constraints_can_be_retained_without_stage_promotion": true
+  },
+  "next_gate": {
+    "name": "PROSPECTIVE_EMPIRICAL_ANALYSIS_CONTRACT",
+    "requires_restricted_codebook_audit": true,
+    "requires_measurement_bridge": true,
+    "full_f1a_empirical_promotion_allowed": false,
+    "automatic_promotion_allowed": false
+  },
+  "non_claims": [
+    "No empirical q_transmit value is estimated.",
+    "No new runtime event or active parameter is introduced.",
+    "No SOMAR aggregate is treated as a dyadic Share-to-View probability.",
+    "No platform view is automatically treated as cognitive exposure.",
+    "F1a remains RECOVERY_TESTED."
+  ]
+}
