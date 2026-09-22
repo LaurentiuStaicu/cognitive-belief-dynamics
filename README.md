@@ -125,7 +125,7 @@ cemodel validate --root .
 cemodel demo
 ~~~
 
-The default branch can contain scientifically reviewed work added after the latest public release. For a frozen, citable and reproducible snapshot, use the corresponding tag from [Releases](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/releases).
+The default branch can contain post-release research changes that have passed the repository's review and CI gates. For a frozen, citable and reproducible snapshot, use the corresponding tag from [Releases](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/releases).
 
 <details>
 <summary><strong>Exact CI-oriented reproduction</strong></summary>
