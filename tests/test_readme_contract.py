@@ -41,6 +41,7 @@ def test_public_readme_follows_reader_oriented_information_order() -> None:
         "### Research purpose",
         "### Conceptual model",
         "### Research questions CBD can explore",
+        "### Scientific foundations",
         "### Current capabilities and scientific limits",
         "### Research direction",
         "### Using and reproducing CBD",
@@ -84,6 +85,9 @@ def test_public_readme_routes_audit_detail_to_reference_files() -> None:
     assert "### Research purpose" in text
     assert "### Conceptual model" in text
     assert "### Research questions CBD can explore" in text
+    assert "### Scientific foundations" in text
+    assert "[references](model/references.json)" in text
+    assert "[evidence-linked model relations](model/links.json)" in text
     assert "### Current capabilities and scientific limits" in text
     assert "**1. The agent carries state forward.**" not in text
     assert "### How CBD works" not in text
