@@ -65,7 +65,7 @@ def test_public_readme_explains_current_model_and_scientific_boundaries() -> Non
         "event-driven cognitive state-transition and agent-level stochastic dynamical model",
         "not currently a formal system dynamics model",
         "sequence of information-related events is supplied from outside the model",
-        "probabilistic decisions with reproducible stochastic simulation",
+        "decisions can remain probabilistic while simulations remain reproducible",
         "not currently a validated predictor of individual or population human behavior",
         "a truth detector, a diagnostic system or an automatic judge",
         "do not by themselves establish human validation",
