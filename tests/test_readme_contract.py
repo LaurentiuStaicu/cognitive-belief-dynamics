@@ -69,7 +69,7 @@ def test_public_readme_explains_current_model_and_scientific_boundaries() -> Non
         "not currently a validated predictor of individual or population human behavior",
         "a truth detector, a diagnostic system or an automatic judge",
         "do not by themselves establish human validation",
-        "conceptual model is broader than the currently executable core",
+        "not every concept documented in cbd is currently implemented in the simulator",
     )
     for token in required:
         assert token in text
