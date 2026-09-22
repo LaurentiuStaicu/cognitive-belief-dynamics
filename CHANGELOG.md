@@ -4,6 +4,14 @@ All notable public scientific-core releases of Cognitive Belief Dynamics (CBD) a
 
 ## Unreleased
 
+### Repository presentation
+
+- redesigns the public README as a reader-oriented explanation of the model, following the suite presentation lineage established by Ask the Model first and Romanian Monetary Dynamics second;
+- separates public explanation from technical traceability: internal phase codes, experiment identifiers, benchmark cell counts, thresholds and promotion states remain in STATUS.md, DEVELOPMENT.md, CHANGELOG.md, docs/ and machine-readable scientific artifacts rather than the landing-page narrative;
+- updates the README design contract and regression tests so the landing page explains the research purpose, conceptual model, current capabilities, scientific limits and research direction before routing readers to technical reference material;
+- preserves the approved repository icon and badge labels while marking the older README preview / conceptual assets as historical, non-canonical presentation artifacts;
+- changes repository presentation only; no model equation, parameter, scientific result, dataset, release version or validation boundary is changed.
+
 ### Progressive endogenization research
 
 - adds an optional future-event scheduler around the unchanged `Simulator.step()` cognitive transition path;
