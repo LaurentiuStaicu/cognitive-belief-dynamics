@@ -20,10 +20,18 @@ def normalized_public_text() -> str:
 def test_public_readme_header_is_suite_consistent() -> None:
     text = read(README)
     header = text.split("---", 1)[0]
+    contract = json.loads(read(CONTRACT))
     assert 'width="112"' in header
     assert len(re.findall(r"<img alt=", header)) == 3
     assert "CBD validation" in header
     assert "MIT / CC BY 4.0" in header
+
+    nav_match = re.search(r'<p align="center"><small>\s*(.*?)\s*</small></p>', header, re.S)
+    assert nav_match is not None
+    assert len(re.findall(r'<a href=', nav_match.group(1))) <= contract["public_readme_quality_budget"]["maximum_quick_navigation_links"]
+
+    assert "event-driven cognitive state-transition and agent-level stochastic dynamical model" not in header.lower()
+    assert "A research model of how information exposure, memory, corrective context" in header
 
 
 def test_public_readme_follows_reader_oriented_information_order() -> None:
