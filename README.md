@@ -33,7 +33,7 @@ CBD therefore represents cognition as a **dynamic process rather than a sequence
 
 Its scope is intentionally narrower than cognition as a whole. CBD focuses on information-related state change and decision processes that are explicitly represented in the model; it does not claim to reproduce the full range of human cognitive processes.
 
-Technically, CBD is an **event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking**. It is **not currently a formal System Dynamics model** because the present architecture does not yet implement a complete set of closed endogenous feedback loops.
+Technically, CBD is an **event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking**. It is **not currently a formal System Dynamics model** because it does not yet contain a complete set of closed endogenous feedback loops — cycles in which modeled actions generate later conditions that feed back into subsequent modeled actions.
 
 CBD is intended as a transparent research model and computational reference implementation. It is not an end-user application, a truth-assessment system or a validated general model of human cognition.
 
@@ -115,7 +115,7 @@ CBD is intended to generate more of its own future information sequence from ear
 | Information sequence | Supplied from outside the stable model | More future events can arise from earlier modeled actions |
 | Inter-agent propagation | Limited optional sharing-to-exposure research path | Empirically constrained propagation across agents and networks |
 | Network / platform context | Supplied explicitly when needed | Evidence-grounded mechanisms for how network and platform structure shape exposure and action |
-| Feedback | No complete endogenous cognitive-social feedback system | Closed feedback structures where they are scientifically necessary |
+| Feedback | No complete cycle in which modeled actions generate later information conditions and subsequent modeled actions | Closed feedback structures where they are scientifically necessary |
 | Broader adaptation | The current simulator updates specific modeled states but does not implement a general adaptive learning system | Additional adaptation mechanisms only when their states, evidence and validation rules are explicit |
 | Empirical status | Computational, synthetic and component-level evidence with explicit limits | Calibration and validation appropriate to each mechanism and population of interest |
 
