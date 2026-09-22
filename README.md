@@ -104,7 +104,7 @@ CBD can therefore be used to study dynamic cognitive mechanisms under controlled
 - Evidence for one mechanism or component must not be generalized into validation of the whole model.
 - Reproducibility of a simulation means that the same assumptions and inputs can reproduce the same computational result; it does not by itself establish real-world validity.
 
-For the exact current implementation, evidence qualifications and open scientific gates, [STATUS.md](STATUS.md) is the canonical source.
+For the exact current implementation, evidence qualifications and unresolved scientific questions, [STATUS.md](STATUS.md) is the canonical source.
 
 ### Research direction
 
@@ -163,11 +163,11 @@ A passing computational baseline means that the declared software, schemas, test
 | If you want to… | Start here |
 | --- | --- |
 | Understand the exact current scientific boundary | [STATUS.md](STATUS.md) |
-| Continue development or recover context after an interruption | [DEVELOPMENT.md](DEVELOPMENT.md) |
-| See what changed and why | [CHANGELOG.md](CHANGELOG.md) |
+| Inspect model definitions and evidence records | [model/](model/) |
 | Inspect the executable implementation | [src/cognitive_epistemic_model/](src/cognitive_epistemic_model/) |
-| Inspect canonical model, evidence and scientific contracts | [model/](model/) |
-| Inspect schemas and validation structure | [schemas/](schemas/) and [tests/](tests/) |
+| Review reproducibility and verification | [schemas/](schemas/) and [tests/](tests/) |
+| See what changed and why | [CHANGELOG.md](CHANGELOG.md) |
+| Continue development or recover project context | [DEVELOPMENT.md](DEVELOPMENT.md) |
 | Reproduce a released snapshot | [releases/](releases/) and the corresponding Git tag |
 | Cite CBD | [CITATION.cff](CITATION.cff) |
 
