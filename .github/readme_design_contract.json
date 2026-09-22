@@ -1,5 +1,5 @@
 {
-  "contract_version": "2.4",
+  "contract_version": "2.5",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -62,7 +62,8 @@
     "statement_of_need_precedes_model_detail": true,
     "model_purpose_must_distinguish_simulation_from_empirical_establishment": true,
     "evidence_levels_must_not_be_conflated": true,
-    "public_page_should_explain_evidence_architecture_without_audit_granularity": true
+    "public_page_should_explain_evidence_architecture_without_audit_granularity": true,
+    "tables_reserved_for_true_comparison_or_compact_structural_mapping": true
   },
   "public_readme_forbidden_internal_terms": [
     "M0",
@@ -106,6 +107,7 @@
     "maximum_words": 1800,
     "maximum_primary_headings": 12,
     "maximum_primary_header_badges": 3,
-    "maximum_quick_navigation_links": 6
+    "maximum_quick_navigation_links": 6,
+    "maximum_tables": 2
   }
 }
