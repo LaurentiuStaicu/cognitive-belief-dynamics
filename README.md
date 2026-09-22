@@ -78,13 +78,13 @@ CBD is designed to support controlled research questions about information-proce
 | How can uncertainty be represented without forcing identical outcomes? | Decisions can remain probabilistic while simulations remain reproducible |
 | How might information eventually propagate between agents? | An experimental path can link one agent's sharing action to another agent's later exposure |
 
-These capabilities make CBD suitable for exploring **mechanisms, temporal ordering, path dependence, uncertainty and candidate feedback structures** under explicit assumptions.
+These capabilities make CBD suitable for exploring **mechanisms, temporal ordering, path dependence, uncertainty and possible feedback structures** under explicit assumptions.
 
 ### Scientific foundations
 
 CBD separates evidence for a **phenomenon** from evidence for a particular **model mechanism, mathematical form or parameter value**. Support for one level is not automatically treated as validation of the others.
 
-The repository links modeled relationships to cited research and records scope limitations alongside those links. See [references](model/references.json), [evidence-linked model relations](model/links.json) and the current [evidence snapshot](model/evidence_snapshot.json). The retained evidence set is an auditable project resource, not a systematic review or a population-calibration dataset.
+The repository links modeled relationships to cited research and records scope limitations alongside those links. See [references](model/references.json), [evidence-linked model relations](model/links.json) and the current [evidence record](model/evidence_snapshot.json). The retained evidence set is an auditable project resource, not a systematic review or a dataset for population calibration.
 
 ### Current capabilities and scientific limits
 
@@ -100,7 +100,7 @@ CBD can therefore be used to study dynamic cognitive mechanisms under controlled
 - It is not a truth detector, a diagnostic system or an automatic judge of whether a claim is correct.
 - A mechanism being computationally implemented does not make it an established human cognitive law.
 - Synthetic recovery, simulation tests and software verification do **not** by themselves establish human validation.
-- The conceptual model is broader than the currently executable core.
+- Not every concept documented in CBD is currently implemented in the simulator.
 - Evidence for one mechanism or component must not be generalized into validation of the whole model.
 - Reproducibility of a simulation means that the same assumptions and inputs can reproduce the same computational result; it does not by itself establish real-world validity.
 
@@ -116,7 +116,7 @@ CBD is intended to generate more of its own future information sequence from ear
 | Inter-agent propagation | Limited optional sharing-to-exposure research path | Empirically constrained propagation across agents and networks |
 | Network / platform context | Supplied explicitly when needed | Evidence-grounded mechanisms for how network and platform structure shape exposure and action |
 | Feedback | No complete endogenous cognitive-social feedback system | Closed feedback structures where they are scientifically necessary |
-| Broader adaptation | The current core updates specific modeled states but does not implement a general adaptive learning system | Additional adaptation mechanisms only when their states, evidence and validation rules are explicit |
+| Broader adaptation | The current simulator updates specific modeled states but does not implement a general adaptive learning system | Additional adaptation mechanisms only when their states, evidence and validation rules are explicit |
 | Empirical status | Computational, synthetic and component-level evidence with explicit limits | Calibration and validation appropriate to each mechanism and population of interest |
 
 A more mature CBD may represent a cycle in which sharing affects another agent's exposure, that exposure changes the recipient's state, and the recipient's later state influences another decision. Whether this should remain an event-driven agent model or eventually justify describing CBD as formal System Dynamics must follow the scientific structure, not a desire for uniformity across projects.
