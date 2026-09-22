@@ -113,6 +113,8 @@ The canonical paradigm remains an event-driven cognitive state-transition and ag
 
 The progressive-endogenization research program and its validation ladder remain tracked in GitHub **Issue #110**.
 
+The subsequent SOMAR column-identity/privacy audit (`docs/F1A_SOMAR_COLUMN_PRIVACY_AUDIT.md`; `model/experiments/f1a_somar_column_privacy_audit.json`) retains a controlled negative result. Current ICPSR records identify the relevant URL-level potential-exposure, exposure and engagement studies, and legacy SOMAR metadata identifies dedicated public dictionary/variable-description artifacts. However, the exact dictionary rows cannot currently be inspected and version-linked through the available public web surface. Consequently `r_view` remains numerically unauthorized, no field names are guessed, and generic disclosure-control claims from unrelated Meta datasets are not imported into FIES. The next admissible gate is `OFFICIAL_VARIABLE_DICTIONARY_CONTENT_ACCESS`.
+
 ### M1.E4 item heterogeneity
 
 Phase M shows an asymmetric loss of EVSD-family recovery under item-level heterogeneity. The current participant-level aggregate count representation does not preserve item identity, so a future crossed participant-item model would require a new prospective data/measurement contract rather than a post-hoc patch to M1.
@@ -176,13 +178,13 @@ Released tags are immutable historical snapshots and must not be rewritten to co
 
 ## Current next gates
 
-1. Keep F1a at **RECOVERY_TESTED**. Public FIES documentation now resolves Audience versus Content views semantics and the intended potential→exposed→engaged funnel, but no numerical empirical component has yet been estimated.
-2. Treat candidate `r_view` only as `exposed_audience_users / potential_audience_users`. Never substitute `content_views` for exposed audience: Content views are screen-appearance counts and can include repeated views, whereas Audience is a user/participant count viewed at least once.
-3. Resolve the exact released column names and definitions for potential audience and exposed audience in ICPSR 300450 and 300470.
-4. Audit privacy/disclosure controls: suppression/minimum-cell rules, perturbation/noise, rounding, estimated-count semantics, and how such transformations affect ratios.
-5. Freeze missing/suppressed/structural-zero handling, absent-URL semantics, URL canonicalization, release-version row linkage and any table-specific filters before pairing rows.
-6. Treat owner_type=`all` as the documented combined posts-from-users/Pages/groups category, but do not assume its audience count equals a simple sum of the three component rows because users can overlap.
-7. Only after the `COLUMN_IDENTITY_AND_PRIVACY_RULES_AUDIT` passes may a separate prospective empirical-analysis contract authorize an `r_view` calculation. If any gate fails, retain the negative result rather than substituting a different denominator post hoc.
+1. Keep F1a at **RECOVERY_TESTED**. The SOMAR column/privacy gate is a retained negative result, not a failed reason to substitute a different empirical quantity.
+2. Treat candidate `r_view` only as `exposed_audience_users / potential_audience_users`; `content_views` remains an invalid numerator for this unique-user fraction.
+3. Obtain **official variable-dictionary content** for ICPSR 300450 and 300470 through a public ICPSR/SOMAR documentation download, an official variable endpoint, or approved SOMAR/VDE release documentation.
+4. Before any calculation, verify the exact potential-audience, exposed-audience, owner-type and URL/key fields and tie both tables to explicit release versions.
+5. Freeze release-specific suppression/minimum-cell, perturbation/noise, rounding, estimated-count, missing/suppressed/zero, absent-row and URL-canonicalization semantics. Do not import privacy rules from unrelated Meta data products.
+6. Treat owner_type=`all` as the documented combined posts-from-users/Pages/groups category, but do not assume its audience count equals a simple sum of the component rows.
+7. Only after `OFFICIAL_VARIABLE_DICTIONARY_CONTENT_ACCESS` resolves the field and disclosure semantics may a separate prospective empirical-analysis contract authorize an `r_view` calculation. If access remains unavailable, retain the negative result.
 8. Keep PlatformView→CBD CognitiveExposure unresolved until a prospective cognitive measurement bridge is justified; even a valid FIES `r_view` is not dyadic `q_transmit`.
 9. Do not begin recipient Decision generation or the full Share→Exposure→Decision→Share loop until source-attribution, item-identity and decision-opportunity contracts identified in Issue #110 are resolved.
 10. Treat any future M1.E4 item-heterogeneity redesign as a separate prospective post-M1 research program.

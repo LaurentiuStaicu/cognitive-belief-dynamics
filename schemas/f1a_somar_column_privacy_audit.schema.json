@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/f1a_somar_column_privacy_audit.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id","status","feedback_family","current_stage",
+    "empirical_promotion_authorized","numerical_calculation_authorized",
+    "verified_studies","verified_legacy_documentation","verified_table_names",
+    "privacy_state","candidate_component_quantity","unresolved_blockers",
+    "next_gate","interpretation_boundary"
+  ],
+  "properties": {
+    "id": {"const": "AUDIT.F1A.SOMAR.COLUMN_PRIVACY.2026-09-22"},
+    "status": {"const": "DOCUMENTATION_ARTIFACTS_LOCATED_COLUMN_CONTENTS_UNVERIFIED"},
+    "feedback_family": {"const": "F1a"},
+    "current_stage": {"const": "RECOVERY_TESTED"},
+    "empirical_promotion_authorized": {"const": false},
+    "numerical_calculation_authorized": {"const": false},
+    "verified_studies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["potential_exposure","exposure","engagement"],
+      "properties": {
+        "potential_exposure": {"type":"object","additionalProperties":false,"required":["icpsr","level","catalog_semantics"],"properties":{"icpsr":{"const":"300450"},"level":{"const":"URL"},"catalog_semantics":{"const":"POTENTIAL_AUDIENCE_SIZE"}}},
+        "exposure": {"type":"object","additionalProperties":false,"required":["icpsr","level","catalog_semantics"],"properties":{"icpsr":{"const":"300470"},"level":{"const":"URL"},"catalog_semantics":{"const":"CONTENT_VIEWS_AND_AUDIENCE_SIZE"}}},
+        "engagement": {"type":"object","additionalProperties":false,"required":["icpsr","level","catalog_semantics"],"properties":{"icpsr":{"const":"300475"},"level":{"const":"URL"},"catalog_semantics":{"const":"ENGAGEMENT_VOLUME_CONTENT_VIEWS_AND_AUDIENCE_SIZE"}}}
+      }
+    },
+    "verified_legacy_documentation": {
+      "type":"object","additionalProperties":false,
+      "required":["data_dictionary_filename","variable_descriptions_filename","project_codebook_filename","glossary_filename","exact_dictionary_contents_inspected","current_release_version_linkage_verified"],
+      "properties":{
+        "data_dictionary_filename":{"const":"data_dictionary_political_segregation_paper.xlsx"},
+        "variable_descriptions_filename":{"const":"variables_political_segregation_paper.csv"},
+        "project_codebook_filename":{"const":"US2020_FB&IG_Elections_External_Codebook.pdf"},
+        "glossary_filename":{"const":"US2020_Glossary.xlsx"},
+        "exact_dictionary_contents_inspected":{"const":false},
+        "current_release_version_linkage_verified":{"const":false}
+      }
+    },
+    "verified_table_names":{"type":"array","minItems":3,"uniqueItems":true,"items":{"type":"string"}},
+    "privacy_state":{
+      "type":"object","additionalProperties":false,
+      "required":["aggregate_only","url_share_threshold_gt_100_us_users","additional_release_controls_verified","differential_privacy_assumed_from_other_meta_products"],
+      "properties":{
+        "aggregate_only":{"const":true},
+        "url_share_threshold_gt_100_us_users":{"const":true},
+        "additional_release_controls_verified":{"const":false},
+        "differential_privacy_assumed_from_other_meta_products":{"const":false}
+      }
+    },
+    "candidate_component_quantity":{
+      "type":"object","additionalProperties":false,
+      "required":["id","formula","exact_numerator_column_verified","exact_denominator_column_verified","status","equivalent_to_q_transmit"],
+      "properties":{
+        "id":{"const":"CANDIDATE.R_VIEW.URL_OWNER"},
+        "formula":{"const":"exposed_audience_users / potential_audience_users"},
+        "exact_numerator_column_verified":{"const":false},
+        "exact_denominator_column_verified":{"const":false},
+        "status":{"const":"CONCEPTUALLY_JUSTIFIED_NUMERICALLY_BLOCKED"},
+        "equivalent_to_q_transmit":{"const":false}
+      }
+    },
+    "unresolved_blockers":{"type":"array","minItems":10,"uniqueItems":true,"items":{"type":"string"}},
+    "next_gate":{
+      "type":"object","additionalProperties":false,
+      "required":["name","acceptable_sources","guessed_column_names_allowed","automatic_calculation_allowed"],
+      "properties":{
+        "name":{"const":"OFFICIAL_VARIABLE_DICTIONARY_CONTENT_ACCESS"},
+        "acceptable_sources":{"type":"array","minItems":3,"uniqueItems":true,"items":{"type":"string"}},
+        "guessed_column_names_allowed":{"const":false},
+        "automatic_calculation_allowed":{"const":false}
+      }
+    },
+    "interpretation_boundary":{"type":"array","minItems":6,"items":{"type":"string","minLength":20}}
+  }
+}
