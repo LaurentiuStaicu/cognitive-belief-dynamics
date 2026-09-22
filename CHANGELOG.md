@@ -14,6 +14,7 @@ All notable public scientific-core releases of Cognitive Belief Dynamics (CBD) a
 - prospectively freezes a synthetic `q_transmit` recovery design before execution, with 20 core cells and 10 explicitly non-gating stress cells;
 - retains an authoritative 200-replicate-per-cell recovery result: all 20 core cells pass the 0.80 gate, minimum core recovery 0.885, deterministic/structural controls pass, and the result reproduces byte-for-byte in CI;
 - advances F1a to `RECOVERY_TESTED` only; `q_transmit` remains calibration-only, F1a is not empirically constrained or active, and the canonical System Dynamics boundary is unchanged.
+- adds a post-recovery empirical-observability audit: Bluesky/SNAP-style public data may constrain topology and action components, but no current audited public source supplies the recipient-specific exposure/impression and negative-opportunity measurements required to estimate the present `q_transmit`; no empirical promotion is authorized.
 
 ## 0.1.1 - 2026-09-21
 
