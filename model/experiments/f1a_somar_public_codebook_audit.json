@@ -1,0 +1,82 @@
+{
+  "id": "AUDIT.F1A.SOMAR.PUBLIC_CODEBOOK.2026-09-22",
+  "status": "PUBLIC_CODEBOOK_COMPATIBILITY_AUDIT",
+  "feedback_family": "F1a",
+  "current_stage": "RECOVERY_TESTED",
+  "empirical_promotion_authorized": false,
+  "numerical_pairing_authorized": false,
+  "verdict": "PAIRING_DESIGN_PLAUSIBLE_NUMERICAL_PAIRING_NOT_YET_AUTHORIZED",
+  "audited_sources": [
+    "ICPSR.300450",
+    "ICPSR.300470",
+    "ICPSR.300475",
+    "US2020_EXTERNAL_CODEBOOK_V3",
+    "SCIENCE.2023.ADE7138"
+  ],
+  "confirmed_compatibility": {
+    "unit_level": "URL",
+    "owner_type_rows": [
+      "user",
+      "Page",
+      "group",
+      "all"
+    ],
+    "time_period_start": "2020-09-01",
+    "time_period_end": "2021-02-01",
+    "population_scope": "ADULT_US_FACEBOOK_MONTHLY_ACTIVE_USERS",
+    "active_user_age_minimum": 18,
+    "broad_content_surface_compatible": true,
+    "shared_more_than_100_times_threshold_documented": true,
+    "potential_exposure_semantics": "COULD_HAVE_VIEWED_IN_FEED_BECAUSE_SHARED_BY_CONNECTION",
+    "actual_exposure_semantics": "VIEWED_IN_FACEBOOK_FEED",
+    "engagement_semantics": "DOWNSTREAM_ENGAGEMENT_WITH_VIEWED_CONTENT",
+    "science_paper_orders_potential_actual_engagement": true
+  },
+  "candidate_pairing_keys": [
+    "url",
+    "post_owner_type"
+  ],
+  "candidate_component_quantity": {
+    "id": "CANDIDATE.R_VIEW.URL_OWNER",
+    "formula": "actual_view_audience / potential_audience",
+    "status": "NOT_AUTHORIZED_FOR_CALCULATION",
+    "equivalent_to_q_transmit": false,
+    "role": "AGGREGATE_POTENTIAL_DELIVERY_TO_PLATFORM_VIEW_CONSTRAINT"
+  },
+  "unresolved_requirements": [
+    "exact_potential_audience_variable_name_and_definition",
+    "exact_actual_audience_or_viewer_variable_name_and_definition",
+    "exact_total_views_variable_name_and_definition",
+    "exact_engaged_audience_and_engagement_volume_definitions",
+    "audience_unique_deduplicated_estimated_or_other_semantics",
+    "repeated_view_handling",
+    "full_population_filter_compatibility",
+    "url_canonicalization_compatibility",
+    "owner_all_row_union_or_recomputation_semantics",
+    "suppression_thresholding_perturbation_rounding_rules",
+    "missingness_and_structural_zero_distinction",
+    "absent_url_row_interpretation",
+    "sampling_weighting_or_estimated_count_rules",
+    "actual_audience_subset_compatibility_with_potential_audience"
+  ],
+  "hard_gates": {
+    "public_variable_dictionary_or_equivalent_inspected": true,
+    "exact_variable_names_frozen": true,
+    "numerator_denominator_same_count_semantics": true,
+    "pairing_keys_frozen": true,
+    "missing_suppression_policy_frozen": true,
+    "population_and_period_compatibility_verified": true,
+    "actual_subset_compatibility_verified": true,
+    "no_post_hoc_denominator_substitution": true,
+    "all_must_be_satisfied_before_calculation": true
+  },
+  "interpretation_boundary": [
+    "Structural compatibility of public documentation is not numerical calibration.",
+    "Potential exposure is a platform opportunity construct, not actual view.",
+    "Actual Facebook Feed view is a platform-view construct, not automatically CBD cognitive ExposureEvent.",
+    "Engagement is downstream from actual exposure and cannot replace the exposure numerator.",
+    "Any valid r_view would be an aggregate component constraint and not dyadic q_transmit.",
+    "F1a remains RECOVERY_TESTED."
+  ],
+  "next_gate": "VARIABLE_DICTIONARY_AND_COUNT_SEMANTICS_AUDIT"
+}
