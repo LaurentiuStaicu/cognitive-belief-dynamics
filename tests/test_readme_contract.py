@@ -38,8 +38,9 @@ def test_public_readme_follows_reader_oriented_information_order() -> None:
     text = read(README)
     sections = (
         "### What is CBD?",
+        "### Research purpose",
         "### Conceptual model",
-        "### What CBD can be used to study",
+        "### Research questions CBD can explore",
         "### Current capabilities and scientific limits",
         "### Research direction",
         "### Using and reproducing CBD",
@@ -62,7 +63,7 @@ def test_public_readme_explains_current_model_and_scientific_boundaries() -> Non
     required = (
         "event-driven cognitive state-transition and agent-level stochastic dynamical model",
         "not currently a formal system dynamics model",
-        "stable release baseline remains externally scheduled",
+        "sequence of information-related events is supplied from outside the model",
         "probabilistic decisions with reproducible stochastic simulation",
         "not currently a validated predictor of individual or population human behavior",
         "a truth detector, a diagnostic system or an automatic judge",
@@ -80,8 +81,9 @@ def test_public_readme_routes_audit_detail_to_reference_files() -> None:
     assert "[CHANGELOG.md](CHANGELOG.md)" in text
     assert "[model/](model/)" in text
     assert "Internal experiment identifiers, audit codes, benchmark cell counts and development gates" in text
+    assert "### Research purpose" in text
     assert "### Conceptual model" in text
-    assert "### What CBD can be used to study" in text
+    assert "### Research questions CBD can explore" in text
     assert "### Current capabilities and scientific limits" in text
     assert "**1. The agent carries state forward.**" not in text
     assert "### How CBD works" not in text
