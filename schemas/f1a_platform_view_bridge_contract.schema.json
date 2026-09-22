@@ -1,0 +1,344 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/f1a_platform_view_bridge_contract.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "feedback_family",
+    "current_stage",
+    "promotion_authorized",
+    "runtime_change_authorized",
+    "purpose",
+    "constructs",
+    "synthetic_parameter_boundary",
+    "candidate_component_quantities",
+    "source_mapping",
+    "codebook_gate",
+    "evidence_interpretation",
+    "next_gate",
+    "non_claims"
+  ],
+  "properties": {
+    "id": {
+      "const": "CONTRACT.F1A.PLATFORM_VIEW_BRIDGE.2026-09-22"
+    },
+    "status": {
+      "const": "EMPIRICAL_COMPONENT_BRIDGE_DESIGN_ONLY"
+    },
+    "feedback_family": {
+      "const": "F1a"
+    },
+    "current_stage": {
+      "const": "RECOVERY_TESTED"
+    },
+    "promotion_authorized": {
+      "const": false
+    },
+    "runtime_change_authorized": {
+      "const": false
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 80
+    },
+    "constructs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "potential_delivery",
+        "platform_view",
+        "cognitive_exposure"
+      ],
+      "properties": {
+        "potential_delivery": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "definition",
+            "maps_directly_to_cognitive_exposure"
+          ],
+          "properties": {
+            "role": {
+              "const": "PLATFORM_OPPORTUNITY"
+            },
+            "definition": {
+              "type": "string",
+              "minLength": 40
+            },
+            "maps_directly_to_cognitive_exposure": {
+              "const": false
+            }
+          }
+        },
+        "platform_view": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "definition",
+            "maps_directly_to_cognitive_exposure"
+          ],
+          "properties": {
+            "role": {
+              "const": "PLATFORM_OBSERVATION"
+            },
+            "definition": {
+              "type": "string",
+              "minLength": 40
+            },
+            "maps_directly_to_cognitive_exposure": {
+              "const": false
+            }
+          }
+        },
+        "cognitive_exposure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "definition",
+            "existing_runtime_construct",
+            "empirical_mapping_required"
+          ],
+          "properties": {
+            "role": {
+              "const": "CBD_EXISTING_EXPOSURE_EVENT"
+            },
+            "definition": {
+              "type": "string",
+              "minLength": 30
+            },
+            "existing_runtime_construct": {
+              "const": true
+            },
+            "empirical_mapping_required": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    "synthetic_parameter_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parameter",
+        "recovery_definition",
+        "status",
+        "direct_empirical_estimation_authorized",
+        "reason"
+      ],
+      "properties": {
+        "parameter": {
+          "const": "q_transmit"
+        },
+        "recovery_definition": {
+          "type": "string",
+          "minLength": 40
+        },
+        "status": {
+          "const": "CALIBRATION_ONLY_NOT_ACTIVE_RUNTIME"
+        },
+        "direct_empirical_estimation_authorized": {
+          "const": false
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 50
+        }
+      }
+    },
+    "candidate_component_quantities": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "definition",
+          "level",
+          "current_status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^CANDIDATE\\."
+          },
+          "definition": {
+            "type": "string",
+            "minLength": 20
+          },
+          "level": {
+            "type": "string",
+            "minLength": 20
+          },
+          "current_status": {
+            "const": "CODEBOOK_GATED_NOT_AUTHORIZED_FOR_CALCULATION"
+          },
+          "equivalent_to_q_transmit": {
+            "const": false
+          },
+          "equivalent_to_cognitive_exposure_probability": {
+            "const": false
+          }
+        },
+        "oneOf": [
+          {
+            "required": [
+              "equivalent_to_q_transmit"
+            ]
+          },
+          {
+            "required": [
+              "equivalent_to_cognitive_exposure_probability"
+            ]
+          }
+        ]
+      }
+    },
+    "source_mapping": {
+      "type": "array",
+      "minItems": 7,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "time_period",
+          "public_unit",
+          "documented_measurement",
+          "bridge_role",
+          "dyadic_share_view_lineage_publicly_documented",
+          "restricted_access"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 8
+          },
+          "title": {
+            "type": "string",
+            "minLength": 10
+          },
+          "time_period": {
+            "type": "string",
+            "minLength": 9
+          },
+          "public_unit": {
+            "type": "string",
+            "minLength": 10
+          },
+          "documented_measurement": {
+            "type": "string",
+            "minLength": 30
+          },
+          "bridge_role": {
+            "type": "string",
+            "minLength": 10
+          },
+          "dyadic_share_view_lineage_publicly_documented": {
+            "const": false
+          },
+          "restricted_access": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "codebook_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_before_numerical_analysis",
+        "requirements"
+      ],
+      "properties": {
+        "required_before_numerical_analysis": {
+          "const": true
+        },
+        "requirements": {
+          "type": "array",
+          "minItems": 12,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evidence_interpretation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "platform_view_is_directly_observable_candidate",
+        "platform_view_equals_cognitive_exposure",
+        "potential_delivery_equals_platform_view",
+        "engagement_equals_exposure",
+        "aggregate_ratio_equals_dyadic_probability",
+        "component_constraints_can_be_retained_without_stage_promotion"
+      ],
+      "properties": {
+        "platform_view_is_directly_observable_candidate": {
+          "const": true
+        },
+        "platform_view_equals_cognitive_exposure": {
+          "const": false
+        },
+        "potential_delivery_equals_platform_view": {
+          "const": false
+        },
+        "engagement_equals_exposure": {
+          "const": false
+        },
+        "aggregate_ratio_equals_dyadic_probability": {
+          "const": false
+        },
+        "component_constraints_can_be_retained_without_stage_promotion": {
+          "const": true
+        }
+      }
+    },
+    "next_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "requires_restricted_codebook_audit",
+        "requires_measurement_bridge",
+        "full_f1a_empirical_promotion_allowed",
+        "automatic_promotion_allowed"
+      ],
+      "properties": {
+        "name": {
+          "const": "PROSPECTIVE_EMPIRICAL_ANALYSIS_CONTRACT"
+        },
+        "requires_restricted_codebook_audit": {
+          "const": true
+        },
+        "requires_measurement_bridge": {
+          "const": true
+        },
+        "full_f1a_empirical_promotion_allowed": {
+          "const": false
+        },
+        "automatic_promotion_allowed": {
+          "const": false
+        }
+      }
+    },
+    "non_claims": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string",
+        "minLength": 20
+      }
+    }
+  }
+}
