@@ -1,5 +1,5 @@
 {
-  "contract_version": "4.0",
+  "contract_version": "4.1",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -120,7 +120,7 @@
     "maximum_intro_words": 190
   },
   "post_merge_metadata_sync": {
-    "repository_description": "Research model of how information exposure, memory, corrective context, perceived source reliability and decision context influence modeled cognitive states and sharing decisions over time.",
+    "repository_description": "Research model for studying how information exposure, memory, corrective context, perceived source reliability and decision context influence modeled cognitive states and sharing decisions over time.",
     "homepage": "preserve existing GitHub Pages URL",
     "topics": "preserve current research-software and modeling topics",
     "rationale": "Keep the GitHub About description concise and aligned with the approved landing-page message while preserving the fuller probabilistic wording in the README tagline."
