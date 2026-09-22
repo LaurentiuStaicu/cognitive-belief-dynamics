@@ -76,7 +76,7 @@ These capabilities make CBD suitable for exploring **mechanisms, temporal orderi
 
 CBD separates evidence for a **phenomenon** from evidence for a particular **model mechanism, mathematical form or parameter value**. Support for one level is not automatically treated as validation of the others.
 
-The repository links modeled relationships to cited research and records scope limitations alongside those links. [STATUS.md](STATUS.md) summarizes the current scientific boundary, while the machine-readable model and evidence records are retained under [model/](model/) for audit and reproducibility. The retained evidence set is an auditable project resource, not a systematic review or a dataset for population calibration.
+The repository links modeled relationships to cited research and records scope limitations alongside those links. [STATUS.md](STATUS.md) summarizes the current scientific boundary, while the machine-readable model and evidence records are retained under [model/](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/tree/main/model) for audit and reproducibility. The retained evidence set is an auditable project resource, not a systematic review or a dataset for population calibration.
 
 ### Current capabilities and scientific limits
 
@@ -142,7 +142,7 @@ python -m pytest
 cemodel validate --root .
 ~~~
 
-See the [CBD validation workflow](.github/workflows/cbd-validation.yml).
+See the [CBD validation workflow](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/actions/workflows/cbd-validation.yml).
 
 </details>
 
@@ -151,18 +151,18 @@ A passing computational baseline means that the declared software, schemas, test
 ### Where to go next
 
 - **Current scientific boundary:** [STATUS.md](STATUS.md)
-- **Model definitions and evidence records:** [model/](model/)
-- **Executable implementation:** [src/cognitive_epistemic_model/](src/cognitive_epistemic_model/)
-- **Reproducibility and verification:** [schemas/](schemas/) and [tests/](tests/)
+- **Model definitions and evidence records:** [model/](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/tree/main/model)
+- **Executable implementation:** [src/cognitive_epistemic_model/](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/tree/main/src/cognitive_epistemic_model)
+- **Reproducibility and verification:** [schemas/](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/tree/main/schemas) and [tests/](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/tree/main/tests)
 - **Change history:** [CHANGELOG.md](CHANGELOG.md)
 - **Development continuity:** [DEVELOPMENT.md](DEVELOPMENT.md)
-- **Released snapshots:** [releases/](releases/) and the corresponding Git tag
+- **Released snapshots:** [releases/](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/tree/main/releases) and the corresponding Git tag
 - **Citation:** [CITATION.cff](CITATION.cff)
 
 
 ### Support, citation and license
 
-For reproducible software/test problems or scientific/model concerns, use the structured repository issue forms. See [Contributing](.github/CONTRIBUTING.md) and [Support](.github/SUPPORT.md).
+For reproducible software/test problems or scientific/model concerns, use the structured repository issue forms. See [Contributing](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/blob/main/.github/CONTRIBUTING.md) and [Support](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/blob/main/.github/SUPPORT.md).
 
 If you use CBD in research, cite the exact released version using the repository's citation metadata. Released tags are treated as immutable historical version points by project policy; release-specific notes and manifests are retained under the `releases/` directory.
 
