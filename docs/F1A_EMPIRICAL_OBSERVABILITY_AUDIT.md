@@ -86,17 +86,19 @@ Sources:
 - API reference: https://docs.bsky.app/docs/api/app-bsky-feed-get-feed
 - feed-generator architecture: https://github.com/bluesky-social/feed-generator
 
-A feed generator receives authenticated feed requests and returns post URIs to the requesting PDS. A prospective research service could therefore log request context and returned candidate items.
+A feed generator receives feed requests and returns post URIs/candidate items. **Feed output is a candidate-delivery surface**, not proof that a client rendered, displayed, attended to, or cognitively encoded each item.
 
-This would improve measurement of delivery opportunities, but the returned feed skeleton is still not proof that a client rendered, displayed, attended to, or cognitively encoded each item.
+The current AT Protocol lexicon adds an important prospective measurement capability: `app.bsky.feed.defs#interactionSeen` is explicitly described as **"Feed item was seen by user"**. The interaction object can also carry the item AT URI, `feedContext`, and a per-request `reqId`, which creates a protocol-level route for linking a seen event back to a served feed item/request.
 
-A future prospective study could add ethically reviewed client-side display/view instrumentation and then define separate constructs such as:
+This does **not** make the existing public Bluesky Social Dataset an impression log. It also does not prove that a third-party research feed generator can currently receive all such UI events in production. Bluesky's social-app issue #7285 documents that forwarding UI interaction events such as `interactionSeen` to third-party feed generators had not yet been implemented there because permissions/privacy controls were unresolved. Because implementation state can change, any prospective study must verify current client behavior, endpoint delivery, consent/privacy controls, and retention semantics at study start rather than infer access from the lexicon alone.
 
-`EligibleTransmission -> ReturnedCandidate -> RenderedImpression -> CognitiveExposure`.
+Even when `interactionSeen` is available, it is a **platform-level seen event**, not automatically a CBD cognitive `ExposureEvent`. A prospective measurement design should therefore retain distinct constructs such as:
+
+`EligibleTransmission -> ReturnedCandidate -> interactionSeen / RenderedImpression -> CognitiveExposure`.
 
 Verdict:
 
-**PROSPECTIVE_INSTRUMENTATION_CANDIDATE**.
+**PROSPECTIVE_INSTRUMENTATION_CANDIDATE / DEPLOYMENT_ACCESS_AND_PRIVACY_VERIFICATION_REQUIRED**.
 
 This is not an existing empirical calibration dataset and must not be treated as one.
 
