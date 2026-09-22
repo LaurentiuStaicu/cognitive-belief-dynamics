@@ -44,6 +44,9 @@ def test_public_readme_first_section_stays_compact() -> None:
         if block.strip() and not block.strip().startswith("<")
     ]
     assert len(paragraphs) <= contract["public_readme_quality_budget"]["maximum_intro_paragraphs"]
+    intro_plain = re.sub(r"<[^>]+>", " ", intro)
+    intro_words = re.findall(r"\b[\w][\w./+-]*\b", intro_plain)
+    assert len(intro_words) <= contract["public_readme_quality_budget"]["maximum_intro_words"]
 
 
 def test_public_readme_follows_reader_oriented_information_order() -> None:
