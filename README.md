@@ -43,6 +43,8 @@ Exposure, correction, memory, source evaluation and decision context are therefo
 
 The purpose of CBD is not to replace empirical research with simulation. It is to make assumptions explicit enough to be inspected, combined, challenged and progressively tested against evidence. In that role, the model can help distinguish consequences of a declared mechanism from claims that have actually been established empirically.
 
+CBD is primarily intended for researchers, model reviewers and developers interested in cognitive and information dynamics who need a transparent computational framework with explicit assumptions, evidence boundaries and reproducible behavior.
+
 ### Conceptual model
 
 CBD organizes the problem around four connected ideas.
