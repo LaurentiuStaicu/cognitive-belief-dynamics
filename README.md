@@ -78,7 +78,7 @@ These capabilities make CBD suitable for exploring **mechanisms, temporal orderi
 
 CBD separates evidence for a **phenomenon** from evidence for a particular **model mechanism, mathematical form or parameter value**. Support for one level is not automatically treated as validation of the others.
 
-The repository links modeled relationships to cited research and records scope limitations alongside those links. See [references](model/references.json), [evidence-linked model relations](model/links.json) and the current [evidence record](model/evidence_snapshot.json). The retained evidence set is an auditable project resource, not a systematic review or a dataset for population calibration.
+The repository links modeled relationships to cited research and records scope limitations alongside those links. [STATUS.md](STATUS.md) summarizes the current scientific boundary, while the machine-readable model and evidence records are retained under [model/](model/) for audit and reproducibility. The retained evidence set is an auditable project resource, not a systematic review or a dataset for population calibration.
 
 ### Current capabilities and scientific limits
 
