@@ -39,13 +39,11 @@ CBD is intended as a transparent research model and computational reference impl
 
 ### Research purpose
 
-CBD addresses a problem that is difficult to study with isolated, one-step representations: the effect of information can depend on **what happened before**, **when it happened** and **what context is present when a later judgment or action is made**.
+CBD addresses a problem that is difficult to study with isolated, one-step representations: the effect of information can depend on **what happened before**, **when it happened** and **what context is present when a later judgment or action is made**. Exposure, correction, memory, source evaluation and decision context are therefore represented within a common temporal framework rather than as independent one-time effects.
 
-Exposure, correction, memory, source evaluation and decision context are therefore represented within a common temporal framework. This makes it possible to examine how candidate mechanisms interact across an information history instead of treating each mechanism as if it acted independently at a single moment.
+CBD does not replace empirical research with simulation. Its purpose is to make assumptions explicit enough to inspect, combine, challenge and progressively test against evidence, helping separate the consequences of a declared mechanism from claims that have actually been established empirically.
 
-The purpose of CBD is not to replace empirical research with simulation. It is to make assumptions explicit enough to be inspected, combined, challenged and progressively tested against evidence. In that role, the model can help distinguish consequences of a declared mechanism from claims that have actually been established empirically.
-
-CBD is primarily intended for researchers, model reviewers and developers interested in cognitive and information dynamics who need a transparent computational framework with explicit assumptions, evidence boundaries and reproducible behavior.
+The model is primarily intended for researchers, model reviewers and developers interested in cognitive and information dynamics who need explicit assumptions, evidence boundaries and reproducible behavior.
 
 ### Conceptual model
 
@@ -60,11 +58,11 @@ CBD organizes the problem around four connected ideas.
 
 The current model represents several mechanisms that connect these ideas. Repeated exposure can increase familiarity with a claim. Corrective information can remain accessible and then become less available with time. Feedback can change the agent's estimate of a source's reliability. Prior belief, evidence, familiarity, corrective context and decision incentives can then combine to influence belief-related and sharing outcomes.
 
-The important point is not the internal implementation of each calculation, but the **dependency structure**: present decisions can depend on accumulated history, timing and context rather than only on the most recent message.
+The key idea is the **dependency structure**: present decisions can depend on accumulated history, timing and context rather than only on the most recent message.
 
 <p align="center"><code>information history → evolving cognitive state → decision context → probabilistic action</code></p>
 
-This also explains why CBD is dynamic. If two agents receive the same final message but arrive there through different prior histories, the model can represent different states at the moment of decision.
+If two agents receive the same final message through different prior histories, CBD can represent different states at the moment of decision.
 
 ### Research questions CBD can explore
 
@@ -90,7 +88,7 @@ In the stable model, the sequence of information-related events is **supplied fr
 
 Current development also contains a limited optional research path in which a sharing action can generate a later exposure for another eligible agent. This extends the model toward inter-agent propagation, but it does not yet create a complete self-sustaining feedback system.
 
-The model can therefore be used to study dynamic cognitive mechanisms under controlled conditions, but its outputs must be interpreted within clear scientific boundaries:
+CBD can therefore be used to study dynamic cognitive mechanisms under controlled conditions, but its outputs have clear scientific boundaries:
 
 - CBD is **not currently a validated predictor of individual or population human behavior**.
 - It is not a truth detector, a diagnostic system or an automatic judge of whether a claim is correct.
@@ -115,9 +113,9 @@ CBD is intended to generate more of its own future information sequence from ear
 | Learning / adaptation | Not part of the stable executable core | Explicit adaptation mechanisms with defined states and validation rules |
 | Empirical status | Computational, synthetic and component-level evidence with explicit limits | Calibration and validation appropriate to each mechanism and population of interest |
 
-A more mature CBD may therefore represent a cycle in which a decision to share affects another agent's exposure, that exposure changes the recipient's state, and the recipient's later state influences another decision. Whether such a structure should remain an event-driven agent model or eventually justify describing CBD as a formal System Dynamics model must be determined by the actual scientific structure, not by a desire for uniformity across projects.
+A more mature CBD may represent a cycle in which sharing affects another agent's exposure, that exposure changes the recipient's state, and the recipient's later state influences another decision. Whether this should remain an event-driven agent model or eventually justify describing CBD as formal System Dynamics must follow the scientific structure, not a desire for uniformity across projects.
 
-The objective is not maximum complexity. It is a model in which every added mechanism has a clear role, explicit assumptions, traceable evidence and an appropriate validation strategy.
+The objective is not maximum complexity, but mechanisms with clear roles, explicit assumptions, traceable evidence and appropriate validation.
 
 ### Using and reproducing CBD
 
