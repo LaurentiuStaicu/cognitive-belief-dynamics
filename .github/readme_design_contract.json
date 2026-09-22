@@ -1,5 +1,5 @@
 {
-  "contract_version": "2.9",
+  "contract_version": "3.0",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -21,7 +21,7 @@
     ],
     "header_badges": [
       "release",
-      "CBD validation",
+      "Scientific CI",
       "license"
     ],
     "tagline": "one centered sentence",
