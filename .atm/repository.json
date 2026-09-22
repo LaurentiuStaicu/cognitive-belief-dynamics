@@ -34,7 +34,8 @@
       "model/contracts",
       "model/experiments",
       "docs/ODD_ENDOGENOUS_SCHEDULER.md",
-      "docs/F1A_RECOVERY_DESIGN.md"
+      "docs/F1A_RECOVERY_DESIGN.md",
+      "docs/F1A_EMPIRICAL_OBSERVABILITY_AUDIT.md"
     ],
     "evidence": [
       "model/evidence_snapshot.json",
