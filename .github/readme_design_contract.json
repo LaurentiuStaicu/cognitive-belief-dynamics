@@ -1,5 +1,5 @@
 {
-  "contract_version": "3.0",
+  "contract_version": "3.1",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -124,6 +124,7 @@
     "archived_preview": ".github/CBD_README_PREVIEW.md",
     "archived_preview_status": "non-canonical historical review artifact",
     "github_pages_url": "https://laurentiustaicu.github.io/cognitive-belief-dynamics/",
-    "github_pages_boundary": "A Pages URL is configured, but main currently contains no dedicated index.md, index.html, _config.yml, Gemfile, CNAME or .nojekyll site source. Do not treat GitHub Pages as the canonical landing-page source unless a separate site is explicitly designed and versioned."
+    "github_pages_boundary": "A Pages URL is configured, but main currently contains no dedicated index.md, index.html, _config.yml, Gemfile, CNAME or .nojekyll site source. Do not treat GitHub Pages as the canonical landing-page source unless a separate site is explicitly designed and versioned.",
+    "historical_conceptual_assets": "assets/readme/ retained for traceability; not part of the current landing page unless explicitly referenced by README.md"
   }
 }
