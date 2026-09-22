@@ -1,5 +1,5 @@
 {
-  "contract_version": "2.0",
+  "contract_version": "2.1",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a reader-oriented CBD repository landing page that explains the model before exposing technical reference material, while preserving scientific boundaries, suite consistency, reproducibility routes, and development traceability.",
@@ -35,10 +35,10 @@
   ],
   "information_architecture": [
     "What is CBD?",
+    "Model at a glance",
     "How CBD works",
-    "What CBD can do today",
+    "Current capabilities and limits",
     "Research direction",
-    "Limitations and scientific boundaries",
     "Quick start",
     "Reproduce the computational baseline",
     "Where to go next",
@@ -52,7 +52,9 @@
     "internal_identifiers_belong_in_reference_files": true,
     "audit_granularity_belongs_in_status_development_changelog_docs_and_machine_readable_artifacts": true,
     "plain_language_before_specialist_terms": true,
-    "no_claim_may_exceed_current_implementation_or_evidence": true
+    "no_claim_may_exceed_current_implementation_or_evidence": true,
+    "compact_navigation_prioritizes_reader_tasks": true,
+    "tagline_is_plain_language_before_technical_identity": true
   },
   "public_readme_forbidden_internal_terms": [
     "M0",
