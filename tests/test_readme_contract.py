@@ -106,7 +106,7 @@ def test_public_readme_routes_audit_detail_to_reference_files() -> None:
     assert "[STATUS.md](STATUS.md)" in text
     assert "[DEVELOPMENT.md](DEVELOPMENT.md)" in text
     assert "[CHANGELOG.md](CHANGELOG.md)" in text
-    assert "[model/](model/)" in text
+    assert "[model/](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/tree/main/model)" in text
     assert "### Research purpose" in text
     assert "### Conceptual model" in text
     assert "### Research questions CBD can explore" in text
@@ -165,7 +165,7 @@ def test_public_readme_reproducibility_routes_are_current() -> None:
     assert "requirements/ci-py312-linux.lock.txt" in text
     assert "python -m build --no-isolation" in text
     assert "cemodel validate --root ." in text
-    assert ".github/workflows/cbd-validation.yml" in text
+    assert "https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/actions/workflows/cbd-validation.yml" in text
     assert "DEVELOPMENT.md" in text
 
 
@@ -179,3 +179,30 @@ def test_public_markdown_has_no_literal_newline_escapes() -> None:
         ROOT / "releases" / "v0.1.1.md",
     ):
         assert r"\n" not in read(path)
+
+
+def test_public_readme_pages_sensitive_links_use_github_urls() -> None:
+    text = read(README)
+    base = "https://github.com/LaurentiuStaicu/cognitive-belief-dynamics"
+    required = (
+        f"{base}/tree/main/model",
+        f"{base}/tree/main/src/cognitive_epistemic_model",
+        f"{base}/tree/main/schemas",
+        f"{base}/tree/main/tests",
+        f"{base}/tree/main/releases",
+        f"{base}/actions/workflows/cbd-validation.yml",
+        f"{base}/blob/main/.github/CONTRIBUTING.md",
+        f"{base}/blob/main/.github/SUPPORT.md",
+    )
+    for target in required:
+        assert target in text
+    forbidden_relative_targets = (
+        "](model/)",
+        "](src/cognitive_epistemic_model/)",
+        "](schemas/)",
+        "](tests/)",
+        "](releases/)",
+        "](.github/",
+    )
+    for target in forbidden_relative_targets:
+        assert target not in text
