@@ -116,7 +116,7 @@ CBD is intended to generate more of its own future information sequence from ear
 | Inter-agent propagation | Limited optional sharing-to-exposure research path | Empirically constrained propagation across agents and networks |
 | Network / platform context | Supplied explicitly when needed | Evidence-grounded mechanisms for how network and platform structure shape exposure and action |
 | Feedback | No complete endogenous cognitive-social feedback system | Closed feedback structures where they are scientifically necessary |
-| Learning / adaptation | Not part of the stable executable core | Explicit adaptation mechanisms with defined states and validation rules |
+| Broader adaptation | The current core updates specific modeled states but does not implement a general adaptive learning system | Additional adaptation mechanisms only when their states, evidence and validation rules are explicit |
 | Empirical status | Computational, synthetic and component-level evidence with explicit limits | Calibration and validation appropriate to each mechanism and population of interest |
 
 A more mature CBD may represent a cycle in which sharing affects another agent's exposure, that exposure changes the recipient's state, and the recipient's later state influences another decision. Whether this should remain an event-driven agent model or eventually justify describing CBD as formal System Dynamics must follow the scientific structure, not a desire for uniformity across projects.
