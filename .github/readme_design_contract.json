@@ -1,5 +1,5 @@
 {
-  "contract_version": "3.2",
+  "contract_version": "3.3",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
   "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
@@ -78,7 +78,7 @@
     "MOD.14"
   ],
   "canonical_identity": {
-    "plain_language_purpose": "CBD studies how modeled agent states and probabilistic decisions can change across ordered information-related events.",
+    "plain_language_purpose": "CBD studies how information-related history and decision context influence modeled cognitive states and probabilistic sharing decisions over time.",
     "technical_identity": "An event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking; not currently a formal System Dynamics model.",
     "paradigm_boundary": "Persistent state, temporal ordering and nonlinear or stochastic updates do not by themselves imply closed endogenous System Dynamics feedback.",
     "research_direction": "Progressive endogenization is admissible only when scientifically justified, explicitly bounded and supported by an appropriate evidence and validation strategy."
@@ -116,7 +116,7 @@
     "maximum_intro_words": 190
   },
   "post_merge_metadata_sync": {
-    "repository_description": "A research model of how information exposure, memory, corrective context, perceived source reliability and decision context shape evolving cognitive states and sharing decisions.",
+    "repository_description": "A research model of how information exposure, memory, corrective context, perceived source reliability and decision context influence modeled cognitive states and probabilistic sharing decisions over time.",
     "homepage": "preserve existing GitHub Pages URL",
     "topics": "preserve current research-software and modeling topics",
     "rationale": "Keep GitHub About metadata aligned with the approved public landing-page message without changing live repository metadata before merge approval."
