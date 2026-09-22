@@ -113,6 +113,8 @@ The canonical paradigm remains an event-driven cognitive state-transition and ag
 
 The progressive-endogenization research program and its validation ladder remain tracked in GitHub **Issue #110**.
 
+The subsequent SOMAR column-identity/privacy audit (`docs/F1A_SOMAR_COLUMN_PRIVACY_AUDIT.md`; `model/experiments/f1a_somar_column_privacy_audit.json`) retains a controlled negative result. Current ICPSR records identify the relevant URL-level potential-exposure, exposure and engagement studies, and legacy SOMAR metadata identifies dedicated public dictionary/variable-description artifacts. However, the exact dictionary rows cannot currently be inspected and version-linked through the available public web surface. Consequently `r_view` remains numerically unauthorized, no field names are guessed, and generic disclosure-control claims from unrelated Meta datasets are not imported into FIES. The next admissible gate is `OFFICIAL_VARIABLE_DICTIONARY_CONTENT_ACCESS`.
+
 ### M1.E4 item heterogeneity
 
 Phase M shows an asymmetric loss of EVSD-family recovery under item-level heterogeneity. The current participant-level aggregate count representation does not preserve item identity, so a future crossed participant-item model would require a new prospective data/measurement contract rather than a post-hoc patch to M1.
