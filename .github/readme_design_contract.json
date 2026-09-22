@@ -1,8 +1,8 @@
 {
-  "contract_version": "2.1",
+  "contract_version": "2.2",
   "frozen_on": "2026-09-22",
   "implementation_status": "PUBLIC_README_REDESIGN_CANDIDATE",
-  "purpose": "Define a reader-oriented CBD repository landing page that explains the model before exposing technical reference material, while preserving scientific boundaries, suite consistency, reproducibility routes, and development traceability.",
+  "purpose": "Define a professional, reader-oriented CBD repository landing page that builds conceptual understanding of the scientific model before routing technical use, reproducibility and development detail to the appropriate surfaces.",
   "suite_reference_order": [
     "Ask the Model (AtM): primary reference for progressive, user-oriented explanation and first-use clarity",
     "Romanian Monetary Dynamics (RMD): secondary reference for adapting the shared presentation system to a scientific-model repository"
@@ -35,12 +35,11 @@
   ],
   "information_architecture": [
     "What is CBD?",
-    "Model at a glance",
-    "How CBD works",
-    "Current capabilities and limits",
+    "Conceptual model",
+    "What CBD can be used to study",
+    "Current capabilities and scientific limits",
     "Research direction",
-    "Quick start",
-    "Reproduce the computational baseline",
+    "Using and reproducing CBD",
     "Where to go next",
     "Support, citation and license"
   ],
@@ -54,7 +53,10 @@
     "plain_language_before_specialist_terms": true,
     "no_claim_may_exceed_current_implementation_or_evidence": true,
     "compact_navigation_prioritizes_reader_tasks": true,
-    "tagline_is_plain_language_before_technical_identity": true
+    "tagline_is_plain_language_before_technical_identity": true,
+    "conceptual_understanding_before_implementation_detail": true,
+    "no_procedural_walkthrough_of_internal_model_mechanics": true,
+    "technical_run_instructions_are_secondary_to_scientific_explanation": true
   },
   "public_readme_forbidden_internal_terms": [
     "M0",
