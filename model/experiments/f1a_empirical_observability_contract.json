@@ -1,0 +1,143 @@
+{
+  "id": "CONTRACT.F1A.EMPIRICAL_OBSERVABILITY.2026-09-22",
+  "status": "EMPIRICAL_BRIDGE_AUDIT_ONLY",
+  "feedback_family": "F1a",
+  "current_stage": "RECOVERY_TESTED",
+  "candidate_stage": "EMPIRICALLY_CONSTRAINED",
+  "promotion_authorized": false,
+  "estimand": {
+    "name": "q_transmit",
+    "definition": "P(realised recipient ExposureEvent | realised Share-edge opportunity)",
+    "active_runtime_parameter": false,
+    "empirical_estimation_authorized": false
+  },
+  "required_measurements": [
+    "realised_sender_share_event",
+    "eligible_sender_recipient_relation_at_share_time",
+    "recipient_specific_delivery_or_impression_event_for_same_item",
+    "event_timestamps_or_causal_ordering",
+    "negative_share_edge_opportunities_without_exposure",
+    "information_item_identity_and_lineage",
+    "content_source_and_transmitter_identity_separated",
+    "platform_impression_to_cognitive_exposure_measurement_bridge"
+  ],
+  "construct_separation": {
+    "network_eligibility_not_exposure": true,
+    "feed_candidate_not_impression": true,
+    "impression_not_automatically_cognitive_exposure": true,
+    "repost_not_exposure": true,
+    "like_not_exposure": true,
+    "downstream_action_not_denominator": true
+  },
+  "candidate_sources": [
+    {
+      "id": "DATA.BLUESKY.SOCIAL.V3",
+      "citation": "Failla & Rossetti; Zenodo 10.5281/zenodo.14669616; paper DOI 10.1371/journal.pone.0310330",
+      "access_state": "PUBLIC_RECORD_DATASET",
+      "observed": [
+        "directed_follower_relations",
+        "posts",
+        "timestamped_reposts_quotes_replies",
+        "interaction_graphs",
+        "selected_feed_outputs",
+        "feed_bookmarks",
+        "feed_post_likes"
+      ],
+      "can_constrain": [
+        "network_topology",
+        "activity_timing",
+        "repost_quote_action_statistics",
+        "item_lineage_partial",
+        "feed_candidate_set_properties"
+      ],
+      "missing_for_q_transmit": [
+        "recipient_specific_impression_log",
+        "complete_negative_exposure_opportunities",
+        "cognitive_exposure_measurement_bridge"
+      ],
+      "verdict": "PARTIAL_EMPIRICAL_CONSTRAINT_ONLY"
+    },
+    {
+      "id": "DATA.BLUESKY.ATPROTO.PROSPECTIVE",
+      "citation": "Bluesky HTTP API and feed-generator architecture",
+      "access_state": "PROSPECTIVE_INSTRUMENTATION_DESIGN",
+      "observed": [
+        "authenticated_feed_requests_if_instrumented",
+        "returned_feed_candidate_uris_if_instrumented"
+      ],
+      "can_constrain": [
+        "candidate_delivery_process_under_prospective_instrumentation"
+      ],
+      "missing_for_q_transmit": [
+        "proof_of_rendered_view_without_client_instrumentation",
+        "cognitive_exposure_measurement_bridge"
+      ],
+      "verdict": "PROSPECTIVE_INSTRUMENTATION_CANDIDATE"
+    },
+    {
+      "id": "DATA.SNAP.HIGGS",
+      "citation": "Stanford SNAP Higgs Twitter Dataset; De Domenico et al. 2013",
+      "access_state": "PUBLIC_HISTORICAL_DATASET",
+      "observed": [
+        "directed_follower_network",
+        "timestamped_retweet_reply_mention_activity"
+      ],
+      "can_constrain": [
+        "network_topology",
+        "interaction_structure",
+        "historical_action_timing"
+      ],
+      "missing_for_q_transmit": [
+        "recipient_specific_impression_log",
+        "complete_exposure_denominator",
+        "cognitive_exposure_measurement_bridge"
+      ],
+      "verdict": "PARTIAL_EMPIRICAL_CONSTRAINT_ONLY_HISTORICAL"
+    },
+    {
+      "id": "DATA.META.FIES.2020.SOMAR",
+      "citation": "SOMAR/ICPSR study 300396 version 2.0",
+      "access_state": "MIXED_PUBLIC_METADATA_RESTRICTED_VDE",
+      "observed": [
+        "randomized_platform_intervention_assignments_per_public_description"
+      ],
+      "can_constrain": [
+        "potential_platform_mediation_effects_subject_to_codebook_audit"
+      ],
+      "missing_for_q_transmit": [
+        "publicly_verified_exact_numerator_denominator_fields",
+        "publicly_verified_impression_semantics",
+        "open_access_to_sensitive_platform_records"
+      ],
+      "verdict": "ACCESS_AND_MEASUREMENT_REVIEW_REQUIRED"
+    }
+  ],
+  "partial_constraint_policy": {
+    "topology_constraints_allowed": true,
+    "action_constraints_allowed": true,
+    "stage_promotion_from_partial_constraints_allowed": false,
+    "q_transmit_must_remain_calibration_only_until_direct_bridge": true
+  },
+  "empirical_promotion_gate": {
+    "dataset_and_version_frozen": true,
+    "observational_unit_defined": true,
+    "numerator_defined": true,
+    "denominator_defined": true,
+    "eligibility_candidate_impression_cognitive_exposure_separated": true,
+    "item_source_transmitter_identity_defined": true,
+    "missingness_handling_defined": true,
+    "negative_opportunities_observable": true,
+    "target_population_platform_time_period_defined": true,
+    "uncertainty_quantified": true,
+    "falsification_or_negative_controls_defined": true,
+    "action_only_proxy_for_exposure_forbidden": true,
+    "all_requirements_must_be_satisfied_before_promotion": true
+  },
+  "interpretation_boundary": [
+    "This audit does not estimate q_transmit.",
+    "Real-data topology or action constraints do not by themselves make F1a empirically constrained.",
+    "Reposts and likes are downstream actions and cannot be relabeled as recipient exposure.",
+    "Feed output is a candidate-delivery surface and is not proof of a rendered or cognitively encoded impression.",
+    "F1a remains RECOVERY_TESTED until a separate prospective empirical measurement contract satisfies the promotion gate."
+  ]
+}
