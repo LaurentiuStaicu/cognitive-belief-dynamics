@@ -10,108 +10,140 @@
   <a href="LICENSING.md"><img alt="MIT / CC BY 4.0" src="https://img.shields.io/badge/license-MIT%20%2F%20CC%20BY%204.0-a0a0a0?style=flat-square"></a>
 </p>
 
-<p align="center"><small><strong>An event-driven cognitive state-transition and agent-level stochastic dynamical model of how information, memory, uncertainty and context can change agent states over time.</strong></small></p>
+<p align="center"><small><strong>An event-driven cognitive state-transition and agent-level stochastic dynamical model for studying how information, memory, uncertainty and context can change modeled agent states and decisions over time.</strong></small></p>
 
 <p align="center"><small>
 <a href="#what-is-cbd">Overview</a> ·
-<a href="#model-at-a-glance">Model structure</a> ·
+<a href="#how-cbd-works">How it works</a> ·
+<a href="#what-cbd-can-do-today">Capabilities</a> ·
+<a href="#research-direction">Research direction</a> ·
+<a href="#limitations-and-scientific-boundaries">Limitations</a> ·
 <a href="#quick-start">Quick start</a> ·
-<a href="#scientific-status">Scientific status</a> ·
 <a href="#reproduce-the-computational-baseline">Reproduce</a> ·
-<a href="#audit-evidence-and-provenance">Audit & provenance</a> ·
-<a href="#continuing-development">Continue work</a>
+<a href="#where-to-go-next">Documentation</a>
 </small></p>
 
 ---
 
 ### What is CBD?
 
-Cognitive Belief Dynamics (CBD) is a scientific model core for representing how persistent agent-level cognitive states can change across ordered information events through memory, saturation, decay, nonlinear transformations and stochastic decisions.
+Cognitive Belief Dynamics (CBD) is a scientific model core for studying how an agent's modeled cognitive state can change across a sequence of information-related events.
 
-In practical terms, CBD provides a transparent research framework for testing how repeated exposure, corrective context, estimated source reliability and decision context can alter modeled states and probabilistic decisions over time, while keeping executable assumptions separate from empirical evidence and interpretation.
+The central idea is simple: what happens now can depend on what happened before. Repeated exposure can increase familiarity, corrective information can remain accessible and then fade with time, feedback about a source can change estimated source reliability, and the agent's current state can influence a later probabilistic decision.
 
-CBD is a **dynamical model informed by systems thinking**, but it is **not currently a formal System Dynamics model**. The frozen **v0.1.1 release baseline** remains externally scheduled and a Share action does not automatically create future exposure in that release. Post-v0.1.1 `main` now contains an optional F1a research layer classified **RECOVERY_TESTED**: when explicitly invoked with a synthetic directed network and transmission policy, a realised Share can enqueue a delayed `ExposureEvent` for an eligible recipient, which then enters the existing familiarity update through `Simulator.step()`. A separate calibration-only synthetic benchmark recovered known `q_transmit` values across all 20 frozen core cells (minimum recovery probability 0.885) and reproduced its retained result byte-for-byte. This does not make `q_transmit` an active or empirical parameter: F1a remains not empirically constrained, inactive by default, and does not constitute a complete Share→Exposure→Decision→Share loop or a System Dynamics reclassification.
+CBD is therefore a **dynamical model**: state persists through time, event order matters, some effects accumulate or decay, and decisions are not represented as fixed one-step responses.
 
-CBD separates executable relations from empirical evidence, conceptual organization and interpretive theory. Synthetic recovery, normative reference calculations and evidence metadata therefore remain bounded by their actual validation status.
+Technically, CBD is an **event-driven cognitive state-transition and agent-level stochastic dynamical model informed by systems thinking**. It is **not currently a formal System Dynamics model** because the present architecture does not yet contain a complete set of closed endogenous feedback loops.
 
-### Model at a glance
+<p align="center"><code>information event → agent state update → memory / decay → decision context → probabilistic action</code></p>
 
-| Dimension | Current CBD boundary |
-| --- | --- |
-| Repository version | **v0.1.1 scientific-core maintenance release** |
-| Canonical paradigm | Event-driven cognitive state-transition and agent-level stochastic dynamical model |
-| Current M0 simulator events | Exposure, Correction, SourceFeedback, Decision |
-| Persistent/slow states | Familiarity, corrective-context accessibility, estimated source reliability |
-| Core dynamics | Temporal ordering, saturation, decay, nonlinear transformations, seeded stochastic decisions |
-| Post-release F1a research | **RECOVERY_TESTED** optional Share → delayed Exposure bridge; synthetic recovery passed, still inactive by default and not empirically constrained |
-| Conceptual registry | 20 modules; conceptual coverage is broader than executable coverage |
-| Registered processes | 22 total: 12 implemented M0, 10 candidate |
-| Subsystems | 8 total: 4 partial, 3 future, 1 active |
-| Evidence levels | EXECUTABLE, EMPIRICAL, CONCEPTUAL, INTERPRETIVE |
-| Human validation | Not established |
+### How CBD works
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/readme/cbd-concept-overview-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="assets/readme/cbd-concept-overview-light.svg">
-    <img src="assets/readme/cbd-concept-overview-light.svg" width="760" alt="Diagram showing CBD persistent agent state, event-driven updates, nonlinear dynamics, evidence levels and validation boundaries.">
-  </picture>
-</p>
+CBD represents agents, persistent state, ordered events and decision rules. The model advances when an event occurs rather than by continuously updating every variable at every instant.
 
-The figure is an orientation view, not a causal-loop diagram. It deliberately avoids closed-loop System Dynamics notation because the v0.1.1 model does not yet implement that structure.
+**1. An agent carries state forward.**  
+The executable core stores quantities such as familiarity with a claim, accessibility of corrective context and an estimated reliability for a source. It also stores baseline inputs used when a decision is made, such as prior belief, accuracy orientation and sharing bias.
 
-### Executable core versus conceptual map
+**2. Events change only the parts of state they are meant to affect.**  
+An exposure increases familiarity using a bounded saturating update. A correction increases access to corrective context. Source feedback moves the estimated reliability of a source toward the observed outcome. These updates are explicit and inspectable.
 
-The repository intentionally contains more scientific structure than the currently executable M0 engine. This distinction is part of the model, not unfinished labeling.
+**3. Time can change what remains available.**  
+Corrective-context accessibility decays as time passes. This means that identical events can have different consequences depending on their timing and on the state accumulated beforehand.
 
-The current M0 event engine processes `ExposureEvent`, `CorrectionEvent`, `SourceFeedbackEvent` and `DecisionEvent`. M1 editorial, presentation and access mechanisms are retained as candidate/reference components with dedicated contracts and tests rather than being silently promoted into the M0 runtime.
+**4. A decision combines current state and current context.**  
+At decision time, CBD combines prior belief, familiarity, an evidence signal, estimated source reliability and accessible corrective context. Accuracy cues and reward context can alter the weight given to accuracy versus other incentives. Nonlinear transformations keep the resulting quantities bounded.
 
-The eight registered subsystems also carry explicit implementation status. Platform / Network, AI System, and Learning / Adaptation remain **future**. Their presence in the conceptual registry must not be read as evidence that those dynamics already execute.
+**5. Action is probabilistic rather than predetermined.**  
+The model computes a sharing probability and uses a seeded random draw to determine whether sharing occurs. The seed makes a run reproducible while preserving stochastic behavior.
 
-### Scientific status
+Every processed event is logged with its time, agent, input payload, state change and, when applicable, decision output. This makes the computational path inspectable rather than hiding the result behind a single final number.
 
-| Scientific dimension | Current state |
-| --- | --- |
-| Formal System Dynamics classification | **No** |
-| M1.E4 participant-aware confirmation | **PASS — 18 / 18 primary P64_X10 cells meet the 0.80 recovery gate** |
-| Minimum participant-confirmation recovery | **0.92** |
-| Phase M protocol robustness | **PROTOCOL_ROBUSTNESS_FAIL — 3 / 18 cells below 0.80; minimum recovery 0.56** |
-| Failed Phase M cells | `ITEM_MODERATE__EVSD`, `ITEM_HIGH__EVSD`, `COMBINED_ADVERSE__EVSD` |
-| M1.E4 result type | **Synthetic recovery / identifiability-discrimination only** |
-| Human-participant validation | **Not established** |
-| Pencode | **Not identified or estimated** |
-| Participant recruitment | **Not authorized** |
-| MOD.14 | Normative Bayesian reference computation with explicit uncertainty; not a population-calibrated cognitive law or truth oracle |
+### What CBD can do today
 
-The participant-confirmation pass and Phase M robustness failure answer different questions and must be reported together. The robustness failure is retained as observed; its threshold and failed cells are not post-hoc rewritten.
+The current repository can:
 
-For the canonical scientific boundary, see [STATUS.md](STATUS.md).
+- simulate ordered exposure, correction, source-feedback and decision events for one or more agents;
+- preserve agent state across events so that earlier events can influence later ones;
+- represent bounded accumulation, temporal decay and nonlinear transformations;
+- compute belief-related and sharing outcomes from the modeled state and decision context;
+- generate seeded stochastic decisions that can be reproduced exactly when the same inputs and seed are used;
+- record event-by-event state changes and observations for inspection and testing;
+- validate the repository's scientific registries, schemas and cross-references through the supplied command-line validator.
 
-### What v0.1.1 establishes — and what it does not
+The stable release baseline uses externally supplied event schedules. Current development work also includes an optional research path in which a realised sharing action can schedule a delayed exposure for another eligible agent under an explicitly supplied network and transmission policy. This is a limited research capability, not a complete self-sustaining social-information system.
 
-v0.1.1 provides a versioned scientific core with canonical registries, schemas, model/evidence contracts, a Python reference implementation, retained synthetic benchmarks, authoritative result/provenance artifacts, reproducibility tooling and a tested repository presentation.
+The exact release-versus-development boundary changes as the research progresses. [STATUS.md](STATUS.md) is the canonical source for that boundary.
 
-It does **not** establish population calibration of the full model, human validation of M1.E4, EVSD or 2HT as human truth, identification of Pencode, authorization for participant recruitment, a general-purpose truth/prediction/diagnostic system, or an end-user production application.
+### Research direction
 
-The v0.1.1 maintenance release changes verification, provenance, status reporting, reproducibility metadata, repository presentation and evidence metadata. It does **not** change model equations, retained benchmark values, thresholds or seeds. The retained evidence set is unchanged, while its metadata snapshot advances to the content-audited `EVIDENCE.M1.2026-09-21.r2`.
+CBD is intended to evolve by adding endogenous behavior only where the scientific question and evidence justify it.
+
+A mature version may progressively allow more future events to arise from earlier modeled actions: for example, a decision to share may influence another agent's exposure, that exposure may alter later state, and later state may affect another decision. Network, platform and learning mechanisms can be added only when their system boundary, measurement meaning and validation strategy are explicit.
+
+This direction does **not** imply that CBD must become a classical System Dynamics model. The modeling paradigm should change only if the scientific problem requires structures that the event-driven agent-level architecture cannot represent adequately.
+
+The aim is therefore not to maximize model complexity. It is to make each added mechanism explicit, testable, traceable and scientifically defensible.
+
+### Limitations and scientific boundaries
+
+CBD should not be interpreted as more than the evidence and implementation support.
+
+- It is **not currently a complete endogenous System Dynamics model**.
+- It is **not a validated predictor of individual human behavior or population behavior**.
+- It is **not a truth detector, diagnostic system or automatic judge of whether a claim is correct**.
+- A computationally executable mechanism is not automatically an empirically established cognitive law.
+- Synthetic recovery, simulation tests and software verification can show that a mechanism is implemented or recoverable under controlled conditions; they do **not** by themselves establish human validation.
+- The conceptual model is broader than the currently executable core. A concept being documented in the repository does not mean that it already runs in the simulator.
+- Empirical evidence is retained with explicit scope and qualification. Partial evidence for one component must not be generalized into validation of the whole model.
+
+For the exact current scientific state, evidence qualifications and open research gates, use [STATUS.md](STATUS.md) rather than inferring them from this introductory page.
 
 ### Quick start
 
-For ordinary local use, package metadata requires **Python 3.12 or newer**:
+CBD requires **Python 3.12 or newer**.
+
+**1. Check Python**
+
+~~~bash
+python --version
+~~~
+
+The reported version must be 3.12 or newer. If your default Python is older, use a Python 3.12+ environment before continuing.
+
+**2. Clone the repository**
 
 ~~~bash
 git clone https://github.com/LaurentiuStaicu/cognitive-belief-dynamics.git
 cd cognitive-belief-dynamics
+~~~
+
+**3. Install the package**
+
+~~~bash
 python -m pip install .
+~~~
+
+**4. Validate the repository**
+
+~~~bash
 cemodel validate --root .
+~~~
+
+A successful validation prints the registry counts and returns without an error. A validation failure should not be ignored: it can indicate a schema, reference or checkout-consistency problem.
+
+**5. Run the demonstration**
+
+~~~bash
 cemodel demo
 ~~~
 
-This uses the supported dependency ranges declared in [pyproject.toml](pyproject.toml). For exact release/CI reproduction with the frozen platform-scoped dependency snapshot, use the procedure below.
+The demo processes two exposures followed by a decision for one example agent and prints the event log as JSON. The output lets you see the ordered events, the state changes they produced and the final decision observation.
+
+If the cemodel command is not found after installation, confirm that you are using the same Python environment in which the package was installed.
 
 ### Reproduce the computational baseline
 
-The canonical GitHub CI reproduction path is scoped to GitHub-hosted Ubuntu and **CPython 3.12**:
+For exact CI-oriented reproduction, the canonical path is scoped to GitHub-hosted Ubuntu and **CPython 3.12**:
 
 ~~~bash
 python -m pip install "pip==26.2.1"
@@ -123,50 +155,29 @@ python -m pytest
 cemodel validate --root .
 ~~~
 
-The workflow additionally verifies a clean wheel installation, checks the installed package version, validates bundled registries outside the checkout and runs `cemodel demo`. See [.github/workflows/cbd-validation.yml](.github/workflows/cbd-validation.yml).
+The workflow also verifies a clean wheel installation, package metadata, bundled registries and the demonstration command. See [.github/workflows/cbd-validation.yml](.github/workflows/cbd-validation.yml).
 
-The CI lock is an exact platform-scoped reproducibility snapshot, not a universal lock for every operating system. Supported dependency ranges remain in [pyproject.toml](pyproject.toml).
+A passing computational baseline means that the declared software, schemas, tests and retained scientific artifacts satisfy the repository's verification rules. It does **not** mean that the full model has been empirically validated as a model of human cognition.
 
-Retained M1.E4 benchmark scripts are under [scripts/](scripts/); results must be interpreted through [model/contracts/](model/contracts/) and their authoritative artifacts.
+### Where to go next
 
-### Audit, evidence and provenance
-
-The canonical registry validator checks schema conformance, duplicate IDs, module/variable/link references, evidence references, empirical-target links, DOI consistency, the evidence snapshot and the computational-dependency contract.
-
-The retained evidence set is indexed by [model/evidence_snapshot.json](model/evidence_snapshot.json). v0.1.1 advances its metadata to **EVIDENCE.M1.2026-09-21.r2** after source-level content auditing; this is not a new systematic review or calibration dataset. All four current empirical targets remain **directional validation only**, with sample-flow, representativeness and archive-integrity qualifiers preserved explicitly.
-
-Authoritative M1.E4 results and their provenance/checksum artifacts are retained under [model/benchmarks/results/](model/benchmarks/results/). The source/data/semantic audit is retained as [model/audits/content_audit_2026-09-21.json](model/audits/content_audit_2026-09-21.json), with complete registry/contract coverage enforced by CI. v0.1.1 release traceability is summarized in [releases/v0.1.1.manifest.json](releases/v0.1.1.manifest.json).
-
-### Repository map
-
-| Path | Purpose |
+| If you want to… | Start here |
 | --- | --- |
-| [src/cognitive_epistemic_model/](src/cognitive_epistemic_model/) | Executable computational/reference implementation |
-| [model/](model/) | Canonical variables, processes, links, modules, evidence and targets |
-| [model/contracts/](model/contracts/) | Evidence, measurement, recovery and world-model contracts |
-| [model/benchmarks/](model/benchmarks/) | Frozen synthetic benchmark configurations and retained outputs |
-| [model/audits/](model/audits/) | Versioned scientific content/data audits and open audit gaps |
-| [schemas/](schemas/) | JSON schemas for canonical artifacts |
-| [scripts/](scripts/) | Retained M1.E4 benchmark execution scripts |
-| [tests/](tests/) | Scientific, structural, release and regression verification |
-| [requirements/](requirements/) | Platform-scoped CI reproducibility snapshot |
-| [releases/](releases/) | Frozen release notes and release manifests |
-| [DEVELOPMENT.md](DEVELOPMENT.md) | Current audit state, known gaps, next gates and context-loss handoff |
+| Understand the exact current scientific boundary | [STATUS.md](STATUS.md) |
+| Continue development or recover context after an interruption | [DEVELOPMENT.md](DEVELOPMENT.md) |
+| See what changed and why | [CHANGELOG.md](CHANGELOG.md) |
+| Inspect the executable implementation | [src/cognitive_epistemic_model/](src/cognitive_epistemic_model/) |
+| Inspect canonical model, evidence and scientific contracts | [model/](model/) |
+| Inspect schemas and validation structure | [schemas/](schemas/) and [tests/](tests/) |
+| Reproduce a released snapshot | [releases/](releases/) and the corresponding Git tag |
+| Cite CBD | [CITATION.cff](CITATION.cff) |
 
-### Continuing development
-
-For a new developer, AI assistant, or future session, start with:
-
-`README.md -> STATUS.md -> DEVELOPMENT.md -> CHANGELOG.md -> CITATION.cff`
-
-Then inspect the latest release/tag, latest green CBD validation run, open issues/PRs, and the contracts/results relevant to the task. [DEVELOPMENT.md](DEVELOPMENT.md) records the source-of-truth hierarchy and current continuation gates.
-
-The next long-term scientific direction is progressive endogenization and feedback-loop closure, tracked in [Issue #110](https://github.com/LaurentiuStaicu/cognitive-belief-dynamics/issues/110). The first candidate is Share -> transmission/network -> delayed Exposure -> Familiarity/Belief -> Action/Share. No such feedback loop is active in v0.1.1.
+The public landing page describes the model and its usable scientific boundary. Internal experiment identifiers, audit codes, benchmark cell counts and development gates are retained in the technical files where they support traceability, reproducibility and continuation of work.
 
 ### Support, citation and license
 
 For reproducible software/test problems or scientific/model concerns, use the structured repository issue forms. See [Contributing](.github/CONTRIBUTING.md) and [Support](.github/SUPPORT.md).
 
-If you use CBD in research, cite the exact released version using [CITATION.cff](CITATION.cff). Released version tags are treated as immutable historical version points by project policy and must not be rewritten; release-specific notes are retained under [releases/](releases/).
+If you use CBD in research, cite the exact released version using [CITATION.cff](CITATION.cff). Released tags are treated as immutable historical version points; release-specific notes and manifests are retained under [releases/](releases/).
 
-CBD is maintained by **Laurentiu Staicu**. Source code and schemas are MIT licensed; original model registries, synthetic recovery/validation artifacts, benchmark outputs, audit metadata and other original model data are CC BY 4.0 where applicable. Third-party papers, datasets and lexicons retain their original terms. See [LICENSING.md](LICENSING.md).
+CBD is maintained by **Laurentiu Staicu**. Source code and schemas are MIT licensed; original model registries, benchmark outputs, audit metadata and other original model data are CC BY 4.0 where applicable. Third-party materials retain their original terms. See [LICENSING.md](LICENSING.md).
