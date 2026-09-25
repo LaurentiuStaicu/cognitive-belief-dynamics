@@ -255,6 +255,16 @@ def test_variable_search_endpoint_failure_is_not_negative_evidence() -> None:
     assert d["parameterized_query_failure_interpretable_as_variable_absence"] is False
     assert d["variables_tab_absence_redirects_to_codebook"] is True
     assert d["variables_tab_absence_guidance_source"].endswith("/how-to-find-a-dataset")
+    assert d["verified_on"] == "2026-09-25"
+    assert d["legacy_variable_search_endpoint"] == "https://www.icpsr.umich.edu/web/ICPSR/search/variables"
+    assert d["modern_variable_search_endpoint"] == "https://www.icpsr.umich.edu/sites/search/variables"
+    assert d["modern_variable_search_queries_attempted"] == ["potential audience", "audience size"]
+    assert d["modern_variable_search_parameterized_queries_executable_through_audited_surface"] is False
+    assert d["modern_variable_search_target_specific_300450_or_300470_results_recovered"] is False
+    assert d["exact_external_index_search_recovered_target_variable_pages"] is False
+    assert d["study_search_reexposes_catalog_level_summaries_only"] is True
+    assert d["combined_legacy_and_modern_variable_search_failure_interpretable_as_variable_absence"] is False
+    assert d["automated_variable_discovery_exhausted_for_available_audited_surface"] is True
 
 
 def test_legacy_exposure_url_disclosure_scope_conflict_stays_blocking() -> None:

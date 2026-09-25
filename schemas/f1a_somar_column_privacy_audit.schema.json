@@ -880,11 +880,20 @@
         "current_automated_surface_can_execute_parameterized_variable_queries",
         "parameterized_query_failure_interpretable_as_variable_absence",
         "variables_tab_absence_guidance_source",
-        "variables_tab_absence_redirects_to_codebook"
+        "variables_tab_absence_redirects_to_codebook",
+        "legacy_variable_search_endpoint",
+        "modern_variable_search_endpoint",
+        "modern_variable_search_queries_attempted",
+        "modern_variable_search_parameterized_queries_executable_through_audited_surface",
+        "modern_variable_search_target_specific_300450_or_300470_results_recovered",
+        "exact_external_index_search_recovered_target_variable_pages",
+        "study_search_reexposes_catalog_level_summaries_only",
+        "combined_legacy_and_modern_variable_search_failure_interpretable_as_variable_absence",
+        "automated_variable_discovery_exhausted_for_available_audited_surface"
       ],
       "properties": {
         "verified_on": {
-          "const": "2026-09-24"
+          "const": "2026-09-25"
         },
         "ssvd_source": {
           "const": "https://www.icpsr.umich.edu/sites/icpsr/find-data/ssvd"
@@ -935,6 +944,36 @@
           "const": "https://www.icpsr.umich.edu/sites/icpsr/teaching-learning/build-your-data-skills/how-to-find-a-dataset"
         },
         "variables_tab_absence_redirects_to_codebook": {
+          "const": true
+        },
+        "legacy_variable_search_endpoint": {
+          "const": "https://www.icpsr.umich.edu/web/ICPSR/search/variables"
+        },
+        "modern_variable_search_endpoint": {
+          "const": "https://www.icpsr.umich.edu/sites/search/variables"
+        },
+        "modern_variable_search_queries_attempted": {
+          "const": [
+            "potential audience",
+            "audience size"
+          ]
+        },
+        "modern_variable_search_parameterized_queries_executable_through_audited_surface": {
+          "const": false
+        },
+        "modern_variable_search_target_specific_300450_or_300470_results_recovered": {
+          "const": false
+        },
+        "exact_external_index_search_recovered_target_variable_pages": {
+          "const": false
+        },
+        "study_search_reexposes_catalog_level_summaries_only": {
+          "const": true
+        },
+        "combined_legacy_and_modern_variable_search_failure_interpretable_as_variable_absence": {
+          "const": false
+        },
+        "automated_variable_discovery_exhausted_for_available_audited_surface": {
           "const": true
         }
       }

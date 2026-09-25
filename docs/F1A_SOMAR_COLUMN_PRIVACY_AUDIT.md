@@ -319,7 +319,7 @@ Official sources:
 
 This does not contradict the SOMAR catalog-search limitation. The SOMAR collection/catalog surface and ICPSR main search are different search scopes; ICPSR also notes that thematic-collection searches do not search across the full ICPSR collection.
 
-The concrete public ICPSR variable-search endpoint is `https://www.icpsr.umich.edu/web/ICPSR/search/variables`. The current automated audit surface can retrieve the base endpoint but does not execute its parameterized query URLs. That failure is therefore a retrieval/tooling limitation, **not** a valid negative variable-search result.
+The legacy concrete public ICPSR variable-search endpoint is `https://www.icpsr.umich.edu/web/ICPSR/search/variables`. The current automated audit surface can retrieve the base endpoint but does not execute its parameterized query URLs. A separate probe of the modern route `https://www.icpsr.umich.edu/sites/search/variables` on 2026-09-25 likewise could not execute parameterized searches for `potential audience` or `audience size`, and exact external searches did not recover target-specific variable pages for 300450 or 300470. By contrast, the study-search surface continues to expose only the catalog-level summaries for those targets. These failures are retrieval/indexing limitations, **not** valid evidence that the target variables are absent.
 
 ICPSR's current dataset-finding guide also instructs researchers that when the Variables tab does not expose variables, the corresponding information should be obtained from the codebook under Data & Documentation. Parameterized variable-search queries and the Variables tab are therefore discovery conveniences, not substitutes for the release documentation required by this gate.
 

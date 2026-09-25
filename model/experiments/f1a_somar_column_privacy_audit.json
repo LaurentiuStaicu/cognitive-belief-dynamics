@@ -370,7 +370,7 @@
     "object_export_api_nonuse_interpretable_as_metadata_absence": false
   },
   "icpsr_indexed_documentation_discovery": {
-    "verified_on": "2026-09-24",
+    "verified_on": "2026-09-25",
     "ssvd_source": "https://www.icpsr.umich.edu/sites/icpsr/find-data/ssvd",
     "variable_discovery_guidance_source": "https://www.icpsr.umich.edu/sites/icpsr/posts/shared/how-can-i-find-data-that-include-my-desired-variables",
     "find_use_data_source": "https://www.icpsr.umich.edu/sites/icpsr/teaching-learning/find-use-data",
@@ -387,7 +387,19 @@
     "current_automated_surface_can_execute_parameterized_variable_queries": false,
     "parameterized_query_failure_interpretable_as_variable_absence": false,
     "variables_tab_absence_guidance_source": "https://www.icpsr.umich.edu/sites/icpsr/teaching-learning/build-your-data-skills/how-to-find-a-dataset",
-    "variables_tab_absence_redirects_to_codebook": true
+    "variables_tab_absence_redirects_to_codebook": true,
+    "legacy_variable_search_endpoint": "https://www.icpsr.umich.edu/web/ICPSR/search/variables",
+    "modern_variable_search_endpoint": "https://www.icpsr.umich.edu/sites/search/variables",
+    "modern_variable_search_queries_attempted": [
+      "potential audience",
+      "audience size"
+    ],
+    "modern_variable_search_parameterized_queries_executable_through_audited_surface": false,
+    "modern_variable_search_target_specific_300450_or_300470_results_recovered": false,
+    "exact_external_index_search_recovered_target_variable_pages": false,
+    "study_search_reexposes_catalog_level_summaries_only": true,
+    "combined_legacy_and_modern_variable_search_failure_interpretable_as_variable_absence": false,
+    "automated_variable_discovery_exhausted_for_available_audited_surface": true
   },
   "legacy_exposure_url_disclosure_scope_conflict": {
     "source": "https://socialmediaarchive.org/record/61/files/US2020_FB%26IG_Elections_External_Codebook_v2.pdf",
