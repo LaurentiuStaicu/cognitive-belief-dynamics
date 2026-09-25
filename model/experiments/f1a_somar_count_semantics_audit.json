@@ -23,8 +23,11 @@
     "numerator_semantics": "UNIQUE_USERS_VIEWED_AT_LEAST_ONCE",
     "denominator_semantics": "UNIQUE_USERS_POTENTIALLY_ELIGIBLE_VIA_CONNECTION_INVENTORY",
     "content_views_allowed_as_numerator": false,
-    "status": "CONCEPTUALLY_JUSTIFIED_NUMERICALLY_BLOCKED",
-    "equivalent_to_q_transmit": false
+    "status": "CONCEPTUALLY_CONDITIONAL_ON_SHARED_INVENTORY_NUMERICALLY_BLOCKED",
+    "equivalent_to_q_transmit": false,
+    "paper_analysis_shared_inventory_supported": true,
+    "current_release_shared_inventory_verified": false,
+    "interpretable_as_release_view_rate_without_shared_inventory_proof": false
   },
   "resolved_blockers": [
     "audience_is_user_count_not_view_event_count",
@@ -48,7 +51,8 @@
     "owner_all_deduplicated_union_and_overlap_handling",
     "table_specific_additional_filter_compatibility",
     "weighting_or_estimation_for_released_audience_counts",
-    "release_version_row_linkage_rule"
+    "release_version_row_linkage_rule",
+    "paper_shared_inventory_to_release_field_scope_equivalence"
   ],
   "next_gate": {
     "name": "COLUMN_IDENTITY_AND_PRIVACY_RULES_AUDIT",
@@ -56,15 +60,87 @@
     "privacy_disclosure_rules_required": true,
     "missingness_policy_required": true,
     "url_linkage_rule_required": true,
-    "automatic_calculation_allowed": false
+    "automatic_calculation_allowed": false,
+    "shared_inventory_rule_required": true
   },
   "interpretation_boundary": [
     "Audience counts and content-view counts are different estimands and must not be substituted.",
-    "The candidate r_view uses unique-user audience counts in both numerator and denominator.",
+    "The candidate r_view uses unique-user audience counts in both numerator and denominator only conditionally on proving that the released Potential and Exposure tables use the same eligible inventory.",
     "A valid r_view would constrain only the aggregate PotentialDelivery-to-PlatformView component.",
+    "The Science paper's nested funnel supports a shared potential-to-exposed inventory within its analysis universe, but the current standalone 300450/300470 release fields have not yet been shown to preserve that same inventory.",
     "The FIES funnel supports study-specific subset interpretation but is not a universal Facebook transmission law.",
     "Public FIES documentation confirms aggregate-only analysis and a privacy-motivated greater-than-100-share URL inclusion threshold, but does not establish absence of additional release disclosure controls.",
     "PlatformView remains distinct from CBD cognitive ExposureEvent.",
     "F1a remains RECOVERY_TESTED."
-  ]
+  ],
+  "alternative_single_surface_candidates": {
+    "evaluated_on": "2026-09-25",
+    "icpsr_300456": {
+      "title": "Daily Ideological Segregation of the Audience of Facebook Posts with Civic News Domains and URLs",
+      "aggregation": "DAILY",
+      "current_catalog_metric_families": [
+        "IDEOLOGICAL_SEGREGATION_INDEX",
+        "FAVORABILITY_SCORE",
+        "CONTENT_ATTRIBUTES",
+        "USER_ATTRIBUTES"
+      ],
+      "legacy_codebook_audience_stage_dimension_present": true,
+      "publicly_indexed_raw_or_unique_audience_count_fields_established": false,
+      "substitute_for_r_view_count_pair_authorized": false
+    },
+    "icpsr_300459": {
+      "title": "Weekly Ideological Segregation of the Audience of Facebook Posts with Civic News Domains and URLs",
+      "aggregation": "WEEKLY",
+      "current_catalog_metric_families": [
+        "IDEOLOGICAL_SEGREGATION_INDEX",
+        "FAVORABILITY_SCORE",
+        "CONTENT_ATTRIBUTES",
+        "USER_ATTRIBUTES"
+      ],
+      "legacy_codebook_audience_stage_dimension_present": true,
+      "publicly_indexed_raw_or_unique_audience_count_fields_established": false,
+      "substitute_for_r_view_count_pair_authorized": false
+    },
+    "decision": "NO_PUBLICLY_ESTABLISHED_SINGLE_SURFACE_COUNT_SUBSTITUTE",
+    "interpretation": "The public current catalog describes 300456/300459 as ideological-segregation/favorability-score products. Legacy codebooks expose potential/exposed/engaged as an audience-stage dimension, but the audited public descriptions do not establish raw or unique audience-count fields suitable for r_view. They therefore cannot replace the 300450/300470 count-field gate without their own authoritative current dictionary evidence."
+  },
+  "alternative_domain_level_pair": {
+    "evaluated_on": "2026-09-25",
+    "potential_exposure": {
+      "icpsr": "300434",
+      "title": "Potential Exposure to Facebook Posts with Civic News Domains",
+      "level": "DOMAIN",
+      "current_catalog_advertises_potential_audience_size": true,
+      "legacy_table": "potential_exposure_facebook_posts_with_civic_news_domains",
+      "legacy_owner_rows": [
+        "user",
+        "Page",
+        "group",
+        "all"
+      ]
+    },
+    "exposure": {
+      "icpsr": "300468",
+      "title": "Exposure to Facebook Posts with Civic News Domains",
+      "level": "DOMAIN",
+      "current_catalog_advertises_audience_size": true,
+      "legacy_table": "exposure_facebook_posts_with_civic_news_domains",
+      "legacy_owner_rows": [
+        "user",
+        "Page",
+        "group",
+        "all"
+      ]
+    },
+    "same_study_period_high_level": true,
+    "same_active_user_population_high_level": true,
+    "current_physical_count_fields_verified": false,
+    "current_shared_inventory_verified": false,
+    "absent_row_semantics_verified": false,
+    "current_release_linkage_verified": false,
+    "aggregation_equivalent_to_url_level": false,
+    "automatic_substitution_for_url_level_r_view_allowed": false,
+    "status": "COARSER_FALLBACK_CANDIDATE_SEPARATE_PROSPECTIVE_CONTRACT_REQUIRED",
+    "interpretation": "The current catalog publicly advertises potential-audience size for 300434 and audience size for 300468, making the domain-level pair a plausible coarser empirical fallback. It is not interchangeable with URL-level 300450/300470 and cannot be calculated or substituted automatically. Exact current fields, row universe, missing/absent-row semantics, release linkage and the scientific effect of changing aggregation level must be frozen in a separate prospective analysis contract first."
+  }
 }

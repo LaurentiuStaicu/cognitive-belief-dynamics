@@ -77,7 +77,13 @@ This does not establish a general platform law and does not imply that every pos
 
 The candidate quantity should use unique-user audience counts:
 
-`r_view(URL, owner_type) = exposed_audience_users / potential_audience_users`
+r_view(URL, owner_type) = exposed_audience_users / potential_audience_users`
+
+Candidate status:
+
+`CONCEPTUALLY_CONDITIONAL_ON_SHARED_INVENTORY_NUMERICALLY_BLOCKED`
+
+The Science analysis supports this ratio conceptually only inside its nested analysis inventory: political-news posts from friends, followed Pages and joined Groups form the potential inventory, and algorithmic curation selects from that inventory into Feed. The standalone current release descriptions do not yet prove that every 300470 exposed-audience row is restricted to the same connection-based inventory represented by 300450. Therefore the release-field ratio is not interpretable as a potential→view realization fraction until current documentation establishes shared-inventory compatibility.
 
 and **not**:
 
@@ -94,6 +100,39 @@ If numerically valid, `r_view` would estimate an aggregate curation/view realiza
 It remains distinct from the synthetic dyadic:
 
 `q_transmit = P(CBD ExposureEvent | realised Share-edge opportunity)`.
+
+## Domain-level fallback pair checked
+
+The current SOMAR catalog also contains a coarser pair that mirrors the URL-level design:
+
+- ICPSR **300434** — *Potential Exposure to Facebook Posts with Civic News Domains* — current catalog summary explicitly advertises **potential audience size**;
+- ICPSR **300468** — *Exposure to Facebook Posts with Civic News Domains* — current catalog summary explicitly advertises **audience size**.
+
+Both cover the same high-level study period and adult U.S. monthly-active-user population, but at **domain** rather than URL level. The legacy external codebooks identify the corresponding domain tables as `potential_exposure_facebook_posts_with_civic_news_domains` and `exposure_facebook_posts_with_civic_news_domains`, each with owner rows `user`, `Page`, `group`, and `all`.
+
+This makes 300434↔300468 a plausible **coarser empirical fallback candidate**, not a replacement already authorized for the URL-level candidate. Changing from URL to domain aggregation changes the estimand and may alter weighting, overlap, inclusion and ecological interpretation. The current public summaries still do not establish the exact physical count fields, row-universe equivalence, absent-row semantics, current release linkage, or the effect of domain aggregation on the intended CBD component constraint.
+
+Accordingly, no automatic substitution or calculation is authorized. If the URL-level documentation remains unavailable, the domain-level pair may be evaluated only under a **separate prospective analysis contract** that freezes those semantics before inspecting numerical values.
+
+Status:
+
+`COARSER_FALLBACK_CANDIDATE_SEPARATE_PROSPECTIVE_CONTRACT_REQUIRED`
+
+## Alternative single-surface candidates checked
+
+The current SOMAR catalog also exposes ICPSR **300456** (daily) and **300459** (weekly), both titled as ideological-segregation datasets spanning potential, exposed and engaged audiences. These are tempting alternatives because the audience stages coexist inside one study surface rather than requiring a 300450↔300470 join.
+
+They do **not**, on the public evidence audited here, remove the numerical gate.
+
+The current catalog describes both 300456 and 300459 as products containing **ideological segregation index**, **favorability score**, **content attributes** and **user attributes**. It does not advertise potential-audience or exposed-audience **count fields**. The indexed legacy v2/v3 codebooks confirm that audience stage (potential/exposed/engaged) is an aggregation dimension for these products, but their documented metric families remain the segregation/favorability outputs rather than raw unique-user audience counts.
+
+Accordingly, the audit does not infer hidden count columns from the presence of an audience-stage dimension and does not derive audience counts backwards from segregation or favorability statistics. Their current dictionaries would have to establish suitable count fields prospectively before either study could substitute for the 300450/300470 count pair.
+
+Status:
+
+`NO_PUBLICLY_ESTABLISHED_SINGLE_SURFACE_COUNT_SUBSTITUTE`
+
+This closes an alternative-route ambiguity without changing the main gate: current authoritative count-field identity and release semantics are still required.
 
 ## Public privacy controls now confirmed
 
@@ -127,6 +166,7 @@ Required unresolved items are now narrower:
 8. whether the released potential/exposed audience variables apply any additional table-specific filters not visible in the high-level codebook;
 9. whether any weighting or estimation procedure is used for released audience counts;
 10. the exact linkage/versioning rule needed to ensure that rows from 300450 and 300470 refer to the same URL representation and compatible release version.
+11. an explicit current-release rule showing that the 300450 potential-audience denominator and 300470 exposed-audience numerator use the same eligible content/user inventory.
 
 ## Current gate decision
 
@@ -140,7 +180,7 @@ The next blocker is:
 
 `COLUMN_IDENTITY_AND_PRIVACY_RULES_UNRESOLVED`.
 
-Numerical `r_view` calculation remains unauthorized until those remaining items are prospectively frozen in an empirical-analysis contract.
+Numerical `r_view` calculation remains unauthorized until those remaining items, including shared-inventory equivalence, are prospectively frozen in an empirical-analysis contract.
 
 ## Scientific boundary
 

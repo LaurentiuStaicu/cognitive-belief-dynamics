@@ -41,7 +41,10 @@
     "formula": "actual_view_audience / potential_audience",
     "status": "NOT_AUTHORIZED_FOR_CALCULATION",
     "equivalent_to_q_transmit": false,
-    "role": "AGGREGATE_POTENTIAL_DELIVERY_TO_PLATFORM_VIEW_CONSTRAINT"
+    "role": "AGGREGATE_POTENTIAL_DELIVERY_TO_PLATFORM_VIEW_CONSTRAINT",
+    "shared_inventory_required": true,
+    "shared_inventory_verified": false,
+    "interpretable_as_release_view_rate_without_shared_inventory_proof": false
   },
   "unresolved_requirements": [
     "exact_potential_audience_variable_name_and_definition",
@@ -60,17 +63,19 @@
     "actual_audience_subset_compatibility_with_potential_audience"
   ],
   "hard_gates": {
-    "public_variable_dictionary_or_equivalent_inspected": true,
-    "exact_variable_names_frozen": true,
-    "numerator_denominator_same_count_semantics": true,
-    "pairing_keys_frozen": true,
-    "missing_suppression_policy_frozen": true,
-    "population_and_period_compatibility_verified": true,
-    "actual_subset_compatibility_verified": true,
+    "public_variable_dictionary_or_equivalent_inspection_required": true,
+    "exact_variable_names_freeze_required": true,
+    "numerator_denominator_same_count_semantics_required": true,
+    "pairing_keys_freeze_required": true,
+    "missing_suppression_policy_freeze_required": true,
+    "population_and_period_compatibility_verification_required": true,
+    "actual_subset_or_shared_inventory_compatibility_verification_required": true,
     "no_post_hoc_denominator_substitution": true,
-    "all_must_be_satisfied_before_calculation": true
+    "all_must_be_satisfied_before_calculation": true,
+    "currently_satisfied": false
   },
   "interpretation_boundary": [
+    "Hard-gate booleans are requirements, not satisfaction flags; the current release-level subset/shared-inventory compatibility gate remains unsatisfied.",
     "Structural compatibility of public documentation is not numerical calibration.",
     "Potential exposure is a platform opportunity construct, not actual view.",
     "Actual Facebook Feed view is a platform-view construct, not automatically CBD cognitive ExposureEvent.",

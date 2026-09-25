@@ -47,6 +47,8 @@ def test_candidate_ratios_are_codebook_gated_and_not_q_transmit() -> None:
 
     assert view["current_status"] == "CODEBOOK_GATED_NOT_AUTHORIZED_FOR_CALCULATION"
     assert view["equivalent_to_q_transmit"] is False
+    assert view["shared_inventory_required"] is True
+    assert view["shared_inventory_verified"] is False
     assert engage["current_status"] == "CODEBOOK_GATED_NOT_AUTHORIZED_FOR_CALCULATION"
     assert engage["equivalent_to_cognitive_exposure_probability"] is False
 
@@ -76,6 +78,7 @@ def test_numerical_analysis_is_blocked_until_codebook_gate() -> None:
         "unique_user_vs_event_count_semantics",
         "repeated_view_handling",
         "potential_and_actual_population_filter_compatibility",
+        "potential_and_actual_shared_inventory_compatibility",
         "privacy_suppression_rounding_rules",
         "participant_connection_to_item_share_view_linkability",
         "sender_recipient_lineage_presence_or_absence",
@@ -90,6 +93,7 @@ def test_bridge_interpretation_forbids_proxy_collapse() -> None:
     assert interpretation["potential_delivery_equals_platform_view"] is False
     assert interpretation["engagement_equals_exposure"] is False
     assert interpretation["aggregate_ratio_equals_dyadic_probability"] is False
+    assert interpretation["r_view_requires_shared_inventory_compatibility"] is True
     assert interpretation["component_constraints_can_be_retained_without_stage_promotion"] is True
 
 
@@ -102,6 +106,7 @@ def test_bridge_document_states_non_promotion_boundary() -> None:
         "cognitiveexposure",
         "codebook gate before numerical analysis",
         "`r_view` is **not** the dyadic f1a `q_transmit`",
+        "shared-inventory",
         "no numerical bridge is authorized",
     ):
         assert token in text

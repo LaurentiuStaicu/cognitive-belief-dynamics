@@ -12,6 +12,8 @@
     "numerical_calculation_authorized",
     "resolved_semantics",
     "candidate_component_quantity",
+    "alternative_single_surface_candidates",
+    "alternative_domain_level_pair",
     "resolved_blockers",
     "unresolved_blockers",
     "next_gate",
@@ -94,7 +96,10 @@
         "denominator_semantics",
         "content_views_allowed_as_numerator",
         "status",
-        "equivalent_to_q_transmit"
+        "equivalent_to_q_transmit",
+        "paper_analysis_shared_inventory_supported",
+        "current_release_shared_inventory_verified",
+        "interpretable_as_release_view_rate_without_shared_inventory_proof"
       ],
       "properties": {
         "id": {
@@ -113,9 +118,18 @@
           "const": false
         },
         "status": {
-          "const": "CONCEPTUALLY_JUSTIFIED_NUMERICALLY_BLOCKED"
+          "const": "CONCEPTUALLY_CONDITIONAL_ON_SHARED_INVENTORY_NUMERICALLY_BLOCKED"
         },
         "equivalent_to_q_transmit": {
+          "const": false
+        },
+        "paper_analysis_shared_inventory_supported": {
+          "const": true
+        },
+        "current_release_shared_inventory_verified": {
+          "const": false
+        },
+        "interpretable_as_release_view_rate_without_shared_inventory_proof": {
           "const": false
         }
       }
@@ -145,7 +159,8 @@
         "privacy_disclosure_rules_required",
         "missingness_policy_required",
         "url_linkage_rule_required",
-        "automatic_calculation_allowed"
+        "automatic_calculation_allowed",
+        "shared_inventory_rule_required"
       ],
       "properties": {
         "name": {
@@ -165,6 +180,9 @@
         },
         "automatic_calculation_allowed": {
           "const": false
+        },
+        "shared_inventory_rule_required": {
+          "const": true
         }
       }
     },
@@ -174,6 +192,232 @@
       "items": {
         "type": "string",
         "minLength": 20
+      }
+    },
+    "alternative_single_surface_candidates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluated_on",
+        "icpsr_300456",
+        "icpsr_300459",
+        "decision",
+        "interpretation"
+      ],
+      "properties": {
+        "evaluated_on": {
+          "const": "2026-09-25"
+        },
+        "icpsr_300456": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "title",
+            "aggregation",
+            "current_catalog_metric_families",
+            "legacy_codebook_audience_stage_dimension_present",
+            "publicly_indexed_raw_or_unique_audience_count_fields_established",
+            "substitute_for_r_view_count_pair_authorized"
+          ],
+          "properties": {
+            "title": {
+              "const": "Daily Ideological Segregation of the Audience of Facebook Posts with Civic News Domains and URLs"
+            },
+            "aggregation": {
+              "const": "DAILY"
+            },
+            "current_catalog_metric_families": {
+              "const": [
+                "IDEOLOGICAL_SEGREGATION_INDEX",
+                "FAVORABILITY_SCORE",
+                "CONTENT_ATTRIBUTES",
+                "USER_ATTRIBUTES"
+              ]
+            },
+            "legacy_codebook_audience_stage_dimension_present": {
+              "const": true
+            },
+            "publicly_indexed_raw_or_unique_audience_count_fields_established": {
+              "const": false
+            },
+            "substitute_for_r_view_count_pair_authorized": {
+              "const": false
+            }
+          }
+        },
+        "icpsr_300459": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "title",
+            "aggregation",
+            "current_catalog_metric_families",
+            "legacy_codebook_audience_stage_dimension_present",
+            "publicly_indexed_raw_or_unique_audience_count_fields_established",
+            "substitute_for_r_view_count_pair_authorized"
+          ],
+          "properties": {
+            "title": {
+              "const": "Weekly Ideological Segregation of the Audience of Facebook Posts with Civic News Domains and URLs"
+            },
+            "aggregation": {
+              "const": "WEEKLY"
+            },
+            "current_catalog_metric_families": {
+              "const": [
+                "IDEOLOGICAL_SEGREGATION_INDEX",
+                "FAVORABILITY_SCORE",
+                "CONTENT_ATTRIBUTES",
+                "USER_ATTRIBUTES"
+              ]
+            },
+            "legacy_codebook_audience_stage_dimension_present": {
+              "const": true
+            },
+            "publicly_indexed_raw_or_unique_audience_count_fields_established": {
+              "const": false
+            },
+            "substitute_for_r_view_count_pair_authorized": {
+              "const": false
+            }
+          }
+        },
+        "decision": {
+          "const": "NO_PUBLICLY_ESTABLISHED_SINGLE_SURFACE_COUNT_SUBSTITUTE"
+        },
+        "interpretation": {
+          "type": "string",
+          "minLength": 100
+        }
+      }
+    },
+    "alternative_domain_level_pair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluated_on",
+        "potential_exposure",
+        "exposure",
+        "same_study_period_high_level",
+        "same_active_user_population_high_level",
+        "current_physical_count_fields_verified",
+        "current_shared_inventory_verified",
+        "absent_row_semantics_verified",
+        "current_release_linkage_verified",
+        "aggregation_equivalent_to_url_level",
+        "automatic_substitution_for_url_level_r_view_allowed",
+        "status",
+        "interpretation"
+      ],
+      "properties": {
+        "evaluated_on": {
+          "const": "2026-09-25"
+        },
+        "potential_exposure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "icpsr",
+            "title",
+            "level",
+            "current_catalog_advertises_potential_audience_size",
+            "legacy_table",
+            "legacy_owner_rows"
+          ],
+          "properties": {
+            "icpsr": {
+              "const": "300434"
+            },
+            "title": {
+              "const": "Potential Exposure to Facebook Posts with Civic News Domains"
+            },
+            "level": {
+              "const": "DOMAIN"
+            },
+            "current_catalog_advertises_potential_audience_size": {
+              "const": true
+            },
+            "legacy_table": {
+              "const": "potential_exposure_facebook_posts_with_civic_news_domains"
+            },
+            "legacy_owner_rows": {
+              "const": [
+                "user",
+                "Page",
+                "group",
+                "all"
+              ]
+            }
+          }
+        },
+        "exposure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "icpsr",
+            "title",
+            "level",
+            "current_catalog_advertises_audience_size",
+            "legacy_table",
+            "legacy_owner_rows"
+          ],
+          "properties": {
+            "icpsr": {
+              "const": "300468"
+            },
+            "title": {
+              "const": "Exposure to Facebook Posts with Civic News Domains"
+            },
+            "level": {
+              "const": "DOMAIN"
+            },
+            "current_catalog_advertises_audience_size": {
+              "const": true
+            },
+            "legacy_table": {
+              "const": "exposure_facebook_posts_with_civic_news_domains"
+            },
+            "legacy_owner_rows": {
+              "const": [
+                "user",
+                "Page",
+                "group",
+                "all"
+              ]
+            }
+          }
+        },
+        "same_study_period_high_level": {
+          "const": true
+        },
+        "same_active_user_population_high_level": {
+          "const": true
+        },
+        "current_physical_count_fields_verified": {
+          "const": false
+        },
+        "current_shared_inventory_verified": {
+          "const": false
+        },
+        "absent_row_semantics_verified": {
+          "const": false
+        },
+        "current_release_linkage_verified": {
+          "const": false
+        },
+        "aggregation_equivalent_to_url_level": {
+          "const": false
+        },
+        "automatic_substitution_for_url_level_r_view_allowed": {
+          "const": false
+        },
+        "status": {
+          "const": "COARSER_FALLBACK_CANDIDATE_SEPARATE_PROSPECTIVE_CONTRACT_REQUIRED"
+        },
+        "interpretation": {
+          "type": "string",
+          "minLength": 120
+        }
       }
     }
   }

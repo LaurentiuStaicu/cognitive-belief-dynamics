@@ -184,6 +184,12 @@
           },
           "equivalent_to_cognitive_exposure_probability": {
             "const": false
+          },
+          "shared_inventory_required": {
+            "const": true
+          },
+          "shared_inventory_verified": {
+            "const": false
           }
         },
         "oneOf": [
@@ -196,6 +202,26 @@
             "required": [
               "equivalent_to_cognitive_exposure_probability"
             ]
+          }
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "id": {
+                  "const": "CANDIDATE.R_VIEW.AGGREGATE"
+                }
+              },
+              "required": [
+                "id"
+              ]
+            },
+            "then": {
+              "required": [
+                "shared_inventory_required",
+                "shared_inventory_verified"
+              ]
+            }
           }
         ]
       }
@@ -264,7 +290,7 @@
         },
         "requirements": {
           "type": "array",
-          "minItems": 12,
+          "minItems": 13,
           "uniqueItems": true,
           "items": {
             "type": "string"
@@ -281,7 +307,8 @@
         "potential_delivery_equals_platform_view",
         "engagement_equals_exposure",
         "aggregate_ratio_equals_dyadic_probability",
-        "component_constraints_can_be_retained_without_stage_promotion"
+        "component_constraints_can_be_retained_without_stage_promotion",
+        "r_view_requires_shared_inventory_compatibility"
       ],
       "properties": {
         "platform_view_is_directly_observable_candidate": {
@@ -300,6 +327,9 @@
           "const": false
         },
         "component_constraints_can_be_retained_without_stage_promotion": {
+          "const": true
+        },
+        "r_view_requires_shared_inventory_compatibility": {
           "const": true
         }
       }

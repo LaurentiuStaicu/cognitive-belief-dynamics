@@ -29,6 +29,9 @@ def test_public_codebook_audit_does_not_authorize_calculation_or_promotion() -> 
     assert audit["numerical_pairing_authorized"] is False
     assert audit["candidate_component_quantity"]["status"] == "NOT_AUTHORIZED_FOR_CALCULATION"
     assert audit["candidate_component_quantity"]["equivalent_to_q_transmit"] is False
+    assert audit["candidate_component_quantity"]["shared_inventory_required"] is True
+    assert audit["candidate_component_quantity"]["shared_inventory_verified"] is False
+    assert audit["candidate_component_quantity"]["interpretable_as_release_view_rate_without_shared_inventory_proof"] is False
 
 
 def test_confirmed_pairing_surface_is_url_owner_period_population_aligned() -> None:
@@ -59,11 +62,12 @@ def test_variable_semantics_and_privacy_rules_remain_hard_blockers() -> None:
 def test_all_hard_gates_are_required_before_calculation() -> None:
     gates = load(CONTRACT)["hard_gates"]
     assert gates["all_must_be_satisfied_before_calculation"] is True
-    assert gates["public_variable_dictionary_or_equivalent_inspected"] is True
-    assert gates["exact_variable_names_frozen"] is True
-    assert gates["numerator_denominator_same_count_semantics"] is True
-    assert gates["missing_suppression_policy_frozen"] is True
-    assert gates["actual_subset_compatibility_verified"] is True
+    assert gates["currently_satisfied"] is False
+    assert gates["public_variable_dictionary_or_equivalent_inspection_required"] is True
+    assert gates["exact_variable_names_freeze_required"] is True
+    assert gates["numerator_denominator_same_count_semantics_required"] is True
+    assert gates["missing_suppression_policy_freeze_required"] is True
+    assert gates["actual_subset_or_shared_inventory_compatibility_verification_required"] is True
     assert gates["no_post_hoc_denominator_substitution"] is True
 
 
@@ -74,7 +78,8 @@ def test_document_preserves_nonclaim_boundary() -> None:
         "pairing_design_plausible / numerical_pairing_not_yet_authorized",
         "not authorized for calculation yet",
         "it would not be the dyadic synthetic",
-        "variable-level count semantics and privacy/aggregation rules",
+        "variable-level count semantics",
+        "release-level subset/shared-inventory compatibility",
         "f1a remains **recovery_tested**",
     ):
         assert token in text
