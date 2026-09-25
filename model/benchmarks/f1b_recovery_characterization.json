@@ -1,0 +1,219 @@
+{
+  "characterization_id": "F1B.RECOVERY_CHARACTERIZATION.2026-09-25",
+  "status": "NON_AUTHORITATIVE_CHARACTERIZATION_DESIGN",
+  "seed": 20260925,
+  "replicates_per_cell": 3,
+  "separation_regimes": [
+    "WEAK",
+    "MODERATE",
+    "STRONG"
+  ],
+  "missingness_rates": [
+    0,
+    0.15
+  ],
+  "hierarchical_scale_multipliers": [
+    0.5,
+    1,
+    2
+  ],
+  "R1": {
+    "participants": 24,
+    "items": 24,
+    "reliability_T": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "signed_evidence_E": [
+      -1,
+      -0.5,
+      0.5,
+      1
+    ],
+    "tau_grid": [
+      0.4,
+      0.5,
+      0.6
+    ],
+    "generator_random_effects": {
+      "participant_intercept_sd": 0.2,
+      "item_intercept_sd": 0.2,
+      "participant_slope_sd": 0.1,
+      "item_slope_sd": 0.1
+    },
+    "generator_regimes": {
+      "WEAK": {
+        "SR-A": {
+          "intercept": 0,
+          "evidence_scale": 0.45,
+          "noise_sd": 0.75
+        },
+        "SR-B": {
+          "intercept": 0,
+          "evidence_scale": 0.45,
+          "noise_sd": 0.75
+        },
+        "SR-C": {
+          "intercept": 0,
+          "evidence_scale": 0.45,
+          "noise_sd": 0.75,
+          "tau": 0.5
+        }
+      },
+      "MODERATE": {
+        "SR-A": {
+          "intercept": 0,
+          "evidence_scale": 0.9,
+          "noise_sd": 0.65
+        },
+        "SR-B": {
+          "intercept": 0,
+          "evidence_scale": 0.9,
+          "noise_sd": 0.65
+        },
+        "SR-C": {
+          "intercept": 0,
+          "evidence_scale": 0.9,
+          "noise_sd": 0.65,
+          "tau": 0.5
+        }
+      },
+      "STRONG": {
+        "SR-A": {
+          "intercept": 0,
+          "evidence_scale": 1.35,
+          "noise_sd": 0.55
+        },
+        "SR-B": {
+          "intercept": 0,
+          "evidence_scale": 1.35,
+          "noise_sd": 0.55
+        },
+        "SR-C": {
+          "intercept": 0,
+          "evidence_scale": 1.35,
+          "noise_sd": 0.55,
+          "tau": 0.5
+        }
+      }
+    }
+  },
+  "R2": {
+    "participants": 24,
+    "items": 36,
+    "belief_B": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "accuracy_cue_A": [
+      0,
+      1
+    ],
+    "reward_context_R": [
+      -1,
+      0,
+      1
+    ],
+    "generator_random_effects": {
+      "participant_intercept_sd": 0.25,
+      "item_intercept_sd": 0.2,
+      "participant_reward_slope_sd": 0.1,
+      "item_reward_slope_sd": 0.1
+    },
+    "generator_regimes": {
+      "WEAK": {
+        "AP-A": {
+          "parameters": [
+            -0.2,
+            0,
+            0.6,
+            0.5
+          ]
+        },
+        "AP-B": {
+          "parameters": [
+            -0.2,
+            0.45,
+            0.18,
+            0.33
+          ]
+        },
+        "AP-C": {
+          "parameters": [
+            -0.2,
+            0.35,
+            0.1,
+            0.3,
+            0.25,
+            -0.25
+          ]
+        }
+      },
+      "MODERATE": {
+        "AP-A": {
+          "parameters": [
+            -0.2,
+            0,
+            1.2,
+            1
+          ]
+        },
+        "AP-B": {
+          "parameters": [
+            -0.2,
+            0.9,
+            0.35,
+            0.65
+          ]
+        },
+        "AP-C": {
+          "parameters": [
+            -0.2,
+            0.65,
+            0.2,
+            0.55,
+            0.55,
+            -0.55
+          ]
+        }
+      },
+      "STRONG": {
+        "AP-A": {
+          "parameters": [
+            -0.2,
+            0,
+            1.8,
+            1.5
+          ]
+        },
+        "AP-B": {
+          "parameters": [
+            -0.2,
+            1.35,
+            0.5,
+            1
+          ]
+        },
+        "AP-C": {
+          "parameters": [
+            -0.2,
+            1,
+            0.3,
+            0.8,
+            0.8,
+            -0.8
+          ]
+        }
+      }
+    }
+  },
+  "execution_boundary": {
+    "authoritative_run_allowed": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
