@@ -339,6 +339,16 @@ def test_manual_browser_codebook_route_is_explicit_and_noninferential() -> None:
     assert route["automated_indexed_route_exhaustion_equivalent_to_manual_route_exhaustion"] is False
     assert route["manual_interactive_route_required"] is True
     assert route["manual_route_send_precondition_satisfied"] is False
+    assert route["direct_dataset_route_pattern_control_verified"] is True
+    assert route["direct_dataset_route_pattern_control_source"].endswith("/38580/datasets/1")
+    assert route["direct_dataset_route_pattern_shape"] == "/sites/<collection>/view/studies/<study>/datasets/<dataset_number>"
+    assert route["direct_dataset_route_pattern_control_exposes_documentation_files"] is True
+    assert route["target_dataset_number_verified"] is False
+    assert route["target_dataset_number_value"] is None
+    assert route["target_candidate_dataset_routes_content_retrieved"] is False
+    assert route["target_candidate_dataset_routes_indexed"] is False
+    assert route["target_candidate_route_failure_interpretable_as_dataset_absence"] is False
+    assert route["target_candidate_route_failure_interpretable_as_dataset_number_1_invalid"] is False
     assert route["intended_role"] == "NONINFERENTIAL_MANUAL_RETRIEVAL_FALLBACK"
     assert route["automated_surface_current_300450_dataset_file_listing_obtained"] is False
     assert route["automated_surface_current_300470_dataset_file_listing_obtained"] is False

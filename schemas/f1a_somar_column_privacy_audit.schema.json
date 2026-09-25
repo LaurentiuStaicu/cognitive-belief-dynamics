@@ -954,7 +954,18 @@
         "automated_indexed_route_exhausted_for_available_audited_tooling",
         "automated_indexed_route_exhaustion_equivalent_to_manual_route_exhaustion",
         "manual_interactive_route_required",
-        "manual_route_send_precondition_satisfied"
+        "manual_route_send_precondition_satisfied",
+        "direct_dataset_route_pattern_control_verified",
+        "direct_dataset_route_pattern_control_source",
+        "direct_dataset_route_pattern_shape",
+        "direct_dataset_route_pattern_control_exposes_documentation_files",
+        "target_dataset_number_verified",
+        "target_dataset_number_value",
+        "target_candidate_dataset_routes_probed",
+        "target_candidate_dataset_routes_content_retrieved",
+        "target_candidate_dataset_routes_indexed",
+        "target_candidate_route_failure_interpretable_as_dataset_absence",
+        "target_candidate_route_failure_interpretable_as_dataset_number_1_invalid"
       ],
       "properties": {
         "verified_on": {
@@ -1053,6 +1064,42 @@
           "const": true
         },
         "manual_route_send_precondition_satisfied": {
+          "const": false
+        },
+        "direct_dataset_route_pattern_control_verified": {
+          "const": true
+        },
+        "direct_dataset_route_pattern_control_source": {
+          "const": "https://www.icpsr.umich.edu/sites/nanda/view/studies/38580/datasets/1"
+        },
+        "direct_dataset_route_pattern_shape": {
+          "const": "/sites/<collection>/view/studies/<study>/datasets/<dataset_number>"
+        },
+        "direct_dataset_route_pattern_control_exposes_documentation_files": {
+          "const": true
+        },
+        "target_dataset_number_verified": {
+          "const": false
+        },
+        "target_dataset_number_value": {
+          "type": "null"
+        },
+        "target_candidate_dataset_routes_probed": {
+          "const": [
+            "https://www.icpsr.umich.edu/sites/somar/view/studies/300450/datasets/1",
+            "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/datasets/1"
+          ]
+        },
+        "target_candidate_dataset_routes_content_retrieved": {
+          "const": false
+        },
+        "target_candidate_dataset_routes_indexed": {
+          "const": false
+        },
+        "target_candidate_route_failure_interpretable_as_dataset_absence": {
+          "const": false
+        },
+        "target_candidate_route_failure_interpretable_as_dataset_number_1_invalid": {
           "const": false
         }
       }

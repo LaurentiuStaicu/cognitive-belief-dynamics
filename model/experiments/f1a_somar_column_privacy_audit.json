@@ -452,7 +452,21 @@
     "automated_indexed_route_exhausted_for_available_audited_tooling": true,
     "automated_indexed_route_exhaustion_equivalent_to_manual_route_exhaustion": false,
     "manual_interactive_route_required": true,
-    "manual_route_send_precondition_satisfied": false
+    "manual_route_send_precondition_satisfied": false,
+    "direct_dataset_route_pattern_control_verified": true,
+    "direct_dataset_route_pattern_control_source": "https://www.icpsr.umich.edu/sites/nanda/view/studies/38580/datasets/1",
+    "direct_dataset_route_pattern_shape": "/sites/<collection>/view/studies/<study>/datasets/<dataset_number>",
+    "direct_dataset_route_pattern_control_exposes_documentation_files": true,
+    "target_dataset_number_verified": false,
+    "target_dataset_number_value": null,
+    "target_candidate_dataset_routes_probed": [
+      "https://www.icpsr.umich.edu/sites/somar/view/studies/300450/datasets/1",
+      "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/datasets/1"
+    ],
+    "target_candidate_dataset_routes_content_retrieved": false,
+    "target_candidate_dataset_routes_indexed": false,
+    "target_candidate_route_failure_interpretable_as_dataset_absence": false,
+    "target_candidate_route_failure_interpretable_as_dataset_number_1_invalid": false
   },
   "icpsr_search_access_interpretation": {
     "verified_on": "2026-09-24",
