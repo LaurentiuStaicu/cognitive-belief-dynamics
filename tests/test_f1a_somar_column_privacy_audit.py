@@ -192,6 +192,11 @@ def test_current_metadata_routes_replace_retired_oai_path() -> None:
     assert route["legacy_oai_study_base_url"] == "https://pcms.icpsr.umich.edu/pcms/api/1.0/oai/studies"
     assert route["sufficient_for_variable_dictionary_gate"] is False
     assert route["current_300470_metadata_payload_obtained"] is False
+    assert route["current_api_credentials_requirement_reconfirmed_on"] == "2026-09-25"
+    assert route["retired_oai_continuity_statement"] == "AVAILABLE_UNTIL_AT_LEAST_2026-08"
+    assert route["retired_oai_continuity_guarantee_covers_audit_date"] is False
+    assert route["retired_oai_target_300470_payload_recovered_through_audited_surface"] is False
+    assert route["retired_oai_reliable_current_fallback"] is False
     assert any("older OAI-PMH/DDI endpoint is retired" in x for x in audit["interpretation_boundary"])
 
 

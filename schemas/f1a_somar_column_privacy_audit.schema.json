@@ -640,7 +640,12 @@
         "current_300470_unversioned_doi_reference",
         "current_300470_unversioned_doi_reference_rule_verified",
         "current_300470_unversioned_doi_target_resolution_verified",
-        "unversioned_doi_reference_sufficient_for_version_specific_identity"
+        "unversioned_doi_reference_sufficient_for_version_specific_identity",
+        "current_api_credentials_requirement_reconfirmed_on",
+        "retired_oai_continuity_statement",
+        "retired_oai_continuity_guarantee_covers_audit_date",
+        "retired_oai_target_300470_payload_recovered_through_audited_surface",
+        "retired_oai_reliable_current_fallback"
       ],
       "properties": {
         "verified_on": {
@@ -728,6 +733,21 @@
           "const": false
         },
         "unversioned_doi_reference_sufficient_for_version_specific_identity": {
+          "const": false
+        },
+        "current_api_credentials_requirement_reconfirmed_on": {
+          "const": "2026-09-25"
+        },
+        "retired_oai_continuity_statement": {
+          "const": "AVAILABLE_UNTIL_AT_LEAST_2026-08"
+        },
+        "retired_oai_continuity_guarantee_covers_audit_date": {
+          "const": false
+        },
+        "retired_oai_target_300470_payload_recovered_through_audited_surface": {
+          "const": false
+        },
+        "retired_oai_reliable_current_fallback": {
           "const": false
         }
       }

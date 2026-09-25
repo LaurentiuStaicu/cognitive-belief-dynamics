@@ -229,14 +229,14 @@ Official current sources:
 - https://www.icpsr.umich.edu/sites/icpsr/about/repository-operations/accessing-metadata
 - https://icpsr.github.io/metadata/icpsr_metadata_api/
 
-The older OAI-PMH/DDI endpoint at `https://pcms.icpsr.umich.edu/pcms/api/1.0/oai/studies` is documented separately by ICPSR as a **retired metadata export service** while ICPSR transitions to the newer API. It is therefore retained only as historical provenance and must not be represented as the current preferred route.
+The older OAI-PMH/DDI endpoint at `https://pcms.icpsr.umich.edu/pcms/api/1.0/oai/studies` is documented separately by ICPSR as a **retired metadata export service** while ICPSR transitions to the newer API. ICPSR states that the retired services would remain available **until at least August 2026**. Because this audit is being executed on **2026-09-25**, that continuity statement no longer guarantees availability at the audit date. A direct target-specific retrieval attempt through the audited web surface did not yield a 300470 metadata payload. The retired endpoint is therefore retained only as historical provenance/non-guaranteed legacy infrastructure and must not be represented as a reliable current fallback or preferred route.
 
 Official retired-service source:
 - https://www.icpsr.umich.edu/sites/icpsr/about/repository-operations/accessing-metadata/retired-metadata-export
 
 All of these metadata routes operate at the study/collection metadata level. They do **not** substitute for the public Data & Documentation files required by this gate. Collection metadata may help establish title, identifier, DOI/version and other provenance, but it cannot by itself establish the physical data-dictionary fields or the release-specific disclosure semantics required for `r_view`.
 
-The current automated surface still does not expose the individual-study metadata export payload for 300470, and the batch API cannot be queried here without API credentials. No additional 300470 DOI/version or variable information is inferred from these routes.
+The current automated surface still does not expose the individual-study metadata export payload for 300470, the batch API cannot be queried here without API credentials, and the retired OAI continuity statement no longer covers the 2026-09-25 audit date. No additional 300470 DOI/version or variable information is inferred from these routes.
 
 
 ### 300470 versioned-route probe
