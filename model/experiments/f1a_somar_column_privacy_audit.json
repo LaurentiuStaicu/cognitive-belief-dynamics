@@ -355,7 +355,19 @@
     "retired_ddi_bulk_archive_fetch_result": "BINARY_CONTENT_DISCOVERED_TOOLING_CANNOT_RENDER_OR_DOWNLOAD",
     "retired_ddi_bulk_archive_noninspection_interpretable_as_absence": false,
     "retired_ddi_bulk_archive_potential_role": "STUDY_METADATA_IDENTITY_AND_PROVENANCE_ONLY",
-    "retired_ddi_bulk_archive_sufficient_for_variable_dictionary_gate": false
+    "retired_ddi_bulk_archive_sufficient_for_variable_dictionary_gate": false,
+    "object_export_api_directory_source": "https://dir.api.it.umich.edu/docs/icpsrobjectexport/1/types/ExportQuery",
+    "object_export_api_dataset_object_select_supported": true,
+    "object_export_api_numeric_identifier_filter_supported": true,
+    "object_export_api_latest_version_only_for_matching_products": true,
+    "object_export_api_dataset_metadata_retrieval_technically_capable": true,
+    "object_export_api_gateway_oauth_client_credentials_required": true,
+    "object_export_api_required_scope": "icpsr-objectexport",
+    "object_export_api_additional_application_authorization_bearer_required": true,
+    "object_export_api_anonymous_public_execution_available": false,
+    "object_export_api_used_for_300450_or_300470_in_this_audit": false,
+    "object_export_api_unavailable_reason": "AUTHORIZATION_CREDENTIALS_NOT_AVAILABLE_IN_AUDIT",
+    "object_export_api_nonuse_interpretable_as_metadata_absence": false
   },
   "icpsr_indexed_documentation_discovery": {
     "verified_on": "2026-09-24",

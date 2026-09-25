@@ -659,7 +659,19 @@
         "retired_ddi_bulk_archive_fetch_result",
         "retired_ddi_bulk_archive_noninspection_interpretable_as_absence",
         "retired_ddi_bulk_archive_potential_role",
-        "retired_ddi_bulk_archive_sufficient_for_variable_dictionary_gate"
+        "retired_ddi_bulk_archive_sufficient_for_variable_dictionary_gate",
+        "object_export_api_directory_source",
+        "object_export_api_dataset_object_select_supported",
+        "object_export_api_numeric_identifier_filter_supported",
+        "object_export_api_latest_version_only_for_matching_products",
+        "object_export_api_dataset_metadata_retrieval_technically_capable",
+        "object_export_api_gateway_oauth_client_credentials_required",
+        "object_export_api_required_scope",
+        "object_export_api_additional_application_authorization_bearer_required",
+        "object_export_api_anonymous_public_execution_available",
+        "object_export_api_used_for_300450_or_300470_in_this_audit",
+        "object_export_api_unavailable_reason",
+        "object_export_api_nonuse_interpretable_as_metadata_absence"
       ],
       "properties": {
         "verified_on": {
@@ -807,6 +819,42 @@
           "const": "STUDY_METADATA_IDENTITY_AND_PROVENANCE_ONLY"
         },
         "retired_ddi_bulk_archive_sufficient_for_variable_dictionary_gate": {
+          "const": false
+        },
+        "object_export_api_directory_source": {
+          "const": "https://dir.api.it.umich.edu/docs/icpsrobjectexport/1/types/ExportQuery"
+        },
+        "object_export_api_dataset_object_select_supported": {
+          "const": true
+        },
+        "object_export_api_numeric_identifier_filter_supported": {
+          "const": true
+        },
+        "object_export_api_latest_version_only_for_matching_products": {
+          "const": true
+        },
+        "object_export_api_dataset_metadata_retrieval_technically_capable": {
+          "const": true
+        },
+        "object_export_api_gateway_oauth_client_credentials_required": {
+          "const": true
+        },
+        "object_export_api_required_scope": {
+          "const": "icpsr-objectexport"
+        },
+        "object_export_api_additional_application_authorization_bearer_required": {
+          "const": true
+        },
+        "object_export_api_anonymous_public_execution_available": {
+          "const": false
+        },
+        "object_export_api_used_for_300450_or_300470_in_this_audit": {
+          "const": false
+        },
+        "object_export_api_unavailable_reason": {
+          "const": "AUTHORIZATION_CREDENTIALS_NOT_AVAILABLE_IN_AUDIT"
+        },
+        "object_export_api_nonuse_interpretable_as_metadata_absence": {
           "const": false
         }
       }

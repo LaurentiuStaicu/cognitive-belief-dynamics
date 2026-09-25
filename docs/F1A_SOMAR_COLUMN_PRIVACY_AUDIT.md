@@ -225,6 +225,8 @@ Current ICPSR guidance distinguishes two active metadata-access routes:
 1. the **ICPSR Metadata Export API** for batch search/export of collection metadata; its current user guide requires API credentials;
 2. the **Export Metadata** tab on each individual study home page, where ICPSR states that study-level metadata can be downloaded in formats including Dublin Core and DDI-Codebook.
 
+The current Object Export API documentation also clarifies a potentially useful but credential-gated dataset-level route. Its query schema allows `dataset` as a selectable object category, supports a numeric `identifier` filter, and returns only the latest version of matching products. In principle, that API could therefore recover dataset metadata tied to a known study/dataset identifier. However, the API gateway requires OAuth 2.0 client-credentials authentication with the `icpsr-objectexport` scope **and** an additional Application-Authorization bearer token before the Object Export service can be used. It is consequently classified here as **technically capable but not anonymously/publicly executable in this audit**. This restriction is procedural; it does not imply that dataset metadata are absent.
+
 Official current sources:
 - https://www.icpsr.umich.edu/sites/icpsr/about/repository-operations/accessing-metadata
 - https://icpsr.github.io/metadata/icpsr_metadata_api/

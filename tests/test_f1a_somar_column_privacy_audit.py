@@ -210,6 +210,17 @@ def test_current_metadata_routes_replace_retired_oai_path() -> None:
     assert route["retired_ddi_bulk_archive_noninspection_interpretable_as_absence"] is False
     assert route["retired_ddi_bulk_archive_potential_role"] == "STUDY_METADATA_IDENTITY_AND_PROVENANCE_ONLY"
     assert route["retired_ddi_bulk_archive_sufficient_for_variable_dictionary_gate"] is False
+    assert route["object_export_api_dataset_object_select_supported"] is True
+    assert route["object_export_api_numeric_identifier_filter_supported"] is True
+    assert route["object_export_api_latest_version_only_for_matching_products"] is True
+    assert route["object_export_api_dataset_metadata_retrieval_technically_capable"] is True
+    assert route["object_export_api_gateway_oauth_client_credentials_required"] is True
+    assert route["object_export_api_required_scope"] == "icpsr-objectexport"
+    assert route["object_export_api_additional_application_authorization_bearer_required"] is True
+    assert route["object_export_api_anonymous_public_execution_available"] is False
+    assert route["object_export_api_used_for_300450_or_300470_in_this_audit"] is False
+    assert route["object_export_api_unavailable_reason"] == "AUTHORIZATION_CREDENTIALS_NOT_AVAILABLE_IN_AUDIT"
+    assert route["object_export_api_nonuse_interpretable_as_metadata_absence"] is False
     assert any("older OAI-PMH/DDI endpoint is retired" in x for x in audit["interpretation_boundary"])
 
 
