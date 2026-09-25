@@ -42,7 +42,13 @@ def wilson_interval(
         )
         / denom
     )
-    return max(0.0, center - half), min(1.0, center + half)
+    low = max(0.0, center - half)
+    high = min(1.0, center + half)
+    if successes == 0:
+        low = 0.0
+    if successes == total:
+        high = 1.0
+    return low, high
 
 
 def _rng(
