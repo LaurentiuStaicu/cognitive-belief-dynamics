@@ -1,0 +1,108 @@
+{
+  "benchmark_id": "BENCH.F1B.PREHUMAN_MODEL_RECOVERY.DESIGN.2026-09-25",
+  "status": "PROSPECTIVE_DESIGN_CONFIG_NO_ENGINE",
+  "issue": 126,
+  "seed": 20260925,
+  "replicates_per_cell": 200,
+  "design_search": {
+    "participant_counts": [
+      96,
+      192,
+      384
+    ],
+    "item_counts": [
+      36,
+      72,
+      144
+    ],
+    "missingness_rates": [
+      0,
+      0.1,
+      0.2
+    ],
+    "search_axes_are_human_sample_recommendations": false
+  },
+  "R1": {
+    "candidate_ids": [
+      "SR-A",
+      "SR-B",
+      "SR-C"
+    ],
+    "reliability_T": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "signed_evidence_E": [
+      -1,
+      -0.5,
+      0.5,
+      1
+    ],
+    "tau_grid": [
+      0.4,
+      0.5,
+      0.6
+    ],
+    "effect_regimes": [
+      "WEAK",
+      "MODERATE",
+      "STRONG"
+    ],
+    "core_cells_frozen": false
+  },
+  "R2": {
+    "candidate_ids": [
+      "AP-A",
+      "AP-B",
+      "AP-C"
+    ],
+    "belief_B": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "accuracy_cue_A": [
+      0,
+      1
+    ],
+    "reward_context_R": [
+      -1,
+      0,
+      1
+    ],
+    "effect_regimes": [
+      "WEAK",
+      "MODERATE",
+      "STRONG"
+    ],
+    "core_cells_frozen": false
+  },
+  "random_effects": {
+    "participant_intercept_required": true,
+    "item_intercept_required": true,
+    "participant_slope_stress_required": true,
+    "item_slope_stress_required": true,
+    "numeric_variance_grid_frozen": false
+  },
+  "selection": {
+    "allow_inconclusive": true,
+    "require_in_sample_and_held_out_agreement": true,
+    "held_out_participant_check": true,
+    "held_out_item_check": true,
+    "exact_fit_metric_frozen": false
+  },
+  "provisional_recovery_convention": {
+    "minimum_correct_probability": 0.8,
+    "threshold_status": "CBD_SYNTHETIC_DESIGN_CONVENTION",
+    "stress_cells_non_gating": true,
+    "wrong_probability_separate": true
+  },
+  "execution_boundary": {
+    "recovery_engine_present": false,
+    "authoritative_run_allowed": false,
+    "human_n_frozen": false,
+    "human_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
