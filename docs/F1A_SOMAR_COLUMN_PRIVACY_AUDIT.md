@@ -350,7 +350,11 @@ For F1a, the documented manual sequence is therefore:
 
 `current study page -> Data & Documentation -> relevant dataset -> Download dropdown -> Codebook / ICPSR Codebook -> inspect variables -> record collection version and documentation-file identity`.
 
-This is now the preferred noninferential fallback when the automated/indexed surfaces do not expose the file listing. It does **not** pass the variable-dictionary gate by itself. The current 300450 and 300470 dataset-file listings and exact dictionary contents still have to be recovered, inspected, and tied to their current collection versions before any physical field can be frozen or any ratio calculated.
+This is now the preferred noninferential fallback when the automated/indexed surfaces do not expose the file listing. A controlled 2026-09-25 search exhaustively retried target-specific indexed discovery for `300450` and `300470` using combinations of **Data & Documentation**, **Codebook**, **ICPSR Codebook**, **data dictionary** and **download**. Those searches re-exposed the catalog descriptions but did not recover a target-specific documentation-file URL or dataset-file listing. Direct study-page retrieval remains shell-only through the audited surface.
+
+That result is deliberately narrower than saying the manual route failed. The documented `Data & Documentation -> dataset -> Download -> Codebook / ICPSR Codebook` sequence requires interaction with the dynamic study interface and has **not** been executed to completion in this audit. The automated/indexed route is therefore classified as exhausted for the available audited tooling, while the manual interactive route remains required and unexhausted. The SOMAR Help draft consequently remains `READY_NOT_SENT`: its manual-route-first precondition is still unsatisfied.
+
+This route does **not** pass the variable-dictionary gate by itself. The current 300450 and 300470 dataset-file listings and exact dictionary contents still have to be recovered, inspected, and tied to their current collection versions before any physical field can be frozen or any ratio calculated.
 
 #
 ## Scope correction: deleted-Page potential-audience rule

@@ -942,11 +942,22 @@
         "sufficient_for_variable_dictionary_gate",
         "manual_route_execution_status",
         "manual_route_executed_in_this_audit",
-        "manual_route_next_required_step"
+        "manual_route_next_required_step",
+        "target_specific_indexed_documentation_search_retried_on",
+        "target_specific_indexed_documentation_search_studies",
+        "target_specific_indexed_documentation_search_terms",
+        "target_specific_indexed_documentation_file_url_obtained",
+        "target_specific_indexed_dataset_file_listing_obtained",
+        "target_specific_indexed_search_reexposed_catalog_only",
+        "direct_study_pages_shell_only_through_audited_surface",
+        "automated_indexed_route_exhausted_for_available_audited_tooling",
+        "automated_indexed_route_exhaustion_equivalent_to_manual_route_exhaustion",
+        "manual_interactive_route_required",
+        "manual_route_send_precondition_satisfied"
       ],
       "properties": {
         "verified_on": {
-          "const": "2026-09-24"
+          "const": "2026-09-25"
         },
         "icpsr_navigation_source": {
           "const": "https://www.icpsr.umich.edu/sites/icpsr/teaching-learning/teach-with-data/adopt-a-dataset-classroom-edition"
@@ -1000,6 +1011,48 @@
         },
         "manual_route_next_required_step": {
           "const": true
+        },
+        "target_specific_indexed_documentation_search_retried_on": {
+          "const": "2026-09-25"
+        },
+        "target_specific_indexed_documentation_search_studies": {
+          "const": [
+            "300450",
+            "300470"
+          ]
+        },
+        "target_specific_indexed_documentation_search_terms": {
+          "const": [
+            "Data & Documentation",
+            "Codebook",
+            "ICPSR Codebook",
+            "data dictionary",
+            "download"
+          ]
+        },
+        "target_specific_indexed_documentation_file_url_obtained": {
+          "const": false
+        },
+        "target_specific_indexed_dataset_file_listing_obtained": {
+          "const": false
+        },
+        "target_specific_indexed_search_reexposed_catalog_only": {
+          "const": true
+        },
+        "direct_study_pages_shell_only_through_audited_surface": {
+          "const": true
+        },
+        "automated_indexed_route_exhausted_for_available_audited_tooling": {
+          "const": true
+        },
+        "automated_indexed_route_exhaustion_equivalent_to_manual_route_exhaustion": {
+          "const": false
+        },
+        "manual_interactive_route_required": {
+          "const": true
+        },
+        "manual_route_send_precondition_satisfied": {
+          "const": false
         }
       }
     },

@@ -409,7 +409,7 @@
     "v2_url_level_aggregation_and_domain_level_disclosure_coexist": true
   },
   "manual_browser_documentation_retrieval": {
-    "verified_on": "2026-09-24",
+    "verified_on": "2026-09-25",
     "icpsr_navigation_source": "https://www.icpsr.umich.edu/sites/icpsr/teaching-learning/teach-with-data/adopt-a-dataset-classroom-edition",
     "restricted_data_codebook_source": "https://www.icpsr.umich.edu/sites/icpsr/teaching-learning/teach-with-data/navigating-restricted-data/how-do-i-know",
     "somar_public_documentation_source": "https://www.icpsr.umich.edu/sites/somar/research-lifecycle",
@@ -432,7 +432,27 @@
     "sufficient_for_variable_dictionary_gate": false,
     "manual_route_execution_status": "DOCUMENTED_NOT_EXECUTED",
     "manual_route_executed_in_this_audit": false,
-    "manual_route_next_required_step": true
+    "manual_route_next_required_step": true,
+    "target_specific_indexed_documentation_search_retried_on": "2026-09-25",
+    "target_specific_indexed_documentation_search_studies": [
+      "300450",
+      "300470"
+    ],
+    "target_specific_indexed_documentation_search_terms": [
+      "Data & Documentation",
+      "Codebook",
+      "ICPSR Codebook",
+      "data dictionary",
+      "download"
+    ],
+    "target_specific_indexed_documentation_file_url_obtained": false,
+    "target_specific_indexed_dataset_file_listing_obtained": false,
+    "target_specific_indexed_search_reexposed_catalog_only": true,
+    "direct_study_pages_shell_only_through_audited_surface": true,
+    "automated_indexed_route_exhausted_for_available_audited_tooling": true,
+    "automated_indexed_route_exhaustion_equivalent_to_manual_route_exhaustion": false,
+    "manual_interactive_route_required": true,
+    "manual_route_send_precondition_satisfied": false
   },
   "icpsr_search_access_interpretation": {
     "verified_on": "2026-09-24",

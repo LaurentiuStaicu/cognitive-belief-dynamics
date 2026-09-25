@@ -327,6 +327,18 @@ def test_manual_browser_codebook_route_is_explicit_and_noninferential() -> None:
     assert route["manual_route_execution_status"] == "DOCUMENTED_NOT_EXECUTED"
     assert route["manual_route_executed_in_this_audit"] is False
     assert route["manual_route_next_required_step"] is True
+    assert route["verified_on"] == "2026-09-25"
+    assert route["target_specific_indexed_documentation_search_retried_on"] == "2026-09-25"
+    assert route["target_specific_indexed_documentation_search_studies"] == ["300450", "300470"]
+    assert route["target_specific_indexed_documentation_search_terms"] == ["Data & Documentation", "Codebook", "ICPSR Codebook", "data dictionary", "download"]
+    assert route["target_specific_indexed_documentation_file_url_obtained"] is False
+    assert route["target_specific_indexed_dataset_file_listing_obtained"] is False
+    assert route["target_specific_indexed_search_reexposed_catalog_only"] is True
+    assert route["direct_study_pages_shell_only_through_audited_surface"] is True
+    assert route["automated_indexed_route_exhausted_for_available_audited_tooling"] is True
+    assert route["automated_indexed_route_exhaustion_equivalent_to_manual_route_exhaustion"] is False
+    assert route["manual_interactive_route_required"] is True
+    assert route["manual_route_send_precondition_satisfied"] is False
     assert route["intended_role"] == "NONINFERENTIAL_MANUAL_RETRIEVAL_FALLBACK"
     assert route["automated_surface_current_300450_dataset_file_listing_obtained"] is False
     assert route["automated_surface_current_300470_dataset_file_listing_obtained"] is False
