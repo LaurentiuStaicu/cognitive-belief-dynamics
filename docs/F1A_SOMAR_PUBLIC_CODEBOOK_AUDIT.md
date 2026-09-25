@@ -127,9 +127,11 @@ Until these questions are resolved, no ratio may be treated as empirically defin
 
 A candidate component quantity remains:
 
-`r_view(URL, owner_type) = actual_view_audience / potential_audience`
+r_view(URL, owner_type) = actual_view_audience / potential_audience`
 
 This ratio is **not authorized for calculation yet**.
+
+The candidate is additionally **conditional on shared-inventory compatibility**. The Science analysis supports a nested potential→actual funnel within its analysis inventory, but the current standalone 300450/300470 release surfaces do not yet prove that the exposed-audience numerator is restricted to the same eligible connection-based inventory represented by the potential-audience denominator. Therefore `shared_inventory_required=true` and `shared_inventory_verified=false`.
 
 A valid implementation would require, at minimum:
 
@@ -163,7 +165,11 @@ It does not supply a sender→recipient event lineage, nor does it establish tha
 
 The public codebook has removed a major uncertainty: potential exposure and actual exposure are not merely vaguely related datasets; they were designed as distinct stages of the same Facebook news-exposure ecosystem with compatible high-level units.
 
-The remaining blocker is now narrower and technical: variable-level count semantics and privacy/aggregation rules.
+The remaining blockers are narrower but still substantive: variable-level count semantics, privacy/aggregation rules, and release-level subset/shared-inventory compatibility.
+
+## Hard-gate semantics
+
+The machine-readable `hard_gates` object records **requirements**, not claims that those requirements are already satisfied. In particular, subset/shared-inventory compatibility remains unresolved. The contract therefore records `currently_satisfied=false`.
 
 ## Next gate
 

@@ -131,12 +131,13 @@ Concept:
 This ratio may be meaningful only when a codebook audit confirms that numerator and denominator:
 
 - use compatible user populations;
+- use the same eligible content/user inventory, so exposed audience is demonstrably downstream of the potential-audience denominator;
 - refer to the same content unit and observation period;
 - use compatible unique-user versus event-count semantics;
 - apply compatible privacy/suppression rules;
 - treat repeated views consistently.
 
-Until those conditions are verified, this ratio must not be computed or interpreted.
+Until those conditions are verified—including shared-inventory compatibility between the potential and actual exposure releases—this ratio must not be computed or interpreted.
 
 Even when valid, an aggregate URL/domain-level `r_view` is **not** the dyadic F1a `q_transmit`. It is an aggregate empirical component constraint on the PotentialDelivery→PlatformView layer.
 
@@ -172,13 +173,14 @@ Before calculating any empirical ratio or fitting any component parameter, the e
 4. whether view fields are users, events, or both;
 5. repeated-view handling;
 6. whether potential and actual exposure datasets use identical eligibility/population filters;
-7. time-window compatibility;
-8. content URL/domain normalization;
-9. privacy thresholding, suppression and rounding;
-10. missingness rules;
-11. weighting or sampling rules;
-12. whether participant-level connections can be linked to item-level Share/View records;
-13. whether any sender→recipient lineage is preserved or deliberately removed.
+7. whether the potential and actual exposure measures use the same eligible content/user inventory;
+8. time-window compatibility;
+9. content URL/domain normalization;
+10. privacy thresholding, suppression and rounding;
+11. missingness rules;
+12. weighting or sampling rules;
+13. whether participant-level connections can be linked to item-level Share/View records;
+14. whether any sender→recipient lineage is preserved or deliberately removed.
 
 No numerical bridge is authorized until this gate is satisfied.
 

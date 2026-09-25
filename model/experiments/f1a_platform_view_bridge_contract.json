@@ -37,7 +37,9 @@
       "definition": "observed platform-view audience / potential audience",
       "level": "AGGREGATE_URL_OR_DOMAIN_ONLY_UNLESS_CODEBOOK_PROVES_FINER_UNIT",
       "current_status": "CODEBOOK_GATED_NOT_AUTHORIZED_FOR_CALCULATION",
-      "equivalent_to_q_transmit": false
+      "equivalent_to_q_transmit": false,
+      "shared_inventory_required": true,
+      "shared_inventory_verified": false
     },
     {
       "id": "CANDIDATE.R_ENGAGE_GIVEN_VIEW",
@@ -127,6 +129,7 @@
       "unique_user_vs_event_count_semantics",
       "repeated_view_handling",
       "potential_and_actual_population_filter_compatibility",
+      "potential_and_actual_shared_inventory_compatibility",
       "time_window_compatibility",
       "content_url_domain_normalization",
       "privacy_suppression_rounding_rules",
@@ -142,7 +145,8 @@
     "potential_delivery_equals_platform_view": false,
     "engagement_equals_exposure": false,
     "aggregate_ratio_equals_dyadic_probability": false,
-    "component_constraints_can_be_retained_without_stage_promotion": true
+    "component_constraints_can_be_retained_without_stage_promotion": true,
+    "r_view_requires_shared_inventory_compatibility": true
   },
   "next_gate": {
     "name": "PROSPECTIVE_EMPIRICAL_ANALYSIS_CONTRACT",

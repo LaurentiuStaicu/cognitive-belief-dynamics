@@ -4,75 +4,2171 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "id","status","feedback_family","current_stage",
-    "empirical_promotion_authorized","numerical_calculation_authorized",
-    "verified_studies","verified_legacy_documentation","verified_table_names",
-    "privacy_state","candidate_component_quantity","unresolved_blockers",
-    "next_gate","interpretation_boundary"
+    "id",
+    "status",
+    "feedback_family",
+    "current_stage",
+    "empirical_promotion_authorized",
+    "numerical_calculation_authorized",
+    "verified_studies",
+    "verified_legacy_documentation",
+    "verified_table_names",
+    "privacy_state",
+    "candidate_component_quantity",
+    "unresolved_blockers",
+    "next_gate",
+    "interpretation_boundary",
+    "current_public_documentation_access_policy",
+    "icpsr_collection_versioning_policy",
+    "current_collection_identity",
+    "metadata_export_access_state",
+    "icpsr_indexed_documentation_discovery",
+    "legacy_exposure_url_disclosure_scope_conflict",
+    "manual_browser_documentation_retrieval",
+    "icpsr_search_access_interpretation",
+    "current_300470_versioned_route_probe",
+    "legacy_potential_exposure_url_aggregation_scope_conflict",
+    "legacy_current_identity_concordance",
+    "replication_code_access_boundary",
+    "migration_crosswalk_metadata_route",
+    "current_target_documentation_availability",
+    "science_paper_table_mapping",
+    "science_analysis_weighting_boundary",
+    "official_documentation_support_escalation",
+    "replication_navigation_locators",
+    "replication_code_two_stage_scope_boundary",
+    "derived_segregation_aggregation_scope_boundary",
+    "support_request_draft",
+    "data_dictionary_semantic_authority",
+    "legacy_v3_exposure_potential_scope_asymmetry",
+    "science_unique_audience_release_metric_boundary",
+    "legacy_v3_url_row_universe_asymmetry",
+    "legacy_documentation_attachment_scope",
+    "legacy_glossary_audience_view_semantics",
+    "science_inventory_release_scope_boundary",
+    "legacy_source_live_retrieval_state",
+    "current_study_page_live_retrieval_state"
   ],
   "properties": {
-    "id": {"const": "AUDIT.F1A.SOMAR.COLUMN_PRIVACY.2026-09-22"},
-    "status": {"const": "DOCUMENTATION_ARTIFACTS_LOCATED_COLUMN_CONTENTS_UNVERIFIED"},
-    "feedback_family": {"const": "F1a"},
-    "current_stage": {"const": "RECOVERY_TESTED"},
-    "empirical_promotion_authorized": {"const": false},
-    "numerical_calculation_authorized": {"const": false},
+    "id": {
+      "const": "AUDIT.F1A.SOMAR.COLUMN_PRIVACY.2026-09-22"
+    },
+    "status": {
+      "const": "DOCUMENTATION_ARTIFACTS_LOCATED_COLUMN_CONTENTS_UNVERIFIED"
+    },
+    "feedback_family": {
+      "const": "F1a"
+    },
+    "current_stage": {
+      "const": "RECOVERY_TESTED"
+    },
+    "empirical_promotion_authorized": {
+      "const": false
+    },
+    "numerical_calculation_authorized": {
+      "const": false
+    },
     "verified_studies": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["potential_exposure","exposure","engagement"],
+      "required": [
+        "potential_exposure",
+        "exposure",
+        "engagement"
+      ],
       "properties": {
-        "potential_exposure": {"type":"object","additionalProperties":false,"required":["icpsr","level","catalog_semantics"],"properties":{"icpsr":{"const":"300450"},"level":{"const":"URL"},"catalog_semantics":{"const":"POTENTIAL_AUDIENCE_SIZE"}}},
-        "exposure": {"type":"object","additionalProperties":false,"required":["icpsr","level","catalog_semantics"],"properties":{"icpsr":{"const":"300470"},"level":{"const":"URL"},"catalog_semantics":{"const":"CONTENT_VIEWS_AND_AUDIENCE_SIZE"}}},
-        "engagement": {"type":"object","additionalProperties":false,"required":["icpsr","level","catalog_semantics"],"properties":{"icpsr":{"const":"300475"},"level":{"const":"URL"},"catalog_semantics":{"const":"ENGAGEMENT_VOLUME_CONTENT_VIEWS_AND_AUDIENCE_SIZE"}}}
+        "potential_exposure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "icpsr",
+            "level",
+            "catalog_semantics",
+            "released_updated_on",
+            "legacy_somar_record",
+            "legacy_public_doi"
+          ],
+          "properties": {
+            "icpsr": {
+              "const": "300450"
+            },
+            "level": {
+              "const": "URL"
+            },
+            "catalog_semantics": {
+              "const": "POTENTIAL_AUDIENCE_SIZE"
+            },
+            "released_updated_on": {
+              "const": "2026-04-01"
+            },
+            "legacy_somar_record": {
+              "const": "36"
+            },
+            "legacy_public_doi": {
+              "const": "10.3886/snmc-n870"
+            }
+          }
+        },
+        "exposure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "icpsr",
+            "level",
+            "catalog_semantics",
+            "released_updated_on",
+            "legacy_somar_record",
+            "legacy_public_doi",
+            "legacy_public_doi_status",
+            "legacy_public_doi_candidates",
+            "legacy_public_doi_candidate_sources",
+            "legacy_public_doi_duplicate_v3_divergence_verified",
+            "legacy_public_doi_registry_adjudicated",
+            "legacy_public_doi_record_level_metadata_adjudicated",
+            "legacy_public_doi_verified",
+            "legacy_public_doi_evidence_pattern",
+            "legacy_public_doi_v2_jj22_source",
+            "legacy_public_doi_v2_jj22_verified",
+            "legacy_public_doi_v3_jj22_source",
+            "legacy_public_doi_v3_jj22_verified",
+            "legacy_public_doi_v3_ij22_source",
+            "legacy_public_doi_v3_ij22_verified",
+            "legacy_public_doi_jj22_has_cross_version_support",
+            "legacy_public_doi_cross_version_support_sufficient_for_canonical_selection"
+          ],
+          "properties": {
+            "icpsr": {
+              "const": "300470"
+            },
+            "level": {
+              "const": "URL"
+            },
+            "catalog_semantics": {
+              "const": "CONTENT_VIEWS_AND_AUDIENCE_SIZE"
+            },
+            "released_updated_on": {
+              "const": "2026-04-01"
+            },
+            "legacy_somar_record": {
+              "const": "32"
+            },
+            "legacy_public_doi": {
+              "type": "null"
+            },
+            "legacy_public_doi_status": {
+              "const": "AMBIGUOUS_DUPLICATE_V3_CODEBOOK_TRANSCRIPTION"
+            },
+            "legacy_public_doi_candidates": {
+              "const": [
+                "10.3886/rnr8-jj22",
+                "10.3886/rnr8-ij22"
+              ]
+            },
+            "legacy_public_doi_candidate_sources": {
+              "const": [
+                "https://socialmediaarchive.org/record/68/files/US2020_FB%26IG_Elections_External_Codebook_v3.pdf",
+                "https://socialmediaarchive.org/record/70/files/US2020_FB%26IG_Elections_External_Codebook_v3.pdf"
+              ]
+            },
+            "legacy_public_doi_verified": {
+              "const": false
+            },
+            "legacy_public_doi_registry_adjudicated": {
+              "const": false
+            },
+            "legacy_public_doi_record_level_metadata_adjudicated": {
+              "const": false
+            },
+            "legacy_public_doi_duplicate_v3_divergence_verified": {
+              "const": true
+            },
+            "legacy_public_doi_evidence_pattern": {
+              "const": "V2_AND_ONE_V3_SUPPORT_JJ22_SECOND_V3_SUPPORTS_IJ22"
+            },
+            "legacy_public_doi_v2_jj22_source": {
+              "const": "https://socialmediaarchive.org/record/61/files/US2020_FB%26IG_Elections_External_Codebook_v2.pdf"
+            },
+            "legacy_public_doi_v2_jj22_verified": {
+              "const": true
+            },
+            "legacy_public_doi_v3_jj22_source": {
+              "const": "https://socialmediaarchive.org/record/68/files/US2020_FB%26IG_Elections_External_Codebook_v3.pdf"
+            },
+            "legacy_public_doi_v3_jj22_verified": {
+              "const": true
+            },
+            "legacy_public_doi_v3_ij22_source": {
+              "const": "https://socialmediaarchive.org/record/70/files/US2020_FB%26IG_Elections_External_Codebook_v3.pdf"
+            },
+            "legacy_public_doi_v3_ij22_verified": {
+              "const": true
+            },
+            "legacy_public_doi_jj22_has_cross_version_support": {
+              "const": true
+            },
+            "legacy_public_doi_cross_version_support_sufficient_for_canonical_selection": {
+              "const": false
+            }
+          }
+        },
+        "engagement": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "icpsr",
+            "level",
+            "catalog_semantics",
+            "released_updated_on",
+            "legacy_somar_record",
+            "legacy_public_doi"
+          ],
+          "properties": {
+            "icpsr": {
+              "const": "300475"
+            },
+            "level": {
+              "const": "URL"
+            },
+            "catalog_semantics": {
+              "const": "ENGAGEMENT_VOLUME_CONTENT_VIEWS_AND_AUDIENCE_SIZE"
+            },
+            "released_updated_on": {
+              "const": "2026-04-01"
+            },
+            "legacy_somar_record": {
+              "const": "34"
+            },
+            "legacy_public_doi": {
+              "const": "10.3886/n3r7-br77"
+            }
+          }
+        }
       }
     },
     "verified_legacy_documentation": {
-      "type":"object","additionalProperties":false,
-      "required":["data_dictionary_filename","variable_descriptions_filename","project_codebook_filename","glossary_filename","exact_dictionary_contents_inspected","current_release_version_linkage_verified"],
-      "properties":{
-        "data_dictionary_filename":{"const":"data_dictionary_political_segregation_paper.xlsx"},
-        "variable_descriptions_filename":{"const":"variables_political_segregation_paper.csv"},
-        "project_codebook_filename":{"const":"US2020_FB&IG_Elections_External_Codebook.pdf"},
-        "glossary_filename":{"const":"US2020_Glossary.xlsx"},
-        "exact_dictionary_contents_inspected":{"const":false},
-        "current_release_version_linkage_verified":{"const":false}
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "data_dictionary_filename",
+        "variable_descriptions_filename",
+        "project_codebook_filename",
+        "glossary_filename",
+        "exact_dictionary_contents_inspected",
+        "current_release_version_linkage_verified",
+        "legacy_manifest_source",
+        "legacy_artifact_locators"
+      ],
+      "properties": {
+        "data_dictionary_filename": {
+          "const": "data_dictionary_political_segregation_paper.xlsx"
+        },
+        "variable_descriptions_filename": {
+          "const": "variables_political_segregation_paper.csv"
+        },
+        "project_codebook_filename": {
+          "const": "US2020_FB&IG_Elections_External_Codebook.pdf"
+        },
+        "glossary_filename": {
+          "const": "US2020_Glossary.xlsx"
+        },
+        "exact_dictionary_contents_inspected": {
+          "const": false
+        },
+        "current_release_version_linkage_verified": {
+          "const": false
+        },
+        "legacy_manifest_source": {
+          "const": {
+            "somar_record": "34",
+            "export_url": "https://socialmediaarchive.org/record/34/export/hm?ln=en",
+            "record_version": "v1",
+            "record_published_on": "2023-07-27",
+            "evidence_role": "LEGACY_RETRIEVAL_PROVENANCE_ONLY",
+            "current_release_linkage_established": false
+          }
+        },
+        "legacy_artifact_locators": {
+          "const": {
+            "data_dictionary": {
+              "filename": "data_dictionary_political_segregation_paper.xlsx",
+              "file_uuid": "ae0be9b4-8297-4231-9e76-08df5ac120af",
+              "size_bytes": 44149
+            },
+            "variable_descriptions": {
+              "filename": "variables_political_segregation_paper.csv",
+              "file_uuid": "086fb4cb-8cb6-4934-90c1-2a737d3dad62",
+              "size_bytes": 76863
+            },
+            "project_codebook": {
+              "filename": "US2020_FB&IG_Elections_External_Codebook.pdf",
+              "file_uuid": "2d333798-bd6c-478b-81b8-dc51812d96c2",
+              "size_bytes": 724746
+            },
+            "glossary": {
+              "filename": "US2020_Glossary.xlsx",
+              "file_uuid": "b6da33f6-8850-44cb-84f4-50565cc2e17d",
+              "size_bytes": 33969
+            }
+          }
+        }
       }
     },
-    "verified_table_names":{"type":"array","minItems":3,"uniqueItems":true,"items":{"type":"string"}},
-    "privacy_state":{
-      "type":"object","additionalProperties":false,
-      "required":["aggregate_only","url_share_threshold_gt_100_us_users","additional_release_controls_verified","differential_privacy_assumed_from_other_meta_products"],
-      "properties":{
-        "aggregate_only":{"const":true},
-        "url_share_threshold_gt_100_us_users":{"const":true},
-        "additional_release_controls_verified":{"const":false},
-        "differential_privacy_assumed_from_other_meta_products":{"const":false}
+    "verified_table_names": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
       }
     },
-    "candidate_component_quantity":{
-      "type":"object","additionalProperties":false,
-      "required":["id","formula","exact_numerator_column_verified","exact_denominator_column_verified","status","equivalent_to_q_transmit"],
-      "properties":{
-        "id":{"const":"CANDIDATE.R_VIEW.URL_OWNER"},
-        "formula":{"const":"exposed_audience_users / potential_audience_users"},
-        "exact_numerator_column_verified":{"const":false},
-        "exact_denominator_column_verified":{"const":false},
-        "status":{"const":"CONCEPTUALLY_JUSTIFIED_NUMERICALLY_BLOCKED"},
-        "equivalent_to_q_transmit":{"const":false}
+    "privacy_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aggregate_only",
+        "url_share_threshold_gt_100_us_users",
+        "additional_release_controls_verified",
+        "differential_privacy_assumed_from_other_meta_products"
+      ],
+      "properties": {
+        "aggregate_only": {
+          "const": true
+        },
+        "url_share_threshold_gt_100_us_users": {
+          "const": true
+        },
+        "additional_release_controls_verified": {
+          "const": false
+        },
+        "differential_privacy_assumed_from_other_meta_products": {
+          "const": false
+        }
       }
     },
-    "unresolved_blockers":{"type":"array","minItems":10,"uniqueItems":true,"items":{"type":"string"}},
-    "next_gate":{
-      "type":"object","additionalProperties":false,
-      "required":["name","acceptable_sources","guessed_column_names_allowed","automatic_calculation_allowed"],
-      "properties":{
-        "name":{"const":"OFFICIAL_VARIABLE_DICTIONARY_CONTENT_ACCESS"},
-        "acceptable_sources":{"type":"array","minItems":3,"uniqueItems":true,"items":{"type":"string"}},
-        "guessed_column_names_allowed":{"const":false},
-        "automatic_calculation_allowed":{"const":false}
+    "candidate_component_quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "formula",
+        "exact_numerator_column_verified",
+        "exact_denominator_column_verified",
+        "status",
+        "equivalent_to_q_transmit",
+        "paper_analysis_shared_inventory_supported",
+        "current_release_shared_inventory_verified",
+        "interpretable_as_release_view_rate_without_shared_inventory_proof"
+      ],
+      "properties": {
+        "id": {
+          "const": "CANDIDATE.R_VIEW.URL_OWNER"
+        },
+        "formula": {
+          "const": "exposed_audience_users / potential_audience_users"
+        },
+        "exact_numerator_column_verified": {
+          "const": false
+        },
+        "exact_denominator_column_verified": {
+          "const": false
+        },
+        "status": {
+          "const": "CONCEPTUALLY_CONDITIONAL_ON_SHARED_INVENTORY_NUMERICALLY_BLOCKED"
+        },
+        "equivalent_to_q_transmit": {
+          "const": false
+        },
+        "paper_analysis_shared_inventory_supported": {
+          "const": true
+        },
+        "current_release_shared_inventory_verified": {
+          "const": false
+        },
+        "interpretable_as_release_view_rate_without_shared_inventory_proof": {
+          "const": false
+        }
       }
     },
-    "interpretation_boundary":{"type":"array","minItems":6,"items":{"type":"string","minLength":20}}
+    "unresolved_blockers": {
+      "type": "array",
+      "minItems": 10,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "acceptable_sources",
+        "guessed_column_names_allowed",
+        "automatic_calculation_allowed",
+        "preferred_retrieval_path"
+      ],
+      "properties": {
+        "name": {
+          "const": "OFFICIAL_VARIABLE_DICTIONARY_CONTENT_ACCESS"
+        },
+        "acceptable_sources": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "guessed_column_names_allowed": {
+          "const": false
+        },
+        "automatic_calculation_allowed": {
+          "const": false
+        },
+        "preferred_retrieval_path": {
+          "const": [
+            "PUBLIC_DATA_AND_DOCUMENTATION_DOWNLOAD_ICPSR_300450",
+            "PUBLIC_DATA_AND_DOCUMENTATION_DOWNLOAD_ICPSR_300470",
+            "MANUAL_ICPSR_DATA_AND_DOCUMENTATION_CODEBOOK_RETRIEVAL",
+            "OFFICIAL_ICPSR_VARIABLE_OR_DOCUMENTATION_ENDPOINT",
+            "SOMAR_HELP_PUBLIC_DOCUMENTATION_LOCATOR_REQUEST",
+            "APPROVED_SOMAR_VDE_RELEASE_DOCUMENTATION_ONLY_IF_PUBLIC_DOCUMENTATION_IS_INSUFFICIENT"
+          ]
+        }
+      }
+    },
+    "interpretation_boundary": {
+      "type": "array",
+      "minItems": 15,
+      "items": {
+        "type": "string",
+        "minLength": 20
+      }
+    },
+    "current_public_documentation_access_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "source",
+        "restricted_use_codebooks_and_documentation_publicly_downloadable",
+        "controlled_download_documentation_publicly_downloadable",
+        "vde_documentation_publicly_downloadable",
+        "restricted_data_application_is_not_a_prerequisite_to_read_public_documentation",
+        "exact_dictionary_rows_exposed_by_current_automated_web_surface",
+        "interpretation",
+        "dataset_search_matches_documentation_file_contents",
+        "catalog_search_failure_is_not_evidence_of_documentation_absence",
+        "corroborating_icpsr_source",
+        "icpsr_documentation_files_public_by_definition"
+      ],
+      "properties": {
+        "verified_on": {
+          "const": "2026-09-22"
+        },
+        "source": {
+          "const": "https://www.icpsr.umich.edu/sites/somar/research-lifecycle"
+        },
+        "restricted_use_codebooks_and_documentation_publicly_downloadable": {
+          "const": true
+        },
+        "controlled_download_documentation_publicly_downloadable": {
+          "const": true
+        },
+        "vde_documentation_publicly_downloadable": {
+          "const": true
+        },
+        "restricted_data_application_is_not_a_prerequisite_to_read_public_documentation": {
+          "const": true
+        },
+        "exact_dictionary_rows_exposed_by_current_automated_web_surface": {
+          "const": false
+        },
+        "interpretation": {
+          "type": "string",
+          "minLength": 80
+        },
+        "dataset_search_matches_documentation_file_contents": {
+          "const": false
+        },
+        "catalog_search_failure_is_not_evidence_of_documentation_absence": {
+          "const": true
+        },
+        "corroborating_icpsr_source": {
+          "const": "https://www.icpsr.umich.edu/sites/icpsr/about/history"
+        },
+        "icpsr_documentation_files_public_by_definition": {
+          "const": true
+        }
+      }
+    },
+    "icpsr_collection_versioning_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "source",
+        "data_or_documentation_file_change_triggers_new_collection_version",
+        "addition_or_withdrawal_of_data_or_documentation_triggers_new_collection_version",
+        "individual_files_versioned_separately",
+        "collection_level_version_statement_required",
+        "legacy_filename_record_doi_or_title_match_sufficient_for_current_version_linkage"
+      ],
+      "properties": {
+        "verified_on": {
+          "const": "2026-09-24"
+        },
+        "source": {
+          "const": "https://www.icpsr.umich.edu/sites/icpsr/posts/shared/access-earlier-version"
+        },
+        "data_or_documentation_file_change_triggers_new_collection_version": {
+          "const": true
+        },
+        "addition_or_withdrawal_of_data_or_documentation_triggers_new_collection_version": {
+          "const": true
+        },
+        "individual_files_versioned_separately": {
+          "const": false
+        },
+        "collection_level_version_statement_required": {
+          "const": true
+        },
+        "legacy_filename_record_doi_or_title_match_sufficient_for_current_version_linkage": {
+          "const": false
+        }
+      }
+    },
+    "current_collection_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "potential_exposure",
+        "exposure"
+      ],
+      "properties": {
+        "potential_exposure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "icpsr",
+            "study_page",
+            "doi",
+            "version",
+            "doi_and_version_verified"
+          ],
+          "properties": {
+            "icpsr": {
+              "const": "300450"
+            },
+            "study_page": {
+              "const": "https://www.icpsr.umich.edu/sites/somar/view/studies/300450"
+            },
+            "doi": {
+              "const": "10.3886/ICPSR300450.V2"
+            },
+            "version": {
+              "const": "V2"
+            },
+            "doi_and_version_verified": {
+              "const": true
+            }
+          }
+        },
+        "exposure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "icpsr",
+            "study_page",
+            "doi",
+            "version",
+            "doi_and_version_verified",
+            "reason_unverified"
+          ],
+          "properties": {
+            "icpsr": {
+              "const": "300470"
+            },
+            "study_page": {
+              "const": "https://www.icpsr.umich.edu/sites/somar/view/studies/300470"
+            },
+            "doi": {
+              "type": "null"
+            },
+            "version": {
+              "type": "null"
+            },
+            "doi_and_version_verified": {
+              "const": false
+            },
+            "reason_unverified": {
+              "type": "string",
+              "minLength": 80
+            }
+          }
+        }
+      }
+    },
+    "metadata_export_access_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "current_guidance_source",
+        "current_api_documentation",
+        "batch_metadata_api_current",
+        "batch_metadata_api_requires_credentials",
+        "individual_study_export_metadata_current",
+        "individual_study_export_formats",
+        "retired_oai_source",
+        "legacy_oai_study_base_url",
+        "legacy_oai_status",
+        "intended_role",
+        "sufficient_for_variable_dictionary_gate",
+        "current_300470_metadata_payload_obtained",
+        "current_metadata_schema_source",
+        "current_metadata_schema_last_updated",
+        "legacy_metadata_schema_source",
+        "current_schema_doi_required",
+        "legacy_schema_doi_required",
+        "current_schema_doi_includes_study_number_and_version",
+        "current_schema_substantive_major_change_creates_new_version_specific_doi",
+        "current_300470_doi_expected_in_canonical_metadata",
+        "current_300470_doi_value_obtained",
+        "current_300470_version_inference_from_schema_or_neighbor_study_allowed",
+        "current_metadata_style_guide_source",
+        "current_300470_unversioned_doi_reference",
+        "current_300470_unversioned_doi_reference_rule_verified",
+        "current_300470_unversioned_doi_target_resolution_verified",
+        "unversioned_doi_reference_sufficient_for_version_specific_identity"
+      ],
+      "properties": {
+        "verified_on": {
+          "const": "2026-09-25"
+        },
+        "current_guidance_source": {
+          "const": "https://www.icpsr.umich.edu/sites/icpsr/about/repository-operations/accessing-metadata"
+        },
+        "current_api_documentation": {
+          "const": "https://icpsr.github.io/metadata/icpsr_metadata_api/"
+        },
+        "batch_metadata_api_current": {
+          "const": true
+        },
+        "batch_metadata_api_requires_credentials": {
+          "const": true
+        },
+        "individual_study_export_metadata_current": {
+          "const": true
+        },
+        "individual_study_export_formats": {
+          "const": [
+            "Dublin Core",
+            "DDI-Codebook"
+          ]
+        },
+        "retired_oai_source": {
+          "const": "https://www.icpsr.umich.edu/sites/icpsr/about/repository-operations/accessing-metadata/retired-metadata-export"
+        },
+        "legacy_oai_study_base_url": {
+          "const": "https://pcms.icpsr.umich.edu/pcms/api/1.0/oai/studies"
+        },
+        "legacy_oai_status": {
+          "const": "RETIRED"
+        },
+        "intended_role": {
+          "const": "STUDY_COLLECTION_IDENTITY_AND_PROVENANCE"
+        },
+        "sufficient_for_variable_dictionary_gate": {
+          "const": false
+        },
+        "current_300470_metadata_payload_obtained": {
+          "const": false
+        },
+        "current_metadata_schema_source": {
+          "const": "https://icpsr.github.io/metadata/icpsr_metadata_schema/"
+        },
+        "current_metadata_schema_last_updated": {
+          "const": "2026-09-22"
+        },
+        "legacy_metadata_schema_source": {
+          "const": "https://icpsr.github.io/metadata/icpsr_legacy_schema/"
+        },
+        "current_schema_doi_required": {
+          "const": true
+        },
+        "legacy_schema_doi_required": {
+          "const": true
+        },
+        "current_schema_doi_includes_study_number_and_version": {
+          "const": true
+        },
+        "current_schema_substantive_major_change_creates_new_version_specific_doi": {
+          "const": true
+        },
+        "current_300470_doi_expected_in_canonical_metadata": {
+          "const": true
+        },
+        "current_300470_doi_value_obtained": {
+          "const": false
+        },
+        "current_300470_version_inference_from_schema_or_neighbor_study_allowed": {
+          "const": false
+        },
+        "current_metadata_style_guide_source": {
+          "const": "https://icpsr.github.io/metadata/icpsr_style_guide/"
+        },
+        "current_300470_unversioned_doi_reference": {
+          "const": "https://doi.org/10.3886/ICPSR300470"
+        },
+        "current_300470_unversioned_doi_reference_rule_verified": {
+          "const": true
+        },
+        "current_300470_unversioned_doi_target_resolution_verified": {
+          "const": false
+        },
+        "unversioned_doi_reference_sufficient_for_version_specific_identity": {
+          "const": false
+        }
+      }
+    },
+    "icpsr_indexed_documentation_discovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "ssvd_source",
+        "variable_discovery_guidance_source",
+        "find_use_data_source",
+        "ssvd_searches_variable_name_label_question_text_and_value_labels",
+        "ssvd_all_catalog_studies_have_variable_level_documentation",
+        "main_data_search_indexes_all_available_study_documentation",
+        "main_data_search_includes_variable_descriptions",
+        "thematic_collection_search_equivalent_to_main_icpsr_search",
+        "individual_study_variable_search_documented",
+        "current_300450_or_300470_variable_level_result_obtained",
+        "intended_role",
+        "sufficient_for_variable_dictionary_gate",
+        "public_global_variable_search_endpoint",
+        "current_automated_surface_can_execute_parameterized_variable_queries",
+        "parameterized_query_failure_interpretable_as_variable_absence",
+        "variables_tab_absence_guidance_source",
+        "variables_tab_absence_redirects_to_codebook"
+      ],
+      "properties": {
+        "verified_on": {
+          "const": "2026-09-24"
+        },
+        "ssvd_source": {
+          "const": "https://www.icpsr.umich.edu/sites/icpsr/find-data/ssvd"
+        },
+        "variable_discovery_guidance_source": {
+          "const": "https://www.icpsr.umich.edu/sites/icpsr/posts/shared/how-can-i-find-data-that-include-my-desired-variables"
+        },
+        "find_use_data_source": {
+          "const": "https://www.icpsr.umich.edu/sites/icpsr/teaching-learning/find-use-data"
+        },
+        "ssvd_searches_variable_name_label_question_text_and_value_labels": {
+          "const": true
+        },
+        "ssvd_all_catalog_studies_have_variable_level_documentation": {
+          "const": false
+        },
+        "main_data_search_indexes_all_available_study_documentation": {
+          "const": true
+        },
+        "main_data_search_includes_variable_descriptions": {
+          "const": true
+        },
+        "thematic_collection_search_equivalent_to_main_icpsr_search": {
+          "const": false
+        },
+        "individual_study_variable_search_documented": {
+          "const": true
+        },
+        "current_300450_or_300470_variable_level_result_obtained": {
+          "const": false
+        },
+        "intended_role": {
+          "const": "PUBLIC_INDEX_DISCOVERY_FALLBACK"
+        },
+        "sufficient_for_variable_dictionary_gate": {
+          "const": false
+        },
+        "public_global_variable_search_endpoint": {
+          "const": "https://www.icpsr.umich.edu/web/ICPSR/search/variables"
+        },
+        "current_automated_surface_can_execute_parameterized_variable_queries": {
+          "const": false
+        },
+        "parameterized_query_failure_interpretable_as_variable_absence": {
+          "const": false
+        },
+        "variables_tab_absence_guidance_source": {
+          "const": "https://www.icpsr.umich.edu/sites/icpsr/teaching-learning/build-your-data-skills/how-to-find-a-dataset"
+        },
+        "variables_tab_absence_redirects_to_codebook": {
+          "const": true
+        }
+      }
+    },
+    "legacy_exposure_url_disclosure_scope_conflict": {
+      "const": {
+        "source": "https://socialmediaarchive.org/record/61/files/US2020_FB%26IG_Elections_External_Codebook_v2.pdf",
+        "source_role": "LEGACY_CODEBOOK_ONLY",
+        "url_level_context_verified": true,
+        "url_context_basis": "The section describes metrics for URLs, URL-level aggregation, and post-owner type keyed to the URL.",
+        "conflicting_disclosure_scope": "DOMAIN",
+        "conflicting_disclosure_basis": "The immediately following exposed-audience disclosure describes aggregation by domain and links to URLs within a domain.",
+        "exact_url_level_audience_aggregation_semantics_verified": false,
+        "safe_interpretation": "Treat the v2 Exposure-to-URL section as structurally inconsistent only at the disclosure layer: Data categorization and Aggregation are URL-level, while Disclosures switches to domain-level counting. The indexed v3 overview is URL-consistent, but its Disclosures subsection remains unrecovered. Do not import the v2 domain-level duplicate-counting rules into r_view.",
+        "status": "V2_URL_AGGREGATION_DOMAIN_DISCLOSURE_CONFLICT_V3_DISCLOSURE_UNINSPECTED",
+        "v3_overview_source": "https://socialmediaarchive.org/record/70/files/US2020_FB%26IG_Elections_External_Codebook_v3.pdf",
+        "v3_overview_url_specific_aggregation_verified": true,
+        "v3_overview_basis": "The indexed v3 Exposure-to-URL overview states that rows correspond to URLs and that each column aggregates platform log data for the specific URL over the study period.",
+        "v3_overview_resolves_v2_overview_scope_ambiguity": true,
+        "v3_disclosures_subsection_text_recovered": false,
+        "v3_disclosure_scope_verified": false,
+        "v3_exact_url_level_audience_aggregation_semantics_verified": false,
+        "v3_scope_resolution_status": "OVERVIEW_URL_CONSISTENT_DISCLOSURE_SUBSECTION_UNINSPECTED",
+        "v2_technical_section_source": "https://socialmediaarchive.org/record/61/files/US2020_FB%26IG_Elections_External_Codebook_v2.pdf",
+        "url_data_categorization_verified": true,
+        "url_data_categorization_basis": "The Data categorization subsection states that the dataset summarizes attributes and views of URLs by users.",
+        "aggregation_subsection_declared_level": "URL",
+        "aggregation_subsection_basis": "The Aggregation subsection states 'URL level: metrics calculated at the news story level' and defines post owner type relative to the URL.",
+        "disclosures_subsection_declared_level": "DOMAIN",
+        "disclosures_subsection_basis": "The Disclosures subsection states that exposed audience metrics are aggregated by domain and adds daily exposed-audience counts for posts with URLs within that domain.",
+        "structural_section_conflict_verified": true,
+        "conflict_scope": [
+          "DISCLOSURES"
+        ],
+        "v2_url_level_aggregation_and_domain_level_disclosure_coexist": true
+      }
+    },
+    "manual_browser_documentation_retrieval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "icpsr_navigation_source",
+        "restricted_data_codebook_source",
+        "somar_public_documentation_source",
+        "documented_navigation_path",
+        "codebook_access_precedes_restricted_data_application",
+        "restricted_data_application_required_to_read_public_codebook",
+        "intended_role",
+        "automated_surface_current_300450_dataset_file_listing_obtained",
+        "automated_surface_current_300470_dataset_file_listing_obtained",
+        "current_300450_dictionary_contents_obtained",
+        "current_300470_dictionary_contents_obtained",
+        "sufficient_for_variable_dictionary_gate",
+        "manual_route_execution_status",
+        "manual_route_executed_in_this_audit",
+        "manual_route_next_required_step"
+      ],
+      "properties": {
+        "verified_on": {
+          "const": "2026-09-24"
+        },
+        "icpsr_navigation_source": {
+          "const": "https://www.icpsr.umich.edu/sites/icpsr/teaching-learning/teach-with-data/adopt-a-dataset-classroom-edition"
+        },
+        "restricted_data_codebook_source": {
+          "const": "https://www.icpsr.umich.edu/sites/icpsr/teaching-learning/teach-with-data/navigating-restricted-data/how-do-i-know"
+        },
+        "somar_public_documentation_source": {
+          "const": "https://www.icpsr.umich.edu/sites/somar/research-lifecycle"
+        },
+        "documented_navigation_path": {
+          "const": [
+            "OPEN_CURRENT_ICPSR_STUDY_PAGE",
+            "OPEN_DATA_AND_DOCUMENTATION_TAB",
+            "LOCATE_RELEVANT_DATASET",
+            "OPEN_DOWNLOAD_DROPDOWN_NEXT_TO_DATASET",
+            "SELECT_CODEBOOK_OR_ICPSR_CODEBOOK",
+            "INSPECT_VARIABLE_DOCUMENTATION",
+            "RECORD_CURRENT_COLLECTION_VERSION_AND_DOCUMENTATION_FILE_IDENTITY"
+          ]
+        },
+        "codebook_access_precedes_restricted_data_application": {
+          "const": true
+        },
+        "restricted_data_application_required_to_read_public_codebook": {
+          "const": false
+        },
+        "intended_role": {
+          "const": "NONINFERENTIAL_MANUAL_RETRIEVAL_FALLBACK"
+        },
+        "automated_surface_current_300450_dataset_file_listing_obtained": {
+          "const": false
+        },
+        "automated_surface_current_300470_dataset_file_listing_obtained": {
+          "const": false
+        },
+        "current_300450_dictionary_contents_obtained": {
+          "const": false
+        },
+        "current_300470_dictionary_contents_obtained": {
+          "const": false
+        },
+        "sufficient_for_variable_dictionary_gate": {
+          "const": false
+        },
+        "manual_route_execution_status": {
+          "const": "DOCUMENTED_NOT_EXECUTED"
+        },
+        "manual_route_executed_in_this_audit": {
+          "const": false
+        },
+        "manual_route_next_required_step": {
+          "const": true
+        }
+      }
+    },
+    "icpsr_search_access_interpretation": {
+      "const": {
+        "verified_on": "2026-09-24",
+        "current_search_results_source": "https://www.icpsr.umich.edu/sites/search/studies?fq=OWNER%3Asomar&rows=50&sort=score+desc&start=0",
+        "metadata_api_source": "https://icpsr.github.io/metadata/icpsr_metadata_api/",
+        "search_surface_public_data_facet_present_for_somar_results": true,
+        "current_300450_catalog_states_restricted_and_application_required": true,
+        "current_300470_catalog_states_restricted_and_application_required": true,
+        "icpsr_tracks_data_availability_and_restriction_type_separately": true,
+        "general_public_availability_can_coexist_with_use_restrictions": true,
+        "public_data_facet_sufficient_to_infer_unrestricted_analytic_data_files": false,
+        "public_data_facet_sufficient_to_pass_documentation_gate": false,
+        "interpretation": "The ICPSR search surface can show a Public Data availability facet while individual SOMAR study descriptions explicitly require an application for restricted data. ICPSR's metadata API documentation explains that availability and restriction type are separate systems-level concepts and provides examples where general-public availability coexists with use restrictions. Therefore the search facet must not be interpreted as evidence that restricted analytic data files are openly downloadable, nor as evidence that the exact public documentation files have been inspected."
+      }
+    },
+    "current_300470_versioned_route_probe": {
+      "const": {
+        "verified_on": "2026-09-24",
+        "route_pattern_basis": "CURRENT_SOMAR_VERSIONED_STUDY_URLS",
+        "control_example_source": "https://www.icpsr.umich.edu/sites/somar/view/studies/300501/versions/V2.0",
+        "candidate_route": "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/versions/V1.0",
+        "candidate_route_http_surface_responds": true,
+        "negative_control_routes_rejected": [
+          "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/versions/V0.0",
+          "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/versions/V1.1",
+          "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/versions/V1.0.0",
+          "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/versions/V2.0",
+          "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/versions/V3.0",
+          "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/versions/V4.0",
+          "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/versions/V99.0"
+        ],
+        "candidate_route_exposes_study_title_in_automated_html": false,
+        "candidate_route_exposes_version_label_in_automated_html": false,
+        "candidate_route_exposes_doi_in_automated_html": false,
+        "candidate_route_exposes_study_identifier_in_automated_html": false,
+        "current_300470_version_verified_from_route": false,
+        "current_300470_version_value": null,
+        "interpretation": "A responding versioned SOMAR route establishes only that the route is valid/retrievable through the current surface. It is not evidence of the current collection version. An indexed FIES control (ICPSR 300464) is reachable at a /versions/V1.0 route while the same indexed page exposes current Version History V2.0 [2026-04-01]. Therefore the responding ICPSR 300470 /versions/V1.0 route is retained only as a historical/route-level retrieval fact and carries no positive weight for inferring the current 300470 version. The canonical 300470 version remains null until a content-bearing authoritative target-specific source exposes it.",
+        "control_counterexample_source": "https://www.icpsr.umich.edu/sites/somar/view/studies/300464/versions/V1.0",
+        "control_counterexample_route_version": "V1.0",
+        "control_counterexample_current_version_exposed": "V2.0",
+        "control_counterexample_current_version_date": "2026-04-01",
+        "route_version_can_differ_from_current_collection_version": true,
+        "candidate_route_informative_about_current_version": false,
+        "candidate_route_priority_for_current_version_inference": "NONE"
+      }
+    },
+    "legacy_potential_exposure_url_aggregation_scope_conflict": {
+      "const": {
+        "source": "https://socialmediaarchive.org/record/61/files/US2020_FB%26IG_Elections_External_Codebook_v2.pdf",
+        "source_role": "LEGACY_CODEBOOK_ONLY",
+        "table": "potential_exposure_facebook_posts_with_civic_news_urls",
+        "url_level_context_verified": true,
+        "url_context_basis": "The section identifies the table as URL-level, states that rows correspond to URLs, and represents each URL by four post-owner rows (user, Page, group, all).",
+        "conflicting_aggregation_scope": "DOMAIN",
+        "conflicting_aggregation_basis": "The same overview states that each column contains values aggregating platform log data for the specific domain over the study period.",
+        "exact_url_level_potential_audience_aggregation_semantics_verified": false,
+        "safe_interpretation": "Treat the legacy Potential Exposure URL documentation as structurally scope-inconsistent: the table metadata and data categorization are URL-level, while the overview, Aggregation, and Disclosures text use domain-level semantics. Do not select either scope or import the domain-worded rules as the denominator's URL-level aggregation rule without an authoritative current-release scope-resolving source.",
+        "status": "DOCUMENTATION_SCOPE_CONFLICT_UNRESOLVED",
+        "corroborating_source": "https://socialmediaarchive.org/record/40/files/US2020_FB%26IG_Elections_External_Codebook.pdf",
+        "conflict_observed_in_multiple_legacy_codebooks": true,
+        "corroboration_basis": "The draft, v2, and indexed v3 codebooks all identify the table as URL-level with rows corresponding to URLs, yet all retain the same 'specific domain' aggregation wording in the overview.",
+        "v3_scope_resolution_verified": true,
+        "v3_scope_resolution_status": "CONFLICT_PERSISTS_IN_INDEXED_V3_CODEBOOK",
+        "v3_source": "https://socialmediaarchive.org/record/70/files/US2020_FB%26IG_Elections_External_Codebook_v3.pdf",
+        "conflict_observed_in_legacy_versions": [
+          "DRAFT",
+          "V2",
+          "V3"
+        ],
+        "v2_technical_section_source": "https://socialmediaarchive.org/record/61/files/US2020_FB%26IG_Elections_External_Codebook_v2.pdf",
+        "url_data_categorization_verified": true,
+        "url_data_categorization_basis": "The Data categorization subsection says the dataset contains metrics summarizing data for URLs in posts users could have viewed.",
+        "aggregation_subsection_declared_level": "DOMAIN",
+        "aggregation_subsection_basis": "The Aggregation subsection says 'Domain level: metrics calculated at the news source level' and defines post owner type relative to the domain.",
+        "disclosures_subsection_declared_level": "DOMAIN",
+        "disclosures_subsection_basis": "The Disclosures subsection says potential audience metrics are aggregated by domain by adding daily post-level potential audience counts for URLs within that domain.",
+        "structural_section_conflict_verified": true,
+        "conflict_scope": [
+          "OVERVIEW",
+          "AGGREGATION",
+          "DISCLOSURES"
+        ]
+      }
+    },
+    "legacy_current_identity_concordance": {
+      "const": {
+        "verified_on": "2026-09-24",
+        "current_catalog_source": "https://www.icpsr.umich.edu/sites/search/studies?fq=OWNER%3Asomar&rows=50&sort=score+desc&start=0",
+        "status": "MULTI_FIELD_IDENTITY_CONCORDANCE_EXPLICIT_MIGRATION_CROSSWALK_UNVERIFIED",
+        "explicit_record_to_icpsr_crosswalk_found": false,
+        "explicit_record_specific_redirect_found": false,
+        "title_only_match_sufficient_for_mapping": false,
+        "concordance_establishes_current_release_linkage": false,
+        "role": "PROVENANCE_DISCOVERY_ONLY_NOT_RELEASE_LINKAGE",
+        "mappings": {
+          "potential_exposure": {
+            "legacy_somar_record": "36",
+            "current_icpsr": "300450",
+            "legacy_source": "https://socialmediaarchive.org/record/41/files/US2020_FB%26IG_Elections_External_Codebook.pdf",
+            "exact_title_match": true,
+            "url_level_match": true,
+            "study_period_match": true,
+            "broad_population_match": true,
+            "semantic_role_match": true,
+            "owner_row_structure_documented_legacy": true,
+            "current_catalog_released_updated_on": "2026-04-01",
+            "explicit_migration_mapping_verified": false
+          },
+          "exposure": {
+            "legacy_somar_record": "32",
+            "current_icpsr": "300470",
+            "legacy_source": "https://socialmediaarchive.org/record/40/files/US2020_FB%26IG_Elections_External_Codebook.pdf",
+            "exact_title_match": true,
+            "url_level_match": true,
+            "study_period_match": true,
+            "broad_population_match": true,
+            "semantic_role_match": true,
+            "owner_row_structure_documented_legacy": true,
+            "current_catalog_released_updated_on": "2026-04-01",
+            "explicit_migration_mapping_verified": false
+          },
+          "engagement": {
+            "legacy_somar_record": "34",
+            "current_icpsr": "300475",
+            "legacy_source": "https://socialmediaarchive.org/record/34/export/hm?ln=en",
+            "exact_title_match": true,
+            "url_level_match": true,
+            "study_period_match": true,
+            "broad_population_match": true,
+            "semantic_role_match": true,
+            "owner_row_structure_documented_legacy": true,
+            "current_catalog_released_updated_on": "2026-04-01",
+            "explicit_migration_mapping_verified": false
+          }
+        },
+        "interpretation": "The legacy and current surfaces concord across exact title, URL level, study period, broad U.S. adult monthly-active-user population, and potential/exposed/engaged semantic role for records 36/32/34 and ICPSR 300450/300470/300475 respectively. No indexed official record-to-study migration crosswalk or record-specific redirect was recovered. The concordance is therefore retained for provenance discovery and continuity only; it does not establish current-release file identity, collection-version linkage, or physical dictionary-row identity."
+      }
+    },
+    "replication_code_access_boundary": {
+      "const": {
+        "verified_on": "2026-09-24",
+        "science_source": "https://doi.org/10.1126/science.ade7138",
+        "author_research_source": "https://allcott.people.stanford.edu/research",
+        "icpsr_release_source": "https://www.icpsr.umich.edu/sites/icpsr/news/data-from-u-s-2020-presidential-election-facebook-and-instagram-study-now-available-at-icpsr",
+        "science_states_deidentified_data_and_analysis_code_archived_in_somar_for_eligible_research": true,
+        "current_author_page_uses_apply_for_replication_code_and_data": true,
+        "icpsr_release_states_us2020_data_access_via_vde_application": true,
+        "public_documentation_access_is_separate_from_replication_code_access": true,
+        "public_codebook_or_dictionary_remains_preferred_gate_source": true,
+        "public_replication_code_repository_verified": false,
+        "absence_of_public_code_repository_interpretable_as_missing_documentation": false,
+        "controlled_replication_code_required_before_public_documentation_attempts": false,
+        "controlled_replication_code_can_substitute_for_current_release_dictionary_without_version_linkage": false,
+        "intended_role": "PROCEDURAL_ACCESS_BOUNDARY",
+        "published_replication_code_title": "Meta Platforms, Inc. Replication Code for U.S. 2020 Facebook and Instagram Election Study",
+        "published_replication_code_doi": "10.3886/spb3-g558",
+        "published_replication_code_distributor": "Inter-university Consortium for Political and Social Research",
+        "published_replication_code_distribution_date": "2023-07-27",
+        "published_replication_code_citation_source": "https://doi.org/10.1038/s41586-023-06297-w",
+        "published_replication_code_archived_at_somar_icpsr": true,
+        "published_replication_code_vde_access_as_cited": true,
+        "published_replication_code_scope_to_science_ade7138_verified": false,
+        "published_replication_code_contents_inspected_in_this_audit": false,
+        "published_replication_code_sufficient_for_exact_300450_300470_column_gate": false,
+        "additional_author_research_source": "https://jenpan.com/",
+        "science_replication_link_target": "https://socialmediaarchive.org/search?c=US2020&cc=US2020&ln=en",
+        "science_replication_link_is_us2020_collection_level": true,
+        "science_replication_link_article_specific_package_resolved": false,
+        "same_collection_replication_link_reused_for_multiple_us2020_publications": true
+      }
+    },
+    "migration_crosswalk_metadata_route": {
+      "const": {
+        "verified_on": "2026-09-24",
+        "legacy_schema_source": "https://icpsr.github.io/metadata/icpsr_legacy_schema/",
+        "current_schema_source": "https://icpsr.github.io/metadata/icpsr_metadata_schema/",
+        "legacy_external_source_id_field_exists": true,
+        "legacy_external_source_id_internal_only": true,
+        "legacy_external_source_id_publicly_displayed": false,
+        "current_schema_external_source_id_field_present": false,
+        "current_schema_version_history_field_present": true,
+        "current_schema_version_note_is_provenance_field": true,
+        "public_export_expected_to_expose_legacy_external_source_id": false,
+        "version_history_or_notes_are_valid_public_provenance_targets": true,
+        "current_300450_version_history_payload_obtained": false,
+        "current_300470_version_history_payload_obtained": false,
+        "explicit_migration_crosswalk_resolved": false,
+        "sufficient_for_current_release_linkage": false,
+        "intended_role": "PUBLIC_PROVENANCE_ROUTE_QUALIFICATION",
+        "interpretation": "The legacy ICPSR schema includes External Source ID, but ICPSR explicitly marks it as an internal element that is not publicly displayed. The current schema does not expose an External Source ID field. Public Export Metadata therefore should not be expected to reveal the legacy SOMAR record number through that field. Current Version History and Version Note fields are legitimate public provenance targets, but no 300450/300470 payload exposing migration provenance has yet been recovered."
+      }
+    },
+    "current_target_documentation_availability": {
+      "const": {
+        "verified_on": "2026-09-24",
+        "potential_exposure": {
+          "icpsr": "300450",
+          "current_study_page": "https://www.icpsr.umich.edu/sites//view/studies/300450",
+          "current_study_page_content_indexed": true,
+          "current_doi": "10.3886/ICPSR300450.V2",
+          "current_version": "V2",
+          "current_doi_and_version_verified": true,
+          "current_page_explicitly_offers_data_dictionary_download": true,
+          "current_data_dictionary_availability_verified": true,
+          "current_data_dictionary_file_identity_obtained": false,
+          "current_data_dictionary_contents_obtained": false,
+          "exact_physical_columns_verified": false,
+          "status": "CURRENT_DICTIONARY_AVAILABILITY_VERIFIED_FILE_IDENTITY_AND_CONTENTS_UNINSPECTED"
+        },
+        "exposure": {
+          "icpsr": "300470",
+          "current_study_page": "https://www.icpsr.umich.edu/sites//view/studies/300470",
+          "current_study_identity_in_catalog_verified": true,
+          "current_doi": null,
+          "current_version": null,
+          "current_doi_and_version_verified": false,
+          "target_specific_current_page_data_dictionary_offer_recovered": false,
+          "current_data_dictionary_availability_target_specifically_verified": false,
+          "current_data_dictionary_file_identity_obtained": false,
+          "current_data_dictionary_contents_obtained": false,
+          "exact_physical_columns_verified": false,
+          "absence_of_target_specific_index_hit_interpretable_as_documentation_absence": false,
+          "status": "CURRENT_DICTIONARY_AVAILABILITY_TARGET_SPECIFICALLY_UNRECOVERED"
+        },
+        "sufficient_for_variable_dictionary_gate": false,
+        "interpretation": "The current ICPSR 300450 page is now indexed with its V2 DOI and an explicit instruction to download the data dictionary for variables present in the dataset, so current denominator-dictionary availability is directly verified. The dictionary file identity and contents remain unrecovered. No equivalent content-bearing target-specific dictionary offer has yet been recovered for ICPSR 300470; search/index failure is not evidence of absence. Exact numerator and denominator physical fields therefore remain unverified and numerical pairing remains unauthorized."
+      }
+    },
+    "science_paper_table_mapping": {
+      "const": {
+        "verified_on": "2026-09-25",
+        "paper_title": "Asymmetric ideological segregation in exposure to political news on Facebook",
+        "paper_doi": "10.1126/science.ade7138",
+        "paper_source": "https://doi.org/10.1126/science.ade7138",
+        "legacy_codebook_mapping_source": "https://socialmediaarchive.org/record/70/files/US2020_FB%26IG_Elections_External_Codebook_v3.pdf",
+        "codebook_appendix_explicitly_maps_paper_to_dataset_family": true,
+        "target_dataset_titles_explicitly_associated": [
+          "Potential Exposure to Facebook Posts with Civic News URLs",
+          "Exposure to Facebook Posts with Civic News URLs",
+          "Engagement with Facebook Posts with Civic News URLs"
+        ],
+        "target_physical_table_names_already_verified_elsewhere": [
+          "potential_exposure_facebook_posts_with_civic_news_urls",
+          "exposure_facebook_posts_with_civic_news_urls",
+          "engagement_facebook_posts_with_civic_news_urls"
+        ],
+        "supports_candidate_potential_exposure_to_exposure_pairing_design": true,
+        "supports_current_2026_release_file_linkage": false,
+        "supports_exact_physical_column_identity": false,
+        "supports_release_specific_privacy_semantics": false,
+        "numerical_pairing_authorized": false,
+        "role": "PAPER_SAME_URL_CONCEPTUAL_PAIRING_NOT_CURRENT_RELEASE_ROWWISE_LINKAGE",
+        "paper_states_each_url_has_potential_exposed_engaged_audience_measures": true,
+        "paper_same_url_conceptual_pairing_supported": true,
+        "paper_same_url_pairing_scope": "ANALYSIS_CONCEPT_NOT_RELEASE_ROW_IDENTITY",
+        "current_release_same_url_row_presence_verified": false,
+        "current_release_absent_row_semantics_verified": false,
+        "current_release_suppression_filter_symmetry_verified": false,
+        "current_release_url_key_equivalence_verified": false,
+        "current_release_rowwise_pairing_authorized": false
+      }
+    },
+    "science_analysis_weighting_boundary": {
+      "const": {
+        "verified_on": "2026-09-24",
+        "source": "https://doi.org/10.1126/science.ade7138",
+        "analysis_quantity_symbol": "v_n",
+        "paper_description": "total number of unique views for domain or URL n",
+        "paper_role": "SEGREGATION_INDEX_VISIT_WEIGHT",
+        "conservative_exposure_count_symbol": "C_n",
+        "liberal_exposure_count_symbol": "L_n",
+        "exposed_audience_definition": "set of unique users that saw a post containing the URL on their Feed",
+        "same_as_release_content_views_field_verified": false,
+        "same_as_release_exposed_audience_users_field_verified": false,
+        "same_as_release_audience_field_verified": false,
+        "exact_release_field_mapping_verified": false,
+        "usable_as_r_view_numerator": false,
+        "usable_as_r_view_denominator": false,
+        "usable_to_resolve_current_300470_column_identity": false,
+        "dictionary_mapping_required": true,
+        "interpretation": "The Science segregation index uses v_n as an analysis-specific visit/view weighting quantity while separately defining exposed audience as a set of unique users. The publication does not establish which current released physical field, if any, corresponds to v_n. Therefore v_n cannot be substituted for exposed_audience_users, content_views, or any other release field in the F1a r_view calculation without official dictionary mapping."
+      }
+    },
+    "official_documentation_support_escalation": {
+      "const": {
+        "verified_on": "2026-09-24",
+        "research_lifecycle_source": "https://www.icpsr.umich.edu/sites/somar/research-lifecycle",
+        "application_guide_source": "https://somar.atlassian.net/wiki/spaces/somardocs/pages/249397299",
+        "support_contact": "somar-help@umich.edu",
+        "trigger_condition": "MANUAL_PUBLIC_DATA_AND_DOCUMENTATION_ROUTE_EXECUTED_WITHOUT_TARGET_DOCUMENT_RECOVERY",
+        "request_scope": "LOCATE_PUBLIC_CURRENT_RELEASE_DOCUMENTATION_FOR_ICPSR_300450_AND_300470",
+        "restricted_data_application_required_before_support_request": false,
+        "vde_application_required_before_support_request": false,
+        "support_request_is_evidence_of_documentation_contents": false,
+        "support_request_authorizes_numerical_pairing": false,
+        "intended_role": "DOCUMENTATION_LOCATOR_ESCALATION_BEFORE_RESTRICTED_DATA_ACCESS",
+        "escalation_ready": true,
+        "support_request_sent_in_this_audit": false,
+        "restricted_data_or_vde_access_requested": false,
+        "requested_items": [
+          "ICPSR_300450_CURRENT_V2_PUBLIC_DATA_DICTIONARY_DIRECT_DOWNLOAD_OR_FILE_IDENTITY",
+          "ICPSR_300470_CURRENT_VERSION_NUMBER_AND_VERSION_SPECIFIC_DOI",
+          "ICPSR_300470_CURRENT_VERSION_HISTORY_OR_CITATION_SURFACE",
+          "ICPSR_300470_PUBLIC_DATA_DICTIONARY_OR_VARIABLE_DESCRIPTIONS_DIRECT_DOWNLOAD_OR_FILE_IDENTITY",
+          "CONFIRM_CURRENT_PUBLIC_DOCUMENTATION_LOCATION_FOR_BOTH_TARGET_STUDIES",
+          "ICPSR_300450_CURRENT_ROW_INCLUSION_ELIGIBILITY_AND_ABSENT_ROW_DOCUMENTATION_LOCATION",
+          "ICPSR_300470_CURRENT_ROW_INCLUSION_ELIGIBILITY_AND_ABSENT_ROW_DOCUMENTATION_LOCATION",
+          "CURRENT_DOCUMENTATION_LOCATION_FOR_SHARED_ELIGIBLE_INVENTORY_RELATION_IF_DOCUMENTED"
+        ],
+        "request_constraints": [
+          "REQUEST_PUBLIC_DOCUMENTATION_ONLY",
+          "DO_NOT_REQUEST_RESTRICTED_DATA",
+          "DO_NOT_REQUEST_VDE_ACCESS",
+          "DO_NOT_ASK_SUPPORT_TO_INFER_OR_CALCULATE_R_VIEW",
+          "DO_NOT_TREAT_LEGACY_FILE_IDENTITY_AS_CURRENT_RELEASE_IDENTITY",
+          "ASK_FOR_DOCUMENTATION_LOCATION_NOT_INTERPRETIVE_ADJUDICATION"
+        ],
+        "acceptable_response_evidence": [
+          "OFFICIAL_SOMAR_OR_ICPSR_REPLY_WITH_CURRENT_TARGET_SPECIFIC_LINKS_OR_IDENTIFIERS",
+          "OFFICIAL_CURRENT_STUDY_OR_EXPORT_METADATA_LINK",
+          "OFFICIAL_CURRENT_PUBLIC_CODEBOOK_DATA_DICTIONARY_OR_VARIABLE_DESCRIPTION_FILE"
+        ],
+        "support_reply_alone_without_target_specific_document_or_identifier_sufficient_for_gate": false,
+        "official_reply_or_linked_artifact_must_be_archived_in_audit_before_state_change": true,
+        "numerical_pairing_remains_blocked_until_document_contents_inspected": true,
+        "manual_public_documentation_route_must_be_attempted_first": true,
+        "send_precondition_satisfied": false
+      }
+    },
+    "replication_navigation_locators": {
+      "const": {
+        "verified_on": "2026-09-24",
+        "hunt_allcott_source": "https://allcott.people.stanford.edu/research",
+        "hunt_allcott_label": "Apply for replication code and data",
+        "hunt_allcott_legacy_target": "https://socialmediaarchive.org/record/43?ln=en",
+        "hunt_allcott_target_reused_for_multiple_us2020_publications": true,
+        "hunt_allcott_legacy_target_redirects_to_current_somar_home": true,
+        "hunt_allcott_record_43_metadata_payload_recovered": false,
+        "hunt_allcott_record_43_file_listing_recovered": false,
+        "hunt_allcott_record_43_identity_as_published_replication_code_doi_verified": false,
+        "jennifer_pan_source": "https://jenpan.com/",
+        "jennifer_pan_target": "https://socialmediaarchive.org/search?c=US2020&cc=US2020&ln=en",
+        "jennifer_pan_target_is_collection_level": true,
+        "jennifer_pan_target_reused_for_multiple_us2020_publications": true,
+        "source_specific_author_links_use_different_legacy_targets": true,
+        "author_link_target_difference_implies_distinct_article_packages": false,
+        "published_replication_code_doi": "10.3886/spb3-g558",
+        "published_replication_code_doi_verified_independently": true,
+        "record_43_to_published_replication_code_doi_linkage_verified": false,
+        "article_specific_ade7138_public_replication_package_resolved": false,
+        "sufficient_for_variable_dictionary_gate": false,
+        "role": "REPLICATION_NAVIGATION_PROVENANCE_ONLY",
+        "interpretation": "Current coauthor pages expose different legacy SOMAR navigation targets for replication access: Hunt Allcott's page uses record 43 while Jennifer Pan's page uses the US2020 collection search. The Hunt target is reused for multiple US2020 publications and now redirects to the current SOMAR home page; no record-43 metadata or file listing was recovered. These author-facing links therefore identify replication-access navigation, not article-specific package identity. They cannot be equated with the independently cited replication-code DOI 10.3886/spb3-g558, or with the Science ade7138 package, without an explicit metadata crosswalk."
+      }
+    },
+    "replication_code_two_stage_scope_boundary": {
+      "const": {
+        "verified_on": "2026-09-24",
+        "project_faq_source": "https://medium.com/@2020_election_research_project/us-2020-facebook-instagram-election-study-frequently-asked-questions-faq-266d30cbe95b",
+        "research_specific_platform_tables_created": true,
+        "academic_team_had_direct_access_to_meta_internal_logs": false,
+        "code_pipeline_two_stage_structure_verified": true,
+        "stage_1_role": "GENERATE_RESEARCH_SPECIFIC_PLATFORM_USAGE_TABLES_FROM_META_INTERNAL_DATA",
+        "stage_1_written_and_executed_by_meta_employees": true,
+        "stage_1_reviewed_by_academic_team": true,
+        "stage_2_role": "PREPROCESS_AND_ANALYZE_RESEARCH_SPECIFIC_TABLES",
+        "stage_2_academic_team_could_write_execute_and_modify": true,
+        "academic_team_had_aggregate_political_news_domain_and_url_data_for_all_us_adult_facebook_users": true,
+        "faq_confirms_replication_data_and_code_archived_at_somar_icpsr_vde": true,
+        "faq_confirms_archived_platform_wide_data_are_aggregated_as_shared_with_academic_team": true,
+        "archived_replication_package_contains_complete_stage_1_table_generation_code_verified": false,
+        "archived_replication_package_contains_current_300450_300470_release_schema_verified": false,
+        "archived_replication_package_contains_exact_current_physical_columns_verified": false,
+        "replication_code_alone_sufficient_to_infer_release_schema_without_inspection": false,
+        "replication_code_alone_sufficient_to_pass_variable_dictionary_gate": false,
+        "interpretation": "The official project FAQ distinguishes an upstream Meta-only table-generation layer from a downstream preprocessing/analysis layer accessible to the academic team. The FAQ also confirms that replication data and code are archived in SOMAR/ICPSR VDE, but it does not establish through the public text that the archived package contains the complete upstream table-generation layer or the current 300450/300470 release schema. Therefore replication-code access cannot be assumed prospectively to reveal current physical field identities or upstream transformations; inspected, target-linked release documentation or equivalent explicit evidence remains required."
+      }
+    },
+    "derived_segregation_aggregation_scope_boundary": {
+      "const": {
+        "verified_on": "2026-09-24",
+        "legacy_codebook_source": "https://socialmediaarchive.org/record/61/files/US2020_FB%26IG_Elections_External_Codebook_v2.pdf",
+        "current_target_catalog_source": "https://www.icpsr.umich.edu/sites/search/studies?fq=OWNER%3Asomar&rows=50&sort=score+desc&start=0",
+        "derived_table_family": "DAILY_IDEOLOGICAL_SEGREGATION_AUDIENCE_FACEBOOK_POSTS_CIVIC_NEWS_DOMAINS_AND_URLS",
+        "derived_table_level": "DOMAIN_AND_URL",
+        "derived_table_exposed_audience_disclosure": "SUM_OF_VIEWS",
+        "derived_table_potential_and_engaged_aggregation": "SUM_DAILY_AUDIENCE_COUNT_PER_POST_BY_URL_OR_DOMAIN_OVER_STUDY_PERIOD",
+        "derived_table_can_count_same_user_multiple_times_across_posts_or_days": true,
+        "current_300470_catalog_lists_content_views_and_audience_size_separately": true,
+        "current_300450_catalog_lists_potential_audience_size": true,
+        "derived_table_rules_verified_as_current_300470_release_rules": false,
+        "derived_table_rules_verified_as_current_300450_release_rules": false,
+        "derived_exposed_sum_of_views_equivalent_to_current_300470_audience_size": false,
+        "derived_exposed_sum_of_views_usable_as_r_view_numerator": false,
+        "derived_potential_aggregation_usable_as_r_view_denominator": false,
+        "cross_table_semantic_substitution_authorized": false,
+        "exact_target_dictionary_mapping_required": true,
+        "status": "DERIVED_TABLE_AGGREGATION_RULES_SCOPE_LOCKED_TO_DERIVED_SURFACE",
+        "interpretation": "The legacy daily ideological-segregation table has its own derived aggregation/disclosure rules: exposed audience is reported as a sum of views, while potential and engaged audiences are built by summing daily per-post audience counts and may count the same user multiple times across posts or days. The current 300470 catalog separately lists content views and audience size, and 300450 lists potential audience size. Therefore the derived-table rules must not be imported into the base 300450/300470 release surfaces, and neither the sum-of-views quantity nor the derived potential-audience aggregation may be used in r_view without exact target dictionary mapping."
+      }
+    },
+    "support_request_draft": {
+      "const": {
+        "prepared_on": "2026-09-25",
+        "recipient": "somar-help@umich.edu",
+        "subject": "Public documentation location for ICPSR 300450 and 300470",
+        "body": "Dear SOMAR team,\n\nI am conducting a reproducibility/provenance audit of two datasets in the U.S. 2020 Facebook and Instagram Election Study and am trying to locate their current public documentation. I am requesting public documentation only; I am not requesting restricted data or Virtual Data Enclave access.\n\nCould you please point me to the current official public documentation for the following studies?\n\n1. ICPSR 300450 — Potential Exposure to Facebook Posts with Civic News URLs\n   - the direct public Data Dictionary and/or variable-descriptions download for the current V2 collection;\n   - if possible, the current documentation file identity or canonical Data & Documentation link;\n   - the current public documentation section, README, codebook, or data-dictionary material that defines row inclusion/eligibility, pairing keys, and the meaning of a URL row being absent from the release, if those rules are documented publicly.\n\n2. ICPSR 300470 — Exposure to Facebook Posts with Civic News URLs\n   - ICPSR's current metadata style guide gives the unversioned latest-version reference form as https://doi.org/10.3886/ICPSR300470; I am specifically trying to identify the current version number and version-specific DOI, or the current Version History / citation surface that exposes them;\n   - the direct public Data Dictionary and/or variable-descriptions download for that current collection;\n   - if possible, the current documentation file identity or canonical Data & Documentation link;\n   - the current public documentation section, README, codebook, or data-dictionary material that defines row inclusion/eligibility, pairing keys, and the meaning of a URL row being absent from the release, if those rules are documented publicly.\n\nIf the current public documentation explicitly describes the relationship between the eligible population/inventory in 300450 and the exposed-audience population/inventory in 300470, could you please point me to that documentation location as well? I am asking only for the location of any existing documentation, not for SOMAR to make an interpretive determination.\n\nIf available, I would also appreciate confirmation that the documentation links above correspond to the current releases of these studies (the catalog currently lists them as released/updated on 2026-04-01).\n\nFor clarity, I am not asking SOMAR to provide restricted data, grant VDE access, infer variable names, interpret the fields, decide whether the two releases are scientifically compatible, or calculate any research quantity. I only need the canonical current-release public documentation or its official location so that field identity, version linkage, row-universe rules, missing/absent-row semantics, and release semantics can be checked directly.\n\nI have located legacy SOMAR documentation for the same titled study surfaces, but I am deliberately not treating those legacy files as current-release documentation without an explicit current linkage.\n\nThank you for your help.",
+        "status": "READY_NOT_SENT",
+        "send_authorized": false,
+        "sent_in_this_audit": false,
+        "public_documentation_only": true,
+        "restricted_data_requested": false,
+        "vde_access_requested": false,
+        "asks_support_to_infer_variable_names": false,
+        "asks_support_to_calculate_r_view": false,
+        "asks_support_to_treat_legacy_as_current": false,
+        "target_studies": [
+          "300450",
+          "300470"
+        ],
+        "requested_evidence": [
+          "ICPSR_300450_CURRENT_V2_PUBLIC_DATA_DICTIONARY_OR_VARIABLE_DESCRIPTIONS_LINK",
+          "ICPSR_300450_CURRENT_DOCUMENTATION_FILE_IDENTITY_OR_CANONICAL_DATA_AND_DOCUMENTATION_LINK",
+          "ICPSR_300470_CURRENT_VERSION_NUMBER_AND_VERSION_SPECIFIC_DOI_OR_VERSION_HISTORY_CITATION_SURFACE",
+          "ICPSR_300470_CURRENT_PUBLIC_DATA_DICTIONARY_OR_VARIABLE_DESCRIPTIONS_LINK",
+          "ICPSR_300470_CURRENT_DOCUMENTATION_FILE_IDENTITY_OR_CANONICAL_DATA_AND_DOCUMENTATION_LINK",
+          "CONFIRMATION_DOCUMENTATION_CORRESPONDS_TO_CURRENT_RELEASES",
+          "ICPSR_300450_CURRENT_ROW_INCLUSION_ELIGIBILITY_AND_ABSENT_ROW_DOCUMENTATION_LINK",
+          "ICPSR_300470_CURRENT_ROW_INCLUSION_ELIGIBILITY_AND_ABSENT_ROW_DOCUMENTATION_LINK",
+          "CURRENT_DOCUMENTATION_LOCATOR_FOR_SHARED_ELIGIBLE_INVENTORY_RELATION_IF_DOCUMENTED"
+        ],
+        "response_handling": {
+          "support_reply_by_itself_passes_gate": false,
+          "target_specific_official_link_or_identifier_required": true,
+          "linked_artifact_must_be_archived_and_inspected_before_state_change": true,
+          "numerical_pairing_remains_blocked_until_document_contents_inspected": true,
+          "shared_inventory_compatibility_remains_unverified_until_linked_documentation_inspected": true
+        },
+        "interpretation": "This is a prepared public-documentation locator request only. It is not yet the next operational action: the documented manual ICPSR Data & Documentation -> Codebook route must be attempted first, and the send precondition remains unsatisfied. It is intentionally not sent by the audit and does not request restricted data or VDE access. It records the already-known unversioned ICPSR 300470 latest-version reference form and asks specifically for the current version number/version-specific DOI plus locations of existing current-release documentation covering field identity, row inclusion/eligibility, absent-row semantics and—if documented—the relationship between the eligible inventories of 300450 and 300470, without asking SOMAR to adjudicate scientific compatibility. A future reply changes no scientific state unless it yields target-specific official current-release evidence that is archived and inspected.",
+        "asks_support_to_interpret_shared_inventory": false,
+        "manual_public_documentation_route_must_be_attempted_first": true,
+        "send_precondition_satisfied": false
+      }
+    },
+    "data_dictionary_semantic_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "source_type",
+        "source_url",
+        "per_dataset_dictionary_declared",
+        "declared_dictionary_fields",
+        "exact_variable_name_source",
+        "aggregation_method_source",
+        "disclosure_source",
+        "codebook_prose_substitutes_for_dictionary_rows",
+        "proves_current_300450_300470_file_identity",
+        "sufficient_for_variable_dictionary_gate",
+        "intended_role",
+        "interpretation"
+      ],
+      "properties": {
+        "verified_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "source_type": {
+          "const": "US2020_PROJECT_CODEBOOK_DOCUMENTATION_ARCHITECTURE"
+        },
+        "source_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_dataset_dictionary_declared": {
+          "const": true
+        },
+        "declared_dictionary_fields": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "variable_name",
+              "description",
+              "type",
+              "group",
+              "map_keys",
+              "aggregation_methods",
+              "disclosures"
+            ]
+          }
+        },
+        "exact_variable_name_source": {
+          "const": true
+        },
+        "aggregation_method_source": {
+          "const": true
+        },
+        "disclosure_source": {
+          "const": true
+        },
+        "codebook_prose_substitutes_for_dictionary_rows": {
+          "const": false
+        },
+        "proves_current_300450_300470_file_identity": {
+          "const": false
+        },
+        "sufficient_for_variable_dictionary_gate": {
+          "const": false
+        },
+        "intended_role": {
+          "const": "FIELD_LEVEL_DOCUMENTATION_AUTHORITY"
+        },
+        "interpretation": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "legacy_v3_exposure_potential_scope_asymmetry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "source",
+        "exposure_table",
+        "exposure_declared_level",
+        "exposure_overview_column_scope",
+        "exposure_overview_scope_consistent",
+        "potential_exposure_table",
+        "potential_exposure_declared_level",
+        "potential_exposure_overview_column_scope",
+        "potential_exposure_overview_scope_consistent",
+        "same_v3_codebook_contains_asymmetric_scope_wording",
+        "exposure_fix_transferable_to_potential_exposure_by_inference",
+        "denominator_scope_resolved",
+        "numerator_disclosure_semantics_resolved",
+        "numerical_pairing_authorized",
+        "status",
+        "interpretation"
+      ],
+      "properties": {
+        "verified_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "source": {
+          "type": "string",
+          "format": "uri"
+        },
+        "exposure_table": {
+          "const": "exposure_facebook_posts_with_civic_news_urls"
+        },
+        "exposure_declared_level": {
+          "const": "URL"
+        },
+        "exposure_overview_column_scope": {
+          "const": "SPECIFIC_URL"
+        },
+        "exposure_overview_scope_consistent": {
+          "const": true
+        },
+        "potential_exposure_table": {
+          "const": "potential_exposure_facebook_posts_with_civic_news_urls"
+        },
+        "potential_exposure_declared_level": {
+          "const": "URL"
+        },
+        "potential_exposure_overview_column_scope": {
+          "const": "SPECIFIC_DOMAIN"
+        },
+        "potential_exposure_overview_scope_consistent": {
+          "const": false
+        },
+        "same_v3_codebook_contains_asymmetric_scope_wording": {
+          "const": true
+        },
+        "exposure_fix_transferable_to_potential_exposure_by_inference": {
+          "const": false
+        },
+        "denominator_scope_resolved": {
+          "const": false
+        },
+        "numerator_disclosure_semantics_resolved": {
+          "const": false
+        },
+        "numerical_pairing_authorized": {
+          "const": false
+        },
+        "status": {
+          "const": "V3_EXPOSURE_OVERVIEW_URL_CORRECTED_POTENTIAL_OVERVIEW_DOMAIN_WORDING_PERSISTS"
+        },
+        "interpretation": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "science_unique_audience_release_metric_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "paper_source",
+        "paper_potential_audience_definition",
+        "paper_exposed_audience_definition",
+        "paper_funnel_orders_potential_before_exposed",
+        "paper_inventory_precedes_algorithmic_curation",
+        "conceptual_exposed_subset_of_potential_supported",
+        "candidate_ratio_unique_user_interpretation",
+        "legacy_codebook_contains_multi_counting_audience_rules",
+        "legacy_multi_counting_rules_scope_to_exact_target_url_release_verified",
+        "current_release_audience_size_unique_user_semantics_verified",
+        "current_release_audience_size_deduplicated_over_full_study_period_verified",
+        "current_release_metric_equivalent_to_paper_unique_user_set_size_verified",
+        "r_view_interpretable_as_probability_or_fraction_of_potential_users_from_release_fields",
+        "exact_dictionary_mapping_required",
+        "numerical_pairing_authorized",
+        "role",
+        "interpretation",
+        "paper_inventory_scope",
+        "paper_algorithm_selects_exposure_from_inventory",
+        "paper_exposed_subset_of_potential_supported_within_analysis_inventory",
+        "current_release_exposure_restricted_to_same_connection_inventory_verified",
+        "current_release_shared_inventory_equivalence_verified",
+        "raw_300470_audience_guaranteed_subset_of_300450_potential_audience",
+        "r_view_conceptually_valid_for_release_fields_without_inventory_equivalence"
+      ],
+      "properties": {
+        "verified_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "paper_source": {
+          "const": "https://doi.org/10.1126/science.ade7138"
+        },
+        "paper_potential_audience_definition": {
+          "const": "set of unique users that could have been exposed to the URL content"
+        },
+        "paper_exposed_audience_definition": {
+          "const": "set of unique users that saw a post containing the URL on their Feed"
+        },
+        "paper_funnel_orders_potential_before_exposed": {
+          "const": true
+        },
+        "paper_inventory_precedes_algorithmic_curation": {
+          "const": true
+        },
+        "conceptual_exposed_subset_of_potential_supported": {
+          "const": true
+        },
+        "candidate_ratio_unique_user_interpretation": {
+          "const": "EXPOSED_UNIQUE_USERS_DIVIDED_BY_POTENTIAL_UNIQUE_USERS"
+        },
+        "legacy_codebook_contains_multi_counting_audience_rules": {
+          "const": true
+        },
+        "legacy_multi_counting_rules_scope_to_exact_target_url_release_verified": {
+          "const": false
+        },
+        "current_release_audience_size_unique_user_semantics_verified": {
+          "const": false
+        },
+        "current_release_audience_size_deduplicated_over_full_study_period_verified": {
+          "const": false
+        },
+        "current_release_metric_equivalent_to_paper_unique_user_set_size_verified": {
+          "const": false
+        },
+        "r_view_interpretable_as_probability_or_fraction_of_potential_users_from_release_fields": {
+          "const": false
+        },
+        "exact_dictionary_mapping_required": {
+          "const": true
+        },
+        "numerical_pairing_authorized": {
+          "const": false
+        },
+        "role": {
+          "const": "PAPER_CONCEPTUAL_SET_SEMANTICS_VS_RELEASE_METRIC_EQUIVALENCE_GATE"
+        },
+        "interpretation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "paper_inventory_scope": {
+          "const": "POLITICAL_NEWS_POSTS_FROM_FRIENDS_PAGES_GROUPS_IN_USER_NETWORK"
+        },
+        "paper_algorithm_selects_exposure_from_inventory": {
+          "const": true
+        },
+        "paper_exposed_subset_of_potential_supported_within_analysis_inventory": {
+          "const": true
+        },
+        "current_release_exposure_restricted_to_same_connection_inventory_verified": {
+          "const": false
+        },
+        "current_release_shared_inventory_equivalence_verified": {
+          "const": false
+        },
+        "raw_300470_audience_guaranteed_subset_of_300450_potential_audience": {
+          "const": false
+        },
+        "r_view_conceptually_valid_for_release_fields_without_inventory_equivalence": {
+          "const": false
+        }
+      }
+    },
+    "legacy_v3_url_row_universe_asymmetry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "source",
+        "potential_table",
+        "exposure_table",
+        "common_level",
+        "common_population",
+        "common_period",
+        "common_inclusion_filters",
+        "potential_specific_inclusion",
+        "exposure_specific_inclusion",
+        "row_universe_identity_verified",
+        "exposure_rows_guaranteed_for_every_potential_row",
+        "absent_exposure_row_equivalent_to_zero_exposed_audience_verified",
+        "inner_join_preserves_zero_exposure_urls_verified",
+        "default_inner_join_authorized",
+        "current_release_same_inclusion_rules_verified",
+        "current_release_row_universe_identity_verified",
+        "missing_or_absent_row_policy_required",
+        "role",
+        "interpretation"
+      ],
+      "properties": {
+        "verified_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "source": {
+          "const": "https://socialmediaarchive.org/record/70/files/US2020_FB%26IG_Elections_External_Codebook_v3.pdf"
+        },
+        "potential_table": {
+          "const": "potential_exposure_facebook_posts_with_civic_news_urls"
+        },
+        "exposure_table": {
+          "const": "exposure_facebook_posts_with_civic_news_urls"
+        },
+        "common_level": {
+          "const": "URL"
+        },
+        "common_population": {
+          "const": "US_ADULT_MONTHLY_ACTIVE_USERS"
+        },
+        "common_period": {
+          "const": "2020-09-01/2021-02-01"
+        },
+        "common_inclusion_filters": {
+          "const": [
+            "CLASSIFIED_CIVIC_AND_NEWS_BY_META_INTERNAL_CLASSIFIERS",
+            "SHARED_MORE_THAN_100_TIMES_TO_FACEBOOK_BY_US_USERS_DURING_STUDY_PERIOD"
+          ]
+        },
+        "potential_specific_inclusion": {
+          "const": "POTENTIALLY_VIEWED_BY_US_USERS_IN_FEED_BECAUSE_SHARED_BY_US_BASED_CONNECTION"
+        },
+        "exposure_specific_inclusion": {
+          "const": "VIEWED_BY_US_USERS_IN_FEED"
+        },
+        "row_universe_identity_verified": {
+          "const": false
+        },
+        "exposure_rows_guaranteed_for_every_potential_row": {
+          "const": false
+        },
+        "absent_exposure_row_equivalent_to_zero_exposed_audience_verified": {
+          "const": false
+        },
+        "inner_join_preserves_zero_exposure_urls_verified": {
+          "const": false
+        },
+        "default_inner_join_authorized": {
+          "const": false
+        },
+        "current_release_same_inclusion_rules_verified": {
+          "const": false
+        },
+        "current_release_row_universe_identity_verified": {
+          "const": false
+        },
+        "missing_or_absent_row_policy_required": {
+          "const": true
+        },
+        "role": {
+          "const": "LEGACY_ROW_UNIVERSE_ASYMMETRY_BLOCKS_NAIVE_ROWWISE_RATIO"
+        },
+        "interpretation": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "legacy_documentation_attachment_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "direct_manifest_record",
+        "direct_manifest_export",
+        "direct_attachment_to_record_34_verified",
+        "direct_file_locators_verified",
+        "same_uuid_attachment_to_record_32_verified",
+        "same_uuid_attachment_to_record_36_verified",
+        "record_34_manifest_sufficient_for_exposure_record_32_file_identity",
+        "record_34_manifest_sufficient_for_potential_record_36_file_identity",
+        "search_nonrecovery_interpretable_as_absence",
+        "current_2026_attachment_or_byte_identity_verified",
+        "role",
+        "interpretation",
+        "legacy_record_32_multiple_files_indexed",
+        "legacy_record_36_multiple_files_indexed",
+        "legacy_record_32_codebook_label_indexed",
+        "legacy_record_36_codebook_label_indexed",
+        "target_records_multi_file_availability_supported",
+        "target_records_exact_documentation_file_identity_verified"
+      ],
+      "properties": {
+        "verified_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "direct_manifest_record": {
+          "const": "34"
+        },
+        "direct_manifest_export": {
+          "const": "https://socialmediaarchive.org/record/34/export/hm?ln=en"
+        },
+        "direct_attachment_to_record_34_verified": {
+          "const": true
+        },
+        "direct_file_locators_verified": {
+          "const": [
+            "data_dictionary_political_segregation_paper.xlsx",
+            "variables_political_segregation_paper.csv",
+            "US2020_FB&IG_Elections_External_Codebook.pdf",
+            "US2020_Glossary.xlsx"
+          ]
+        },
+        "same_uuid_attachment_to_record_32_verified": {
+          "const": false
+        },
+        "same_uuid_attachment_to_record_36_verified": {
+          "const": false
+        },
+        "record_34_manifest_sufficient_for_exposure_record_32_file_identity": {
+          "const": false
+        },
+        "record_34_manifest_sufficient_for_potential_record_36_file_identity": {
+          "const": false
+        },
+        "search_nonrecovery_interpretable_as_absence": {
+          "const": false
+        },
+        "current_2026_attachment_or_byte_identity_verified": {
+          "const": false
+        },
+        "role": {
+          "const": "RECORD_34_DIRECT_ATTACHMENT_ONLY_OTHER_LEGACY_TARGET_ATTACHMENTS_UNVERIFIED"
+        },
+        "interpretation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "legacy_record_32_multiple_files_indexed": {
+          "const": true
+        },
+        "legacy_record_36_multiple_files_indexed": {
+          "const": true
+        },
+        "legacy_record_32_codebook_label_indexed": {
+          "const": "US2020_FB&IG_Elections_External_Codebook"
+        },
+        "legacy_record_36_codebook_label_indexed": {
+          "const": "US2020_FB&IG_Elections_External_Codebook"
+        },
+        "target_records_multi_file_availability_supported": {
+          "const": true
+        },
+        "target_records_exact_documentation_file_identity_verified": {
+          "const": false
+        }
+      }
+    },
+    "legacy_glossary_audience_view_semantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "source",
+        "source_type",
+        "audience_definition",
+        "content_views_definition",
+        "audience_is_user_count",
+        "content_views_is_screen_appearance_count",
+        "audience_and_content_views_are_distinct_estimands",
+        "content_views_admissible_as_r_view_numerator",
+        "glossary_establishes_target_physical_column_names",
+        "glossary_establishes_target_release_aggregation_deduplication",
+        "glossary_establishes_current_2026_release_linkage",
+        "exact_dictionary_mapping_still_required",
+        "numerical_pairing_authorized",
+        "role",
+        "interpretation",
+        "potential_audience_definition",
+        "potential_audience_connection_inventory_semantics_verified",
+        "potential_audience_population_scope_verified",
+        "potential_audience_definition_supports_denominator_concept",
+        "potential_audience_definition_establishes_physical_denominator_field"
+      ],
+      "properties": {
+        "verified_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "source": {
+          "type": "string",
+          "format": "uri"
+        },
+        "source_type": {
+          "const": "INDEXED_US2020_GLOSSARY_SPREADSHEET_VIEW"
+        },
+        "audience_definition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content_views_definition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "audience_is_user_count": {
+          "const": true
+        },
+        "content_views_is_screen_appearance_count": {
+          "const": true
+        },
+        "audience_and_content_views_are_distinct_estimands": {
+          "const": true
+        },
+        "content_views_admissible_as_r_view_numerator": {
+          "const": false
+        },
+        "glossary_establishes_target_physical_column_names": {
+          "const": false
+        },
+        "glossary_establishes_target_release_aggregation_deduplication": {
+          "const": false
+        },
+        "glossary_establishes_current_2026_release_linkage": {
+          "const": false
+        },
+        "exact_dictionary_mapping_still_required": {
+          "const": true
+        },
+        "numerical_pairing_authorized": {
+          "const": false
+        },
+        "role": {
+          "const": "PROJECT_GLOSSARY_SEMANTIC_DISTINCTION_NOT_TARGET_FIELD_MAPPING"
+        },
+        "interpretation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "potential_audience_definition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "potential_audience_connection_inventory_semantics_verified": {
+          "const": true
+        },
+        "potential_audience_population_scope_verified": {
+          "const": "ADULT_US_MONTHLY_ACTIVE_USERS"
+        },
+        "potential_audience_definition_supports_denominator_concept": {
+          "const": true
+        },
+        "potential_audience_definition_establishes_physical_denominator_field": {
+          "const": false
+        }
+      }
+    },
+    "science_inventory_release_scope_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "paper_source",
+        "paper_inventory_definition",
+        "paper_algorithmic_relation",
+        "paper_actual_exposure_is_subset_of_inventory",
+        "paper_funnel_shared_inventory_verified",
+        "potential_release_source",
+        "exposure_release_source",
+        "potential_release_requires_connection_based_eligibility",
+        "exposure_release_description_requires_view_in_feed",
+        "exposure_release_description_explicitly_requires_connection_based_eligibility",
+        "project_glossary_feed_can_include_suggested_posts",
+        "raw_release_shared_inventory_verified",
+        "raw_exposure_audience_subset_of_raw_potential_audience_verified",
+        "paper_analysis_subset_relation_transferable_to_raw_release_fields_without_mapping",
+        "candidate_r_view_requires_shared_inventory_compatibility",
+        "numerical_pairing_authorized",
+        "role",
+        "interpretation"
+      ],
+      "properties": {
+        "verified_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "paper_source": {
+          "const": "https://doi.org/10.1126/science.ade7138"
+        },
+        "paper_inventory_definition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "paper_algorithmic_relation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "paper_actual_exposure_is_subset_of_inventory": {
+          "const": true
+        },
+        "paper_funnel_shared_inventory_verified": {
+          "const": true
+        },
+        "potential_release_source": {
+          "type": "string",
+          "format": "uri"
+        },
+        "exposure_release_source": {
+          "type": "string",
+          "format": "uri"
+        },
+        "potential_release_requires_connection_based_eligibility": {
+          "const": true
+        },
+        "exposure_release_description_requires_view_in_feed": {
+          "const": true
+        },
+        "exposure_release_description_explicitly_requires_connection_based_eligibility": {
+          "const": false
+        },
+        "project_glossary_feed_can_include_suggested_posts": {
+          "const": true
+        },
+        "raw_release_shared_inventory_verified": {
+          "const": false
+        },
+        "raw_exposure_audience_subset_of_raw_potential_audience_verified": {
+          "const": false
+        },
+        "paper_analysis_subset_relation_transferable_to_raw_release_fields_without_mapping": {
+          "const": false
+        },
+        "candidate_r_view_requires_shared_inventory_compatibility": {
+          "const": true
+        },
+        "numerical_pairing_authorized": {
+          "const": false
+        },
+        "role": {
+          "const": "PAPER_FUNNEL_VALID_RELEASE_SHARED_INVENTORY_EQUIVALENCE_UNVERIFIED"
+        },
+        "interpretation": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "legacy_source_live_retrieval_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "tested_urls",
+        "redirect_target",
+        "tested_legacy_urls_now_redirect_to_current_somar_home",
+        "original_artifact_bytes_retrievable_through_tested_current_public_web_surface",
+        "historical_indexed_evidence_retained",
+        "redirect_invalidates_previously_recovered_historical_content",
+        "current_live_retrieval_role",
+        "scientific_gate_changed",
+        "role",
+        "interpretation",
+        "official_transition_source",
+        "official_transition_statement_verified",
+        "official_transition_summary",
+        "redirect_consistent_with_official_platform_transition",
+        "transition_corroborates_historical_locator_classification"
+      ],
+      "properties": {
+        "verified_on": {
+          "const": "2026-09-25"
+        },
+        "tested_urls": {
+          "const": [
+            "https://socialmediaarchive.org/record/34/export/hm?ln=en",
+            "https://socialmediaarchive.org/record/61/files/US2020_FB%26IG_Elections_External_Codebook_v2.pdf",
+            "https://socialmediaarchive.org/record/68/files/US2020_FB%26IG_Elections_External_Codebook_v3.pdf",
+            "https://socialmediaarchive.org/record/70/files/US2020_FB%26IG_Elections_External_Codebook_v3.pdf",
+            "https://socialmediaarchive.org/bibformat/elements/output?element=bfe_tind_body_spreadsheet_view_single&params=%7B%22doc_name%22%3A%22US2020_Glossary%22%2C%22doc_format%22%3A%22.xlsx%22%2C%22no_download%22%3Afalse%2C%22sheet_name%22%3A%22Sheet+1%22%7D&recid=62"
+          ]
+        },
+        "redirect_target": {
+          "const": "https://www.icpsr.umich.edu/sites/somar/home"
+        },
+        "tested_legacy_urls_now_redirect_to_current_somar_home": {
+          "const": true
+        },
+        "original_artifact_bytes_retrievable_through_tested_current_public_web_surface": {
+          "const": false
+        },
+        "historical_indexed_evidence_retained": {
+          "const": true
+        },
+        "redirect_invalidates_previously_recovered_historical_content": {
+          "const": false
+        },
+        "current_live_retrieval_role": {
+          "const": "NONE"
+        },
+        "scientific_gate_changed": {
+          "const": false
+        },
+        "role": {
+          "const": "LEGACY_INDEXED_PROVENANCE_LINK_ROT_RECORDED"
+        },
+        "interpretation": {
+          "const": "On 2026-09-25, the audited current public web surface redirected the tested legacy socialmediaarchive.org record, codebook and glossary URLs to the current ICPSR SOMAR home page rather than serving the original artifacts. SOMAR's official Winter 2026 newsletter independently states that the SOMAR website and archive data transitioned to the ICPSR platform and that resources, studies and features are now accessed through the ICPSR unified interface. The observed redirects are therefore consistent with an official platform transition, not treated merely as unexplained link failure. The legacy URLs remain historical/indexed provenance locators for evidence recovered earlier in the audit; the redirects do not invalidate previously captured historical metadata/content, do not establish current 300450/300470 file identity, and do not change the scientific gate."
+        },
+        "official_transition_source": {
+          "const": "https://www.icpsr.umich.edu/sites/somar/somar-newsletter-archive/somar-newsletter-winter-2026"
+        },
+        "official_transition_statement_verified": {
+          "const": true
+        },
+        "official_transition_summary": {
+          "const": "SOMAR website and archive data transitioned to the ICPSR platform; resources, studies and features are now accessed through the ICPSR unified interface."
+        },
+        "redirect_consistent_with_official_platform_transition": {
+          "const": true
+        },
+        "transition_corroborates_historical_locator_classification": {
+          "const": true
+        }
+      }
+    },
+    "current_study_page_live_retrieval_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_on",
+        "potential_exposure_study",
+        "exposure_study",
+        "potential_exposure_direct_page",
+        "exposure_direct_page",
+        "potential_exposure_direct_page_content_retrievable_in_current_audited_html",
+        "exposure_direct_page_content_retrievable_in_current_audited_html",
+        "direct_pages_expose_client_side_shell_only",
+        "current_catalog_search_exposes_both_study_descriptions",
+        "prior_indexed_300450_v2_doi_and_dictionary_offer_retained_as_recovered_official_evidence",
+        "prior_indexed_300450_evidence_invalidated_by_current_shell_behavior",
+        "current_exact_search_recovered_300450_doi_dictionary_block",
+        "current_exact_search_recovered_300470_doi_dictionary_block",
+        "current_300470_doi_version_recovered",
+        "current_300470_dictionary_contents_recovered",
+        "current_live_retrieval_failure_interpretable_as_documentation_absence",
+        "scientific_gate_changed",
+        "role",
+        "interpretation"
+      ],
+      "properties": {
+        "verified_on": {
+          "const": "2026-09-25"
+        },
+        "potential_exposure_study": {
+          "const": "300450"
+        },
+        "exposure_study": {
+          "const": "300470"
+        },
+        "potential_exposure_direct_page": {
+          "const": "https://www.icpsr.umich.edu/sites//view/studies/300450"
+        },
+        "exposure_direct_page": {
+          "const": "https://www.icpsr.umich.edu/sites//view/studies/300470"
+        },
+        "potential_exposure_direct_page_content_retrievable_in_current_audited_html": {
+          "const": false
+        },
+        "exposure_direct_page_content_retrievable_in_current_audited_html": {
+          "const": false
+        },
+        "direct_pages_expose_client_side_shell_only": {
+          "const": true
+        },
+        "current_catalog_search_exposes_both_study_descriptions": {
+          "const": true
+        },
+        "prior_indexed_300450_v2_doi_and_dictionary_offer_retained_as_recovered_official_evidence": {
+          "const": true
+        },
+        "prior_indexed_300450_evidence_invalidated_by_current_shell_behavior": {
+          "const": false
+        },
+        "current_exact_search_recovered_300450_doi_dictionary_block": {
+          "const": false
+        },
+        "current_exact_search_recovered_300470_doi_dictionary_block": {
+          "const": false
+        },
+        "current_300470_doi_version_recovered": {
+          "const": false
+        },
+        "current_300470_dictionary_contents_recovered": {
+          "const": false
+        },
+        "current_live_retrieval_failure_interpretable_as_documentation_absence": {
+          "const": false
+        },
+        "scientific_gate_changed": {
+          "const": false
+        },
+        "role": {
+          "const": "CURRENT_STUDY_PAGE_LIVE_RENDERING_LIMITATION_RECORDED"
+        },
+        "interpretation": {
+          "const": "On 2026-09-25, direct retrieval of both current ICPSR study pages 300450 and 300470 exposed only the client-side shell through the audited web surface. The SOMAR catalog still exposes both target study descriptions. Exact current searches did not re-recover the previously indexed 300450 DOI/data-dictionary block or any equivalent 300470 block. The earlier official indexed 300450 V2 DOI/dictionary-availability evidence is retained as recovered evidence; current shell behavior does not invalidate it. For 300470, the live rendering limitation remains non-evidentiary and cannot be treated as documentation absence."
+        }
+      }
+    }
   }
 }
