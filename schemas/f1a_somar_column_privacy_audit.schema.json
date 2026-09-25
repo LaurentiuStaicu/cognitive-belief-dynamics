@@ -2145,7 +2145,7 @@
           "const": false
         },
         "current_exact_search_recovered_300450_doi_dictionary_block": {
-          "const": false
+          "const": true
         },
         "current_exact_search_recovered_300470_doi_dictionary_block": {
           "const": false
