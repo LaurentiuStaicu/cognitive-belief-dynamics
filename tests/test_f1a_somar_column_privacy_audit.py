@@ -349,6 +349,13 @@ def test_manual_browser_codebook_route_is_explicit_and_noninferential() -> None:
     assert route["target_candidate_dataset_routes_indexed"] is False
     assert route["target_candidate_route_failure_interpretable_as_dataset_absence"] is False
     assert route["target_candidate_route_failure_interpretable_as_dataset_number_1_invalid"] is False
+    assert route["target_candidate_dataset_number_probe_range"] == [1, 2, 3, 4, 5]
+    assert route["target_candidate_dataset_routes_probe_count"] == 10
+    assert len(route["target_candidate_dataset_routes_probed"]) == 10
+    assert route["target_candidate_dataset_routes_all_inaccessible_through_audited_surface"] is True
+    assert route["target_candidate_dataset_route_range_exhausted_for_available_audited_surface"] is True
+    assert route["target_candidate_dataset_route_range_failure_interpretable_as_number_outside_range"] is False
+    assert route["target_candidate_dataset_route_range_failure_interpretable_as_no_dataset_page"] is False
     assert route["intended_role"] == "NONINFERENTIAL_MANUAL_RETRIEVAL_FALLBACK"
     assert route["automated_surface_current_300450_dataset_file_listing_obtained"] is False
     assert route["automated_surface_current_300470_dataset_file_listing_obtained"] is False

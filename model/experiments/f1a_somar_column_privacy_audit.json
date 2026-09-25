@@ -461,12 +461,32 @@
     "target_dataset_number_value": null,
     "target_candidate_dataset_routes_probed": [
       "https://www.icpsr.umich.edu/sites/somar/view/studies/300450/datasets/1",
-      "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/datasets/1"
+      "https://www.icpsr.umich.edu/sites/somar/view/studies/300450/datasets/2",
+      "https://www.icpsr.umich.edu/sites/somar/view/studies/300450/datasets/3",
+      "https://www.icpsr.umich.edu/sites/somar/view/studies/300450/datasets/4",
+      "https://www.icpsr.umich.edu/sites/somar/view/studies/300450/datasets/5",
+      "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/datasets/1",
+      "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/datasets/2",
+      "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/datasets/3",
+      "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/datasets/4",
+      "https://www.icpsr.umich.edu/sites/somar/view/studies/300470/datasets/5"
     ],
     "target_candidate_dataset_routes_content_retrieved": false,
     "target_candidate_dataset_routes_indexed": false,
     "target_candidate_route_failure_interpretable_as_dataset_absence": false,
-    "target_candidate_route_failure_interpretable_as_dataset_number_1_invalid": false
+    "target_candidate_route_failure_interpretable_as_dataset_number_1_invalid": false,
+    "target_candidate_dataset_number_probe_range": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "target_candidate_dataset_routes_probe_count": 10,
+    "target_candidate_dataset_routes_all_inaccessible_through_audited_surface": true,
+    "target_candidate_dataset_route_range_exhausted_for_available_audited_surface": true,
+    "target_candidate_dataset_route_range_failure_interpretable_as_number_outside_range": false,
+    "target_candidate_dataset_route_range_failure_interpretable_as_no_dataset_page": false
   },
   "icpsr_search_access_interpretation": {
     "verified_on": "2026-09-24",
