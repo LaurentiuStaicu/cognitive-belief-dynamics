@@ -2166,7 +2166,7 @@
           "const": "CURRENT_STUDY_PAGE_LIVE_RENDERING_LIMITATION_RECORDED"
         },
         "interpretation": {
-          "const": "On 2026-09-25, direct retrieval of both current ICPSR study pages 300450 and 300470 exposed only the client-side shell through the audited web surface. The SOMAR catalog still exposes both target study descriptions. Exact current searches did not re-recover the previously indexed 300450 DOI/data-dictionary block or any equivalent 300470 block. The earlier official indexed 300450 V2 DOI/dictionary-availability evidence is retained as recovered evidence; current shell behavior does not invalidate it. For 300470, the live rendering limitation remains non-evidentiary and cannot be treated as documentation absence."
+          "const": "On 2026-09-25, direct retrieval of both current ICPSR study pages 300450 and 300470 exposed only the client-side shell through the audited web surface. The SOMAR catalog still exposes both target study descriptions. A subsequent exact current indexed search re-recovered the official 300450 V2 DOI/data-dictionary block, independently reconfirming that evidence; no equivalent 300470 DOI/dictionary block was recovered. The direct-page shell behavior is therefore a rendering limitation and does not invalidate the 300450 evidence. For 300470, the live rendering limitation remains non-evidentiary and cannot be treated as documentation absence."
         }
       }
     }
