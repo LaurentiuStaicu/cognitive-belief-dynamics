@@ -1,0 +1,234 @@
+{
+  "id": "CONTRACT.F1B.PREHUMAN_MODEL_RECOVERY.2026-09-25",
+  "status": "PROSPECTIVE_SYNTHETIC_MODEL_RECOVERY_DESIGN",
+  "feedback_family": "F1b",
+  "issue": 126,
+  "parent_issue": 125,
+  "purpose": "Freeze a pre-human synthetic model-recovery and simulation-based design-search contract for the F1b source/evidence and decision/action candidate families before any participant recruitment or runtime integration.",
+  "baseline": {
+    "main_commit": "0e3423035c32f2285e7a430df69a6788de068fd5",
+    "f1a_stage": "RECOVERY_TESTED",
+    "f1b_stage": "CONCEPTUAL / CONTRACT_REQUIRED"
+  },
+  "scope": {
+    "specification_only": true,
+    "recovery_engine_allowed_in_this_change": false,
+    "runtime_f1b_change_allowed": false,
+    "m0_equation_change_allowed": false,
+    "human_recruitment_allowed": false,
+    "human_data_collection_allowed": false,
+    "empirical_parameter_calibration_allowed": false
+  },
+  "recovery_problems": {
+    "R1": {
+      "name": "SOURCE_RELIABILITY_X_EVIDENCE_BELIEF_UPDATE_RECOVERY",
+      "outcome": "decision-time belief/judgment",
+      "candidate_families": [
+        {
+          "id": "SR-A",
+          "role": "CURRENT_M0_REFERENCE_CANDIDATE",
+          "source_weight_expression": "2*T-1",
+          "interpretation": "Centered anti-reliability candidate; sufficiently low T reverses signed evidence contribution."
+        },
+        {
+          "id": "SR-B",
+          "role": "SYNTHETIC_COMPARATOR",
+          "source_weight_expression": "T",
+          "interpretation": "Discount-only comparator; reliability attenuates signed evidence toward zero without sign reversal."
+        },
+        {
+          "id": "SR-C",
+          "role": "SYNTHETIC_COMPARATOR_FAMILY",
+          "source_weight_expression": "0 if T < tau else 1",
+          "tau_grid": [
+            0.4,
+            0.5,
+            0.6
+          ],
+          "interpretation": "Threshold/gating comparator; low-reliability evidence is ignored rather than smoothly reversed."
+        }
+      ],
+      "synthetic_factor_grid": {
+        "reliability_T": [
+          0.2,
+          0.5,
+          0.8
+        ],
+        "signed_evidence_E": [
+          -1,
+          -0.5,
+          0.5,
+          1
+        ],
+        "familiarity_fixed": 0,
+        "correction_fixed": 0,
+        "accuracy_cue_fixed": false,
+        "reward_context_fixed": 0
+      },
+      "required_discrimination": [
+        "anti-reliability versus discount-only below T=0.5",
+        "smooth weighting versus threshold gating around tau",
+        "signed evidence direction in both positive and negative conditions"
+      ]
+    },
+    "R2": {
+      "name": "ACCURACY_X_REWARD_ACTION_POLICY_RECOVERY",
+      "outcome": "realised binary Share",
+      "candidate_families": [
+        {
+          "id": "AP-A",
+          "role": "CURRENT_M0_REFERENCE_CANDIDATE",
+          "expression": "u = bias + W*(2B-1) + beta_reward*(1-W)*R",
+          "interpretation": "Current complement-interaction model: accuracy salience increases belief sensitivity while attenuating reward sensitivity."
+        },
+        {
+          "id": "AP-B",
+          "role": "SYNTHETIC_COMPARATOR",
+          "expression": "u = bias + beta_b*(2B-1) + beta_a*A + beta_r*R",
+          "interpretation": "Additive comparator without forced accuracy-reward trade-off."
+        },
+        {
+          "id": "AP-C",
+          "role": "SYNTHETIC_COMPARATOR",
+          "expression": "u = bias + beta_b*(2B-1) + beta_a*A + beta_r*R + beta_ab*A*(2B-1) + beta_ar*A*R",
+          "interpretation": "Flexible interaction comparator with independently estimable accuracy×belief and accuracy×reward interactions."
+        }
+      ],
+      "synthetic_factor_grid": {
+        "belief_B": [
+          0.2,
+          0.5,
+          0.8
+        ],
+        "accuracy_cue_A": [
+          0,
+          1
+        ],
+        "reward_context_R": [
+          -1,
+          0,
+          1
+        ],
+        "accuracy_baseline_fixed": 0.5
+      },
+      "effect_regimes": [
+        "WEAK",
+        "MODERATE",
+        "STRONG"
+      ],
+      "required_discrimination": [
+        "current complement interaction versus additive action model",
+        "current constrained interaction versus flexible interaction surface",
+        "null or near-null interaction stress conditions"
+      ]
+    }
+  },
+  "crossed_random_effects": {
+    "required": true,
+    "participant_random_intercept": true,
+    "item_random_intercept": true,
+    "participant_random_slope_scenarios_required": true,
+    "item_random_slope_scenarios_required": true,
+    "interpretation": "Recovery must be tested under participant and item heterogeneity rather than only homogeneous Bernoulli observations."
+  },
+  "design_search": {
+    "status": "DESIGN_SEARCH_ONLY_NOT_HUMAN_N",
+    "participant_count_grid": [
+      96,
+      192,
+      384
+    ],
+    "item_count_grid": [
+      36,
+      72,
+      144
+    ],
+    "missingness_rate_grid": [
+      0,
+      0.1,
+      0.2
+    ],
+    "replicates_per_cell": 200,
+    "seed": 20260925,
+    "weak_moderate_strong_separation_required": true,
+    "human_sample_size_frozen": false,
+    "participant_item_joint_search_required": true
+  },
+  "selection_rule": {
+    "in_sample_complexity_adjusted_diagnostic_required": true,
+    "held_out_predictive_diagnostic_required": true,
+    "forced_winner_allowed": false,
+    "decision": "SELECT only when both prospectively declared diagnostics favor the same candidate family; otherwise INCONCLUSIVE.",
+    "held_out_participant_generalization_required": true,
+    "held_out_item_generalization_required": true
+  },
+  "recovery_outputs": [
+    "correct-model recovery probability",
+    "wrong-model probability",
+    "inconclusive probability",
+    "confusion counts",
+    "fit/convergence failure count",
+    "boundary/singular-fit diagnostics",
+    "held-out predictive diagnostic",
+    "in-sample complexity-adjusted diagnostic",
+    "parameter-recovery diagnostics where scientifically interpreted",
+    "runtime/computational diagnostics"
+  ],
+  "recovery_gate": {
+    "minimum_correct_model_recovery_probability_each_declared_core_cell": 0.8,
+    "threshold_status": "CBD_SYNTHETIC_DESIGN_CONVENTION",
+    "wrong_model_probability_must_be_reported_separately": true,
+    "stress_cells_are_non_gating": true,
+    "authoritative_core_cells_not_yet_frozen": true,
+    "automatic_scientific_promotion_allowed": false
+  },
+  "provenance_contract": {
+    "deterministic_seed_required": true,
+    "config_sha256_required": true,
+    "contract_sha256_required": true,
+    "source_commit_required": true,
+    "authoritative_flag_required": true,
+    "debug_override_must_mark_result_non_authoritative": true,
+    "exact_candidate_set_required": true,
+    "exact_selection_rule_required": true
+  },
+  "prehuman_gate": {
+    "recovery_engine_required_before_human_design": true,
+    "smoke_and_known_answer_tests_required": true,
+    "model_recovery_required_before_power_claim": true,
+    "simulation_based_power_required": true,
+    "participant_item_design_must_be_jointly_searched": true,
+    "measurement_reactivity_contract_must_be_integrated": true,
+    "human_n_may_be_frozen_now": false,
+    "participant_recruitment_allowed": false
+  },
+  "interpretation_boundary": [
+    "Passing synthetic model recovery would show only that the declared candidate mechanisms are distinguishable under the simulated design and fitting pipeline.",
+    "The participant and item grids are design-search values, not approved human sample sizes.",
+    "No candidate family becomes a true human mechanism merely because it is recoverable from synthetic data.",
+    "The current M0 source_weight(T)=2T-1 remains a testable reference candidate and is not promoted by this contract.",
+    "No F1b runtime event, EncounterContext, DecisionOpportunityEvent, or M0 equation change is authorized."
+  ],
+  "method_basis": [
+    {
+      "id": "METHOD.WILSON_COLLINS.2019",
+      "doi": "10.7554/eLife.49547",
+      "role": "pre-data parameter and model recovery for computational behavioral models"
+    },
+    {
+      "id": "METHOD.WESTFALL_JUDD_KENNY.2014",
+      "doi": "10.1037/xge0000014",
+      "role": "participant-by-stimulus power and optimal design with crossed random factors"
+    },
+    {
+      "id": "METHOD.CPM.2026",
+      "doi": "10.1371/journal.pcbi.1014481",
+      "role": "pre-data parameter/model recovery workflow in computational modeling"
+    },
+    {
+      "id": "METHOD.HARVARD_POWERSIM.2026",
+      "url": "https://iqss.github.io/dss-powersim/index.html",
+      "role": "simulation-based power analysis workflow for mixed-effects designs"
+    }
+  ]
+}

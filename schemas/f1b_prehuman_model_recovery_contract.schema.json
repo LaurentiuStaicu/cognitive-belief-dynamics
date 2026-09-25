@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/f1b_prehuman_model_recovery_contract.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "feedback_family",
+    "issue",
+    "parent_issue",
+    "purpose",
+    "baseline",
+    "scope",
+    "recovery_problems",
+    "crossed_random_effects",
+    "design_search",
+    "selection_rule",
+    "recovery_outputs",
+    "recovery_gate",
+    "provenance_contract",
+    "prehuman_gate",
+    "interpretation_boundary",
+    "method_basis"
+  ],
+  "properties": {
+    "id": {
+      "const": "CONTRACT.F1B.PREHUMAN_MODEL_RECOVERY.2026-09-25"
+    },
+    "status": {
+      "const": "PROSPECTIVE_SYNTHETIC_MODEL_RECOVERY_DESIGN"
+    },
+    "feedback_family": {
+      "const": "F1b"
+    },
+    "issue": {
+      "const": 126
+    },
+    "parent_issue": {
+      "const": 125
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 100
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "main_commit",
+        "f1a_stage",
+        "f1b_stage"
+      ],
+      "properties": {
+        "main_commit": {
+          "const": "0e3423035c32f2285e7a430df69a6788de068fd5"
+        },
+        "f1a_stage": {
+          "const": "RECOVERY_TESTED"
+        },
+        "f1b_stage": {
+          "const": "CONCEPTUAL / CONTRACT_REQUIRED"
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "specification_only",
+        "recovery_engine_allowed_in_this_change",
+        "runtime_f1b_change_allowed",
+        "m0_equation_change_allowed",
+        "human_recruitment_allowed",
+        "human_data_collection_allowed",
+        "empirical_parameter_calibration_allowed"
+      ],
+      "properties": {
+        "specification_only": {
+          "const": true
+        },
+        "recovery_engine_allowed_in_this_change": {
+          "const": false
+        },
+        "runtime_f1b_change_allowed": {
+          "const": false
+        },
+        "m0_equation_change_allowed": {
+          "const": false
+        },
+        "human_recruitment_allowed": {
+          "const": false
+        },
+        "human_data_collection_allowed": {
+          "const": false
+        },
+        "empirical_parameter_calibration_allowed": {
+          "const": false
+        }
+      }
+    },
+    "recovery_problems": {
+      "type": "object",
+      "required": [
+        "R1",
+        "R2"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "R1": {
+          "type": "object"
+        },
+        "R2": {
+          "type": "object"
+        }
+      }
+    },
+    "crossed_random_effects": {
+      "type": "object"
+    },
+    "design_search": {
+      "type": "object"
+    },
+    "selection_rule": {
+      "type": "object"
+    },
+    "recovery_outputs": {
+      "type": "array",
+      "minItems": 10,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "recovery_gate": {
+      "type": "object"
+    },
+    "provenance_contract": {
+      "type": "object"
+    },
+    "prehuman_gate": {
+      "type": "object"
+    },
+    "interpretation_boundary": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string",
+        "minLength": 40
+      }
+    },
+    "method_basis": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "role"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^METHOD\\.[A-Z0-9_.-]+$"
+          },
+          "doi": {
+            "type": "string",
+            "pattern": "^10\\.\\d{4,9}/\\S+$"
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://\\S+$"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 30
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "doi"
+            ]
+          },
+          {
+            "required": [
+              "url"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
