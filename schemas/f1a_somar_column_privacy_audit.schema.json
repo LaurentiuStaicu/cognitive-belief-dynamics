@@ -645,7 +645,20 @@
         "retired_oai_continuity_statement",
         "retired_oai_continuity_guarantee_covers_audit_date",
         "retired_oai_target_300470_payload_recovered_through_audited_surface",
-        "retired_oai_reliable_current_fallback"
+        "retired_oai_reliable_current_fallback",
+        "retired_oai_getrecord_target_studies_attempted",
+        "retired_oai_getrecord_formats_attempted",
+        "retired_oai_getrecord_payloads_obtained",
+        "retired_oai_getrecord_failure_interpretable_as_record_absence",
+        "retired_ddi_bulk_archive_url",
+        "retired_ddi_bulk_archive_officially_linked",
+        "retired_ddi_bulk_archive_description",
+        "retired_ddi_bulk_archive_fetch_attempted_on",
+        "retired_ddi_bulk_archive_payload_inspected",
+        "retired_ddi_bulk_archive_fetch_result",
+        "retired_ddi_bulk_archive_noninspection_interpretable_as_absence",
+        "retired_ddi_bulk_archive_potential_role",
+        "retired_ddi_bulk_archive_sufficient_for_variable_dictionary_gate"
       ],
       "properties": {
         "verified_on": {
@@ -748,6 +761,51 @@
           "const": false
         },
         "retired_oai_reliable_current_fallback": {
+          "const": false
+        },
+        "retired_oai_getrecord_target_studies_attempted": {
+          "const": [
+            "300450",
+            "300470"
+          ]
+        },
+        "retired_oai_getrecord_formats_attempted": {
+          "const": [
+            "oai_dc",
+            "oai_ddi25"
+          ]
+        },
+        "retired_oai_getrecord_payloads_obtained": {
+          "const": false
+        },
+        "retired_oai_getrecord_failure_interpretable_as_record_absence": {
+          "const": false
+        },
+        "retired_ddi_bulk_archive_url": {
+          "const": "https://www.icpsr.umich.edu/files/ICPSR/or/metadata/xml/abstracts.tar.gz"
+        },
+        "retired_ddi_bulk_archive_officially_linked": {
+          "const": true
+        },
+        "retired_ddi_bulk_archive_description": {
+          "const": "MONTHLY_COMPRESSED_8000_PLUS_DDI_XML_STUDY_RECORDS"
+        },
+        "retired_ddi_bulk_archive_fetch_attempted_on": {
+          "const": "2026-09-25"
+        },
+        "retired_ddi_bulk_archive_payload_inspected": {
+          "const": false
+        },
+        "retired_ddi_bulk_archive_fetch_result": {
+          "const": "BINARY_CONTENT_DISCOVERED_TOOLING_CANNOT_RENDER_OR_DOWNLOAD"
+        },
+        "retired_ddi_bulk_archive_noninspection_interpretable_as_absence": {
+          "const": false
+        },
+        "retired_ddi_bulk_archive_potential_role": {
+          "const": "STUDY_METADATA_IDENTITY_AND_PROVENANCE_ONLY"
+        },
+        "retired_ddi_bulk_archive_sufficient_for_variable_dictionary_gate": {
           "const": false
         }
       }

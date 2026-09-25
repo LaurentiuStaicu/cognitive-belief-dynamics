@@ -234,6 +234,14 @@ The older OAI-PMH/DDI endpoint at `https://pcms.icpsr.umich.edu/pcms/api/1.0/oai
 Official retired-service source:
 - https://www.icpsr.umich.edu/sites/icpsr/about/repository-operations/accessing-metadata/retired-metadata-export
 
+The same official retired-service page exposes two additional reproducible metadata paths. First, it documents exact OAI `GetRecord` construction and identifies the study number itself as the record identifier; controlled probes for **300450** and **300470** were attempted with both `oai_dc` and `oai_ddi25`. The audited web surface could not retrieve those endpoint payloads. That failure is recorded as a retrieval/tooling result, not as evidence that either metadata record is absent.
+
+Second, the page links a monthly compressed archive of **8,000+ DDI XML study records** at:
+
+`https://www.icpsr.umich.edu/files/ICPSR/or/metadata/xml/abstracts.tar.gz`
+
+The official link was resolved successfully on 2026-09-25, but the audited web surface reports the target as binary `application/x-gzip` content and cannot render or inspect the archive; the local execution surface also could not download it. The archive is therefore classified as **officially located but contents uninspected**. It remains potentially useful for study-level identity/provenance if obtained and inspected, but it is not a substitute for the current 300450/300470 Data Dictionary files and does not pass the variable-dictionary gate.
+
 All of these metadata routes operate at the study/collection metadata level. They do **not** substitute for the public Data & Documentation files required by this gate. Collection metadata may help establish title, identifier, DOI/version and other provenance, but it cannot by itself establish the physical data-dictionary fields or the release-specific disclosure semantics required for `r_view`.
 
 The current automated surface still does not expose the individual-study metadata export payload for 300470, the batch API cannot be queried here without API credentials, and the retired OAI continuity statement no longer covers the 2026-09-25 audit date. No additional 300470 DOI/version or variable information is inferred from these routes.

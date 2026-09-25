@@ -336,7 +336,26 @@
     "retired_oai_continuity_statement": "AVAILABLE_UNTIL_AT_LEAST_2026-08",
     "retired_oai_continuity_guarantee_covers_audit_date": false,
     "retired_oai_target_300470_payload_recovered_through_audited_surface": false,
-    "retired_oai_reliable_current_fallback": false
+    "retired_oai_reliable_current_fallback": false,
+    "retired_oai_getrecord_target_studies_attempted": [
+      "300450",
+      "300470"
+    ],
+    "retired_oai_getrecord_formats_attempted": [
+      "oai_dc",
+      "oai_ddi25"
+    ],
+    "retired_oai_getrecord_payloads_obtained": false,
+    "retired_oai_getrecord_failure_interpretable_as_record_absence": false,
+    "retired_ddi_bulk_archive_url": "https://www.icpsr.umich.edu/files/ICPSR/or/metadata/xml/abstracts.tar.gz",
+    "retired_ddi_bulk_archive_officially_linked": true,
+    "retired_ddi_bulk_archive_description": "MONTHLY_COMPRESSED_8000_PLUS_DDI_XML_STUDY_RECORDS",
+    "retired_ddi_bulk_archive_fetch_attempted_on": "2026-09-25",
+    "retired_ddi_bulk_archive_payload_inspected": false,
+    "retired_ddi_bulk_archive_fetch_result": "BINARY_CONTENT_DISCOVERED_TOOLING_CANNOT_RENDER_OR_DOWNLOAD",
+    "retired_ddi_bulk_archive_noninspection_interpretable_as_absence": false,
+    "retired_ddi_bulk_archive_potential_role": "STUDY_METADATA_IDENTITY_AND_PROVENANCE_ONLY",
+    "retired_ddi_bulk_archive_sufficient_for_variable_dictionary_gate": false
   },
   "icpsr_indexed_documentation_discovery": {
     "verified_on": "2026-09-24",

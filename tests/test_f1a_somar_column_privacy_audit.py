@@ -197,6 +197,19 @@ def test_current_metadata_routes_replace_retired_oai_path() -> None:
     assert route["retired_oai_continuity_guarantee_covers_audit_date"] is False
     assert route["retired_oai_target_300470_payload_recovered_through_audited_surface"] is False
     assert route["retired_oai_reliable_current_fallback"] is False
+    assert route["retired_oai_getrecord_target_studies_attempted"] == ["300450", "300470"]
+    assert route["retired_oai_getrecord_formats_attempted"] == ["oai_dc", "oai_ddi25"]
+    assert route["retired_oai_getrecord_payloads_obtained"] is False
+    assert route["retired_oai_getrecord_failure_interpretable_as_record_absence"] is False
+    assert route["retired_ddi_bulk_archive_url"] == "https://www.icpsr.umich.edu/files/ICPSR/or/metadata/xml/abstracts.tar.gz"
+    assert route["retired_ddi_bulk_archive_officially_linked"] is True
+    assert route["retired_ddi_bulk_archive_description"] == "MONTHLY_COMPRESSED_8000_PLUS_DDI_XML_STUDY_RECORDS"
+    assert route["retired_ddi_bulk_archive_fetch_attempted_on"] == "2026-09-25"
+    assert route["retired_ddi_bulk_archive_payload_inspected"] is False
+    assert route["retired_ddi_bulk_archive_fetch_result"] == "BINARY_CONTENT_DISCOVERED_TOOLING_CANNOT_RENDER_OR_DOWNLOAD"
+    assert route["retired_ddi_bulk_archive_noninspection_interpretable_as_absence"] is False
+    assert route["retired_ddi_bulk_archive_potential_role"] == "STUDY_METADATA_IDENTITY_AND_PROVENANCE_ONLY"
+    assert route["retired_ddi_bulk_archive_sufficient_for_variable_dictionary_gate"] is False
     assert any("older OAI-PMH/DDI endpoint is retired" in x for x in audit["interpretation_boundary"])
 
 
