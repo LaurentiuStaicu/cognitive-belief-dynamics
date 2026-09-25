@@ -1,0 +1,121 @@
+{
+  "characterization_id": "F1B.R1.HIGH_REPLICATE_CHARACTERIZATION.2026-09-25",
+  "status": "NON_AUTHORITATIVE_R1_HIGH_REPLICATE_DESIGN",
+  "seed": 20260925,
+  "replicates_per_cell": 200,
+  "separation_regimes": [
+    "WEAK",
+    "MODERATE",
+    "STRONG"
+  ],
+  "missingness_rates": [
+    0,
+    0.15
+  ],
+  "hierarchical_scale_multipliers": [
+    0.5,
+    1,
+    2
+  ],
+  "R1": {
+    "participants": 24,
+    "items": 24,
+    "reliability_T": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "signed_evidence_E": [
+      -1,
+      -0.5,
+      0.5,
+      1
+    ],
+    "tau_grid": [
+      0.4,
+      0.5,
+      0.6
+    ],
+    "generator_random_effects": {
+      "participant_intercept_sd": 0.2,
+      "item_intercept_sd": 0.2,
+      "participant_slope_sd": 0.1,
+      "item_slope_sd": 0.1
+    },
+    "generator_regimes": {
+      "WEAK": {
+        "SR-A": {
+          "intercept": 0,
+          "evidence_scale": 0.45,
+          "noise_sd": 0.75
+        },
+        "SR-B": {
+          "intercept": 0,
+          "evidence_scale": 0.45,
+          "noise_sd": 0.75
+        },
+        "SR-C": {
+          "intercept": 0,
+          "evidence_scale": 0.45,
+          "noise_sd": 0.75,
+          "tau": 0.5
+        }
+      },
+      "MODERATE": {
+        "SR-A": {
+          "intercept": 0,
+          "evidence_scale": 0.9,
+          "noise_sd": 0.65
+        },
+        "SR-B": {
+          "intercept": 0,
+          "evidence_scale": 0.9,
+          "noise_sd": 0.65
+        },
+        "SR-C": {
+          "intercept": 0,
+          "evidence_scale": 0.9,
+          "noise_sd": 0.65,
+          "tau": 0.5
+        }
+      },
+      "STRONG": {
+        "SR-A": {
+          "intercept": 0,
+          "evidence_scale": 1.35,
+          "noise_sd": 0.55
+        },
+        "SR-B": {
+          "intercept": 0,
+          "evidence_scale": 1.35,
+          "noise_sd": 0.55
+        },
+        "SR-C": {
+          "intercept": 0,
+          "evidence_scale": 1.35,
+          "noise_sd": 0.55,
+          "tau": 0.5
+        }
+      }
+    }
+  },
+  "design_eligibility": {
+    "scope": "STRONG_CELLS_ONLY",
+    "strong_point_recovery_minimum": 0.8,
+    "strong_recovery_wilson_lower_minimum": 0.7,
+    "wrong_probability_maximum": 0.05,
+    "fit_failure_probability_maximum": 0.01,
+    "status": "PROSPECTIVE_DESIGN_ELIGIBILITY_NOT_SCIENTIFIC_PROMOTION"
+  },
+  "uncertainty": {
+    "interval": "WILSON_95_MARGINAL_BINOMIAL",
+    "simultaneous_familywise_coverage_claimed": false
+  },
+  "execution_boundary": {
+    "authoritative_run_allowed": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
