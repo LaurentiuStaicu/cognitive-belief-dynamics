@@ -1,0 +1,148 @@
+{
+  "id": "CONTRACT.F1B.R2.STRUCTURAL_RESTRICTION_RECOVERY.2026-09-25",
+  "status": "PROSPECTIVE_STRUCTURAL_RESTRICTION_RECOVERY_DESIGN",
+  "issue": 134,
+  "parent_issues": [
+    125,
+    130
+  ],
+  "baseline_main_commit": "938f72789e883ff5e98c4edc58ffbf3ced84fc93",
+  "purpose": "Replace invalid nested-family classification for the F1b R2 action-policy problem with prospective recovery of explicit structural restrictions inside an encompassing flexible action surface.",
+  "scope": {
+    "design_only": true,
+    "recovery_engine_allowed_in_this_change": false,
+    "authoritative_run_allowed": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "human_data_collection_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "m0_equation_change_allowed": false
+  },
+  "encompassing_surface": {
+    "id": "AP-GENERAL",
+    "equation": "u = b + beta_b*(2B-1) + beta_a*A + beta_r*R + beta_ab*A*(2B-1) + beta_ar*A*R",
+    "accuracy_cue_levels": [
+      0,
+      1
+    ],
+    "outcome": "realised binary Share through logistic(u)"
+  },
+  "restrictions": {
+    "additive": {
+      "id": "ADD_RESTRICTION",
+      "equations": [
+        "beta_ab = 0",
+        "beta_ar = 0"
+      ],
+      "interpretation": "No accuracy-by-belief or accuracy-by-reward interaction in the encompassing surface."
+    },
+    "cbd_complement": {
+      "id": "CBD_COMPLEMENT_RESTRICTION",
+      "equations": [
+        "beta_a = 0",
+        "beta_ar*(1-beta_b) + beta_r*beta_ab = 0"
+      ],
+      "bounds": [
+        "0 < beta_b < 1",
+        "0 < beta_b + beta_ab < 1"
+      ],
+      "implied_mapping": [
+        "W0 = beta_b",
+        "W1 = beta_b + beta_ab",
+        "accuracy_baseline = W0",
+        "beta_accuracy_cue = logit(W1) - logit(W0)",
+        "beta_reward = beta_r/(1-W0)",
+        "sharing_bias = b"
+      ],
+      "interpretation": "Exact observable-surface restriction implied by the current CBD complement action equation for binary accuracy cue."
+    }
+  },
+  "nesting_statement": {
+    "ap_b_nested_in_general": true,
+    "ap_a_nested_in_general_for_binary_accuracy_cue": true,
+    "exclusive_family_classification_authorized": false,
+    "reason": "The flexible AP-GENERAL surface can exactly reproduce AP-B and the current CBD AP-A surface, so held-out prediction need not uniquely identify one nested label."
+  },
+  "departure_design": {
+    "primary_distance": "RMS_UTILITY_DISTANCE_TO_NEAREST_RESTRICTED_SURFACE",
+    "design_cells": {
+      "belief_B": [
+        0.2,
+        0.5,
+        0.8
+      ],
+      "accuracy_cue_A": [
+        0,
+        1
+      ],
+      "reward_context_R": [
+        -1,
+        0,
+        1
+      ]
+    },
+    "candidate_distance_grid_logit_units": [
+      0.1,
+      0.25,
+      0.5
+    ],
+    "distance_grid_status": "DESIGN_SEARCH_VALUES_NOT_GATES",
+    "violation_axes": [
+      "STANDALONE_ACCURACY_MAIN_EFFECT",
+      "COMPLEMENT_RELATION_VIOLATION",
+      "COMBINED_VIOLATION"
+    ],
+    "requirement": "Weak/moderate/strong departures must be generated at prospectively controlled utility-space distance from the CBD restricted manifold, not only by arbitrary coefficient perturbation."
+  },
+  "test_procedure": {
+    "primary_method": "SIMULATION_CALIBRATED_RESTRICTION_TEST",
+    "fit_pair": "RESTRICTED_AND_ENCOMPASSING_WITH_IDENTICAL_RANDOM_EFFECT_STRUCTURE",
+    "statistic": "PENALIZED_OBJECTIVE_IMPROVEMENT",
+    "asymptotic_chi_square_assumed": false,
+    "parametric_bootstrap_required": true,
+    "nominal_false_rejection_rate": 0.05,
+    "calibration_draws_must_be_independent_of_evaluation_draws": true,
+    "held_out_prediction_role": "SECONDARY_GENERALIZATION_DIAGNOSTIC",
+    "no_unique_winner_required": true
+  },
+  "required_outcomes": [
+    "CBD_RESTRICTION_REJECTED_OR_NOT_REJECTED",
+    "ADD_RESTRICTION_REJECTED_OR_NOT_REJECTED",
+    "FIT_FAILURE",
+    "BOOTSTRAP_CALIBRATION_FAILURE"
+  ],
+  "recovery_metrics": [
+    "false-rejection probability under each restriction null",
+    "detection probability by departure distance and violation axis",
+    "false-acceptance probability",
+    "fit/calibration failure probability",
+    "held-out participant predictive delta",
+    "held-out item predictive delta"
+  ],
+  "random_effects": {
+    "participant_random_intercept": true,
+    "item_random_intercept": true,
+    "participant_reward_slope": true,
+    "item_reward_slope": true,
+    "variance_misspecification_sensitivity_required": true
+  },
+  "interpretation_boundary": [
+    "Failure to reject a restriction is not proof that the restriction is the true human mechanism.",
+    "Both ADD and CBD restrictions may be simultaneously not rejected when the generated or observed surface lies near their intersection.",
+    "Rejecting both restrictions supports only departure from those declared structures, not a unique alternative psychological mechanism.",
+    "The candidate distance grid is for design search and is not an empirical effect-size calibration.",
+    "No result from this contract authorizes human recruitment, F1b runtime activation, or an M0 equation change."
+  ],
+  "method_basis": [
+    {
+      "id": "METHOD.MODEL_RECOVERY.NESTED.2024",
+      "doi": "10.1371/journal.pcbi.1012119",
+      "role": "Nested candidate models can be difficult to identify; parameter ranges can make restricted and flexible models effectively indistinguishable."
+    },
+    {
+      "id": "METHOD.BOOTSTRAP.MIXED.MODELS",
+      "url": "https://search.r-project.org/CRAN/refmans/DHARMa/html/simulateLRT.html",
+      "role": "Simulation-calibrated likelihood-ratio testing is used for nested mixed models when standard reference distributions are unreliable."
+    }
+  ]
+}
