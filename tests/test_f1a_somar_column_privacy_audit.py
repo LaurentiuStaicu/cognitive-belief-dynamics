@@ -357,6 +357,41 @@ def test_manual_browser_codebook_route_is_explicit_and_noninferential() -> None:
     assert "does **not** pass the variable-dictionary gate" in text
 
 
+def test_manual_retrieval_evidence_protocol_is_strict_and_noninferential() -> None:
+    audit = load(CONTRACT)
+    p = audit["manual_retrieval_evidence_protocol"]
+
+    assert p["verified_on"] == "2026-09-25"
+    assert p["target_studies"] == ["300450", "300470"]
+    assert p["current_execution_status"] == "READY_NOT_EXECUTED"
+    assert p["manual_browser_execution_required"] is True
+    assert p["support_escalation_send_authorized"] is False
+    assert p["pass_requires_both_current_release_artifacts"] is True
+    assert p["pass_requires_exact_physical_count_fields"] is True
+    assert p["pass_requires_pairing_key_semantics"] is True
+    assert p["pass_requires_aggregation_and_deduplication_semantics"] is True
+    assert p["pass_requires_disclosure_or_suppression_semantics"] is True
+    assert p["pass_requires_absent_row_and_zero_semantics"] is True
+    assert p["pass_requires_shared_inventory_compatibility_or_explicit_prospective_rule"] is True
+    assert p["incomplete_or_ambiguous_evidence_keeps_gate_blocked"] is True
+    assert p["protocol_completion_alone_authorizes_empirical_promotion"] is False
+    assert p["protocol_completion_alone_authorizes_numerical_calculation"] is False
+    assert "ICPSR_300450_PHYSICAL_POTENTIAL_AUDIENCE_COUNT_FIELD" in p["required_field_level_evidence"]
+    assert "ICPSR_300470_PHYSICAL_AUDIENCE_SIZE_COUNT_FIELD" in p["required_field_level_evidence"]
+    assert "ABSENT_ROW_SEMANTICS" in p["required_field_level_evidence"]
+    assert "ZERO_EXPOSURE_REPRESENTATION" in p["required_field_level_evidence"]
+    assert "CATALOG_LABEL_MATCH_ONLY" in p["insufficient_evidence"]
+    assert "INFERRED_COLUMN_NAME" in p["insufficient_evidence"]
+    assert "DEFAULT_INNER_JOIN_WITHOUT_DOCUMENTED_ROW_UNIVERSE_COMPATIBILITY" in p["insufficient_evidence"]
+    assert audit["numerical_calculation_authorized"] is False
+    assert audit["empirical_promotion_authorized"] is False
+
+    text = DOC.read_text(encoding="utf-8")
+    assert "Manual retrieval evidence protocol" in text
+    assert "A label match" in text
+    assert "does not itself authorize empirical promotion" in text
+
+
 def test_icpsr_public_data_facet_does_not_override_restriction_state() -> None:
     audit = load(CONTRACT)
     state = audit["icpsr_search_access_interpretation"]

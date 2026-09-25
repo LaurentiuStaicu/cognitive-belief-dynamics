@@ -1079,5 +1079,62 @@
     "scientific_gate_changed": false,
     "role": "CURRENT_STUDY_PAGE_LIVE_RENDERING_LIMITATION_RECORDED",
     "interpretation": "On 2026-09-25, direct retrieval of both current ICPSR study pages 300450 and 300470 exposed only the client-side shell through the audited web surface. The SOMAR catalog still exposes both target study descriptions. A subsequent exact current indexed search re-recovered the official 300450 V2 DOI/data-dictionary block, independently reconfirming that evidence; no equivalent 300470 DOI/dictionary block was recovered. The direct-page shell behavior is therefore a rendering limitation and does not invalidate the 300450 evidence. For 300470, the live rendering limitation remains non-evidentiary and cannot be treated as documentation absence."
+  },
+  "manual_retrieval_evidence_protocol": {
+    "verified_on": "2026-09-25",
+    "official_navigation_source": "https://www.icpsr.umich.edu/sites/icpsr/teaching-learning/teach-with-data/navigating-restricted-data/how-do-i-know",
+    "somar_public_documentation_source": "https://www.icpsr.umich.edu/sites/somar/research-lifecycle",
+    "purpose": "REPRODUCIBLE_CURRENT_RELEASE_DOCUMENTATION_CAPTURE_FOR_R_VIEW_GATE",
+    "target_studies": [
+      "300450",
+      "300470"
+    ],
+    "required_per_study_capture": [
+      "CURRENT_CANONICAL_STUDY_PAGE",
+      "CURRENT_COLLECTION_VERSION",
+      "CURRENT_VERSION_SPECIFIC_DOI",
+      "DATA_AND_DOCUMENTATION_DATASET_LABEL",
+      "DOCUMENTATION_ARTIFACT_TITLE",
+      "DOCUMENTATION_ARTIFACT_TYPE",
+      "DOCUMENTATION_ARTIFACT_CANONICAL_OR_DIRECT_URL",
+      "CURRENT_RELEASE_LINKAGE_EVIDENCE",
+      "RETRIEVAL_DATE"
+    ],
+    "required_field_level_evidence": [
+      "PHYSICAL_URL_OR_PAIRING_KEY",
+      "PHYSICAL_POST_OWNER_OR_TYPE_KEY_IF_PRESENT",
+      "ICPSR_300450_PHYSICAL_POTENTIAL_AUDIENCE_COUNT_FIELD",
+      "ICPSR_300470_PHYSICAL_AUDIENCE_SIZE_COUNT_FIELD",
+      "TARGET_COUNT_AGGREGATION_SEMANTICS",
+      "TARGET_COUNT_DEDUPLICATION_SEMANTICS",
+      "DISCLOSURE_OR_SUPPRESSION_RULES",
+      "ROW_INCLUSION_OR_ELIGIBILITY_RULES",
+      "MISSING_VALUE_SEMANTICS",
+      "ABSENT_ROW_SEMANTICS",
+      "ZERO_EXPOSURE_REPRESENTATION",
+      "CURRENT_RELEASE_SHARED_ELIGIBLE_INVENTORY_RELATION_IF_DOCUMENTED"
+    ],
+    "insufficient_evidence": [
+      "CATALOG_LABEL_MATCH_ONLY",
+      "LEGACY_FILE_TITLE_MATCH_WITHOUT_CURRENT_RELEASE_LINKAGE",
+      "INFERRED_COLUMN_NAME",
+      "VERSION_INFERRED_FROM_NEIGHBORING_STUDY",
+      "ABSENT_EXPOSURE_ROW_ASSUMED_ZERO_WITHOUT_DOCUMENTATION",
+      "DEFAULT_INNER_JOIN_WITHOUT_DOCUMENTED_ROW_UNIVERSE_COMPATIBILITY"
+    ],
+    "pass_requires_both_current_release_artifacts": true,
+    "pass_requires_exact_physical_count_fields": true,
+    "pass_requires_pairing_key_semantics": true,
+    "pass_requires_aggregation_and_deduplication_semantics": true,
+    "pass_requires_disclosure_or_suppression_semantics": true,
+    "pass_requires_absent_row_and_zero_semantics": true,
+    "pass_requires_shared_inventory_compatibility_or_explicit_prospective_rule": true,
+    "incomplete_or_ambiguous_evidence_keeps_gate_blocked": true,
+    "protocol_completion_alone_authorizes_empirical_promotion": false,
+    "protocol_completion_alone_authorizes_numerical_calculation": false,
+    "current_execution_status": "READY_NOT_EXECUTED",
+    "manual_browser_execution_required": true,
+    "support_escalation_send_authorized": false,
+    "interpretation": "This protocol freezes the exact evidence that must be captured from current ICPSR Data & Documentation before the F1a r_view candidate can be mapped to physical release fields. It separates file discovery and current-version linkage from field-level semantics. Missing, ambiguous, legacy-only or inferred evidence keeps the numerical gate blocked. Completing the capture only permits a subsequent scientific compatibility decision; it does not automatically authorize calculation or empirical promotion."
   }
 }

@@ -356,6 +356,36 @@ That result is deliberately narrower than saying the manual route failed. The do
 
 This route does **not** pass the variable-dictionary gate by itself. The current 300450 and 300470 dataset-file listings and exact dictionary contents still have to be recovered, inspected, and tied to their current collection versions before any physical field can be frozen or any ratio calculated.
 
+### Manual retrieval evidence protocol
+
+The remaining browser step is now frozen as a reproducible evidence-capture protocol rather than an informal navigation instruction. ICPSR guidance says the codebook is accessed from the **Data & Documentation** tab by opening the arrow/dropdown next to the dataset, while SOMAR states that codebooks and documentation for restricted-use, Controlled Download and VDE datasets are publicly downloadable before an application is submitted.
+
+For **each** target study, the manual retrieval record must capture:
+
+- canonical current study page and study number;
+- current collection version and version-specific DOI as displayed by ICPSR;
+- Data & Documentation dataset label;
+- documentation artifact title, type and direct/canonical URL;
+- enough file identity to distinguish the retrieved artifact from legacy SOMAR copies;
+- retrieval date and the evidence source used to bind the artifact to the current collection.
+
+For the field-level gate, the retrieved documentation must then expose or unambiguously define:
+
+- the physical URL/pairing key or keys;
+- the physical post-owner/type key if present;
+- the physical **potential audience** count field for 300450;
+- the physical **audience size** count field for 300470;
+- aggregation and deduplication semantics for those count fields;
+- disclosure/suppression rules;
+- row-inclusion/eligibility rules;
+- missing-value and absent-row semantics;
+- whether zero exposure is represented as a row with zero, an absent row, another encoding, or is undocumented;
+- any explicit current-release relationship establishing that numerator and denominator refer to a compatible eligible inventory.
+
+A label match such as “potential audience size” or “audience size” is insufficient by itself. A legacy file with a matching title is also insufficient without current-release linkage. The gate remains negative if any required item needed for safe pairing is absent, ambiguous, or only inferable.
+
+Passing this protocol does not itself authorize empirical promotion. It only supplies the evidence needed to decide whether the existing r_view = exposed_audience / potential_audience candidate can be mapped to current physical release fields under compatible row-universe, counting and disclosure semantics.
+
 #
 ## Scope correction: deleted-Page potential-audience rule
 
