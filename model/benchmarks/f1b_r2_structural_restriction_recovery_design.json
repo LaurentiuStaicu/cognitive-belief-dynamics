@@ -1,0 +1,41 @@
+{
+  "design_id": "F1B.R2.STRUCTURAL_RESTRICTION_RECOVERY.DESIGN.2026-09-25",
+  "status": "PROSPECTIVE_DESIGN_NO_ENGINE",
+  "seed": 20260925,
+  "belief_B": [
+    0.2,
+    0.5,
+    0.8
+  ],
+  "accuracy_cue_A": [
+    0,
+    1
+  ],
+  "reward_context_R": [
+    -1,
+    0,
+    1
+  ],
+  "candidate_distance_grid_logit_units": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "violation_axes": [
+    "STANDALONE_ACCURACY_MAIN_EFFECT",
+    "COMPLEMENT_RELATION_VIOLATION",
+    "COMBINED_VIOLATION"
+  ],
+  "nominal_false_rejection_rate": 0.05,
+  "bootstrap_calibration_draws_frozen": false,
+  "evaluation_replicates_frozen": false,
+  "participant_item_grid_frozen": false,
+  "inference_method_status": "PENALIZED_PROTOTYPE_REQUIRES_BOOTSTRAP_CHARACTERIZATION",
+  "execution_boundary": {
+    "recovery_engine_present": false,
+    "authoritative_run_allowed": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}

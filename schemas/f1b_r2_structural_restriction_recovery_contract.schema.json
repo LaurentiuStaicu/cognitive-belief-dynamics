@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/f1b_r2_structural_restriction_recovery_contract.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "status",
+    "issue",
+    "parent_issues",
+    "baseline_main_commit",
+    "purpose",
+    "scope",
+    "encompassing_surface",
+    "restrictions",
+    "nesting_statement",
+    "departure_design",
+    "test_procedure",
+    "required_outcomes",
+    "recovery_metrics",
+    "random_effects",
+    "interpretation_boundary",
+    "method_basis"
+  ],
+  "properties": {
+    "id": {
+      "const": "CONTRACT.F1B.R2.STRUCTURAL_RESTRICTION_RECOVERY.2026-09-25"
+    },
+    "status": {
+      "const": "PROSPECTIVE_STRUCTURAL_RESTRICTION_RECOVERY_DESIGN"
+    },
+    "issue": {
+      "const": 134
+    },
+    "parent_issues": {
+      "const": [
+        125,
+        130
+      ]
+    },
+    "baseline_main_commit": {
+      "const": "938f72789e883ff5e98c4edc58ffbf3ced84fc93"
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 100
+    },
+    "scope": {
+      "type": "object"
+    },
+    "encompassing_surface": {
+      "type": "object"
+    },
+    "restrictions": {
+      "type": "object",
+      "required": [
+        "additive",
+        "cbd_complement"
+      ]
+    },
+    "nesting_statement": {
+      "type": "object",
+      "required": [
+        "ap_b_nested_in_general",
+        "ap_a_nested_in_general_for_binary_accuracy_cue",
+        "exclusive_family_classification_authorized",
+        "reason"
+      ],
+      "properties": {
+        "ap_b_nested_in_general": {
+          "const": true
+        },
+        "ap_a_nested_in_general_for_binary_accuracy_cue": {
+          "const": true
+        },
+        "exclusive_family_classification_authorized": {
+          "const": false
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 80
+        }
+      }
+    },
+    "departure_design": {
+      "type": "object"
+    },
+    "test_procedure": {
+      "type": "object",
+      "required": [
+        "primary_method",
+        "fit_pair",
+        "statistic",
+        "asymptotic_chi_square_assumed",
+        "parametric_bootstrap_required",
+        "nominal_false_rejection_rate",
+        "calibration_draws_must_be_independent_of_evaluation_draws",
+        "held_out_prediction_role",
+        "no_unique_winner_required"
+      ],
+      "properties": {
+        "primary_method": {
+          "const": "SIMULATION_CALIBRATED_RESTRICTION_TEST"
+        },
+        "fit_pair": {
+          "type": "string"
+        },
+        "statistic": {
+          "const": "PENALIZED_OBJECTIVE_IMPROVEMENT"
+        },
+        "asymptotic_chi_square_assumed": {
+          "const": false
+        },
+        "parametric_bootstrap_required": {
+          "const": true
+        },
+        "nominal_false_rejection_rate": {
+          "const": 0.05
+        },
+        "calibration_draws_must_be_independent_of_evaluation_draws": {
+          "const": true
+        },
+        "held_out_prediction_role": {
+          "type": "string"
+        },
+        "no_unique_winner_required": {
+          "const": true
+        }
+      }
+    },
+    "required_outcomes": {
+      "type": "array",
+      "minItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "recovery_metrics": {
+      "type": "array",
+      "minItems": 6,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "random_effects": {
+      "type": "object"
+    },
+    "interpretation_boundary": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string",
+        "minLength": 40
+      }
+    },
+    "method_basis": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}
