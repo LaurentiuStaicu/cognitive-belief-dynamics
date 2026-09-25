@@ -1027,13 +1027,13 @@
     "current_catalog_search_exposes_both_study_descriptions": true,
     "prior_indexed_300450_v2_doi_and_dictionary_offer_retained_as_recovered_official_evidence": true,
     "prior_indexed_300450_evidence_invalidated_by_current_shell_behavior": false,
-    "current_exact_search_recovered_300450_doi_dictionary_block": false,
+    "current_exact_search_recovered_300450_doi_dictionary_block": true,
     "current_exact_search_recovered_300470_doi_dictionary_block": false,
     "current_300470_doi_version_recovered": false,
     "current_300470_dictionary_contents_recovered": false,
     "current_live_retrieval_failure_interpretable_as_documentation_absence": false,
     "scientific_gate_changed": false,
     "role": "CURRENT_STUDY_PAGE_LIVE_RENDERING_LIMITATION_RECORDED",
-    "interpretation": "On 2026-09-25, direct retrieval of both current ICPSR study pages 300450 and 300470 exposed only the client-side shell through the audited web surface. The SOMAR catalog still exposes both target study descriptions. Exact current searches did not re-recover the previously indexed 300450 DOI/data-dictionary block or any equivalent 300470 block. The earlier official indexed 300450 V2 DOI/dictionary-availability evidence is retained as recovered evidence; current shell behavior does not invalidate it. For 300470, the live rendering limitation remains non-evidentiary and cannot be treated as documentation absence."
+    "interpretation": "On 2026-09-25, direct retrieval of both current ICPSR study pages 300450 and 300470 exposed only the client-side shell through the audited web surface. The SOMAR catalog still exposes both target study descriptions. A subsequent exact current indexed search re-recovered the official 300450 V2 DOI/data-dictionary block, independently reconfirming that evidence; no equivalent 300470 DOI/dictionary block was recovered. The direct-page shell behavior is therefore a rendering limitation and does not invalidate the 300450 evidence. For 300470, the live rendering limitation remains non-evidentiary and cannot be treated as documentation absence."
   }
 }

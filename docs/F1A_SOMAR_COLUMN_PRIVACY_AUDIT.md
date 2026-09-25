@@ -140,11 +140,11 @@ A controlled live-retrieval check on **2026-09-25** opened the current ICPSR pag
 
 Through the audited web surface, both direct study-page URLs currently expose only the client-side application shell rather than content-bearing DOI/version/Data & Documentation markup. The official SOMAR catalog remains content-bearing and still exposes both target descriptions and their 2026-04-01 release/update date.
 
-An exact current search did not re-recover the previously indexed 300450 V2 DOI/data-dictionary block and did not recover an equivalent 300470 DOI/dictionary block. This is recorded as a **live rendering/indexing state**, not as a reversal of previously recovered evidence.
+A subsequent exact current indexed search on **2026-09-25** re-recovered the 300450 V2 DOI/data-dictionary block, independently reconfirming that current indexed evidence. The same search still did not recover an equivalent 300470 DOI/dictionary block. The direct study-page shell behavior is therefore recorded as a **live rendering limitation**, not as a reversal of indexed evidence.
 
 Accordingly:
 
-- the previously recovered official indexed 300450 DOI `10.3886/ICPSR300450.V2` / V2 and explicit data-dictionary availability remain retained official evidence;
+- the official indexed 300450 DOI `10.3886/ICPSR300450.V2` / V2 and explicit data-dictionary availability were re-recovered on 2026-09-25 and remain current indexed evidence;
 - current shell-only rendering does **not** invalidate that recovered 300450 evidence;
 - for 300470, the same shell-only state remains non-evidentiary and must not be converted into a claim that documentation is absent;
 - the current 300470 DOI/version and dictionary contents remain unrecovered;
@@ -152,7 +152,7 @@ Accordingly:
 
 Status:
 
-`CURRENT_DIRECT_PAGES_SHELL_ONLY / CATALOG_CONTENT_AVAILABLE / PRIOR_300450_INDEXED_EVIDENCE_RETAINED / 300470_IDENTITY_AND_DICTIONARY_UNRECOVERED / NO_ABSENCE_INFERENCE`
+`CURRENT_DIRECT_PAGES_SHELL_ONLY / CATALOG_CONTENT_AVAILABLE / CURRENT_300450_INDEXED_EVIDENCE_RECONFIRMED / 300470_IDENTITY_AND_DICTIONARY_UNRECOVERED / NO_ABSENCE_INFERENCE`
 
 ### Current collection identity status
 

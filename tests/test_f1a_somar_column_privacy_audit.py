@@ -1029,7 +1029,7 @@ def test_current_study_page_shell_state_does_not_reverse_recovered_evidence() ->
     assert s["current_catalog_search_exposes_both_study_descriptions"] is True
     assert s["prior_indexed_300450_v2_doi_and_dictionary_offer_retained_as_recovered_official_evidence"] is True
     assert s["prior_indexed_300450_evidence_invalidated_by_current_shell_behavior"] is False
-    assert s["current_exact_search_recovered_300450_doi_dictionary_block"] is False
+    assert s["current_exact_search_recovered_300450_doi_dictionary_block"] is True
     assert s["current_exact_search_recovered_300470_doi_dictionary_block"] is False
     assert s["current_300470_doi_version_recovered"] is False
     assert s["current_300470_dictionary_contents_recovered"] is False
@@ -1041,4 +1041,4 @@ def test_current_study_page_shell_state_does_not_reverse_recovered_evidence() ->
 
     text = DOC.read_text(encoding="utf-8")
     assert "Current study-page live retrieval state" in text
-    assert "PRIOR_300450_INDEXED_EVIDENCE_RETAINED" in text
+    assert "CURRENT_300450_INDEXED_EVIDENCE_RECONFIRMED" in text
