@@ -10,11 +10,17 @@ permissions:
 
 jobs:
   run:
-    name: Run F1b R1 design-size search
+    name: Run design ${{ matrix.participants }}x${{ matrix.items }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        participants: [24, 48, 96]
+        items: [24, 48, 96]
     env:
       CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
@@ -31,13 +37,177 @@ jobs:
           python -m build --no-isolation
           python -m pip install -c requirements/ci-py312-linux.lock.txt dist/*.whl
 
-      - name: Execute frozen 200-replicate search
+      - name: Build exact one-design config
+        env:
+          P: ${{ matrix.participants }}
+          I: ${{ matrix.items }}
+        run: |
+          python - <<'PY'
+          import json, os
+          src = "model/benchmarks/f1b_r1_design_size_search.json"
+          cfg = json.load(open(src))
+          cfg["participant_counts"] = [int(os.environ["P"])]
+          cfg["item_counts"] = [int(os.environ["I"])]
+          with open("/tmp/design.json", "w") as f:
+              json.dump(cfg, f, indent=2, sort_keys=True)
+          PY
+
+      - name: Execute frozen 200-replicate cell family
+        env:
+          P: ${{ matrix.participants }}
+          I: ${{ matrix.items }}
         run: |
           python scripts/run_f1b_r1_design_size_search.py \
-            --output f1b_r1_design_size_search_result.json \
+            --config /tmp/design.json \
+            --output "result-${P}x${I}.json" \
             --source-commit a4ed691e96f49449bdb50d565293da5ce41c61e2
 
-      - name: Upload result
+      - name: Upload partial result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r1-design-${{ matrix.participants }}x${{ matrix.items }}
+          path: result-${{ matrix.participants }}x${{ matrix.items }}.json
+          if-no-files-found: error
+          retention-days: 7
+
+  combine:
+    name: Combine exact design-size result
+    needs: run
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Download partial results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: f1b-r1-design-*
+          path: partials
+          merge-multiple: true
+
+      - name: Combine without changing scientific rules
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+
+          cfg_path = Path("model/benchmarks/f1b_r1_design_size_search.json")
+          cfg = json.loads(cfg_path.read_text())
+          rows = []
+          for path in sorted(Path("partials").glob("result-*.json")):
+              rows.extend(json.loads(path.read_text())["grid_results"])
+          rows = sorted(
+              rows,
+              key=lambda r: (
+                  r["participants"], r["items"], r["generator"],
+                  r["missingness_rate"], r["inference"],
+                  -1 if r["scale_multiplier"] is None else r["scale_multiplier"],
+              ),
+          )
+
+          gate = cfg["design_eligibility"]
+          eligibility = []
+          designs = sorted({
+              (r["participants"], r["items"], r["inference"]) for r in rows
+          })
+          for participants, items, inference in designs:
+              cells = [
+                  r for r in rows
+                  if r["participants"] == participants
+                  and r["items"] == items
+                  and r["inference"] == inference
+              ]
+              checks = []
+              for r in cells:
+                  checks.append({
+                      "generator": r["generator"],
+                      "missingness_rate": r["missingness_rate"],
+                      "recovery_probability_pass":
+                          r["recovery"]["probability"] >= gate["strong_point_recovery_minimum"],
+                      "recovery_wilson_lower_pass":
+                          r["recovery"]["wilson_95"][0] >= gate["strong_recovery_wilson_lower_minimum"],
+                      "wrong_probability_pass":
+                          r["wrong"]["probability"] <= gate["wrong_probability_maximum"],
+                      "fit_failure_probability_pass":
+                          r["fit_failure"]["probability"] <= gate["fit_failure_probability_maximum"],
+                  })
+              eligible = len(cells) == 6 and all(
+                  all(v for k, v in c.items() if k.endswith("_pass"))
+                  for c in checks
+              )
+              eligibility.append({
+                  "participants": participants,
+                  "items": items,
+                  "inference": inference,
+                  "strong_cells": len(cells),
+                  "checks": checks,
+                  "eligible_for_later_core_grid_design": eligible,
+              })
+
+          eligible_rows = [e for e in eligibility if e["eligible_for_later_core_grid_design"]]
+          frontier = []
+          for row in eligible_rows:
+              dominated = any(
+                  other["inference"] == row["inference"]
+                  and other["participants"] <= row["participants"]
+                  and other["items"] <= row["items"]
+                  and (
+                      other["participants"] < row["participants"]
+                      or other["items"] < row["items"]
+                  )
+                  for other in eligible_rows
+              )
+              if not dominated:
+                  frontier.append(row)
+          frontier = sorted(
+              frontier,
+              key=lambda x: (
+                  x["inference"], x["participants"] * x["items"],
+                  x["participants"], x["items"],
+              ),
+          )
+
+          out = {
+              "search_id": cfg["search_id"],
+              "status": "NON_AUTHORITATIVE_R1_DESIGN_SIZE_SEARCH_RESULT",
+              "authoritative": False,
+              "seed": int(cfg["seed"]),
+              "replicates_per_cell": int(cfg["replicates_per_cell"]),
+              "participant_counts": cfg["participant_counts"],
+              "item_counts": cfg["item_counts"],
+              "grid_results": rows,
+              "design_eligibility": eligibility,
+              "pareto_eligible_designs": frontier,
+              "interpretation_boundary": (
+                  "Synthetic design-size recovery search only. Any eligible participant×item "
+                  "count is a simulation design region, not a human sample-size recommendation, "
+                  "and does not select a final inference method or authorize recruitment/runtime F1b."
+              ),
+              "provenance": {
+                  "source_commit": "a4ed691e96f49449bdb50d565293da5ce41c61e2",
+                  "config_path": str(cfg_path),
+                  "config_sha256": hashlib.sha256(cfg_path.read_bytes()).hexdigest(),
+                  "replicate_override": None,
+                  "execution_strategy": "exact_3x3_matrix_split_by_rng-independent_design_substreams",
+              },
+          }
+          Path("f1b_r1_design_size_search_result.json").write_text(
+              json.dumps(out, indent=2, sort_keys=True) + "\n"
+          )
+          print("partials", len(list(Path("partials").glob("result-*.json"))))
+          print("rows", len(rows))
+          print("eligible", [
+              (x["participants"], x["items"], x["inference"])
+              for x in eligibility
+              if x["eligible_for_later_core_grid_design"]
+          ])
+          print("pareto", [
+              (x["participants"], x["items"], x["inference"])
+              for x in frontier
+          ])
+          PY
+
+      - name: Upload combined result
         uses: actions/upload-artifact@v4
         with:
           name: f1b-r1-design-size-search-result
