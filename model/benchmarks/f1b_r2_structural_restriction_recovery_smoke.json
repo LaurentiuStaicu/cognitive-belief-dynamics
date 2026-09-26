@@ -1,0 +1,57 @@
+{
+  "engine_id": "F1B.R2.STRUCTURAL_RESTRICTION_ENGINE.SMOKE.2026-09-26",
+  "status": "SMOKE_NON_AUTHORITATIVE_R2_RESTRICTION_ENGINE",
+  "seed": 20260926,
+  "design": {
+    "participants": 12,
+    "items": 18,
+    "belief_B": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "accuracy_cue_A": [
+      0,
+      1
+    ],
+    "reward_context_R": [
+      -1,
+      0,
+      1
+    ],
+    "missingness_rate": 0
+  },
+  "random_effects": {
+    "participant_intercept_sd": 0.25,
+    "item_intercept_sd": 0.2,
+    "participant_reward_slope_sd": 0.1,
+    "item_reward_slope_sd": 0.1
+  },
+  "null_generators": {
+    "ADD_NULL": [
+      -0.2,
+      0.8,
+      0.25,
+      0.6
+    ],
+    "CBD_NULL": [
+      -0.2,
+      -0.2,
+      1,
+      0.8
+    ]
+  },
+  "bootstrap": {
+    "draws": 3,
+    "minimum_successful_draws": 3,
+    "alpha": 0.05
+  },
+  "execution_boundary": {
+    "authoritative_bootstrap_draws_frozen": false,
+    "authoritative_evaluation_replicates_frozen": false,
+    "authoritative_run_allowed": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
