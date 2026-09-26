@@ -13,7 +13,7 @@ permissions:
 jobs:
   characterize:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - name: Check out characterization branch
         uses: actions/checkout@v4
@@ -30,12 +30,13 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install .
 
-      - name: Run frozen non-authoritative characterization
+      - name: Run frozen non-authoritative characterization with 30 replicates
         run: |
           mkdir -p model/results
           python scripts/run_f1b_recovery_characterization.py \
             --config model/benchmarks/f1b_recovery_characterization.json \
-            --output model/results/f1b_recovery_characterization_non_authoritative_2026-09-26.json \
+            --replicates 30 \
+            --output model/results/f1b_recovery_characterization_non_authoritative_r30_2026-09-26.json \
             --source-commit 938f72789e883ff5e98c4edc58ffbf3ced84fc93
 
       - name: Build compact retained summary
@@ -45,22 +46,28 @@ jobs:
           from collections import defaultdict
           from pathlib import Path
 
-          result_path = Path("model/results/f1b_recovery_characterization_non_authoritative_2026-09-26.json")
+          result_path = Path("model/results/f1b_recovery_characterization_non_authoritative_r30_2026-09-26.json")
           result = json.loads(result_path.read_text(encoding="utf-8"))
 
-          agg = defaultdict(lambda: {"n": 0, "correct": 0.0, "wrong": 0.0, "inc": 0.0, "fail": 0.0})
-          for row in result["grid_results"]:
-              key = (row["problem"], row["inference"])
-              n = int(row["replicates"])
-              a = agg[key]
-              a["n"] += n
-              a["correct"] += row["recovery_probability"] * n
-              a["wrong"] += row["wrong_probability"] * n
-              a["inc"] += row["inconclusive_probability"] * n
-              a["fail"] += row["fit_failure_probability"] * n
+          def aggregate(keys):
+              out = {}
+              for row in result["grid_results"]:
+                  key = tuple(row[k] for k in keys)
+                  a = out.setdefault(key, {"n":0,"c":0.0,"w":0.0,"i":0.0,"f":0.0})
+                  n = int(row["replicates"])
+                  a["n"] += n
+                  a["c"] += row["recovery_probability"] * n
+                  a["w"] += row["wrong_probability"] * n
+                  a["i"] += row["inconclusive_probability"] * n
+                  a["f"] += row["fit_failure_probability"] * n
+              return out
+
+          agg = aggregate(("problem","inference"))
+          reg = aggregate(("problem","separation_regime","inference"))
+          gen = aggregate(("problem","generator","inference"))
 
           lines = [
-              "# F1b Recovery Characterization Result — 2026-09-26",
+              "# F1b Recovery Characterization Result — 30 replicates/cell — 2026-09-26",
               "",
               "Status: **NON_AUTHORITATIVE_CHARACTERIZATION_RESULT**",
               "",
@@ -72,31 +79,34 @@ jobs:
               "",
               "## Aggregate recovery by problem and inference",
               "",
-              "| Problem | Inference | N synthetic replicates | Correct | Wrong | Inconclusive | Fit failure |",
+              "| Problem | Inference | N | Correct | Wrong | Inconclusive | Fit failure |",
               "| --- | --- | ---: | ---: | ---: | ---: | ---: |",
           ]
-          for (problem, inference), a in sorted(agg.items()):
-              n = a["n"]
-              lines.append(
-                  f"| {problem} | {inference} | {n} | "
-                  f"{a['correct']/n:.3f} | {a['wrong']/n:.3f} | "
-                  f"{a['inc']/n:.3f} | {a['fail']/n:.3f} |"
-              )
+          for key, a in sorted(agg.items()):
+              n=a["n"]
+              lines.append(f"| {key[0]} | {key[1]} | {n} | {a['c']/n:.3f} | {a['w']/n:.3f} | {a['i']/n:.3f} | {a['f']/n:.3f} |")
 
           lines += [
               "",
-              "## Moderate separation, no missingness",
+              "## Recovery by separation regime",
               "",
-              "| Problem | Generator | Inference | Correct | Wrong | Inconclusive | Fit failure |",
-              "| --- | --- | --- | ---: | ---: | ---: | ---: |",
+              "| Problem | Regime | Inference | N | Correct | Wrong | Inconclusive | Fit failure |",
+              "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: |",
           ]
-          for row in result["grid_results"]:
-              if row["separation_regime"] == "MODERATE" and row["missingness_rate"] == 0.0:
-                  lines.append(
-                      f"| {row['problem']} | {row['generator']} | {row['inference']} | "
-                      f"{row['recovery_probability']:.3f} | {row['wrong_probability']:.3f} | "
-                      f"{row['inconclusive_probability']:.3f} | {row['fit_failure_probability']:.3f} |"
-                  )
+          for key, a in sorted(reg.items()):
+              n=a["n"]
+              lines.append(f"| {key[0]} | {key[1]} | {key[2]} | {n} | {a['c']/n:.3f} | {a['w']/n:.3f} | {a['i']/n:.3f} | {a['f']/n:.3f} |")
+
+          lines += [
+              "",
+              "## Recovery by generator",
+              "",
+              "| Problem | Generator | Inference | N | Correct | Wrong | Inconclusive | Fit failure |",
+              "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: |",
+          ]
+          for key, a in sorted(gen.items()):
+              n=a["n"]
+              lines.append(f"| {key[0]} | {key[1]} | {key[2]} | {n} | {a['c']/n:.3f} | {a['w']/n:.3f} | {a['i']/n:.3f} | {a['f']/n:.3f} |")
 
           lines += [
               "",
@@ -106,18 +116,17 @@ jobs:
               "",
               "No scientific promotion is authorized by this run.",
           ]
-          Path("docs/F1B_RECOVERY_CHARACTERIZATION_RESULT_2026-09-26.md").write_text(
+          Path("docs/F1B_RECOVERY_CHARACTERIZATION_RESULT_R30_2026-09-26.md").write_text(
               "\n".join(lines) + "\n",
               encoding="utf-8",
           )
-
           print("\n".join(lines))
           PY
 
-      - name: Commit retained non-authoritative result
+      - name: Commit retained 30-replicate non-authoritative result
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add             model/results/f1b_recovery_characterization_non_authoritative_2026-09-26.json             docs/F1B_RECOVERY_CHARACTERIZATION_RESULT_2026-09-26.md
-          git commit -m "F1b: retain non-authoritative recovery characterization result"
+          git add             model/results/f1b_recovery_characterization_non_authoritative_r30_2026-09-26.json             docs/F1B_RECOVERY_CHARACTERIZATION_RESULT_R30_2026-09-26.md
+          git commit -m "F1b: retain 30-replicate non-authoritative characterization"
           git push
