@@ -1,0 +1,87 @@
+{
+  "search_id": "F1B.R1.DESIGN_SIZE_SEARCH.2026-09-26",
+  "status": "NON_AUTHORITATIVE_R1_DESIGN_SIZE_SEARCH",
+  "seed": 20260925,
+  "replicates_per_cell": 200,
+  "separation_regimes": [
+    "STRONG"
+  ],
+  "participant_counts": [
+    24,
+    48,
+    96
+  ],
+  "item_counts": [
+    24,
+    48,
+    96
+  ],
+  "missingness_rates": [
+    0,
+    0.15
+  ],
+  "hierarchical_scale_multipliers": [
+    0.5,
+    1,
+    2
+  ],
+  "R1": {
+    "reliability_T": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "signed_evidence_E": [
+      -1,
+      -0.5,
+      0.5,
+      1
+    ],
+    "tau_grid": [
+      0.4,
+      0.5,
+      0.6
+    ],
+    "generator_random_effects": {
+      "participant_intercept_sd": 0.2,
+      "item_intercept_sd": 0.2,
+      "participant_slope_sd": 0.1,
+      "item_slope_sd": 0.1
+    },
+    "generator_regimes": {
+      "STRONG": {
+        "SR-A": {
+          "intercept": 0,
+          "evidence_scale": 1.35,
+          "noise_sd": 0.55
+        },
+        "SR-B": {
+          "intercept": 0,
+          "evidence_scale": 1.35,
+          "noise_sd": 0.55
+        },
+        "SR-C": {
+          "intercept": 0,
+          "evidence_scale": 1.35,
+          "noise_sd": 0.55,
+          "tau": 0.5
+        }
+      }
+    }
+  },
+  "design_eligibility": {
+    "scope": "ALL_STRONG_GENERATOR_X_MISSINGNESS_CELLS",
+    "strong_point_recovery_minimum": 0.8,
+    "strong_recovery_wilson_lower_minimum": 0.7,
+    "wrong_probability_maximum": 0.05,
+    "fit_failure_probability_maximum": 0.01,
+    "status": "PROSPECTIVE_DESIGN_ELIGIBILITY_NOT_SCIENTIFIC_PROMOTION"
+  },
+  "execution_boundary": {
+    "authoritative_run_allowed": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
