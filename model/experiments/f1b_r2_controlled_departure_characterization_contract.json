@@ -1,0 +1,247 @@
+{
+  "id": "CONTRACT.F1B.R2.CONTROLLED_DEPARTURE_CHARACTERIZATION.2026-09-26",
+  "status": "PROSPECTIVE_CONTROLLED_DEPARTURE_CHARACTERIZATION_DESIGN",
+  "issue": 145,
+  "parent_issues": [
+    125,
+    130,
+    134
+  ],
+  "baseline_main_commit": "bc78f0e5c25dd442389298ef83f93b070400a01a",
+  "purpose": "Freeze nearest-manifold utility-space projection, departure generation, bootstrap-calibration design search, and negative controls for F1b R2 before any recovery characterization is executed.",
+  "scope": {
+    "design_only": true,
+    "projection_engine_allowed_in_this_change": false,
+    "characterization_engine_allowed_in_this_change": false,
+    "authoritative_run_allowed": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "human_data_collection_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "m0_equation_change_allowed": false
+  },
+  "design_cells": {
+    "belief_B": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "accuracy_cue_A": [
+      0,
+      1
+    ],
+    "reward_context_R": [
+      -1,
+      0,
+      1
+    ],
+    "cell_count": 18
+  },
+  "general_surface": {
+    "coefficient_order": [
+      "b",
+      "beta_b",
+      "beta_a",
+      "beta_r",
+      "beta_ab",
+      "beta_ar"
+    ],
+    "equation": "u = b + beta_b*(2B-1) + beta_a*A + beta_r*R + beta_ab*A*(2B-1) + beta_ar*A*R"
+  },
+  "cbd_projection": {
+    "parameter_order": [
+      "sharing_bias",
+      "baseline_logit",
+      "beta_accuracy",
+      "beta_reward"
+    ],
+    "equation": "u = sharing_bias + W(A)*(2B-1) + beta_reward*(1-W(A))*R; W(A)=logistic(baseline_logit+beta_accuracy*A)",
+    "objective": "RMS_UTILITY_DISTANCE_OVER_18_FROZEN_CELLS",
+    "parameter_bounds": {
+      "sharing_bias": [
+        -5,
+        5
+      ],
+      "baseline_logit": [
+        -4,
+        4
+      ],
+      "beta_accuracy": [
+        -5,
+        5
+      ],
+      "beta_reward": [
+        -5,
+        5
+      ]
+    },
+    "deterministic_starts": [
+      "SOURCE_CBD_ANCHOR",
+      "ALGEBRAIC_GENERAL_TO_CBD_APPROXIMATION",
+      "NEUTRAL_START"
+    ],
+    "neutral_start": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "algebraic_start_rules": [
+      "sharing_bias = general b",
+      "W0 = clip(beta_b, 1e-4, 1-1e-4)",
+      "W1 = clip(beta_b+beta_ab, 1e-4, 1-1e-4)",
+      "baseline_logit = logit(W0)",
+      "beta_accuracy = logit(W1)-logit(W0)",
+      "beta_reward = beta_r/(1-W0) when denominator >=1e-4 else 0"
+    ],
+    "optimizer": "L-BFGS-B",
+    "select_best_successful_start": true,
+    "failed_projection_is_design_generation_failure": true
+  },
+  "add_projection": {
+    "method": "LEAST_SQUARES_UTILITY_SPACE_PROJECTION",
+    "restricted_columns": [
+      "1",
+      "2B-1",
+      "A",
+      "R"
+    ],
+    "interactions_forced_zero": [
+      "beta_ab",
+      "beta_ar"
+    ]
+  },
+  "direction_normalization": {
+    "method": "UNIT_RMS_UTILITY_EFFECT_OVER_18_FROZEN_CELLS",
+    "standalone_accuracy_main_effect": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+    ],
+    "complement_relation_violation": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "combined_rule": "Normalize standalone and complement directions separately to unit RMS utility effect, sum them, then renormalize the sum to unit RMS utility effect."
+  },
+  "departure_grid": {
+    "axes": [
+      "STANDALONE_ACCURACY_MAIN_EFFECT",
+      "COMPLEMENT_RELATION_VIOLATION",
+      "COMBINED_VIOLATION"
+    ],
+    "signs": [
+      -1,
+      1
+    ],
+    "target_rms_distances": [
+      0.1,
+      0.25,
+      0.5
+    ],
+    "target_distance_status": "DESIGN_SEARCH_VALUES_NOT_GATES"
+  },
+  "distance_solver": {
+    "scalar_step_bracket_grid": [
+      0,
+      0.125,
+      0.25,
+      0.5,
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "bracket_rule": "Use first adjacent scalar-step interval whose nearest-CBD RMS distance brackets the target.",
+    "root_solver": "BRENTQ",
+    "root_xtol": 1e-10,
+    "achieved_distance_absolute_tolerance": 0.000001,
+    "no_bracket_is_design_generation_failure": true
+  },
+  "synthetic_anchors": {
+    "cbd": [
+      {
+        "id": "CBD_ANCHOR_1",
+        "parameters": [
+          -0.2,
+          -0.2,
+          1,
+          0.8
+        ]
+      },
+      {
+        "id": "CBD_ANCHOR_2",
+        "parameters": [
+          -0.2,
+          0,
+          1.2,
+          1
+        ]
+      }
+    ],
+    "add": {
+      "id": "ADD_ANCHOR",
+      "parameters": [
+        -0.2,
+        0.8,
+        0.25,
+        0.6
+      ]
+    },
+    "interpretation": "Synthetic design anchors only; not human parameter estimates."
+  },
+  "specificity_controls": {
+    "standalone_accuracy_main_effect_remains_add_compatible": true,
+    "add_rejection_on_standalone_accuracy_axis_counts_as_specificity_failure": true,
+    "both_axis_signs_required": true
+  },
+  "bootstrap_characterization": {
+    "method": "PARAMETRIC_BOOTSTRAP",
+    "chi_square_reference_assumed": false,
+    "nominal_alpha": 0.05,
+    "bootstrap_draw_grid": [
+      49,
+      99,
+      199
+    ],
+    "bootstrap_draw_grid_status": "NON_AUTHORITATIVE_DESIGN_SEARCH",
+    "calibration_and_evaluation_streams_independent": true,
+    "authoritative_bootstrap_draws_frozen": false,
+    "authoritative_evaluation_replicates_frozen": false,
+    "wilson_95_intervals_required_for_binomial_rates": true
+  },
+  "required_cell_outputs": [
+    "restriction tested",
+    "null/departure identity",
+    "anchor",
+    "axis",
+    "sign",
+    "requested RMS distance",
+    "achieved nearest-CBD RMS distance",
+    "nearest-ADD RMS distance",
+    "bootstrap draws",
+    "observed statistic",
+    "bootstrap critical value",
+    "p-value",
+    "rejected/not rejected",
+    "fit failure",
+    "bootstrap calibration failure",
+    "held-out participant predictive delta",
+    "held-out item predictive delta"
+  ],
+  "interpretation_boundary": [
+    "Failure to reject a restriction is not proof that the restriction is the true human mechanism.",
+    "The departure grid is a synthetic design-search grid and is not an empirical effect-size calibration.",
+    "ADD and CBD restrictions remain independent tests and no unique model winner is required.",
+    "Parametric bootstrap characterizes the declared penalized conditional/MAP testing pipeline and does not establish that estimator as the final human-analysis method.",
+    "No result from this contract freezes human N, authorizes recruitment, changes M0, or activates runtime F1b."
+  ]
+}
