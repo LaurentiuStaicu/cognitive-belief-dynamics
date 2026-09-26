@@ -1,0 +1,84 @@
+{
+  "design_id": "F1B.R2.CONTROLLED_DEPARTURE_CHARACTERIZATION.DESIGN.2026-09-26",
+  "status": "PROSPECTIVE_DESIGN_NO_ENGINE",
+  "issue": 145,
+  "seed": 20260926,
+  "design_cells": {
+    "belief_B": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "accuracy_cue_A": [
+      0,
+      1
+    ],
+    "reward_context_R": [
+      -1,
+      0,
+      1
+    ],
+    "cell_count": 18
+  },
+  "anchors": {
+    "cbd": [
+      {
+        "id": "CBD_ANCHOR_1",
+        "parameters": [
+          -0.2,
+          -0.2,
+          1,
+          0.8
+        ]
+      },
+      {
+        "id": "CBD_ANCHOR_2",
+        "parameters": [
+          -0.2,
+          0,
+          1.2,
+          1
+        ]
+      }
+    ],
+    "add": {
+      "id": "ADD_ANCHOR",
+      "parameters": [
+        -0.2,
+        0.8,
+        0.25,
+        0.6
+      ]
+    },
+    "interpretation": "Synthetic design anchors only; not human parameter estimates."
+  },
+  "axes": [
+    "STANDALONE_ACCURACY_MAIN_EFFECT",
+    "COMPLEMENT_RELATION_VIOLATION",
+    "COMBINED_VIOLATION"
+  ],
+  "signs": [
+    -1,
+    1
+  ],
+  "target_rms_distances": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "bootstrap_draw_grid": [
+    49,
+    99,
+    199
+  ],
+  "evaluation_replicates_frozen": false,
+  "participant_item_grid_frozen": false,
+  "projection_engine_present": false,
+  "characterization_engine_present": false,
+  "execution_boundary": {
+    "authoritative_run_allowed": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
