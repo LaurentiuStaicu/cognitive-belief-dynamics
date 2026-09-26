@@ -1,0 +1,46 @@
+name: F1b R1 design-size execution
+
+on:
+  push:
+    branches:
+      - research/f1b-r1-design-size-run-2026-09-26
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    name: Run F1b R1 design-size search
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen scientific environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt build hatchling
+          python -m build --no-isolation
+          python -m pip install -c requirements/ci-py312-linux.lock.txt dist/*.whl
+
+      - name: Execute frozen 200-replicate search
+        run: |
+          python scripts/run_f1b_r1_design_size_search.py \
+            --output f1b_r1_design_size_search_result.json \
+            --source-commit a4ed691e96f49449bdb50d565293da5ce41c61e2
+
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r1-design-size-search-result
+          path: f1b_r1_design_size_search_result.json
+          if-no-files-found: error
+          retention-days: 7
