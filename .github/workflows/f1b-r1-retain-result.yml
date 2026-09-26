@@ -25,248 +25,41 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p /tmp/serial /tmp/matrix
-          gh run download 36258023526 \
-            -n f1b-r1-design-size-search-result \
-            -D /tmp/serial
-          gh run download 36258243687 \
-            -n f1b-r1-design-size-search-result \
-            -D /tmp/matrix
+          gh run download 36258023526 -n f1b-r1-design-size-search-result -D /tmp/serial
+          gh run download 36258243687 -n f1b-r1-design-size-search-result -D /tmp/matrix
 
-      - name: Verify and retain exact serial result
+      - name: Verify exact scientific equality
         run: |
           python - <<'PY'
           import copy
           import json
           from pathlib import Path
-
-          serial_path = Path("/tmp/serial/f1b_r1_design_size_search_result.json")
-          matrix_path = Path("/tmp/matrix/f1b_r1_design_size_search_result.json")
-          serial = json.loads(serial_path.read_text())
-          matrix = json.loads(matrix_path.read_text())
-
-          expected_source = "a4ed691e96f49449bdb50d565293da5ce41c61e2"
-          expected_config_sha = "0b68b1894ac6127d4be41c41bb46a59d2ce8eb759fa6d772aa6d9579264ae358"
-
-          assert serial["status"] == "NON_AUTHORITATIVE_R1_DESIGN_SIZE_SEARCH_RESULT"
-          assert serial["authoritative"] is False
-          assert serial["replicates_per_cell"] == 200
-          assert serial["provenance"]["source_commit"] == expected_source
-          assert serial["provenance"]["config_sha256"] == expected_config_sha
-          assert serial["provenance"]["replicate_override"] is None
-
-          a = copy.deepcopy(serial)
-          b = copy.deepcopy(matrix)
+          s = json.loads(Path("/tmp/serial/f1b_r1_design_size_search_result.json").read_text())
+          m = json.loads(Path("/tmp/matrix/f1b_r1_design_size_search_result.json").read_text())
+          assert s["status"] == "NON_AUTHORITATIVE_R1_DESIGN_SIZE_SEARCH_RESULT"
+          assert s["authoritative"] is False
+          assert s["replicates_per_cell"] == 200
+          assert s["provenance"]["source_commit"] == "a4ed691e96f49449bdb50d565293da5ce41c61e2"
+          assert s["provenance"]["config_sha256"] == "0b68b1894ac6127d4be41c41bb46a59d2ce8eb759fa6d772aa6d9579264ae358"
+          assert s["provenance"]["replicate_override"] is None
+          a = copy.deepcopy(s)
+          b = copy.deepcopy(m)
           a.pop("provenance", None)
           b.pop("provenance", None)
-          assert a == b, "serial and matrix scientific payloads differ"
-          assert matrix["provenance"]["source_commit"] == expected_source
-          assert matrix["provenance"]["config_sha256"] == expected_config_sha
-          assert matrix["provenance"]["replicate_override"] is None
-
-          target = Path("model/results/f1b_r1_design_size_search_non_authoritative_2026-09-26.json")
-          target.parent.mkdir(parents=True, exist_ok=True)
-          target.write_text(serial_path.read_text(), encoding="utf-8")
-
-          eligible = [
-              x for x in serial["design_eligibility"]
-              if x["eligible_for_later_core_grid_design"]
-          ]
-          pareto = serial["pareto_eligible_designs"]
-
-          from collections import defaultdict
-          groups = defaultdict(list)
-          for row in serial["grid_results"]:
-              groups[(row["participants"], row["items"], row["inference"])].append(row)
-
-          def summary(p, i, inf):
-              rows = groups[(p, i, inf)]
-              limiting = min(rows, key=lambda r: r["recovery"]["probability"])
-              min_lb = min(r["recovery"]["wilson_95"][0] for r in rows)
-              max_wrong = max(r["wrong"]["probability"] for r in rows)
-              max_fail = max(r["fit_failure"]["probability"] for r in rows)
-              return (
-                  limiting["recovery"]["probability"],
-                  min_lb,
-                  max_wrong,
-                  max_fail,
-                  limiting["generator"],
-                  limiting["missingness_rate"],
-              )
-
-          pop_2424 = summary(24,24,"POPULATION")[0]
-          pop_2496 = summary(24,96,"POPULATION")[0]
-          pop_9624 = summary(96,24,"POPULATION")[0]
-          h_2424 = summary(24,24,"HIERARCHICAL_0.5X")[0]
-          h_2496 = summary(24,96,"HIERARCHICAL_0.5X")[0]
-          h_9624 = summary(96,24,"HIERARCHICAL_0.5X")[0]
-
-          def eligible_lines(inference):
-              rows = sorted(
-                  (x for x in eligible if x["inference"] == inference),
-                  key=lambda x: (x["participants"], x["items"]),
-              )
-              return ", ".join(f'{x["participants"]}×{x["items"]}' for x in rows) or "none"
-
-          def pareto_lines(inference):
-              rows = sorted(
-                  (x for x in pareto if x["inference"] == inference),
-                  key=lambda x: (x["participants"], x["items"]),
-              )
-              return ", ".join(f'{x["participants"]}×{x["items"]}' for x in rows) or "none"
-
-          rows_md = []
-          for p, i in [(24,24),(24,48),(24,96),(48,24),(48,48),(48,96),(96,24),(96,48),(96,96)]:
-              pop = summary(p,i,"POPULATION")
-              h05 = summary(p,i,"HIERARCHICAL_0.5X")
-              rows_md.append(
-                  f"| {p}×{i} | {pop[0]:.3f} | {h05[0]:.3f} | "
-                  f"{'YES' if any(x['participants']==p and x['items']==i and x['inference']=='POPULATION' and x['eligible_for_later_core_grid_design'] for x in serial['design_eligibility']) else 'NO'} | "
-                  f"{'YES' if any(x['participants']==p and x['items']==i and x['inference']=='HIERARCHICAL_0.5X' and x['eligible_for_later_core_grid_design'] for x in serial['design_eligibility']) else 'NO'} |"
-              )
-
-          doc = f"""# F1b R1 Design-Size Recovery Search Result — 2026-09-26
-
-Status: **NON_AUTHORITATIVE_R1_DESIGN_SIZE_SEARCH_RESULT**
-
-Source scientific commit: `{expected_source}`  
-Frozen config SHA-256: `{expected_config_sha}`  
-Replicates per generator × missingness cell: **200**
-
-## Reproducibility verification
-
-The frozen search was executed twice:
-
-1. serial workflow run `36258023526`, artifact `10911018426`;
-2. exact 3×3 participant×item matrix workflow run `36258243687`, combined artifact `10911870581`.
-
-The scientific JSON payloads are **exactly equal** after removing only the matrix-specific provenance field `execution_strategy`.
-
-The retained JSON is the unmodified serial-run result.
-
-No replicate override was used in either execution.
-
-## Prospective gate
-
-A participant×item × inference design is eligible only if all six STRONG cells (SR-A/SR-B/SR-C × 0%/15% missingness) satisfy the pre-frozen #135/#141 criteria:
-
-- recovery point estimate ≥ 0.80;
-- Wilson-95 lower recovery bound ≥ 0.70;
-- wrong-model probability ≤ 0.05;
-- fit-failure probability ≤ 0.01.
-
-Passing means only eligibility for later core-grid design work.
-
-## Result
-
-Eligible POPULATION designs:
-
-`{eligible_lines("POPULATION")}`
-
-Eligible HIERARCHICAL_0.5X designs:
-
-`{eligible_lines("HIERARCHICAL_0.5X")}`
-
-Eligible HIERARCHICAL_1X designs:
-
-`{eligible_lines("HIERARCHICAL_1X")}`
-
-Eligible HIERARCHICAL_2X designs:
-
-`{eligible_lines("HIERARCHICAL_2X")}`
-
-Pareto frontier — POPULATION:
-
-`{pareto_lines("POPULATION")}`
-
-Pareto frontier — HIERARCHICAL_0.5X:
-
-`{pareto_lines("HIERARCHICAL_0.5X")}`
-
-No HIERARCHICAL_1X or HIERARCHICAL_2X design passes the frozen gate.
-
-## Design-size summary
-
-| Design | Population min recovery | H0.5 min recovery | Population eligible | H0.5 eligible |
-| --- | ---: | ---: | --- | --- |
-{chr(10).join(rows_md)}
-
-Across eligible/borderline designs, **SR-B remains the limiting generator**.
-
-At 24×96:
-- HIERARCHICAL_0.5X minimum recovery = **{summary(24,96,"HIERARCHICAL_0.5X")[0]:.3f}**;
-- minimum Wilson lower bound = **{summary(24,96,"HIERARCHICAL_0.5X")[1]:.3f}**;
-- maximum wrong-model probability = **{summary(24,96,"HIERARCHICAL_0.5X")[2]:.3f}**;
-- fit-failure probability = **{summary(24,96,"HIERARCHICAL_0.5X")[3]:.3f}**.
-
-At 48×48:
-- HIERARCHICAL_0.5X minimum recovery = **{summary(48,48,"HIERARCHICAL_0.5X")[0]:.3f}**;
-- minimum Wilson lower bound = **{summary(48,48,"HIERARCHICAL_0.5X")[1]:.3f}**;
-- maximum wrong-model probability = **{summary(48,48,"HIERARCHICAL_0.5X")[2]:.3f}**;
-- fit-failure probability = **{summary(48,48,"HIERARCHICAL_0.5X")[3]:.3f}**.
-
-## Participants versus items
-
-The frozen search shows that increasing the number of **items** is much more effective than increasing participants alone under this R1 design.
-
-From 24×24:
-
-- POPULATION: increasing items to 96 raises minimum recovery from {pop_2424:.3f} to {pop_2496:.3f} (**+{pop_2496-pop_2424:.3f}**), whereas increasing participants to 96 at 24 items raises it only to {pop_9624:.3f} (**+{pop_9624-pop_2424:.3f}**).
-- HIERARCHICAL_0.5X: increasing items to 96 raises minimum recovery from {h_2424:.3f} to {h_2496:.3f} (**+{h_2496-h_2424:.3f}**), whereas increasing participants to 96 at 24 items changes it to {h_9624:.3f} (**{h_9624-h_2424:+.3f}**).
-
-Thus 96×96 is eligible for POPULATION and HIERARCHICAL_0.5X but is Pareto-dominated: it adds no new design-eligibility frontier beyond 24×96 and 48×48.
-
-## Inference-method implication
-
-This search does **not** select POPULATION as the final human-analysis method.
-
-It also does not validate the 0.5× hierarchical penalty scale as the final estimator.
-
-Instead it shows:
-
-- the original 24×24 design limitation can be overcome for R1;
-- item count is a major design lever;
-- HIERARCHICAL_0.5X has eligible synthetic design regions;
-- HIERARCHICAL_1X and HIERARCHICAL_2X remain unsuitable under the current conditional/MAP selection scheme;
-- inference-method diagnostics under #130 are still required before an authoritative core grid or human design is frozen.
-
-## Scientific boundary
-
-This result does not:
-
-- validate SR-A, SR-B or SR-C as a human mechanism;
-- freeze a human participant count;
-- freeze an authoritative core/stress grid;
-- select a final mixed-effects estimator;
-- authorize recruitment or human-data collection;
-- authorize runtime F1b;
-- change M0 or `source_weight(T)`.
-
-Current gate:
-
-`R1 DESIGN-SIZE SEARCH = COMPLETED / NON-AUTHORITATIVE`
-
-`R1 SYNTHETIC DESIGN REGION = ELIGIBLE EXISTS`
-
-`FINAL INFERENCE METHOD = NOT SELECTED`
-
-`AUTHORITATIVE CORE GRID = NOT FROZEN`
-
-`HUMAN N = NOT FROZEN`
-
-`PARTICIPANT RECRUITMENT = NOT AUTHORIZED`
-
-`RUNTIME F1B = NOT AUTHORIZED`
-"""
-          Path("docs/F1B_R1_DESIGN_SIZE_SEARCH_RESULT_2026-09-26.md").write_text(doc)
+          assert a == b
+          assert m["provenance"]["source_commit"] == s["provenance"]["source_commit"]
+          assert m["provenance"]["config_sha256"] == s["provenance"]["config_sha256"]
+          assert m["provenance"]["replicate_override"] is None
+          out = Path("model/results/f1b_r1_design_size_search_non_authoritative_2026-09-26.json")
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(Path("/tmp/serial/f1b_r1_design_size_search_result.json").read_text())
           PY
 
-      - name: Commit retained result to clean result branch
+      - name: Commit exact retained JSON
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            model/results/f1b_r1_design_size_search_non_authoritative_2026-09-26.json \
-            docs/F1B_R1_DESIGN_SIZE_SEARCH_RESULT_2026-09-26.md
+          git add model/results/f1b_r1_design_size_search_non_authoritative_2026-09-26.json
           git diff --cached --check
           git commit -m "F1b R1: retain design-size recovery search result"
           git push origin HEAD:research/f1b-r1-design-size-result-2026-09-26
