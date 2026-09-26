@@ -1,0 +1,111 @@
+name: F1b R1 high-replicate non-authoritative run
+
+on:
+  push:
+    branches:
+      - research/f1b-r1-high-replicate-run-2026-09-26
+    paths:
+      - .github/workflows/f1b-r1-high-replicate-run.yml
+
+permissions:
+  contents: write
+
+jobs:
+  characterize-r1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out execution branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install .
+
+      - name: Run frozen 200-replicate R1 characterization
+        run: |
+          mkdir -p model/results
+          python scripts/run_f1b_r1_high_replicate.py \
+            --config model/benchmarks/f1b_r1_high_replicate_characterization.json \
+            --output model/results/f1b_r1_high_replicate_non_authoritative_2026-09-26.json \
+            --source-commit d1a5e3e32ae6cdfe8af61d2a6151bcdbd2e2cc9d
+
+      - name: Build retained summary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          result_path = Path("model/results/f1b_r1_high_replicate_non_authoritative_2026-09-26.json")
+          result = json.loads(result_path.read_text(encoding="utf-8"))
+
+          lines = [
+              "# F1b R1 High-Replicate Characterization Result — 2026-09-26",
+              "",
+              "Status: **NON_AUTHORITATIVE_R1_HIGH_REPLICATE_RESULT**",
+              "",
+              "Scientific source commit: `d1a5e3e32ae6cdfe8af61d2a6151bcdbd2e2cc9d`",
+              "",
+              f"Replicates per cell: **{result['replicates_per_cell']}**",
+              "",
+              "This run evaluates the prospectively frozen R1 design-eligibility rule. Passing permits only later core-grid design work; it is not scientific promotion.",
+              "",
+              "## STRONG-cell results",
+              "",
+              "| Generator | Missingness | Inference | Recovery | Recovery 95% Wilson | Wrong | Fit failure |",
+              "| --- | ---: | --- | ---: | --- | ---: | ---: |",
+          ]
+          for row in result["grid_results"]:
+              if row["separation_regime"] != "STRONG":
+                  continue
+              rl, rh = row["recovery"]["wilson_95"]
+              lines.append(
+                  f"| {row['generator']} | {row['missingness_rate']:.2f} | {row['inference']} | "
+                  f"{row['recovery']['probability']:.3f} | [{rl:.3f}, {rh:.3f}] | "
+                  f"{row['wrong']['probability']:.3f} | {row['fit_failure']['probability']:.3f} |"
+              )
+
+          lines += [
+              "",
+              "## Prospective design eligibility",
+              "",
+              "| Inference | STRONG cells | Eligible for later core-grid design |",
+              "| --- | ---: | --- |",
+          ]
+          for item in result["design_eligibility"]:
+              lines.append(
+                  f"| {item['inference']} | {item['strong_cells']} | "
+                  f"{'YES' if item['eligible_for_later_core_grid_design'] else 'NO'} |"
+              )
+
+          lines += [
+              "",
+              "## Interpretation boundary",
+              "",
+              result["interpretation_boundary"],
+              "",
+              "Human N, recruitment, authoritative core grid and runtime F1b remain blocked.",
+          ]
+
+          Path("docs/F1B_R1_HIGH_REPLICATE_RESULT_2026-09-26.md").write_text(
+              "\n".join(lines) + "\n",
+              encoding="utf-8",
+          )
+          print("\n".join(lines))
+          PY
+
+      - name: Commit retained non-authoritative result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             model/results/f1b_r1_high_replicate_non_authoritative_2026-09-26.json             docs/F1B_R1_HIGH_REPLICATE_RESULT_2026-09-26.md
+          git commit -m "F1b: retain R1 high-replicate characterization result"
+          git push
