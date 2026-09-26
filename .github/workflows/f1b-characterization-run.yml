@@ -1,0 +1,123 @@
+name: F1b non-authoritative characterization run
+
+on:
+  push:
+    branches:
+      - research/f1b-characterization-run-2026-09-26
+    paths:
+      - .github/workflows/f1b-characterization-run.yml
+
+permissions:
+  contents: write
+
+jobs:
+  characterize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out characterization branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install .
+
+      - name: Run frozen non-authoritative characterization
+        run: |
+          mkdir -p model/results
+          python scripts/run_f1b_recovery_characterization.py \
+            --config model/benchmarks/f1b_recovery_characterization.json \
+            --output model/results/f1b_recovery_characterization_non_authoritative_2026-09-26.json \
+            --source-commit 938f72789e883ff5e98c4edc58ffbf3ced84fc93
+
+      - name: Build compact retained summary
+        run: |
+          python - <<'PY'
+          import json
+          from collections import defaultdict
+          from pathlib import Path
+
+          result_path = Path("model/results/f1b_recovery_characterization_non_authoritative_2026-09-26.json")
+          result = json.loads(result_path.read_text(encoding="utf-8"))
+
+          agg = defaultdict(lambda: {"n": 0, "correct": 0.0, "wrong": 0.0, "inc": 0.0, "fail": 0.0})
+          for row in result["grid_results"]:
+              key = (row["problem"], row["inference"])
+              n = int(row["replicates"])
+              a = agg[key]
+              a["n"] += n
+              a["correct"] += row["recovery_probability"] * n
+              a["wrong"] += row["wrong_probability"] * n
+              a["inc"] += row["inconclusive_probability"] * n
+              a["fail"] += row["fit_failure_probability"] * n
+
+          lines = [
+              "# F1b Recovery Characterization Result — 2026-09-26",
+              "",
+              "Status: **NON_AUTHORITATIVE_CHARACTERIZATION_RESULT**",
+              "",
+              "Scientific source commit: `938f72789e883ff5e98c4edc58ffbf3ced84fc93`",
+              "",
+              f"Replicates per cell: **{result['replicates_per_cell']}**",
+              "",
+              "This retained run does not freeze the authoritative core grid, human N, or the final inference method.",
+              "",
+              "## Aggregate recovery by problem and inference",
+              "",
+              "| Problem | Inference | N synthetic replicates | Correct | Wrong | Inconclusive | Fit failure |",
+              "| --- | --- | ---: | ---: | ---: | ---: | ---: |",
+          ]
+          for (problem, inference), a in sorted(agg.items()):
+              n = a["n"]
+              lines.append(
+                  f"| {problem} | {inference} | {n} | "
+                  f"{a['correct']/n:.3f} | {a['wrong']/n:.3f} | "
+                  f"{a['inc']/n:.3f} | {a['fail']/n:.3f} |"
+              )
+
+          lines += [
+              "",
+              "## Moderate separation, no missingness",
+              "",
+              "| Problem | Generator | Inference | Correct | Wrong | Inconclusive | Fit failure |",
+              "| --- | --- | --- | ---: | ---: | ---: | ---: |",
+          ]
+          for row in result["grid_results"]:
+              if row["separation_regime"] == "MODERATE" and row["missingness_rate"] == 0.0:
+                  lines.append(
+                      f"| {row['problem']} | {row['generator']} | {row['inference']} | "
+                      f"{row['recovery_probability']:.3f} | {row['wrong_probability']:.3f} | "
+                      f"{row['inconclusive_probability']:.3f} | {row['fit_failure_probability']:.3f} |"
+                  )
+
+          lines += [
+              "",
+              "## Interpretation boundary",
+              "",
+              result["interpretation_boundary"],
+              "",
+              "No scientific promotion is authorized by this run.",
+          ]
+          Path("docs/F1B_RECOVERY_CHARACTERIZATION_RESULT_2026-09-26.md").write_text(
+              "\n".join(lines) + "\n",
+              encoding="utf-8",
+          )
+
+          print("\n".join(lines))
+          PY
+
+      - name: Commit retained non-authoritative result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             model/results/f1b_recovery_characterization_non_authoritative_2026-09-26.json             docs/F1B_RECOVERY_CHARACTERIZATION_RESULT_2026-09-26.md
+          git commit -m "F1b: retain non-authoritative recovery characterization result"
+          git push
