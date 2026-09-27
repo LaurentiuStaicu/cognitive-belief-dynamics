@@ -1,0 +1,318 @@
+{
+  "regression_id": "F1B.R2.NESTED_FEASIBLE_PROJECTION.REGRESSION.2026-09-27",
+  "status": "NUMERICAL_INTEGRITY_REGRESSION_PASS",
+  "authoritative": false,
+  "issue": 190,
+  "historical_baseline": {
+    "scientific_source_commit": "97a4ac6119709de8089032a21b97877a522dd04d",
+    "github_run_id": "36325580317",
+    "artifact_id": 10933539813,
+    "artifact_name": "f1b-r2-distance-definition-closure-review",
+    "artifact_zip_sha256": "7c947134279e816357bcc8b6d7966c44fc29e49bb536d974827628068e769f48",
+    "exact_json_sha256": "55597e0f240b439531b872e99dfec9bafee73323e3c39d18943529069907537e",
+    "exact_json_size_bytes": 2757195
+  },
+  "corrected_execution": {
+    "scientific_source_commit": "d25909a22f3adde313f59d372b58c139ce15ad1f",
+    "temporary_pr": 197,
+    "github_run_id": "36333833072",
+    "artifact_id": 10937041228,
+    "artifact_name": "f1b-r2-distance-definition-closure-review-corrected-v2",
+    "artifact_zip_sha256": "b8c92cc4e7a28e7a809a9254a6477178d574f4d27d22c335b26af290232b265f",
+    "exact_json_sha256": "039e06da85a137f92d72b01defceb863605ed371597ed9f04a5240aebcfd2939",
+    "exact_json_size_bytes": 3563220
+  },
+  "input_identity": {
+    "config_sha256": "a653b2024f8508a8395845143a45d57427882e11b3f2a16203ff6609b7a9696d",
+    "departure_config_sha256": "e5603e0115d98abbb2df549671592fda14818abb5e990a0b5afad8641e5a2a1e",
+    "bound_config_sha256": "0fb7fee5d979b8f4309a0ac0ef49d7556c984b9ca5a957b2ab618479250b36c1",
+    "retained_cases_sha256": "b92e3b53b1042a541729665a1145ee66d66bc999d00c84c2bcdf6d5b8370124d",
+    "all_non_source_input_hashes_match_historical": true
+  },
+  "classification_regression": {
+    "case_count": 12,
+    "candidate_count": 3,
+    "case_candidate_count": 36,
+    "attainment_counts": [
+      {
+        "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+        "status": "FINITE_INTERIOR_ATTAINED",
+        "count": 7
+      },
+      {
+        "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+        "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+        "count": 5
+      },
+      {
+        "candidate_id": "PROBABILITY_RMS",
+        "status": "FINITE_INTERIOR_ATTAINED",
+        "count": 7
+      },
+      {
+        "candidate_id": "PROBABILITY_RMS",
+        "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+        "count": 5
+      },
+      {
+        "candidate_id": "STABILIZED_UTILITY_RMS",
+        "status": "FINITE_INTERIOR_ATTAINED",
+        "count": 7
+      },
+      {
+        "candidate_id": "STABILIZED_UTILITY_RMS",
+        "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+        "count": 5
+      }
+    ],
+    "attainment_status_changes": 0,
+    "closure_boundary_identity_changes": 0,
+    "scientific_domain_identity_changes": 0,
+    "historical_closure_case_count": 15,
+    "corrected_closure_case_count": 15,
+    "unresolved_case_count_historical": 0,
+    "unresolved_case_count_corrected": 0,
+    "closure_cases": [
+      {
+        "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+        "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+        "closure_boundary_components": [
+          "W1=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+        "candidate_id": "PROBABILITY_RMS",
+        "closure_boundary_components": [
+          "W1=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+        "candidate_id": "STABILIZED_UTILITY_RMS",
+        "closure_boundary_components": [
+          "W1=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+        "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+        "closure_boundary_components": [
+          "W0=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+        "candidate_id": "PROBABILITY_RMS",
+        "closure_boundary_components": [
+          "W0=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+        "candidate_id": "STABILIZED_UTILITY_RMS",
+        "closure_boundary_components": [
+          "W0=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.10",
+        "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+        "closure_boundary_components": [
+          "W1=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.10",
+        "candidate_id": "PROBABILITY_RMS",
+        "closure_boundary_components": [
+          "W1=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.10",
+        "candidate_id": "STABILIZED_UTILITY_RMS",
+        "closure_boundary_components": [
+          "W1=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+        "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+        "closure_boundary_components": [
+          "W1=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+        "candidate_id": "PROBABILITY_RMS",
+        "closure_boundary_components": [
+          "W1=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+        "candidate_id": "STABILIZED_UTILITY_RMS",
+        "closure_boundary_components": [
+          "W1=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+        "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+        "closure_boundary_components": [
+          "W0=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+        "candidate_id": "PROBABILITY_RMS",
+        "closure_boundary_components": [
+          "W0=HIGH"
+        ]
+      },
+      {
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+        "candidate_id": "STABILIZED_UTILITY_RMS",
+        "closure_boundary_components": [
+          "W0=HIGH"
+        ]
+      }
+    ]
+  },
+  "domain_level_regression": {
+    "domain_multipliers": [
+      8,
+      16,
+      32
+    ],
+    "finite_domain_comparisons": 108,
+    "closure_domain_comparisons": 108,
+    "changed_domain_selections": 3,
+    "changed_domain_selections_detail": [
+      {
+        "projection_kind": "finite",
+        "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.25",
+        "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+        "domain_multiplier": 32,
+        "old_objective": 0.003595362029283727,
+        "new_objective": 0.0035953619687837824,
+        "new_minus_old_objective": -6.049994446394313e-11,
+        "old_new_probability_rms": 0.000007126035805054217,
+        "old_new_logit_rms": 0.000042071537092034067,
+        "new_selected_start_source": "PREVIOUS_DOMAIN_SELECTED_FEASIBLE",
+        "new_carry_forward_selected": true
+      },
+      {
+        "projection_kind": "closure",
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+        "candidate_id": "STABILIZED_UTILITY_RMS",
+        "domain_multiplier": 16,
+        "old_objective": 0.11333333333465817,
+        "new_objective": 0.11333333333432018,
+        "new_minus_old_objective": -3.379935220593211e-13,
+        "old_new_probability_rms": 8.631549627505044e-9,
+        "old_new_logit_rms": 6.390065296345079e-7,
+        "new_selected_start_source": "PREVIOUS_DOMAIN_CONTINUATION_OPTIMIZED",
+        "new_carry_forward_selected": false
+      },
+      {
+        "projection_kind": "closure",
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+        "candidate_id": "STABILIZED_UTILITY_RMS",
+        "domain_multiplier": 32,
+        "old_objective": 0.11333333333465817,
+        "new_objective": 0.11333333333432018,
+        "new_minus_old_objective": -3.379935220593211e-13,
+        "old_new_probability_rms": 8.631549627505044e-9,
+        "old_new_logit_rms": 6.390065296345079e-7,
+        "new_selected_start_source": "PREVIOUS_DOMAIN_SELECTED_FEASIBLE",
+        "new_carry_forward_selected": true
+      }
+    ],
+    "finite": {
+      "max_new_minus_old_objective": 0,
+      "min_new_minus_old_objective": -6.049994446394313e-11,
+      "objective_worsening_count": 0,
+      "max_old_new_probability_rms": 0.000007126035805054217,
+      "max_old_new_logit_rms": 0.000042071537092034067,
+      "historical_failed_optimizer_start_count": 0,
+      "corrected_failed_optimizer_start_count": 0,
+      "historical_successful_optimizer_start_count": 972,
+      "corrected_successful_optimizer_start_count": 1044,
+      "continuation_enabled_domain_count": 72,
+      "exact_carry_forward_selected_count": 1,
+      "max_corrected_raw_apparent_nested_increase": 0
+    },
+    "closure": {
+      "max_new_minus_old_objective": 0,
+      "min_new_minus_old_objective": -3.379935220593211e-13,
+      "objective_worsening_count": 0,
+      "max_old_new_probability_rms": 8.631549627505044e-9,
+      "max_old_new_logit_rms": 6.390065296345079e-7,
+      "historical_failed_optimizer_start_count": 0,
+      "corrected_failed_optimizer_start_count": 0,
+      "historical_successful_optimizer_start_count": 972,
+      "corrected_successful_optimizer_start_count": 1044,
+      "continuation_enabled_domain_count": 72,
+      "exact_carry_forward_selected_count": 1,
+      "max_corrected_raw_apparent_nested_increase": 0
+    }
+  },
+  "retained_response_scale_check": {
+    "finite_change_candidate": "BERNOULLI_KL_GENERAL_TO_CBD",
+    "max_corrected_vs_historical_finite_probability_rms": 0.000007126035805054217,
+    "historical_same_candidate_max_closure_vs_finite_probability_rms": 0.000006995616705259029,
+    "finite_change_fraction_of_retained_same_candidate_scale": 0.5443296042869347,
+    "closure_change_candidate": "STABILIZED_UTILITY_RMS",
+    "max_corrected_vs_historical_closure_probability_rms": 8.631549627505044e-9,
+    "closure_change_fraction_of_retained_same_candidate_scale": 0.0012338511372437235
+  },
+  "sign_comparison_regression": {
+    "comparison_rows": 18,
+    "max_abs_primary_distance_change": 6.049994446394313e-11,
+    "max_abs_ratio_change": 8.174263044224972e-9,
+    "changed_fields": [
+      {
+        "anchor_id": "CBD_ANCHOR_1",
+        "historical_nominal_distance": 0.25,
+        "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+        "field": "plus",
+        "old": 0.003595362029283727,
+        "new": 0.0035953619687837824,
+        "new_minus_old": -6.049994446394313e-11
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_1",
+        "historical_nominal_distance": 0.25,
+        "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+        "field": "plus_minus_difference",
+        "old": -0.0038059100062951866,
+        "new": -0.003805910066795131,
+        "new_minus_old": -6.049994446394313e-11
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_1",
+        "historical_nominal_distance": 0.25,
+        "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+        "field": "plus_over_minus_ratio",
+        "old": 0.48577623035612477,
+        "new": 0.4857762221818617,
+        "new_minus_old": -8.174263044224972e-9
+      }
+    ]
+  },
+  "acceptance": {
+    "pass": true,
+    "no_classification_changes": true,
+    "no_new_unresolved_cases": true,
+    "closure_identities_preserved": true,
+    "all_corrected_domain_objectives_non_worse_than_historical": true,
+    "failed_optimizer_start_count_remains_zero": true,
+    "response_surface_changes_within_retained_historical_response_scale": true,
+    "historical_result_rewritten": false,
+    "corrected_projector_prospective_use_allowed": true,
+    "next_gate": "RESUME_ISSUE_182_COMPLEMENT_KL_ENVELOPE"
+  },
+  "interpretation_boundary": "Numerical-integrity regression only. PASS supports prospective use of nested-feasible finite-logit and closure projectors and resumption of deterministic Issue #182. It does not rewrite historical #171, revise KL v1 targets, authorize stochastic characterization or paired bootstrap, validate power, freeze a core grid or human N, authorize recruitment, or alter runtime F1b."
+}
