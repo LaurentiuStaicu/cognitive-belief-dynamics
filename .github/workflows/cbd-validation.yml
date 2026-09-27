@@ -76,3 +76,137 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  execute_f1b_r2_distance_definition_closure_review:
+    name: F1b R2 distance review + closure
+    needs: validate
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "97a4ac6119709de8089032a21b97877a522dd04d"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Execute frozen deterministic review with closure diagnostics
+        run: |
+          python scripts/run_f1b_r2_distance_definition_review.py \
+            --output /tmp/f1b-r2-distance-definition-closure-review.json \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+
+      - name: Validate and summarize closure-attainment result
+        run: |
+          python - <<'PY'
+          import json
+          from collections import Counter, defaultdict
+          from pathlib import Path
+
+          path = Path("/tmp/f1b-r2-distance-definition-closure-review.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          assert data["authoritative"] is False
+          assert data["case_count"] == 12
+          assert data["candidate_count"] == 3
+          assert data["selected_cell_row_count"] == 648
+
+          status_counts = Counter()
+          closure_cases = []
+          unresolved_cases = []
+          max_objective_gap = defaultdict(float)
+          max_surface_rms = defaultdict(float)
+          failed_starts = defaultdict(int)
+
+          for case in data["case_results"]:
+              for candidate in case["candidate_results"]:
+                  cid = candidate["candidate_id"]
+                  closure = candidate["closure_attainment_diagnostic"]
+                  status = closure["attainment_status"]
+                  status_counts[(cid, status)] += 1
+                  max_objective_gap[cid] = max(
+                      max_objective_gap[cid],
+                      abs(float(
+                          closure[
+                              "finite_logit_objective_minus_closure_objective"
+                          ]
+                      )),
+                  )
+                  max_surface_rms[cid] = max(
+                      max_surface_rms[cid],
+                      float(
+                          closure[
+                              "selected_cbd_probability_rms_vs_finite_logit_widest"
+                          ]
+                      ),
+                  )
+                  failed_starts[cid] += sum(
+                      row["failed_start_count"]
+                      for row in closure["domain_results"]
+                  )
+                  payload = {
+                      "case_id": case["case_id"],
+                      "anchor_id": case["anchor_id"],
+                      "sign": case["sign"],
+                      "historical_nominal_distance": case[
+                          "historical_nominal_distance"
+                      ],
+                      "candidate_id": cid,
+                      "status": status,
+                      "closure_boundary_components": closure[
+                          "closure_boundary_components"
+                      ],
+                      "scientific_domain_components": closure[
+                          "scientific_domain_components"
+                      ],
+                      "surface_coordinates": closure[
+                          "selected_widest_domain"
+                      ]["selected_surface_coordinates"],
+                      "objective_gap": closure[
+                          "finite_logit_objective_minus_closure_objective"
+                      ],
+                      "probability_rms_vs_finite": closure[
+                          "selected_cbd_probability_rms_vs_finite_logit_widest"
+                      ],
+                  }
+                  if status == "NON_ATTAINED_OR_CLOSURE_LIMIT":
+                      closure_cases.append(payload)
+                  if status == "SCIENTIFIC_DOMAIN_UNRESOLVED":
+                      unresolved_cases.append(payload)
+
+          summary = {
+              "status_counts": [
+                  {"candidate_id": key[0], "status": key[1], "count": value}
+                  for key, value in sorted(status_counts.items())
+              ],
+              "closure_cases": closure_cases,
+              "unresolved_cases": unresolved_cases,
+              "max_abs_finite_minus_closure_objective": dict(max_objective_gap),
+              "max_probability_rms_closure_vs_finite": dict(max_surface_rms),
+              "closure_failed_starts": dict(failed_starts),
+              "sign_comparisons": data["sign_comparisons"],
+              "provenance": data["provenance"],
+              "interpretation_boundary": data["interpretation_boundary"],
+              "closure_attainment_rule": data["closure_attainment_rule"],
+          }
+          print("F1B_R2_CLOSURE_REVIEW_SUMMARY_BEGIN")
+          print(json.dumps(summary, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_CLOSURE_REVIEW_SUMMARY_END")
+          PY
+
+      - name: Upload exact closure review result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-distance-definition-closure-review
+          path: /tmp/f1b-r2-distance-definition-closure-review.json
+          if-no-files-found: error
+          retention-days: 7
