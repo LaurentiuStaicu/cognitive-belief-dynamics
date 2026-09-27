@@ -76,3 +76,79 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  execute_f1b_r2_closure_regression:
+    name: F1b R2 closure regression
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "a59f65eba5bfe0cdf5cb51f1316c9798e8663902"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Execute corrected #171 closure review
+        run: |
+          python scripts/run_f1b_r2_distance_definition_review.py             --output /tmp/f1b-r2-distance-definition-closure-review-corrected.json             --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+          python - <<'PY'
+          import json
+          from collections import Counter
+          from pathlib import Path
+
+          path = Path("/tmp/f1b-r2-distance-definition-closure-review-corrected.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          case_results = data["case_results"]
+          rows = []
+          for case in case_results:
+              for candidate in case["candidate_results"]:
+                  closure = candidate["closure_projection"]
+                  widest = closure["selected_widest_domain"]
+                  rows.append({
+                      "case_id": case["case_id"],
+                      "candidate_id": candidate["candidate_id"],
+                      "attainment_status": closure["attainment_status"],
+                      "closure_boundary_components": closure["closure_boundary_components"],
+                      "scientific_domain_components": closure["scientific_domain_components"],
+                      "objective": widest["objective"],
+                      "primary_distance": widest["primary_distance"],
+                      "surface_coordinates": widest["selected_surface_coordinates"],
+                      "selected_start_source": widest.get("selected_start_source"),
+                      "nested_continuation": widest.get("nested_continuation"),
+                  })
+
+          print("F1B_R2_CLOSURE_REGRESSION_SUMMARY_BEGIN")
+          print(json.dumps({
+              "case_count": len(case_results),
+              "candidate_rows": len(rows),
+              "attainment_counts": dict(Counter(
+                  (row["candidate_id"], row["attainment_status"])
+                  for row in rows
+              )),
+              "unresolved": [
+                  row for row in rows
+                  if row["attainment_status"] == "SCIENTIFIC_DOMAIN_UNRESOLVED"
+              ],
+              "rows": rows,
+              "provenance": data["provenance"],
+          }, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_CLOSURE_REGRESSION_SUMMARY_END")
+          PY
+
+      - name: Upload corrected exact closure review
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-distance-definition-closure-review-corrected
+          path: /tmp/f1b-r2-distance-definition-closure-review-corrected.json
+          if-no-files-found: error
