@@ -93,7 +93,7 @@ CBD_ANCHOR_2 minus is already beta_accuracy-bound at RMS 0.10.
 
 This matters because #145 intentionally defined nearest-CBD distance using the current AP-A fitter bounds. The resulting geometry is therefore a distance to the **bounded computational CBD surface**, not demonstrably to an unconstrained scientific manifold.
 
-The current repository contains no separate scientific justification that these numerical fitter bounds define the substantive support of CBD parameters.
+In the #130/#145 materials and fitter implementation inspected for this gate, these limits are inherited as computational fitter bounds; this diagnostic does not establish them as substantive scientific support limits for CBD parameters.
 
 ## Consequence
 
