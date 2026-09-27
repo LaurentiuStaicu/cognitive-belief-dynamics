@@ -1,0 +1,44 @@
+{
+  "diagnostic_id": "F1B.R2.COMPLEMENT_SIGN_GEOMETRY.2026-09-27",
+  "status": "NON_AUTHORITATIVE_R2_COMPLEMENT_SIGN_GEOMETRY_DESIGN",
+  "baseline_main_commit": "b4ab87583aa47ecefe87e840063c970fa8997310",
+  "source_departure_design": "model/benchmarks/f1b_r2_controlled_departure_design.json",
+  "selected_axis": "COMPLEMENT_RELATION_VIOLATION",
+  "expected_case_count": 12,
+  "expected_cells_per_case": 18,
+  "probability_saturation_thresholds": [
+    0.05,
+    0.1
+  ],
+  "kl_clip_epsilon": 1e-12,
+  "comparisons": {
+    "group_by": [
+      "anchor_id",
+      "requested_cbd_rms_distance"
+    ],
+    "contrast": "PLUS_MINUS",
+    "metrics": [
+      "scalar_step",
+      "probability_rms_distance",
+      "mean_bernoulli_kl_general_to_nearest_cbd",
+      "information_weighted_logit_distance",
+      "saturation_count_0.05",
+      "saturation_count_0.10",
+      "mean_bernoulli_variance_general",
+      "min_bernoulli_variance_general",
+      "mean_bernoulli_variance_nearest_cbd",
+      "min_bernoulli_variance_nearest_cbd"
+    ]
+  },
+  "execution_boundary": {
+    "stochastic_simulation_allowed": false,
+    "model_fitting_allowed": false,
+    "paired_bootstrap_stage_allowed": false,
+    "authoritative_bootstrap_draws_frozen": false,
+    "authoritative_evaluation_replicates_frozen": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
