@@ -1,0 +1,58 @@
+{
+  "diagnostic_id": "F1B.R2.KL_COMPLEMENT_ATTAINABLE_ENVELOPE.2026-09-27",
+  "status": "NON_AUTHORITATIVE_KL_COMPLEMENT_ENVELOPE_DIAGNOSTIC",
+  "issue": 182,
+  "baseline_main_commit": "5f789b80c24ee12fa7d1880e6975f0b3953a3bb1",
+  "kl_design_config": "model/benchmarks/f1b_r2_kl_controlled_departure_design_v1.json",
+  "review_config": "model/benchmarks/f1b_r2_distance_definition_review.json",
+  "historical_departure_config": "model/benchmarks/f1b_r2_controlled_departure_design.json",
+  "selected_axis": "COMPLEMENT_RELATION_VIOLATION",
+  "anchors": [
+    "CBD_ANCHOR_1",
+    "CBD_ANCHOR_2"
+  ],
+  "signs": [
+    -1,
+    1
+  ],
+  "frozen_targets": [
+    0.001,
+    0.005,
+    0.01
+  ],
+  "scalar_grid": {
+    "start": 0,
+    "step": 0.025,
+    "maximum": 20,
+    "expected_point_count": 801
+  },
+  "scientific_projection": {
+    "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+    "direction": "GENERAL_TO_CBD",
+    "response_family": "CLOSURE_OF_CBD_RESPONSE_FAMILY",
+    "diagnostic_domain_multipliers": [
+      8,
+      16,
+      32
+    ],
+    "scientific_domain_unresolved_is_failure": true
+  },
+  "numerical_integrity": {
+    "monotonicity_tolerance": 1e-12,
+    "target_comparison_tolerance": 1e-12,
+    "scalar_grid_tolerance": 1e-12
+  },
+  "execution_boundary": {
+    "v1_target_revision_allowed": false,
+    "scalar_range_revision_allowed": false,
+    "ray_revision_allowed": false,
+    "stochastic_simulation_allowed": false,
+    "bootstrap_allowed": false,
+    "paired_bootstrap_authorized": false,
+    "authoritative_power_validated": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
