@@ -37,9 +37,12 @@ CASES = (
 )
 
 # Cross-run optimizer/BLAS drift is expected below the frozen 1e-6
-# departure-generation tolerance. Keep this regression threshold two
-# orders of magnitude tighter than the observed ~1e-11 runner drift.
-NUMERICAL_REPRODUCTION_ABS_TOL = 1e-10
+# departure-generation tolerance. A later clean CI rerun observed
+# probability-RMS drift of about 1.37e-9 for a retained deterministic
+# case, so keep this regression threshold at 1e-8: still 100x tighter
+# than the scientific departure-generation tolerance while avoiding
+# false failures from numerically equivalent optimizer solutions.
+NUMERICAL_REPRODUCTION_ABS_TOL = 1e-8
 
 
 def load_json(path: Path) -> dict:
