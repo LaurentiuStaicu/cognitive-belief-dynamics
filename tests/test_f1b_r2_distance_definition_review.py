@@ -440,53 +440,129 @@ def test_nested_closure_keeps_real_wider_domain_improvement(
 
 
 
-def test_finite_logit_nested_drift_error_retains_diagnostic_context(
+
+def _run_synthetic_finite_logit_continuation(
     monkeypatch,
-) -> None:
+    *,
+    second_ordinary_objective: float,
+    second_continuation_objective: float,
+) -> dict:
     config = copy.deepcopy(load(CONFIG))
     config["diagnostic_domain_multipliers"] = [8, 16]
     departure_config = load(DEPARTURES)
-    objectives = iter([0.01, 0.01000002])
+
+    objectives = iter(
+        [
+            0.01,
+            second_ordinary_objective,
+            second_continuation_objective,
+        ]
+    )
 
     def fake_minimize(*args, x0, **kwargs):
         return SimpleNamespace(
             success=True,
             status=0,
-            message="synthetic optimizer drift",
+            message="synthetic finite-logit optimizer result",
             fun=float(next(objectives)),
             x=np.asarray(x0, dtype=float).copy(),
         )
 
     monkeypatch.setattr(review, "minimize", fake_minimize)
+    monkeypatch.setattr(
+        review,
+        "_objective_value",
+        lambda *args, **kwargs: 0.01,
+    )
 
     belief = np.asarray([0.2, 0.8], dtype=float)
     accuracy = np.asarray([0.0, 1.0], dtype=float)
     reward = np.asarray([0.0, 0.0], dtype=float)
     eta_general = np.asarray([0.0, 0.0], dtype=float)
 
-    with pytest.raises(ValueError) as exc_info:
-        review._project_candidate(
-            candidate_id="BERNOULLI_KL_GENERAL_TO_CBD",
-            eta_general=eta_general,
-            belief=belief,
-            accuracy=accuracy,
-            reward=reward,
-            starts=[(0.0, 0.0, 0.0, 0.0)],
-            config=config,
-            departure_config=departure_config,
-            diagnostic_case_id="SYNTHETIC_CASE",
-        )
+    return review._project_candidate(
+        candidate_id="BERNOULLI_KL_GENERAL_TO_CBD",
+        eta_general=eta_general,
+        belief=belief,
+        accuracy=accuracy,
+        reward=reward,
+        starts=[(0.0, 0.0, 0.0, 0.0)],
+        config=config,
+        departure_config=departure_config,
+        diagnostic_case_id="SYNTHETIC_CASE",
+    )
 
-    message = str(exc_info.value)
-    assert "nested candidate objective increased under wider domain" in message
-    assert "case_id=SYNTHETIC_CASE" in message
-    assert "candidate_id=BERNOULLI_KL_GENERAL_TO_CBD" in message
-    assert "from_multiplier=8.0" in message
-    assert "to_multiplier=16.0" in message
-    assert "previous_objective=0.01" in message
-    assert "current_objective=0.01000002" in message
-    assert "objective_increase=" in message
-    assert "nested_tolerance=" in message
-    assert "previous_parameters=" in message
-    assert "current_parameters=" in message
-    assert "current_selected_start_index=0" in message
+
+def test_finite_logit_nested_continuation_carries_feasible_solution_on_drift(
+    monkeypatch,
+) -> None:
+    result = _run_synthetic_finite_logit_continuation(
+        monkeypatch,
+        second_ordinary_objective=0.01000003,
+        second_continuation_objective=0.01000002,
+    )
+    first, second = result["domain_results"]
+
+    assert first["objective"] == pytest.approx(0.01)
+    assert second["objective"] == pytest.approx(0.01)
+    assert second["selected_start_source"] == (
+        "PREVIOUS_DOMAIN_SELECTED_FEASIBLE"
+    )
+    assert second["successful_start_count"] == 2
+    assert second["failed_start_count"] == 0
+    assert second["feasible_candidate_count"] == 3
+
+    continuation = second["nested_continuation"]
+    assert continuation["enabled"] is True
+    assert continuation["previous_domain_multiplier"] == pytest.approx(8.0)
+    assert continuation["previous_selected_objective"] == pytest.approx(0.01)
+    assert continuation["carried_feasible_objective"] == pytest.approx(0.01)
+    assert continuation["carried_minus_previous_objective"] == pytest.approx(
+        0.0
+    )
+    assert continuation["optimized_continuation_objective"] == pytest.approx(
+        0.01000002
+    )
+    assert continuation["raw_best_optimized_objective"] == pytest.approx(
+        0.01000002
+    )
+    assert continuation["raw_apparent_nested_increase"] == pytest.approx(
+        2e-8
+    )
+    assert continuation["carry_forward_selected"] is True
+    assert second["objective"] <= first["objective"]
+
+
+def test_finite_logit_nested_continuation_keeps_real_wider_improvement(
+    monkeypatch,
+) -> None:
+    result = _run_synthetic_finite_logit_continuation(
+        monkeypatch,
+        second_ordinary_objective=0.009,
+        second_continuation_objective=0.008,
+    )
+    first, second = result["domain_results"]
+
+    assert first["objective"] == pytest.approx(0.01)
+    assert second["objective"] == pytest.approx(0.008)
+    assert second["selected_start_source"] == (
+        "PREVIOUS_DOMAIN_CONTINUATION_OPTIMIZED"
+    )
+    assert second["successful_start_count"] == 2
+    assert second["failed_start_count"] == 0
+    assert second["feasible_candidate_count"] == 3
+
+    continuation = second["nested_continuation"]
+    assert continuation["enabled"] is True
+    assert continuation["carried_feasible_objective"] == pytest.approx(0.01)
+    assert continuation["optimized_continuation_objective"] == pytest.approx(
+        0.008
+    )
+    assert continuation["raw_best_optimized_objective"] == pytest.approx(
+        0.008
+    )
+    assert continuation["raw_apparent_nested_increase"] == pytest.approx(
+        -0.002
+    )
+    assert continuation["carry_forward_selected"] is False
+    assert second["objective"] < first["objective"]
