@@ -246,3 +246,30 @@ def test_envelope_does_not_allow_posthoc_grid_change() -> None:
             load(KL_CONFIG),
             load(REVIEW),
         )
+
+
+
+def test_projection_failure_retains_anchor_sign_and_scalar(monkeypatch) -> None:
+    def fail_projection(*args, **kwargs):
+        raise ValueError(
+            "nested closure objective increased under wider domain: "
+            "8x=0.1 -> 16x=0.1000000002; "
+            "increase=2e-10; tolerance=1e-10"
+        )
+
+    monkeypatch.setattr(env, "_project_kl_closure", fail_projection)
+    with pytest.raises(
+        env.ComplementKLEnvelopeError,
+        match=(
+            r"anchor=CBD_ANCHOR_1 sign=-1 scalar=0.*"
+            r"increase=2e-10.*tolerance=1e-10"
+        ),
+    ):
+        env.scan_complement_kl_ray(
+            load(CONFIG),
+            load(KL_CONFIG),
+            load(REVIEW),
+            load(HISTORICAL),
+            anchor_id="CBD_ANCHOR_1",
+            sign=-1,
+        )

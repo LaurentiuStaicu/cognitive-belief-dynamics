@@ -385,12 +385,16 @@ def _project_candidate_closure(
         domain_results[1:],
         strict=False,
     ):
-        if (
-            float(current["objective"])
-            > float(previous["objective"]) + nested_tolerance
-        ):
+        previous_objective = float(previous["objective"])
+        current_objective = float(current["objective"])
+        increase = current_objective - previous_objective
+        if increase > nested_tolerance:
             raise ValueError(
-                "nested closure objective increased under wider domain"
+                "nested closure objective increased under wider domain: "
+                f"{previous['domain_multiplier']}x={previous_objective:.17g} "
+                f"-> {current['domain_multiplier']}x={current_objective:.17g}; "
+                f"increase={increase:.17g}; "
+                f"tolerance={nested_tolerance:.17g}"
             )
 
     transitions = [
