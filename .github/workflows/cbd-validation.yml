@@ -76,3 +76,105 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+  execute-f1b-r2-screen:
+    name: F1b R2 screen (${{ matrix.draw_count }} draws)
+    needs: validate
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        draw_count: [49, 99, 199]
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      DRAW_COUNT: ${{ matrix.draw_count }}
+      SCIENTIFIC_SOURCE_COMMIT: "9206c8e96adc10818d20bff93a290daf0392fe92"
+      EXECUTION_BRANCH: "execution/f1b-r2-bootstrap-calibration-screen-2026-09-27"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen package dependencies
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c "$CBD_CI_CONSTRAINTS" .
+
+      - name: Prepare execution partition from frozen config
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          source = Path("model/benchmarks/f1b_r2_bootstrap_calibration_screen_49_99_199x20.json")
+          config = json.loads(source.read_text(encoding="utf-8"))
+          draw = int(os.environ["DRAW_COUNT"])
+          if draw not in config["bootstrap"]["draw_grid"]:
+              raise SystemExit(f"draw count {draw} is not in frozen grid")
+          if config["evaluation_replicate_grid"] != [20]:
+              raise SystemExit("frozen screen no longer has exactly 20 evaluation replicates")
+          config["bootstrap"]["draw_grid"] = [draw]
+          config["bootstrap"]["draw_grid_status"] = "EXECUTION_PARTITION_OF_FROZEN_STAGED_SCREEN"
+          target = Path(f"/tmp/f1b-r2-screen-config-{draw}.json")
+          target.write_text(json.dumps(config, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          canonical_sha = hashlib.sha256(source.read_bytes()).hexdigest()
+          Path(f"/tmp/f1b-r2-screen-canonical-sha-{draw}.txt").write_text(canonical_sha + "\n", encoding="utf-8")
+          PY
+
+      - name: Execute frozen screen partition
+        run: |
+          START_EPOCH="$(date +%s)"
+          export START_EPOCH
+          python scripts/run_f1b_r2_bootstrap_characterization.py \
+            --config "/tmp/f1b-r2-screen-config-$DRAW_COUNT.json" \
+            --departure-config model/benchmarks/f1b_r2_controlled_departure_design.json \
+            --output "/tmp/f1b-r2-screen-result-$DRAW_COUNT.json" \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+          END_EPOCH="$(date +%s)"
+          export END_EPOCH
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          draw = int(os.environ["DRAW_COUNT"])
+          path = Path(f"/tmp/f1b-r2-screen-result-{draw}.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          canonical_sha = Path(f"/tmp/f1b-r2-screen-canonical-sha-{draw}.txt").read_text(encoding="utf-8").strip()
+          data["execution_context"] = {
+              "execution_branch": os.environ["EXECUTION_BRANCH"],
+              "github_run_id": os.environ.get("GITHUB_RUN_ID"),
+              "github_run_attempt": os.environ.get("GITHUB_RUN_ATTEMPT"),
+              "execution_partition_draw_count": draw,
+              "wall_seconds": int(os.environ["END_EPOCH"]) - int(os.environ["START_EPOCH"]),
+              "scientific_source_commit": os.environ["SCIENTIFIC_SOURCE_COMMIT"],
+              "canonical_screen_config_sha256": canonical_sha,
+              "temporary_workflow_not_for_merge": True,
+          }
+          path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          summary = {
+              "draw_count": draw,
+              "status": data["status"],
+              "trial_count": data["trial_count"],
+              "aggregate": data["aggregate"],
+              "execution_context": data["execution_context"],
+              "provenance": data["provenance"],
+          }
+          print("F1B_R2_SCREEN_PARTITION_SUMMARY_BEGIN")
+          print(json.dumps(summary, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_SCREEN_PARTITION_SUMMARY_END")
+          PY
+
+      - name: Upload screen partition result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-screen-${{ matrix.draw_count }}
+          path: /tmp/f1b-r2-screen-result-${{ matrix.draw_count }}.json
+          if-no-files-found: error
+          retention-days: 7
