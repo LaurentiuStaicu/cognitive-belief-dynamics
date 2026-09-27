@@ -1,0 +1,364 @@
+{
+  "characterization_id": "F1B.R2.BOOTSTRAP_CALIBRATION.SCREEN.49_99_199X20.2026-09-27",
+  "status": "NON_AUTHORITATIVE_R2_BOOTSTRAP_CALIBRATION_SCREEN_RESULT",
+  "authoritative": false,
+  "design": {
+    "bootstrap_draws": [
+      49,
+      99,
+      199
+    ],
+    "evaluation_replicates_per_draw": 20,
+    "participants": 24,
+    "items": 36,
+    "missingness": 0,
+    "fit_scale_multiplier": 1,
+    "restriction_tests": 300
+  },
+  "summary_rows": [
+    {
+      "bootstrap_draws": 49,
+      "identity": "ADD_NULL",
+      "role": "ADD_NULL_FALSE_REJECTION",
+      "restriction": "ADD_RESTRICTION",
+      "rejections": 1,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0.008881448800795402,
+        0.23613119344674205
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": -0.06142493571137706,
+      "mean_held_out_item_delta": -0.1480730813385776
+    },
+    {
+      "bootstrap_draws": 49,
+      "identity": "CBD_ADD_INTERSECTION_ANCHOR_1__STANDALONE_ACCURACY_MAIN_EFFECT__PLUS__RMS_0.25",
+      "role": "ADD_SPECIFICITY_NEGATIVE_CONTROL",
+      "restriction": "ADD_RESTRICTION",
+      "rejections": 1,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0.008881448800795402,
+        0.23613119344674205
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": -0.5245189489161213,
+      "mean_held_out_item_delta": -1.4147765238896235
+    },
+    {
+      "bootstrap_draws": 49,
+      "identity": "CBD_ADD_INTERSECTION_ANCHOR_1__STANDALONE_ACCURACY_MAIN_EFFECT__PLUS__RMS_0.25",
+      "role": "CBD_DEPARTURE_DETECTION",
+      "restriction": "CBD_COMPLEMENT_RESTRICTION",
+      "rejections": 16,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0.5839825677481064,
+        0.919342337420202
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": 0.82665498930686,
+      "mean_held_out_item_delta": 0.4500083609760367
+    },
+    {
+      "bootstrap_draws": 49,
+      "identity": "CBD_NULL_ANCHOR_1",
+      "role": "CBD_NULL_FALSE_REJECTION",
+      "restriction": "CBD_COMPLEMENT_RESTRICTION",
+      "rejections": 1,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0.008881448800795402,
+        0.23613119344674205
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": -0.2622446999713091,
+      "mean_held_out_item_delta": -0.5770222892962771
+    },
+    {
+      "bootstrap_draws": 49,
+      "identity": "CBD_NULL_ANCHOR_2",
+      "role": "CBD_NULL_FALSE_REJECTION",
+      "restriction": "CBD_COMPLEMENT_RESTRICTION",
+      "rejections": 0,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0,
+        0.16112515805281938
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": -0.0762337606039715,
+      "mean_held_out_item_delta": -0.9665915640738589
+    },
+    {
+      "bootstrap_draws": 99,
+      "identity": "ADD_NULL",
+      "role": "ADD_NULL_FALSE_REJECTION",
+      "restriction": "ADD_RESTRICTION",
+      "rejections": 1,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0.008881448800795402,
+        0.23613119344674205
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": -0.371243019905485,
+      "mean_held_out_item_delta": -0.3313974305979109
+    },
+    {
+      "bootstrap_draws": 99,
+      "identity": "CBD_ADD_INTERSECTION_ANCHOR_1__STANDALONE_ACCURACY_MAIN_EFFECT__PLUS__RMS_0.25",
+      "role": "ADD_SPECIFICITY_NEGATIVE_CONTROL",
+      "restriction": "ADD_RESTRICTION",
+      "rejections": 3,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0.052368745896216595,
+        0.36041886474075696
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": -0.4602804612339092,
+      "mean_held_out_item_delta": -0.20524697587247615
+    },
+    {
+      "bootstrap_draws": 99,
+      "identity": "CBD_ADD_INTERSECTION_ANCHOR_1__STANDALONE_ACCURACY_MAIN_EFFECT__PLUS__RMS_0.25",
+      "role": "CBD_DEPARTURE_DETECTION",
+      "restriction": "CBD_COMPLEMENT_RESTRICTION",
+      "rejections": 14,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0.4810271816464765,
+        0.8545227551323956
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": 0.393010049155518,
+      "mean_held_out_item_delta": 1.120100507437371
+    },
+    {
+      "bootstrap_draws": 99,
+      "identity": "CBD_NULL_ANCHOR_1",
+      "role": "CBD_NULL_FALSE_REJECTION",
+      "restriction": "CBD_COMPLEMENT_RESTRICTION",
+      "rejections": 1,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0.008881448800795402,
+        0.23613119344674205
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": -0.23313775939057493,
+      "mean_held_out_item_delta": -0.9203132847970579
+    },
+    {
+      "bootstrap_draws": 99,
+      "identity": "CBD_NULL_ANCHOR_2",
+      "role": "CBD_NULL_FALSE_REJECTION",
+      "restriction": "CBD_COMPLEMENT_RESTRICTION",
+      "rejections": 1,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0.008881448800795402,
+        0.23613119344674205
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": -0.1357984014868215,
+      "mean_held_out_item_delta": -0.6965556060291881
+    },
+    {
+      "bootstrap_draws": 199,
+      "identity": "ADD_NULL",
+      "role": "ADD_NULL_FALSE_REJECTION",
+      "restriction": "ADD_RESTRICTION",
+      "rejections": 1,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0.008881448800795402,
+        0.23613119344674205
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": -0.17800089140951342,
+      "mean_held_out_item_delta": -0.7355893868910272
+    },
+    {
+      "bootstrap_draws": 199,
+      "identity": "CBD_ADD_INTERSECTION_ANCHOR_1__STANDALONE_ACCURACY_MAIN_EFFECT__PLUS__RMS_0.25",
+      "role": "ADD_SPECIFICITY_NEGATIVE_CONTROL",
+      "restriction": "ADD_RESTRICTION",
+      "rejections": 1,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0.008881448800795402,
+        0.23613119344674205
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": -0.24918187793361923,
+      "mean_held_out_item_delta": -0.47676957287114374
+    },
+    {
+      "bootstrap_draws": 199,
+      "identity": "CBD_ADD_INTERSECTION_ANCHOR_1__STANDALONE_ACCURACY_MAIN_EFFECT__PLUS__RMS_0.25",
+      "role": "CBD_DEPARTURE_DETECTION",
+      "restriction": "CBD_COMPLEMENT_RESTRICTION",
+      "rejections": 13,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0.4328542766852363,
+        0.8188081758989179
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": 0.33997133194574547,
+      "mean_held_out_item_delta": 0.7985610577634951
+    },
+    {
+      "bootstrap_draws": 199,
+      "identity": "CBD_NULL_ANCHOR_1",
+      "role": "CBD_NULL_FALSE_REJECTION",
+      "restriction": "CBD_COMPLEMENT_RESTRICTION",
+      "rejections": 0,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0,
+        0.16112515805281938
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": -0.2552707894340493,
+      "mean_held_out_item_delta": -0.9067065049205866
+    },
+    {
+      "bootstrap_draws": 199,
+      "identity": "CBD_NULL_ANCHOR_2",
+      "role": "CBD_NULL_FALSE_REJECTION",
+      "restriction": "CBD_COMPLEMENT_RESTRICTION",
+      "rejections": 2,
+      "evaluation_replicates": 20,
+      "rejection_wilson_95": [
+        0.027866481213768224,
+        0.3010336452284873
+      ],
+      "fit_failures": 0,
+      "bootstrap_calibration_failures": 0,
+      "mean_bootstrap_fit_failures": 0,
+      "mean_held_out_participant_delta": -0.29982467934122353,
+      "mean_held_out_item_delta": -0.8127092635040796
+    }
+  ],
+  "advancement": {
+    "predeclared_thresholds": {
+      "max_rejections_each_null": 2,
+      "max_add_specificity_rejections": 2,
+      "min_cbd_departure_rejections": 16,
+      "require_zero_fit_and_calibration_failures": true
+    },
+    "verdicts": [
+      {
+        "bootstrap_draws": 49,
+        "pass": true,
+        "null_rejections": {
+          "ADD_NULL": 1,
+          "CBD_NULL_ANCHOR_1": 1,
+          "CBD_NULL_ANCHOR_2": 0
+        },
+        "add_specificity_rejections": 1,
+        "cbd_departure_rejections": 16
+      },
+      {
+        "bootstrap_draws": 99,
+        "pass": false,
+        "null_rejections": {
+          "ADD_NULL": 1,
+          "CBD_NULL_ANCHOR_1": 1,
+          "CBD_NULL_ANCHOR_2": 1
+        },
+        "add_specificity_rejections": 3,
+        "cbd_departure_rejections": 14
+      },
+      {
+        "bootstrap_draws": 199,
+        "pass": false,
+        "null_rejections": {
+          "ADD_NULL": 1,
+          "CBD_NULL_ANCHOR_1": 0,
+          "CBD_NULL_ANCHOR_2": 2
+        },
+        "add_specificity_rejections": 1,
+        "cbd_departure_rejections": 13
+      }
+    ],
+    "passing_draw_counts": [
+      49
+    ],
+    "smallest_passing_for_next_non_authoritative_stage": 49,
+    "authoritative_draw_count_frozen": false,
+    "next_stage": "BROADER_NON_AUTHORITATIVE_DEPARTURE_CHARACTERIZATION_ONLY"
+  },
+  "execution": {
+    "github_run_id": "36300108050",
+    "temporary_pr": 156,
+    "execution_branch": "execution/f1b-r2-bootstrap-calibration-screen-2026-09-27",
+    "partitioned_by_draw_count": true,
+    "partitions": [
+      {
+        "draws": 49,
+        "job_id": 108566154813,
+        "artifact_id": 10925346440,
+        "artifact_zip_sha256": "77592b3ccf10c20bd6e127a0e546bf12cf2050d97c91a1a44d5deeeae7e41bd6",
+        "result_json_sha256": "bc5257f5bf96be22c08e6890182d452fb5952cd9faf9620094dca24ccbfbace9",
+        "wall_seconds": 203
+      },
+      {
+        "draws": 99,
+        "job_id": 108566154764,
+        "artifact_id": 10924199739,
+        "artifact_zip_sha256": "81d95d6e5c4ee400984a17ff80be4946cacd81432d43fce98c183824512ad81a",
+        "result_json_sha256": "2823a8ae489d7da2cf89488fc6cdba4ef6eafada3f53f202510c24e5c3b26a9a",
+        "wall_seconds": 253
+      },
+      {
+        "draws": 199,
+        "job_id": 108566154738,
+        "artifact_id": 10925475797,
+        "artifact_zip_sha256": "6dfb53edad73b8c835d59195eb3493dcade507179782562e3acdd587ec4931f5",
+        "result_json_sha256": "42eeec38ce977682fc4147cd4e214e7818f6456af02fbf019877ea27016262ef",
+        "wall_seconds": 793
+      }
+    ]
+  },
+  "provenance": {
+    "source_commit": "9206c8e96adc10818d20bff93a290daf0392fe92",
+    "config_path": "model/benchmarks/f1b_r2_bootstrap_calibration_screen_49_99_199x20.json",
+    "config_sha256": "213173be9dbb2934fd3ec4201ed2aed509d7ad7712906ddcc7f0dc17c5202f4e",
+    "departure_config_path": "model/benchmarks/f1b_r2_controlled_departure_design.json",
+    "departure_config_sha256": "e5603e0115d98abbb2df549671592fda14818abb5e990a0b5afad8641e5a2a1e"
+  },
+  "interpretation_boundary": "Design-search only. Passing permits only broader non-authoritative departure characterization; it does not validate exact alpha, freeze a bootstrap draw count/evaluation replicate count/core grid/human N, authorize recruitment, or authorize runtime F1b."
+}
