@@ -76,3 +76,183 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  recover_f1b_r2_kl_v2_paired_bootstrap_combination:
+    name: Paired KL v2 bootstrap combine recovery
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "6ad6be092fd3e6b9ec17c3935e19711710690beb"
+      SOURCE_RUN_ID: "36339370047"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download immutable paired shards from source run
+        uses: actions/download-artifact@v4
+        with:
+          pattern: f1b-r2-kl-v2-paired-R*
+          path: /tmp/parts
+          merge-multiple: true
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36339370047
+
+      - name: Verify source shard set
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          expected = {
+              "R00_01",
+              "R02_03",
+              "R04_05",
+              "R06_07",
+              "R08_09",
+          }
+          paths = sorted(Path("/tmp/parts").glob("f1b-r2-kl-v2-paired-R*.json"))
+          assert len(paths) == 5, [str(path) for path in paths]
+          seen = set()
+          for path in paths:
+              data = json.loads(path.read_text(encoding="utf-8"))
+              assert data["provenance"]["source_commit"] == (
+                  "6ad6be092fd3e6b9ec17c3935e19711710690beb"
+              )
+              indices = tuple(data["execution_replicate_indices"])
+              shard = {
+                  (0, 1): "R00_01",
+                  (2, 3): "R02_03",
+                  (4, 5): "R04_05",
+                  (6, 7): "R06_07",
+                  (8, 9): "R08_09",
+              }[indices]
+              seen.add(shard)
+              print(
+                  "SHARD",
+                  shard,
+                  hashlib.sha256(path.read_bytes()).hexdigest(),
+                  data["restriction_run_count"],
+                  data["snapshot_count"],
+                  data["pair_comparison_count"],
+              )
+          assert seen == expected
+          PY
+
+      - name: Combine and validate retained paired shards
+        run: |
+          python scripts/combine_f1b_r2_kl_v2_paired_bootstrap_partitions.py \
+            --partition /tmp/parts/f1b-r2-kl-v2-paired-R00_01.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-paired-R02_03.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-paired-R04_05.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-paired-R06_07.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-paired-R08_09.json \
+            --output /tmp/f1b-r2-kl-v2-paired-combined.json
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from collections import Counter
+          from pathlib import Path
+
+          path = Path("/tmp/f1b-r2-kl-v2-paired-combined.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          assert data["authoritative"] is False
+          assert data["draw_grid"] == [49, 99, 199]
+          assert data["execution_replicate_indices"] == list(range(10))
+          assert data["departure_case_count"] == 36
+          assert data["unique_dataset_count"] == 390
+          assert data["restriction_run_count"] == 750
+          assert data["snapshot_count"] == 2250
+          assert data["pair_comparison_count"] == 2250
+          assert data["provenance"]["source_commit"] == os.environ[
+              "SCIENTIFIC_SOURCE_COMMIT"
+          ]
+
+          runs = data["restriction_runs"]
+          fit_failures = sum(r["fit_failure"] for r in runs)
+          draw_summary = {}
+          for draws in (49, 99, 199):
+              snapshots = [
+                  s for r in runs for s in r["snapshots"]
+                  if s["bootstrap_draws"] == draws
+              ]
+              valid = [
+                  (r, s)
+                  for r in runs
+                  for s in r["snapshots"]
+                  if s["bootstrap_draws"] == draws
+                  and not r["fit_failure"]
+                  and not s["bootstrap_calibration_failure"]
+                  and s["rejected"] is not None
+              ]
+              draw_summary[str(draws)] = {
+                  "snapshot_count": len(snapshots),
+                  "valid_count": len(valid),
+                  "rejections": sum(bool(s["rejected"]) for _, s in valid),
+                  "calibration_failures": sum(
+                      s["bootstrap_calibration_failure"] for s in snapshots
+                  ),
+                  "bootstrap_fit_failures": sum(
+                      int(s["bootstrap_fit_failures"]) for s in snapshots
+                  ),
+              }
+
+          global_pairs = sorted(
+              [
+                  row for row in data["pair_aggregate"]
+                  if row["dimension"] == "GLOBAL"
+              ],
+              key=lambda row: (row["left_draws"], row["right_draws"]),
+          )
+          transition_counts = Counter()
+          for row in data["pair_comparisons"]:
+              if row["decision_pair_valid"] and not row["decision_concordant"]:
+                  transition_counts[
+                      (
+                          row["left_draws"],
+                          row["right_draws"],
+                          row["rejection_transition"],
+                      )
+                  ] += 1
+
+          summary = {
+              "fit_failures": fit_failures,
+              "draw_summary": draw_summary,
+              "global_pairs": global_pairs,
+              "discordant_transition_counts": {
+                  f"{left}_{right}_{direction}": count
+                  for (left, right, direction), count
+                  in sorted(transition_counts.items())
+              },
+              "exact_json_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+              "exact_json_size_bytes": path.stat().st_size,
+              "provenance": data["provenance"],
+          }
+          print("F1B_R2_PAIRED_RECOVERY_SUMMARY_BEGIN")
+          print(json.dumps(summary, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_PAIRED_RECOVERY_SUMMARY_END")
+          PY
+
+      - name: Upload exact recovered paired combined result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-kl-v2-paired-combined-recovered
+          path: /tmp/f1b-r2-kl-v2-paired-combined.json
+          if-no-files-found: error
