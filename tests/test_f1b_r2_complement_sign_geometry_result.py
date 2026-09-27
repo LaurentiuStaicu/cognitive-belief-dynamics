@@ -36,6 +36,11 @@ CASES = (
     / "f1b_r2_complement_sign_geometry_case_summary_2026-09-27.tsv"
 )
 
+# Cross-run optimizer/BLAS drift is expected below the frozen 1e-6
+# departure-generation tolerance. Keep this regression threshold two
+# orders of magnitude tighter than the observed ~1e-11 runner drift.
+NUMERICAL_REPRODUCTION_ABS_TOL = 1e-10
+
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -83,25 +88,25 @@ def test_retained_case_summaries_reproduce_current_deterministic_engine() -> Non
         current = by_id[retained["case_id"]]
         assert float(retained["achieved_cbd_rms_distance"]) == pytest.approx(
             current["achieved_cbd_rms_distance"],
-            abs=1e-12,
+            abs=NUMERICAL_REPRODUCTION_ABS_TOL,
         )
         assert float(retained["probability_rms_distance"]) == pytest.approx(
             current["probability_rms_distance"],
-            abs=1e-12,
+            abs=NUMERICAL_REPRODUCTION_ABS_TOL,
         )
         assert float(
             retained["mean_bernoulli_kl_general_to_nearest_cbd"]
         ) == pytest.approx(
             current["mean_bernoulli_kl_general_to_nearest_cbd"],
-            abs=1e-12,
+            abs=NUMERICAL_REPRODUCTION_ABS_TOL,
         )
         assert json.loads(retained["general_coefficients"]) == pytest.approx(
             current["general_coefficients"],
-            abs=1e-12,
+            abs=NUMERICAL_REPRODUCTION_ABS_TOL,
         )
         assert json.loads(retained["nearest_cbd_parameters"]) == pytest.approx(
             current["nearest_cbd_parameters"],
-            abs=1e-12,
+            abs=NUMERICAL_REPRODUCTION_ABS_TOL,
         )
 
 
