@@ -51,26 +51,40 @@ def run_payload(
     observed: float = 0.5,
     role: str = "CBD_DEPARTURE_DETECTION",
 ) -> dict:
-    numeric = [value for value in attempts if value is not None]
-    if len(numeric) == len(attempts):
-        snapshots = snapshot([float(x) for x in numeric], observed)
-    else:
-        snapshots = [
+    minimum_success = {49: 45, 99: 90, 199: 180}
+    snapshots = []
+    for draws in (49, 99, 199):
+        prefix = attempts[:draws]
+        successful = [
+            float(value) for value in prefix if value is not None
+        ]
+        failures = draws - len(successful)
+        if len(successful) < minimum_success[draws]:
+            snapshots.append(
+                {
+                    "bootstrap_draws": draws,
+                    "bootstrap_draws_successful": len(successful),
+                    "bootstrap_fit_failures": failures,
+                    "critical_value": None,
+                    "p_value": None,
+                    "rejected": None,
+                    "bootstrap_calibration_failure": True,
+                }
+            )
+            continue
+        exceedances = sum(value >= observed for value in successful)
+        p_value = (1 + exceedances) / (1 + len(successful))
+        snapshots.append(
             {
                 "bootstrap_draws": draws,
-                "bootstrap_draws_successful": sum(
-                    value is not None for value in attempts[:draws]
-                ),
-                "bootstrap_fit_failures": sum(
-                    value is None for value in attempts[:draws]
-                ),
-                "critical_value": None,
-                "p_value": None,
-                "rejected": None,
-                "bootstrap_calibration_failure": True,
+                "bootstrap_draws_successful": len(successful),
+                "bootstrap_fit_failures": failures,
+                "critical_value": 0.0,
+                "p_value": p_value,
+                "rejected": p_value <= 0.05,
+                "bootstrap_calibration_failure": False,
             }
-            for draws in (49, 99, 199)
-        ]
+        )
     return {
         "run_id": run_id,
         "dataset_id": "DATASET|" + run_id,
