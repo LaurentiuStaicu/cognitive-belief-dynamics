@@ -39,7 +39,8 @@
       "src/cognitive_epistemic_model/calibration/f1b_prehuman_recovery.py": "6b78dec5183e7f8ef8a2d4257c1a23f016a161a2",
       "src/cognitive_epistemic_model/calibration/f1b_hierarchical_recovery.py": "89899e90fec5bdf9ced3e052aec1aa7ef2b49d73",
       "src/cognitive_epistemic_model/calibration/f1b_r2_kl_controlled_departures.py": "e7e5233f4ab7427500835cb6484c1dd961abb54a"
-    }
+    },
+    "retained_stage_b_result_git_blob_sha": "b29b6d4da318a618a99924da1951ff9b5808f98a"
   },
   "stage_c1": {
     "role": "EXACT_REGENERATION_QUALIFICATION_ONLY",
