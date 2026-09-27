@@ -1,0 +1,381 @@
+{
+  "characterization_id": "F1B.R2.BROAD_CONTROLLED_DEPARTURE.49X20.2026-09-27",
+  "status": "NON_AUTHORITATIVE_R2_BROAD_CONTROLLED_DEPARTURE_CHARACTERIZATION_RESULT",
+  "authoritative": false,
+  "design": {
+    "bootstrap_draws": 49,
+    "evaluation_replicates_per_cell": 20,
+    "participants": 24,
+    "items": 36,
+    "departure_cases": 36,
+    "restriction_tests": 1500,
+    "master_seed": 2026092702,
+    "missingness_rate": 0,
+    "fit_scale_multiplier": 1
+  },
+  "execution_integrity": {
+    "fit_failures_total": 0,
+    "bootstrap_calibration_failures_total": 0,
+    "bootstrap_fit_failures_total": 0,
+    "aggregate_cells": 75,
+    "execution_replicate_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ]
+  },
+  "null_calibration": [
+    {
+      "identity": "ADD_NULL",
+      "restriction": "ADD_RESTRICTION",
+      "rejections": 0,
+      "trials": 20,
+      "rate": 0,
+      "wilson_95": [
+        0,
+        0.16112515805281938
+      ]
+    },
+    {
+      "identity": "CBD_NULL_ANCHOR_1",
+      "restriction": "CBD_COMPLEMENT_RESTRICTION",
+      "rejections": 1,
+      "trials": 20,
+      "rate": 0.05,
+      "wilson_95": [
+        0.008881448800795402,
+        0.23613119344674205
+      ]
+    },
+    {
+      "identity": "CBD_NULL_ANCHOR_2",
+      "restriction": "CBD_COMPLEMENT_RESTRICTION",
+      "rejections": 0,
+      "trials": 20,
+      "rate": 0,
+      "wilson_95": [
+        0,
+        0.16112515805281938
+      ]
+    }
+  ],
+  "standalone_add_specificity": {
+    "cells": 12,
+    "pooled_rejections": 9,
+    "pooled_trials": 240,
+    "pooled_rate": 0.0375,
+    "pooled_wilson_95": [
+      0.019852143313748394,
+      0.06972023263219351
+    ],
+    "max_cell_rejections": 2
+  },
+  "cbd_detection_by_axis_distance": [
+    {
+      "axis": "COMBINED_VIOLATION",
+      "distance": 0.1,
+      "rejections": 9,
+      "trials": 80,
+      "rate": 0.1125,
+      "wilson_95": [
+        0.06032686946630478,
+        0.20018218092372875
+      ]
+    },
+    {
+      "axis": "COMBINED_VIOLATION",
+      "distance": 0.25,
+      "rejections": 58,
+      "trials": 80,
+      "rate": 0.725,
+      "wilson_95": [
+        0.6185594135898548,
+        0.810822428119158
+      ]
+    },
+    {
+      "axis": "COMBINED_VIOLATION",
+      "distance": 0.5,
+      "rejections": 80,
+      "trials": 80,
+      "rate": 1,
+      "wilson_95": [
+        0.9541818704644728,
+        1
+      ]
+    },
+    {
+      "axis": "COMPLEMENT_RELATION_VIOLATION",
+      "distance": 0.1,
+      "rejections": 17,
+      "trials": 80,
+      "rate": 0.2125,
+      "wilson_95": [
+        0.13712386717696146,
+        0.31422155730596657
+      ]
+    },
+    {
+      "axis": "COMPLEMENT_RELATION_VIOLATION",
+      "distance": 0.25,
+      "rejections": 35,
+      "trials": 80,
+      "rate": 0.4375,
+      "wilson_95": [
+        0.33413860916143806,
+        0.5465886570305026
+      ]
+    },
+    {
+      "axis": "COMPLEMENT_RELATION_VIOLATION",
+      "distance": 0.5,
+      "rejections": 59,
+      "trials": 80,
+      "rate": 0.7375,
+      "wilson_95": [
+        0.6318104033557184,
+        0.8214259851149064
+      ]
+    },
+    {
+      "axis": "STANDALONE_ACCURACY_MAIN_EFFECT",
+      "distance": 0.1,
+      "rejections": 8,
+      "trials": 80,
+      "rate": 0.1,
+      "wilson_95": [
+        0.05154761556738083,
+        0.18510688806104086
+      ]
+    },
+    {
+      "axis": "STANDALONE_ACCURACY_MAIN_EFFECT",
+      "distance": 0.25,
+      "rejections": 62,
+      "trials": 80,
+      "rate": 0.775,
+      "wilson_95": [
+        0.6721321021639265,
+        0.8526679265915337
+      ]
+    },
+    {
+      "axis": "STANDALONE_ACCURACY_MAIN_EFFECT",
+      "distance": 0.5,
+      "rejections": 80,
+      "trials": 80,
+      "rate": 1,
+      "wilson_95": [
+        0.9541818704644728,
+        1
+      ]
+    }
+  ],
+  "add_departure_diagnostic_by_axis_distance": [
+    {
+      "axis": "COMBINED_VIOLATION",
+      "distance": 0.1,
+      "rejections": 16,
+      "trials": 80,
+      "rate": 0.2
+    },
+    {
+      "axis": "COMBINED_VIOLATION",
+      "distance": 0.25,
+      "rejections": 47,
+      "trials": 80,
+      "rate": 0.5875
+    },
+    {
+      "axis": "COMBINED_VIOLATION",
+      "distance": 0.5,
+      "rejections": 78,
+      "trials": 80,
+      "rate": 0.975
+    },
+    {
+      "axis": "COMPLEMENT_RELATION_VIOLATION",
+      "distance": 0.1,
+      "rejections": 35,
+      "trials": 80,
+      "rate": 0.4375
+    },
+    {
+      "axis": "COMPLEMENT_RELATION_VIOLATION",
+      "distance": 0.25,
+      "rejections": 78,
+      "trials": 80,
+      "rate": 0.975
+    },
+    {
+      "axis": "COMPLEMENT_RELATION_VIOLATION",
+      "distance": 0.5,
+      "rejections": 80,
+      "trials": 80,
+      "rate": 1
+    }
+  ],
+  "diagnostics": {
+    "complement_sign_asymmetry": [
+      {
+        "distance": 0.1,
+        "minus_rejections": 8,
+        "minus_trials": 40,
+        "plus_rejections": 9,
+        "plus_trials": 40
+      },
+      {
+        "distance": 0.25,
+        "minus_rejections": 24,
+        "minus_trials": 40,
+        "plus_rejections": 11,
+        "plus_trials": 40
+      },
+      {
+        "distance": 0.5,
+        "minus_rejections": 38,
+        "minus_trials": 40,
+        "plus_rejections": 21,
+        "plus_trials": 40
+      }
+    ],
+    "nonmonotone_cbd_detection_cells": [
+      {
+        "axis": "COMPLEMENT_RELATION_VIOLATION",
+        "anchor_id": "CBD_ANCHOR_2",
+        "sign": 1,
+        "distances": [
+          0.1,
+          0.25,
+          0.5
+        ],
+        "rejections": [
+          5,
+          2,
+          10
+        ],
+        "trials_per_distance": 20
+      }
+    ],
+    "largest_cell_sign_asymmetries": [
+      {
+        "axis": "COMPLEMENT_RELATION_VIOLATION",
+        "anchor_id": "CBD_ANCHOR_2",
+        "distance": 0.25,
+        "minus_rejections": 14,
+        "plus_rejections": 2,
+        "absolute_difference": 12
+      },
+      {
+        "axis": "COMPLEMENT_RELATION_VIOLATION",
+        "anchor_id": "CBD_ANCHOR_2",
+        "distance": 0.5,
+        "minus_rejections": 19,
+        "plus_rejections": 10,
+        "absolute_difference": 9
+      },
+      {
+        "axis": "COMPLEMENT_RELATION_VIOLATION",
+        "anchor_id": "CBD_ANCHOR_1",
+        "distance": 0.5,
+        "minus_rejections": 19,
+        "plus_rejections": 11,
+        "absolute_difference": 8
+      }
+    ],
+    "cross_shard_numeric_drift": {
+      "max_achieved_cbd_rms_range_within_identity": 1.85553e-11,
+      "max_nearest_add_rms_range_within_identity": 1.381531e-11,
+      "frozen_target_distance_tolerance": 0.000001,
+      "interpretation": "Observed cross-run floating-point variation is many orders of magnitude below the frozen design-generation tolerance, but future authoritative execution should prefer pre-materialized departure coefficients if bitwise cross-run identity is required."
+    }
+  },
+  "retained_outputs": {
+    "aggregate_cells_path": "model/results/f1b_r2_broad_departure_characterization_non_authoritative_2026-09-27.tsv",
+    "exact_combined_result_retained_as_actions_artifact": true
+  },
+  "execution_provenance": {
+    "scientific_source_commit": "1f44579628e63c69714d90549e4fd39aa74dc5ab",
+    "execution_head": "ec443dc45832b2c2d123ee5fdff41309b46fff51",
+    "github_run_id": "36309694914",
+    "temporary_pr": 161,
+    "config_path": "model/benchmarks/f1b_r2_broad_departure_characterization_49x20.json",
+    "config_sha256": "8ebc786d0f6d681097d739bba0982dbf3dcf7e51df10b7feee112ce5c46eee79",
+    "departure_config_path": "model/benchmarks/f1b_r2_controlled_departure_design.json",
+    "departure_config_sha256": "e5603e0115d98abbb2df549671592fda14818abb5e990a0b5afad8641e5a2a1e",
+    "combined_artifact": {
+      "id": 10928507819,
+      "zip_sha256": "473ce154643c7a2a1f47af4b7011292f668f5bb11993e20cfd09f4ce87a1e41d",
+      "json_sha256": "21e5bb861987a1090c3c8fcfb7736795862c65637e771df026eff8ba2a304d8e"
+    },
+    "partitions": [
+      {
+        "id": "R00_04",
+        "artifact_id": 10928304942,
+        "result_json_sha256": "30646399fdf4104e90d57609e59e22bee6a0e88c560fa4aa03019469180e0fb9",
+        "replicate_indices": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "id": "R05_09",
+        "artifact_id": 10929135817,
+        "result_json_sha256": "09d862abb7134cce0b57746d0c0146420386b45514f7378ad554fb5b4c2af00a",
+        "replicate_indices": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "id": "R10_14",
+        "artifact_id": 10928991554,
+        "result_json_sha256": "9fbfd4a50027dcc801534a33565f6f044c820c2fd257528f176422db9d904ce9",
+        "replicate_indices": [
+          10,
+          11,
+          12,
+          13,
+          14
+        ]
+      },
+      {
+        "id": "R15_19",
+        "artifact_id": 10928138976,
+        "result_json_sha256": "147817209542fa5d900f2e43b406d16161fb2aaadcdabcb2cc2b6b7ae831a2ec",
+        "replicate_indices": [
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      }
+    ]
+  },
+  "interpretation_boundary": "Non-authoritative design characterization only. Failure to reject is not proof of a restriction and rejection does not identify a unique psychological mechanism. No result freezes bootstrap draws, evaluation replicates, a core grid, human N, recruitment, or runtime F1b.",
+  "next_gate": "PREDECLARE_COMPLEMENT_RELATION_SIGN_ASYMMETRY_AND_STABILITY_DIAGNOSTIC_BEFORE_ANY_AUTHORITATIVE_R2_OR_HUMAN_N_FREEZE"
+}
