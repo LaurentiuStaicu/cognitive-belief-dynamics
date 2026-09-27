@@ -1,0 +1,192 @@
+{
+  "diagnostic_id": "F1B.R2.PROJECTION_BOUND_SENSITIVITY.2026-09-27",
+  "status": "NON_AUTHORITATIVE_R2_PROJECTION_BOUND_SENSITIVITY_RESULT_RETAINED",
+  "authoritative": false,
+  "execution": {
+    "scientific_source_commit": "2ed9685b4a0f952a5c4c501116eb3f2e1e16c6e9",
+    "temporary_head": "c04b550c3296cf526cc1075d6baa553d9cc8fb77",
+    "github_run_id": "36321330611",
+    "temporary_pr": 169,
+    "artifact_id": 10932059775,
+    "artifact_zip_sha256": "63f1c4f1c170ed85a90e48e8ead56a4ec24079a4219d8c3faa3004ef3a7c47f0",
+    "exact_json_sha256": "ea8584a1edb3a80ed8751aa1dd6ea504817204cd4d11ebc34a9f42f6d327b55a",
+    "case_count": 12,
+    "bound_set_count": 4,
+    "case_bound_projection_count": 48,
+    "optimizer_start_count": 384,
+    "optimizer_start_success_count": 384,
+    "optimizer_start_failure_count": 0
+  },
+  "bound_activity": {
+    "CURRENT_1X": 9,
+    "WIDE_2X": 9,
+    "WIDE_4X": 1,
+    "WIDE_8X": 0
+  },
+  "stability": {
+    "current_1x_reproduction_max_abs_rms_delta": 0,
+    "wide_4x_to_8x_max_abs_rms_change": 0.000001065678245648627,
+    "wide_8x_boundary_active_case_count": 0,
+    "interpretation": "The diagnostic projection is effectively stable by WIDE_4X/WIDE_8X for the retained cases, and no WIDE_8X selected solution is boundary-active."
+  },
+  "bound_dependence": {
+    "materially_present": true,
+    "max_current_1x_to_wide_8x_abs_rms_change": 0.33485823949350413,
+    "max_current_1x_to_wide_8x_relative_reduction": 0.6697164789829746,
+    "most_affected_case": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.50",
+    "case_distances": [
+      {
+        "anchor": "CBD_ANCHOR_1",
+        "sign": -1,
+        "nominal": 0.1,
+        "current_1x": 0.09999999999772273,
+        "wide_8x": 0.09999999999772273
+      },
+      {
+        "anchor": "CBD_ANCHOR_1",
+        "sign": 1,
+        "nominal": 0.1,
+        "current_1x": 0.09999999997617293,
+        "wide_8x": 0.09999999997617293
+      },
+      {
+        "anchor": "CBD_ANCHOR_1",
+        "sign": -1,
+        "nominal": 0.25,
+        "current_1x": 0.25000000000742884,
+        "wide_8x": 0.24782256778351652
+      },
+      {
+        "anchor": "CBD_ANCHOR_1",
+        "sign": 1,
+        "nominal": 0.25,
+        "current_1x": 0.24999999999935177,
+        "wide_8x": 0.17849309535468807
+      },
+      {
+        "anchor": "CBD_ANCHOR_1",
+        "sign": -1,
+        "nominal": 0.5,
+        "current_1x": 0.49999999999767436,
+        "wide_8x": 0.31744680635836264
+      },
+      {
+        "anchor": "CBD_ANCHOR_1",
+        "sign": 1,
+        "nominal": 0.5,
+        "current_1x": 0.4999999999915153,
+        "wide_8x": 0.18114251519759994
+      },
+      {
+        "anchor": "CBD_ANCHOR_2",
+        "sign": -1,
+        "nominal": 0.1,
+        "current_1x": 0.0999999999977336,
+        "wide_8x": 0.0994866490294809
+      },
+      {
+        "anchor": "CBD_ANCHOR_2",
+        "sign": 1,
+        "nominal": 0.1,
+        "current_1x": 0.09999999999970528,
+        "wide_8x": 0.09999999999970528
+      },
+      {
+        "anchor": "CBD_ANCHOR_2",
+        "sign": -1,
+        "nominal": 0.25,
+        "current_1x": 0.24999999999698147,
+        "wide_8x": 0.24711232860911844
+      },
+      {
+        "anchor": "CBD_ANCHOR_2",
+        "sign": 1,
+        "nominal": 0.25,
+        "current_1x": 0.24999999999990316,
+        "wide_8x": 0.16235139576092378
+      },
+      {
+        "anchor": "CBD_ANCHOR_2",
+        "sign": -1,
+        "nominal": 0.5,
+        "current_1x": 0.5000000000183639,
+        "wide_8x": 0.336650164612824
+      },
+      {
+        "anchor": "CBD_ANCHOR_2",
+        "sign": 1,
+        "nominal": 0.5,
+        "current_1x": 0.5000000000030114,
+        "wide_8x": 0.16514176050950727
+      }
+    ]
+  },
+  "sign_geometry": {
+    "asymmetry_remains_after_bound_expansion": true,
+    "wide_8x_comparisons": [
+      {
+        "anchor": "CBD_ANCHOR_1",
+        "distance": 0.1,
+        "rms_plus_over_minus": 0.9999999997845019,
+        "probability_rms_plus_over_minus": 0.9398946550571382,
+        "mean_kl_plus_over_minus": 0.9316035959831851,
+        "information_plus_over_minus": 0.9736715173234726
+      },
+      {
+        "anchor": "CBD_ANCHOR_1",
+        "distance": 0.25,
+        "rms_plus_over_minus": 0.7202455246554031,
+        "probability_rms_plus_over_minus": 0.6880665077125266,
+        "mean_kl_plus_over_minus": 0.4942675783465633,
+        "information_plus_over_minus": 0.6996594489083499
+      },
+      {
+        "anchor": "CBD_ANCHOR_1",
+        "distance": 0.5,
+        "rms_plus_over_minus": 0.5706232085797389,
+        "probability_rms_plus_over_minus": 0.5422504359004331,
+        "mean_kl_plus_over_minus": 0.30829767565958566,
+        "information_plus_over_minus": 0.5565858542910254
+      },
+      {
+        "anchor": "CBD_ANCHOR_2",
+        "distance": 0.1,
+        "rms_plus_over_minus": 1.0051599986051623,
+        "probability_rms_plus_over_minus": 0.9357705617746108,
+        "mean_kl_plus_over_minus": 0.9302871835902814,
+        "information_plus_over_minus": 0.9732311307814581
+      },
+      {
+        "anchor": "CBD_ANCHOR_2",
+        "distance": 0.25,
+        "rms_plus_over_minus": 0.6569943178259258,
+        "probability_rms_plus_over_minus": 0.6248722441145169,
+        "mean_kl_plus_over_minus": 0.40932750058007317,
+        "information_plus_over_minus": 0.6346761399303722
+      },
+      {
+        "anchor": "CBD_ANCHOR_2",
+        "distance": 0.5,
+        "rms_plus_over_minus": 0.49054412523289326,
+        "probability_rms_plus_over_minus": 0.46293681184736435,
+        "mean_kl_plus_over_minus": 0.2261790882276725,
+        "information_plus_over_minus": 0.4760113951258463
+      }
+    ]
+  },
+  "interpretation": {
+    "projection_bounds_materially_affect_current_distance_definition": true,
+    "intrinsic_logistic_manifold_sign_asymmetry_also_remains": true,
+    "paired_bootstrap_allowed_next": false,
+    "next_gate": "SCIENTIFIC_NEAREST_CBD_DISTANCE_DEFINITION_REVIEW_BEFORE_PAIRED_BOOTSTRAP",
+    "rationale": "The inherited AP-A computational bounds materially determine nominal medium/large nearest-CBD distances, while the widened projections stabilize and still retain strong sign asymmetry. The scientific distance reference must therefore be clarified before stochastic paired-bootstrap work."
+  },
+  "reproducibility": {
+    "exact_full_result_in_execution_artifact": true,
+    "exact_start_records_in_execution_artifact": 384,
+    "full_result_deterministically_reconstructible_from_merged_engine_and_retained_inputs": true,
+    "config_path": "model/benchmarks/f1b_r2_projection_bound_sensitivity.json",
+    "retained_cases_path": "model/results/f1b_r2_complement_sign_geometry_case_summary_2026-09-27.tsv"
+  },
+  "interpretation_boundary": "Deterministic non-authoritative projection sensitivity only. Diagnostic widened bounds do not change the operational fitter or prior retained results, do not authorize paired bootstrap, and do not freeze bootstrap draws, evaluation replicates, the core grid or human N, authorize recruitment, or authorize runtime F1b."
+}
