@@ -28,6 +28,42 @@ class KLControlledDepartureGenerationError(RuntimeError):
     pass
 
 
+_DESIGN_CONTRACTS = {
+    "F1B.R2.KL_CONTROLLED_DEPARTURE.V1": {
+        "status": "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V1_DESIGN",
+        "targets": (0.001, 0.005, 0.010),
+        "partition_status": (
+            "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V1_PARTITION"
+        ),
+        "result_status": "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V1_RESULT",
+        "version_label": "v1",
+    },
+    "F1B.R2.KL_CONTROLLED_DEPARTURE.V2": {
+        "status": "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V2_DESIGN",
+        "targets": (0.001, 0.002, 0.003),
+        "partition_status": (
+            "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V2_PARTITION"
+        ),
+        "result_status": "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V2_RESULT",
+        "version_label": "v2",
+    },
+}
+
+
+def _design_contract(config: dict) -> dict:
+    design_id = str(config.get("design_id", ""))
+    contract = _DESIGN_CONTRACTS.get(design_id)
+    if contract is None:
+        raise ValueError(
+            f"unsupported KL controlled-departure design_id: {design_id}"
+        )
+    if str(config.get("status", "")) != str(contract["status"]):
+        raise ValueError(
+            "KL controlled-departure status does not match design_id"
+        )
+    return contract
+
+
 @dataclass(frozen=True)
 class KLControlledDepartureCase:
     case_id: str
@@ -106,11 +142,7 @@ def _validate_config(
     config: dict,
     review_config: dict,
 ) -> None:
-    if (
-        config["status"]
-        != "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V1_DESIGN"
-    ):
-        raise ValueError("unsupported KL controlled-departure config status")
+    contract = _design_contract(config)
     forbidden = (
         "stochastic_simulation_allowed",
         "bootstrap_allowed",
@@ -136,8 +168,11 @@ def _validate_config(
         raise ValueError("scientific projection domains differ from #171")
 
     targets = [float(value) for value in config["target_mean_bernoulli_kl"]]
-    if targets != [0.001, 0.005, 0.01]:
-        raise ValueError("KL target grid changed unexpectedly")
+    expected_targets = [float(value) for value in contract["targets"]]
+    if targets != expected_targets:
+        raise ValueError(
+            "KL target grid does not match the frozen design contract"
+        )
     if any(value <= 0.0 for value in targets):
         raise ValueError("KL targets must be positive")
 
@@ -637,9 +672,10 @@ def generate_kl_controlled_departure_partition(
             f"unexpected deterministic partition size: {len(cases)}"
         )
     _validate_generated_cases(cases, config)
+    contract = _design_contract(config)
     return {
         "design_id": str(config["design_id"]),
-        "status": "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V1_PARTITION",
+        "status": str(contract["partition_status"]),
         "authoritative": False,
         "partition": {
             "axis": axis.value,
@@ -652,8 +688,9 @@ def generate_kl_controlled_departure_partition(
         ],
         "cases": cases,
         "interpretation_boundary": (
-            "Execution-only deterministic partition of the frozen KL v1 "
-            "design. A partition is not a complete scientific result."
+            "Execution-only deterministic partition of the frozen KL "
+            f"{contract['version_label']} design. A partition is not a "
+            "complete scientific result."
         ),
     }
 
@@ -665,6 +702,7 @@ def combine_kl_controlled_departure_partitions(
     if not partitions:
         raise ValueError("at least one KL partition is required")
 
+    contract = _design_contract(config)
     expected_keys = _expected_case_keys(config)
     expected_key_set = set(expected_keys)
     if len(expected_keys) != int(config["expected_case_count"]):
@@ -675,10 +713,7 @@ def combine_kl_controlled_departure_partitions(
     for partition in partitions:
         if partition["design_id"] != str(config["design_id"]):
             raise ValueError("KL partition design_id mismatch")
-        if (
-            partition["status"]
-            != "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V1_PARTITION"
-        ):
+        if partition["status"] != str(contract["partition_status"]):
             raise ValueError("unsupported KL partition status")
         if partition["authoritative"] is not False:
             raise ValueError("KL partition cannot be authoritative")
@@ -717,7 +752,7 @@ def combine_kl_controlled_departure_partitions(
     cases = sorted(cases, key=lambda case: order[_case_key(case)])
     return {
         "design_id": str(config["design_id"]),
-        "status": "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V1_RESULT",
+        "status": str(contract["result_status"]),
         "authoritative": False,
         "case_count": len(cases),
         "target_mean_bernoulli_kl": [

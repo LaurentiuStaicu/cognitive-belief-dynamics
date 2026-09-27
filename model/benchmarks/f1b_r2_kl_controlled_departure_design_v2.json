@@ -1,0 +1,144 @@
+{
+  "design_id": "F1B.R2.KL_CONTROLLED_DEPARTURE.V2",
+  "status": "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V2_DESIGN",
+  "baseline_main_commit": "30f6fdfd0aadfe36b64f4f876c6f6cf43103033b",
+  "issue": 202,
+  "scientific_distance_decision": "model/benchmarks/f1b_r2_scientific_distance_definition_decision.json",
+  "closure_review_config": "model/benchmarks/f1b_r2_distance_definition_review.json",
+  "historical_departure_design": "model/benchmarks/f1b_r2_controlled_departure_design.json",
+  "design_cells": {
+    "belief_B": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "accuracy_cue_A": [
+      0,
+      1
+    ],
+    "reward_context_R": [
+      -1,
+      0,
+      1
+    ],
+    "weighting": "UNIFORM",
+    "weight_per_cell": 0.05555555555555555
+  },
+  "departure_axes": [
+    "STANDALONE_ACCURACY_MAIN_EFFECT",
+    "COMPLEMENT_RELATION_VIOLATION",
+    "COMBINED_VIOLATION"
+  ],
+  "target_mean_bernoulli_kl": [
+    0.001,
+    0.002,
+    0.003
+  ],
+  "target_units": "NATS_PER_BERNOULLI_OBSERVATION_UNIFORM_18_CELL_MEAN",
+  "anchors": {
+    "cbd": {
+      "CBD_ANCHOR_1": [
+        -0.2,
+        -0.2,
+        1,
+        0.8
+      ],
+      "CBD_ANCHOR_2": [
+        -0.2,
+        0,
+        1.2,
+        1
+      ]
+    },
+    "cbd_add_intersection": {
+      "CBD_ADD_INTERSECTION_ANCHOR_1": [
+        -0.2,
+        -0.2,
+        0,
+        0.8
+      ],
+      "CBD_ADD_INTERSECTION_ANCHOR_2": [
+        -0.2,
+        0,
+        0,
+        1
+      ]
+    }
+  },
+  "scientific_projection": {
+    "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+    "direction": "GENERAL_TO_CBD",
+    "restricted_set": "CLOSURE_OF_CBD_RESPONSE_FAMILY",
+    "response_coordinates": [
+      "sharing_bias",
+      "W0",
+      "W1",
+      "beta_reward"
+    ],
+    "w0_w1_domain": [
+      0,
+      1
+    ],
+    "diagnostic_domain_multipliers": [
+      8,
+      16,
+      32
+    ],
+    "scientific_domain_unresolved_is_failure": true,
+    "finite_logit_nonattainment_is_allowed_if_explicit": true,
+    "include_original_seven_logit_starts": true,
+    "include_anchor_logit_start": true
+  },
+  "distance_solver": {
+    "scan_step": 0.025,
+    "max_scalar": 20,
+    "xtol": 1e-10,
+    "rtol": 1e-10,
+    "maxiter": 200,
+    "first_crossing_required": true
+  },
+  "integrity_tolerances": {
+    "anchor_mean_kl": 1e-10,
+    "target_mean_kl_error": 1e-7,
+    "add_compatibility_rms": 1e-10
+  },
+  "required_diagnostics": [
+    "STABILIZED_UTILITY_RMS",
+    "PROBABILITY_RMS",
+    "SQRT_2_MEAN_KL",
+    "INFORMATION_WEIGHTED_LOGIT_DISTANCE",
+    "NEAREST_ADD_RMS",
+    "PROBABILITY_EXTREMA",
+    "SATURATION_COUNTS"
+  ],
+  "expected_case_count": 36,
+  "execution_boundary": {
+    "stochastic_simulation_allowed": false,
+    "bootstrap_allowed": false,
+    "operational_fitter_bounds_change_allowed": false,
+    "historical_departure_rewrite_allowed": false,
+    "paired_bootstrap_authorized": false,
+    "authoritative_bootstrap_draws_frozen": false,
+    "authoritative_evaluation_replicates_frozen": false,
+    "authoritative_power_validated": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  },
+  "predecessor": {
+    "design_id": "F1B.R2.KL_CONTROLLED_DEPARTURE.V1",
+    "issue": 178,
+    "complement_envelope_result": "model/results/f1b_r2_kl_complement_envelope_result_2026-09-27.json",
+    "reason": "V1 common target grid 0.001/0.005/0.010 is infeasible on both preserved complement-plus rays."
+  },
+  "target_grid_rationale": {
+    "shared_reference_target": 0.001,
+    "intermediate_target": 0.002,
+    "upper_target": 0.003,
+    "binding_complement_plus_envelope_maximum": 0.0032538188153675754,
+    "upper_target_below_binding_envelope": true,
+    "stochastic_or_power_input_used": false,
+    "psychological_effect_size_labels_used": false
+  }
+}
