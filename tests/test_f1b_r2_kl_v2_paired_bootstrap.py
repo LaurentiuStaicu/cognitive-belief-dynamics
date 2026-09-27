@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 from pathlib import Path
 from types import SimpleNamespace
@@ -26,6 +27,19 @@ CONFIG = (
     / "model"
     / "benchmarks"
     / "f1b_r2_kl_v2_paired_bootstrap_draw_stability.json"
+)
+
+V2_CONFIG = (
+    ROOT
+    / "model"
+    / "benchmarks"
+    / "f1b_r2_kl_controlled_departure_design_v2.json"
+)
+V2_QUALIFICATION = (
+    ROOT
+    / "model"
+    / "results"
+    / "f1b_r2_kl_controlled_departure_v2_qualification_2026-09-27.json"
 )
 
 
@@ -113,6 +127,17 @@ def test_paired_config_freezes_pairing_without_authoritative_claims() -> None:
     assert config["expected_pair_comparison_count"] == 2250
     assert all(config["pairing_contract"].values())
     assert not any(config["execution_boundary"].values())
+    qualification = json.loads(
+        V2_QUALIFICATION.read_text(encoding="utf-8")
+    )
+    assert qualification["qualification"]["gate_pass"] is True
+    assert qualification["execution"]["config_sha256"] == hashlib.sha256(
+        V2_CONFIG.read_bytes()
+    ).hexdigest()
+    assert config["v2_qualification_result"] == (
+        "model/results/"
+        "f1b_r2_kl_controlled_departure_v2_qualification_2026-09-27.json"
+    )
 
 
 def test_bootstrap_prefix_snapshots_reuse_exact_attempt_prefixes(
@@ -237,6 +262,20 @@ def test_draw_counts_and_restrictions_share_one_departure_dataset(
     assert result["restriction_run_count"] == 75
     assert result["snapshot_count"] == 225
     assert result["pair_comparison_count"] == 225
+    assert all(
+        run["dataset_id"].startswith(
+            config["characterization_id"] + "|"
+        )
+        for run in result["restriction_runs"]
+    )
+    assert any(
+        "|NULL|" in run["dataset_id"]
+        for run in result["restriction_runs"]
+    )
+    assert any(
+        "|V2|" in run["dataset_id"]
+        for run in result["restriction_runs"]
+    )
 
     departure_groups: dict[str, list[dict]] = {}
     for run in result["restriction_runs"]:

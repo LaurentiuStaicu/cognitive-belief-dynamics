@@ -648,7 +648,8 @@ def run_paired_bootstrap_characterization(
     for replicate in active_replicates:
         for null in _null_specs(config):
             dataset_identity = (
-                f"NULL|{null['identity']}|REPLICATE={int(replicate)}"
+                f"{config['characterization_id']}|NULL|"
+                f"{null['identity']}|REPLICATE={int(replicate)}"
             )
             dataset = _simulate_dataset(
                 family=null["family"],
@@ -681,7 +682,8 @@ def run_paired_bootstrap_characterization(
 
         for case in ordered_cases:
             dataset_identity = (
-                f"V2|{case['case_id']}|REPLICATE={int(replicate)}"
+                f"{config['characterization_id']}|V2|"
+                f"{case['case_id']}|REPLICATE={int(replicate)}"
             )
             dataset = _simulate_dataset(
                 family=R2Family.AP_C,

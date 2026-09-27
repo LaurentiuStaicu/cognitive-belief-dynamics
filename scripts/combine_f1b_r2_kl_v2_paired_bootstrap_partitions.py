@@ -52,6 +52,7 @@ def main() -> int:
         "source_commit",
         "config_sha256",
         "v2_config_sha256",
+        "v2_qualification_result_sha256",
         "review_config_sha256",
         "historical_departure_config_sha256",
     )
@@ -70,6 +71,12 @@ def main() -> int:
         "config_sha256": first["config_sha256"],
         "v2_config_path": first["v2_config_path"],
         "v2_config_sha256": first["v2_config_sha256"],
+        "v2_qualification_result_path": first[
+            "v2_qualification_result_path"
+        ],
+        "v2_qualification_result_sha256": first[
+            "v2_qualification_result_sha256"
+        ],
         "review_config_path": first["review_config_path"],
         "review_config_sha256": first["review_config_sha256"],
         "historical_departure_config_path": first[
