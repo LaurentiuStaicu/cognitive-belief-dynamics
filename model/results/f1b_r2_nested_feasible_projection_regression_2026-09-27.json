@@ -262,11 +262,12 @@
   "retained_response_scale_check": {
     "finite_change_candidate": "BERNOULLI_KL_GENERAL_TO_CBD",
     "max_corrected_vs_historical_finite_probability_rms": 0.000007126035805054217,
-    "historical_same_candidate_max_closure_vs_finite_probability_rms": 0.000006995616705259029,
     "finite_change_fraction_of_retained_same_candidate_scale": 0.5443296042869347,
     "closure_change_candidate": "STABILIZED_UTILITY_RMS",
     "max_corrected_vs_historical_closure_probability_rms": 8.631549627505044e-9,
-    "closure_change_fraction_of_retained_same_candidate_scale": 0.0012338511372437235
+    "closure_change_fraction_of_retained_same_candidate_scale": 0.0012338511372437235,
+    "finite_historical_same_candidate_max_closure_vs_finite_probability_rms": 0.000013091398573460358,
+    "closure_historical_same_candidate_max_closure_vs_finite_probability_rms": 0.000006995616705259029
   },
   "sign_comparison_regression": {
     "comparison_rows": 18,
