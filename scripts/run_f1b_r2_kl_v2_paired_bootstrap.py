@@ -73,6 +73,14 @@ def main() -> int:
         ),
     )
     parser.add_argument(
+        "--v2-qualification-result",
+        type=Path,
+        default=Path(
+            "model/results/"
+            "f1b_r2_kl_controlled_departure_v2_qualification_2026-09-27.json"
+        ),
+    )
+    parser.add_argument(
         "--review-config",
         type=Path,
         default=Path(
@@ -93,12 +101,35 @@ def main() -> int:
 
     config = json.loads(args.config.read_text(encoding="utf-8"))
     v2_config = json.loads(args.v2_config.read_text(encoding="utf-8"))
+    qualification = json.loads(
+        args.v2_qualification_result.read_text(encoding="utf-8")
+    )
     review_config = json.loads(
         args.review_config.read_text(encoding="utf-8")
     )
     historical_config = json.loads(
         args.historical_departure_config.read_text(encoding="utf-8")
     )
+
+    v2_config_sha256 = sha256(args.v2_config)
+    if qualification["status"] != (
+        "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V2_QUALIFIED"
+    ):
+        raise ValueError("paired characterization requires retained V2 qualification")
+    if qualification["authoritative"] is not False:
+        raise ValueError("V2 qualification boundary changed")
+    if not bool(qualification["qualification"]["gate_pass"]):
+        raise ValueError("paired characterization requires V2 qualification PASS")
+    if qualification["design"]["design_id"] != "F1B.R2.KL_CONTROLLED_DEPARTURE.V2":
+        raise ValueError("V2 qualification design identity mismatch")
+    if int(qualification["design"]["case_count"]) != 36:
+        raise ValueError("V2 qualification must retain all 36 cases")
+    if qualification["design"]["target_mean_bernoulli_kl"] != [0.001, 0.002, 0.003]:
+        raise ValueError("V2 qualification target grid mismatch")
+    if qualification["execution"]["config_sha256"] != v2_config_sha256:
+        raise ValueError(
+            "current V2 config hash does not match retained qualification"
+        )
 
     generated = generate_kl_controlled_departure_design(
         v2_config,
@@ -120,7 +151,11 @@ def main() -> int:
         "config_path": str(args.config),
         "config_sha256": sha256(args.config),
         "v2_config_path": str(args.v2_config),
-        "v2_config_sha256": sha256(args.v2_config),
+        "v2_config_sha256": v2_config_sha256,
+        "v2_qualification_result_path": str(args.v2_qualification_result),
+        "v2_qualification_result_sha256": sha256(
+            args.v2_qualification_result
+        ),
         "review_config_path": str(args.review_config),
         "review_config_sha256": sha256(args.review_config),
         "historical_departure_config_path": str(
