@@ -42,7 +42,7 @@ CASES = (
 # case, so keep this regression threshold at 1e-8: still 100x tighter
 # than the scientific departure-generation tolerance while avoiding
 # false failures from numerically equivalent optimizer solutions.
-NUMERICAL_REPRODUCTION_ABS_TOL = 1e-8
+SURFACE_REPRODUCTION_ABS_TOL = 1e-8
 
 
 def load_json(path: Path) -> dict:
