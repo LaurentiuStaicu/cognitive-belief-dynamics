@@ -1,0 +1,199 @@
+{
+  "result_id": "F1B.R2.RESAMPLING_RISK_CONTINUATION.C1.FAILURE.2026-09-27",
+  "status": "NON_AUTHORITATIVE_STAGE_C1_REGENERATION_QUALIFICATION_FAILED",
+  "authoritative": false,
+  "issue": 218,
+  "scientific_source_commit": "ff63e6f72af54b78070a0d74c514805401602943",
+  "execution": {
+    "temporary_execution_pr": 220,
+    "source_run_id": "36345806090",
+    "recovery_pr": 221,
+    "recovery_run_id": "36346378109",
+    "combined_artifact_id": 10941310440,
+    "combined_artifact_zip_sha256": "3b9c81f9bb842a83c2427dbd961d5d8efd3a4d4c1c85b672fbb3afdc08fcf2aa",
+    "exact_combined_json_sha256": "016a5c6d76ca17bca666a3133715e36523a7d217eb9b8d2e67ba63772b9d9c5a",
+    "exact_combined_json_size_bytes": 320497
+  },
+  "gate": {
+    "eligible_run_count": 224,
+    "qualification_pass_count": 120,
+    "qualification_failure_count": 104,
+    "gate_pass": false,
+    "required_pass_count": 224,
+    "stage_c2_authorized": false,
+    "next_gate": "NUMERICAL_REPRODUCIBILITY_AND_RESUMABLE_BOOTSTRAP_STATE_REDESIGN"
+  },
+  "failure_patterns": {
+    "dataset_exact_observed_match_attempt_exact": 120,
+    "dataset_exact_observed_match_attempt_mismatch": 60,
+    "dataset_exact_observed_mismatch_attempt_mismatch": 44,
+    "dataset_fingerprint_mismatch": 0
+  },
+  "observed_statistic_drift": {
+    "absolute_tolerance": 1e-10,
+    "within_tolerance_count": 180,
+    "outside_tolerance_count": 44,
+    "maximum_absolute_delta": 5.084656322651426e-7,
+    "counts_below_or_equal": {
+      "1e-12": 124,
+      "1e-11": 136,
+      "1e-10": 180,
+      "1e-9": 204,
+      "1e-8": 217,
+      "1e-7": 222,
+      "1e-6": 224
+    }
+  },
+  "shard_summary": [
+    {
+      "shard_index": 0,
+      "total": 21,
+      "pass": 5,
+      "dataset_match": 21,
+      "observed_match": 14,
+      "attempt_match": 5,
+      "max_delta": 5.084656322651426e-7
+    },
+    {
+      "shard_index": 1,
+      "total": 31,
+      "pass": 9,
+      "dataset_match": 31,
+      "observed_match": 20,
+      "attempt_match": 9,
+      "max_delta": 1.2958253137185238e-8
+    },
+    {
+      "shard_index": 2,
+      "total": 21,
+      "pass": 7,
+      "dataset_match": 21,
+      "observed_match": 17,
+      "attempt_match": 7,
+      "max_delta": 1.4512124835164286e-9
+    },
+    {
+      "shard_index": 3,
+      "total": 29,
+      "pass": 25,
+      "dataset_match": 29,
+      "observed_match": 27,
+      "attempt_match": 25,
+      "max_delta": 3.7914560380158946e-10
+    },
+    {
+      "shard_index": 4,
+      "total": 21,
+      "pass": 14,
+      "dataset_match": 21,
+      "observed_match": 18,
+      "attempt_match": 14,
+      "max_delta": 6.690720510960091e-8
+    },
+    {
+      "shard_index": 5,
+      "total": 30,
+      "pass": 26,
+      "dataset_match": 30,
+      "observed_match": 28,
+      "attempt_match": 26,
+      "max_delta": 2.000319909711834e-9
+    },
+    {
+      "shard_index": 6,
+      "total": 38,
+      "pass": 7,
+      "dataset_match": 38,
+      "observed_match": 26,
+      "attempt_match": 7,
+      "max_delta": 2.2566382540389895e-8
+    },
+    {
+      "shard_index": 7,
+      "total": 33,
+      "pass": 27,
+      "dataset_match": 33,
+      "observed_match": 30,
+      "attempt_match": 27,
+      "max_delta": 8.895301562006352e-8
+    }
+  ],
+  "by_restriction": {
+    "ADD_RESTRICTION": {
+      "total": 91,
+      "pass": 49,
+      "observed_match": 78,
+      "attempt_match": 49
+    },
+    "CBD_COMPLEMENT_RESTRICTION": {
+      "total": 133,
+      "pass": 71,
+      "observed_match": 102,
+      "attempt_match": 71
+    }
+  },
+  "by_role": {
+    "ADD_DEPARTURE_DIAGNOSTIC": {
+      "total": 74,
+      "pass": 36,
+      "observed_match": 64,
+      "attempt_match": 36
+    },
+    "ADD_SPECIFICITY_NEGATIVE_CONTROL": {
+      "total": 17,
+      "pass": 13,
+      "observed_match": 14,
+      "attempt_match": 13
+    },
+    "CBD_DEPARTURE_DETECTION": {
+      "total": 131,
+      "pass": 70,
+      "observed_match": 100,
+      "attempt_match": 70
+    },
+    "CBD_NULL_FALSE_REJECTION": {
+      "total": 2,
+      "pass": 1,
+      "observed_match": 2,
+      "attempt_match": 1
+    }
+  },
+  "by_axis": {
+    "COMBINED_VIOLATION": {
+      "total": 73,
+      "pass": 35,
+      "observed_match": 57,
+      "attempt_match": 35
+    },
+    "COMPLEMENT_RELATION_VIOLATION": {
+      "total": 84,
+      "pass": 51,
+      "observed_match": 68,
+      "attempt_match": 51
+    },
+    "NULL": {
+      "total": 2,
+      "pass": 1,
+      "observed_match": 2,
+      "attempt_match": 1
+    },
+    "STANDALONE_ACCURACY_MAIN_EFFECT": {
+      "total": 65,
+      "pass": 33,
+      "observed_match": 53,
+      "attempt_match": 33
+    }
+  },
+  "interpretation": {
+    "datasets_reproduce_exactly": true,
+    "fit_and_bootstrap_path_bitwise_reproducible": false,
+    "retrospective_tolerance_relaxation_allowed": false,
+    "new_bootstrap_draw_indices_authorized": false,
+    "fixed_bootstrap_draw_count_selected": false,
+    "statistical_power_validated": false,
+    "human_n_frozen": false,
+    "participant_recruitment_authorized": false,
+    "runtime_f1b_authorized": false,
+    "boundary": "Stage C1 failed closed. Exact dataset regeneration succeeds 224/224, but the current fitter/bootstrap path does not reproduce the retained first-199 statistic sequence bitwise across runners. Stage C2 remains blocked."
+  }
+}
