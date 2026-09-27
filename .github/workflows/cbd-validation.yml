@@ -76,3 +76,78 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  execute_f1b_r2_complement_sign_geometry:
+    name: F1b R2 complement sign geometry
+    needs: validate
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "1d4282e745245d2d87ce904a1b742137c10d2e46"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Execute deterministic complement sign geometry
+        run: |
+          python scripts/run_f1b_r2_complement_sign_geometry.py \
+            --config model/benchmarks/f1b_r2_complement_sign_geometry_diagnostic.json \
+            --departure-config model/benchmarks/f1b_r2_controlled_departure_design.json \
+            --output /tmp/f1b-r2-complement-sign-geometry.json \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(
+              Path("/tmp/f1b-r2-complement-sign-geometry.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+          assert data["authoritative"] is False
+          assert data["case_count"] == 12
+          assert data["cell_row_count"] == 216
+          compact = []
+          for row in data["sign_comparisons"]:
+              metrics = row["metrics"]
+              compact.append({
+                  "anchor_id": row["anchor_id"],
+                  "distance": row["requested_cbd_rms_distance"],
+                  "scalar_step": metrics["scalar_step"],
+                  "probability_rms_distance": metrics["probability_rms_distance"],
+                  "mean_kl": metrics[
+                      "mean_bernoulli_kl_general_to_nearest_cbd"
+                  ],
+                  "information_weighted_logit_distance": metrics[
+                      "information_weighted_logit_distance"
+                  ],
+                  "mean_variance_general": metrics[
+                      "mean_bernoulli_variance_general"
+                  ],
+                  "min_variance_general": metrics[
+                      "min_bernoulli_variance_general"
+                  ],
+              })
+          print("F1B_R2_COMPLEMENT_GEOMETRY_SUMMARY_BEGIN")
+          print(json.dumps(compact, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_COMPLEMENT_GEOMETRY_SUMMARY_END")
+          PY
+
+      - name: Upload exact geometry result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-complement-sign-geometry
+          path: /tmp/f1b-r2-complement-sign-geometry.json
+          if-no-files-found: error
