@@ -14,7 +14,9 @@ from cognitive_epistemic_model.calibration.f1b_r2_controlled_departures import (
 )
 from cognitive_epistemic_model.calibration.f1b_r2_distance_definition_review import (
     _bernoulli_kl_from_probability_and_logit,
+    _cbd_utility_surface_coordinates,
     _project_candidate,
+    _project_candidate_closure,
     _surface_metrics,
 )
 
@@ -56,6 +58,17 @@ def test_distance_review_contract_is_deterministic_and_non_authoritative() -> No
     ]
     assert config["local_information_metric"]["status"] == (
         "DIAGNOSTIC_ONLY_NOT_GLOBAL_CANDIDATE"
+    )
+    closure = config["closure_attainment_diagnostic"]
+    assert closure["status"] == (
+        "REQUIRED_FOR_DISTANCE_DEFINITION_COMPLETION"
+    )
+    assert closure["finite_logit_surface_coordinates"] == "W0,W1 in (0,1)"
+    assert closure["closed_surface_coordinates"] == "W0,W1 in [0,1]"
+    assert closure["bias_reward_domain_multipliers"] == [8, 16, 32]
+    assert (
+        config["numerical_integrity"]["closure_boundary_tolerance"]
+        == pytest.approx(1e-8)
     )
 
     boundary = config["execution_boundary"]
@@ -180,3 +193,124 @@ def test_review_cannot_select_metric_from_historical_detection() -> None:
     assert rules["do_not_select_by_historical_detection"] is True
     assert rules["do_not_require_sign_symmetry"] is True
     assert config["execution_boundary"]["metric_selection_authorized"] is False
+
+
+
+@pytest.mark.parametrize(
+    "candidate_id",
+    [
+        "STABILIZED_UTILITY_RMS",
+        "PROBABILITY_RMS",
+        "BERNOULLI_KL_GENERAL_TO_CBD",
+    ],
+)
+def test_closure_projection_recovers_finite_interior_cbd_surface(
+    candidate_id: str,
+) -> None:
+    config = copy.deepcopy(load(CONFIG))
+    config["diagnostic_domain_multipliers"] = [8]
+    departure_config = load(DEPARTURES)
+    design = departure_config["design_cells"]
+    belief, accuracy, reward = design_arrays(
+        tuple(float(x) for x in design["belief_B"]),
+        tuple(float(x) for x in design["accuracy_cue_A"]),
+        tuple(float(x) for x in design["reward_context_R"]),
+    )
+    exact_parameters = (-0.2, -0.2, 1.0, 0.8)
+    eta = cbd_utility(
+        exact_parameters,
+        belief,
+        accuracy,
+        reward,
+    )
+    starts = [
+        tuple(float(x) for x in row)
+        for row in departure_config["cbd_projection"]["deterministic_starts"]
+    ]
+    result = _project_candidate_closure(
+        candidate_id=candidate_id,
+        eta_general=eta,
+        belief=belief,
+        accuracy=accuracy,
+        reward=reward,
+        logit_starts=starts,
+        config=config,
+        departure_config=departure_config,
+    )
+    selected = result["selected_widest_domain"]
+    assert selected["objective"] < 1e-12
+    assert result["attainment_status"] == "FINITE_INTERIOR_ATTAINED"
+    assert result["closure_boundary_components"] == []
+
+
+@pytest.mark.parametrize(
+    "candidate_id",
+    [
+        "STABILIZED_UTILITY_RMS",
+        "PROBABILITY_RMS",
+        "BERNOULLI_KL_GENERAL_TO_CBD",
+    ],
+)
+def test_closure_projection_identifies_nonattained_boundary_surface(
+    candidate_id: str,
+) -> None:
+    config = copy.deepcopy(load(CONFIG))
+    config["diagnostic_domain_multipliers"] = [8]
+    departure_config = load(DEPARTURES)
+    design = departure_config["design_cells"]
+    belief, accuracy, reward = design_arrays(
+        tuple(float(x) for x in design["belief_B"]),
+        tuple(float(x) for x in design["accuracy_cue_A"]),
+        tuple(float(x) for x in design["reward_context_R"]),
+    )
+    eta = _cbd_utility_surface_coordinates(
+        (-0.2, 1.0, 0.7, 0.8),
+        belief,
+        accuracy,
+        reward,
+    )
+    starts = [
+        tuple(float(x) for x in row)
+        for row in departure_config["cbd_projection"]["deterministic_starts"]
+    ]
+    result = _project_candidate_closure(
+        candidate_id=candidate_id,
+        eta_general=eta,
+        belief=belief,
+        accuracy=accuracy,
+        reward=reward,
+        logit_starts=starts,
+        config=config,
+        departure_config=departure_config,
+    )
+    selected = result["selected_widest_domain"]
+    assert selected["objective"] < 1e-12
+    assert result["attainment_status"] == "NON_ATTAINED_OR_CLOSURE_LIMIT"
+    assert "W0=HIGH" in result["closure_boundary_components"]
+
+
+def test_surface_coordinate_and_finite_logit_parameterizations_match() -> None:
+    departure_config = load(DEPARTURES)
+    design = departure_config["design_cells"]
+    belief, accuracy, reward = design_arrays(
+        tuple(float(x) for x in design["belief_B"]),
+        tuple(float(x) for x in design["accuracy_cue_A"]),
+        tuple(float(x) for x in design["reward_context_R"]),
+    )
+    logit_parameters = (-0.2, -0.4, 1.3, 0.9)
+    w0 = float(expit(logit_parameters[1]))
+    w1 = float(expit(logit_parameters[1] + logit_parameters[2]))
+    assert _cbd_utility_surface_coordinates(
+        (logit_parameters[0], w0, w1, logit_parameters[3]),
+        belief,
+        accuracy,
+        reward,
+    ) == pytest.approx(
+        cbd_utility(
+            logit_parameters,
+            belief,
+            accuracy,
+            reward,
+        ),
+        abs=1e-14,
+    )
