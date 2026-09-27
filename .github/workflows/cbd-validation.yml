@@ -76,3 +76,175 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  execute_f1b_r2_kl_complement_envelope:
+    name: KL complement envelope (${{ matrix.ray_id }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - ray_id: A1_MINUS
+            anchor: CBD_ANCHOR_1
+            sign: -1
+          - ray_id: A1_PLUS
+            anchor: CBD_ANCHOR_1
+            sign: 1
+          - ray_id: A2_MINUS
+            anchor: CBD_ANCHOR_2
+            sign: -1
+          - ray_id: A2_PLUS
+            anchor: CBD_ANCHOR_2
+            sign: 1
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "9c60639c3399f0cf385b366b633bdb34c07ba18f"
+      RAY_ID: ${{ matrix.ray_id }}
+      KL_ANCHOR: ${{ matrix.anchor }}
+      KL_SIGN: ${{ matrix.sign }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Execute frozen complement KL envelope ray
+        run: |
+          python scripts/run_f1b_r2_kl_complement_envelope.py \
+            --anchor "$KL_ANCHOR" \
+            --sign "$KL_SIGN" \
+            --output "/tmp/f1b-r2-kl-envelope-${RAY_ID}.json" \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path(f"/tmp/f1b-r2-kl-envelope-{os.environ['RAY_ID']}.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          assert data["authoritative"] is False
+          assert data["point_count"] == 801
+          assert data["anchor_id"] == os.environ["KL_ANCHOR"]
+          assert int(data["sign"]) == int(os.environ["KL_SIGN"])
+          assert data["scalar_start"] == 0.0
+          assert data["scalar_end"] == 20.0
+          assert sum(data["attainment_counts"].values()) == 801
+          assert all(
+              not row["scientific_domain_components"]
+              for row in data["profile"]
+          )
+
+          compact = {
+              "ray_id": os.environ["RAY_ID"],
+              "anchor": data["anchor_id"],
+              "sign": data["sign"],
+              "point_count": data["point_count"],
+              "maximum_mean_kl": data["maximum_mean_bernoulli_kl"],
+              "scalar_at_maximum": data["scalar_at_maximum"],
+              "terminal_mean_kl": data["terminal_mean_bernoulli_kl"],
+              "monotone_non_decreasing": data["monotone_non_decreasing"],
+              "direction_reversal_count": data["direction_reversal_count"],
+              "first_closure_scalar": data["first_closure_scalar"],
+              "attainment_counts": data["attainment_counts"],
+              "target_results": data["target_results"],
+          }
+          print("F1B_R2_KL_ENVELOPE_RAY_SUMMARY=" + json.dumps(compact, sort_keys=True))
+          PY
+
+      - name: Upload exact ray result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-kl-envelope-${{ matrix.ray_id }}
+          path: /tmp/f1b-r2-kl-envelope-${{ matrix.ray_id }}.json
+          if-no-files-found: error
+
+  combine_f1b_r2_kl_complement_envelope:
+    name: KL complement envelope combined
+    needs: execute_f1b_r2_kl_complement_envelope
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "9c60639c3399f0cf385b366b633bdb34c07ba18f"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download envelope ray results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: f1b-r2-kl-envelope-*
+          path: /tmp/rays
+          merge-multiple: true
+
+      - name: Combine and validate complete envelope
+        run: |
+          python scripts/combine_f1b_r2_kl_complement_envelope.py \
+            --ray /tmp/rays/f1b-r2-kl-envelope-A1_MINUS.json \
+            --ray /tmp/rays/f1b-r2-kl-envelope-A1_PLUS.json \
+            --ray /tmp/rays/f1b-r2-kl-envelope-A2_MINUS.json \
+            --ray /tmp/rays/f1b-r2-kl-envelope-A2_PLUS.json \
+            --output /tmp/f1b-r2-kl-complement-envelope-combined.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(
+              Path("/tmp/f1b-r2-kl-complement-envelope-combined.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+          assert data["authoritative"] is False
+          assert data["ray_count"] == 4
+          assert data["point_count"] == 3204
+
+          print("F1B_R2_KL_ENVELOPE_COMBINED_SUMMARY_BEGIN")
+          print(json.dumps({
+              "ray_count": data["ray_count"],
+              "point_count": data["point_count"],
+              "rays": [
+                  {
+                      "anchor": ray["anchor_id"],
+                      "sign": ray["sign"],
+                      "max_kl": ray["maximum_mean_bernoulli_kl"],
+                      "scalar_at_max": ray["scalar_at_maximum"],
+                      "terminal_kl": ray["terminal_mean_bernoulli_kl"],
+                      "monotone": ray["monotone_non_decreasing"],
+                      "reversals": ray["direction_reversal_count"],
+                      "first_closure_scalar": ray["first_closure_scalar"],
+                      "attainment_counts": ray["attainment_counts"],
+                      "target_results": ray["target_results"],
+                  }
+                  for ray in data["rays"]
+              ],
+              "provenance": data["provenance"],
+          }, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_KL_ENVELOPE_COMBINED_SUMMARY_END")
+          PY
+
+      - name: Upload exact combined envelope result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-kl-complement-envelope-combined
+          path: /tmp/f1b-r2-kl-complement-envelope-combined.json
+          if-no-files-found: error
