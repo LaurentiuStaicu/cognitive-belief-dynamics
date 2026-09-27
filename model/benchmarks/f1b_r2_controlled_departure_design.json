@@ -1,0 +1,148 @@
+{
+  "design_id": "F1B.R2.CONTROLLED_DEPARTURE_GENERATOR.2026-09-27",
+  "status": "NON_AUTHORITATIVE_CONTROLLED_DEPARTURE_GENERATOR",
+  "baseline_main_commit": "bc78f0e5c25dd442389298ef83f93b070400a01a",
+  "design_cells": {
+    "belief_B": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "accuracy_cue_A": [
+      0,
+      1
+    ],
+    "reward_context_R": [
+      -1,
+      0,
+      1
+    ]
+  },
+  "departure_axes": [
+    "STANDALONE_ACCURACY_MAIN_EFFECT",
+    "COMPLEMENT_RELATION_VIOLATION",
+    "COMBINED_VIOLATION"
+  ],
+  "target_cbd_rms_distances": [
+    0.1,
+    0.25,
+    0.5
+  ],
+  "anchors": {
+    "cbd": {
+      "CBD_ANCHOR_1": [
+        -0.2,
+        -0.2,
+        1,
+        0.8
+      ],
+      "CBD_ANCHOR_2": [
+        -0.2,
+        0,
+        1.2,
+        1
+      ]
+    },
+    "cbd_add_intersection": {
+      "CBD_ADD_INTERSECTION_ANCHOR_1": [
+        -0.2,
+        -0.2,
+        0,
+        0.8
+      ],
+      "CBD_ADD_INTERSECTION_ANCHOR_2": [
+        -0.2,
+        0,
+        0,
+        1
+      ]
+    }
+  },
+  "cbd_projection": {
+    "parameter_bounds": {
+      "sharing_bias": [
+        -5,
+        5
+      ],
+      "baseline_logit": [
+        -4,
+        4
+      ],
+      "beta_accuracy": [
+        -5,
+        5
+      ],
+      "beta_reward": [
+        -5,
+        5
+      ]
+    },
+    "deterministic_starts": [
+      [
+        -0.2,
+        -0.2,
+        1,
+        0.8
+      ],
+      [
+        -0.2,
+        0,
+        1.2,
+        1
+      ],
+      [
+        -0.2,
+        -0.2,
+        0,
+        0.8
+      ],
+      [
+        -0.2,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        -1,
+        2,
+        1
+      ],
+      [
+        0,
+        1,
+        -2,
+        1
+      ]
+    ],
+    "maxiter": 500,
+    "ftol": 1e-12
+  },
+  "distance_solver": {
+    "scan_step": 0.05,
+    "max_scalar": 10,
+    "xtol": 1e-10,
+    "rtol": 1e-10,
+    "maxiter": 200
+  },
+  "integrity_tolerances": {
+    "anchor_cbd_rms": 1e-8,
+    "target_distance_error": 0.000001,
+    "add_compatibility_rms": 1e-10
+  },
+  "execution_boundary": {
+    "bootstrap_characterization_run_allowed": false,
+    "authoritative_bootstrap_draws_frozen": false,
+    "authoritative_evaluation_replicates_frozen": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
