@@ -76,3 +76,278 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  execute_f1b_r2_kl_v2_partition:
+    name: KL v2 deterministic (${{ matrix.partition_id }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - partition_id: ST_A1
+            axis: STANDALONE_ACCURACY_MAIN_EFFECT
+            anchor: CBD_ADD_INTERSECTION_ANCHOR_1
+          - partition_id: ST_A2
+            axis: STANDALONE_ACCURACY_MAIN_EFFECT
+            anchor: CBD_ADD_INTERSECTION_ANCHOR_2
+          - partition_id: CR_A1
+            axis: COMPLEMENT_RELATION_VIOLATION
+            anchor: CBD_ANCHOR_1
+          - partition_id: CR_A2
+            axis: COMPLEMENT_RELATION_VIOLATION
+            anchor: CBD_ANCHOR_2
+          - partition_id: CB_A1
+            axis: COMBINED_VIOLATION
+            anchor: CBD_ANCHOR_1
+          - partition_id: CB_A2
+            axis: COMBINED_VIOLATION
+            anchor: CBD_ANCHOR_2
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "63c1784332eb2de22da5d4d1bf47af5f8f2133f8"
+      PARTITION_ID: ${{ matrix.partition_id }}
+      KL_AXIS: ${{ matrix.axis }}
+      KL_ANCHOR: ${{ matrix.anchor }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Execute frozen deterministic KL v2 partition
+        run: |
+          python scripts/run_f1b_r2_kl_controlled_departures.py \
+            --config model/benchmarks/f1b_r2_kl_controlled_departure_design_v2.json \
+            --axis "$KL_AXIS" \
+            --anchor "$KL_ANCHOR" \
+            --output "/tmp/f1b-r2-kl-v2-${PARTITION_ID}.json" \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path(f"/tmp/f1b-r2-kl-v2-{os.environ['PARTITION_ID']}.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          assert data["design_id"] == "F1B.R2.KL_CONTROLLED_DEPARTURE.V2"
+          assert data["status"] == "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V2_PARTITION"
+          assert data["authoritative"] is False
+          assert data["case_count"] == 6
+          assert data["partition"]["axis"] == os.environ["KL_AXIS"]
+          assert data["partition"]["anchor_id"] == os.environ["KL_ANCHOR"]
+          cases = data["cases"]
+          assert {int(c["sign"]) for c in cases} == {-1, 1}
+          assert {float(c["requested_mean_bernoulli_kl"]) for c in cases} == {
+              0.001, 0.002, 0.003
+          }
+          assert all(
+              c["cbd_attainment_status"] != "SCIENTIFIC_DOMAIN_UNRESOLVED"
+              for c in cases
+          )
+          assert all(float(c["mean_kl_error"]) <= 1e-7 for c in cases)
+          standalone = (
+              os.environ["KL_AXIS"] == "STANDALONE_ACCURACY_MAIN_EFFECT"
+          )
+          if standalone:
+              assert all(c["add_compatibility_expected"] for c in cases)
+              assert all(c["add_compatibility_pass"] for c in cases)
+
+          print("F1B_R2_KL_V2_PARTITION_SUMMARY=" + json.dumps({
+              "partition_id": os.environ["PARTITION_ID"],
+              "axis": os.environ["KL_AXIS"],
+              "anchor": os.environ["KL_ANCHOR"],
+              "case_count": len(cases),
+              "max_target_error": max(float(c["mean_kl_error"]) for c in cases),
+              "attainment_counts": {
+                  status: sum(c["cbd_attainment_status"] == status for c in cases)
+                  for status in sorted({c["cbd_attainment_status"] for c in cases})
+              },
+              "cases": [
+                  {
+                      "sign": int(c["sign"]),
+                      "target": float(c["requested_mean_bernoulli_kl"]),
+                      "achieved": float(c["achieved_mean_bernoulli_kl"]),
+                      "scalar": float(c["scalar_step"]),
+                      "attainment": c["cbd_attainment_status"],
+                      "closure": c["cbd_closure_boundary_components"],
+                      "d1": float(c["d1_nearest_utility_rms"]),
+                      "d2": float(c["d2_nearest_probability_rms"]),
+                      "fisher": float(c["information_weighted_logit_distance"]),
+                      "add_rms": float(c["nearest_add_rms_distance"]),
+                      "gen_sat_005": int(c["generator_outside_005_095_count"]),
+                  }
+                  for c in cases
+              ],
+          }, sort_keys=True))
+          PY
+
+      - name: Upload exact v2 partition result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-kl-v2-${{ matrix.partition_id }}
+          path: /tmp/f1b-r2-kl-v2-${{ matrix.partition_id }}.json
+          if-no-files-found: error
+
+  combine_f1b_r2_kl_v2:
+    name: KL v2 deterministic combined
+    needs: execute_f1b_r2_kl_v2_partition
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "63c1784332eb2de22da5d4d1bf47af5f8f2133f8"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download deterministic v2 partitions
+        uses: actions/download-artifact@v4
+        with:
+          pattern: f1b-r2-kl-v2-*
+          path: /tmp/parts
+          merge-multiple: true
+
+      - name: Combine and validate complete KL v2 design
+        run: |
+          python scripts/combine_f1b_r2_kl_controlled_departure_partitions.py \
+            --config model/benchmarks/f1b_r2_kl_controlled_departure_design_v2.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-ST_A1.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-ST_A2.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-CR_A1.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-CR_A2.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-CB_A1.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-CB_A2.json \
+            --output /tmp/f1b-r2-kl-v2-combined.json
+          python - <<'PY'
+          import json
+          from collections import Counter, defaultdict
+          from pathlib import Path
+
+          data = json.loads(
+              Path("/tmp/f1b-r2-kl-v2-combined.json").read_text(encoding="utf-8")
+          )
+          assert data["design_id"] == "F1B.R2.KL_CONTROLLED_DEPARTURE.V2"
+          assert data["status"] == "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V2_RESULT"
+          assert data["authoritative"] is False
+          assert data["case_count"] == 36
+          assert data["execution_partition_count"] == 6
+          assert data["target_mean_bernoulli_kl"] == [0.001, 0.002, 0.003]
+          cases = data["cases"]
+          assert len(cases) == 36
+          assert all(
+              c["cbd_attainment_status"] != "SCIENTIFIC_DOMAIN_UNRESOLVED"
+              for c in cases
+          )
+          assert all(float(c["mean_kl_error"]) <= 1e-7 for c in cases)
+          standalone = [
+              c for c in cases
+              if c["axis"] == "STANDALONE_ACCURACY_MAIN_EFFECT"
+          ]
+          assert len(standalone) == 12
+          assert all(c["add_compatibility_pass"] for c in standalone)
+
+          attainment = Counter(c["cbd_attainment_status"] for c in cases)
+          by_axis = defaultdict(lambda: {
+              "cases": 0,
+              "closure_limit": 0,
+              "finite_interior": 0,
+              "max_target_error": 0.0,
+              "max_generator_saturation_005": 0,
+              "max_scalar": 0.0,
+          })
+          by_target = defaultdict(lambda: {
+              "cases": 0,
+              "closure_limit": 0,
+              "max_target_error": 0.0,
+              "max_scalar": 0.0,
+          })
+          for c in cases:
+              axis = by_axis[c["axis"]]
+              axis["cases"] += 1
+              axis["closure_limit"] += (
+                  c["cbd_attainment_status"] == "NON_ATTAINED_OR_CLOSURE_LIMIT"
+              )
+              axis["finite_interior"] += (
+                  c["cbd_attainment_status"] == "FINITE_INTERIOR_ATTAINED"
+              )
+              axis["max_target_error"] = max(
+                  axis["max_target_error"], float(c["mean_kl_error"])
+              )
+              axis["max_generator_saturation_005"] = max(
+                  axis["max_generator_saturation_005"],
+                  int(c["generator_outside_005_095_count"]),
+              )
+              axis["max_scalar"] = max(axis["max_scalar"], float(c["scalar_step"]))
+
+              target = by_target[str(c["requested_mean_bernoulli_kl"])]
+              target["cases"] += 1
+              target["closure_limit"] += (
+                  c["cbd_attainment_status"] == "NON_ATTAINED_OR_CLOSURE_LIMIT"
+              )
+              target["max_target_error"] = max(
+                  target["max_target_error"], float(c["mean_kl_error"])
+              )
+              target["max_scalar"] = max(
+                  target["max_scalar"], float(c["scalar_step"])
+              )
+
+          print("F1B_R2_KL_V2_COMBINED_SUMMARY_BEGIN")
+          print(json.dumps({
+              "case_count": len(cases),
+              "attainment_counts": dict(attainment),
+              "by_axis": dict(by_axis),
+              "by_target": dict(by_target),
+              "max_target_error": max(float(c["mean_kl_error"]) for c in cases),
+              "max_scalar": max(float(c["scalar_step"]) for c in cases),
+              "standalone_max_add_rms": max(
+                  float(c["nearest_add_rms_distance"]) for c in standalone
+              ),
+              "provenance": data["provenance"],
+              "compact_cases": [
+                  {
+                      "axis": c["axis"],
+                      "anchor": c["anchor_id"],
+                      "sign": int(c["sign"]),
+                      "target": float(c["requested_mean_bernoulli_kl"]),
+                      "achieved": float(c["achieved_mean_bernoulli_kl"]),
+                      "scalar": float(c["scalar_step"]),
+                      "attainment": c["cbd_attainment_status"],
+                      "closure": c["cbd_closure_boundary_components"],
+                      "d1": float(c["d1_nearest_utility_rms"]),
+                      "d2": float(c["d2_nearest_probability_rms"]),
+                      "fisher": float(c["information_weighted_logit_distance"]),
+                      "gen_sat_005": int(c["generator_outside_005_095_count"]),
+                      "add_rms": float(c["nearest_add_rms_distance"]),
+                  }
+                  for c in cases
+              ],
+          }, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_KL_V2_COMBINED_SUMMARY_END")
+          PY
+
+      - name: Upload exact combined KL v2 result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-kl-v2-combined
+          path: /tmp/f1b-r2-kl-v2-combined.json
+          if-no-files-found: error
