@@ -113,7 +113,7 @@ jobs:
           rows = []
           for case in case_results:
               for candidate in case["candidate_results"]:
-                  closure = candidate["closure_projection"]
+                  closure = candidate["closure_attainment_diagnostic"]
                   widest = closure["selected_widest_domain"]
                   rows.append({
                       "case_id": case["case_id"],
@@ -132,10 +132,17 @@ jobs:
           print(json.dumps({
               "case_count": len(case_results),
               "candidate_rows": len(rows),
-              "attainment_counts": dict(Counter(
-                  (row["candidate_id"], row["attainment_status"])
-                  for row in rows
-              )),
+              "attainment_counts": [
+                  {
+                      "candidate_id": candidate_id,
+                      "attainment_status": status,
+                      "count": count,
+                  }
+                  for (candidate_id, status), count in sorted(Counter(
+                      (row["candidate_id"], row["attainment_status"])
+                      for row in rows
+                  ).items())
+              ],
               "unresolved": [
                   row for row in rows
                   if row["attainment_status"] == "SCIENTIFIC_DOMAIN_UNRESOLVED"
