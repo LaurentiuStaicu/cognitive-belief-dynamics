@@ -76,3 +76,126 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  execute_f1b_r2_distance_definition_review:
+    name: F1b R2 distance-definition review
+    needs: validate
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "29237b095c11eb49261382e72164642c4a946bce"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Execute frozen deterministic distance-definition review
+        run: |
+          python scripts/run_f1b_r2_distance_definition_review.py \
+            --output /tmp/f1b-r2-distance-definition-review.json \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+
+      - name: Validate and summarize exact review result
+        run: |
+          python - <<'PY'
+          import json
+          from collections import defaultdict
+          from pathlib import Path
+
+          path = Path("/tmp/f1b-r2-distance-definition-review.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+
+          assert data["authoritative"] is False
+          assert data["case_count"] == 12
+          assert data["candidate_count"] == 3
+          assert data["selected_cell_row_count"] == 648
+          assert data["diagnostic_domain_multipliers"] == [8.0, 16.0, 32.0]
+
+          by_candidate = defaultdict(lambda: {
+              "cases": 0,
+              "active_32x": 0,
+              "failed_starts": 0,
+              "max_abs_primary_change_16x_32x": 0.0,
+          })
+          pairwise_max = defaultdict(float)
+
+          for case in data["case_results"]:
+              for candidate in case["candidate_results"]:
+                  cid = candidate["candidate_id"]
+                  row = by_candidate[cid]
+                  row["cases"] += 1
+                  widest = candidate["selected_widest_domain"]
+                  if widest["active_bounds"]:
+                      row["active_32x"] += 1
+                  row["failed_starts"] += sum(
+                      domain["failed_start_count"]
+                      for domain in candidate["domain_results"]
+                  )
+                  if candidate["domain_transitions"]:
+                      last = candidate["domain_transitions"][-1]
+                      row["max_abs_primary_change_16x_32x"] = max(
+                          row["max_abs_primary_change_16x_32x"],
+                          abs(float(last["primary_distance_change"])),
+                      )
+
+              for comparison in case["candidate_projection_comparisons"]:
+                  key = (
+                      comparison["left_candidate"],
+                      comparison["right_candidate"],
+                  )
+                  pairwise_max[key] = max(
+                      pairwise_max[key],
+                      float(comparison["selected_cbd_probability_rms"]),
+                  )
+
+          sign_rows = []
+          for row in data["sign_comparisons"]:
+              for candidate in row["candidates"]:
+                  sign_rows.append({
+                      "anchor_id": row["anchor_id"],
+                      "historical_nominal_distance": row[
+                          "historical_nominal_distance"
+                      ],
+                      **candidate,
+                  })
+
+          summary = {
+              "case_count": data["case_count"],
+              "candidate_count": data["candidate_count"],
+              "selected_cell_row_count": data["selected_cell_row_count"],
+              "candidate_execution": dict(by_candidate),
+              "max_pairwise_selected_cbd_probability_rms": [
+                  {
+                      "left_candidate": key[0],
+                      "right_candidate": key[1],
+                      "max_rms": value,
+                  }
+                  for key, value in sorted(pairwise_max.items())
+              ],
+              "sign_comparisons": sign_rows,
+              "provenance": data["provenance"],
+              "interpretation_boundary": data["interpretation_boundary"],
+          }
+          print("F1B_R2_DISTANCE_REVIEW_SUMMARY_BEGIN")
+          print(json.dumps(summary, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_DISTANCE_REVIEW_SUMMARY_END")
+          PY
+
+      - name: Upload exact deterministic review result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-distance-definition-review
+          path: /tmp/f1b-r2-distance-definition-review.json
+          if-no-files-found: error
+          retention-days: 7
