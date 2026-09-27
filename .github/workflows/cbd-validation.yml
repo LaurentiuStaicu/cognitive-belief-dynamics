@@ -76,3 +76,36 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  execute_f1b_r2_closure_regression_v2:
+    name: F1b R2 exact closure regression v2
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "d25909a22f3adde313f59d372b58c139ce15ad1f"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Execute exact corrected closure review
+        run: |
+          python scripts/run_f1b_r2_distance_definition_review.py             --output /tmp/f1b-r2-distance-definition-closure-review-corrected-v2.json             --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+
+      - name: Upload exact corrected review
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-distance-definition-closure-review-corrected-v2
+          path: /tmp/f1b-r2-distance-definition-closure-review-corrected-v2.json
+          if-no-files-found: error
