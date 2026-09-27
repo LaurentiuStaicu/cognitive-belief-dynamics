@@ -51,7 +51,9 @@
   "numerical_integrity": {
     "nested_objective_tolerance": 1e-10,
     "bound_activity_tolerance": 0.00001,
-    "zero_surface_tolerance": 1e-10
+    "zero_surface_tolerance": 1e-10,
+    "closure_boundary_tolerance": 1e-8,
+    "closure_objective_equivalence_tolerance": 1e-9
   },
   "comparison_rules": {
     "do_not_select_by_historical_detection": true,
@@ -72,5 +74,17 @@
     "human_n_frozen": false,
     "participant_recruitment_allowed": false,
     "runtime_f1b_change_allowed": false
+  },
+  "closure_attainment_diagnostic": {
+    "status": "REQUIRED_FOR_DISTANCE_DEFINITION_COMPLETION",
+    "finite_logit_surface_coordinates": "W0,W1 in (0,1)",
+    "closed_surface_coordinates": "W0,W1 in [0,1]",
+    "bias_reward_domain_multipliers": [
+      8,
+      16,
+      32
+    ],
+    "decision_rule": "W0_OR_W1_BOUNDARY_IMPLIES_NON_ATTAINED_OR_CLOSURE_LIMIT",
+    "scientific_domain_rule": "ACTIVE_SHARING_BIAS_OR_BETA_REWARD_AT_WIDEST_DOMAIN_IMPLIES_UNRESOLVED"
   }
 }
