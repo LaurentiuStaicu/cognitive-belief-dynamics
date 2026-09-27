@@ -3,10 +3,13 @@ from __future__ import annotations
 import copy
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
 from scipy.special import expit
+
+import cognitive_epistemic_model.calibration.f1b_r2_distance_definition_review as review
 
 from cognitive_epistemic_model.calibration.f1b_r2_controlled_departures import (
     cbd_utility,
@@ -316,3 +319,121 @@ def test_surface_coordinate_and_finite_logit_parameterizations_match() -> None:
         ),
         abs=1e-14,
     )
+
+
+
+def _run_synthetic_nested_continuation(
+    monkeypatch,
+    *,
+    second_ordinary_objective: float,
+    second_continuation_objective: float,
+) -> dict:
+    config = copy.deepcopy(load(CONFIG))
+    config["diagnostic_domain_multipliers"] = [8, 16]
+    departure_config = load(DEPARTURES)
+
+    objectives = iter(
+        [
+            0.01,
+            second_ordinary_objective,
+            second_continuation_objective,
+        ]
+    )
+
+    def fake_minimize(*args, x0, **kwargs):
+        return SimpleNamespace(
+            success=True,
+            status=0,
+            message="synthetic optimizer result",
+            fun=float(next(objectives)),
+            x=np.asarray(x0, dtype=float).copy(),
+        )
+
+    monkeypatch.setattr(review, "minimize", fake_minimize)
+    monkeypatch.setattr(
+        review,
+        "_objective_value_surface_coordinates",
+        lambda *args, **kwargs: 0.01,
+    )
+
+    belief = np.asarray([0.2, 0.8], dtype=float)
+    accuracy = np.asarray([0.0, 1.0], dtype=float)
+    reward = np.asarray([0.0, 0.0], dtype=float)
+    eta_general = np.asarray([0.0, 0.0], dtype=float)
+
+    return review._project_candidate_closure(
+        candidate_id="BERNOULLI_KL_GENERAL_TO_CBD",
+        eta_general=eta_general,
+        belief=belief,
+        accuracy=accuracy,
+        reward=reward,
+        logit_starts=[(0.0, 0.0, 0.0, 0.0)],
+        config=config,
+        departure_config=departure_config,
+    )
+
+
+def test_nested_closure_carries_previous_feasible_solution_on_optimizer_drift(
+    monkeypatch,
+) -> None:
+    result = _run_synthetic_nested_continuation(
+        monkeypatch,
+        second_ordinary_objective=0.01000003,
+        second_continuation_objective=0.01000002,
+    )
+    first, second = result["domain_results"]
+
+    assert first["objective"] == pytest.approx(0.01)
+    assert second["objective"] == pytest.approx(0.01)
+    assert second["selected_start_source"] == (
+        "PREVIOUS_DOMAIN_SELECTED_FEASIBLE"
+    )
+
+    continuation = second["nested_continuation"]
+    assert continuation["enabled"] is True
+    assert continuation["previous_domain_multiplier"] == pytest.approx(8.0)
+    assert continuation["previous_selected_objective"] == pytest.approx(0.01)
+    assert continuation["carried_feasible_objective"] == pytest.approx(0.01)
+    assert continuation["optimized_continuation_objective"] == pytest.approx(
+        0.01000002
+    )
+    assert continuation["raw_best_optimized_objective"] == pytest.approx(
+        0.01000002
+    )
+    assert continuation["raw_apparent_nested_increase"] == pytest.approx(
+        2e-8
+    )
+    assert continuation["carry_forward_selected"] is True
+    assert second["objective"] <= first["objective"]
+
+
+def test_nested_closure_keeps_real_wider_domain_improvement(
+    monkeypatch,
+) -> None:
+    result = _run_synthetic_nested_continuation(
+        monkeypatch,
+        second_ordinary_objective=0.009,
+        second_continuation_objective=0.008,
+    )
+    first, second = result["domain_results"]
+
+    assert first["objective"] == pytest.approx(0.01)
+    assert second["objective"] == pytest.approx(0.008)
+    assert second["selected_start_source"] == (
+        "PREVIOUS_DOMAIN_CONTINUATION_OPTIMIZED"
+    )
+
+    continuation = second["nested_continuation"]
+    assert continuation["enabled"] is True
+    assert continuation["carried_feasible_objective"] == pytest.approx(0.01)
+    assert continuation["optimized_continuation_objective"] == pytest.approx(
+        0.008
+    )
+    assert continuation["raw_best_optimized_objective"] == pytest.approx(
+        0.008
+    )
+    assert continuation["raw_apparent_nested_increase"] == pytest.approx(
+        -0.002
+    )
+    assert continuation["carry_forward_selected"] is False
+    assert second["objective"] < first["objective"]
