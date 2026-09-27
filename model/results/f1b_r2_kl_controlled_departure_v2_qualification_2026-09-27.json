@@ -1,0 +1,177 @@
+{
+  "result_id": "F1B.R2.KL_CONTROLLED_DEPARTURE.V2.DETERMINISTIC_QUALIFICATION.2026-09-27",
+  "status": "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V2_QUALIFIED",
+  "authoritative": false,
+  "issue": 202,
+  "parent_v1_issue": 178,
+  "execution": {
+    "scientific_source_commit": "63c1784332eb2de22da5d4d1bf47af5f8f2133f8",
+    "temporary_pr": 204,
+    "github_run_id": "36336694463",
+    "combined_artifact_id": 10937835482,
+    "combined_artifact_zip_sha256": "87c56a14a045e798d2964471f64d8c59b9ca45b905df484427995a118ef76da8",
+    "exact_combined_json_sha256": "cc0b95f4bba63dc721a864b4dbe53be9c0c8a07071991575ea2a438d410d4ef7",
+    "exact_combined_json_size_bytes": 33934395,
+    "config_sha256": "fb80f9976ef592b2dc8b1cbbbe566c19d755e449ff02b6278d1f1ce1b140ca8c",
+    "review_config_sha256": "a653b2024f8508a8395845143a45d57427882e11b3f2a16203ff6609b7a9696d",
+    "historical_departure_config_sha256": "e5603e0115d98abbb2df549671592fda14818abb5e990a0b5afad8641e5a2a1e",
+    "partition_json_sha256": {
+      "ST_A1": "a0c859404f8820b173b72dabc9ed724cb31df350f84dff7782aef4fb949728fa",
+      "ST_A2": "eb9869faa8b73a5a6b1e51184faf75acc022c74b19ad0d7e12dafe2707310b7e",
+      "CR_A1": "115a24e3072dd688996d0598853de31b69999f4e2cabcf2612d4b0f975952925",
+      "CR_A2": "073291716cf4122ce61d1d35999e9fbcf185482110a4b4af2a8d93766b3dd760",
+      "CB_A1": "b2db68f99ff7de52b49dee72d2ff69176484a4efa95992059a6478e8117f1520",
+      "CB_A2": "4eb463159a1ebbaad6b3e3a1fed8a591af6bace32502aa37e12fa20982e203e4"
+    }
+  },
+  "design": {
+    "design_id": "F1B.R2.KL_CONTROLLED_DEPARTURE.V2",
+    "target_mean_bernoulli_kl": [
+      0.001,
+      0.002,
+      0.003
+    ],
+    "target_units": "NATS_PER_BERNOULLI_OBSERVATION_UNIFORM_18_CELL_MEAN",
+    "case_count": 36,
+    "execution_partition_count": 6,
+    "grid": "3 axes x 2 applicable anchors x 2 signs x 3 targets"
+  },
+  "qualification": {
+    "gate_pass": true,
+    "all_36_cases_generated": true,
+    "max_target_error": 5.648593572049609e-13,
+    "scientific_domain_unresolved_count": 0,
+    "finite_interior_count": 33,
+    "closure_limit_count": 3,
+    "standalone_max_add_rms": 2.2765964667815184e-16,
+    "all_standalone_add_compatible": true,
+    "max_scalar": 2.6890660270805204,
+    "by_axis": {
+      "STANDALONE_ACCURACY_MAIN_EFFECT": {
+        "case_count": 12,
+        "finite_interior_count": 12,
+        "closure_limit_count": 0,
+        "max_target_error": 5.648593572049609e-13,
+        "max_scalar": 0.22873078348128864,
+        "max_generator_outside_005_095_count": 0
+      },
+      "COMPLEMENT_RELATION_VIOLATION": {
+        "case_count": 12,
+        "finite_interior_count": 9,
+        "closure_limit_count": 3,
+        "max_target_error": 2.5884849819135525e-13,
+        "max_scalar": 2.6890660270805204,
+        "max_generator_outside_005_095_count": 6
+      },
+      "COMBINED_VIOLATION": {
+        "case_count": 12,
+        "finite_interior_count": 12,
+        "closure_limit_count": 0,
+        "max_target_error": 5.32696716598613e-13,
+        "max_scalar": 0.2863296189203945,
+        "max_generator_outside_005_095_count": 0
+      }
+    },
+    "by_target": {
+      "0.001": {
+        "case_count": 12,
+        "finite_interior_count": 12,
+        "closure_limit_count": 0,
+        "max_target_error": 2.0815077092506407e-13,
+        "max_scalar": 0.3057694124451618
+      },
+      "0.002": {
+        "case_count": 12,
+        "finite_interior_count": 11,
+        "closure_limit_count": 1,
+        "max_target_error": 5.071299283287978e-13,
+        "max_scalar": 0.7026796410339675
+      },
+      "0.003": {
+        "case_count": 12,
+        "finite_interior_count": 10,
+        "closure_limit_count": 2,
+        "max_target_error": 5.648593572049609e-13,
+        "max_scalar": 2.6890660270805204
+      }
+    }
+  },
+  "closure_limit_cases": [
+    {
+      "axis": "COMPLEMENT_RELATION_VIOLATION",
+      "anchor_id": "CBD_ANCHOR_1",
+      "sign": -1,
+      "target_mean_kl": 0.003,
+      "achieved_mean_kl": 0.0030000000001865865,
+      "scalar_step": 0.2591010650985558,
+      "closure_boundary_components": [
+        "W1=HIGH"
+      ]
+    },
+    {
+      "axis": "COMPLEMENT_RELATION_VIOLATION",
+      "anchor_id": "CBD_ANCHOR_2",
+      "sign": -1,
+      "target_mean_kl": 0.002,
+      "achieved_mean_kl": 0.0020000000000070517,
+      "scalar_step": 0.23512443721415008,
+      "closure_boundary_components": [
+        "W1=HIGH"
+      ]
+    },
+    {
+      "axis": "COMPLEMENT_RELATION_VIOLATION",
+      "anchor_id": "CBD_ANCHOR_2",
+      "sign": -1,
+      "target_mean_kl": 0.003,
+      "achieved_mean_kl": 0.003000000000043605,
+      "scalar_step": 0.2699141039186232,
+      "closure_boundary_components": [
+        "W1=HIGH"
+      ]
+    }
+  ],
+  "saturation_context": [
+    {
+      "axis": "COMPLEMENT_RELATION_VIOLATION",
+      "anchor_id": "CBD_ANCHOR_1",
+      "sign": 1,
+      "target_mean_kl": 0.003,
+      "scalar_step": 1.121871183813979,
+      "min_probability_general": 0.05704689011767885,
+      "max_probability_general": 0.9172186426927278,
+      "generator_outside_005_095_count": 0,
+      "generator_outside_010_090_count": 3
+    },
+    {
+      "axis": "COMPLEMENT_RELATION_VIOLATION",
+      "anchor_id": "CBD_ANCHOR_2",
+      "sign": 1,
+      "target_mean_kl": 0.003,
+      "scalar_step": 2.6890660270805204,
+      "min_probability_general": 0.003871674187375309,
+      "max_probability_general": 0.9942351182273741,
+      "generator_outside_005_095_count": 6,
+      "generator_outside_010_090_count": 6
+    }
+  ],
+  "cross_version_0_001": {
+    "historical_v1_source_commit": "5f789b80c24ee12fa7d1880e6975f0b3953a3bb1",
+    "historical_v1_run_id": "36329606064",
+    "exact_v1_case_count_available": 8,
+    "available_axes": [
+      "STANDALONE_ACCURACY_MAIN_EFFECT",
+      "COMBINED_VIOLATION"
+    ],
+    "complement_v1_exact_partition_available": false,
+    "complement_unavailability_reason": "Both V1 complement partitions failed later in the same partition before writing a partition artifact, so no exact retained V1 complement JSON exists for direct 0.001 comparison.",
+    "attainment_status_changes": 0,
+    "closure_identity_changes": 0,
+    "max_abs_scalar_delta": 1.3357454031748262e-11,
+    "max_general_coefficient_abs_delta": 1.8890278230543345e-11,
+    "max_cbd_surface_coordinate_abs_delta": 3.3299166413147674e-7
+  },
+  "full_case_detail_rule": "The exact 36-case payload, including coefficients, root traces and projection diagnostics, is retained by artifact ID and SHA-256 above and is deterministically reproducible from the frozen source/config hashes. This repository result retains the scientific qualification summary rather than duplicating the 33.9 MB execution artifact.",
+  "next_gate": "PAIRED_SAME_DATASET_BOOTSTRAP_CHARACTERIZATION_DESIGN",
+  "interpretation_boundary": "Deterministic synthetic design qualification only. PASS permits retaining V2 and designing a separate paired same-dataset bootstrap characterization. It does not validate detection power, freeze authoritative bootstrap draws or evaluation replicates, freeze a core grid or human N, authorize recruitment, or change runtime F1b."
+}
