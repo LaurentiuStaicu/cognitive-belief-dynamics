@@ -1,0 +1,236 @@
+{
+  "result_id": "F1B.R2.KL_COMPLEMENT_ATTAINABLE_ENVELOPE.RESULT.2026-09-27",
+  "status": "NON_AUTHORITATIVE_KL_COMPLEMENT_ENVELOPE_RESULT",
+  "authoritative": false,
+  "issue": 182,
+  "execution": {
+    "scientific_source_commit": "54b6e6d0307ee91960dd80fec0d3f008a3a3d806",
+    "temporary_pr": 200,
+    "github_run_id": "36335130114",
+    "combined_artifact_id": 10936214205,
+    "combined_artifact_zip_sha256": "407fb0e37f302eec97076737243097882cfad92c8dc290054e2119d93bda17ec",
+    "exact_combined_json_sha256": "6885f32de25bc6838380d6acc9d7c7f2cda02736104dca4717fe8da7b1c733c6",
+    "exact_combined_json_size_bytes": 3267049
+  },
+  "provenance": {
+    "config_sha256": "4eb32709b73a0c4fcad436078ef8db5892cec82a69686ec752b9138a46bd68c3",
+    "kl_config_sha256": "4c9e4954eb896b1c78fef0688de4bc4af5e7d1fe15ffd48a7ef68252ce818a06",
+    "review_config_sha256": "a653b2024f8508a8395845143a45d57427882e11b3f2a16203ff6609b7a9696d",
+    "historical_departure_config_sha256": "e5603e0115d98abbb2df549671592fda14818abb5e990a0b5afad8641e5a2a1e",
+    "ray_json_sha256": {
+      "CBD_ANCHOR_1|-1": "a8528871e23e733e653b8a8c803c1d8f5ec5aad6cd88753cc719a32b493ef448",
+      "CBD_ANCHOR_1|1": "49081232b6c0bc75805c887f1632df595c3122e4bcbc7598da24d76928c1bd5d",
+      "CBD_ANCHOR_2|-1": "2853b36571cfa0ba5b1512a121fdf52a64192da08704cdb1b35e4e3d0afcee3e",
+      "CBD_ANCHOR_2|1": "f4e47d915eb9a8ee1a62c0f037c8a2466aeedd00708d8d302ca46e36c3362712"
+    }
+  },
+  "design": {
+    "ray_count": 4,
+    "points_per_ray": 801,
+    "total_points": 3204,
+    "scalar_start": 0,
+    "scalar_step": 0.025,
+    "scalar_maximum": 20,
+    "frozen_v1_targets": [
+      0.001,
+      0.005,
+      0.01
+    ],
+    "unresolved_point_count": 0
+  },
+  "rays": [
+    {
+      "anchor_id": "CBD_ANCHOR_1",
+      "sign": -1,
+      "maximum_mean_kl": 0.014439792414384136,
+      "scalar_at_maximum": 0.47500000000000003,
+      "terminal_mean_kl_at_20": 0.012262976091885848,
+      "monotone_non_decreasing": false,
+      "direction_reversal_count": 361,
+      "attainment_counts": {
+        "FINITE_INTERIOR_ATTAINED": 9,
+        "NON_ATTAINED_OR_CLOSURE_LIMIT": 792
+      },
+      "first_closure_scalar": 0.225,
+      "target_results": [
+        {
+          "target": 0.001,
+          "classification": "TARGET_ATTAINABLE_WITHIN_V1_RANGE",
+          "first_crossing_bracket": [
+            0.15000000000000002,
+            0.17500000000000002
+          ],
+          "bracket_kl": [
+            0.000921474210291848,
+            0.0012849896419578313
+          ]
+        },
+        {
+          "target": 0.005,
+          "classification": "TARGET_ATTAINABLE_WITHIN_V1_RANGE",
+          "first_crossing_bracket": [
+            0.30000000000000004,
+            0.325
+          ],
+          "bracket_kl": [
+            0.004358405665678587,
+            0.00538256582792161
+          ]
+        },
+        {
+          "target": 0.01,
+          "classification": "TARGET_ATTAINABLE_WITHIN_V1_RANGE",
+          "first_crossing_bracket": [
+            0.4,
+            0.42500000000000004
+          ],
+          "bracket_kl": [
+            0.009307306324867703,
+            0.01088892680613334
+          ]
+        }
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_1",
+      "sign": 1,
+      "maximum_mean_kl": 0.003969141445652382,
+      "scalar_at_maximum": 19.175,
+      "terminal_mean_kl_at_20": 0.003969141445184327,
+      "monotone_non_decreasing": false,
+      "direction_reversal_count": 36,
+      "attainment_counts": {
+        "FINITE_INTERIOR_ATTAINED": 801
+      },
+      "first_closure_scalar": null,
+      "target_results": [
+        {
+          "target": 0.001,
+          "classification": "TARGET_ATTAINABLE_WITHIN_V1_RANGE",
+          "first_crossing_bracket": [
+            0.25,
+            0.275
+          ],
+          "bracket_kl": [
+            0.0009664468853543705,
+            0.001087152705387878
+          ]
+        },
+        {
+          "target": 0.005,
+          "classification": "TARGET_ABOVE_RAY_ENVELOPE_WITHIN_V1_RANGE",
+          "first_crossing_bracket": null
+        },
+        {
+          "target": 0.01,
+          "classification": "TARGET_ABOVE_RAY_ENVELOPE_WITHIN_V1_RANGE",
+          "first_crossing_bracket": null
+        }
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "sign": -1,
+      "maximum_mean_kl": 0.01642454945611901,
+      "scalar_at_maximum": 0.5,
+      "terminal_mean_kl_at_20": 0.013726367995517125,
+      "monotone_non_decreasing": false,
+      "direction_reversal_count": 479,
+      "attainment_counts": {
+        "FINITE_INTERIOR_ATTAINED": 8,
+        "NON_ATTAINED_OR_CLOSURE_LIMIT": 793
+      },
+      "first_closure_scalar": 0.2,
+      "target_results": [
+        {
+          "target": 0.001,
+          "classification": "TARGET_ATTAINABLE_WITHIN_V1_RANGE",
+          "first_crossing_bracket": [
+            0.17500000000000002,
+            0.2
+          ],
+          "bracket_kl": [
+            0.0009531872701657667,
+            0.0012839029569804458
+          ]
+        },
+        {
+          "target": 0.005,
+          "classification": "TARGET_ATTAINABLE_WITHIN_V1_RANGE",
+          "first_crossing_bracket": [
+            0.30000000000000004,
+            0.325
+          ],
+          "bracket_kl": [
+            0.004094436204496585,
+            0.0051629865544563286
+          ]
+        },
+        {
+          "target": 0.01,
+          "classification": "TARGET_ATTAINABLE_WITHIN_V1_RANGE",
+          "first_crossing_bracket": [
+            0.4,
+            0.42500000000000004
+          ],
+          "bracket_kl": [
+            0.00920660357512128,
+            0.010823006692009158
+          ]
+        }
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "sign": 1,
+      "maximum_mean_kl": 0.0032538188153675754,
+      "scalar_at_maximum": 17.375,
+      "terminal_mean_kl_at_20": 0.003253818814419095,
+      "monotone_non_decreasing": false,
+      "direction_reversal_count": 5,
+      "attainment_counts": {
+        "FINITE_INTERIOR_ATTAINED": 801
+      },
+      "first_closure_scalar": null,
+      "target_results": [
+        {
+          "target": 0.001,
+          "classification": "TARGET_ATTAINABLE_WITHIN_V1_RANGE",
+          "first_crossing_bracket": [
+            0.30000000000000004,
+            0.325
+          ],
+          "bracket_kl": [
+            0.0009784556920409508,
+            0.0010703038567344543
+          ]
+        },
+        {
+          "target": 0.005,
+          "classification": "TARGET_ABOVE_RAY_ENVELOPE_WITHIN_V1_RANGE",
+          "first_crossing_bracket": null
+        },
+        {
+          "target": 0.01,
+          "classification": "TARGET_ABOVE_RAY_ENVELOPE_WITHIN_V1_RANGE",
+          "first_crossing_bracket": null
+        }
+      ]
+    }
+  ],
+  "diagnostic_conclusion": {
+    "minus_initial_v1_failure_was_numerical": true,
+    "both_minus_rays_reach_all_frozen_v1_targets": true,
+    "both_plus_rays_reach_0_001": true,
+    "both_plus_rays_reach_0_005": false,
+    "both_plus_rays_reach_0_010": false,
+    "minimum_plus_ray_envelope_maximum": 0.0032538188153675754,
+    "v1_common_target_grid_attainable_on_all_preserved_complement_rays": false,
+    "common_frozen_targets_attainable_on_all_four_rays": [
+      0.001
+    ],
+    "target_grid_revision_authorized_here": false,
+    "next_gate": "PROSPECTIVE_COMMON_KL_TARGET_GRID_REDESIGN_FROM_DETERMINISTIC_GEOMETRY_ONLY"
+  },
+  "interpretation_boundary": "Deterministic attainable-envelope diagnostic only. The v1 target grid, scalar range and complement rays are not revised by this result. A separate prospective gate may select a new common KL target grid from deterministic geometry only. No stochastic characterization, paired bootstrap, power validation, core-grid or human-N freeze, recruitment, or runtime F1b is authorized."
+}
