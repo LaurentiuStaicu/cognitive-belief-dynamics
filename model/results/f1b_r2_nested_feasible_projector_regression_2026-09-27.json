@@ -1,0 +1,163 @@
+{
+  "regression_id": "F1B.R2.NESTED_FEASIBLE.PROJECTOR.REGRESSION.2026-09-27",
+  "status": "COMPLETED_CORRECTED_PROJECTOR_HISTORICAL_REGRESSION",
+  "authoritative": false,
+  "issue": 190,
+  "historical_result_immutable": true,
+  "historical": {
+    "source_commit": "97a4ac6119709de8089032a21b97877a522dd04d",
+    "run_id": "36325580317",
+    "artifact_id": 10933539813,
+    "zip_sha256": "7c947134279e816357bcc8b6d7966c44fc29e49bb536d974827628068e769f48",
+    "json_sha256": "55597e0f240b439531b872e99dfec9bafee73323e3c39d18943529069907537e",
+    "json_size_bytes": 2757195
+  },
+  "corrected": {
+    "source_commit": "d25909a22f3adde313f59d372b58c139ce15ad1f",
+    "run_id": "36333833072",
+    "artifact_id": 10937041228,
+    "zip_sha256": "b8c92cc4e7a28e7a809a9254a6477178d574f4d27d22c335b26af290232b265f",
+    "json_sha256": "039e06da85a137f92d72b01defceb863605ed371597ed9f04a5240aebcfd2939",
+    "json_size_bytes": 3563220
+  },
+  "summary": {
+    "case_count": 12,
+    "candidate_count": 3,
+    "candidate_surface_rows": 36,
+    "attainment_status_changes": 0,
+    "closure_boundary_identity_changes": 0,
+    "scientific_domain_identity_changes": 0,
+    "historical_unresolved_count": 0,
+    "corrected_unresolved_count": 0,
+    "max_closure_surface_probability_rms_old_vs_corrected": 8.631549627505044e-9,
+    "max_closure_surface_probability_rms_case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+    "max_closure_surface_probability_rms_candidate_id": "STABILIZED_UTILITY_RMS",
+    "max_abs_closure_objective_delta": 3.379935220593211e-13,
+    "max_positive_closure_objective_delta": 0,
+    "max_finite_logit_surface_probability_rms_old_vs_corrected": 0.000007126035805054217,
+    "max_finite_logit_surface_probability_rms_case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.25",
+    "max_finite_logit_surface_probability_rms_candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+    "max_abs_finite_logit_objective_delta": 6.049994446394313e-11,
+    "max_positive_finite_logit_objective_delta": 0,
+    "max_abs_sign_comparison_distance_change": 6.049994446394313e-11,
+    "historical_closure_failed_optimizer_starts": 0,
+    "corrected_closure_failed_optimizer_starts": 0,
+    "historical_finite_logit_failed_optimizer_starts": 0,
+    "corrected_finite_logit_failed_optimizer_starts": 0,
+    "corrected_exact_carry_forward_selected_count": 2,
+    "gate_pass": true
+  },
+  "attainment_counts": [
+    {
+      "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+      "finite_interior_historical": 7,
+      "finite_interior_corrected": 7,
+      "closure_limit_historical": 5,
+      "closure_limit_corrected": 5
+    },
+    {
+      "candidate_id": "PROBABILITY_RMS",
+      "finite_interior_historical": 7,
+      "finite_interior_corrected": 7,
+      "closure_limit_historical": 5,
+      "closure_limit_corrected": 5
+    },
+    {
+      "candidate_id": "STABILIZED_UTILITY_RMS",
+      "finite_interior_historical": 7,
+      "finite_interior_corrected": 7,
+      "closure_limit_historical": 5,
+      "closure_limit_corrected": 5
+    }
+  ],
+  "closure_case_identities": {
+    "all_three_candidates_same": true,
+    "cases": [
+      {
+        "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+        "boundary": "W1=HIGH"
+      },
+      {
+        "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+        "boundary": "W0=HIGH"
+      },
+      {
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.10",
+        "boundary": "W1=HIGH"
+      },
+      {
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+        "boundary": "W1=HIGH"
+      },
+      {
+        "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+        "boundary": "W0=HIGH"
+      }
+    ]
+  },
+  "changed_candidate_surface_rows": [
+    {
+      "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.25",
+      "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+      "attainment_status": "FINITE_INTERIOR_ATTAINED",
+      "closure_boundary_components": [],
+      "closure_surface_probability_rms_old_vs_corrected": 0,
+      "closure_objective_delta_corrected_minus_old": 0,
+      "finite_logit_surface_probability_rms_old_vs_corrected": 0.000007126035805054217,
+      "finite_logit_objective_delta_corrected_minus_old": -6.049994446394313e-11,
+      "corrected_finite_logit_selected_source": "PREVIOUS_DOMAIN_SELECTED_FEASIBLE",
+      "corrected_closure_selected_source": "FROZEN_COMMON_START"
+    },
+    {
+      "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+      "candidate_id": "STABILIZED_UTILITY_RMS",
+      "attainment_status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "closure_boundary_components": [
+        "W0=HIGH"
+      ],
+      "closure_surface_probability_rms_old_vs_corrected": 8.631549627505044e-9,
+      "closure_objective_delta_corrected_minus_old": -3.379935220593211e-13,
+      "finite_logit_surface_probability_rms_old_vs_corrected": 0,
+      "finite_logit_objective_delta_corrected_minus_old": 0,
+      "corrected_finite_logit_selected_source": "FROZEN_COMMON_START",
+      "corrected_closure_selected_source": "PREVIOUS_DOMAIN_SELECTED_FEASIBLE"
+    }
+  ],
+  "unchanged_candidate_surface_rows": [
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.10|STABILIZED_UTILITY_RMS",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.10|PROBABILITY_RMS",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.10|BERNOULLI_KL_GENERAL_TO_CBD",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.10|STABILIZED_UTILITY_RMS",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.10|PROBABILITY_RMS",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.10|BERNOULLI_KL_GENERAL_TO_CBD",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25|STABILIZED_UTILITY_RMS",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25|PROBABILITY_RMS",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25|BERNOULLI_KL_GENERAL_TO_CBD",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.25|STABILIZED_UTILITY_RMS",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.25|PROBABILITY_RMS",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50|STABILIZED_UTILITY_RMS",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50|PROBABILITY_RMS",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50|BERNOULLI_KL_GENERAL_TO_CBD",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.50|STABILIZED_UTILITY_RMS",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.50|PROBABILITY_RMS",
+    "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.50|BERNOULLI_KL_GENERAL_TO_CBD",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.10|STABILIZED_UTILITY_RMS",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.10|PROBABILITY_RMS",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.10|BERNOULLI_KL_GENERAL_TO_CBD",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.10|STABILIZED_UTILITY_RMS",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.10|PROBABILITY_RMS",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.10|BERNOULLI_KL_GENERAL_TO_CBD",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25|STABILIZED_UTILITY_RMS",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25|PROBABILITY_RMS",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25|BERNOULLI_KL_GENERAL_TO_CBD",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.25|STABILIZED_UTILITY_RMS",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.25|PROBABILITY_RMS",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.25|BERNOULLI_KL_GENERAL_TO_CBD",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50|PROBABILITY_RMS",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50|BERNOULLI_KL_GENERAL_TO_CBD",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.50|STABILIZED_UTILITY_RMS",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.50|PROBABILITY_RMS",
+    "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__PLUS__RMS_0.50|BERNOULLI_KL_GENERAL_TO_CBD"
+  ],
+  "boundary": "Historical #171 remains immutable. Corrected nested-feasible finite-logit and closure projectors are prospective numerical infrastructure only. This regression does not authorize stochastic characterization, paired bootstrap, authoritative power, a core grid, human N, recruitment, or runtime F1b."
+}
