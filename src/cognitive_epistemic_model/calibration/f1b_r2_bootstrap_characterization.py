@@ -475,9 +475,127 @@ def _aggregate_trials(trials: list[CharacterizationTrial]) -> list[dict]:
     return rows
 
 
+def _resolve_replicate_indices(
+    evaluation_replicates: int,
+    replicate_indices: tuple[int, ...] | None,
+) -> tuple[int, ...]:
+    if replicate_indices is None:
+        return tuple(range(evaluation_replicates))
+    if not replicate_indices:
+        raise ValueError("replicate_indices must not be empty")
+    normalized = tuple(int(value) for value in replicate_indices)
+    if tuple(sorted(set(normalized))) != normalized:
+        raise ValueError(
+            "replicate_indices must be unique and strictly increasing"
+        )
+    if normalized[0] < 0 or normalized[-1] >= evaluation_replicates:
+        raise ValueError(
+            "replicate_indices must lie inside the declared evaluation count"
+        )
+    return normalized
+
+
+def _trial_identity(trial: dict) -> tuple:
+    return (
+        trial["bootstrap_draws"],
+        trial["identity_type"],
+        trial["identity"],
+        trial["restriction"],
+        trial["evaluation_replicate"],
+    )
+
+
+def combine_bootstrap_characterization_partitions(
+    partitions: list[dict],
+) -> dict:
+    if not partitions:
+        raise ValueError("at least one partition is required")
+
+    first = partitions[0]
+    replicate_grid = [int(x) for x in first["evaluation_replicate_grid"]]
+    if len(replicate_grid) != 1:
+        raise ValueError(
+            "partition combination requires one evaluation replicate count"
+        )
+    total_replicates = replicate_grid[0]
+    invariant_keys = (
+        "characterization_id",
+        "status",
+        "authoritative",
+        "draw_grid",
+        "evaluation_replicate_grid",
+        "departure_case_count",
+        "interpretation_boundary",
+    )
+
+    seen_replicates: set[int] = set()
+    trials: list[dict] = []
+    for partition in partitions:
+        for key in invariant_keys:
+            if partition[key] != first[key]:
+                raise ValueError(f"partition mismatch for {key}")
+        indices = partition.get("execution_replicate_indices")
+        if indices is None:
+            raise ValueError(
+                "partition is missing execution_replicate_indices"
+            )
+        resolved = _resolve_replicate_indices(
+            total_replicates,
+            tuple(int(value) for value in indices),
+        )
+        overlap = seen_replicates.intersection(resolved)
+        if overlap:
+            raise ValueError(
+                f"replicate indices overlap across partitions: {sorted(overlap)}"
+            )
+        seen_replicates.update(resolved)
+        trials.extend(partition["trials"])
+
+    expected_replicates = set(range(total_replicates))
+    if seen_replicates != expected_replicates:
+        missing = sorted(expected_replicates - seen_replicates)
+        extra = sorted(seen_replicates - expected_replicates)
+        raise ValueError(
+            "partition coverage is incomplete "
+            f"(missing={missing}, extra={extra})"
+        )
+
+    identities = [_trial_identity(trial) for trial in trials]
+    if len(identities) != len(set(identities)):
+        raise ValueError("duplicate scientific trial across partitions")
+
+    expected_trials = (
+        len(first["draw_grid"])
+        * total_replicates
+        * (3 + 2 * int(first["departure_case_count"]))
+    )
+    if len(trials) != expected_trials:
+        raise ValueError(
+            "combined trial count does not match the declared full design"
+        )
+
+    trials = sorted(trials, key=_trial_identity)
+    trial_objects = [CharacterizationTrial(**trial) for trial in trials]
+    return {
+        "characterization_id": first["characterization_id"],
+        "status": first["status"],
+        "authoritative": False,
+        "draw_grid": first["draw_grid"],
+        "evaluation_replicate_grid": first["evaluation_replicate_grid"],
+        "execution_replicate_indices": list(range(total_replicates)),
+        "departure_case_count": first["departure_case_count"],
+        "trial_count": len(trials),
+        "trials": trials,
+        "aggregate": _aggregate_trials(trial_objects),
+        "interpretation_boundary": first["interpretation_boundary"],
+    }
+
+
 def run_bootstrap_characterization(
     config: dict,
     departure_config: dict,
+    *,
+    replicate_indices: tuple[int, ...] | None = None,
 ) -> dict:
     if config["status"] not in (
         "NON_AUTHORITATIVE_R2_BOOTSTRAP_CHARACTERIZATION_DESIGN",
@@ -491,6 +609,10 @@ def run_bootstrap_characterization(
     ]
     if any(value <= 0 for value in draw_grid + replicate_grid):
         raise ValueError("draw/replicate grid values must be positive")
+    if replicate_indices is not None and len(replicate_grid) != 1:
+        raise ValueError(
+            "replicate partitioning requires one evaluation replicate count"
+        )
 
     departure_cases = _departure_cases_for_config(
         departure_config,
@@ -501,8 +623,12 @@ def run_bootstrap_characterization(
 
     for bootstrap_draws in draw_grid:
         for evaluation_replicates in replicate_grid:
+            active_replicates = _resolve_replicate_indices(
+                evaluation_replicates,
+                replicate_indices,
+            )
             for null in _null_cases(config):
-                for replicate in range(evaluation_replicates):
+                for replicate in active_replicates:
                     rng = _seeded_rng(
                         master_seed,
                         1,
@@ -550,7 +676,7 @@ def run_bootstrap_characterization(
                     )
 
             for case_index, case in enumerate(departure_cases):
-                for replicate in range(evaluation_replicates):
+                for replicate in active_replicates:
                     rng = _seeded_rng(
                         master_seed,
                         2,
@@ -631,6 +757,11 @@ def run_bootstrap_characterization(
         "authoritative": False,
         "draw_grid": draw_grid,
         "evaluation_replicate_grid": replicate_grid,
+        "execution_replicate_indices": (
+            list(replicate_indices)
+            if replicate_indices is not None
+            else None
+        ),
         "departure_case_count": len(departure_cases),
         "trial_count": len(trials),
         "trials": trial_dicts,
