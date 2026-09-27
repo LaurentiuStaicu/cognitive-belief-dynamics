@@ -76,3 +76,192 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  execute_f1b_r2_continuation_c1:
+    name: Resampling continuation C1 (shard ${{ matrix.shard_index }})
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        shard_index: [0, 1, 2, 3, 4, 5, 6, 7]
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "ff63e6f72af54b78070a0d74c514805401602943"
+      SOURCE_RUN_ID: "36340881516"
+      SHARD_INDEX: ${{ matrix.shard_index }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download exact retained paired source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-kl-v2-paired-combined-recovered
+          path: /tmp/source
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36340881516
+
+      - name: Reproduce retained first-199 stream prefix
+        run: |
+          python scripts/run_f1b_r2_resampling_risk_continuation_qualification.py \
+            --paired-source /tmp/source/f1b-r2-kl-v2-paired-combined.json \
+            --shard-index "$SHARD_INDEX" \
+            --output "/tmp/f1b-r2-continuation-c1-${SHARD_INDEX}.json" \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path(
+              f"/tmp/f1b-r2-continuation-c1-{os.environ['SHARD_INDEX']}.json"
+          )
+          data = json.loads(path.read_text(encoding="utf-8"))
+          assert data["stage"] == "C1"
+          assert data["authoritative"] is False
+          assert data["shard_index"] == int(os.environ["SHARD_INDEX"])
+          assert data["shard_count"] == 8
+          assert data["eligible_unresolved_run_count"] == 224
+          print(
+              "F1B_R2_C1_SHARD_SUMMARY="
+              + json.dumps(
+                  {
+                      "shard_index": data["shard_index"],
+                      "qualified_run_count": data["qualified_run_count"],
+                      "qualification_pass_count": data[
+                          "qualification_pass_count"
+                      ],
+                      "all_selected_runs_pass": data[
+                          "all_selected_runs_pass"
+                      ],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload exact C1 shard result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-continuation-c1-${{ matrix.shard_index }}
+          path: /tmp/f1b-r2-continuation-c1-${{ matrix.shard_index }}.json
+          if-no-files-found: error
+
+      - name: Enforce exact C1 shard reproduction gate
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          path = Path(
+              f"/tmp/f1b-r2-continuation-c1-{os.environ['SHARD_INDEX']}.json"
+          )
+          data = json.loads(path.read_text(encoding="utf-8"))
+          assert data["all_selected_runs_pass"], {
+              "shard_index": data["shard_index"],
+              "qualified_run_count": data["qualified_run_count"],
+              "qualification_pass_count": data["qualification_pass_count"],
+              "failures": [
+                  row["run_id"]
+                  for row in data["rows"]
+                  if not row["qualification_pass"]
+              ],
+          }
+          PY
+
+  combine_f1b_r2_continuation_c1:
+    name: Resampling continuation C1 combined
+    needs: execute_f1b_r2_continuation_c1
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "ff63e6f72af54b78070a0d74c514805401602943"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download all C1 shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: f1b-r2-continuation-c1-*
+          path: /tmp/parts
+          merge-multiple: true
+
+      - name: Combine exact C1 qualification
+        run: |
+          python scripts/combine_f1b_r2_resampling_risk_continuation_qualification.py \
+            --partition /tmp/parts/f1b-r2-continuation-c1-0.json \
+            --partition /tmp/parts/f1b-r2-continuation-c1-1.json \
+            --partition /tmp/parts/f1b-r2-continuation-c1-2.json \
+            --partition /tmp/parts/f1b-r2-continuation-c1-3.json \
+            --partition /tmp/parts/f1b-r2-continuation-c1-4.json \
+            --partition /tmp/parts/f1b-r2-continuation-c1-5.json \
+            --partition /tmp/parts/f1b-r2-continuation-c1-6.json \
+            --partition /tmp/parts/f1b-r2-continuation-c1-7.json \
+            --output /tmp/f1b-r2-continuation-c1-combined.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("/tmp/f1b-r2-continuation-c1-combined.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          print("F1B_R2_C1_COMBINED_SUMMARY=" + json.dumps({
+              "qualified_run_count": data["qualified_run_count"],
+              "qualification_pass_count": data["qualification_pass_count"],
+              "qualification_failure_count": data["qualification_failure_count"],
+              "gate_pass": data["gate_pass"],
+              "next_gate": data["next_gate"],
+          }, sort_keys=True))
+          PY
+
+      - name: Upload exact combined C1 result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-continuation-c1-combined
+          path: /tmp/f1b-r2-continuation-c1-combined.json
+          if-no-files-found: error
+
+      - name: Enforce 224 of 224 exact continuation qualification
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(
+              Path("/tmp/f1b-r2-continuation-c1-combined.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+          assert data["qualified_run_count"] == 224
+          assert data["qualification_pass_count"] == 224
+          assert data["qualification_failure_count"] == 0
+          assert data["gate_pass"] is True
+          assert data["next_gate"] == (
+              "STAGE_C2_EXACT_CONTINUATION_TO_PROSPECTIVE_CAP_10000"
+          )
+          PY
