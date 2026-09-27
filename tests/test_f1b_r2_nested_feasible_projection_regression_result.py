@@ -78,11 +78,11 @@ def test_response_changes_remain_inside_retained_historical_numerical_scale() ->
     scale = load()["retained_response_scale_check"]
     assert (
         scale["max_corrected_vs_historical_finite_probability_rms"]
-        < scale["historical_same_candidate_max_closure_vs_finite_probability_rms"]
+        < scale["finite_historical_same_candidate_max_closure_vs_finite_probability_rms"]
     )
     assert (
         scale["max_corrected_vs_historical_closure_probability_rms"]
-        < scale["historical_same_candidate_max_closure_vs_finite_probability_rms"]
+        < scale["closure_historical_same_candidate_max_closure_vs_finite_probability_rms"]
     )
     assert scale["finite_change_fraction_of_retained_same_candidate_scale"] < 1.0
     assert scale["closure_change_fraction_of_retained_same_candidate_scale"] < 1.0
