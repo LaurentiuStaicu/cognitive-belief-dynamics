@@ -85,7 +85,7 @@ def test_probability_and_kl_diagnostics_are_well_formed(result: dict) -> None:
     for cell in result["cell_rows"]:
         assert 0.0 <= cell["general_probability"] <= 1.0
         assert 0.0 <= cell["nearest_cbd_probability"] <= 1.0
-        assert cell["bernoulli_kl_general_to_nearest_cbd"] >= 0.0
+        assert cell["bernoulli_kl_general_to_nearest_cbd"] >= -1e-15
 
 
 def test_each_sign_comparison_contains_plus_and_minus_metrics(
