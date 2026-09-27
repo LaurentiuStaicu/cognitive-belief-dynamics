@@ -1,0 +1,83 @@
+{
+  "decision_id": "F1B.R2.SCIENTIFIC_DISTANCE_DEFINITION.DECISION.2026-09-27",
+  "status": "SCIENTIFIC_DISTANCE_SELECTED_FOR_FUTURE_VERSIONED_DEPARTURE_DESIGN",
+  "authoritative_for_future_distance_definition": true,
+  "scientific_source_commit": "d87a034589df725d33dcb18f6ca0a836508b47e5",
+  "issue": 171,
+  "selected_candidate": {
+    "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+    "direction": "GENERAL_TO_CBD",
+    "aggregation": "UNIFORM_MEAN_OVER_FROZEN_DESIGN_CELLS",
+    "primary_quantity": "MEAN_BERNOULLI_KL",
+    "sqrt_2_mean_kl_status": "SCALE_DIAGNOSTIC_ONLY",
+    "scientific_restricted_set": "CLOSURE_OF_CBD_RESPONSE_FAMILY_ON_THE_EXPLICIT_DESIGN_MEASURE",
+    "finite_parameter_attainment_must_be_reported": true
+  },
+  "nonselected_primary_candidates": [
+    {
+      "candidate_id": "STABILIZED_UTILITY_RMS",
+      "status": "RETAINED_DIAGNOSTIC_NOT_PRIMARY_FUTURE_DEPARTURE_STRENGTH",
+      "reason": "Logit-scale residual magnitude is not the observation-model loss and weights equal logit discrepancies similarly even where Bernoulli information differs strongly under saturation."
+    },
+    {
+      "candidate_id": "PROBABILITY_RMS",
+      "status": "RETAINED_DIAGNOSTIC_NOT_PRIMARY_FUTURE_DEPARTURE_STRENGTH",
+      "reason": "Probability-squared-error is a proper-score divergence for binary prediction but is not the likelihood-aligned expected log-loss used by the Bernoulli observation model and misspecified likelihood projection."
+    }
+  ],
+  "prospective_scientific_criteria": {
+    "relation_to_observation_model": "PASS_DIRECT_EXPECTED_BERNOULLI_LOG_LOSS",
+    "parameterization_invariance": "PASS_DISTRIBUTION_LEVEL_DIVERGENCE",
+    "independence_from_operational_fitter_bounds": "PASS_WHEN_PROJECTED_TO_RESPONSE_FAMILY_CLOSURE",
+    "existence_and_stability": "PASS_FOR_RETAINED_REVIEW_WITH_CLOSURE_HANDLING; FIVE_OF_TWELVE HISTORICAL TARGETS ARE CLOSURE_LIMITS",
+    "explicit_design_weighting": "PASS_UNIFORM_1_OVER_18_FOR_CURRENT_SYNTHETIC_REVIEW; FUTURE_DESIGNS_MUST_DECLARE THEIR MEASURE",
+    "saturation_behavior": "PASS_SCIENTIFICALLY_MEANINGFUL_LOG_LOSS_SENSITIVITY; MAY_BE_UNBOUNDED_AT_INCOMPATIBLE_PROBABILITY_BOUNDARIES",
+    "controlled_restricted_family_distance_use": "PASS_AS_DIRECTED_INFORMATION_DIVERGENCE; DO_NOT CALL IT A SYMMETRIC METRIC"
+  },
+  "closure_review": {
+    "candidates_each_finite_interior_attained": 7,
+    "candidates_each_closure_limit": 5,
+    "candidates_each_scientific_domain_unresolved": 0,
+    "same_closure_cases_across_all_candidates": true,
+    "maximum_probability_rms_closure_vs_finite_less_than": 0.0001
+  },
+  "historical_results_rule": {
+    "rewrite_historical_158": false,
+    "reinterpret_historical_158_under_new_distance": false,
+    "historical_utility_rms_definition_preserved": true,
+    "new_distance_requires_new_versioned_departure_design": true
+  },
+  "next_gate": {
+    "name": "VERSIONED_KL_CONTROLLED_DEPARTURE_DESIGN",
+    "deterministic_first": true,
+    "must_freeze_target_strength_grid_before_stochastic_results": true,
+    "preserve_both_signs": true,
+    "preserve_multiple_anchors": true,
+    "paired_bootstrap_authorized": false
+  },
+  "execution_boundary": {
+    "operational_fitter_bounds_changed": false,
+    "paired_bootstrap_authorized": false,
+    "authoritative_bootstrap_draws_frozen": false,
+    "authoritative_evaluation_replicates_frozen": false,
+    "authoritative_power_validated": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  },
+  "literature_basis": [
+    {
+      "citation": "White H. (1982), Maximum Likelihood Estimation of Misspecified Models, Econometrica 50(1):1-25, DOI 10.2307/1912526",
+      "relevance": "Likelihood under misspecification targets the best-fitting or pseudo-true approximation characterized by Kullback-Leibler information."
+    },
+    {
+      "citation": "Nielsen F. (2020), An Elementary Introduction to Information Geometry, Entropy 22:1100, DOI 10.3390/e22101100",
+      "relevance": "Distinguishes global statistical divergences from the local Fisher information metric and documents invariance properties of f-divergences."
+    },
+    {
+      "citation": "Gneiting T. and Raftery A.E. (2007), Strictly Proper Scoring Rules, Prediction, and Estimation, JASA 102:359-378",
+      "relevance": "Both logarithmic and quadratic scores are proper; selection among proper scores should follow the scientific loss, with the log score directly corresponding to likelihood."
+    }
+  ]
+}
