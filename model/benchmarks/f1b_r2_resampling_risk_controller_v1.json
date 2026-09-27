@@ -1,0 +1,41 @@
+{
+  "controller_id": "F1B.R2.RESAMPLING_RISK_CONTROLLER.V1",
+  "status": "NON_AUTHORITATIVE_RESAMPLING_RISK_CONTROLLER_PROTOTYPE",
+  "issue": 213,
+  "baseline_main_commit": "126737d3cbb42f1de65c5ac3989012fc6671080f",
+  "alpha": 0.05,
+  "epsilon": 0.001,
+  "halfspend": 1000,
+  "spending_sequence": "epsilon_n = epsilon * n / (halfspend + n)",
+  "replay_max_attempts": 199,
+  "boundary_initialization": {
+    "n": 1,
+    "upper": 2,
+    "lower": -1
+  },
+  "probability_tolerance": 1e-12,
+  "bootstrap_refit_failure_policy": "BOOTSTRAP_REFIT_FAILURE_UNRESOLVED",
+  "replay_source": {
+    "result_path": "model/results/f1b_r2_kl_v2_paired_bootstrap_draw_stability_2026-09-27.json",
+    "exact_artifact_id": 10938668225,
+    "exact_json_sha256": "b2727462b5bd09e5570090a42d7c90da8866e02100e0f4ccad551d8958a3d301",
+    "exact_json_size_bytes": 9013672,
+    "expected_restriction_runs": 750,
+    "expected_attempts_per_run": 199,
+    "expected_bootstrap_fit_failures": 0
+  },
+  "decision_semantics": {
+    "lower_boundary": "REJECT_P_LE_ALPHA",
+    "upper_boundary": "NOT_REJECT_P_GT_ALPHA",
+    "no_boundary": "SEQUENTIAL_UNRESOLVED"
+  },
+  "execution_boundary": {
+    "new_bootstrap_attempts_allowed": false,
+    "draw_count_selected": false,
+    "power_validated": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
