@@ -310,15 +310,21 @@ def scan_complement_kl_ray(
     profile: list[dict] = []
     for scalar in _scalar_grid(config):
         coefficients = anchor_general + float(sign) * scalar * direction
-        projection = _project_kl_closure(
-            coefficients,
-            belief=belief,
-            accuracy=accuracy,
-            reward=reward,
-            starts=starts,
-            review_config=review_config,
-            historical_departure_config=historical_departure_config,
-        )
+        try:
+            projection = _project_kl_closure(
+                coefficients,
+                belief=belief,
+                accuracy=accuracy,
+                reward=reward,
+                starts=starts,
+                review_config=review_config,
+                historical_departure_config=historical_departure_config,
+            )
+        except ValueError as exc:
+            raise ComplementKLEnvelopeError(
+                "CBD closure projection failed at "
+                f"anchor={anchor_id} sign={sign} scalar={scalar:.17g}: {exc}"
+            ) from exc
         point = _point_summary(
             scalar=scalar,
             coefficients=coefficients,
