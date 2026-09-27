@@ -1,0 +1,553 @@
+{
+  "result_id": "F1B.R2.DISTANCE_DEFINITION_CLOSURE_REVIEW.RESULT.2026-09-27",
+  "status": "NON_AUTHORITATIVE_R2_DISTANCE_DEFINITION_CLOSURE_REVIEW_RESULT",
+  "authoritative": false,
+  "scientific_source_commit": "97a4ac6119709de8089032a21b97877a522dd04d",
+  "execution": {
+    "temporary_pr": 175,
+    "github_run_id": "36325580317",
+    "artifact_id": 10933539813,
+    "artifact_zip_sha256": "7c947134279e816357bcc8b6d7966c44fc29e49bb536d974827628068e769f48",
+    "exact_json_sha256": "55597e0f240b439531b872e99dfec9bafee73323e3c39d18943529069907537e",
+    "exact_json_size_bytes": 2757195
+  },
+  "candidate_attainment_counts": [
+    {
+      "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+      "count": 7,
+      "status": "FINITE_INTERIOR_ATTAINED"
+    },
+    {
+      "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+      "count": 5,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT"
+    },
+    {
+      "candidate_id": "PROBABILITY_RMS",
+      "count": 7,
+      "status": "FINITE_INTERIOR_ATTAINED"
+    },
+    {
+      "candidate_id": "PROBABILITY_RMS",
+      "count": 5,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT"
+    },
+    {
+      "candidate_id": "STABILIZED_UTILITY_RMS",
+      "count": 7,
+      "status": "FINITE_INTERIOR_ATTAINED"
+    },
+    {
+      "candidate_id": "STABILIZED_UTILITY_RMS",
+      "count": 5,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT"
+    }
+  ],
+  "closure_cases": [
+    {
+      "anchor_id": "CBD_ANCHOR_1",
+      "candidate_id": "STABILIZED_UTILITY_RMS",
+      "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+      "closure_boundary_components": [
+        "W1=HIGH"
+      ],
+      "historical_nominal_distance": 0.25,
+      "objective_gap": 7.230374861333377e-9,
+      "probability_rms_vs_finite": 7.193238413240941e-7,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.20000002326762426,
+        0.4501656537551036,
+        1,
+        0.799999630528111
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_1",
+      "candidate_id": "PROBABILITY_RMS",
+      "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+      "closure_boundary_components": [
+        "W1=HIGH"
+      ],
+      "historical_nominal_distance": 0.25,
+      "objective_gap": 3.237543257355452e-9,
+      "probability_rms_vs_finite": 0.00005122258965210336,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.2043104851474499,
+        0.4505208450369877,
+        1,
+        0.8011771789774429
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_1",
+      "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+      "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+      "closure_boundary_components": [
+        "W1=HIGH"
+      ],
+      "historical_nominal_distance": 0.25,
+      "objective_gap": 8.517700399168771e-10,
+      "probability_rms_vs_finite": 8.753415758908491e-7,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.20073511520843582,
+        0.4501617699131542,
+        1,
+        0.8000032330087471
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_1",
+      "candidate_id": "STABILIZED_UTILITY_RMS",
+      "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+      "closure_boundary_components": [
+        "W0=HIGH"
+      ],
+      "historical_nominal_distance": 0.5,
+      "objective_gap": -6.526862383893217e-13,
+      "probability_rms_vs_finite": 5.7101712599208284e-8,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.19999994793409717,
+        1,
+        0.6899716035569947,
+        -15.13931234268085
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_1",
+      "candidate_id": "PROBABILITY_RMS",
+      "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+      "closure_boundary_components": [
+        "W0=HIGH"
+      ],
+      "historical_nominal_distance": 0.5,
+      "objective_gap": -2.7316156107903833e-10,
+      "probability_rms_vs_finite": 0.000014940088486982306,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.21203027240633346,
+        1,
+        0.6916338098479212,
+        -15.23049041236678
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_1",
+      "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+      "case_id": "CBD_ANCHOR_1__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+      "closure_boundary_components": [
+        "W0=HIGH"
+      ],
+      "historical_nominal_distance": 0.5,
+      "objective_gap": 2.4262882848680167e-10,
+      "probability_rms_vs_finite": 0.000007743412893881051,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.20227678432729063,
+        1,
+        0.69011976735182,
+        -15.147968847529299
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "candidate_id": "STABILIZED_UTILITY_RMS",
+      "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.10",
+      "closure_boundary_components": [
+        "W1=HIGH"
+      ],
+      "historical_nominal_distance": 0.1,
+      "objective_gap": 1.233314890838888e-8,
+      "probability_rms_vs_finite": 0.000005207273145244976,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.20000000403771995,
+        0.5000000931550942,
+        1,
+        1.0000001046552445
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "candidate_id": "PROBABILITY_RMS",
+      "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.10",
+      "closure_boundary_components": [
+        "W1=HIGH"
+      ],
+      "historical_nominal_distance": 0.1,
+      "objective_gap": 4.648204680315557e-9,
+      "probability_rms_vs_finite": 0.0000606119516894128,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.20477128502002734,
+        0.5004710299072491,
+        1,
+        1.0018461893141954
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+      "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.10",
+      "closure_boundary_components": [
+        "W1=HIGH"
+      ],
+      "historical_nominal_distance": 0.1,
+      "objective_gap": 1.9116627278555065e-9,
+      "probability_rms_vs_finite": 0.000013091398573460358,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.20219477484438422,
+        0.5001069205217216,
+        1,
+        1.0004397853039961
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "candidate_id": "STABILIZED_UTILITY_RMS",
+      "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+      "closure_boundary_components": [
+        "W1=HIGH"
+      ],
+      "historical_nominal_distance": 0.25,
+      "objective_gap": 1.2651001982111332e-9,
+      "probability_rms_vs_finite": 0.000006995616705259029,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.199999683347901,
+        0.4999998721821838,
+        1,
+        0.9999987841397158
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "candidate_id": "PROBABILITY_RMS",
+      "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+      "closure_boundary_components": [
+        "W1=HIGH"
+      ],
+      "historical_nominal_distance": 0.25,
+      "objective_gap": 1.5892211583171112e-9,
+      "probability_rms_vs_finite": 0.000042311597152972485,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.20267059294678264,
+        0.500257223447492,
+        1,
+        1.0010746500319483
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+      "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.25",
+      "closure_boundary_components": [
+        "W1=HIGH"
+      ],
+      "historical_nominal_distance": 0.25,
+      "objective_gap": 1.2384827365041762e-10,
+      "probability_rms_vs_finite": 0.000008064265375072799,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.19991801724986105,
+        0.5000127949978378,
+        1,
+        1.000022707777039
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "candidate_id": "STABILIZED_UTILITY_RMS",
+      "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+      "closure_boundary_components": [
+        "W0=HIGH"
+      ],
+      "historical_nominal_distance": 0.5,
+      "objective_gap": -8.342632140667661e-13,
+      "probability_rms_vs_finite": 1.3705864461419324e-7,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.1999998499735326,
+        1,
+        0.7685220058037971,
+        -19.48794747838996
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "candidate_id": "PROBABILITY_RMS",
+      "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+      "closure_boundary_components": [
+        "W0=HIGH"
+      ],
+      "historical_nominal_distance": 0.5,
+      "objective_gap": 9.578223015074827e-10,
+      "probability_rms_vs_finite": 0.000025555320556588955,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.20955547350416392,
+        1,
+        0.7698049522836016,
+        -19.610062732202096
+      ]
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+      "case_id": "CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__MINUS__RMS_0.50",
+      "closure_boundary_components": [
+        "W0=HIGH"
+      ],
+      "historical_nominal_distance": 0.5,
+      "objective_gap": -2.0191806560099224e-11,
+      "probability_rms_vs_finite": 0.0000012740757847919578,
+      "scientific_domain_components": [],
+      "sign": -1,
+      "status": "NON_ATTAINED_OR_CLOSURE_LIMIT",
+      "surface_coordinates": [
+        -0.20061648481475555,
+        1,
+        0.7685275744935977,
+        -19.489441907358856
+      ]
+    }
+  ],
+  "unresolved_cases": [],
+  "numerical_comparison": {
+    "max_abs_finite_minus_closure_objective": {
+      "BERNOULLI_KL_GENERAL_TO_CBD": 1.9116627278555065e-9,
+      "PROBABILITY_RMS": 4.648204680315557e-9,
+      "STABILIZED_UTILITY_RMS": 1.233314890838888e-8
+    },
+    "max_probability_rms_closure_vs_finite": {
+      "BERNOULLI_KL_GENERAL_TO_CBD": 0.000013091398573460358,
+      "PROBABILITY_RMS": 0.0000606119516894128,
+      "STABILIZED_UTILITY_RMS": 0.000006995616705259029
+    },
+    "closure_failed_starts": {
+      "BERNOULLI_KL_GENERAL_TO_CBD": 0,
+      "PROBABILITY_RMS": 0,
+      "STABILIZED_UTILITY_RMS": 0
+    }
+  },
+  "sign_comparisons": [
+    {
+      "anchor_id": "CBD_ANCHOR_1",
+      "candidates": [
+        {
+          "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+          "minus": 0.0011839917307291054,
+          "plus": 0.0010987107810454008,
+          "plus_minus_difference": -0.00008528094968370458,
+          "plus_over_minus_ratio": 0.9279716678163045
+        },
+        {
+          "candidate_id": "PROBABILITY_RMS",
+          "minus": 0.02353241376870751,
+          "plus": 0.02199374388912027,
+          "plus_minus_difference": -0.0015386698795872393,
+          "plus_over_minus_ratio": 0.9346148722901811
+        },
+        {
+          "candidate_id": "STABILIZED_UTILITY_RMS",
+          "minus": 0.09999999999768906,
+          "plus": 0.09999999997607023,
+          "plus_minus_difference": -2.161883172480117e-11,
+          "plus_over_minus_ratio": 0.9999999997838117
+        }
+      ],
+      "historical_nominal_distance": 0.1
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_1",
+      "candidates": [
+        {
+          "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+          "minus": 0.0074012720355789135,
+          "plus": 0.003595362029283727,
+          "plus_minus_difference": -0.0038059100062951866,
+          "plus_over_minus_ratio": 0.48577623035612477
+        },
+        {
+          "candidate_id": "PROBABILITY_RMS",
+          "minus": 0.05938398136269272,
+          "plus": 0.03992896444029598,
+          "plus_minus_difference": -0.01945501692239674,
+          "plus_over_minus_ratio": 0.672386113629304
+        },
+        {
+          "candidate_id": "STABILIZED_UTILITY_RMS",
+          "minus": 0.24782256802673752,
+          "plus": 0.17849309535753757,
+          "plus_minus_difference": -0.06932947266919995,
+          "plus_over_minus_ratio": 0.7202455239600293
+        }
+      ],
+      "historical_nominal_distance": 0.25
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_1",
+      "candidates": [
+        {
+          "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+          "minus": 0.012261327323392692,
+          "plus": 0.003728097948509696,
+          "plus_minus_difference": -0.008533229374882996,
+          "plus_over_minus_ratio": 0.3040533744986213
+        },
+        {
+          "candidate_id": "PROBABILITY_RMS",
+          "minus": 0.07662058480291357,
+          "plus": 0.04051317959414126,
+          "plus_minus_difference": -0.036107405208772314,
+          "plus_over_minus_ratio": 0.528750592263826
+        },
+        {
+          "candidate_id": "STABILIZED_UTILITY_RMS",
+          "minus": 0.31744680635850925,
+          "plus": 0.18114251519270572,
+          "plus_minus_difference": -0.13630429116580353,
+          "plus_over_minus_ratio": 0.5706232085640579
+        }
+      ],
+      "historical_nominal_distance": 0.5
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "candidates": [
+        {
+          "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+          "minus": 0.0011700177703094937,
+          "plus": 0.0010814829953639789,
+          "plus_minus_difference": -0.0000885347749455148,
+          "plus_over_minus_ratio": 0.9243304014757865
+        },
+        {
+          "candidate_id": "PROBABILITY_RMS",
+          "minus": 0.023367046813119432,
+          "plus": 0.021649194558261812,
+          "plus_minus_difference": -0.00171785225485762,
+          "plus_over_minus_ratio": 0.9264839811125327
+        },
+        {
+          "candidate_id": "STABILIZED_UTILITY_RMS",
+          "minus": 0.09948669933858867,
+          "plus": 0.09999999999969995,
+          "plus_minus_difference": 0.000513300661111285,
+          "plus_over_minus_ratio": 1.0051594903089944
+        }
+      ],
+      "historical_nominal_distance": 0.1
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "candidates": [
+        {
+          "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+          "minus": 0.007296660778520027,
+          "plus": 0.0029216292227865048,
+          "plus_minus_difference": -0.004375031555733522,
+          "plus_over_minus_ratio": 0.40040633811389753
+        },
+        {
+          "candidate_id": "PROBABILITY_RMS",
+          "minus": 0.05888442845471274,
+          "plus": 0.035828020680651766,
+          "plus_minus_difference": -0.023056407774060976,
+          "plus_over_minus_ratio": 0.6084464368743366
+        },
+        {
+          "candidate_id": "STABILIZED_UTILITY_RMS",
+          "minus": 0.2471123272055475,
+          "plus": 0.16235139575918142,
+          "plus_minus_difference": -0.08476093144636607,
+          "plus_over_minus_ratio": 0.6569943215505307
+        }
+      ],
+      "historical_nominal_distance": 0.25
+    },
+    {
+      "anchor_id": "CBD_ANCHOR_2",
+      "candidates": [
+        {
+          "candidate_id": "BERNOULLI_KL_GENERAL_TO_CBD",
+          "minus": 0.01372636816365653,
+          "plus": 0.003051807214282071,
+          "plus_minus_difference": -0.010674560949374459,
+          "plus_over_minus_ratio": 0.22233173246528368
+        },
+        {
+          "candidate_id": "PROBABILITY_RMS",
+          "minus": 0.08107836846232987,
+          "plus": 0.03651078260224606,
+          "plus_minus_difference": -0.04456758586008381,
+          "plus_over_minus_ratio": 0.4503147176575152
+        },
+        {
+          "candidate_id": "STABILIZED_UTILITY_RMS",
+          "minus": 0.3366501646127979,
+          "plus": 0.16514176050518112,
+          "plus_minus_difference": -0.17150840410761678,
+          "plus_over_minus_ratio": 0.49054412522008073
+        }
+      ],
+      "historical_nominal_distance": 0.5
+    }
+  ],
+  "provenance": {
+    "bound_config_path": "model/benchmarks/f1b_r2_projection_bound_sensitivity.json",
+    "bound_config_sha256": "0fb7fee5d979b8f4309a0ac0ef49d7556c984b9ca5a957b2ab618479250b36c1",
+    "config_path": "model/benchmarks/f1b_r2_distance_definition_review.json",
+    "config_sha256": "a653b2024f8508a8395845143a45d57427882e11b3f2a16203ff6609b7a9696d",
+    "departure_config_path": "model/benchmarks/f1b_r2_controlled_departure_design.json",
+    "departure_config_sha256": "e5603e0115d98abbb2df549671592fda14818abb5e990a0b5afad8641e5a2a1e",
+    "retained_cases_path": "model/results/f1b_r2_complement_sign_geometry_case_summary_2026-09-27.tsv",
+    "retained_cases_sha256": "b92e3b53b1042a541729665a1145ee66d66bc999d00c84c2bcdf6d5b8370124d",
+    "source_commit": "97a4ac6119709de8089032a21b97877a522dd04d"
+  },
+  "closure_attainment_rule": "Finite CBD logit parameters imply W0,W1 in (0,1). The direct surface-coordinate diagnostic optimizes the same candidate objective over the closure W0,W1 in [0,1]. A selected W0/W1 boundary is reported as NON_ATTAINED_OR_CLOSURE_LIMIT; active sharing-bias/reward diagnostic bounds are reported separately as SCIENTIFIC_DOMAIN_UNRESOLVED.",
+  "interpretation_boundary": "Deterministic scientific distance-definition comparison only. Candidate comparison does not select a metric, change operational fitter bounds, authorize paired bootstrap, freeze bootstrap draws, evaluation replicates, a core grid or human N, authorize recruitment, or authorize runtime F1b.",
+  "decision_boundary": {
+    "metric_selected": false,
+    "paired_bootstrap_authorized": false,
+    "authoritative_bootstrap_draws_frozen": false,
+    "authoritative_evaluation_replicates_frozen": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
