@@ -76,3 +76,49 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+      - name: Execute predeclared F1b R2 49x5 bootstrap pilot
+        env:
+          SCIENTIFIC_SOURCE_COMMIT: "41646ae89e000423c01f9d4d3221f9adefa7b19a"
+          EXECUTION_BRANCH: "execution/f1b-r2-bootstrap-pilot-49x5-2026-09-27"
+        run: |
+          START_EPOCH="$(date +%s)"
+          export START_EPOCH
+          python scripts/run_f1b_r2_bootstrap_characterization.py \
+            --config model/benchmarks/f1b_r2_bootstrap_calibration_pilot_49x5.json \
+            --departure-config model/benchmarks/f1b_r2_controlled_departure_design.json \
+            --output /tmp/f1b-r2-bootstrap-pilot-49x5.json \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+          END_EPOCH="$(date +%s)"
+          export END_EPOCH
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path("/tmp/f1b-r2-bootstrap-pilot-49x5.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          data["execution_context"] = {
+              "execution_branch": os.environ["EXECUTION_BRANCH"],
+              "github_run_id": os.environ.get("GITHUB_RUN_ID"),
+              "github_run_attempt": os.environ.get("GITHUB_RUN_ATTEMPT"),
+              "wall_seconds": int(os.environ["END_EPOCH"]) - int(os.environ["START_EPOCH"]),
+              "scientific_source_commit": os.environ["SCIENTIFIC_SOURCE_COMMIT"],
+              "temporary_workflow_not_for_merge": True,
+          }
+          path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          print("F1B_R2_PILOT_JSON_BEGIN")
+          print(json.dumps(data, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_PILOT_JSON_END")
+          summary = {
+              "status": data["status"],
+              "trial_count": data["trial_count"],
+              "departure_case_count": data["departure_case_count"],
+              "aggregate": data["aggregate"],
+              "execution_context": data["execution_context"],
+              "provenance": data["provenance"],
+          }
+          print("F1B_R2_PILOT_SUMMARY_BEGIN")
+          print(json.dumps(summary, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_PILOT_SUMMARY_END")
+          PY
