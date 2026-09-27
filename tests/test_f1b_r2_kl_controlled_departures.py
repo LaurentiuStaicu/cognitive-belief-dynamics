@@ -283,7 +283,12 @@ def test_first_crossing_solver_targets_kl_not_ray_length(monkeypatch) -> None:
     assert result["requested_mean_bernoulli_kl"] == 0.001
     assert abs(result["achieved_mean_bernoulli_kl"] - 0.001) <= 1e-7
     assert result["mean_kl_error"] <= 1e-7
-    assert result["first_crossing_bracket"] == (0.3, 0.325)
+    assert np.allclose(
+        result["first_crossing_bracket"],
+        (0.3, 0.325),
+        rtol=0.0,
+        atol=1e-15,
+    )
     assert result["add_compatibility_expected"] is True
     assert result["add_compatibility_pass"] is True
     assert result["scan_records"][0]["scalar"] == 0.0
