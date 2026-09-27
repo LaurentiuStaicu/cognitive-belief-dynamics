@@ -437,3 +437,56 @@ def test_nested_closure_keeps_real_wider_domain_improvement(
     )
     assert continuation["carry_forward_selected"] is False
     assert second["objective"] < first["objective"]
+
+
+
+def test_finite_logit_nested_drift_error_retains_diagnostic_context(
+    monkeypatch,
+) -> None:
+    config = copy.deepcopy(load(CONFIG))
+    config["diagnostic_domain_multipliers"] = [8, 16]
+    departure_config = load(DEPARTURES)
+    objectives = iter([0.01, 0.01000002])
+
+    def fake_minimize(*args, x0, **kwargs):
+        return SimpleNamespace(
+            success=True,
+            status=0,
+            message="synthetic optimizer drift",
+            fun=float(next(objectives)),
+            x=np.asarray(x0, dtype=float).copy(),
+        )
+
+    monkeypatch.setattr(review, "minimize", fake_minimize)
+
+    belief = np.asarray([0.2, 0.8], dtype=float)
+    accuracy = np.asarray([0.0, 1.0], dtype=float)
+    reward = np.asarray([0.0, 0.0], dtype=float)
+    eta_general = np.asarray([0.0, 0.0], dtype=float)
+
+    with pytest.raises(ValueError) as exc_info:
+        review._project_candidate(
+            candidate_id="BERNOULLI_KL_GENERAL_TO_CBD",
+            eta_general=eta_general,
+            belief=belief,
+            accuracy=accuracy,
+            reward=reward,
+            starts=[(0.0, 0.0, 0.0, 0.0)],
+            config=config,
+            departure_config=departure_config,
+            diagnostic_case_id="SYNTHETIC_CASE",
+        )
+
+    message = str(exc_info.value)
+    assert "nested candidate objective increased under wider domain" in message
+    assert "case_id=SYNTHETIC_CASE" in message
+    assert "candidate_id=BERNOULLI_KL_GENERAL_TO_CBD" in message
+    assert "from_multiplier=8.0" in message
+    assert "to_multiplier=16.0" in message
+    assert "previous_objective=0.01" in message
+    assert "current_objective=0.01000002" in message
+    assert "objective_increase=" in message
+    assert "nested_tolerance=" in message
+    assert "previous_parameters=" in message
+    assert "current_parameters=" in message
+    assert "current_selected_start_index=0" in message
