@@ -157,6 +157,295 @@ def _objective_value(
     raise ValueError(f"unsupported distance candidate: {candidate_id}")
 
 
+def _cbd_utility_surface_coordinates(
+    parameters: np.ndarray | tuple[float, ...],
+    belief: np.ndarray,
+    accuracy: np.ndarray,
+    reward: np.ndarray,
+) -> np.ndarray:
+    values = np.asarray(parameters, dtype=float)
+    if values.shape != (4,):
+        raise ValueError("CBD surface coordinates must have four parameters")
+    bias, w0, w1, beta_reward = values
+    if not 0.0 <= float(w0) <= 1.0:
+        raise ValueError("W0 must lie in [0,1]")
+    if not 0.0 <= float(w1) <= 1.0:
+        raise ValueError("W1 must lie in [0,1]")
+    if not np.all(np.isin(accuracy, (0.0, 1.0))):
+        raise ValueError("surface-coordinate CBD requires binary accuracy cue")
+    weight = np.where(accuracy == 0.0, w0, w1)
+    return (
+        float(bias)
+        + weight * (2.0 * belief - 1.0)
+        + float(beta_reward) * (1.0 - weight) * reward
+    )
+
+
+def _surface_coordinates_from_logit_parameters(
+    parameters: tuple[float, ...] | np.ndarray,
+) -> tuple[float, float, float, float]:
+    values = np.asarray(parameters, dtype=float)
+    if values.shape != (4,):
+        raise ValueError("CBD logit parameters must have four coordinates")
+    bias, baseline_logit, beta_accuracy, beta_reward = values
+    return (
+        float(bias),
+        float(expit(baseline_logit)),
+        float(expit(baseline_logit + beta_accuracy)),
+        float(beta_reward),
+    )
+
+
+def _objective_value_surface_coordinates(
+    candidate_id: str,
+    *,
+    parameters: np.ndarray,
+    eta_general: np.ndarray,
+    p_general: np.ndarray,
+    belief: np.ndarray,
+    accuracy: np.ndarray,
+    reward: np.ndarray,
+) -> float:
+    eta_cbd = _cbd_utility_surface_coordinates(
+        parameters,
+        belief,
+        accuracy,
+        reward,
+    )
+    if candidate_id == "STABILIZED_UTILITY_RMS":
+        delta = eta_general - eta_cbd
+        return float(np.mean(delta**2))
+    if candidate_id == "PROBABILITY_RMS":
+        delta = p_general - expit(eta_cbd)
+        return float(np.mean(delta**2))
+    if candidate_id == "BERNOULLI_KL_GENERAL_TO_CBD":
+        return float(
+            np.mean(
+                _bernoulli_kl_from_probability_and_logit(
+                    p_general,
+                    eta_cbd,
+                )
+            )
+        )
+    raise ValueError(f"unsupported distance candidate: {candidate_id}")
+
+
+def _active_closure_bounds(
+    parameters: np.ndarray,
+    bounds: list[tuple[float, float]],
+    *,
+    tolerance: float,
+) -> list[str]:
+    names = ("sharing_bias", "W0", "W1", "beta_reward")
+    active: list[str] = []
+    for name, value, (low, high) in zip(
+        names,
+        np.asarray(parameters, dtype=float),
+        bounds,
+        strict=True,
+    ):
+        if abs(float(value) - float(low)) <= tolerance:
+            active.append(f"{name}=LOW")
+        if abs(float(value) - float(high)) <= tolerance:
+            active.append(f"{name}=HIGH")
+    return active
+
+
+def _project_candidate_closure(
+    *,
+    candidate_id: str,
+    eta_general: np.ndarray,
+    belief: np.ndarray,
+    accuracy: np.ndarray,
+    reward: np.ndarray,
+    logit_starts: list[tuple[float, ...]],
+    config: dict,
+    departure_config: dict,
+) -> dict:
+    p_general = expit(eta_general)
+    optimization = config["optimization"]
+    tolerance = float(
+        config["numerical_integrity"]["closure_boundary_tolerance"]
+    )
+    nested_tolerance = float(
+        config["numerical_integrity"]["nested_objective_tolerance"]
+    )
+
+    starts = [
+        _surface_coordinates_from_logit_parameters(start)
+        for start in logit_starts
+    ]
+    domain_results: list[dict] = []
+    for multiplier_raw in config["diagnostic_domain_multipliers"]:
+        multiplier = float(multiplier_raw)
+        scaled = _scaled_bounds(departure_config, multiplier)
+        bounds = [
+            scaled[0],
+            (0.0, 1.0),
+            (0.0, 1.0),
+            scaled[3],
+        ]
+        records: list[dict] = []
+        for start_index, start in enumerate(starts):
+            x0 = np.asarray(start, dtype=float)
+            result = minimize(
+                lambda parameters: _objective_value_surface_coordinates(
+                    candidate_id,
+                    parameters=parameters,
+                    eta_general=eta_general,
+                    p_general=p_general,
+                    belief=belief,
+                    accuracy=accuracy,
+                    reward=reward,
+                ),
+                x0=x0,
+                method=str(optimization["method"]),
+                bounds=bounds,
+                options={
+                    "maxiter": int(optimization["maxiter"]),
+                    "ftol": float(optimization["ftol"]),
+                    "maxls": int(optimization["maxls"]),
+                },
+            )
+            objective = (
+                float(result.fun) if np.isfinite(result.fun) else None
+            )
+            parameters = (
+                [float(x) for x in result.x]
+                if np.all(np.isfinite(result.x))
+                else None
+            )
+            records.append(
+                {
+                    "start_index": int(start_index),
+                    "initial_surface_coordinates": [float(x) for x in x0],
+                    "success": bool(result.success),
+                    "status": int(result.status),
+                    "message": str(result.message),
+                    "objective": objective,
+                    "surface_coordinates": parameters,
+                }
+            )
+
+        successful = [
+            row
+            for row in records
+            if row["success"]
+            and row["objective"] is not None
+            and row["surface_coordinates"] is not None
+        ]
+        if not successful:
+            raise RuntimeError(
+                f"all closure starts failed for {candidate_id} at {multiplier}x"
+            )
+        selected = min(successful, key=lambda row: float(row["objective"]))
+        parameters = np.asarray(
+            selected["surface_coordinates"],
+            dtype=float,
+        )
+        eta_cbd = _cbd_utility_surface_coordinates(
+            parameters,
+            belief,
+            accuracy,
+            reward,
+        )
+        active = _active_closure_bounds(
+            parameters,
+            bounds,
+            tolerance=tolerance,
+        )
+        domain_results.append(
+            {
+                "domain_multiplier": multiplier,
+                "bounds": [
+                    [float(low), float(high)] for low, high in bounds
+                ],
+                "selected_start_index": int(selected["start_index"]),
+                "selected_surface_coordinates": [
+                    float(x) for x in parameters
+                ],
+                "objective": float(selected["objective"]),
+                "primary_distance": _primary_distance(
+                    candidate_id,
+                    float(selected["objective"]),
+                ),
+                "active_bounds": active,
+                "successful_start_count": len(successful),
+                "failed_start_count": len(records) - len(successful),
+                "start_records": records,
+                "surface_metrics": _surface_metrics(
+                    eta_general=eta_general,
+                    eta_cbd=eta_cbd,
+                ),
+            }
+        )
+
+    for previous, current in zip(
+        domain_results,
+        domain_results[1:],
+        strict=False,
+    ):
+        if (
+            float(current["objective"])
+            > float(previous["objective"]) + nested_tolerance
+        ):
+            raise ValueError(
+                "nested closure objective increased under wider domain"
+            )
+
+    transitions = [
+        {
+            "from_multiplier": previous["domain_multiplier"],
+            "to_multiplier": current["domain_multiplier"],
+            "objective_change": (
+                float(current["objective"])
+                - float(previous["objective"])
+            ),
+            "primary_distance_change": (
+                float(current["primary_distance"])
+                - float(previous["primary_distance"])
+            ),
+        }
+        for previous, current in zip(
+            domain_results,
+            domain_results[1:],
+            strict=False,
+        )
+    ]
+    widest = domain_results[-1]
+    closure_components = [
+        name
+        for name in widest["active_bounds"]
+        if name.startswith("W0=") or name.startswith("W1=")
+    ]
+    domain_components = [
+        name
+        for name in widest["active_bounds"]
+        if name.startswith("sharing_bias=")
+        or name.startswith("beta_reward=")
+    ]
+    if domain_components:
+        status = "SCIENTIFIC_DOMAIN_UNRESOLVED"
+    elif closure_components:
+        status = "NON_ATTAINED_OR_CLOSURE_LIMIT"
+    else:
+        status = "FINITE_INTERIOR_ATTAINED"
+
+    return {
+        "coordinate_system": (
+            "CBD_RESPONSE_SURFACE_(sharing_bias,W0,W1,beta_reward)"
+        ),
+        "finite_logit_family": "W0,W1 in (0,1)",
+        "closed_surface_family": "W0,W1 in [0,1]",
+        "attainment_status": status,
+        "closure_boundary_components": closure_components,
+        "scientific_domain_components": domain_components,
+        "domain_results": domain_results,
+        "domain_transitions": transitions,
+        "selected_widest_domain": widest,
+    }
+
+
 def _primary_distance(candidate_id: str, objective: float) -> float:
     if candidate_id in {
         "STABILIZED_UTILITY_RMS",
@@ -565,8 +854,57 @@ def run_distance_definition_review(
                 config=config,
                 departure_config=departure_config,
             )
-            candidate_results.append(candidate)
             widest = candidate["selected_widest_domain"]
+            closure = _project_candidate_closure(
+                candidate_id=candidate_id,
+                eta_general=eta_general,
+                belief=belief,
+                accuracy=accuracy,
+                reward=reward,
+                logit_starts=starts,
+                config=config,
+                departure_config=departure_config,
+            )
+            closure_widest = closure["selected_widest_domain"]
+            closure_eta_cbd = _cbd_utility_surface_coordinates(
+                tuple(
+                    float(x)
+                    for x in closure_widest[
+                        "selected_surface_coordinates"
+                    ]
+                ),
+                belief,
+                accuracy,
+                reward,
+            )
+            logit_eta_cbd = cbd_utility(
+                tuple(float(x) for x in widest["selected_parameters"]),
+                belief,
+                accuracy,
+                reward,
+            )
+            objective_gap = (
+                float(widest["objective"])
+                - float(closure_widest["objective"])
+            )
+            equivalence_tolerance = float(
+                config["numerical_integrity"][
+                    "closure_objective_equivalence_tolerance"
+                ]
+            )
+            if objective_gap < -equivalence_tolerance:
+                raise ValueError(
+                    "closed-surface projection is worse than finite-logit "
+                    "projection beyond numerical tolerance"
+                )
+            closure["finite_logit_objective_minus_closure_objective"] = (
+                objective_gap
+            )
+            closure[
+                "selected_cbd_probability_rms_vs_finite_logit_widest"
+            ] = _rms(expit(closure_eta_cbd) - expit(logit_eta_cbd))
+            candidate["closure_attainment_diagnostic"] = closure
+            candidate_results.append(candidate)
             eta_cbd = cbd_utility(
                 tuple(
                     float(x)
@@ -646,6 +984,14 @@ def run_distance_definition_review(
             "All retained #158/#163/#167 results keep their original bounded "
             "utility-RMS meaning. This deterministic review does not rewrite "
             "historical departure labels or results."
+        ),
+        "closure_attainment_rule": (
+            "Finite CBD logit parameters imply W0,W1 in (0,1). The direct "
+            "surface-coordinate diagnostic optimizes the same candidate "
+            "objective over the closure W0,W1 in [0,1]. A selected W0/W1 "
+            "boundary is reported as NON_ATTAINED_OR_CLOSURE_LIMIT; active "
+            "sharing-bias/reward diagnostic bounds are reported separately "
+            "as SCIENTIFIC_DOMAIN_UNRESOLVED."
         ),
         "interpretation_boundary": (
             "Deterministic scientific distance-definition comparison only. "
