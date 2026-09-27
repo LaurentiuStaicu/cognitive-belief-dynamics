@@ -76,3 +76,231 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  execute_f1b_r2_kl_v2_paired_bootstrap:
+    name: Paired KL v2 bootstrap (${{ matrix.shard_id }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - shard_id: R00_01
+            replicate_indices: '0-1'
+          - shard_id: R02_03
+            replicate_indices: '2-3'
+          - shard_id: R04_05
+            replicate_indices: '4-5'
+          - shard_id: R06_07
+            replicate_indices: '6-7'
+          - shard_id: R08_09
+            replicate_indices: '8-9'
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "f1df4ad6e516842c9115552f025e4b02ea45f03d"
+      SHARD_ID: ${{ matrix.shard_id }}
+      REPLICATE_INDICES: ${{ matrix.replicate_indices }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Execute paired bootstrap shard
+        run: |
+          python scripts/run_f1b_r2_kl_v2_paired_bootstrap.py \
+            --replicate-indices "$REPLICATE_INDICES" \
+            --output "/tmp/f1b-r2-kl-v2-paired-${SHARD_ID}.json" \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path(
+              f"/tmp/f1b-r2-kl-v2-paired-{os.environ['SHARD_ID']}.json"
+          )
+          data = json.loads(path.read_text(encoding="utf-8"))
+          assert data["authoritative"] is False
+          assert data["draw_grid"] == [49, 99, 199]
+          assert len(data["execution_replicate_indices"]) == 2
+          assert data["departure_case_count"] == 36
+          assert data["unique_dataset_count"] == 78
+          assert data["restriction_run_count"] == 150
+          assert data["snapshot_count"] == 450
+          assert data["pair_comparison_count"] == 450
+
+          departure = {}
+          for run in data["restriction_runs"]:
+              if run["identity_type"] == "DEPARTURE":
+                  departure.setdefault(run["dataset_id"], []).append(run)
+              assert [s["bootstrap_draws"] for s in run["snapshots"]] == [
+                  49, 99, 199
+              ]
+              if not run["fit_failure"]:
+                  assert len(run["bootstrap_attempt_statistics"]) == 199
+
+          assert len(departure) == 72
+          for runs in departure.values():
+              assert len(runs) == 2
+              assert len({r["dataset_sha256"] for r in runs}) == 1
+
+          fit_failures = sum(r["fit_failure"] for r in data["restriction_runs"])
+          calibration_failures = {
+              draws: sum(
+                  s["bootstrap_calibration_failure"]
+                  for r in data["restriction_runs"]
+                  for s in r["snapshots"]
+                  if s["bootstrap_draws"] == draws
+              )
+              for draws in (49, 99, 199)
+          }
+          global_pairs = [
+              row for row in data["pair_aggregate"]
+              if row["dimension"] == "GLOBAL"
+          ]
+          print("F1B_R2_PAIRED_SHARD_SUMMARY=" + json.dumps({
+              "shard_id": os.environ["SHARD_ID"],
+              "replicates": data["execution_replicate_indices"],
+              "fit_failures": fit_failures,
+              "calibration_failures": calibration_failures,
+              "global_pairs": global_pairs,
+          }, sort_keys=True))
+          PY
+
+      - name: Upload exact paired shard
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-kl-v2-paired-${{ matrix.shard_id }}
+          path: /tmp/f1b-r2-kl-v2-paired-${{ matrix.shard_id }}.json
+          if-no-files-found: error
+
+  combine_f1b_r2_kl_v2_paired_bootstrap:
+    name: Paired KL v2 bootstrap combined
+    needs: execute_f1b_r2_kl_v2_paired_bootstrap
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "f1df4ad6e516842c9115552f025e4b02ea45f03d"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download paired shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: f1b-r2-kl-v2-paired-R*
+          path: /tmp/parts
+          merge-multiple: true
+
+      - name: Combine and validate paired characterization
+        run: |
+          python scripts/combine_f1b_r2_kl_v2_paired_bootstrap_partitions.py \
+            --partition /tmp/parts/f1b-r2-kl-v2-paired-R00_01.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-paired-R02_03.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-paired-R04_05.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-paired-R06_07.json \
+            --partition /tmp/parts/f1b-r2-kl-v2-paired-R08_09.json \
+            --output /tmp/f1b-r2-kl-v2-paired-combined.json
+          python - <<'PY'
+          import json
+          from collections import Counter
+          from pathlib import Path
+
+          data = json.loads(
+              Path("/tmp/f1b-r2-kl-v2-paired-combined.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+          assert data["authoritative"] is False
+          assert data["draw_grid"] == [49, 99, 199]
+          assert data["execution_replicate_indices"] == list(range(10))
+          assert data["departure_case_count"] == 36
+          assert data["unique_dataset_count"] == 390
+          assert data["restriction_run_count"] == 750
+          assert data["snapshot_count"] == 2250
+          assert data["pair_comparison_count"] == 2250
+
+          runs = data["restriction_runs"]
+          fit_failures = sum(r["fit_failure"] for r in runs)
+          draw_summary = {}
+          for draws in (49, 99, 199):
+              snapshots = [
+                  s for r in runs for s in r["snapshots"]
+                  if s["bootstrap_draws"] == draws
+              ]
+              valid = [
+                  (r, s)
+                  for r in runs
+                  for s in r["snapshots"]
+                  if s["bootstrap_draws"] == draws
+                  and not r["fit_failure"]
+                  and not s["bootstrap_calibration_failure"]
+                  and s["rejected"] is not None
+              ]
+              draw_summary[str(draws)] = {
+                  "snapshot_count": len(snapshots),
+                  "valid_count": len(valid),
+                  "rejections": sum(bool(s["rejected"]) for _, s in valid),
+                  "calibration_failures": sum(
+                      s["bootstrap_calibration_failure"] for s in snapshots
+                  ),
+                  "bootstrap_fit_failures": sum(
+                      int(s["bootstrap_fit_failures"]) for s in snapshots
+                  ),
+              }
+
+          global_pairs = sorted(
+              [
+                  row for row in data["pair_aggregate"]
+                  if row["dimension"] == "GLOBAL"
+              ],
+              key=lambda row: (row["left_draws"], row["right_draws"]),
+          )
+          discordant = Counter()
+          for row in data["pair_comparisons"]:
+              if row["decision_pair_valid"] and not row["decision_concordant"]:
+                  discordant[
+                      (row["left_draws"], row["right_draws"])
+                  ] += 1
+
+          print("F1B_R2_PAIRED_COMBINED_SUMMARY_BEGIN")
+          print(json.dumps({
+              "fit_failures": fit_failures,
+              "draw_summary": draw_summary,
+              "global_pairs": global_pairs,
+              "discordant_counts": {
+                  f"{left}_{right}": count
+                  for (left, right), count in sorted(discordant.items())
+              },
+              "provenance": data["provenance"],
+          }, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_PAIRED_COMBINED_SUMMARY_END")
+          PY
+
+      - name: Upload exact paired combined result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-kl-v2-paired-combined
+          path: /tmp/f1b-r2-kl-v2-paired-combined.json
+          if-no-files-found: error
