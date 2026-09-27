@@ -76,3 +76,97 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  execute_f1b_r2_projection_bound_sensitivity:
+    name: F1b R2 projection-bound sensitivity
+    needs: validate
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "2ed9685b4a0f952a5c4c501116eb3f2e1e16c6e9"
+      EXECUTION_BRANCH: "execution/f1b-r2-projection-bound-sensitivity-2026-09-27"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Execute frozen deterministic projection-bound audit
+        run: |
+          python scripts/run_f1b_r2_projection_bound_sensitivity.py \
+            --config model/benchmarks/f1b_r2_projection_bound_sensitivity.json \
+            --departure-config model/benchmarks/f1b_r2_controlled_departure_design.json \
+            --cases model/results/f1b_r2_complement_sign_geometry_case_summary_2026-09-27.tsv \
+            --output /tmp/f1b-r2-projection-bound-sensitivity.json \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("/tmp/f1b-r2-projection-bound-sensitivity.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          assert data["authoritative"] is False
+          assert data["case_count"] == 12
+          assert data["bound_set_count"] == 4
+          assert data["case_bound_result_count"] == 48
+
+          b8_active = sum(
+              bool(case["bound_results"][-1]["active_bounds"])
+              for case in data["case_results"]
+          )
+          b4_to_b8 = []
+          for case in data["case_results"]:
+              t = case["bound_transitions"][-1]
+              b4_to_b8.append({
+                  "case_id": case["case_id"],
+                  "absolute": t["rms_absolute_change"],
+                  "relative": t["rms_relative_change"],
+                  "b8_active": case["wide_8x_boundary_active"],
+              })
+
+          sign = []
+          for row in data["sign_comparisons"]:
+              if row["bound_set_id"] in {"CURRENT_1X","WIDE_8X"}:
+                  sign.append({
+                      "anchor_id": row["anchor_id"],
+                      "distance": row["requested_cbd_rms_distance"],
+                      "bound_set_id": row["bound_set_id"],
+                      "rms_ratio": row["metrics"]["nearest_cbd_rms_distance"]["plus_over_minus_ratio"],
+                      "probability_rms_ratio": row["metrics"]["probability_rms_distance"]["plus_over_minus_ratio"],
+                      "mean_kl_ratio": row["metrics"]["mean_bernoulli_kl_general_to_nearest_cbd"]["plus_over_minus_ratio"],
+                      "information_ratio": row["metrics"]["information_weighted_logit_distance"]["plus_over_minus_ratio"],
+                      "minus_active_bounds": row["minus_active_bounds"],
+                      "plus_active_bounds": row["plus_active_bounds"],
+                  })
+
+          summary = {
+              "status": data["status"],
+              "case_count": data["case_count"],
+              "case_bound_result_count": data["case_bound_result_count"],
+              "wide_8x_boundary_active_case_count": b8_active,
+              "b4_to_b8_transitions": b4_to_b8,
+              "selected_sign_comparisons": sign,
+              "provenance": data["provenance"],
+          }
+          print("F1B_R2_BOUND_SENSITIVITY_SUMMARY_BEGIN")
+          print(json.dumps(summary, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_BOUND_SENSITIVITY_SUMMARY_END")
+          PY
+
+      - name: Upload exact deterministic audit result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-projection-bound-sensitivity
+          path: /tmp/f1b-r2-projection-bound-sensitivity.json
+          if-no-files-found: error
+          retention-days: 7
