@@ -1,0 +1,179 @@
+{
+  "diagnostic_id": "F1B.R2.COMPLEMENT_SIGN_GEOMETRY.2026-09-27",
+  "status": "NON_AUTHORITATIVE_R2_COMPLEMENT_SIGN_GEOMETRY_RESULT_RETAINED",
+  "authoritative": false,
+  "execution": {
+    "scientific_source_commit": "1d4282e745245d2d87ce904a1b742137c10d2e46",
+    "temporary_head": "5630ffd359646763be762b6a9e386f39380f94f5",
+    "github_run_id": "36311702420",
+    "temporary_pr": 165,
+    "artifact_id": 10928807813,
+    "artifact_zip_sha256": "259a11f674b7bf6b86594907b721cfa09292bbfba43101d6b53ef0b48ff5ec05",
+    "exact_json_sha256": "1f1322d7bbdd51093bbe0477fbbb7205595aeba9f2cf995526c9ffcb299ca1d9",
+    "case_count": 12,
+    "cell_row_count": 216
+  },
+  "deterministic_finding": {
+    "geometry_asymmetry_present": true,
+    "interpretation": "Equal nearest-CBD RMS distance in utility/logit space does not produce equal probability/KL/information separation across complement-relation signs. Therefore the sign asymmetry observed in the broad stochastic characterization cannot be attributed solely to fitter or bootstrap behavior.",
+    "comparisons": [
+      {
+        "anchor_id": "CBD_ANCHOR_1",
+        "distance": 0.1,
+        "probability_rms_plus_over_minus": 0.9398946550571382,
+        "mean_kl_plus_over_minus": 0.9316035959831851,
+        "information_distance_plus_over_minus": 0.9736715173234726,
+        "scalar_step_plus_over_minus": 1.6469696555420021
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_1",
+        "distance": 0.25,
+        "probability_rms_plus_over_minus": 0.7554209250450503,
+        "mean_kl_plus_over_minus": 0.6027838500914372,
+        "information_distance_plus_over_minus": 0.7823526342496041,
+        "scalar_step_plus_over_minus": 6.471377328240355
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_1",
+        "distance": 0.5,
+        "probability_rms_plus_over_minus": 0.504274916175109,
+        "mean_kl_plus_over_minus": 0.28949788630959844,
+        "information_distance_plus_over_minus": 0.5524029379939134,
+        "scalar_step_plus_over_minus": 1.0601569154130133
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_2",
+        "distance": 0.1,
+        "probability_rms_plus_over_minus": 0.9299704895506329,
+        "mean_kl_plus_over_minus": 0.9197686863145547,
+        "information_distance_plus_over_minus": 0.9677294551157846,
+        "scalar_step_plus_over_minus": 1.7042399471878784
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_2",
+        "distance": 0.25,
+        "probability_rms_plus_over_minus": 0.715496683102582,
+        "mean_kl_plus_over_minus": 0.5472512453365236,
+        "information_distance_plus_over_minus": 0.7460913799437566,
+        "scalar_step_plus_over_minus": 6.223888999441617
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_2",
+        "distance": 0.5,
+        "probability_rms_plus_over_minus": 0.47721062938897196,
+        "mean_kl_plus_over_minus": 0.2583492062190208,
+        "information_distance_plus_over_minus": 0.5254527210365172,
+        "scalar_step_plus_over_minus": 1.1085382150972845
+      }
+    ]
+  },
+  "saturation_and_bounds": {
+    "probability_saturation": {
+      "0.10": "No complement case has probabilities outside [0.05,0.95].",
+      "0.25": "Both plus cases have 6/18 generator cells outside [0.05,0.95], while both minus cases have 0/18.",
+      "0.50": "All plus and minus cases have 6/18 generator cells outside [0.05,0.95], but plus retains materially smaller probability/KL separation."
+    },
+    "nearest_cbd_projection_bound_activity": [
+      {
+        "anchor_id": "CBD_ANCHOR_1",
+        "distance": 0.1,
+        "sign": -1,
+        "active_bounds": []
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_1",
+        "distance": 0.1,
+        "sign": 1,
+        "active_bounds": []
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_1",
+        "distance": 0.25,
+        "sign": -1,
+        "active_bounds": [
+          "beta_accuracy=HIGH"
+        ]
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_1",
+        "distance": 0.25,
+        "sign": 1,
+        "active_bounds": [
+          "beta_reward=HIGH"
+        ]
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_1",
+        "distance": 0.5,
+        "sign": -1,
+        "active_bounds": [
+          "beta_accuracy=LOW",
+          "beta_reward=LOW"
+        ]
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_1",
+        "distance": 0.5,
+        "sign": 1,
+        "active_bounds": [
+          "beta_accuracy=LOW",
+          "beta_reward=HIGH"
+        ]
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_2",
+        "distance": 0.1,
+        "sign": -1,
+        "active_bounds": [
+          "beta_accuracy=HIGH"
+        ]
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_2",
+        "distance": 0.1,
+        "sign": 1,
+        "active_bounds": []
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_2",
+        "distance": 0.25,
+        "sign": -1,
+        "active_bounds": [
+          "beta_accuracy=HIGH"
+        ]
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_2",
+        "distance": 0.25,
+        "sign": 1,
+        "active_bounds": [
+          "beta_reward=HIGH"
+        ]
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_2",
+        "distance": 0.5,
+        "sign": -1,
+        "active_bounds": [
+          "beta_accuracy=LOW",
+          "beta_reward=LOW"
+        ]
+      },
+      {
+        "anchor_id": "CBD_ANCHOR_2",
+        "distance": 0.5,
+        "sign": 1,
+        "active_bounds": [
+          "beta_accuracy=LOW",
+          "beta_reward=HIGH"
+        ]
+      }
+    ],
+    "interpretation": "Projection-bound activity is frequent at the medium/large departures and differs by sign. Because #145 deliberately inherited the AP-A fitter bounds for nearest-CBD projection, a projection-bound sensitivity audit is required before paired bootstrap is treated as the next diagnostic."
+  },
+  "retained_case_summary": "model/results/f1b_r2_complement_sign_geometry_case_summary_2026-09-27.tsv",
+  "exact_cell_rows_reconstructible_from_case_summary": true,
+  "exact_cell_artifact_retained": true,
+  "next_gate": "DETERMINISTIC_NEAREST_CBD_PROJECTION_BOUND_SENSITIVITY_BEFORE_PAIRED_BOOTSTRAP",
+  "interpretation_boundary": "Deterministic non-authoritative geometry diagnostic only. The result does not change the frozen departure definition, validate a final test, freeze bootstrap draws/evaluation replicates/core grid/human N, authorize recruitment, or authorize runtime F1b."
+}
