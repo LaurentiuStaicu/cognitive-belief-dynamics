@@ -446,6 +446,78 @@ def _project_candidate_closure(
     }
 
 
+def project_general_surface_to_cbd_closure(
+    *,
+    candidate_id: str,
+    general_coefficients: tuple[float, ...] | np.ndarray,
+    belief: np.ndarray,
+    accuracy: np.ndarray,
+    reward: np.ndarray,
+    logit_starts: list[tuple[float, ...]],
+    review_config: dict,
+    departure_config: dict,
+) -> dict:
+    """Project a fixed AP-GENERAL surface onto the scientific CBD closure.
+
+    This is the public deterministic projection entry point used by future
+    versioned departure generators. It intentionally reuses the exact closure
+    engine audited by the distance-definition review.
+    """
+    coefficients = np.asarray(general_coefficients, dtype=float)
+    if coefficients.shape != (6,):
+        raise ValueError("AP-GENERAL coefficients must have length six")
+    if candidate_id not in {
+        "STABILIZED_UTILITY_RMS",
+        "PROBABILITY_RMS",
+        "BERNOULLI_KL_GENERAL_TO_CBD",
+    }:
+        raise ValueError(f"unsupported distance candidate: {candidate_id}")
+    eta_general = general_utility(
+        coefficients,
+        belief,
+        accuracy,
+        reward,
+    )
+    return _project_candidate_closure(
+        candidate_id=candidate_id,
+        eta_general=eta_general,
+        belief=belief,
+        accuracy=accuracy,
+        reward=reward,
+        logit_starts=logit_starts,
+        config=review_config,
+        departure_config=departure_config,
+    )
+
+
+def cbd_surface_utility(
+    *,
+    surface_coordinates: tuple[float, ...] | np.ndarray,
+    belief: np.ndarray,
+    accuracy: np.ndarray,
+    reward: np.ndarray,
+) -> np.ndarray:
+    """Evaluate CBD response-surface coordinates (bias, W0, W1, reward)."""
+    return _cbd_utility_surface_coordinates(
+        surface_coordinates,
+        belief,
+        accuracy,
+        reward,
+    )
+
+
+def response_surface_diagnostics(
+    *,
+    eta_general: np.ndarray,
+    eta_cbd: np.ndarray,
+) -> dict:
+    """Return the deterministic D1/D2/D3/Fisher diagnostics used in #171."""
+    return _surface_metrics(
+        eta_general=np.asarray(eta_general, dtype=float),
+        eta_cbd=np.asarray(eta_cbd, dtype=float),
+    )
+
+
 def _primary_distance(candidate_id: str, objective: float) -> float:
     if candidate_id in {
         "STABILIZED_UTILITY_RMS",
