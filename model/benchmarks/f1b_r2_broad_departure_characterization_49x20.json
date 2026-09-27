@@ -1,0 +1,126 @@
+{
+  "characterization_id": "F1B.R2.BROAD_CONTROLLED_DEPARTURE.49X20.2026-09-27",
+  "status": "NON_AUTHORITATIVE_R2_BOOTSTRAP_CHARACTERIZATION_DESIGN",
+  "baseline_main_commit": "1b13c0c38c7a20b23ab88d72a0d3366885e59ebe",
+  "seed": 2026092702,
+  "design": {
+    "participants": 24,
+    "items": 36,
+    "belief_B": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "accuracy_cue_A": [
+      0,
+      1
+    ],
+    "reward_context_R": [
+      -1,
+      0,
+      1
+    ],
+    "missingness_rate": 0
+  },
+  "random_effects": {
+    "participant_intercept_sd": 0.25,
+    "item_intercept_sd": 0.2,
+    "participant_reward_slope_sd": 0.1,
+    "item_reward_slope_sd": 0.1
+  },
+  "fit_scale_multiplier": 1,
+  "null_generators": {
+    "CBD_ANCHOR_1": [
+      -0.2,
+      -0.2,
+      1,
+      0.8
+    ],
+    "CBD_ANCHOR_2": [
+      -0.2,
+      0,
+      1.2,
+      1
+    ],
+    "ADD_ANCHOR": [
+      -0.2,
+      0.8,
+      0.25,
+      0.6
+    ]
+  },
+  "bootstrap": {
+    "draw_grid": [
+      49
+    ],
+    "alpha": 0.05,
+    "minimum_successful_draws_by_draw_count": {
+      "49": 45
+    },
+    "draw_grid_status": "SCREENED_FOR_THIS_NON_AUTHORITATIVE_STAGE_NOT_AUTHORITATIVE"
+  },
+  "evaluation_replicate_grid": [
+    20
+  ],
+  "evaluation_replicate_grid_status": "STAGED_DESIGN_SEARCH_NOT_AUTHORITATIVE",
+  "departure_case_filter": null,
+  "expected_departure_case_count": 36,
+  "expected_restriction_tests": 1500,
+  "execution_partition_plan": {
+    "partition_axis": "evaluation_replicate",
+    "scientific_total_evaluation_replicates": 20,
+    "shards": [
+      {
+        "id": "R00_04",
+        "replicate_indices": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "id": "R05_09",
+        "replicate_indices": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "id": "R10_14",
+        "replicate_indices": [
+          10,
+          11,
+          12,
+          13,
+          14
+        ]
+      },
+      {
+        "id": "R15_19",
+        "replicate_indices": [
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      }
+    ],
+    "equivalence_requirement": "COMBINED_PARTITIONS_MUST_MATCH_MONOLITHIC_SCIENTIFIC_RESULT",
+    "forbid_departure_filter_sharding": true
+  },
+  "execution_boundary": {
+    "authoritative_bootstrap_draws_frozen": false,
+    "authoritative_evaluation_replicates_frozen": false,
+    "authoritative_run_allowed": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
