@@ -1,0 +1,205 @@
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import subprocess
+from pathlib import Path
+
+from cognitive_epistemic_model.calibration.f1b_r2_resampling_risk_continuation import (
+    qualify_continuation_partition,
+)
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def git_head() -> str:
+    return subprocess.check_output(
+        ["git", "rev-parse", "HEAD"],
+        text=True,
+    ).strip()
+
+
+def git_blob_sha(path: Path) -> str:
+    return subprocess.check_output(
+        ["git", "hash-object", str(path)],
+        text=True,
+    ).strip()
+
+
+def verify_path_hash(path: Path, expected: str, label: str) -> None:
+    actual = sha256(path)
+    if actual != str(expected):
+        raise ValueError(
+            f"{label} SHA-256 mismatch: {actual} != {expected}"
+        )
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Qualify exact reproduction of retained first-199 bootstrap "
+            "streams before any F1b R2 resampling-risk continuation."
+        )
+    )
+    parser.add_argument("--paired-source", type=Path, required=True)
+    parser.add_argument(
+        "--stage-b-result",
+        type=Path,
+        default=Path(
+            "model/results/f1b_r2_resampling_risk_replay_2026-09-27.json"
+        ),
+    )
+    parser.add_argument(
+        "--continuation-config",
+        type=Path,
+        default=Path(
+            "model/benchmarks/f1b_r2_resampling_risk_continuation_v1.json"
+        ),
+    )
+    parser.add_argument(
+        "--paired-config",
+        type=Path,
+        default=Path(
+            "model/benchmarks/"
+            "f1b_r2_kl_v2_paired_bootstrap_draw_stability.json"
+        ),
+    )
+    parser.add_argument(
+        "--v2-config",
+        type=Path,
+        default=Path(
+            "model/benchmarks/f1b_r2_kl_controlled_departure_design_v2.json"
+        ),
+    )
+    parser.add_argument(
+        "--review-config",
+        type=Path,
+        default=Path(
+            "model/benchmarks/f1b_r2_distance_definition_review.json"
+        ),
+    )
+    parser.add_argument(
+        "--historical-departure-config",
+        type=Path,
+        default=Path(
+            "model/benchmarks/f1b_r2_controlled_departure_design.json"
+        ),
+    )
+    parser.add_argument("--shard-index", type=int, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--source-commit", default=None)
+    args = parser.parse_args()
+
+    continuation = json.loads(
+        args.continuation_config.read_text(encoding="utf-8")
+    )
+    source = continuation["source"]
+
+    verify_path_hash(
+        args.paired_source,
+        source["paired_exact_json_sha256"],
+        "paired source",
+    )
+    stage_b_blob = git_blob_sha(args.stage_b_result)
+    if stage_b_blob != str(source["retained_stage_b_result_git_blob_sha"]):
+        raise ValueError(
+            "retained Stage-B result blob mismatch: "
+            f"{stage_b_blob} != "
+            f"{source['retained_stage_b_result_git_blob_sha']}"
+        )
+
+    verify_path_hash(
+        args.paired_config,
+        source["paired_config_sha256"],
+        "paired config",
+    )
+    verify_path_hash(
+        args.v2_config,
+        source["v2_config_sha256"],
+        "V2 config",
+    )
+    verify_path_hash(
+        args.review_config,
+        source["review_config_sha256"],
+        "distance review config",
+    )
+    verify_path_hash(
+        args.historical_departure_config,
+        source["historical_departure_config_sha256"],
+        "historical departure config",
+    )
+
+    for path_text, expected_blob in source[
+        "scientific_file_git_blob_sha"
+    ].items():
+        path = Path(path_text)
+        actual_blob = git_blob_sha(path)
+        if actual_blob != str(expected_blob):
+            raise ValueError(
+                "scientific lineage mismatch for "
+                f"{path_text}: {actual_blob} != {expected_blob}"
+            )
+
+    paired_source = json.loads(
+        args.paired_source.read_text(encoding="utf-8")
+    )
+    stage_b_result = json.loads(
+        args.stage_b_result.read_text(encoding="utf-8")
+    )
+    paired_config = json.loads(
+        args.paired_config.read_text(encoding="utf-8")
+    )
+    v2_config = json.loads(
+        args.v2_config.read_text(encoding="utf-8")
+    )
+    review_config = json.loads(
+        args.review_config.read_text(encoding="utf-8")
+    )
+    historical_config = json.loads(
+        args.historical_departure_config.read_text(encoding="utf-8")
+    )
+
+    result = qualify_continuation_partition(
+        paired_source,
+        stage_b_result,
+        continuation,
+        paired_config,
+        v2_config,
+        review_config,
+        historical_config,
+        shard_index=int(args.shard_index),
+    )
+    result["provenance"] = {
+        "source_commit": args.source_commit or git_head(),
+        "paired_source_path": str(args.paired_source),
+        "paired_source_sha256": sha256(args.paired_source),
+        "stage_b_result_path": str(args.stage_b_result),
+        "stage_b_result_sha256": sha256(args.stage_b_result),
+        "continuation_config_path": str(args.continuation_config),
+        "continuation_config_sha256": sha256(
+            args.continuation_config
+        ),
+        "paired_config_sha256": sha256(args.paired_config),
+        "v2_config_sha256": sha256(args.v2_config),
+        "review_config_sha256": sha256(args.review_config),
+        "historical_departure_config_sha256": sha256(
+            args.historical_departure_config
+        ),
+        "scientific_file_git_blob_sha": source[
+            "scientific_file_git_blob_sha"
+        ],
+    }
+
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(
+        json.dumps(result, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

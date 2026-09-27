@@ -1,0 +1,80 @@
+{
+  "continuation_id": "F1B.R2.RESAMPLING_RISK_CONTINUATION.V1",
+  "status": "NON_AUTHORITATIVE_RESAMPLING_RISK_CONTINUATION_DESIGN",
+  "issue": 218,
+  "baseline_main_commit": "2b775fc05c64dfed676ad3ffdc5cde327f75075a",
+  "controller": {
+    "alpha": 0.05,
+    "epsilon": 0.001,
+    "halfspend": 1000,
+    "prior_max_attempts": 199,
+    "maximum_total_attempts": 10000,
+    "reporting_checkpoints": [
+      199,
+      499,
+      999,
+      1999,
+      4999,
+      10000
+    ]
+  },
+  "source": {
+    "paired_artifact_id": 10938668225,
+    "paired_exact_json_sha256": "b2727462b5bd09e5570090a42d7c90da8866e02100e0f4ccad551d8958a3d301",
+    "paired_scientific_source_commit": "6ad6be092fd3e6b9ec17c3935e19711710690beb",
+    "paired_config_path": "model/benchmarks/f1b_r2_kl_v2_paired_bootstrap_draw_stability.json",
+    "paired_config_sha256": "7d0ad4292e17b99fa2a2b82c2ea7b842839fe0b2a68fcac5325564d3dd9a2eed",
+    "v2_config_path": "model/benchmarks/f1b_r2_kl_controlled_departure_design_v2.json",
+    "v2_config_sha256": "fb80f9976ef592b2dc8b1cbbbe566c19d755e449ff02b6278d1f1ce1b140ca8c",
+    "review_config_path": "model/benchmarks/f1b_r2_distance_definition_review.json",
+    "review_config_sha256": "a653b2024f8508a8395845143a45d57427882e11b3f2a16203ff6609b7a9696d",
+    "historical_departure_config_path": "model/benchmarks/f1b_r2_controlled_departure_design.json",
+    "historical_departure_config_sha256": "e5603e0115d98abbb2df549671592fda14818abb5e990a0b5afad8641e5a2a1e",
+    "retained_stage_b_result_path": "model/results/f1b_r2_resampling_risk_replay_2026-09-27.json",
+    "retained_stage_b_expected_unresolved_count": 224,
+    "retained_stage_b_expected_run_count": 750,
+    "scientific_file_git_blob_sha": {
+      "src/cognitive_epistemic_model/calibration/f1b_r2_paired_bootstrap_characterization.py": "3f23fc9bfc87d9ff45e83f11a529e3f0793969f4",
+      "src/cognitive_epistemic_model/calibration/f1b_r2_restriction_recovery.py": "09291cc220aec5e1a557cdd697cb1257af2f233c",
+      "src/cognitive_epistemic_model/calibration/f1b_prehuman_recovery.py": "6b78dec5183e7f8ef8a2d4257c1a23f016a161a2",
+      "src/cognitive_epistemic_model/calibration/f1b_hierarchical_recovery.py": "89899e90fec5bdf9ced3e052aec1aa7ef2b49d73",
+      "src/cognitive_epistemic_model/calibration/f1b_r2_kl_controlled_departures.py": "e7e5233f4ab7427500835cb6484c1dd961abb54a"
+    },
+    "retained_stage_b_result_git_blob_sha": "b29b6d4da318a618a99924da1951ff9b5808f98a"
+  },
+  "stage_c1": {
+    "role": "EXACT_REGENERATION_QUALIFICATION_ONLY",
+    "new_bootstrap_draw_indices_allowed": false,
+    "regenerate_draw_indices": [
+      0,
+      198
+    ],
+    "regenerate_complete_prefix": true,
+    "observed_statistic_absolute_tolerance": 1e-10,
+    "required_dataset_fingerprint_match": true,
+    "required_attempt_sequence_sha256_match": true,
+    "required_match_count": 224,
+    "shard_count": 8,
+    "shard_assignment": "SHA256_RUN_ID_MODULO_SHARD_COUNT"
+  },
+  "stage_c2": {
+    "authorized_only_after_c1_pass": true,
+    "first_new_draw_index": 199,
+    "maximum_draw_index": 9999,
+    "maximum_total_attempts": 10000,
+    "shard_count": 16,
+    "shard_assignment": "SHA256_RUN_ID_MODULO_SHARD_COUNT",
+    "stop_on_boundary": true,
+    "stop_on_bootstrap_refit_failure": true,
+    "unresolved_at_cap_status": "SEQUENTIAL_UNRESOLVED_AT_CAP",
+    "bootstrap_refit_failure_status": "BOOTSTRAP_REFIT_FAILURE_UNRESOLVED"
+  },
+  "interpretation_boundary": {
+    "fixed_bootstrap_draw_count_selected": false,
+    "statistical_power_validated": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
