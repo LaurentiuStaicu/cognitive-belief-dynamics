@@ -1,0 +1,82 @@
+{
+  "characterization_id": "F1B.R2.BOOTSTRAP_CHARACTERIZATION.DESIGN.2026-09-27",
+  "status": "NON_AUTHORITATIVE_R2_BOOTSTRAP_CHARACTERIZATION_DESIGN",
+  "baseline_main_commit": "5dfef7f6da37384beb233fbbb0f6b1c86dc876de",
+  "seed": 20260927,
+  "design": {
+    "participants": 24,
+    "items": 36,
+    "belief_B": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "accuracy_cue_A": [
+      0,
+      1
+    ],
+    "reward_context_R": [
+      -1,
+      0,
+      1
+    ],
+    "missingness_rate": 0
+  },
+  "random_effects": {
+    "participant_intercept_sd": 0.25,
+    "item_intercept_sd": 0.2,
+    "participant_reward_slope_sd": 0.1,
+    "item_reward_slope_sd": 0.1
+  },
+  "fit_scale_multiplier": 1,
+  "null_generators": {
+    "CBD_ANCHOR_1": [
+      -0.2,
+      -0.2,
+      1,
+      0.8
+    ],
+    "CBD_ANCHOR_2": [
+      -0.2,
+      0,
+      1.2,
+      1
+    ],
+    "ADD_ANCHOR": [
+      -0.2,
+      0.8,
+      0.25,
+      0.6
+    ]
+  },
+  "bootstrap": {
+    "draw_grid": [
+      49,
+      99,
+      199
+    ],
+    "alpha": 0.05,
+    "minimum_successful_draws_by_draw_count": {
+      "49": 45,
+      "99": 90,
+      "199": 180
+    },
+    "draw_grid_status": "DESIGN_SEARCH_NOT_AUTHORITATIVE"
+  },
+  "evaluation_replicate_grid": [
+    5,
+    10,
+    20
+  ],
+  "evaluation_replicate_grid_status": "STAGED_DESIGN_SEARCH_NOT_AUTHORITATIVE",
+  "departure_case_filter": null,
+  "execution_boundary": {
+    "authoritative_bootstrap_draws_frozen": false,
+    "authoritative_evaluation_replicates_frozen": false,
+    "authoritative_run_allowed": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}

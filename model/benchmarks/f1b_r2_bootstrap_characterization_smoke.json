@@ -1,0 +1,89 @@
+{
+  "characterization_id": "F1B.R2.BOOTSTRAP_CHARACTERIZATION.SMOKE.2026-09-27",
+  "status": "SMOKE_NON_AUTHORITATIVE_R2_BOOTSTRAP_CHARACTERIZATION",
+  "baseline_main_commit": "5dfef7f6da37384beb233fbbb0f6b1c86dc876de",
+  "seed": 20260927,
+  "design": {
+    "participants": 12,
+    "items": 18,
+    "belief_B": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "accuracy_cue_A": [
+      0,
+      1
+    ],
+    "reward_context_R": [
+      -1,
+      0,
+      1
+    ],
+    "missingness_rate": 0
+  },
+  "random_effects": {
+    "participant_intercept_sd": 0.25,
+    "item_intercept_sd": 0.2,
+    "participant_reward_slope_sd": 0.1,
+    "item_reward_slope_sd": 0.1
+  },
+  "fit_scale_multiplier": 1,
+  "null_generators": {
+    "CBD_ANCHOR_1": [
+      -0.2,
+      -0.2,
+      1,
+      0.8
+    ],
+    "CBD_ANCHOR_2": [
+      -0.2,
+      0,
+      1.2,
+      1
+    ],
+    "ADD_ANCHOR": [
+      -0.2,
+      0.8,
+      0.25,
+      0.6
+    ]
+  },
+  "bootstrap": {
+    "draw_grid": [
+      2
+    ],
+    "alpha": 0.05,
+    "minimum_successful_draws_by_draw_count": {
+      "2": 2
+    },
+    "draw_grid_status": "SMOKE_ONLY"
+  },
+  "evaluation_replicate_grid": [
+    1
+  ],
+  "evaluation_replicate_grid_status": "SMOKE_ONLY",
+  "departure_case_filter": {
+    "anchor_id": [
+      "CBD_ADD_INTERSECTION_ANCHOR_1"
+    ],
+    "axis": [
+      "STANDALONE_ACCURACY_MAIN_EFFECT"
+    ],
+    "sign": [
+      1
+    ],
+    "requested_cbd_rms_distance": [
+      0.1
+    ]
+  },
+  "execution_boundary": {
+    "authoritative_bootstrap_draws_frozen": false,
+    "authoritative_evaluation_replicates_frozen": false,
+    "authoritative_run_allowed": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
