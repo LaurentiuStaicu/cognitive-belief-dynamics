@@ -16,7 +16,7 @@ def sha256(path: Path) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Combine deterministic F1b R2 KL v1 execution partitions."
+        description="Combine deterministic F1b R2 KL controlled-departure partitions."
     )
     parser.add_argument(
         "--config",
