@@ -1,0 +1,51 @@
+{
+  "diagnostic_id": "F1B.R2.PROJECTION_BOUND_SENSITIVITY.2026-09-27",
+  "status": "NON_AUTHORITATIVE_R2_PROJECTION_BOUND_SENSITIVITY_DESIGN",
+  "baseline_main_commit": "fe53de630a669a41c58d7bb685935b204599be75",
+  "retained_case_summary": "model/results/f1b_r2_complement_sign_geometry_case_summary_2026-09-27.tsv",
+  "source_departure_design": "model/benchmarks/f1b_r2_controlled_departure_design.json",
+  "selected_axis": "COMPLEMENT_RELATION_VIOLATION",
+  "expected_case_count": 12,
+  "expected_cells_per_case": 18,
+  "bound_activity_tolerance": 0.00001,
+  "nested_objective_tolerance": 1e-10,
+  "kl_clip_epsilon": 1e-12,
+  "bound_sets": [
+    {
+      "id": "CURRENT_1X",
+      "multiplier": 1
+    },
+    {
+      "id": "WIDE_2X",
+      "multiplier": 2
+    },
+    {
+      "id": "WIDE_4X",
+      "multiplier": 4
+    },
+    {
+      "id": "WIDE_8X",
+      "multiplier": 8
+    }
+  ],
+  "optimization": {
+    "method": "L-BFGS-B",
+    "maxiter": 3000,
+    "ftol": 1e-14,
+    "maxls": 100,
+    "include_retained_current_solution_as_common_start": true
+  },
+  "execution_boundary": {
+    "stochastic_simulation_allowed": false,
+    "model_fitting_allowed": false,
+    "paired_bootstrap_stage_allowed": false,
+    "operational_fitter_bounds_change_allowed": false,
+    "departure_regeneration_allowed": false,
+    "authoritative_bootstrap_draws_frozen": false,
+    "authoritative_evaluation_replicates_frozen": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
