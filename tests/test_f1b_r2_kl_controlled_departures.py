@@ -5,6 +5,7 @@ from math import sqrt
 from pathlib import Path
 
 import numpy as np
+import pytest
 from scipy.special import expit
 
 import cognitive_epistemic_model.calibration.f1b_r2_kl_controlled_departures as klgen
@@ -293,3 +294,149 @@ def test_first_crossing_solver_targets_kl_not_ray_length(monkeypatch) -> None:
     assert result["add_compatibility_pass"] is True
     assert result["scan_records"][0]["scalar"] == 0.0
     assert result["root_trace"]
+
+
+
+def _fake_case_from_solver_arguments(**kwargs) -> dict:
+    axis = kwargs["axis"]
+    anchor_id = str(kwargs["anchor_id"])
+    sign = int(kwargs["sign"])
+    target = float(kwargs["target_mean_kl"])
+    add_expected = (
+        axis is DepartureAxis.STANDALONE_ACCURACY_MAIN_EFFECT
+    )
+    return {
+        "case_id": (
+            f"FAKE__{anchor_id}__{axis.value}__{sign}__{target:.3f}"
+        ),
+        "design_version": "F1B.R2.KL_CONTROLLED_DEPARTURE.V1",
+        "anchor_id": anchor_id,
+        "anchor_family": (
+            "CBD_ADD_INTERSECTION" if add_expected else "CBD"
+        ),
+        "axis": axis.value,
+        "sign": sign,
+        "requested_mean_bernoulli_kl": target,
+        "achieved_mean_bernoulli_kl": target,
+        "mean_kl_error": 0.0,
+        "cbd_attainment_status": "FINITE_INTERIOR_ATTAINED",
+        "add_compatibility_expected": add_expected,
+        "add_compatibility_pass": True,
+    }
+
+
+def test_deterministic_partitions_combine_to_exact_36_case_grid(
+    monkeypatch,
+) -> None:
+    config = load(CONFIG)
+    review = load(REVIEW)
+    historical = load(HISTORICAL)
+    monkeypatch.setattr(
+        klgen,
+        "solve_kl_controlled_departure_case",
+        lambda **kwargs: _fake_case_from_solver_arguments(**kwargs),
+    )
+
+    selectors = [
+        (
+            "STANDALONE_ACCURACY_MAIN_EFFECT",
+            "CBD_ADD_INTERSECTION_ANCHOR_1",
+        ),
+        (
+            "STANDALONE_ACCURACY_MAIN_EFFECT",
+            "CBD_ADD_INTERSECTION_ANCHOR_2",
+        ),
+        ("COMPLEMENT_RELATION_VIOLATION", "CBD_ANCHOR_1"),
+        ("COMPLEMENT_RELATION_VIOLATION", "CBD_ANCHOR_2"),
+        ("COMBINED_VIOLATION", "CBD_ANCHOR_1"),
+        ("COMBINED_VIOLATION", "CBD_ANCHOR_2"),
+    ]
+    partitions = [
+        klgen.generate_kl_controlled_departure_partition(
+            config,
+            review,
+            historical,
+            axis_name=axis,
+            anchor_id=anchor,
+        )
+        for axis, anchor in selectors
+    ]
+    assert all(part["case_count"] == 6 for part in partitions)
+
+    combined = klgen.combine_kl_controlled_departure_partitions(
+        list(reversed(partitions)),
+        config,
+    )
+    monolithic = klgen.generate_kl_controlled_departure_design(
+        config,
+        review,
+        historical,
+    )
+
+    assert combined["case_count"] == 36
+    assert combined["execution_partition_count"] == 6
+    assert combined["cases"] == monolithic["cases"]
+    assert len({case["case_id"] for case in combined["cases"]}) == 36
+
+    keys = [
+        (
+            case["axis"],
+            case["anchor_id"],
+            case["sign"],
+            case["requested_mean_bernoulli_kl"],
+        )
+        for case in combined["cases"]
+    ]
+    assert len(keys) == len(set(keys)) == 36
+
+
+def test_kl_partition_combiner_fails_closed_on_overlap_or_missing(
+    monkeypatch,
+) -> None:
+    config = load(CONFIG)
+    review = load(REVIEW)
+    historical = load(HISTORICAL)
+    monkeypatch.setattr(
+        klgen,
+        "solve_kl_controlled_departure_case",
+        lambda **kwargs: _fake_case_from_solver_arguments(**kwargs),
+    )
+
+    first = klgen.generate_kl_controlled_departure_partition(
+        config,
+        review,
+        historical,
+        axis_name="STANDALONE_ACCURACY_MAIN_EFFECT",
+        anchor_id="CBD_ADD_INTERSECTION_ANCHOR_1",
+    )
+    with pytest.raises(ValueError, match="duplicate KL execution partition"):
+        klgen.combine_kl_controlled_departure_partitions(
+            [first, first],
+            config,
+        )
+
+    with pytest.raises(ValueError, match="coverage is incomplete"):
+        klgen.combine_kl_controlled_departure_partitions(
+            [first],
+            config,
+        )
+
+
+def test_kl_partition_rejects_axis_anchor_mismatch(monkeypatch) -> None:
+    config = load(CONFIG)
+    review = load(REVIEW)
+    historical = load(HISTORICAL)
+    monkeypatch.setattr(
+        klgen,
+        "solve_kl_controlled_departure_case",
+        lambda **kwargs: _fake_case_from_solver_arguments(**kwargs),
+    )
+
+    with pytest.raises(ValueError, match="incompatible"):
+        klgen.generate_kl_controlled_departure_partition(
+            config,
+            review,
+            historical,
+            axis_name="STANDALONE_ACCURACY_MAIN_EFFECT",
+            anchor_id="CBD_ANCHOR_1",
+        )

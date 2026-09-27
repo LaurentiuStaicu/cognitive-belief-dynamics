@@ -545,43 +545,35 @@ def solve_kl_controlled_departure_case(
     }
 
 
-def generate_kl_controlled_departure_design(
-    config: dict,
-    review_config: dict,
-    historical_departure_config: dict,
-) -> dict:
-    _validate_config(config, review_config)
-
-    cases: list[dict] = []
+def _expected_case_keys(config: dict) -> list[tuple[str, str, int, float]]:
+    keys: list[tuple[str, str, int, float]] = []
     for axis_name in config["departure_axes"]:
         axis = DepartureAxis(str(axis_name))
         anchors = _anchor_block_for_axis(axis, config)
-        for anchor_id, raw_parameters in anchors.items():
-            parameters = tuple(
-                float(value) for value in raw_parameters
-            )
+        for anchor_id in anchors:
             for sign in (-1, 1):
                 for target in config["target_mean_bernoulli_kl"]:
-                    cases.append(
-                        solve_kl_controlled_departure_case(
-                            anchor_id=str(anchor_id),
-                            anchor_parameters=parameters,
-                            axis=axis,
-                            sign=sign,
-                            target_mean_kl=float(target),
-                            config=config,
-                            review_config=review_config,
-                            historical_departure_config=(
-                                historical_departure_config
-                            ),
+                    keys.append(
+                        (
+                            axis.value,
+                            str(anchor_id),
+                            int(sign),
+                            float(target),
                         )
                     )
+    return keys
 
-    expected = int(config["expected_case_count"])
-    if len(cases) != expected:
-        raise KLControlledDepartureGenerationError(
-            f"unexpected KL departure case count: {len(cases)} != {expected}"
-        )
+
+def _case_key(case: dict) -> tuple[str, str, int, float]:
+    return (
+        str(case["axis"]),
+        str(case["anchor_id"]),
+        int(case["sign"]),
+        float(case["requested_mean_bernoulli_kl"]),
+    )
+
+
+def _validate_generated_cases(cases: list[dict], config: dict) -> None:
     if any(
         case["cbd_attainment_status"] == "SCIENTIFIC_DOMAIN_UNRESOLVED"
         for case in cases
@@ -590,14 +582,139 @@ def generate_kl_controlled_departure_design(
             "generated KL design contains domain-unresolved cases"
         )
     if any(
-        case["mean_kl_error"]
+        float(case["mean_kl_error"])
         > float(config["integrity_tolerances"]["target_mean_kl_error"])
         for case in cases
     ):
         raise KLControlledDepartureGenerationError(
             "generated KL design exceeds target tolerance"
         )
+    for case in cases:
+        if (
+            case["axis"]
+            == DepartureAxis.STANDALONE_ACCURACY_MAIN_EFFECT.value
+            and not bool(case["add_compatibility_pass"])
+        ):
+            raise KLControlledDepartureGenerationError(
+                "standalone KL design contains an ADD-incompatible case"
+            )
 
+
+def generate_kl_controlled_departure_partition(
+    config: dict,
+    review_config: dict,
+    historical_departure_config: dict,
+    *,
+    axis_name: str,
+    anchor_id: str,
+) -> dict:
+    _validate_config(config, review_config)
+    axis = DepartureAxis(str(axis_name))
+    anchors = _anchor_block_for_axis(axis, config)
+    if anchor_id not in anchors:
+        raise ValueError(
+            f"anchor {anchor_id} is incompatible with axis {axis.value}"
+        )
+    parameters = tuple(float(value) for value in anchors[anchor_id])
+
+    cases: list[dict] = []
+    for sign in (-1, 1):
+        for target in config["target_mean_bernoulli_kl"]:
+            cases.append(
+                solve_kl_controlled_departure_case(
+                    anchor_id=str(anchor_id),
+                    anchor_parameters=parameters,
+                    axis=axis,
+                    sign=sign,
+                    target_mean_kl=float(target),
+                    config=config,
+                    review_config=review_config,
+                    historical_departure_config=historical_departure_config,
+                )
+            )
+    if len(cases) != 6:
+        raise KLControlledDepartureGenerationError(
+            f"unexpected deterministic partition size: {len(cases)}"
+        )
+    _validate_generated_cases(cases, config)
+    return {
+        "design_id": str(config["design_id"]),
+        "status": "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V1_PARTITION",
+        "authoritative": False,
+        "partition": {
+            "axis": axis.value,
+            "anchor_id": str(anchor_id),
+        },
+        "case_count": len(cases),
+        "target_mean_bernoulli_kl": [
+            float(value)
+            for value in config["target_mean_bernoulli_kl"]
+        ],
+        "cases": cases,
+        "interpretation_boundary": (
+            "Execution-only deterministic partition of the frozen KL v1 "
+            "design. A partition is not a complete scientific result."
+        ),
+    }
+
+
+def combine_kl_controlled_departure_partitions(
+    partitions: list[dict],
+    config: dict,
+) -> dict:
+    if not partitions:
+        raise ValueError("at least one KL partition is required")
+
+    expected_keys = _expected_case_keys(config)
+    expected_key_set = set(expected_keys)
+    if len(expected_keys) != int(config["expected_case_count"]):
+        raise ValueError("frozen KL expected-case count is inconsistent")
+
+    cases: list[dict] = []
+    seen_partitions: set[tuple[str, str]] = set()
+    for partition in partitions:
+        if partition["design_id"] != str(config["design_id"]):
+            raise ValueError("KL partition design_id mismatch")
+        if (
+            partition["status"]
+            != "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V1_PARTITION"
+        ):
+            raise ValueError("unsupported KL partition status")
+        if partition["authoritative"] is not False:
+            raise ValueError("KL partition cannot be authoritative")
+        if partition["target_mean_bernoulli_kl"] != [
+            float(value)
+            for value in config["target_mean_bernoulli_kl"]
+        ]:
+            raise ValueError("KL partition target grid mismatch")
+        selector = (
+            str(partition["partition"]["axis"]),
+            str(partition["partition"]["anchor_id"]),
+        )
+        if selector in seen_partitions:
+            raise ValueError(f"duplicate KL execution partition: {selector}")
+        seen_partitions.add(selector)
+        cases.extend(partition["cases"])
+
+    keys = [_case_key(case) for case in cases]
+    if len(keys) != len(set(keys)):
+        raise ValueError("duplicate scientific KL case across partitions")
+    actual_key_set = set(keys)
+    if actual_key_set != expected_key_set:
+        missing = [
+            key for key in expected_keys if key not in actual_key_set
+        ]
+        extra = [
+            key for key in keys if key not in expected_key_set
+        ]
+        raise ValueError(
+            "KL partition coverage is incomplete or invalid "
+            f"(missing={missing}, extra={extra})"
+        )
+
+    _validate_generated_cases(cases, config)
+    order = {key: index for index, key in enumerate(expected_keys)}
+    cases = sorted(cases, key=lambda case: order[_case_key(case)])
     return {
         "design_id": str(config["design_id"]),
         "status": "NON_AUTHORITATIVE_KL_CONTROLLED_DEPARTURE_V1_RESULT",
@@ -608,6 +725,7 @@ def generate_kl_controlled_departure_design(
             for value in config["target_mean_bernoulli_kl"]
         ],
         "cases": cases,
+        "execution_partition_count": len(partitions),
         "interpretation_boundary": (
             "Deterministic KL-controlled synthetic departure geometry only. "
             "Exact information-divergence generation does not establish "
@@ -615,3 +733,29 @@ def generate_kl_controlled_departure_design(
             "human N, recruitment, or runtime F1b."
         ),
     }
+
+
+def generate_kl_controlled_departure_design(
+    config: dict,
+    review_config: dict,
+    historical_departure_config: dict,
+) -> dict:
+    _validate_config(config, review_config)
+    partitions: list[dict] = []
+    for axis_name in config["departure_axes"]:
+        axis = DepartureAxis(str(axis_name))
+        anchors = _anchor_block_for_axis(axis, config)
+        for anchor_id in anchors:
+            partitions.append(
+                generate_kl_controlled_departure_partition(
+                    config,
+                    review_config,
+                    historical_departure_config,
+                    axis_name=axis.value,
+                    anchor_id=str(anchor_id),
+                )
+            )
+    return combine_kl_controlled_departure_partitions(
+        partitions,
+        config,
+    )

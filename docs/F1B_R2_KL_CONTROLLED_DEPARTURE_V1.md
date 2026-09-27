@@ -152,6 +152,39 @@ Tests cover:
 
 The full deterministic grid is executed only after this implementation is integrated.
 
+## Deterministic execution partitioning
+
+The full 36-case execution may be partitioned only by the independent
+axis×anchor scientific blocks:
+
+- standalone × CBD_ADD_INTERSECTION_ANCHOR_1;
+- standalone × CBD_ADD_INTERSECTION_ANCHOR_2;
+- complement × CBD_ANCHOR_1;
+- complement × CBD_ANCHOR_2;
+- combined × CBD_ANCHOR_1;
+- combined × CBD_ANCHOR_2.
+
+Each partition contains exactly:
+
+- both signs;
+- all three frozen KL targets;
+- 6 cases total.
+
+A partition is execution infrastructure only, not a scientific result.
+
+The combiner fails closed on:
+
+- duplicate partitions;
+- duplicate scientific case keys;
+- missing or extra axis/anchor/sign/target cells;
+- target-grid mismatch;
+- domain-unresolved cases;
+- target-error violations;
+- standalone ADD incompatibility.
+
+Only a complete 36/36 union becomes the retained deterministic KL design
+result.
+
 ## Next gate
 
 After this implementation passes CI and is merged:
