@@ -76,3 +76,51 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  execute_f1b_r2_kl_minus_drift_context:
+    name: KL minus drift context (${{ matrix.ray_id }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - ray_id: A1_MINUS
+            anchor: CBD_ANCHOR_1
+          - ray_id: A2_MINUS
+            anchor: CBD_ANCHOR_2
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "bf4e0184da867f1b2df4f27e8d9eaaa7d7871c7d"
+      RAY_ID: ${{ matrix.ray_id }}
+      KL_ANCHOR: ${{ matrix.anchor }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Execute unchanged minus envelope until frozen guard
+        run: |
+          python scripts/run_f1b_r2_kl_complement_envelope.py \
+            --anchor "$KL_ANCHOR" \
+            --sign -1 \
+            --output "/tmp/f1b-r2-kl-minus-${RAY_ID}.json" \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+
+      - name: Upload result only if complete
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-kl-minus-${{ matrix.ray_id }}
+          path: /tmp/f1b-r2-kl-minus-${{ matrix.ray_id }}.json
+          if-no-files-found: error
