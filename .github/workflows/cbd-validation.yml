@@ -76,3 +76,191 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  execute_f1b_r2_broad_characterization:
+    name: F1b R2 broad 49x20 (${{ matrix.shard_id }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - shard_id: R00_04
+            replicate_indices: '0-4'
+          - shard_id: R05_09
+            replicate_indices: '5-9'
+          - shard_id: R10_14
+            replicate_indices: '10-14'
+          - shard_id: R15_19
+            replicate_indices: '15-19'
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "1f44579628e63c69714d90549e4fd39aa74dc5ab"
+      REPLICATE_INDICES: ${{ matrix.replicate_indices }}
+      SHARD_ID: ${{ matrix.shard_id }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Execute frozen replicate partition
+        run: |
+          python scripts/run_f1b_r2_bootstrap_characterization.py \
+            --config model/benchmarks/f1b_r2_broad_departure_characterization_49x20.json \
+            --departure-config model/benchmarks/f1b_r2_controlled_departure_design.json \
+            --replicate-indices "$REPLICATE_INDICES" \
+            --output "/tmp/f1b-r2-broad-${SHARD_ID}.json" \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path(f"/tmp/f1b-r2-broad-{os.environ['SHARD_ID']}.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          assert data["authoritative"] is False
+          assert data["departure_case_count"] == 36
+          assert data["trial_count"] == 375
+          assert len(data["execution_replicate_indices"]) == 5
+          summary = {
+              "shard_id": os.environ["SHARD_ID"],
+              "replicate_indices": data["execution_replicate_indices"],
+              "trial_count": data["trial_count"],
+              "aggregate_rows": len(data["aggregate"]),
+              "fit_failures": sum(x["fit_failure_count"] for x in data["aggregate"]),
+              "calibration_failures": sum(
+                  x["bootstrap_calibration_failure_count"] for x in data["aggregate"]
+              ),
+          }
+          print("F1B_R2_BROAD_SHARD_SUMMARY=" + json.dumps(summary, sort_keys=True))
+          PY
+
+      - name: Upload exact partition result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-broad-${{ matrix.shard_id }}
+          path: /tmp/f1b-r2-broad-${{ matrix.shard_id }}.json
+          if-no-files-found: error
+
+  combine_f1b_r2_broad_characterization:
+    name: F1b R2 broad 49x20 combined
+    needs: execute_f1b_r2_broad_characterization
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "1f44579628e63c69714d90549e4fd39aa74dc5ab"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download exact partition results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: f1b-r2-broad-R*
+          path: /tmp/parts
+          merge-multiple: true
+
+      - name: Combine and validate complete scientific result
+        run: |
+          python scripts/combine_f1b_r2_bootstrap_characterization_partitions.py \
+            --partition /tmp/parts/f1b-r2-broad-R00_04.json \
+            --partition /tmp/parts/f1b-r2-broad-R05_09.json \
+            --partition /tmp/parts/f1b-r2-broad-R10_14.json \
+            --partition /tmp/parts/f1b-r2-broad-R15_19.json \
+            --output /tmp/f1b-r2-broad-combined.json
+          python - <<'PY'
+          import json
+          from collections import defaultdict
+          from pathlib import Path
+
+          data = json.loads(
+              Path("/tmp/f1b-r2-broad-combined.json").read_text(encoding="utf-8")
+          )
+          assert data["authoritative"] is False
+          assert data["departure_case_count"] == 36
+          assert data["trial_count"] == 1500
+          assert data["execution_replicate_indices"] == list(range(20))
+          assert len(data["aggregate"]) == 75
+
+          rows = data["aggregate"]
+          fit_failures = sum(x["fit_failure_count"] for x in rows)
+          calibration_failures = sum(
+              x["bootstrap_calibration_failure_count"] for x in rows
+          )
+
+          nulls = [
+              {
+                  "identity": x["identity"],
+                  "rejections": x["rejections"],
+                  "successful_tests": x["successful_tests"],
+                  "wilson": x["rejection_wilson_95_all_replicates"],
+              }
+              for x in rows
+              if x["identity_type"] == "NULL"
+          ]
+
+          standalone = [
+              x for x in rows
+              if x["role"] == "ADD_SPECIFICITY_NEGATIVE_CONTROL"
+          ]
+          standalone_summary = {
+              "cells": len(standalone),
+              "pooled_rejections": sum(x["rejections"] for x in standalone),
+              "pooled_trials": sum(x["evaluation_replicates"] for x in standalone),
+              "max_cell_rejections": max(x["rejections"] for x in standalone),
+          }
+
+          cbd_surface = []
+          for x in rows:
+              if x["role"] == "CBD_DEPARTURE_DETECTION":
+                  cbd_surface.append({
+                      "anchor": x["anchor_id"],
+                      "axis": x["axis"],
+                      "sign": x["sign"],
+                      "distance": x["requested_cbd_rms_distance"],
+                      "rejections": x["rejections"],
+                      "successful_tests": x["successful_tests"],
+                      "wilson": x["rejection_wilson_95_all_replicates"],
+                  })
+
+          print("F1B_R2_BROAD_COMBINED_SUMMARY_BEGIN")
+          print(json.dumps({
+              "trial_count": data["trial_count"],
+              "aggregate_rows": len(rows),
+              "fit_failures": fit_failures,
+              "calibration_failures": calibration_failures,
+              "nulls": nulls,
+              "standalone_add_specificity": standalone_summary,
+              "cbd_detection_surface": cbd_surface,
+              "provenance": data["provenance"],
+          }, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_BROAD_COMBINED_SUMMARY_END")
+          PY
+
+      - name: Upload exact combined result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-broad-combined
+          path: /tmp/f1b-r2-broad-combined.json
+          if-no-files-found: error
