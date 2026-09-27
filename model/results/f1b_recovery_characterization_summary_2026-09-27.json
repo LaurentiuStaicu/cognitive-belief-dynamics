@@ -1,0 +1,123 @@
+{
+  "aggregate": {
+    "R1": {
+      "HIERARCHICAL_0.5X": {
+        "cells": 18,
+        "cells_fit_failure_gt_0": 0,
+        "cells_recovery_ge_0_8": 3,
+        "cells_wrong_gt_0": 0,
+        "mean_fit_failure": 0.0,
+        "mean_inconclusive": 0.5925925925925926,
+        "mean_recovery": 0.40740740740740733,
+        "mean_wrong": 0.0
+      },
+      "HIERARCHICAL_1X": {
+        "cells": 18,
+        "cells_fit_failure_gt_0": 0,
+        "cells_recovery_ge_0_8": 2,
+        "cells_wrong_gt_0": 1,
+        "mean_fit_failure": 0.0,
+        "mean_inconclusive": 0.6111111111111112,
+        "mean_recovery": 0.37037037037037035,
+        "mean_wrong": 0.018518518518518517
+      },
+      "HIERARCHICAL_2X": {
+        "cells": 18,
+        "cells_fit_failure_gt_0": 0,
+        "cells_recovery_ge_0_8": 0,
+        "cells_wrong_gt_0": 1,
+        "mean_fit_failure": 0.0,
+        "mean_inconclusive": 0.8148148148148148,
+        "mean_recovery": 0.16666666666666666,
+        "mean_wrong": 0.018518518518518517
+      },
+      "POPULATION": {
+        "cells": 18,
+        "cells_fit_failure_gt_0": 0,
+        "cells_recovery_ge_0_8": 3,
+        "cells_wrong_gt_0": 1,
+        "mean_fit_failure": 0.0,
+        "mean_inconclusive": 0.4999999999999999,
+        "mean_recovery": 0.48148148148148145,
+        "mean_wrong": 0.018518518518518517
+      }
+    },
+    "R2": {
+      "HIERARCHICAL_0.5X": {
+        "cells": 18,
+        "cells_fit_failure_gt_0": 0,
+        "cells_recovery_ge_0_8": 0,
+        "cells_wrong_gt_0": 2,
+        "mean_fit_failure": 0.0,
+        "mean_inconclusive": 0.8888888888888888,
+        "mean_recovery": 0.07407407407407407,
+        "mean_wrong": 0.037037037037037035
+      },
+      "HIERARCHICAL_1X": {
+        "cells": 18,
+        "cells_fit_failure_gt_0": 0,
+        "cells_recovery_ge_0_8": 0,
+        "cells_wrong_gt_0": 2,
+        "mean_fit_failure": 0.0,
+        "mean_inconclusive": 0.8703703703703703,
+        "mean_recovery": 0.09259259259259259,
+        "mean_wrong": 0.037037037037037035
+      },
+      "HIERARCHICAL_2X": {
+        "cells": 18,
+        "cells_fit_failure_gt_0": 0,
+        "cells_recovery_ge_0_8": 0,
+        "cells_wrong_gt_0": 3,
+        "mean_fit_failure": 0.0,
+        "mean_inconclusive": 0.8333333333333334,
+        "mean_recovery": 0.1111111111111111,
+        "mean_wrong": 0.05555555555555555
+      },
+      "POPULATION": {
+        "cells": 18,
+        "cells_fit_failure_gt_0": 0,
+        "cells_recovery_ge_0_8": 0,
+        "cells_wrong_gt_0": 2,
+        "mean_fit_failure": 0.0,
+        "mean_inconclusive": 0.8703703703703703,
+        "mean_recovery": 0.09259259259259259,
+        "mean_wrong": 0.037037037037037035
+      }
+    }
+  },
+  "code_git_blob_shas": {
+    "f1b_hierarchical_recovery.py": "89899e90fec5bdf9ced3e052aec1aa7ef2b49d73",
+    "f1b_prehuman_recovery.py": "6b78dec5183e7f8ef8a2d4257c1a23f016a161a2",
+    "f1b_recovery_characterization.json": "050ad3b092bcbd23874708e7d58fba89327983a5",
+    "f1b_recovery_characterization.py": "87d8b2ea2be8e638864a85cb836c16d61583b0cf"
+  },
+  "decision": {
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "next_gate": "increase characterization replication/design resolution and compare a prospectively frozen marginal/Laplace inference route before any authoritative core-grid freeze",
+    "participant_recruitment_authorized": false,
+    "penalized_hierarchical_prototype_sufficient_for_authoritative_use": false,
+    "runtime_f1b_authorized": false
+  },
+  "design": {
+    "comparison_rows": 108,
+    "grid_result_rows": 144,
+    "hierarchical_scale_multipliers": [0.5,1.0,2.0],
+    "missingness_rates": [0.0,0.15],
+    "replicates_per_cell": 3,
+    "separation_regimes": ["WEAK","MODERATE","STRONG"]
+  },
+  "full_result_compressed_file": "model/results/f1b_recovery_characterization_result_2026-09-27.json.gz",
+  "full_result_sha256": "daae1845d3131b81090192bb691136f4aed8d4dddded5a1a1e12caa2a9cd07c1",
+  "key_findings": [
+    "No fit-failure cells were observed in R1 or R2 for population or hierarchical variants.",
+    "R1 remained mainly inconclusive; mean recovery was 0.4815 population, 0.4074 hierarchical 0.5x, 0.3704 at 1x, and 0.1667 at 2x.",
+    "R2 was overwhelmingly inconclusive for every inference variant; mean recovery ranged from 0.0741 to 0.1111.",
+    "Wrong-model selections occurred in a small number of cells, including recurrent AP-C moderate cells selecting AP-A.",
+    "The hierarchical prototype did not establish a robust advantage over population-level fitting under this small non-authoritative design.",
+    "Penalty-scale misspecification materially changes R1 recovery and inconclusive rates; 2x penalties substantially reduce R1 recovery."
+  ],
+  "result_id": "F1B.RECOVERY_CHARACTERIZATION.NONAUTHORITATIVE.2026-09-27",
+  "source_commit": "938f72789e883ff5e98c4edc58ffbf3ced84fc93",
+  "status": "NON_AUTHORITATIVE_CHARACTERIZATION_RESULT"
+}
