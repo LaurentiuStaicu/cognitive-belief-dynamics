@@ -1,14 +1,18 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from math import sqrt
 
 import numpy as np
 
 from .f1b_hierarchical_recovery import RandomEffectScales
 from .f1b_prehuman_recovery import R2Family, simulate_r2_dataset
-from .f1b_r2_controlled_departures import generate_controlled_departure_design
+from .f1b_r2_controlled_departures import (
+    DepartureAxis,
+    generate_controlled_departure_design,
+    solve_departure_case,
+)
 from .f1b_r2_restriction_recovery import (
     BootstrapCalibrationError,
     R2Restriction,
@@ -197,6 +201,62 @@ def _filter_departure_cases(cases: list[dict], config: dict) -> list[dict]:
     if not filtered:
         raise ValueError("departure_case_filter removed all cases")
     return filtered
+
+
+def _departure_cases_for_config(
+    departure_config: dict,
+    config: dict,
+) -> list[dict]:
+    selector = config.get("departure_case_filter")
+    if selector is None:
+        return generate_controlled_departure_design(
+            departure_config
+        )["cases"]
+
+    axis_values = selector.get("axis")
+    anchor_values = selector.get("anchor_id")
+    sign_values = selector.get("sign")
+    distance_values = selector.get("requested_cbd_rms_distance")
+
+    if (
+        axis_values is None
+        or anchor_values is None
+        or sign_values is None
+        or distance_values is None
+    ):
+        generated = generate_controlled_departure_design(departure_config)
+        return _filter_departure_cases(generated["cases"], config)
+
+    cases: list[dict] = []
+    for axis_name in axis_values:
+        axis = DepartureAxis(axis_name)
+        anchor_block = (
+            departure_config["anchors"]["cbd_add_intersection"]
+            if axis is DepartureAxis.STANDALONE_ACCURACY_MAIN_EFFECT
+            else departure_config["anchors"]["cbd"]
+        )
+        for anchor_id in anchor_values:
+            if anchor_id not in anchor_block:
+                raise ValueError(
+                    "departure_case_filter anchor is incompatible with "
+                    f"axis {axis.value}: {anchor_id}"
+                )
+            parameters = tuple(float(x) for x in anchor_block[anchor_id])
+            for sign in sign_values:
+                for distance in distance_values:
+                    case = solve_departure_case(
+                        anchor_id=anchor_id,
+                        anchor_parameters=parameters,
+                        axis=axis,
+                        sign=int(sign),
+                        target_distance=float(distance),
+                        config=departure_config,
+                    )
+                    cases.append(asdict(case))
+
+    if not cases:
+        raise ValueError("departure_case_filter generated no cases")
+    return cases
 
 
 def _trial_from_result(
@@ -432,8 +492,10 @@ def run_bootstrap_characterization(
     if any(value <= 0 for value in draw_grid + replicate_grid):
         raise ValueError("draw/replicate grid values must be positive")
 
-    generated = generate_controlled_departure_design(departure_config)
-    departure_cases = _filter_departure_cases(generated["cases"], config)
+    departure_cases = _departure_cases_for_config(
+        departure_config,
+        config,
+    )
     trials: list[CharacterizationTrial] = []
     master_seed = int(config["seed"])
 
