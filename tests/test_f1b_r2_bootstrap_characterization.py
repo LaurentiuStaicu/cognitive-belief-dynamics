@@ -1,9 +1,13 @@
 from __future__ import annotations
 
+import copy
 import json
 from pathlib import Path
 
+import pytest
+
 from cognitive_epistemic_model.calibration.f1b_r2_bootstrap_characterization import (
+    combine_bootstrap_characterization_partitions,
     run_bootstrap_characterization,
     wilson_interval,
 )
@@ -92,3 +96,84 @@ def test_standalone_accuracy_smoke_case_is_add_specificity_negative_control() ->
     # With only two bootstrap draws, plus-one p cannot be <= 0.05.
     if not row["fit_failure"] and not row["bootstrap_calibration_failure"]:
         assert row["rejected"] is False
+
+
+
+def test_replicate_partitions_recombine_to_monolithic_scientific_result() -> None:
+    config = copy.deepcopy(load(SMOKE))
+    config["evaluation_replicate_grid"] = [2]
+    departures = load(DEPARTURES)
+
+    full = run_bootstrap_characterization(config, departures)
+    first = run_bootstrap_characterization(
+        config,
+        departures,
+        replicate_indices=(0,),
+    )
+    second = run_bootstrap_characterization(
+        config,
+        departures,
+        replicate_indices=(1,),
+    )
+    combined = combine_bootstrap_characterization_partitions(
+        [first, second]
+    )
+
+    assert full["execution_replicate_indices"] is None
+    assert first["execution_replicate_indices"] == [0]
+    assert second["execution_replicate_indices"] == [1]
+    assert combined["execution_replicate_indices"] == [0, 1]
+    assert combined["trial_count"] == full["trial_count"]
+    assert combined["aggregate"] == full["aggregate"]
+
+    full_trials = sorted(
+        full["trials"],
+        key=lambda trial: (
+            trial["bootstrap_draws"],
+            trial["identity_type"],
+            trial["identity"],
+            trial["restriction"],
+            trial["evaluation_replicate"],
+        ),
+    )
+    assert combined["trials"] == full_trials
+
+
+def test_partition_combiner_rejects_overlap_and_missing_coverage() -> None:
+    config = copy.deepcopy(load(SMOKE))
+    config["evaluation_replicate_grid"] = [2]
+    departures = load(DEPARTURES)
+    first = run_bootstrap_characterization(
+        config,
+        departures,
+        replicate_indices=(0,),
+    )
+    second = run_bootstrap_characterization(
+        config,
+        departures,
+        replicate_indices=(1,),
+    )
+
+    with pytest.raises(ValueError, match="overlap"):
+        combine_bootstrap_characterization_partitions([first, first])
+
+    with pytest.raises(ValueError, match="coverage is incomplete"):
+        combine_bootstrap_characterization_partitions([first])
+
+    assert (
+        combine_bootstrap_characterization_partitions([second, first])[
+            "aggregate"
+        ]
+        == run_bootstrap_characterization(config, departures)["aggregate"]
+    )
+
+
+def test_partitioning_requires_one_declared_evaluation_count() -> None:
+    config = copy.deepcopy(load(SMOKE))
+    config["evaluation_replicate_grid"] = [1, 2]
+    with pytest.raises(ValueError, match="requires one evaluation"):
+        run_bootstrap_characterization(
+            config,
+            load(DEPARTURES),
+            replicate_indices=(0,),
+        )
