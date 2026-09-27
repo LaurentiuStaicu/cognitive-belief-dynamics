@@ -237,6 +237,20 @@ def test_draw_counts_and_restrictions_share_one_departure_dataset(
     assert result["restriction_run_count"] == 75
     assert result["snapshot_count"] == 225
     assert result["pair_comparison_count"] == 225
+    assert all(
+        run["dataset_id"].startswith(
+            config["characterization_id"] + "|"
+        )
+        for run in result["restriction_runs"]
+    )
+    assert any(
+        "|NULL|" in run["dataset_id"]
+        for run in result["restriction_runs"]
+    )
+    assert any(
+        "|V2|" in run["dataset_id"]
+        for run in result["restriction_runs"]
+    )
 
     departure_groups: dict[str, list[dict]] = {}
     for run in result["restriction_runs"]:
