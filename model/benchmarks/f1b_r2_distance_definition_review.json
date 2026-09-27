@@ -1,0 +1,76 @@
+{
+  "review_id": "F1B.R2.SCIENTIFIC_NEAREST_CBD_DISTANCE_DEFINITION_REVIEW.2026-09-27",
+  "status": "NON_AUTHORITATIVE_R2_DISTANCE_DEFINITION_REVIEW_DESIGN",
+  "baseline_main_commit": "895b62e61483043c5c9eb6824c7deac1971fb14f",
+  "issue": 171,
+  "retained_cases_path": "model/results/f1b_r2_complement_sign_geometry_case_summary_2026-09-27.tsv",
+  "source_departure_design": "model/benchmarks/f1b_r2_controlled_departure_design.json",
+  "source_bound_sensitivity_design": "model/benchmarks/f1b_r2_projection_bound_sensitivity.json",
+  "selected_axis": "COMPLEMENT_RELATION_VIOLATION",
+  "expected_case_count": 12,
+  "expected_cells_per_case": 18,
+  "design_weighting": {
+    "type": "UNIFORM_OVER_FROZEN_CELLS",
+    "weight_per_cell": 0.05555555555555555
+  },
+  "candidates": [
+    {
+      "id": "STABILIZED_UTILITY_RMS",
+      "objective": "MEAN_SQUARED_LOGIT_DIFFERENCE",
+      "reported_distance": "SQRT_OBJECTIVE"
+    },
+    {
+      "id": "PROBABILITY_RMS",
+      "objective": "MEAN_SQUARED_BERNOULLI_PROBABILITY_DIFFERENCE",
+      "reported_distance": "SQRT_OBJECTIVE"
+    },
+    {
+      "id": "BERNOULLI_KL_GENERAL_TO_CBD",
+      "objective": "MEAN_CELLWISE_KL_BERNOULLI_GENERAL_TO_CBD",
+      "reported_distance": "OBJECTIVE_AND_SQRT_2_OBJECTIVE_DIAGNOSTIC"
+    }
+  ],
+  "local_information_metric": {
+    "status": "DIAGNOSTIC_ONLY_NOT_GLOBAL_CANDIDATE",
+    "formula": "sqrt(mean(p_cbd*(1-p_cbd)*(eta_general-eta_cbd)^2))"
+  },
+  "diagnostic_domain_multipliers": [
+    8,
+    16,
+    32
+  ],
+  "optimization": {
+    "method": "L-BFGS-B",
+    "maxiter": 1500,
+    "ftol": 1e-15,
+    "maxls": 80,
+    "include_original_seven_starts": true,
+    "include_retained_current_solution": true,
+    "include_reconstructed_wide_8x_solution": true
+  },
+  "numerical_integrity": {
+    "nested_objective_tolerance": 1e-10,
+    "bound_activity_tolerance": 0.00001,
+    "zero_surface_tolerance": 1e-10
+  },
+  "comparison_rules": {
+    "do_not_select_by_historical_detection": true,
+    "do_not_require_sign_symmetry": true,
+    "retain_candidate_projection_pairwise_probability_rms": true,
+    "retain_plus_minus_ratios": true
+  },
+  "execution_boundary": {
+    "stochastic_simulation_allowed": false,
+    "model_fitting_allowed": false,
+    "bootstrap_allowed": false,
+    "operational_fitter_bounds_change_allowed": false,
+    "historical_departure_regeneration_allowed": false,
+    "metric_selection_authorized": false,
+    "authoritative_bootstrap_draws_frozen": false,
+    "authoritative_evaluation_replicates_frozen": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
