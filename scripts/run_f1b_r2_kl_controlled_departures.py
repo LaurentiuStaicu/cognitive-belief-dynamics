@@ -8,6 +8,7 @@ from pathlib import Path
 
 from cognitive_epistemic_model.calibration.f1b_r2_kl_controlled_departures import (
     generate_kl_controlled_departure_design,
+    generate_kl_controlled_departure_partition,
 )
 
 
@@ -51,7 +52,19 @@ def main() -> int:
     )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--source-commit", default=None)
+    parser.add_argument(
+        "--axis",
+        default=None,
+        help="Execution-only KL partition axis; requires --anchor.",
+    )
+    parser.add_argument(
+        "--anchor",
+        default=None,
+        help="Execution-only KL partition anchor; requires --axis.",
+    )
     args = parser.parse_args()
+    if (args.axis is None) != (args.anchor is None):
+        parser.error("--axis and --anchor must be supplied together")
 
     config = json.loads(args.config.read_text(encoding="utf-8"))
     review_config = json.loads(
@@ -60,11 +73,20 @@ def main() -> int:
     historical_config = json.loads(
         args.historical_departure_config.read_text(encoding="utf-8")
     )
-    result = generate_kl_controlled_departure_design(
-        config,
-        review_config,
-        historical_config,
-    )
+    if args.axis is None:
+        result = generate_kl_controlled_departure_design(
+            config,
+            review_config,
+            historical_config,
+        )
+    else:
+        result = generate_kl_controlled_departure_partition(
+            config,
+            review_config,
+            historical_config,
+            axis_name=str(args.axis),
+            anchor_id=str(args.anchor),
+        )
     result["provenance"] = {
         "source_commit": args.source_commit or git_head(),
         "config_path": str(args.config),
