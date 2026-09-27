@@ -284,7 +284,9 @@ def test_closure_projection_identifies_nonattained_boundary_surface(
         departure_config=departure_config,
     )
     selected = result["selected_widest_domain"]
-    assert selected["objective"] < 1e-12
+    assert selected["objective"] < config["numerical_integrity"][
+        "zero_surface_tolerance"
+    ]
     assert result["attainment_status"] == "NON_ATTAINED_OR_CLOSURE_LIMIT"
     assert "W0=HIGH" in result["closure_boundary_components"]
 
