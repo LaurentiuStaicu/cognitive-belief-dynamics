@@ -1,6 +1,6 @@
 # F1b R2 Scientific Nearest-CBD Distance Definition Review
 
-Status: **FROZEN / NOT EXECUTED / DETERMINISTIC / NON-AUTHORITATIVE**
+Status: **FROZEN / DETERMINISTIC / NON-AUTHORITATIVE / CLOSURE-ATTAINMENT DIAGNOSTIC REQUIRED**
 
 Issue: #171  
 Baseline: `895b62e61483043c5c9eb6824c7deac1971fb14f`
@@ -83,6 +83,42 @@ No candidate becomes scientifically preferred merely because it is easier to opt
 The Bernoulli KL objective is evaluated from probabilities for the fixed generator and log-probabilities derived stably from the CBD logits.
 
 This avoids turning arbitrary probability clipping into part of the distance definition.
+
+## Closure / attainment diagnostic
+
+Finite CBD logit parameters imply two response-surface weights:
+
+- `W0 = logistic(baseline_logit)`;
+- `W1 = logistic(baseline_logit + beta_accuracy)`;
+
+with `W0,W1 ∈ (0,1)`.
+
+For the binary accuracy-cue design, the same CBD response surface can be written directly in coordinates:
+
+`(sharing_bias, W0, W1, beta_reward)`.
+
+The deterministic review therefore also optimizes every unchanged D1/D2/D3 objective over the closed surface-coordinate domain:
+
+`W0,W1 ∈ [0,1]`.
+
+This is a diagnostic of existence/attainment, not a fourth distance definition and not a change to the operational fitter.
+
+For each candidate the review compares:
+
+- the widest finite-logit projection;
+- the direct closed-surface projection;
+- objective difference;
+- probability-RMS difference between the two selected CBD surfaces;
+- active `W0/W1` closure boundaries;
+- active sharing-bias/reward diagnostic-domain boundaries.
+
+Interpretation:
+
+- interior `W0,W1` with no remaining scientific-domain activity → `FINITE_INTERIOR_ATTAINED`;
+- selected `W0=0/1` or `W1=0/1` → `NON_ATTAINED_OR_CLOSURE_LIMIT`, because that exact surface requires an infinite logit coordinate;
+- active sharing-bias or reward boundary at the widest diagnostic domain → `SCIENTIFIC_DOMAIN_UNRESOLVED`.
+
+A numerically stable objective alone is not sufficient to claim finite attainment if the parameter sequence approaches the closure of the response-surface family.
 
 ## Required outputs
 
