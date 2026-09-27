@@ -26,7 +26,7 @@ def git_head() -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Generate deterministic F1b R2 KL-controlled departure design v1."
+            "Generate a frozen deterministic F1b R2 KL-controlled departure design."
         )
     )
     parser.add_argument(
