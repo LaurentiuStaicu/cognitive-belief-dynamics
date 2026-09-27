@@ -757,8 +757,19 @@ def _project_candidate(
     for multiplier_raw in config["diagnostic_domain_multipliers"]:
         multiplier = float(multiplier_raw)
         bounds = _scaled_bounds(departure_config, multiplier)
-        records: list[dict] = []
 
+        def objective(parameters: np.ndarray) -> float:
+            return _objective_value(
+                candidate_id,
+                parameters=parameters,
+                eta_general=eta_general,
+                p_general=p_general,
+                belief=belief,
+                accuracy=accuracy,
+                reward=reward,
+            )
+
+        records: list[dict] = []
         for start_index, start in enumerate(starts):
             x0 = np.asarray(start, dtype=float)
             if x0.shape != (4,):
@@ -770,15 +781,7 @@ def _project_candidate(
                     )
 
             result = minimize(
-                lambda parameters: _objective_value(
-                    candidate_id,
-                    parameters=parameters,
-                    eta_general=eta_general,
-                    p_general=p_general,
-                    belief=belief,
-                    accuracy=accuracy,
-                    reward=reward,
-                ),
+                objective,
                 x0=x0,
                 method=str(optimization["method"]),
                 bounds=bounds,
@@ -788,7 +791,7 @@ def _project_candidate(
                     "maxls": int(optimization["maxls"]),
                 },
             )
-            objective = (
+            result_objective = (
                 float(result.fun) if np.isfinite(result.fun) else None
             )
             parameters = (
@@ -799,31 +802,176 @@ def _project_candidate(
             records.append(
                 {
                     "start_index": int(start_index),
+                    "start_source": "FROZEN_COMMON_START",
+                    "optimized": True,
                     "initial_parameters": [float(x) for x in x0],
                     "success": bool(result.success),
                     "status": int(result.status),
                     "message": str(result.message),
-                    "objective": objective,
+                    "objective": result_objective,
                     "parameters": parameters,
                 }
             )
 
-        successful = [
+        continuation: dict = {
+            "enabled": False,
+            "previous_domain_multiplier": None,
+            "previous_selected_objective": None,
+            "carried_feasible_objective": None,
+            "carried_minus_previous_objective": None,
+            "optimized_continuation_objective": None,
+            "raw_best_optimized_objective": None,
+            "raw_apparent_nested_increase": None,
+            "carry_forward_selected": False,
+        }
+        if domain_results:
+            previous_domain = domain_results[-1]
+            previous_parameters = np.asarray(
+                previous_domain["selected_parameters"],
+                dtype=float,
+            )
+            if any(
+                not float(low) <= float(value) <= float(high)
+                for value, (low, high) in zip(
+                    previous_parameters,
+                    bounds,
+                    strict=True,
+                )
+            ):
+                raise ValueError(
+                    "previous finite-logit solution is not feasible "
+                    "in wider domain"
+                )
+
+            previous_objective = float(previous_domain["objective"])
+            carried_objective = float(objective(previous_parameters))
+            carried_index = len(starts)
+            records.append(
+                {
+                    "start_index": int(carried_index),
+                    "start_source": "PREVIOUS_DOMAIN_SELECTED_FEASIBLE",
+                    "optimized": False,
+                    "initial_parameters": [
+                        float(x) for x in previous_parameters
+                    ],
+                    "success": True,
+                    "status": 0,
+                    "message": (
+                        "exact feasible carry-forward candidate; "
+                        "no optimization performed"
+                    ),
+                    "objective": carried_objective,
+                    "parameters": [
+                        float(x) for x in previous_parameters
+                    ],
+                }
+            )
+
+            continuation_result = minimize(
+                objective,
+                x0=previous_parameters,
+                method=str(optimization["method"]),
+                bounds=bounds,
+                options={
+                    "maxiter": int(optimization["maxiter"]),
+                    "ftol": float(optimization["ftol"]),
+                    "maxls": int(optimization["maxls"]),
+                },
+            )
+            continuation_objective = (
+                float(continuation_result.fun)
+                if np.isfinite(continuation_result.fun)
+                else None
+            )
+            continuation_parameters = (
+                [float(x) for x in continuation_result.x]
+                if np.all(np.isfinite(continuation_result.x))
+                else None
+            )
+            records.append(
+                {
+                    "start_index": int(carried_index + 1),
+                    "start_source": (
+                        "PREVIOUS_DOMAIN_CONTINUATION_OPTIMIZED"
+                    ),
+                    "optimized": True,
+                    "initial_parameters": [
+                        float(x) for x in previous_parameters
+                    ],
+                    "success": bool(continuation_result.success),
+                    "status": int(continuation_result.status),
+                    "message": str(continuation_result.message),
+                    "objective": continuation_objective,
+                    "parameters": continuation_parameters,
+                }
+            )
+            continuation.update(
+                {
+                    "enabled": True,
+                    "previous_domain_multiplier": float(
+                        previous_domain["domain_multiplier"]
+                    ),
+                    "previous_selected_objective": previous_objective,
+                    "carried_feasible_objective": carried_objective,
+                    "carried_minus_previous_objective": (
+                        carried_objective - previous_objective
+                    ),
+                    "optimized_continuation_objective": (
+                        continuation_objective
+                    ),
+                }
+            )
+
+        optimized_records = [
+            row for row in records if bool(row["optimized"])
+        ]
+        successful_optimized = [
+            row
+            for row in optimized_records
+            if row["success"]
+            and row["objective"] is not None
+            and row["parameters"] is not None
+        ]
+        feasible_candidates = [
             row
             for row in records
             if row["success"]
             and row["objective"] is not None
             and row["parameters"] is not None
         ]
-        if not successful:
+        if not successful_optimized:
             raise RuntimeError(
-                f"all starts failed for {candidate_id} at {multiplier}x"
+                f"all finite-logit optimizer starts failed for "
+                f"{candidate_id} at {multiplier}x"
+            )
+        if not feasible_candidates:
+            raise RuntimeError(
+                f"no feasible finite-logit candidate for "
+                f"{candidate_id} at {multiplier}x"
             )
 
-        selected = min(
-            successful,
+        raw_best_optimized = min(
+            successful_optimized,
             key=lambda row: float(row["objective"]),
         )
+        selected = min(
+            feasible_candidates,
+            key=lambda row: float(row["objective"]),
+        )
+        if continuation["enabled"]:
+            previous_objective = float(
+                continuation["previous_selected_objective"]
+            )
+            raw_best_objective = float(raw_best_optimized["objective"])
+            continuation["raw_best_optimized_objective"] = raw_best_objective
+            continuation["raw_apparent_nested_increase"] = (
+                raw_best_objective - previous_objective
+            )
+            continuation["carry_forward_selected"] = (
+                selected["start_source"]
+                == "PREVIOUS_DOMAIN_SELECTED_FEASIBLE"
+            )
+
         parameters = np.asarray(selected["parameters"], dtype=float)
         eta_cbd = cbd_utility(
             parameters,
@@ -841,9 +989,8 @@ def _project_candidate(
                 "bounds": [
                     [float(low), float(high)] for low, high in bounds
                 ],
-                "selected_start_index": int(
-                    selected["start_index"]
-                ),
+                "selected_start_index": int(selected["start_index"]),
+                "selected_start_source": str(selected["start_source"]),
                 "selected_parameters": [
                     float(x) for x in parameters
                 ],
@@ -857,8 +1004,12 @@ def _project_candidate(
                     bounds,
                     tolerance=tolerance,
                 ),
-                "successful_start_count": len(successful),
-                "failed_start_count": len(records) - len(successful),
+                "successful_start_count": len(successful_optimized),
+                "failed_start_count": (
+                    len(optimized_records) - len(successful_optimized)
+                ),
+                "feasible_candidate_count": len(feasible_candidates),
+                "nested_continuation": continuation,
                 "start_records": records,
                 "surface_metrics": metrics,
             }
@@ -921,7 +1072,6 @@ def _project_candidate(
         "domain_transitions": transitions,
         "selected_widest_domain": domain_results[-1],
     }
-
 
 def _sign_comparisons(case_results: list[dict]) -> list[dict]:
     grouped: dict[tuple[str, float], dict[int, dict]] = {}
