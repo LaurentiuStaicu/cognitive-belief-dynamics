@@ -742,6 +742,7 @@ def _project_candidate(
     starts: list[tuple[float, ...]],
     config: dict,
     departure_config: dict,
+    diagnostic_case_id: str | None = None,
 ) -> dict:
     p_general = expit(eta_general)
     optimization = config["optimization"]
@@ -868,12 +869,29 @@ def _project_candidate(
         domain_results[1:],
         strict=False,
     ):
-        if (
-            float(current["objective"])
-            > float(previous["objective"]) + nested_tolerance
-        ):
+        previous_objective = float(previous["objective"])
+        current_objective = float(current["objective"])
+        objective_increase = current_objective - previous_objective
+        if objective_increase > nested_tolerance:
             raise ValueError(
-                "nested candidate objective increased under wider domain"
+                "nested candidate objective increased under wider domain: "
+                f"case_id={diagnostic_case_id}; "
+                f"candidate_id={candidate_id}; "
+                f"from_multiplier={previous['domain_multiplier']}; "
+                f"to_multiplier={current['domain_multiplier']}; "
+                f"previous_objective={previous_objective:.17g}; "
+                f"current_objective={current_objective:.17g}; "
+                f"objective_increase={objective_increase:.17g}; "
+                f"nested_tolerance={nested_tolerance:.17g}; "
+                f"previous_parameters={previous['selected_parameters']}; "
+                f"current_parameters={current['selected_parameters']}; "
+                f"current_active_bounds={current['active_bounds']}; "
+                f"current_selected_start_index="
+                f"{current['selected_start_index']}; "
+                f"current_successful_start_count="
+                f"{current['successful_start_count']}; "
+                f"current_failed_start_count="
+                f"{current['failed_start_count']}"
             )
 
     transitions: list[dict] = []
@@ -1086,6 +1104,7 @@ def run_distance_definition_review(
                 starts=starts,
                 config=config,
                 departure_config=departure_config,
+                diagnostic_case_id=case_id,
             )
             widest = candidate["selected_widest_domain"]
             closure = _project_candidate_closure(
