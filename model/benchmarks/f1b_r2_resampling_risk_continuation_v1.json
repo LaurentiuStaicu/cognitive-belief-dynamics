@@ -32,7 +32,14 @@
     "historical_departure_config_sha256": "e5603e0115d98abbb2df549671592fda14818abb5e990a0b5afad8641e5a2a1e",
     "retained_stage_b_result_path": "model/results/f1b_r2_resampling_risk_replay_2026-09-27.json",
     "retained_stage_b_expected_unresolved_count": 224,
-    "retained_stage_b_expected_run_count": 750
+    "retained_stage_b_expected_run_count": 750,
+    "scientific_file_git_blob_sha": {
+      "src/cognitive_epistemic_model/calibration/f1b_r2_paired_bootstrap_characterization.py": "3f23fc9bfc87d9ff45e83f11a529e3f0793969f4",
+      "src/cognitive_epistemic_model/calibration/f1b_r2_restriction_recovery.py": "09291cc220aec5e1a557cdd697cb1257af2f233c",
+      "src/cognitive_epistemic_model/calibration/f1b_prehuman_recovery.py": "6b78dec5183e7f8ef8a2d4257c1a23f016a161a2",
+      "src/cognitive_epistemic_model/calibration/f1b_hierarchical_recovery.py": "89899e90fec5bdf9ced3e052aec1aa7ef2b49d73",
+      "src/cognitive_epistemic_model/calibration/f1b_r2_kl_controlled_departures.py": "e7e5233f4ab7427500835cb6484c1dd961abb54a"
+    }
   },
   "stage_c1": {
     "role": "EXACT_REGENERATION_QUALIFICATION_ONLY",
