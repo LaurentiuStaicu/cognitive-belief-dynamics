@@ -30,6 +30,27 @@ class BootstrapCalibrationError(RuntimeError):
 
 
 @dataclass(frozen=True)
+class RestrictionBootstrapPrefixSnapshot:
+    bootstrap_draws_requested: int
+    bootstrap_draws_successful: int
+    bootstrap_fit_failures: int
+    critical_value: float | None
+    p_value: float | None
+    rejected: bool | None
+    bootstrap_calibration_failure: bool
+
+
+@dataclass(frozen=True)
+class PairedRestrictionBootstrapResult:
+    restriction: R2Restriction
+    observed_statistic: float
+    bootstrap_attempt_statistics: tuple[float | None, ...]
+    snapshots: tuple[RestrictionBootstrapPrefixSnapshot, ...]
+    held_out_participant_delta: float
+    held_out_item_delta: float
+
+
+@dataclass(frozen=True)
 class RestrictionPairFit:
     restriction: R2Restriction
     restricted: R2HierarchicalFit
@@ -264,6 +285,135 @@ def held_out_predictive_deltas(
         )
     )
     return float(participant_delta), float(item_delta)
+
+
+def bootstrap_restriction_test_prefix_snapshots(
+    dataset: R2Dataset,
+    restriction: R2Restriction,
+    *,
+    scales: RandomEffectScales,
+    draw_counts: tuple[int, ...],
+    minimum_successful_draws_by_count: dict[int, int],
+    seed: int,
+    alpha: float = 0.05,
+) -> PairedRestrictionBootstrapResult:
+    """Run one nested bootstrap stream and retain prefix snapshots.
+
+    The bootstrap random stream is indexed only by the common seed,
+    restriction, and draw index. Increasing a requested prefix therefore
+    preserves every earlier bootstrap attempt exactly.
+    """
+    if not draw_counts:
+        raise ValueError("draw_counts must not be empty")
+    normalized = tuple(int(value) for value in draw_counts)
+    if tuple(sorted(set(normalized))) != normalized:
+        raise ValueError("draw_counts must be unique and strictly increasing")
+    if normalized[0] <= 0:
+        raise ValueError("draw_counts must be positive")
+    if not 0.0 < alpha < 1.0:
+        raise ValueError("alpha must lie in (0,1)")
+
+    thresholds: dict[int, int] = {}
+    for count in normalized:
+        if count not in minimum_successful_draws_by_count:
+            raise ValueError(
+                f"missing minimum successful bootstrap threshold for {count}"
+            )
+        minimum = int(minimum_successful_draws_by_count[count])
+        if not 1 <= minimum <= count:
+            raise ValueError(
+                "minimum successful bootstrap threshold must lie "
+                "inside its prefix"
+            )
+        thresholds[count] = minimum
+
+    observed = fit_restriction_pair(
+        dataset,
+        restriction,
+        scales=scales,
+    )
+    held_p_delta, held_i_delta = held_out_predictive_deltas(
+        dataset,
+        restriction,
+        scales=scales,
+    )
+
+    restriction_index = (
+        1 if restriction is R2Restriction.ADD else 2
+    )
+    attempts: list[float | None] = []
+    for draw in range(normalized[-1]):
+        rng = np.random.default_rng(
+            np.random.SeedSequence(
+                [int(seed), int(restriction_index), int(draw)]
+            )
+        )
+        bootstrap_dataset = simulate_exact_design_under_restriction(
+            dataset,
+            observed.restricted,
+            scales=scales,
+            rng=rng,
+        )
+        try:
+            pair = fit_restriction_pair(
+                bootstrap_dataset,
+                restriction,
+                scales=scales,
+            )
+        except (RuntimeError, ValueError, np.linalg.LinAlgError):
+            attempts.append(None)
+            continue
+        attempts.append(float(pair.statistic))
+
+    snapshots: list[RestrictionBootstrapPrefixSnapshot] = []
+    for count in normalized:
+        prefix = attempts[:count]
+        successful = [
+            float(value) for value in prefix if value is not None
+        ]
+        failures = count - len(successful)
+        if len(successful) < thresholds[count]:
+            snapshots.append(
+                RestrictionBootstrapPrefixSnapshot(
+                    bootstrap_draws_requested=count,
+                    bootstrap_draws_successful=len(successful),
+                    bootstrap_fit_failures=failures,
+                    critical_value=None,
+                    p_value=None,
+                    rejected=None,
+                    bootstrap_calibration_failure=True,
+                )
+            )
+            continue
+
+        stats = np.asarray(successful, dtype=float)
+        critical = float(
+            np.quantile(stats, 1.0 - alpha, method="higher")
+        )
+        p_value = float(
+            (1 + int(np.sum(stats >= observed.statistic)))
+            / (1 + stats.size)
+        )
+        snapshots.append(
+            RestrictionBootstrapPrefixSnapshot(
+                bootstrap_draws_requested=count,
+                bootstrap_draws_successful=int(stats.size),
+                bootstrap_fit_failures=failures,
+                critical_value=critical,
+                p_value=p_value,
+                rejected=bool(p_value <= alpha),
+                bootstrap_calibration_failure=False,
+            )
+        )
+
+    return PairedRestrictionBootstrapResult(
+        restriction=restriction,
+        observed_statistic=float(observed.statistic),
+        bootstrap_attempt_statistics=tuple(attempts),
+        snapshots=tuple(snapshots),
+        held_out_participant_delta=float(held_p_delta),
+        held_out_item_delta=float(held_i_delta),
+    )
 
 
 def bootstrap_restriction_test(

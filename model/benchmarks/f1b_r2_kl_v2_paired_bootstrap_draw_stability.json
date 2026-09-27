@@ -1,0 +1,156 @@
+{
+  "characterization_id": "F1B.R2.KL_V2.PAIRED_BOOTSTRAP_DRAW_STABILITY.2026-09-27",
+  "status": "NON_AUTHORITATIVE_R2_KL_V2_PAIRED_BOOTSTRAP_DESIGN",
+  "stage_role": "PAIRED_SAME_DATASET_DRAW_STABILITY_CHARACTERIZATION",
+  "issue": 206,
+  "baseline_main_commit": "cb86665da328c4ff51415cc6dcffef055577e3bd",
+  "seed": 2026092704,
+  "v2_design_config": "model/benchmarks/f1b_r2_kl_controlled_departure_design_v2.json",
+  "v2_qualification_result": "model/results/f1b_r2_kl_controlled_departure_v2_qualification_2026-09-27.json",
+  "review_config": "model/benchmarks/f1b_r2_distance_definition_review.json",
+  "historical_departure_config": "model/benchmarks/f1b_r2_controlled_departure_design.json",
+  "design": {
+    "participants": 24,
+    "items": 36,
+    "belief_B": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "accuracy_cue_A": [
+      0,
+      1
+    ],
+    "reward_context_R": [
+      -1,
+      0,
+      1
+    ],
+    "missingness_rate": 0
+  },
+  "random_effects": {
+    "participant_intercept_sd": 0.25,
+    "item_intercept_sd": 0.2,
+    "participant_reward_slope_sd": 0.1,
+    "item_reward_slope_sd": 0.1
+  },
+  "fit_scale_multiplier": 1,
+  "null_generators": {
+    "CBD_ANCHOR_1": [
+      -0.2,
+      -0.2,
+      1,
+      0.8
+    ],
+    "CBD_ANCHOR_2": [
+      -0.2,
+      0,
+      1.2,
+      1
+    ],
+    "ADD_ANCHOR": [
+      -0.2,
+      0.8,
+      0.25,
+      0.6
+    ]
+  },
+  "bootstrap": {
+    "draw_grid": [
+      49,
+      99,
+      199
+    ],
+    "alpha": 0.05,
+    "minimum_successful_draws_by_draw_count": {
+      "49": 45,
+      "99": 90,
+      "199": 180
+    },
+    "stream_contract": "ONE_199_ATTEMPT_STREAM_WITH_49_99_199_PREFIX_SNAPSHOTS",
+    "draw_grid_status": "PAIRED_DESIGN_SEARCH_NOT_AUTHORITATIVE"
+  },
+  "evaluation_replicates": 10,
+  "evaluation_replicates_status": "PAIRED_DRAW_STABILITY_DESIGN_SEARCH_ONLY",
+  "expected_departure_case_count": 36,
+  "expected_unique_datasets": 390,
+  "expected_restriction_runs": 750,
+  "expected_snapshot_count": 2250,
+  "expected_pair_comparison_count": 2250,
+  "execution_partition_plan": {
+    "partition_axis": "evaluation_replicate",
+    "scientific_total_evaluation_replicates": 10,
+    "shards": [
+      {
+        "id": "R00_01",
+        "replicate_indices": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "R02_03",
+        "replicate_indices": [
+          2,
+          3
+        ]
+      },
+      {
+        "id": "R04_05",
+        "replicate_indices": [
+          4,
+          5
+        ]
+      },
+      {
+        "id": "R06_07",
+        "replicate_indices": [
+          6,
+          7
+        ]
+      },
+      {
+        "id": "R08_09",
+        "replicate_indices": [
+          8,
+          9
+        ]
+      }
+    ],
+    "draw_count_sharding_forbidden": true,
+    "scientific_identity_sharding_forbidden": true
+  },
+  "pairing_contract": {
+    "dataset_seed_excludes_bootstrap_draw_count": true,
+    "dataset_seed_excludes_total_evaluation_count": true,
+    "dataset_seed_uses_stable_sha256_identity": true,
+    "departure_restrictions_share_dataset": true,
+    "bootstrap_seed_excludes_draw_count": true,
+    "bootstrap_prefixes_nested": true,
+    "python_hash_forbidden": true,
+    "dataset_fingerprint_required": true
+  },
+  "comparison_pairs": [
+    [
+      49,
+      99
+    ],
+    [
+      99,
+      199
+    ],
+    [
+      49,
+      199
+    ]
+  ],
+  "execution_boundary": {
+    "authoritative_bootstrap_draws_frozen": false,
+    "authoritative_evaluation_replicates_frozen": false,
+    "authoritative_power_validated": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
