@@ -103,6 +103,14 @@ def main() -> int:
         source["paired_exact_json_sha256"],
         "paired source",
     )
+    stage_b_blob = git_blob_sha(args.stage_b_result)
+    if stage_b_blob != str(source["retained_stage_b_result_git_blob_sha"]):
+        raise ValueError(
+            "retained Stage-B result blob mismatch: "
+            f"{stage_b_blob} != "
+            f"{source['retained_stage_b_result_git_blob_sha']}"
+        )
+
     verify_path_hash(
         args.paired_config,
         source["paired_config_sha256"],
