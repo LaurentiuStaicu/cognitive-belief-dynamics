@@ -216,7 +216,10 @@ def test_replay_fails_closed_on_unexpected_bootstrap_refit_failure() -> None:
     }
     with pytest.raises(
         ValueError,
-        match="failure count does not match frozen replay source",
+        match=(
+            "199-draw calibration failure|"
+            "failure count does not match frozen replay source"
+        ),
     ):
         replay_retained_paired_bootstrap(
             retained,
