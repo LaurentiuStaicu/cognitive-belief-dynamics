@@ -100,6 +100,50 @@ jobs:
           python -m pip install "pip==26.2.1"
           python -m pip install -c requirements/ci-py312-linux.lock.txt .
 
+      - name: Diagnose nested-domain numerical monotonicity
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          source = Path("model/benchmarks/f1b_r2_distance_definition_review.json")
+          config = json.loads(source.read_text(encoding="utf-8"))
+          config["numerical_integrity"]["nested_objective_tolerance"] = 1.0
+          target = Path("/tmp/f1b-r2-distance-definition-review-diagnostic.json")
+          target.write_text(
+              json.dumps(config, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          PY
+          python scripts/run_f1b_r2_distance_definition_review.py \
+            --config /tmp/f1b-r2-distance-definition-review-diagnostic.json \
+            --output /tmp/f1b-r2-distance-definition-review-diagnostic-result.json \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(
+              Path("/tmp/f1b-r2-distance-definition-review-diagnostic-result.json")
+              .read_text(encoding="utf-8")
+          )
+          positive = []
+          for case in data["case_results"]:
+              for candidate in case["candidate_results"]:
+                  for transition in candidate["domain_transitions"]:
+                      change = float(transition["objective_change"])
+                      if change > 0.0:
+                          positive.append({
+                              "case_id": case["case_id"],
+                              "candidate_id": candidate["candidate_id"],
+                              **transition,
+                          })
+          positive.sort(key=lambda row: row["objective_change"], reverse=True)
+          print("F1B_R2_NESTED_OBJECTIVE_POSITIVE_CHANGES_BEGIN")
+          print(json.dumps(positive, sort_keys=True, separators=(",", ":")))
+          print("F1B_R2_NESTED_OBJECTIVE_POSITIVE_CHANGES_END")
+          PY
+
       - name: Execute frozen deterministic distance-definition review
         run: |
           python scripts/run_f1b_r2_distance_definition_review.py \
