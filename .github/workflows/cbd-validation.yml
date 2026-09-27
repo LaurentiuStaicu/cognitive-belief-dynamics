@@ -76,3 +76,29 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+
+  measure_f1b_r2_finite_logit_nested_drift:
+    name: F1b R2 finite-logit drift context
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      SCIENTIFIC_SOURCE_COMMIT: "e623705f24dce27e74947acfeee95ab99ae26150"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Execute retained review until first finite-logit drift
+        run: |
+          python scripts/run_f1b_r2_distance_definition_review.py             --output /tmp/f1b-r2-distance-definition-review.json             --source-commit "$SCIENTIFIC_SOURCE_COMMIT"
