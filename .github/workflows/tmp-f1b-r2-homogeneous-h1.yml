@@ -112,12 +112,16 @@ jobs:
                   encoding="utf-8"
               )
           )
-          assert data["execution_replicate_count"] == 2
+          assert len(data["execution_replicate_indices"]) == 2
           assert data["unique_dataset_count"] == 78
           assert data["restriction_run_count"] == 150
           assert data["snapshot_count"] == 450
           assert data["pair_comparison_count"] == 450
-          assert data["fit_failure_count"] == 0
+          fit_failure_count = sum(
+              bool(run["fit_failure"])
+              for run in data["restriction_runs"]
+          )
+          assert fit_failure_count == 0
           print(
               "H1_SHARD="
               + json.dumps(
@@ -128,7 +132,7 @@ jobs:
                       "restriction_run_count": data["restriction_run_count"],
                       "snapshot_count": data["snapshot_count"],
                       "pair_comparison_count": data["pair_comparison_count"],
-                      "fit_failure_count": data["fit_failure_count"],
+                      "fit_failure_count": fit_failure_count,
                   },
                   sort_keys=True,
               )
@@ -198,12 +202,16 @@ jobs:
           source = json.loads(source_path.read_text(encoding="utf-8"))
 
           assert source["execution_replicate_indices"] == list(range(10))
-          assert source["execution_replicate_count"] == 10
+          assert len(source["execution_replicate_indices"]) == 10
           assert source["unique_dataset_count"] == 390
           assert source["restriction_run_count"] == 750
           assert source["snapshot_count"] == 2250
           assert source["pair_comparison_count"] == 2250
-          assert source["fit_failure_count"] == 0
+          fit_failure_count = sum(
+              bool(run["fit_failure"])
+              for run in source["restriction_runs"]
+          )
+          assert fit_failure_count == 0
 
           wrapper = {
               "lineage_id": "F1B.R2.HOMOGENEOUS_PAIRED_SOURCE.LINEAGE.V1",
@@ -230,7 +238,7 @@ jobs:
                   "restriction_run_count": source["restriction_run_count"],
                   "snapshot_count": source["snapshot_count"],
                   "pair_comparison_count": source["pair_comparison_count"],
-                  "fit_failure_count": source["fit_failure_count"],
+                  "fit_failure_count": fit_failure_count,
               },
               "generation_shards": source["provenance"][
                   "partition_files"
