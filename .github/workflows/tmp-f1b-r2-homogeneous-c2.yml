@@ -1,0 +1,267 @@
+name: TEMP F1b R2 homogeneous Stage C2
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  c2_shard:
+    name: C2 shard ${{ matrix.shard_index }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard_index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+      SHARD_INDEX: ${{ matrix.shard_index }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download qualified homogeneous H1 source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/h1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36401867007
+
+      - name: Download retained homogeneous H2 replay
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-stage-b-h2
+          path: /tmp/h2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36406702153
+
+      - name: Download passed homogeneous C1 result
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-c1-combined
+          path: /tmp/c1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36412794404
+
+      - name: Execute exact homogeneous C2 shard
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/run_f1b_r2_homogeneous_c2_continuation.py \
+            --paired-source /tmp/h1/f1b-r2-homogeneous-h1-combined.json \
+            --stage-b-raw /tmp/h2/f1b-r2-homogeneous-stage-b-h2.json \
+            --c1-combined /tmp/c1/f1b-r2-homogeneous-c1-combined.json \
+            --shard-index "$SHARD_INDEX" \
+            --output "/tmp/f1b-r2-homogeneous-c2-shard-${SHARD_INDEX}.json" \
+            2> >(tee "/tmp/f1b-r2-homogeneous-c2-core-${SHARD_INDEX}.log" >&2)
+
+      - name: Verify and annotate scientific-process OpenBLAS core
+        run: |
+          python - "$SHARD_INDEX" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          from cognitive_epistemic_model.calibration.f1b_r2_homogeneous_c2_continuation import (
+              annotate_partition_runtime_cores,
+              validate_c2_runtime_cores,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+          )
+
+          shard = int(sys.argv[1])
+          log_path = Path(
+              f"/tmp/f1b-r2-homogeneous-c2-core-{shard}.log"
+          )
+          result_path = Path(
+              f"/tmp/f1b-r2-homogeneous-c2-shard-{shard}.json"
+          )
+          cores = parse_openblas_verbose_cores(
+              log_path.read_text(encoding="utf-8", errors="replace")
+          )
+          validate_c2_runtime_cores(cores)
+
+          data = json.loads(result_path.read_text(encoding="utf-8"))
+          annotate_partition_runtime_cores(data, cores)
+          result_path.write_text(
+              json.dumps(data, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          Path(
+              f"/tmp/f1b-r2-homogeneous-c2-core-{shard}.json"
+          ).write_text(
+              json.dumps(
+                  {
+                      "shard_index": shard,
+                      "reported_cores": list(cores),
+                      "all_cores_qualified": True,
+                  },
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          print("C2_RUNTIME_CORES=" + json.dumps(list(cores)))
+          PY
+
+      - name: Summarize C2 shard
+        run: |
+          python - "$SHARD_INDEX" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          shard = int(sys.argv[1])
+          data = json.loads(
+              Path(
+                  f"/tmp/f1b-r2-homogeneous-c2-shard-{shard}.json"
+              ).read_text(encoding="utf-8")
+          )
+          rows = data["rows"]
+          summary = {
+              "shard_index": shard,
+              "continued_run_count": len(rows),
+              "resolved_count": sum(
+                  row["decision"] is not None for row in rows
+              ),
+              "refit_failure_count": sum(
+                  row["status"] == "BOOTSTRAP_REFIT_FAILURE_UNRESOLVED"
+                  for row in rows
+              ),
+              "unresolved_at_cap_count": sum(
+                  row["status"] == "SEQUENTIAL_UNRESOLVED_AT_CAP"
+                  for row in rows
+              ),
+              "new_attempt_count": sum(
+                  int(row["new_attempt_count"]) for row in rows
+              ),
+              "new_successful_fit_count": sum(
+                  int(row["new_successful_fit_count"]) for row in rows
+              ),
+          }
+          print("C2_SHARD_SUMMARY=" + json.dumps(summary, sort_keys=True))
+          PY
+
+      - name: Upload C2 shard evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-c2-shard-${{ matrix.shard_index }}
+          path: |
+            /tmp/f1b-r2-homogeneous-c2-shard-${{ matrix.shard_index }}.json
+            /tmp/f1b-r2-homogeneous-c2-core-${{ matrix.shard_index }}.json
+            /tmp/f1b-r2-homogeneous-c2-core-${{ matrix.shard_index }}.log
+          if-no-files-found: warn
+
+  c2_combine:
+    name: C2 combine 224 streams
+    needs: c2_shard
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download all C2 shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: f1b-r2-homogeneous-c2-shard-*
+          path: /tmp/parts
+          merge-multiple: true
+
+      - name: Combine exact C2 result
+        run: |
+          python scripts/combine_f1b_r2_homogeneous_c2_continuation.py \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-0.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-1.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-2.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-3.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-4.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-5.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-6.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-7.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-8.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-9.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-10.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-11.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-12.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-13.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-14.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c2-shard-15.json \
+            --output /tmp/f1b-r2-homogeneous-c2-combined.json
+
+      - name: Verify combined C2 boundary and summarize
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(
+              Path(
+                  "/tmp/f1b-r2-homogeneous-c2-combined.json"
+              ).read_text(encoding="utf-8")
+          )
+          assert data["target_stream_count"] == 224
+          assert data["continued_stream_count"] == 224
+          assert data["authoritative"] is False
+          assert data["boundary"] == {
+              "fixed_bootstrap_draw_count_selected": False,
+              "power_validated": False,
+              "authoritative_core_grid_frozen": False,
+              "human_n_frozen": False,
+              "participant_recruitment_allowed": False,
+              "runtime_f1b_change_allowed": False,
+          }
+          print(
+              "C2_COMBINED_SUMMARY="
+              + json.dumps(
+                  {
+                      "global_summary": data["global_summary"],
+                      "reporting_checkpoints": data[
+                          "reporting_checkpoints"
+                      ],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload combined C2 result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-c2-combined
+          path: /tmp/f1b-r2-homogeneous-c2-combined.json
+          if-no-files-found: error
