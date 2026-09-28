@@ -77,8 +77,8 @@ jobs:
           cemodel validate
           cemodel demo
 
-  execute_f1b_r2_c1_uninstrumented_control:
-    name: Stage C1 uninstrumented control (${{ matrix.sentinel }})
+  execute_f1b_r2_c1_cross_runner_sentinel:
+    name: C1 cross-runner outside sentinel (replica ${{ matrix.replica }})
     needs: validate
     runs-on: ubuntu-latest
     permissions:
@@ -87,14 +87,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sentinel:
-          - EXACT_PASS_CONTROL
-          - EXACT_OBSERVED_HASH_FAILURE
-          - WITHIN_TOLERANCE_HASH_FAILURE
-          - OUTSIDE_TOLERANCE_HASH_FAILURE
+        replica: [0, 1, 2, 3, 4, 5, 6, 7]
     env:
       CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
-      SENTINEL: ${{ matrix.sentinel }}
+      SENTINEL: "OUTSIDE_TOLERANCE_HASH_FAILURE"
+      REPLICA: ${{ matrix.replica }}
 
     steps:
       - name: Check out repository
@@ -119,199 +116,17 @@ jobs:
           repository: ${{ github.repository }}
           run-id: 36340881516
 
-      - name: Build uninstrumented control runner
+      - name: Execute uninstrumented cross-runner sentinel
         run: |
-          cat > /tmp/run_uninstrumented_control.py <<'PY'
-          import json
-          import sys
-          from pathlib import Path
-
-          from cognitive_epistemic_model.calibration import (
-              f1b_r2_paired_bootstrap_characterization as paired_characterization,
-          )
-          from cognitive_epistemic_model.calibration.f1b_r2_c1_numerical_diagnostic import (
-              environment_identity,
-              select_diagnostic_sentinels,
-          )
-          from cognitive_epistemic_model.calibration.f1b_r2_resampling_risk_continuation import (
-              build_departure_case_map,
-              regenerate_bootstrap_attempt_statistics,
-              regenerate_dataset_for_run,
-          )
-          from cognitive_epistemic_model.calibration.f1b_r2_resampling_risk_replay import (
-              canonical_attempt_sequence_sha256,
-          )
-
-          sentinel = sys.argv[1]
-          paired_source_path = Path(sys.argv[2])
-          output_path = Path(sys.argv[3])
-
-          paired_source = json.loads(paired_source_path.read_text(encoding='utf-8'))
-          c1_result = json.loads(Path(
-              'model/results/f1b_r2_continuation_c1_failed_2026-09-27.json'
-          ).read_text(encoding='utf-8'))
-          paired_config = json.loads(Path(
-              'model/benchmarks/f1b_r2_kl_v2_paired_bootstrap_draw_stability.json'
-          ).read_text(encoding='utf-8'))
-          v2_config = json.loads(Path(
-              'model/benchmarks/f1b_r2_kl_controlled_departure_design_v2.json'
-          ).read_text(encoding='utf-8'))
-          review_config = json.loads(Path(
-              'model/benchmarks/f1b_r2_distance_definition_review.json'
-          ).read_text(encoding='utf-8'))
-          historical_config = json.loads(Path(
-              'model/benchmarks/f1b_r2_controlled_departure_design.json'
-          ).read_text(encoding='utf-8'))
-
-          sentinels = select_diagnostic_sentinels(c1_result)
-          run_id = sentinels[sentinel]
-          source_runs = {
-              str(row['run_id']): row
-              for row in paired_source['restriction_runs']
-          }
-          run = source_runs[run_id]
-          departure_cases = build_departure_case_map(
-              v2_config, review_config, historical_config
-          )
-          dataset = regenerate_dataset_for_run(
-              run,
-              paired_config=paired_config,
-              departure_cases=departure_cases,
-          )
-          scales = paired_characterization._scales(
-              paired_config, generator=False
-          )
-          regenerated_observed, regenerated_attempts = (
-              regenerate_bootstrap_attempt_statistics(
-                  run,
-                  dataset,
-                  paired_config=paired_config,
-                  draw_indices=range(199),
-              )
-          )
-          retained_attempts = tuple(run['bootstrap_attempt_statistics'])
-          first_divergent_draw = next(
-              (
-                  index
-                  for index, (retained, regenerated) in enumerate(
-                      zip(retained_attempts, regenerated_attempts, strict=True)
-                  )
-                  if retained != regenerated
-              ),
-              None,
-          )
-          retained_hash = canonical_attempt_sequence_sha256(retained_attempts)
-          regenerated_hash = canonical_attempt_sequence_sha256(regenerated_attempts)
-          retained_observed = float(run['observed_statistic'])
-          result = {
-              'sentinel': sentinel,
-              'run_id': run_id,
-              'execution_path': 'UNINSTRUMENTED_STAGE_C1_REGENERATION_FUNCTION',
-              'retained_observed_statistic': retained_observed,
-              'regenerated_observed_statistic': float(regenerated_observed),
-              'observed_statistic_absolute_delta': abs(
-                  float(regenerated_observed) - retained_observed
-              ),
-              'observed_statistic_exact_match': (
-                  float(regenerated_observed) == retained_observed
-              ),
-              'retained_attempt_sequence_sha256': retained_hash,
-              'regenerated_attempt_sequence_sha256': regenerated_hash,
-              'attempt_sequence_sha256_match': regenerated_hash == retained_hash,
-              'first_divergent_draw_index': first_divergent_draw,
-              'environment': environment_identity(),
-              'boundary': {
-                  'stage_c1_gate_changed': False,
-                  'stage_c2_authorized': False,
-                  'new_draw_index_ge_199_generated': False,
-                  'scientific_fit_settings_changed': False,
-              },
-          }
-          output_path.write_text(
-              json.dumps(result, indent=2, sort_keys=True) + '\n',
-              encoding='utf-8',
-          )
-          print('UNINSTRUMENTED_CONTROL=' + json.dumps({
-              'sentinel': sentinel,
-              'observed_exact': result['observed_statistic_exact_match'],
-              'attempt_hash_match': result['attempt_sequence_sha256_match'],
-              'first_divergent_draw': first_divergent_draw,
-          }, sort_keys=True))
-          PY
-
-      - name: Execute two fresh uninstrumented processes
-        run: |
-          python /tmp/run_uninstrumented_control.py "$SENTINEL" \
+          python scripts/tmp_run_f1b_r2_c1_cross_runner_sentinel.py \
+            "$SENTINEL" \
             /tmp/source/f1b-r2-kl-v2-paired-combined.json \
-            "/tmp/f1b-r2-c1-uninstrumented-${SENTINEL}-process-1.json"
-          python /tmp/run_uninstrumented_control.py "$SENTINEL" \
-            /tmp/source/f1b-r2-kl-v2-paired-combined.json \
-            "/tmp/f1b-r2-c1-uninstrumented-${SENTINEL}-process-2.json"
+            "/tmp/f1b-r2-c1-cross-runner-${REPLICA}.json" \
+            "$REPLICA"
 
-      - name: Compare fresh uninstrumented processes
-        run: |
-          python - <<'PY'
-          import json
-          import os
-          from pathlib import Path
-
-          sentinel = os.environ['SENTINEL']
-          paths = [
-              Path(f'/tmp/f1b-r2-c1-uninstrumented-{sentinel}-process-1.json'),
-              Path(f'/tmp/f1b-r2-c1-uninstrumented-{sentinel}-process-2.json'),
-          ]
-          first, second = [
-              json.loads(path.read_text(encoding='utf-8'))
-              for path in paths
-          ]
-          keys = [
-              'run_id',
-              'retained_observed_statistic',
-              'regenerated_observed_statistic',
-              'observed_statistic_absolute_delta',
-              'observed_statistic_exact_match',
-              'retained_attempt_sequence_sha256',
-              'regenerated_attempt_sequence_sha256',
-              'attempt_sequence_sha256_match',
-              'first_divergent_draw_index',
-          ]
-          exact = all(first[key] == second[key] for key in keys)
-          summary = {
-              'sentinel': sentinel,
-              'fresh_process_scientific_result_exactly_equal': exact,
-              'process_1_observed_exact': first['observed_statistic_exact_match'],
-              'process_2_observed_exact': second['observed_statistic_exact_match'],
-              'process_1_attempt_hash_match': first['attempt_sequence_sha256_match'],
-              'process_2_attempt_hash_match': second['attempt_sequence_sha256_match'],
-              'process_1_first_divergent_draw_index': first['first_divergent_draw_index'],
-              'process_2_first_divergent_draw_index': second['first_divergent_draw_index'],
-              'process_1_environment': first['environment'],
-              'process_2_environment': second['environment'],
-              'boundary': first['boundary'],
-          }
-          out = Path(f'/tmp/f1b-r2-c1-uninstrumented-{sentinel}-summary.json')
-          out.write_text(
-              json.dumps(summary, indent=2, sort_keys=True) + '\n',
-              encoding='utf-8',
-          )
-          print('UNINSTRUMENTED_SUMMARY=' + json.dumps({
-              'sentinel': sentinel,
-              'fresh_process_exact': exact,
-              'p1_observed_exact': first['observed_statistic_exact_match'],
-              'p2_observed_exact': second['observed_statistic_exact_match'],
-              'p1_attempt_hash_match': first['attempt_sequence_sha256_match'],
-              'p2_attempt_hash_match': second['attempt_sequence_sha256_match'],
-              'p1_first_divergent_draw': first['first_divergent_draw_index'],
-              'p2_first_divergent_draw': second['first_divergent_draw_index'],
-          }, sort_keys=True))
-          PY
-
-      - name: Upload uninstrumented control traces
+      - name: Upload cross-runner result
         uses: actions/upload-artifact@v4
         with:
-          name: f1b-r2-c1-uninstrumented-${{ matrix.sentinel }}
-          path: |
-            /tmp/f1b-r2-c1-uninstrumented-${{ matrix.sentinel }}-process-1.json
-            /tmp/f1b-r2-c1-uninstrumented-${{ matrix.sentinel }}-process-2.json
-            /tmp/f1b-r2-c1-uninstrumented-${{ matrix.sentinel }}-summary.json
+          name: f1b-r2-c1-cross-runner-outside-${{ matrix.replica }}
+          path: /tmp/f1b-r2-c1-cross-runner-${{ matrix.replica }}.json
           if-no-files-found: error
