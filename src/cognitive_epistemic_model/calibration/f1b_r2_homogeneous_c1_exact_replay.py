@@ -90,8 +90,16 @@ def validate_homogeneous_c1_config(config: dict) -> None:
     c1 = config["stage_c1"]
     if c1["new_bootstrap_draw_indices_allowed"] is not False:
         raise ValueError("homogeneous C1 cannot authorize new bootstrap draws")
+    if tuple(int(x) for x in c1["regenerate_draw_indices"]) != (0, 198):
+        raise ValueError("homogeneous C1 declared draw endpoints changed")
+    if c1["regenerate_complete_prefix"] is not True:
+        raise ValueError("homogeneous C1 must regenerate the complete prefix")
     if int(c1["maximum_draw_index"]) != MAX_RETAINED_DRAW_INDEX:
         raise ValueError("homogeneous C1 maximum draw index changed")
+    if c1["required_dataset_fingerprint_match"] is not True:
+        raise ValueError("homogeneous C1 dataset exact-match requirement changed")
+    if c1["required_attempt_sequence_sha256_match"] is not True:
+        raise ValueError("homogeneous C1 attempt-hash requirement changed")
     if float(c1["observed_statistic_absolute_tolerance"]) != 1e-10:
         raise ValueError("homogeneous C1 observed-statistic tolerance changed")
     if int(c1["required_bootstrap_refit_failure_count"]) != 0:
