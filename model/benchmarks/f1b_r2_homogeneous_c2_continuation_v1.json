@@ -15,6 +15,10 @@
     "path": "requirements/ci-py312-linux.lock.txt",
     "git_blob_sha": "9bbc5e31949c3e9b3c6679075388c66316030e79"
   },
+  "frozen_controller_config": {
+    "path": "model/benchmarks/f1b_r2_resampling_risk_controller_v1.json",
+    "git_blob_sha": "3e0878209990d14741d1522d8733feec25e3459f"
+  },
   "source_lineage": {
     "lineage_id": "F1B.R2.HOMOGENEOUS_PAIRED_SOURCE.LINEAGE.V1",
     "retained_h1_result_path": "model/results/f1b_r2_homogeneous_paired_h1_qualification_2026-09-28.json",
@@ -72,7 +76,8 @@
   },
   "protected_lineage_file_git_blob_sha": {
     "src/cognitive_epistemic_model/calibration/f1b_r2_resampling_risk_continuation.py": "dda992b4988f2319cddbcf2bdc628ddc645f0ca2",
-    "src/cognitive_epistemic_model/calibration/f1b_r2_homogeneous_c1_exact_replay.py": "3f052455e4a7d34915dd56a2ee7daaf173e27388"
+    "src/cognitive_epistemic_model/calibration/f1b_r2_homogeneous_c1_exact_replay.py": "3f052455e4a7d34915dd56a2ee7daaf173e27388",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_openblas_lineage.py": "ad5439a7b30ec5b56a655931f5eab6f7bd5bb226"
   },
   "frozen_inputs": {
     "paired_config": {
