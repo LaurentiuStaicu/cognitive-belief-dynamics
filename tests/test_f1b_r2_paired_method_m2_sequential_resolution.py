@@ -12,6 +12,7 @@ from cognitive_epistemic_model.calibration.f1b_r2_paired_method_m2_sequential_re
     REJECT,
     UNRESOLVED_AT_CAP,
     evaluate_method,
+    validate_m1_combined,
     validate_m2_config,
 )
 
