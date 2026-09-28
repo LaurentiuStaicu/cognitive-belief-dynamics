@@ -1,0 +1,167 @@
+{
+  "design_id": "F1B.R2.PAIRED_METHOD_M1_SCREEN.V1",
+  "status": "NON_AUTHORITATIVE_PAIRED_METHOD_M1_SCREEN_DESIGN",
+  "issue": 259,
+  "baseline_main_commit": "013d232e8942957aa939ea8282758f109fc376f6",
+  "source": {
+    "artifact_id": 10961527329,
+    "artifact_name": "f1b-r2-homogeneous-h1-combined",
+    "json_name": "f1b-r2-homogeneous-h1-combined.json",
+    "json_sha256": "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e",
+    "workflow_run_id": 36401867007
+  },
+  "methods": [
+    {
+      "id": "POPULATION",
+      "kind": "POPULATION",
+      "fit_scale_multiplier": null
+    },
+    {
+      "id": "HIERARCHICAL_0.5X",
+      "kind": "HIERARCHICAL",
+      "fit_scale_multiplier": 0.5
+    },
+    {
+      "id": "HIERARCHICAL_1X",
+      "kind": "HIERARCHICAL",
+      "fit_scale_multiplier": 1
+    },
+    {
+      "id": "HIERARCHICAL_2X",
+      "kind": "HIERARCHICAL",
+      "fit_scale_multiplier": 2
+    }
+  ],
+  "missingness_regimes": [
+    0,
+    0.15
+  ],
+  "scientific_design": {
+    "departure_cell_fields": [
+      "role",
+      "axis",
+      "target_mean_bernoulli_kl",
+      "sign",
+      "anchor_id"
+    ],
+    "expected_departure_cell_count": 72,
+    "departure_replicates_per_cell": 5,
+    "departure_replicate_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "null_replicates_per_identity": 20,
+    "null_replicate_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "null_identities": [
+      "ADD_NULL",
+      "CBD_NULL_ANCHOR_1",
+      "CBD_NULL_ANCHOR_2"
+    ],
+    "restriction_runs_per_missingness": 420,
+    "total_scientific_restriction_runs": 840,
+    "total_method_executions": 3360
+  },
+  "bootstrap": {
+    "attempted_draws": 199,
+    "minimum_successful_draws": 180,
+    "alpha": 0.05,
+    "continuation_beyond_198_allowed": false,
+    "decision_label": "FIXED_199_SCREEN_ONLY",
+    "hierarchical_common_random_numbers_across_scales": true,
+    "population_method_namespace_distinct": true
+  },
+  "pairing_contract": {
+    "same_complete_data_seed_across_missingness": true,
+    "missingness_applied_after_outcome_generation": true,
+    "missingness_015_must_be_exact_subset_of_complete_data": true,
+    "same_observed_dataset_across_methods": true,
+    "same_missingness_mask_across_methods": true,
+    "no_method_specific_dataset_regeneration": true,
+    "h1_fingerprint_required_when_retained_source_row_exists": true,
+    "bootstrap_base_seed_shared_across_hierarchical_scales": true
+  },
+  "eligibility": {
+    "operational": {
+      "maximum_overall_failure_proportion": 0.02,
+      "maximum_role_missingness_failure_proportion": 0.05
+    },
+    "null_false_rejection": {
+      "maximum_pooled_proportion_per_missingness": 0.15,
+      "maximum_count_per_20_rep_identity": 5
+    },
+    "add_specificity": {
+      "maximum_pooled_false_rejection_proportion_per_missingness": 0.2,
+      "maximum_false_rejection_proportion_per_kl": 0.3
+    },
+    "strong_departure_signal": {
+      "kl": 0.003,
+      "minimum_margin_above_same_regime_pooled_null_false_rejection": 0.1,
+      "roles": [
+        "CBD_DEPARTURE_DETECTION",
+        "ADD_DEPARTURE_DIAGNOSTIC"
+      ]
+    },
+    "missingness_degradation": {
+      "maximum_null_false_rejection_increase": 0.1,
+      "maximum_specificity_false_rejection_increase": 0.1,
+      "maximum_strong_departure_expected_direction_decrease": 0.2
+    },
+    "hierarchical_scale_sensitivity": {
+      "flag_threshold_max_minus_min_expected_direction_rate": 0.2,
+      "strata": [
+        "ADD_SPECIFICITY_NEGATIVE_CONTROL",
+        "CBD_DEPARTURE_DETECTION_KL_0.003",
+        "ADD_DEPARTURE_DIAGNOSTIC_KL_0.003"
+      ],
+      "flag_is_automatic_method_selection": false
+    }
+  },
+  "decision_states": [
+    "M1_ELIGIBLE",
+    "M1_INELIGIBLE_OPERATIONAL",
+    "M1_INELIGIBLE_NULL_OR_SPECIFICITY",
+    "M1_INELIGIBLE_SIGNAL_SEPARATION",
+    "M1_INELIGIBLE_MISSINGNESS"
+  ],
+  "next_stage": {
+    "eligible_methods_only": true,
+    "stage": "M2_SEQUENTIAL_RESOLUTION_CHARACTERIZATION",
+    "m2_design_frozen_by_this_config": false,
+    "broad_characterization_n_eval_per_departure_cell": 100,
+    "broad_worst_case_component_mcse_max": 0.05
+  },
+  "boundary": {
+    "terminal_c2_rewritten": false,
+    "sequential_unresolved_imputed": false,
+    "method_selected": false,
+    "power_validated": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
