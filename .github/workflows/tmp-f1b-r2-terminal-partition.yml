@@ -1,0 +1,167 @@
+name: TEMP F1b R2 terminal partition interpretation
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  compose:
+    name: Compose homogeneous 750-stream terminal partition
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download retained homogeneous H2 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-stage-b-h2
+          path: /tmp/h2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36406702153
+
+      - name: Download retained homogeneous C2 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-c2-combined
+          path: /tmp/c2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36416797671
+
+      - name: Compose terminal partition without new simulation
+        run: |
+          python scripts/build_f1b_r2_homogeneous_terminal_partition.py \
+            --h2-raw /tmp/h2/f1b-r2-homogeneous-stage-b-h2.json \
+            --c2-raw /tmp/c2/f1b-r2-homogeneous-c2-combined.json \
+            --output /tmp/f1b-r2-homogeneous-terminal-partition.json
+
+      - name: Enforce E1-E5 terminal interpretation contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("/tmp/f1b-r2-homogeneous-terminal-partition.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+
+          assert data["status"] == (
+              "NON_AUTHORITATIVE_HOMOGENEOUS_TERMINAL_PARTITION_RESULT"
+          )
+          assert data["authoritative"] is False
+          assert data["issue"] == 250
+          assert data["terminal_run_count"] == 750
+          assert data["terminal_decision_count"] == 727
+          assert data["unresolved_at_cap_count"] == 23
+          assert data["bootstrap_refit_failure_count"] == 0
+          assert data["interpretation_decision"] == (
+              "READY_FOR_NEXT_RECOVERY_POWER_CHARACTERIZATION"
+          )
+
+          assert data["role_coverage"] == {
+              "ADD_DEPARTURE_DIAGNOSTIC": {
+                  "run_count": 240,
+                  "resolved_count": 233,
+              },
+              "ADD_NULL_FALSE_REJECTION": {
+                  "run_count": 10,
+                  "resolved_count": 10,
+              },
+              "ADD_SPECIFICITY_NEGATIVE_CONTROL": {
+                  "run_count": 120,
+                  "resolved_count": 118,
+              },
+              "CBD_DEPARTURE_DETECTION": {
+                  "run_count": 360,
+                  "resolved_count": 346,
+              },
+              "CBD_NULL_FALSE_REJECTION": {
+                  "run_count": 20,
+                  "resolved_count": 20,
+              },
+          }
+
+          characterization = data["characterization"]
+          summary = characterization["global_summary"]
+          assert summary["run_count"] == 750
+          assert summary["resolved_count"] == 727
+          assert summary["unresolved_at_cap_count"] == 23
+          assert summary["reject_count"] == 246
+          assert summary["not_reject_count"] == 481
+
+          unresolved = characterization["unresolved_at_cap"]
+          assert unresolved["count"] == 23
+          assert unresolved["run_ids_sha256"] == (
+              "673ac85475800b4e032469fbeae8ead7083e6cd90fee209f7e0c451162b13217"
+          )
+          assert len(unresolved["rows"]) == 23
+
+          assert all(
+              row["status"] == "SEQUENTIAL_UNRESOLVED_AT_CAP"
+              and row["decision"] is None
+              and row["terminal_n"] == 10000
+              for row in unresolved["rows"]
+          )
+
+          assert data["boundary"] == {
+              "new_bootstrap_draws_allowed": False,
+              "cap_extension_allowed": False,
+              "controller_retuning_allowed": False,
+              "unresolved_imputation_allowed": False,
+              "scientific_model_change_allowed": False,
+              "power_claim_allowed": False,
+              "authoritative_core_grid_freeze_allowed": False,
+              "human_n_freeze_allowed": False,
+              "participant_recruitment_allowed": False,
+              "runtime_f1b_change_allowed": False,
+          }
+
+          print(
+              "TERMINAL_PARTITION="
+              + json.dumps(
+                  {
+                      "terminal_run_count": data["terminal_run_count"],
+                      "terminal_decision_count": data["terminal_decision_count"],
+                      "unresolved_at_cap_count": data[
+                          "unresolved_at_cap_count"
+                      ],
+                      "bootstrap_refit_failure_count": data[
+                          "bootstrap_refit_failure_count"
+                      ],
+                      "interpretation_decision": data[
+                          "interpretation_decision"
+                      ],
+                      "global_summary": summary,
+                      "role_coverage": data["role_coverage"],
+                      "unresolved_run_ids_sha256": unresolved[
+                          "run_ids_sha256"
+                      ],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload terminal partition evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-terminal-partition
+          path: /tmp/f1b-r2-homogeneous-terminal-partition.json
+          if-no-files-found: error
