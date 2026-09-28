@@ -1,0 +1,92 @@
+{
+  "interpretation_id": "F1B.R2.POST_C2_SCIENTIFIC_INTERPRETATION.V1",
+  "status": "NON_AUTHORITATIVE_POST_C2_CHARACTERIZATION_DESIGN",
+  "issue": 249,
+  "baseline_main_commit": "9534ce12368ce2891c1e4a675db3de9d2ce629c0",
+  "retained_h2": {
+    "result_path": "model/results/f1b_r2_homogeneous_stage_b_rebuild_2026-09-28.json",
+    "result_git_blob_sha": "9ac8e36ba7875ffa9bda9c6f752dcbd8865abf33",
+    "artifact_id": 10962483226,
+    "artifact_name": "f1b-r2-homogeneous-stage-b-h2",
+    "raw_json_name": "f1b-r2-homogeneous-stage-b-h2.json",
+    "raw_json_sha256": "f0f32d92e46748148f020a4e0d47d2c63e27f6ab1aa36253346e15c4dfaf01e7",
+    "raw_json_size_bytes": 1804832,
+    "expected_run_count": 750,
+    "expected_unresolved_at_199_count": 224,
+    "unresolved_run_ids_sha256": "d2db2c97ad48544c082cdffd086c022a28c6d0c75690b36a0cd0b2b381c4ebac"
+  },
+  "retained_c2": {
+    "result_path": "model/results/f1b_r2_homogeneous_c2_continuation_2026-09-28.json",
+    "result_git_blob_sha": "01b5aaf925530c04e4f57b913949789f1193dfd5",
+    "artifact_id": 10968522362,
+    "artifact_name": "f1b-r2-homogeneous-c2-combined",
+    "combined_json_name": "f1b-r2-homogeneous-c2-combined.json",
+    "combined_json_sha256": "03009d7b586502f500062d67792f048e768fe737670823b2e033cb82c59a867a",
+    "combined_json_size_bytes": 644933,
+    "expected_target_count": 224,
+    "expected_resolved_count": 201,
+    "expected_unresolved_at_cap_count": 23,
+    "unresolved_at_cap_run_ids_sha256": "673ac85475800b4e032469fbeae8ead7083e6cd90fee209f7e0c451162b13217",
+    "maximum_total_attempts": 10000
+  },
+  "final_state": {
+    "expected_total_run_count": 750,
+    "expected_reject_count": 246,
+    "expected_not_reject_count": 481,
+    "expected_unresolved_at_cap_count": 23,
+    "allowed_terminal_states": [
+      "REJECT_P_LE_ALPHA",
+      "NOT_REJECT_P_GT_ALPHA",
+      "SEQUENTIAL_UNRESOLVED_AT_CAP"
+    ]
+  },
+  "role_semantics": {
+    "detection_roles": [
+      "ADD_DEPARTURE_DIAGNOSTIC",
+      "CBD_DEPARTURE_DETECTION"
+    ],
+    "negative_control_roles": [
+      "ADD_NULL_FALSE_REJECTION",
+      "ADD_SPECIFICITY_NEGATIVE_CONTROL",
+      "CBD_NULL_FALSE_REJECTION"
+    ],
+    "reject_semantics": {
+      "detection_roles": "DETECTION",
+      "negative_control_roles": "FALSE_DETECTION"
+    },
+    "not_reject_semantics": {
+      "detection_roles": "MISSED_DETECTION",
+      "negative_control_roles": "SPECIFICITY_PASS"
+    },
+    "unresolved_semantics": "INDETERMINATE"
+  },
+  "aggregation_dimensions": [
+    "restriction",
+    "role",
+    "identity_type",
+    "axis",
+    "target_mean_bernoulli_kl",
+    "sign",
+    "anchor_id",
+    "evaluation_replicate"
+  ],
+  "estimands": {
+    "unconditional_three_outcome_required": true,
+    "conditional_decided_only_secondary": true,
+    "drop_unresolved_from_primary_denominator": false,
+    "unresolved_bounds_required": true,
+    "inferential_power_claim_authorized": false
+  },
+  "boundary": {
+    "c2_rerun_allowed": false,
+    "c2_cap_extension_allowed": false,
+    "c2_outcome_reclassification_allowed": false,
+    "scientific_model_changed": false,
+    "controller_changed": false,
+    "power_validated": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
