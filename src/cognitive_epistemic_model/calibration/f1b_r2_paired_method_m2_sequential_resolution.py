@@ -260,7 +260,7 @@ def validate_m1_combined(m1: dict, config: dict) -> None:
     validate_m2_config(config)
     if m1["design_id"] != "F1B.R2.PAIRED_METHOD_M1_SCREEN.V1":
         raise ValueError("M2 M1 artifact identity changed")
-    if m1["status"] != "NON_AUTHORITATIVE_PAIRED_METHOD_M1_COMBINED_RESULT":
+    if m1["status"] != "NON_AUTHORITATIVE_PAIRED_METHOD_M1_SCREEN_RESULT":
         raise ValueError("M2 M1 artifact status changed")
     if m1["authoritative"] is not False:
         raise ValueError("M2 M1 artifact became authoritative")
