@@ -94,6 +94,13 @@ def main() -> int:
         ),
     )
     parser.add_argument(
+        "--controller-config",
+        type=Path,
+        default=Path(
+            "model/benchmarks/f1b_r2_resampling_risk_controller_v1.json"
+        ),
+    )
+    parser.add_argument(
         "--paired-config",
         type=Path,
         default=Path(
@@ -134,6 +141,11 @@ def main() -> int:
         Path(config["frozen_dependency_lock"]["path"]),
         config["frozen_dependency_lock"]["git_blob_sha"],
         "frozen dependency lock",
+    )
+    verify_git_blob(
+        args.controller_config,
+        config["frozen_controller_config"]["git_blob_sha"],
+        "frozen controller config",
     )
     for key in (
         "protected_scientific_file_git_blob_sha",
@@ -275,6 +287,10 @@ def main() -> int:
         "c1_artifact_id": int(c1["artifact_id"]),
         "c1_combined_sha256": sha256(args.c1_combined),
         "target_run_ids_sha256": binding["target_run_ids_sha256"],
+        "controller_config_path": str(args.controller_config),
+        "controller_config_git_blob_sha": config[
+            "frozen_controller_config"
+        ]["git_blob_sha"],
         "frozen_input_sha256": {
             label: sha256(path)
             for label, path in frozen_inputs.items()
