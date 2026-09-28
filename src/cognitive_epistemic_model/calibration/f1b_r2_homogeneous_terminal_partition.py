@@ -46,7 +46,7 @@ def validate_terminal_partition_config(config: dict) -> None:
     terminal = config["terminal_partition"]
     if int(terminal["expected_total_run_count"]) != EXPECTED_TOTAL:
         raise ValueError("terminal total-run count changed")
-    if int(terminal["expected_terminal_decision_count"]) != 727:
+    if int(terminal["expected_terminal_decision_count"]) != (\n        EXPECTED_TERMINAL_DECISIONS\n    ):
         raise ValueError("terminal decision count changed")
     if int(terminal["expected_unresolved_at_cap_count"]) != (
         EXPECTED_UNRESOLVED_AT_CAP
@@ -359,7 +359,7 @@ def compose_terminal_partition(
     ]
     if len(terminal_rows) != EXPECTED_TOTAL:
         raise ValueError("terminal partition count mismatch")
-    if len(decisions) != 727:
+    if len(decisions) != EXPECTED_TERMINAL_DECISIONS:
         raise ValueError("terminal decision count mismatch")
     if len(unresolved) != EXPECTED_UNRESOLVED_AT_CAP:
         raise ValueError("terminal unresolved-at-cap count mismatch")
