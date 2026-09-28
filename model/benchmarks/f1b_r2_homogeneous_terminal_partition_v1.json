@@ -1,0 +1,126 @@
+{
+  "interpretation_id": "F1B.R2.HOMOGENEOUS_TERMINAL_PARTITION.V1",
+  "status": "NON_AUTHORITATIVE_TERMINAL_PARTITION_INTERPRETATION_DESIGN",
+  "issue": 250,
+  "baseline_main_commit": "9534ce12368ce2891c1e4a675db3de9d2ce629c0",
+  "h2_stage_b": {
+    "retained_result_path": "model/results/f1b_r2_homogeneous_stage_b_rebuild_2026-09-28.json",
+    "retained_result_git_blob_sha": "9ac8e36ba7875ffa9bda9c6f752dcbd8865abf33",
+    "workflow_run_id": 36406702153,
+    "artifact_id": 10962483226,
+    "artifact_name": "f1b-r2-homogeneous-stage-b-h2",
+    "raw_json_name": "f1b-r2-homogeneous-stage-b-h2.json",
+    "raw_json_sha256": "f0f32d92e46748148f020a4e0d47d2c63e27f6ab1aa36253346e15c4dfaf01e7",
+    "raw_json_size_bytes": 1804832,
+    "expected_run_count": 750,
+    "expected_resolved_count": 526,
+    "expected_unresolved_count": 224,
+    "unresolved_run_ids_sha256": "d2db2c97ad48544c082cdffd086c022a28c6d0c75690b36a0cd0b2b381c4ebac"
+  },
+  "c2_continuation": {
+    "retained_result_path": "model/results/f1b_r2_homogeneous_c2_continuation_2026-09-28.json",
+    "retained_result_git_blob_sha": "01b5aaf925530c04e4f57b913949789f1193dfd5",
+    "workflow_run_id": 36416797671,
+    "artifact_id": 10968522362,
+    "artifact_name": "f1b-r2-homogeneous-c2-combined",
+    "raw_json_name": "f1b-r2-homogeneous-c2-combined.json",
+    "raw_json_sha256": "03009d7b586502f500062d67792f048e768fe737670823b2e033cb82c59a867a",
+    "raw_json_size_bytes": 644933,
+    "expected_target_count": 224,
+    "expected_newly_resolved_count": 201,
+    "expected_unresolved_at_cap_count": 23,
+    "unresolved_at_cap_run_ids_sha256": "673ac85475800b4e032469fbeae8ead7083e6cd90fee209f7e0c451162b13217"
+  },
+  "terminal_partition": {
+    "expected_total_run_count": 750,
+    "expected_terminal_decision_count": 727,
+    "expected_unresolved_at_cap_count": 23,
+    "expected_bootstrap_refit_failure_count": 0,
+    "h2_resolved_source_count": 526,
+    "c2_resolved_source_count": 201,
+    "c2_unresolved_source_count": 23
+  },
+  "semantic_roles": {
+    "CBD_NULL_FALSE_REJECTION": {
+      "restriction": "CBD_COMPLEMENT_RESTRICTION",
+      "scientific_role": "NULL_FALSE_REJECTION",
+      "expected_decision": "NOT_REJECT_P_GT_ALPHA",
+      "reject_semantics": "FALSE_REJECTION_DIAGNOSTIC"
+    },
+    "ADD_NULL_FALSE_REJECTION": {
+      "restriction": "ADD_RESTRICTION",
+      "scientific_role": "NULL_FALSE_REJECTION",
+      "expected_decision": "NOT_REJECT_P_GT_ALPHA",
+      "reject_semantics": "FALSE_REJECTION_DIAGNOSTIC"
+    },
+    "CBD_DEPARTURE_DETECTION": {
+      "restriction": "CBD_COMPLEMENT_RESTRICTION",
+      "scientific_role": "DEPARTURE_DETECTION",
+      "expected_decision": "REJECT_P_LE_ALPHA",
+      "reject_semantics": "DEPARTURE_DETECTION_DIAGNOSTIC"
+    },
+    "ADD_SPECIFICITY_NEGATIVE_CONTROL": {
+      "restriction": "ADD_RESTRICTION",
+      "scientific_role": "SPECIFICITY_NEGATIVE_CONTROL",
+      "expected_decision": "NOT_REJECT_P_GT_ALPHA",
+      "reject_semantics": "NEGATIVE_CONTROL_FAILURE_DIAGNOSTIC"
+    },
+    "ADD_DEPARTURE_DIAGNOSTIC": {
+      "restriction": "ADD_RESTRICTION",
+      "scientific_role": "DEPARTURE_DETECTION_DIAGNOSTIC",
+      "expected_decision": "REJECT_P_LE_ALPHA",
+      "reject_semantics": "DEPARTURE_DETECTION_DIAGNOSTIC"
+    }
+  },
+  "protected_role_definition_git_blob_sha": {
+    "src/cognitive_epistemic_model/calibration/f1b_r2_paired_bootstrap_characterization.py": "3f23fc9bfc87d9ff45e83f11a529e3f0793969f4"
+  },
+  "protected_controller_git_blob_sha": {
+    "src/cognitive_epistemic_model/calibration/f1b_r2_resampling_risk.py": "809a45554db9acc79ed0016b6ab7f771c91cc15a",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_resampling_risk_replay.py": "21ca2e35f3d93f891f6e6be786eb2e34ba8f4533",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_homogeneous_c2_continuation.py": "68bba75201e97628a31e992218c09aba16cb2969"
+  },
+  "characterization": {
+    "group_fields": [
+      "restriction",
+      "role",
+      "axis",
+      "target_mean_bernoulli_kl",
+      "sign",
+      "anchor_id",
+      "evaluation_replicate"
+    ],
+    "unresolved_boundary_distance_report": true,
+    "impute_unresolved": false,
+    "resolved_only_proportion_label": "DESCRIPTIVE_RESOLVED_ONLY",
+    "total_denominator_bounds_label": "DESCRIPTIVE_UNRESOLVED_EXTREME_BOUNDS"
+  },
+  "decision_criteria": {
+    "ready_for_next_recovery_power_characterization": [
+      "TERMINAL_PARTITION_INTEGRITY_PASS",
+      "ALL_FIVE_ROLE_SEMANTICS_VALID",
+      "EVERY_ROLE_HAS_AT_LEAST_ONE_RESOLVED_DECISION",
+      "UNRESOLVED_RETAINED_WITHOUT_IMPUTATION",
+      "DESCRIPTIVE_BOUNDS_COMPUTABLE_FOR_EVERY_ROLE"
+    ],
+    "characterization_refinement_required": [
+      "TERMINAL_PARTITION_INTEGRITY_PASS",
+      "BUT_ANY_ROLE_HAS_ZERO_RESOLVED_DECISIONS_OR_CANNOT_SUPPORT_DESCRIPTIVE_BOUNDS"
+    ],
+    "structural_redesign_required": [
+      "FROZEN_ROLE_SEMANTICS_CANNOT_BE_MAPPED_TO_THE_SCIENTIFIC_RESTRICTION_QUESTION"
+    ]
+  },
+  "execution_boundary": {
+    "new_bootstrap_draws_allowed": false,
+    "cap_extension_allowed": false,
+    "controller_retuning_allowed": false,
+    "unresolved_imputation_allowed": false,
+    "scientific_model_change_allowed": false,
+    "power_claim_allowed": false,
+    "authoritative_core_grid_freeze_allowed": false,
+    "human_n_freeze_allowed": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
