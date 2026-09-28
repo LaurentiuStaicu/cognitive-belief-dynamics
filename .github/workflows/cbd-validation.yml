@@ -76,3 +76,170 @@ jobs:
         run: |
           cemodel validate
           cemodel demo
+
+  execute_f1b_r2_c1_numerical_diagnostic:
+    name: Stage C1 numerical diagnostic (${{ matrix.sentinel }})
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        sentinel:
+          - EXACT_PASS_CONTROL
+          - EXACT_OBSERVED_HASH_FAILURE
+          - WITHIN_TOLERANCE_HASH_FAILURE
+          - OUTSIDE_TOLERANCE_HASH_FAILURE
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      PAIRED_SOURCE_RUN_ID: "36340881516"
+      IMPLEMENTATION_SOURCE_COMMIT: "324851f8c326b81ccc38cb05870e47294cfddedc"
+      SENTINEL: ${{ matrix.sentinel }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download exact retained paired source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-kl-v2-paired-combined-recovered
+          path: /tmp/source
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36340881516
+
+      - name: Execute two fresh-process traces on one runner
+        run: |
+          python scripts/run_f1b_r2_c1_numerical_diagnostic.py \
+            --paired-source /tmp/source/f1b-r2-kl-v2-paired-combined.json \
+            --sentinel "$SENTINEL" \
+            --output "/tmp/f1b-r2-c1-diagnostic-${SENTINEL}-process-1.json" \
+            --source-commit "$IMPLEMENTATION_SOURCE_COMMIT"
+
+          python scripts/run_f1b_r2_c1_numerical_diagnostic.py \
+            --paired-source /tmp/source/f1b-r2-kl-v2-paired-combined.json \
+            --sentinel "$SENTINEL" \
+            --output "/tmp/f1b-r2-c1-diagnostic-${SENTINEL}-process-2.json" \
+            --source-commit "$IMPLEMENTATION_SOURCE_COMMIT"
+
+      - name: Compare same-runner fresh processes
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          sentinel = os.environ["SENTINEL"]
+          paths = [
+              Path(f"/tmp/f1b-r2-c1-diagnostic-{sentinel}-process-1.json"),
+              Path(f"/tmp/f1b-r2-c1-diagnostic-{sentinel}-process-2.json"),
+          ]
+          first, second = [
+              json.loads(path.read_text(encoding="utf-8"))
+              for path in paths
+          ]
+
+          assert first["sentinel"] == second["sentinel"] == sentinel
+          assert first["boundary"]["stage_c2_authorized"] is False
+          assert second["boundary"]["stage_c2_authorized"] is False
+          assert first["boundary"]["new_draw_index_ge_199_generated"] is False
+          assert second["boundary"]["new_draw_index_ge_199_generated"] is False
+
+          def scientific_signature(data):
+              repeat = data["repeats"][0]
+              return {
+                  "same_process_repeats_exactly_equal": data[
+                      "same_process_repeats_exactly_equal"
+                  ],
+                  "dataset_sha256": repeat["dataset_sha256"],
+                  "regenerated_observed_statistic": repeat[
+                      "regenerated_observed_statistic"
+                  ],
+                  "observed_statistic_absolute_delta": repeat[
+                      "observed_statistic_absolute_delta"
+                  ],
+                  "first_divergent_draw_index": repeat[
+                      "first_divergent_draw_index"
+                  ],
+                  "full_requested_prefix_exact": repeat[
+                      "full_requested_prefix_exact"
+                  ],
+                  "draws_executed": repeat["draws_executed"],
+                  "observed_pair_trace": repeat["observed_pair_trace"],
+                  "draws": repeat["draws"],
+              }
+
+          summary = {
+              "sentinel": sentinel,
+              "process_count": 2,
+              "same_runner": True,
+              "process_1_same_process_repeats_exactly_equal": first[
+                  "same_process_repeats_exactly_equal"
+              ],
+              "process_2_same_process_repeats_exactly_equal": second[
+                  "same_process_repeats_exactly_equal"
+              ],
+              "fresh_process_scientific_trace_exactly_equal": (
+                  scientific_signature(first) == scientific_signature(second)
+              ),
+              "process_1_environment": first["environment"],
+              "process_2_environment": second["environment"],
+              "process_1_first_divergent_draw_index": first[
+                  "repeats"
+              ][0]["first_divergent_draw_index"],
+              "process_2_first_divergent_draw_index": second[
+                  "repeats"
+              ][0]["first_divergent_draw_index"],
+              "boundary": {
+                  "stage_c1_gate_changed": False,
+                  "stage_c2_authorized": False,
+                  "new_draw_index_ge_199_generated": False,
+              },
+          }
+          out = Path(f"/tmp/f1b-r2-c1-diagnostic-{sentinel}-summary.json")
+          out.write_text(
+              json.dumps(summary, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          print("F1B_R2_C1_DIAGNOSTIC_SUMMARY=" + json.dumps({
+              "sentinel": sentinel,
+              "p1_same_process": summary[
+                  "process_1_same_process_repeats_exactly_equal"
+              ],
+              "p2_same_process": summary[
+                  "process_2_same_process_repeats_exactly_equal"
+              ],
+              "fresh_process_exact": summary[
+                  "fresh_process_scientific_trace_exactly_equal"
+              ],
+              "p1_first_divergent_draw": summary[
+                  "process_1_first_divergent_draw_index"
+              ],
+              "p2_first_divergent_draw": summary[
+                  "process_2_first_divergent_draw_index"
+              ],
+          }, sort_keys=True))
+          PY
+
+      - name: Upload diagnostic traces
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-c1-diagnostic-${{ matrix.sentinel }}
+          path: |
+            /tmp/f1b-r2-c1-diagnostic-${{ matrix.sentinel }}-process-1.json
+            /tmp/f1b-r2-c1-diagnostic-${{ matrix.sentinel }}-process-2.json
+            /tmp/f1b-r2-c1-diagnostic-${{ matrix.sentinel }}-summary.json
+          if-no-files-found: error
