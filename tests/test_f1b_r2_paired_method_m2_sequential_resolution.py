@@ -158,3 +158,23 @@ def test_refit_failure_threshold_has_priority() -> None:
     assert result["decision_state"] == (
         "M2_INELIGIBLE_REFIT_STABILITY"
     )
+
+
+def test_m2_accepts_actual_retained_m1_artifact_status() -> None:
+    artifact = {
+        "design_id": "F1B.R2.PAIRED_METHOD_M1_SCREEN.V1",
+        "status": "NON_AUTHORITATIVE_PAIRED_METHOD_M1_SCREEN_RESULT",
+        "authoritative": False,
+        "scientific_run_count": 840,
+        "method_execution_count": 3360,
+        "eligible_methods": [
+            "POPULATION",
+            "HIERARCHICAL_0.5X",
+            "HIERARCHICAL_1X",
+            "HIERARCHICAL_2X",
+        ],
+        "hierarchical_scale_sensitive": True,
+        "rows": [],
+    }
+    with pytest.raises(ValueError, match="row count changed"):
+        validate_m1_combined(artifact, load_config())
