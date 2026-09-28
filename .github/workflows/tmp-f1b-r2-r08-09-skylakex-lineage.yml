@@ -8,19 +8,16 @@ permissions:
   actions: read
 
 jobs:
-  r08_09_shard:
-    name: R08_09 SkylakeX shard ${{ matrix.shard_index }}
+  sample_runner:
+    name: R08_09 SkylakeX-capable replica ${{ matrix.replica }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        shard_index: [0, 1, 2, 3]
+        replica: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     env:
       CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
-      OPENBLAS_CORETYPE: SkylakeX
-      OPENBLAS_VERBOSE: "2"
-      SHARD_INDEX: ${{ matrix.shard_index }}
-      SHARD_COUNT: "4"
+      REPLICA: ${{ matrix.replica }}
 
     steps:
       - name: Check out repository
@@ -36,7 +33,91 @@ jobs:
           python -m pip install "pip==26.2.1"
           python -m pip install -c requirements/ci-py312-linux.lock.txt .
 
+      - name: Probe natural OpenBLAS core safely
+        id: probe
+        env:
+          OPENBLAS_VERBOSE: "2"
+        shell: bash
+        run: |
+          set -o pipefail
+          python - "$REPLICA"             >"/tmp/r08-09-probe-${REPLICA}.out"             2>"/tmp/r08-09-probe-${REPLICA}.err" <<'PY'
+          from pathlib import Path
+          import json
+          import numpy as np
+          import scipy
+          import scipy.linalg
+          import sys
+
+          replica = int(sys.argv[1])
+          cpu_model = None
+          cpuinfo = Path("/proc/cpuinfo")
+          if cpuinfo.exists():
+              for line in cpuinfo.read_text(
+                  encoding="utf-8", errors="replace"
+              ).splitlines():
+                  if line.lower().startswith("model name"):
+                      cpu_model = line.partition(":")[2].strip()
+                      break
+
+          a = np.arange(4096, dtype=np.float64).reshape(64, 64) / 4096.0
+          _ = a @ a.T
+          _ = scipy.linalg.lu_factor(a + np.eye(64))
+          print(
+              json.dumps(
+                  {
+                      "replica": replica,
+                      "cpu_model": cpu_model,
+                      "numpy_version": np.__version__,
+                      "scipy_version": scipy.__version__,
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+          python - "$REPLICA" <<'PY'
+          from pathlib import Path
+          import json
+          import re
+          import sys
+
+          replica = int(sys.argv[1])
+          stderr = Path(
+              f"/tmp/r08-09-probe-{replica}.err"
+          ).read_text(encoding="utf-8", errors="replace")
+          stdout = Path(
+              f"/tmp/r08-09-probe-{replica}.out"
+          ).read_text(encoding="utf-8", errors="replace").strip()
+          metadata = json.loads(stdout.splitlines()[-1])
+          cores = tuple(
+              core.strip()
+              for core in re.findall(
+                  r"(?:^|\n)Core:\s*([^\r\n]+)",
+                  stderr,
+              )
+          )
+          eligible = bool(cores) and all(
+              core == "SkylakeX" for core in cores
+          )
+          result = {
+              **metadata,
+              "natural_reported_cores": list(cores),
+              "eligible_skylakex_runner": eligible,
+          }
+          Path(
+              f"/tmp/r08-09-probe-{replica}.json"
+          ).write_text(
+              json.dumps(result, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          print("NATURAL_CORE_PROBE=" + json.dumps(result, sort_keys=True))
+          with Path("/tmp/github_output").open("w", encoding="utf-8") as handle:
+              handle.write(f"eligible={'true' if eligible else 'false'}\n")
+          PY
+          cat /tmp/github_output >> "$GITHUB_OUTPUT"
+
       - name: Download exact retained paired source
+        if: steps.probe.outputs.eligible == 'true'
         uses: actions/download-artifact@v4
         with:
           name: f1b-r2-kl-v2-paired-combined-recovered
@@ -45,14 +126,17 @@ jobs:
           repository: ${{ github.repository }}
           run-id: 36340881516
 
-      - name: Replay only R08_09 eligible source streams
+      - name: Replay all 49 R08_09 streams under SkylakeX
+        id: replay
+        if: steps.probe.outputs.eligible == 'true'
+        continue-on-error: true
+        env:
+          OPENBLAS_CORETYPE: SkylakeX
+          OPENBLAS_VERBOSE: "2"
         shell: bash
         run: |
           set -o pipefail
-          python - "$SHARD_INDEX" "$SHARD_COUNT" \
-            /tmp/source/f1b-r2-kl-v2-paired-combined.json \
-            "/tmp/f1b-r2-r08-09-skylakex-${SHARD_INDEX}.json" \
-            2> >(tee "/tmp/f1b-r2-r08-09-skylakex-core-${SHARD_INDEX}.log" >&2) <<'PY'
+          python - "$REPLICA"             /tmp/source/f1b-r2-kl-v2-paired-combined.json             "/tmp/f1b-r2-r08-09-skylakex-result-${REPLICA}.json"             2> >(tee "/tmp/f1b-r2-r08-09-skylakex-core-${REPLICA}.log" >&2) <<'PY'
           from __future__ import annotations
 
           import hashlib
@@ -62,9 +146,6 @@ jobs:
 
           from cognitive_epistemic_model.calibration import (
               f1b_r2_paired_bootstrap_characterization as paired_characterization,
-          )
-          from cognitive_epistemic_model.calibration.f1b_r2_kl_controlled_departures import (
-              generate_kl_controlled_departure_design,
           )
           from cognitive_epistemic_model.calibration.f1b_r2_paired_bootstrap_characterization import (
               dataset_fingerprint,
@@ -82,13 +163,9 @@ jobs:
               "b2727462b5bd09e5570090a42d7c90da8866e02100e0f4ccad551d8958a3d301"
           )
 
-          shard_index = int(sys.argv[1])
-          shard_count = int(sys.argv[2])
-          paired_path = Path(sys.argv[3])
-          output_path = Path(sys.argv[4])
-
-          if not 0 <= shard_index < shard_count:
-              raise ValueError("invalid diagnostic shard index")
+          replica = int(sys.argv[1])
+          paired_path = Path(sys.argv[2])
+          output_path = Path(sys.argv[3])
 
           if hashlib.sha256(paired_path.read_bytes()).hexdigest() != EXPECTED_SOURCE_SHA256:
               raise ValueError("paired-source SHA-256 mismatch")
@@ -113,11 +190,14 @@ jobs:
               "model/benchmarks/f1b_r2_controlled_departure_design.json"
           )
 
-          target_rows = [
-              row
-              for row in c1_result["rows"]
-              if int(row["evaluation_replicate"]) in (8, 9)
-          ]
+          target_rows = sorted(
+              (
+                  row
+                  for row in c1_result["rows"]
+                  if int(row["evaluation_replicate"]) in (8, 9)
+              ),
+              key=lambda row: str(row["run_id"]),
+          )
           if len(target_rows) != 49:
               raise ValueError(
                   f"expected exactly 49 R08_09 eligible streams, got {len(target_rows)}"
@@ -135,29 +215,11 @@ jobs:
               review_config,
               historical_config,
           )
-          scales = paired_characterization._scales(
-              paired_config,
-              generator=False,
-          )
-
-          def stable_shard(run_id: str) -> int:
-              digest = hashlib.sha256(run_id.encode("utf-8")).digest()
-              return int.from_bytes(digest[:8], "big") % shard_count
-
-          selected = sorted(
-              (
-                  row
-                  for row in target_rows
-                  if stable_shard(str(row["run_id"])) == shard_index
-              ),
-              key=lambda row: str(row["run_id"]),
-          )
 
           rows = []
-          for retained_c1 in selected:
+          for retained_c1 in target_rows:
               run_id = str(retained_c1["run_id"])
               run = source_runs[run_id]
-
               if int(run["evaluation_replicate"]) not in (8, 9):
                   raise ValueError("selected source run escaped R08_09 boundary")
 
@@ -219,13 +281,10 @@ jobs:
                   ),
                   None,
               )
-
               rows.append(
                   {
                       "run_id": run_id,
                       "evaluation_replicate": int(run["evaluation_replicate"]),
-                      "retained_dataset_sha256": retained_dataset_sha,
-                      "regenerated_dataset_sha256": regenerated_dataset_sha,
                       "dataset_fingerprint_exact": dataset_exact,
                       "retained_observed_statistic": retained_observed,
                       "regenerated_observed_statistic": float(
@@ -247,17 +306,29 @@ jobs:
                   }
               )
 
+          pass_count = sum(
+              bool(row["source_reproduction_pass"]) for row in rows
+          )
           result = {
-              "diagnostic_id": "F1B.R2.R08_09.SKYLakex_SOURCE_LINEAGE.V1",
+              "diagnostic_id": "F1B.R2.R08_09.SKylakeX_SOURCE_LINEAGE.V2",
               "authoritative": False,
               "issue": 227,
+              "replica": replica,
+              "candidate_environment": {
+                  "OPENBLAS_CORETYPE": "SkylakeX"
+              },
               "target_replicates": [8, 9],
               "target_stream_count": 49,
-              "shard_index": shard_index,
-              "shard_count": shard_count,
-              "selected_stream_count": len(rows),
-              "source_reproduction_pass_count": sum(
-                  bool(row["source_reproduction_pass"]) for row in rows
+              "source_reproduction_pass_count": pass_count,
+              "source_reproduction_failure_count": 49 - pass_count,
+              "exact_dataset_fingerprint_count": sum(
+                  bool(row["dataset_fingerprint_exact"]) for row in rows
+              ),
+              "exact_observed_statistic_count": sum(
+                  bool(row["observed_statistic_exact"]) for row in rows
+              ),
+              "exact_attempt_sequence_sha256_count": sum(
+                  bool(row["attempt_sequence_sha256_exact"]) for row in rows
               ),
               "rows": rows,
               "boundary": {
@@ -272,48 +343,60 @@ jobs:
               encoding="utf-8",
           )
           print(
-              "R08_09_SKYLAKEX_SHARD="
+              "R08_09_SKYLAKEX_RESULT="
               + json.dumps(
                   {
-                      "shard_index": shard_index,
-                      "selected_stream_count": len(rows),
-                      "pass_count": result["source_reproduction_pass_count"],
+                      "replica": replica,
+                      "pass_count": pass_count,
+                      "failure_count": 49 - pass_count,
+                      "exact_observed_count": result[
+                          "exact_observed_statistic_count"
+                      ],
+                      "exact_attempt_count": result[
+                          "exact_attempt_sequence_sha256_count"
+                      ],
                   },
                   sort_keys=True,
               )
           )
           PY
 
-      - name: Verify scientific-process OpenBLAS core
+      - name: Record forced scientific-process core
+        if: steps.probe.outputs.eligible == 'true' && always()
         run: |
-          python - "$SHARD_INDEX" <<'PY'
-          import json
+          python - "$REPLICA" <<'PY'
           from pathlib import Path
+          import json
           import re
           import sys
 
-          shard = int(sys.argv[1])
-          text = Path(
-              f"/tmp/f1b-r2-r08-09-skylakex-core-{shard}.log"
-          ).read_text(encoding="utf-8", errors="replace")
-          cores = tuple(
-              re.findall(r"(?:^|\n)Core:\s*([^\r\n]+)", text)
+          replica = int(sys.argv[1])
+          log_path = Path(
+              f"/tmp/f1b-r2-r08-09-skylakex-core-{replica}.log"
           )
-          if not cores:
-              raise RuntimeError("OpenBLAS runtime core was not reported")
-          if any(core.strip() != "SkylakeX" for core in cores):
-              raise RuntimeError(
-                  f"unexpected OpenBLAS runtime core(s): {cores}"
+          text = (
+              log_path.read_text(encoding="utf-8", errors="replace")
+              if log_path.exists()
+              else ""
+          )
+          cores = tuple(
+              core.strip()
+              for core in re.findall(
+                  r"(?:^|\n)Core:\s*([^\r\n]+)",
+                  text,
               )
+          )
+          core_pass = bool(cores) and all(
+              core == "SkylakeX" for core in cores
+          )
           Path(
-              f"/tmp/f1b-r2-r08-09-skylakex-core-{shard}.json"
+              f"/tmp/f1b-r2-r08-09-skylakex-core-{replica}.json"
           ).write_text(
               json.dumps(
                   {
-                      "shard_index": shard,
-                      "OPENBLAS_CORETYPE": "SkylakeX",
+                      "replica": replica,
                       "reported_cores": list(cores),
-                      "all_cores_expected": True,
+                      "forced_core_pass": core_pass,
                   },
                   indent=2,
                   sort_keys=True,
@@ -321,95 +404,118 @@ jobs:
               + "\n",
               encoding="utf-8",
           )
-          print("R08_09_SKYLAKEX_CORES=" + json.dumps(list(cores)))
+          print(
+              "FORCED_CORE="
+              + json.dumps(
+                  {
+                      "replica": replica,
+                      "reported_cores": list(cores),
+                      "forced_core_pass": core_pass,
+                  },
+                  sort_keys=True,
+              )
+          )
           PY
 
-      - name: Upload shard evidence
+      - name: Upload replica evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: f1b-r2-r08-09-skylakex-${{ matrix.shard_index }}
+          name: f1b-r2-r08-09-skylakex-replica-${{ matrix.replica }}
           path: |
-            /tmp/f1b-r2-r08-09-skylakex-${{ matrix.shard_index }}.json
-            /tmp/f1b-r2-r08-09-skylakex-core-${{ matrix.shard_index }}.json
-            /tmp/f1b-r2-r08-09-skylakex-core-${{ matrix.shard_index }}.log
+            /tmp/r08-09-probe-${{ matrix.replica }}.json
+            /tmp/r08-09-probe-${{ matrix.replica }}.err
+            /tmp/f1b-r2-r08-09-skylakex-result-${{ matrix.replica }}.json
+            /tmp/f1b-r2-r08-09-skylakex-core-${{ matrix.replica }}.json
+            /tmp/f1b-r2-r08-09-skylakex-core-${{ matrix.replica }}.log
           if-no-files-found: warn
 
   combine:
-    name: R08_09 SkylakeX 49-stream combine
-    needs: r08_09_shard
+    name: R08_09 SkylakeX source-lineage decision
+    needs: sample_runner
     runs-on: ubuntu-latest
     steps:
-      - name: Download all shard evidence
+      - name: Download all replica evidence
         uses: actions/download-artifact@v4
         with:
-          pattern: f1b-r2-r08-09-skylakex-*
+          pattern: f1b-r2-r08-09-skylakex-replica-*
           path: /tmp/parts
           merge-multiple: true
 
-      - name: Combine exact source-reproduction result
+      - name: Combine predeclared source-lineage test
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
 
-          parts = []
-          for shard in range(4):
-              path = Path(
-                  f"/tmp/parts/f1b-r2-r08-09-skylakex-{shard}.json"
-              )
-              parts.append(json.loads(path.read_text(encoding="utf-8")))
-
-          rows = [
-              row
-              for part in parts
-              for row in part["rows"]
+          probes = [
+              json.loads(path.read_text(encoding="utf-8"))
+              for path in sorted(Path("/tmp/parts").glob("r08-09-probe-*.json"))
           ]
-          run_ids = [str(row["run_id"]) for row in rows]
-          if len(rows) != 49:
-              raise ValueError(f"combined target count is {len(rows)}, not 49")
-          if len(set(run_ids)) != 49:
-              raise ValueError("combined target run IDs are not unique")
-          if any(
-              int(row["evaluation_replicate"]) not in (8, 9)
-              for row in rows
-          ):
-              raise ValueError("combined result escaped R08_09 boundary")
+          eligible = [
+              probe
+              for probe in probes
+              if bool(probe["eligible_skylakex_runner"])
+          ]
+          results = [
+              json.loads(path.read_text(encoding="utf-8"))
+              for path in sorted(
+                  Path("/tmp/parts").glob(
+                      "f1b-r2-r08-09-skylakex-result-*.json"
+                  )
+              )
+          ]
+          cores = {
+              int(data["replica"]): data
+              for data in (
+                  json.loads(path.read_text(encoding="utf-8"))
+                  for path in sorted(
+                      Path("/tmp/parts").glob(
+                          "f1b-r2-r08-09-skylakex-core-*.json"
+                      )
+                  )
+              )
+          }
 
-          pass_count = sum(
-              bool(row["source_reproduction_pass"]) for row in rows
+          eligible_ids = {
+              int(probe["replica"]) for probe in eligible
+          }
+          result_ids = {
+              int(result["replica"]) for result in results
+          }
+          all_eligible_completed = (
+              bool(eligible_ids)
+              and result_ids == eligible_ids
+              and all(
+                  replica in cores
+                  and bool(cores[replica]["forced_core_pass"])
+                  for replica in eligible_ids
+              )
           )
-          exact_dataset_count = sum(
-              bool(row["dataset_fingerprint_exact"]) for row in rows
+
+          all_results_pass = bool(results) and all(
+              int(result["target_stream_count"]) == 49
+              and int(result["source_reproduction_pass_count"]) == 49
+              and int(result["source_reproduction_failure_count"]) == 0
+              and int(result["exact_dataset_fingerprint_count"]) == 49
+              and int(result["exact_observed_statistic_count"]) == 49
+              and int(result["exact_attempt_sequence_sha256_count"]) == 49
+              for result in results
           )
-          exact_observed_count = sum(
-              bool(row["observed_statistic_exact"]) for row in rows
-          )
-          exact_attempt_count = sum(
-              bool(row["attempt_sequence_sha256_exact"]) for row in rows
-          )
-          result = {
-              "diagnostic_id": "F1B.R2.R08_09.SKYLakex_SOURCE_LINEAGE.V1",
+
+          hypothesis_pass = all_eligible_completed and all_results_pass
+          combined = {
+              "diagnostic_id": "F1B.R2.R08_09.SKylakeX_SOURCE_LINEAGE.V2",
               "authoritative": False,
               "issue": 227,
-              "candidate_environment": {
-                  "OPENBLAS_CORETYPE": "SkylakeX"
-              },
-              "target_replicates": [8, 9],
-              "target_stream_count": 49,
-              "qualified_stream_count": len(rows),
-              "source_reproduction_pass_count": pass_count,
-              "source_reproduction_failure_count": len(rows) - pass_count,
-              "exact_dataset_fingerprint_count": exact_dataset_count,
-              "exact_observed_statistic_count": exact_observed_count,
-              "exact_attempt_sequence_sha256_count": exact_attempt_count,
-              "hypothesis_pass": (
-                  pass_count == 49
-                  and exact_dataset_count == 49
-                  and exact_observed_count == 49
-                  and exact_attempt_count == 49
-              ),
-              "rows": sorted(rows, key=lambda row: str(row["run_id"])),
+              "sampled_runner_count": len(probes),
+              "eligible_skylakex_runner_count": len(eligible),
+              "completed_scientific_replay_count": len(results),
+              "eligible_replicas": sorted(eligible_ids),
+              "completed_replicas": sorted(result_ids),
+              "all_eligible_completed": all_eligible_completed,
+              "all_results_pass_49_of_49": all_results_pass,
+              "hypothesis_pass": hypothesis_pass,
               "boundary": {
                   "stage_c1_v1_rewritten": False,
                   "new_draw_index_ge_199_generated": False,
@@ -418,23 +524,15 @@ jobs:
                   "homogeneous_future_lineage_selected": False,
               },
           }
-          Path("/tmp/f1b-r2-r08-09-skylakex-combined.json").write_text(
-              json.dumps(result, indent=2, sort_keys=True) + "\n",
+          Path(
+              "/tmp/f1b-r2-r08-09-skylakex-combined.json"
+          ).write_text(
+              json.dumps(combined, indent=2, sort_keys=True) + "\n",
               encoding="utf-8",
           )
           print(
               "R08_09_SKYLAKEX_COMBINED="
-              + json.dumps(
-                  {
-                      "pass_count": pass_count,
-                      "failure_count": len(rows) - pass_count,
-                      "exact_dataset_count": exact_dataset_count,
-                      "exact_observed_count": exact_observed_count,
-                      "exact_attempt_count": exact_attempt_count,
-                      "hypothesis_pass": result["hypothesis_pass"],
-                  },
-                  sort_keys=True,
-              )
+              + json.dumps(combined, sort_keys=True)
           )
           PY
 
@@ -445,7 +543,7 @@ jobs:
           path: /tmp/f1b-r2-r08-09-skylakex-combined.json
           if-no-files-found: error
 
-      - name: Enforce predeclared 49/49 source reproduction
+      - name: Enforce predeclared hypothesis
         run: |
           python - <<'PY'
           import json
@@ -455,17 +553,8 @@ jobs:
                   "/tmp/f1b-r2-r08-09-skylakex-combined.json"
               ).read_text(encoding="utf-8")
           )
-          assert result["hypothesis_pass"] is True, {
-              "pass_count": result["source_reproduction_pass_count"],
-              "failure_count": result["source_reproduction_failure_count"],
-              "exact_dataset_count": result[
-                  "exact_dataset_fingerprint_count"
-              ],
-              "exact_observed_count": result[
-                  "exact_observed_statistic_count"
-              ],
-              "exact_attempt_count": result[
-                  "exact_attempt_sequence_sha256_count"
-              ],
-          }
+          assert result["eligible_skylakex_runner_count"] >= 1
+          assert result["all_eligible_completed"] is True
+          assert result["all_results_pass_49_of_49"] is True
+          assert result["hypothesis_pass"] is True
           PY
