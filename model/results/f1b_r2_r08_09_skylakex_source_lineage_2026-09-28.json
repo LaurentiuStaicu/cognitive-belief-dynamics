@@ -1,0 +1,178 @@
+{
+  "diagnostic_id": "F1B.R2.R08_09.SKYLakex_SOURCE_LINEAGE.V2",
+  "status": "NON_AUTHORITATIVE_R08_09_SKYLAKEX_SOURCE_LINEAGE_RESULT_RETAINED",
+  "authoritative": false,
+  "issue": 227,
+  "temporary_execution_pr": 232,
+  "workflow_run_id": 36394804631,
+  "execution_head": "ae65162a152cf3afc12f54c5ab887e4750596da7",
+  "qualified_main_baseline": "a091605be31f7035217253b5e8c453af14cdcdd1",
+  "paired_source": {
+    "artifact_id": 10938668225,
+    "sha256": "b2727462b5bd09e5570090a42d7c90da8866e02100e0f4ccad551d8958a3d301"
+  },
+  "candidate_environment": {
+    "OPENBLAS_CORETYPE": "SkylakeX"
+  },
+  "target_evaluation_replicates": [
+    8,
+    9
+  ],
+  "target_stream_count": 49,
+  "sampled_runner_count": 16,
+  "eligible_skylakex_runner_count": 7,
+  "sampling_miss_count": 9,
+  "completed_scientific_replay_count": 7,
+  "all_eligible_completed": true,
+  "all_results_pass_49_of_49": true,
+  "all_dataset_fingerprints_exact": true,
+  "all_observed_statistics_exact": true,
+  "all_attempt_sequence_hashes_exact": true,
+  "all_first_divergent_draw_null": true,
+  "canonical_comparison_rows_sha256": "042882f5895871152923f443cd8158b7d080441b00497ac423b3d955c547ed2f",
+  "combined_result": {
+    "artifact_id": 10957358993,
+    "artifact_name": "f1b-r2-r08-09-skylakex-combined",
+    "artifact_zip_sha256": "b39699cd8bf28beb78df330a49af0d0710eaee701767e1455b1cfdc3836ad46e",
+    "combined_json_sha256": "1df20dbedba22f3a0745e323a4d5bd351e5dccce95979db17ffd910144231d19"
+  },
+  "eligible_executions": [
+    {
+      "replica": 2,
+      "artifact_id": 10957479980,
+      "artifact_name": "f1b-r2-r08-09-skylakex-replica-2",
+      "artifact_zip_sha256": "48c4e9db035d2e663d79b54a76eb4246ccbb6a19db5666283adce99c8189bf36",
+      "cpu_model": "Intel(R) Xeon(R) 6973P-C",
+      "natural_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "scientific_process_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "source_reproduction_pass_count": 49,
+      "source_reproduction_failure_count": 0
+    },
+    {
+      "replica": 3,
+      "artifact_id": 10957689095,
+      "artifact_name": "f1b-r2-r08-09-skylakex-replica-3",
+      "artifact_zip_sha256": "5fc609ff09e6fc61784080e369e81db56a336a8da31411bc5cc6468203830d54",
+      "cpu_model": "AMD EPYC 9V45 96-Core Processor",
+      "natural_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "scientific_process_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "source_reproduction_pass_count": 49,
+      "source_reproduction_failure_count": 0
+    },
+    {
+      "replica": 4,
+      "artifact_id": 10958076737,
+      "artifact_name": "f1b-r2-r08-09-skylakex-replica-4",
+      "artifact_zip_sha256": "91113c0bd3bb512342ca95d99db20bbcd0969976b848fe053f55603b9da48f46",
+      "cpu_model": "Intel(R) Xeon(R) 6973P-C",
+      "natural_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "scientific_process_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "source_reproduction_pass_count": 49,
+      "source_reproduction_failure_count": 0
+    },
+    {
+      "replica": 5,
+      "artifact_id": 10957898744,
+      "artifact_name": "f1b-r2-r08-09-skylakex-replica-5",
+      "artifact_zip_sha256": "13f34f095db29709c03f04e14cae4927bd4fae5afc6c770cec4c4dbb585406f1",
+      "cpu_model": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+      "natural_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "scientific_process_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "source_reproduction_pass_count": 49,
+      "source_reproduction_failure_count": 0
+    },
+    {
+      "replica": 9,
+      "artifact_id": 10958092150,
+      "artifact_name": "f1b-r2-r08-09-skylakex-replica-9",
+      "artifact_zip_sha256": "1347943962bc79e847125c03647ec9532b7cc5fc56d4c63efc80e1a207aac783",
+      "cpu_model": "INTEL(R) XEON(R) PLATINUM 8573C",
+      "natural_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "scientific_process_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "source_reproduction_pass_count": 49,
+      "source_reproduction_failure_count": 0
+    },
+    {
+      "replica": 11,
+      "artifact_id": 10957298574,
+      "artifact_name": "f1b-r2-r08-09-skylakex-replica-11",
+      "artifact_zip_sha256": "ea02dd65384f090350ba38ec9b8f15cd18e3a6749b182fd3d92a9c61197fca19",
+      "cpu_model": "AMD EPYC 9V45 96-Core Processor",
+      "natural_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "scientific_process_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "source_reproduction_pass_count": 49,
+      "source_reproduction_failure_count": 0
+    },
+    {
+      "replica": 14,
+      "artifact_id": 10957573599,
+      "artifact_name": "f1b-r2-r08-09-skylakex-replica-14",
+      "artifact_zip_sha256": "ad8a9b6e13a0d777d262c255aea58a18a57f66d3cbc57015e6f6bf4fb580d89a",
+      "cpu_model": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+      "natural_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "scientific_process_reported_cores": [
+        "SkylakeX",
+        "SkylakeX"
+      ],
+      "source_reproduction_pass_count": 49,
+      "source_reproduction_failure_count": 0
+    }
+  ],
+  "decision": {
+    "r08_09_skylakex_source_lineage_hypothesis_pass": true,
+    "existing_combined_source_contains_multiple_reproducible_numerical_lineages": true,
+    "homogeneous_future_lineage_selected": false,
+    "next_gate": "PROSPECTIVE_HOMOGENEOUS_PAIRED_SOURCE_REGENERATION_DESIGN"
+  },
+  "boundary": {
+    "failed_c1_v1_rewritten": false,
+    "q2_haswell_failure_rewritten": false,
+    "new_draw_index_ge_199_generated": false,
+    "scientific_fit_settings_changed": false,
+    "stage_c2_authorized": false,
+    "power_validated": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
