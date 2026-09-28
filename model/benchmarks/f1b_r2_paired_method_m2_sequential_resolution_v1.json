@@ -1,0 +1,130 @@
+{
+  "design_id": "F1B.R2.PAIRED_METHOD_M2_SEQUENTIAL_RESOLUTION.V1",
+  "status": "NON_AUTHORITATIVE_PAIRED_METHOD_M2_SEQUENTIAL_RESOLUTION_DESIGN",
+  "issue": 259,
+  "baseline_main_commit": "284e225bd979284334c1de888f096bd6122dcb5b",
+  "candidate_environment": {
+    "variable": "OPENBLAS_CORETYPE",
+    "value": "Haswell",
+    "must_be_set_before_python_start": true,
+    "runtime_core_confirmation_required": true,
+    "environment_fallback_allowed": false
+  },
+  "frozen_dependency_lock": {
+    "path": "requirements/ci-py312-linux.lock.txt",
+    "git_blob_sha": "9bbc5e31949c3e9b3c6679075388c66316030e79"
+  },
+  "retained_m1": {
+    "result_path": "model/results/f1b_r2_paired_method_m1_screen_2026-09-28.json",
+    "result_git_blob_sha": "a54907a2ff9ac8b8ac845cde7c5205707617b775",
+    "workflow_run_id": 36439940794,
+    "artifact_id": 10979254047,
+    "artifact_name": "f1b-r2-m1-combined",
+    "combined_json_name": "f1b-r2-m1-combined.json",
+    "combined_json_sha256": "dda3978acbf13ae9dba4d548ae8355413b29c8cac24ad86d5b8905de56d81042",
+    "combined_json_size_bytes": 5667170,
+    "scientific_run_count": 840,
+    "method_execution_count": 3360,
+    "prefix_attempts": 199,
+    "required_prefix_fit_failures": 0,
+    "eligible_methods": [
+      "POPULATION",
+      "HIERARCHICAL_0.5X",
+      "HIERARCHICAL_1X",
+      "HIERARCHICAL_2X"
+    ],
+    "hierarchical_scale_sensitive": true
+  },
+  "h1_source": {
+    "workflow_run_id": 36401867007,
+    "artifact_id": 10961527329,
+    "artifact_name": "f1b-r2-homogeneous-h1-combined",
+    "combined_json_name": "f1b-r2-homogeneous-h1-combined.json",
+    "combined_json_sha256": "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e"
+  },
+  "scientific_design": {
+    "missingness_regimes": [
+      0,
+      0.15
+    ],
+    "expected_departure_cell_count": 72,
+    "departure_replicates_per_cell": 5,
+    "null_replicates_per_identity": 20,
+    "scientific_run_count": 840,
+    "method_execution_count": 3360,
+    "same_scientific_matrix_as_m1": true,
+    "same_dataset_and_mask_across_methods": true,
+    "hierarchical_common_random_numbers_across_scales": true,
+    "population_method_namespace_distinct": true
+  },
+  "controller": {
+    "controller_id": "F1B.R2.RESAMPLING_RISK_CONTROLLER.V1",
+    "config_path": "model/benchmarks/f1b_r2_resampling_risk_controller_v1.json",
+    "config_git_blob_sha": "3e0878209990d14741d1522d8733feec25e3459f",
+    "alpha": 0.05,
+    "epsilon": 0.001,
+    "halfspend": 1000,
+    "probability_tolerance": 1e-12,
+    "prior_total_attempts": 199,
+    "first_new_draw_index": 199,
+    "maximum_new_draw_index": 9999,
+    "maximum_total_attempts": 10000,
+    "stop_on_boundary": true,
+    "stop_on_first_new_refit_failure": true,
+    "refit_failure_status": "BOOTSTRAP_REFIT_FAILURE_UNRESOLVED",
+    "unresolved_at_cap_status": "SEQUENTIAL_UNRESOLVED_AT_CAP"
+  },
+  "eligibility": {
+    "maximum_overall_refit_failure_proportion": 0.02,
+    "maximum_role_missingness_refit_failure_proportion": 0.05,
+    "minimum_overall_resolution_proportion": 0.8,
+    "minimum_role_missingness_resolution_proportion": 0.6,
+    "m1_eligibility_inheritance_required": true
+  },
+  "execution": {
+    "shard_count": 80,
+    "shard_assignment": "SHA256_SCIENTIFIC_RUN_ID_MODULO_SHARD_COUNT",
+    "keep_all_methods_for_scientific_run_in_same_shard": true,
+    "reporting_checkpoints_total_n": [
+      199,
+      499,
+      999,
+      1999,
+      4999,
+      10000
+    ]
+  },
+  "protected_file_git_blob_sha": {
+    "model/benchmarks/f1b_r2_paired_method_m1_screen_v1.json": "7a5e6b76055971c74cdd5ca0f1552887a31daaaf",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_paired_method_m1_screen.py": "b3f1771f2852a59985ddc711049e902c80a14e22",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_population_restriction_recovery.py": "6f520d8d804d579a1865dd415fb213b69199539d",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_restriction_recovery.py": "09291cc220aec5e1a557cdd697cb1257af2f233c",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_resampling_risk.py": "809a45554db9acc79ed0016b6ab7f771c91cc15a",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_openblas_lineage.py": "ad5439a7b30ec5b56a655931f5eab6f7bd5bb226"
+  },
+  "decision_states": [
+    "M2_ELIGIBLE",
+    "M2_INELIGIBLE_REFIT_STABILITY",
+    "M2_INELIGIBLE_OVERALL_RESOLUTION",
+    "M2_INELIGIBLE_STRATUM_RESOLUTION"
+  ],
+  "next_stage": {
+    "eligible_methods_only": true,
+    "stage": "BROAD_RECOVERY_POWER_CHARACTERIZATION",
+    "broad_n_eval_per_departure_cell": 100,
+    "broad_worst_case_component_mcse_max": 0.05,
+    "broad_execution_authorized_by_this_config": false
+  },
+  "boundary": {
+    "m1_result_rewritten": false,
+    "m1_fixed_199_relabelled_without_controller": false,
+    "controller_changed": false,
+    "method_selected": false,
+    "power_validated": false,
+    "broad_n_eval_100_executed": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
