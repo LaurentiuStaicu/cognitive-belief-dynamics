@@ -76,6 +76,16 @@ def validate_homogeneous_c2_config(config: dict) -> None:
     if candidate["environment_fallback_allowed"] is not False:
         raise ValueError("homogeneous C2 environment fallback is forbidden")
 
+    frozen_controller = config["frozen_controller_config"]
+    if frozen_controller["path"] != (
+        "model/benchmarks/f1b_r2_resampling_risk_controller_v1.json"
+    ):
+        raise ValueError("homogeneous C2 controller config path changed")
+    if frozen_controller["git_blob_sha"] != (
+        "3e0878209990d14741d1522d8733feec25e3459f"
+    ):
+        raise ValueError("homogeneous C2 controller config blob changed")
+
     source = config["source_lineage"]
     if source["lineage_id"] != (
         "F1B.R2.HOMOGENEOUS_PAIRED_SOURCE.LINEAGE.V1"
@@ -297,6 +307,17 @@ def validate_retained_c1_result(c1_result: dict, config: dict) -> None:
         raise ValueError("homogeneous C2 retained C1 gate did not pass")
     if c1_result["decision"]["stage_c2_authorized_by_this_result"] is not False:
         raise ValueError("retained C1 unexpectedly self-authorized C2")
+    combined = c1_result["execution"]["combined_artifact"]
+    if int(combined["artifact_id"]) != int(expected["artifact_id"]):
+        raise ValueError("homogeneous C2 retained C1 artifact mismatch")
+    if str(combined["combined_json_sha256"]) != str(
+        expected["combined_json_sha256"]
+    ):
+        raise ValueError("homogeneous C2 retained C1 combined SHA-256 mismatch")
+    if int(combined["combined_json_size_bytes"]) != int(
+        expected["combined_json_size_bytes"]
+    ):
+        raise ValueError("homogeneous C2 retained C1 combined size mismatch")
 
 
 def _source_run_map(paired_source: dict) -> dict[str, dict]:
@@ -433,6 +454,34 @@ def bind_c2_targets(
             raise ValueError(f"homogeneous C2 H1/C1 prefix mismatch: {run_id}")
         if str(run["dataset_sha256"]) != str(checkpoint["dataset_sha256"]):
             raise ValueError(f"homogeneous C2 H1/H2 dataset mismatch: {run_id}")
+        if int(run["bootstrap_stream_seed"]) != int(
+            checkpoint["bootstrap_stream_seed"]
+        ):
+            raise ValueError(f"homogeneous C2 H1/H2 stream-seed mismatch: {run_id}")
+        if float(run["observed_statistic"]) != float(
+            checkpoint["observed_statistic"]
+        ):
+            raise ValueError(
+                f"homogeneous C2 H1/H2 observed-statistic mismatch: {run_id}"
+            )
+        if str(c1_row["regenerated_attempt_sequence_sha256"]) != attempt_hash:
+            raise ValueError(
+                f"homogeneous C2 C1 regenerated-prefix mismatch: {run_id}"
+            )
+        if str(replay["dataset_sha256"]) != str(run["dataset_sha256"]):
+            raise ValueError(f"homogeneous C2 H1/H2 replay dataset mismatch: {run_id}")
+        if int(replay["bootstrap_stream_seed"]) != int(
+            run["bootstrap_stream_seed"]
+        ):
+            raise ValueError(f"homogeneous C2 H1/H2 replay seed mismatch: {run_id}")
+        if float(replay["observed_statistic"]) != float(
+            run["observed_statistic"]
+        ):
+            raise ValueError(
+                f"homogeneous C2 H1/H2 replay observed mismatch: {run_id}"
+            )
+        if str(replay["attempt_sequence_sha256"]) != attempt_hash:
+            raise ValueError(f"homogeneous C2 H1/H2 replay prefix mismatch: {run_id}")
         if replay["decision"] is not None:
             raise ValueError(f"homogeneous C2 target already resolved in H2: {run_id}")
         if replay["status"] != "SEQUENTIAL_UNRESOLVED":
@@ -535,6 +584,10 @@ def _prepare_scientific_stream(
         raise ValueError(
             f"homogeneous C2 H2 prefix sum mismatch: {run['run_id']}"
         )
+    if int(h2_row["full_prefix_sum_199"]) != int(prefix_sum):
+        raise ValueError(
+            f"homogeneous C2 H2 full-prefix sum mismatch: {run['run_id']}"
+        )
     if h2_row["stopping_n"] is not None or h2_row["boundary_hit"] is not None:
         raise ValueError(
             f"homogeneous C2 H2 target became terminal: {run['run_id']}"
@@ -597,6 +650,22 @@ def continue_target_stream(
     observed_pair = prepared["observed_pair"]
     retained_observed = prepared["retained_observed_statistic"]
     partial_sum = int(prepared["prefix_sum_199"])
+    prior_boundary = boundaries.row(EXPECTED_PRIOR_ATTEMPTS)
+    h2_row = target["h2_replay_row"]
+    if int(h2_row["terminal_lower"]) != int(prior_boundary.lower):
+        raise ValueError(
+            f"homogeneous C2 H2 lower-boundary mismatch: {run['run_id']}"
+        )
+    if int(h2_row["terminal_upper"]) != int(prior_boundary.upper):
+        raise ValueError(
+            f"homogeneous C2 H2 upper-boundary mismatch: {run['run_id']}"
+        )
+    if partial_sum <= int(prior_boundary.lower) or partial_sum >= int(
+        prior_boundary.upper
+    ):
+        raise ValueError(
+            f"homogeneous C2 target is terminal at retained n=199: {run['run_id']}"
+        )
     seed = int(run["bootstrap_stream_seed"])
 
     retained_attempts = tuple(run["bootstrap_attempt_statistics"])
@@ -734,6 +803,8 @@ def continue_target_stream(
         ],
         "prior_total_attempts": EXPECTED_PRIOR_ATTEMPTS,
         "prior_exceedance_sum": int(prepared["prefix_sum_199"]),
+        "prior_lower_boundary": int(prior_boundary.lower),
+        "prior_upper_boundary": int(prior_boundary.upper),
         "retained_prefix_sha256": retained_hash,
         "c1_retained_prefix_sha256": str(
             target["c1_row"]["retained_attempt_sequence_sha256"]
@@ -946,6 +1017,18 @@ def _aggregate_by(rows: list[dict], field: str) -> list[dict]:
     ]
 
 
+def annotate_partition_runtime_cores(
+    partition: dict,
+    cores: tuple[str, ...],
+) -> dict:
+    validate_c2_runtime_cores(cores)
+    normalized = list(cores)
+    partition["runtime_openblas_cores"] = normalized
+    for row in partition["rows"]:
+        row["runtime_openblas_cores"] = normalized
+    return partition
+
+
 def combine_c2_partitions(
     partitions: list[dict],
     config: dict,
@@ -973,6 +1056,13 @@ def combine_c2_partitions(
             raise ValueError("duplicate homogeneous C2 shard")
         seen_shards.add(shard)
         target_hashes.add(str(partition["target_run_ids_sha256"]))
+        cores = tuple(partition.get("runtime_openblas_cores", ()))
+        validate_c2_runtime_cores(cores)
+        for row in partition["rows"]:
+            if row.get("runtime_openblas_cores") != list(cores):
+                raise ValueError(
+                    "homogeneous C2 row runtime core evidence mismatch"
+                )
         rows.extend(partition["rows"])
 
     if seen_shards != set(range(shard_count)):
