@@ -1,0 +1,337 @@
+name: TEMP F1b R2 homogeneous Stage-B H2
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  execute_h2:
+    name: H2 homogeneous Stage-B replay
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download qualified homogeneous H1 source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/h1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36401867007
+
+      - name: Download historical raw Stage-B replay
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-resampling-risk-replay-v1
+          path: /tmp/historical
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36343709630
+
+      - name: Rebuild Stage-B provenance from homogeneous source
+        run: |
+          python scripts/run_f1b_r2_homogeneous_stage_b_rebuild.py \
+            --input /tmp/h1/f1b-r2-homogeneous-h1-combined.json \
+            --output /tmp/f1b-r2-homogeneous-stage-b-h2.json
+
+      - name: Verify H2 source and controller boundary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(
+              Path(
+                  "/tmp/f1b-r2-homogeneous-stage-b-h2.json"
+              ).read_text(encoding="utf-8")
+          )
+          assert data["status"] == (
+              "NON_AUTHORITATIVE_RESAMPLING_RISK_REPLAY_COMPLETE"
+          )
+          assert data["authoritative"] is False
+          assert data["restriction_run_count"] == 750
+          assert data["bootstrap_refit_failure_count"] == 0
+          assert len(data["replay_rows"]) == 750
+          assert len(data["stream_checkpoints"]) == 750
+          assert data["alpha"] == 0.05
+          assert data["epsilon"] == 0.001
+          assert data["halfspend"] == 1000
+          assert data["max_attempts"] == 199
+          assert data["homogeneous_rebuild"] == {
+              "rebuild_id": "F1B.R2.HOMOGENEOUS_STAGE_B_REBUILD.V1",
+              "status": "NON_AUTHORITATIVE_HOMOGENEOUS_STAGE_B_REBUILD_COMPLETE",
+              "issue": 234,
+              "source_lineage_id": (
+                  "F1B.R2.HOMOGENEOUS_PAIRED_SOURCE.LINEAGE.V1"
+              ),
+              "historical_stage_b_inherited": False,
+              "new_bootstrap_attempts_generated": False,
+              "maximum_source_attempts": 199,
+          }
+          provenance = data["provenance"]
+          assert provenance["input_artifact_id"] == 10961527329
+          assert provenance["input_sha256"] == (
+              "618b52162e98d25d41ac9cc7a6411ccf"
+              "bf3c95775412a46b759e1514e90ed37e"
+          )
+          print(
+              "H2_GLOBAL_SUMMARY="
+              + json.dumps(data["global_summary"], sort_keys=True)
+          )
+          PY
+
+      - name: Compare H2 with retained historical Stage-B
+        run: |
+          python - <<'PY'
+          from collections import Counter, defaultdict
+          import hashlib
+          import json
+          from pathlib import Path
+
+          old_path = Path(
+              "/tmp/historical/f1b-r2-resampling-risk-replay.json"
+          )
+          new_path = Path(
+              "/tmp/f1b-r2-homogeneous-stage-b-h2.json"
+          )
+          old = json.loads(old_path.read_text(encoding="utf-8"))
+          new = json.loads(new_path.read_text(encoding="utf-8"))
+
+          old_rows = {
+              str(row["run_id"]): row for row in old["replay_rows"]
+          }
+          new_rows = {
+              str(row["run_id"]): row for row in new["replay_rows"]
+          }
+          if set(old_rows) != set(new_rows) or len(new_rows) != 750:
+              raise ValueError("historical/H2 run-ID sets differ")
+
+          old_cp = {
+              str(row["run_id"]): row
+              for row in old["stream_checkpoints"]
+          }
+          new_cp = {
+              str(row["run_id"]): row
+              for row in new["stream_checkpoints"]
+          }
+
+          def state(row):
+              return (
+                  "UNRESOLVED"
+                  if row["decision"] is None
+                  else str(row["decision"])
+              )
+
+          transition = Counter()
+          attempt_hash_exact = 0
+          dataset_exact = 0
+          observed_exact = 0
+          stopping_n_exact = 0
+          changed = []
+          by_replicate = defaultdict(
+              lambda: {
+                  "count": 0,
+                  "attempt_hash_exact_count": 0,
+                  "dataset_exact_count": 0,
+                  "observed_exact_count": 0,
+                  "decision_state_exact_count": 0,
+                  "stopping_n_exact_count": 0,
+              }
+          )
+
+          for run_id in sorted(new_rows):
+              a = old_rows[run_id]
+              b = new_rows[run_id]
+              acp = old_cp[run_id]
+              bcp = new_cp[run_id]
+              old_state = state(a)
+              new_state = state(b)
+              transition[(old_state, new_state)] += 1
+
+              attempt_equal = (
+                  str(acp["attempt_sequence_sha256"])
+                  == str(bcp["attempt_sequence_sha256"])
+              )
+              dataset_equal = (
+                  str(acp["dataset_sha256"])
+                  == str(bcp["dataset_sha256"])
+              )
+              observed_equal = (
+                  float(acp["observed_statistic"])
+                  == float(bcp["observed_statistic"])
+              )
+              stopping_equal = a["stopping_n"] == b["stopping_n"]
+
+              attempt_hash_exact += int(attempt_equal)
+              dataset_exact += int(dataset_equal)
+              observed_exact += int(observed_equal)
+              stopping_n_exact += int(stopping_equal)
+
+              rep = int(b["evaluation_replicate"])
+              g = by_replicate[rep]
+              g["count"] += 1
+              g["attempt_hash_exact_count"] += int(attempt_equal)
+              g["dataset_exact_count"] += int(dataset_equal)
+              g["observed_exact_count"] += int(observed_equal)
+              g["decision_state_exact_count"] += int(
+                  old_state == new_state
+              )
+              g["stopping_n_exact_count"] += int(stopping_equal)
+
+              if (
+                  not attempt_equal
+                  or not observed_equal
+                  or old_state != new_state
+                  or not stopping_equal
+              ):
+                  changed.append(
+                      {
+                          "run_id": run_id,
+                          "evaluation_replicate": rep,
+                          "old_state": old_state,
+                          "new_state": new_state,
+                          "old_stopping_n": a["stopping_n"],
+                          "new_stopping_n": b["stopping_n"],
+                          "attempt_hash_exact": attempt_equal,
+                          "dataset_exact": dataset_equal,
+                          "observed_exact": observed_equal,
+                      }
+                  )
+
+          old_unresolved = {
+              run_id
+              for run_id, row in old_rows.items()
+              if row["decision"] is None
+          }
+          new_unresolved = {
+              run_id
+              for run_id, row in new_rows.items()
+              if row["decision"] is None
+          }
+
+          comparison = {
+              "comparison_id": (
+                  "F1B.R2.HOMOGENEOUS_STAGE_B."
+                  "HISTORICAL_COMPARISON.V1"
+              ),
+              "authoritative": False,
+              "issue": 234,
+              "historical_raw_replay": {
+                  "artifact_id": 10938984164,
+                  "json_sha256": hashlib.sha256(
+                      old_path.read_bytes()
+                  ).hexdigest(),
+              },
+              "homogeneous_h2_replay": {
+                  "json_sha256": hashlib.sha256(
+                      new_path.read_bytes()
+                  ).hexdigest(),
+              },
+              "integrity": {
+                  "run_count": 750,
+                  "dataset_fingerprint_exact_count": dataset_exact,
+                  "observed_statistic_exact_count": observed_exact,
+                  "attempt_sequence_sha256_exact_count": (
+                      attempt_hash_exact
+                  ),
+                  "stopping_n_exact_count": stopping_n_exact,
+              },
+              "historical_global_summary": old["global_summary"],
+              "homogeneous_global_summary": new["global_summary"],
+              "unresolved_sets": {
+                  "historical_count": len(old_unresolved),
+                  "homogeneous_count": len(new_unresolved),
+                  "intersection_count": len(
+                      old_unresolved & new_unresolved
+                  ),
+                  "historical_only_count": len(
+                      old_unresolved - new_unresolved
+                  ),
+                  "homogeneous_only_count": len(
+                      new_unresolved - old_unresolved
+                  ),
+                  "historical_only_run_ids": sorted(
+                      old_unresolved - new_unresolved
+                  ),
+                  "homogeneous_only_run_ids": sorted(
+                      new_unresolved - old_unresolved
+                  ),
+              },
+              "decision_transition_counts": {
+                  f"{old_state} -> {new_state}": count
+                  for (old_state, new_state), count in sorted(
+                      transition.items()
+                  )
+              },
+              "by_evaluation_replicate": {
+                  str(key): value
+                  for key, value in sorted(by_replicate.items())
+              },
+              "changed_run_count": len(changed),
+              "changed_runs": changed,
+              "interpretation_boundary": (
+                  "Historical comparison is sensitivity evidence only. "
+                  "The H2 controller is not tuned from this comparison, "
+                  "and historical Stage-B decisions/checkpoints are not "
+                  "inherited."
+              ),
+          }
+          Path(
+              "/tmp/f1b-r2-homogeneous-stage-b-h2-comparison.json"
+          ).write_text(
+              json.dumps(
+                  comparison,
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          print(
+              "H2_COMPARISON_SUMMARY="
+              + json.dumps(
+                  {
+                      "integrity": comparison["integrity"],
+                      "unresolved_sets": {
+                          key: value
+                          for key, value in comparison[
+                              "unresolved_sets"
+                          ].items()
+                          if not key.endswith("_run_ids")
+                      },
+                      "decision_transition_counts": comparison[
+                          "decision_transition_counts"
+                      ],
+                      "changed_run_count": len(changed),
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload H2 raw replay and comparison
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-stage-b-h2
+          path: |
+            /tmp/f1b-r2-homogeneous-stage-b-h2.json
+            /tmp/f1b-r2-homogeneous-stage-b-h2-comparison.json
+          if-no-files-found: error
