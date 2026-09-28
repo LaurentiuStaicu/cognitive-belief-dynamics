@@ -1,0 +1,120 @@
+name: TEMP F1b R2 OpenBLAS Q1
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  openblas_q1:
+    name: Q1 ${{ matrix.sentinel }} replica ${{ matrix.replica }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        sentinel:
+          - EXACT_PASS_CONTROL
+          - EXACT_OBSERVED_HASH_FAILURE
+          - WITHIN_TOLERANCE_HASH_FAILURE
+          - OUTSIDE_TOLERANCE_HASH_FAILURE
+        replica: [0, 1, 2, 3]
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+      SENTINEL: ${{ matrix.sentinel }}
+      REPLICA: ${{ matrix.replica }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Verify Q0 execution lineage
+        run: |
+          python scripts/verify_f1b_r2_openblas_lineage.py \
+            --output "/tmp/f1b-r2-q0-${SENTINEL}-${REPLICA}.json"
+
+      - name: Download exact retained paired source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-kl-v2-paired-combined-recovered
+          path: /tmp/source
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36340881516
+
+      - name: Execute Q1 sentinel through unchanged Stage-C1 path
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/tmp_run_f1b_r2_openblas_q1.py \
+            "$SENTINEL" \
+            /tmp/source/f1b-r2-kl-v2-paired-combined.json \
+            "/tmp/f1b-r2-q1-${SENTINEL}-${REPLICA}.json" \
+            "$REPLICA" \
+            2> >(tee "/tmp/f1b-r2-q1-core-${SENTINEL}-${REPLICA}.log" >&2)
+
+      - name: Verify scientific-process OpenBLAS core
+        run: |
+          python - "$SENTINEL" "$REPLICA" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+              validate_runtime_cores,
+          )
+
+          sentinel = sys.argv[1]
+          replica = sys.argv[2]
+          path = Path(
+              f"/tmp/f1b-r2-q1-core-{sentinel}-{replica}.log"
+          )
+          cores = parse_openblas_verbose_cores(
+              path.read_text(encoding="utf-8", errors="replace")
+          )
+          validate_runtime_cores(cores)
+          out = Path(
+              f"/tmp/f1b-r2-q1-core-{sentinel}-{replica}.json"
+          )
+          out.write_text(
+              json.dumps(
+                  {
+                      "sentinel": sentinel,
+                      "replica": int(replica),
+                      "reported_cores": list(cores),
+                      "all_cores_qualified": True,
+                  },
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          print("Q1_OPENBLAS_CORES=" + json.dumps(list(cores)))
+          PY
+
+      - name: Upload Q1 qualification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-openblas-q1-${{ matrix.sentinel }}-${{ matrix.replica }}
+          path: |
+            /tmp/f1b-r2-q0-${{ matrix.sentinel }}-${{ matrix.replica }}.json
+            /tmp/f1b-r2-q1-${{ matrix.sentinel }}-${{ matrix.replica }}.json
+            /tmp/f1b-r2-q1-core-${{ matrix.sentinel }}-${{ matrix.replica }}.json
+            /tmp/f1b-r2-q1-core-${{ matrix.sentinel }}-${{ matrix.replica }}.log
+          if-no-files-found: warn
