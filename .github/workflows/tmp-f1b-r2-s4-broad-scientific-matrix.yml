@@ -1,0 +1,113 @@
+name: TEMP F1b R2 S4 broad scientific matrix
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  manifest:
+    name: Build deterministic 15000-run S4 scientific manifest
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download exact retained homogeneous H1 source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/h1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36401867007
+
+      - name: Build S4 scientific manifest
+        run: |
+          python scripts/build_f1b_r2_s4_broad_scientific_matrix.py \
+            --h1-source /tmp/h1/f1b-r2-homogeneous-h1-combined.json \
+            --output /tmp/f1b-r2-s4-broad-scientific-matrix.json
+
+      - name: Enforce S4 matrix contract
+        run: |
+          python - <<'PY'
+          import json
+          from collections import Counter
+          from pathlib import Path
+
+          data = json.loads(
+              Path(
+                  "/tmp/f1b-r2-s4-broad-scientific-matrix.json"
+              ).read_text(encoding="utf-8")
+          )
+          assert data["restriction_cell_count"] == 75
+          assert data["scientific_cell_missingness_count"] == 150
+          assert data["scientific_run_count"] == 15000
+          assert data["departure_run_count"] == 14400
+          assert data["null_run_count"] == 600
+          assert data["missingness_run_counts"] == {
+              "0.00": 7500,
+              "0.15": 7500,
+          }
+          assert all(value is False for value in data["boundary"].values())
+
+          rows = data["rows"]
+          assert len(rows) == 15000
+          assert len({row["scientific_run_id"] for row in rows}) == 15000
+          assert set(row["evaluation_replicate"] for row in rows) == set(
+              range(100)
+          )
+
+          per_rep = Counter(
+              int(row["evaluation_replicate"]) for row in rows
+          )
+          assert set(per_rep.values()) == {150}
+
+          per_missingness = Counter(
+              float(row["missingness"]) for row in rows
+          )
+          assert per_missingness == Counter({0.0: 7500, 0.15: 7500})
+
+          print(
+              "S4_MATRIX="
+              + json.dumps(
+                  {
+                      "scientific_run_count": data["scientific_run_count"],
+                      "departure_run_count": data["departure_run_count"],
+                      "null_run_count": data["null_run_count"],
+                      "scientific_cell_missingness_count": data[
+                          "scientific_cell_missingness_count"
+                      ],
+                      "scientific_run_ids_sha256": data[
+                          "scientific_run_ids_sha256"
+                      ],
+                      "missingness_run_counts": data[
+                          "missingness_run_counts"
+                      ],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload S4 matrix evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-s4-broad-scientific-matrix
+          path: /tmp/f1b-r2-s4-broad-scientific-matrix.json
+          if-no-files-found: error
