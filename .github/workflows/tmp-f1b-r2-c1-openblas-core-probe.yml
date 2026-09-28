@@ -1,0 +1,72 @@
+name: TEMP F1b R2 OpenBLAS core probe
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  openblas_core_probe:
+    name: OpenBLAS autodetect probe (replica ${{ matrix.replica }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        replica: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_VERBOSE: "2"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen CBD environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Probe OpenBLAS dynamic core without scientific fit
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import numpy as np
+          import scipy
+          import scipy.linalg
+
+          cpu_model = None
+          cpuinfo = Path("/proc/cpuinfo")
+          if cpuinfo.exists():
+              for line in cpuinfo.read_text(
+                  encoding="utf-8",
+                  errors="replace",
+              ).splitlines():
+                  if line.lower().startswith("model name"):
+                      cpu_model = line.partition(":")[2].strip()
+                      break
+
+          a = np.arange(4096, dtype=np.float64).reshape(64, 64) / 4096.0
+          _ = a @ a.T
+          _ = scipy.linalg.lu_factor(a + np.eye(64))
+
+          print(
+              "OPENBLAS_CORE_PROBE="
+              + json.dumps(
+                  {
+                      "replica": ${{ matrix.replica }},
+                      "cpu_model": cpu_model,
+                      "numpy_version": np.__version__,
+                      "scipy_version": scipy.__version__,
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
