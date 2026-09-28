@@ -1,0 +1,705 @@
+name: TEMP F1b R2 homogeneous paired H1
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  h1_generate:
+    name: H1 homogeneous paired ${{ matrix.shard_id }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - shard_id: R00_01
+            replicate_indices: "0-1"
+          - shard_id: R02_03
+            replicate_indices: "2-3"
+          - shard_id: R04_05
+            replicate_indices: "4-5"
+          - shard_id: R06_07
+            replicate_indices: "6-7"
+          - shard_id: R08_09
+            replicate_indices: "8-9"
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+      SHARD_ID: ${{ matrix.shard_id }}
+      REPLICATE_INDICES: ${{ matrix.replicate_indices }}
+      SCIENTIFIC_SOURCE_COMMIT: "6ad6be092fd3e6b9ec17c3935e19711710690beb"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Verify H0 environment and provenance
+        run: |
+          python scripts/verify_f1b_r2_homogeneous_paired_lineage.py \
+            --output "/tmp/f1b-r2-h1-h0-${SHARD_ID}.json"
+
+      - name: Generate unchanged paired source shard
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/run_f1b_r2_kl_v2_paired_bootstrap.py \
+            --replicate-indices "$REPLICATE_INDICES" \
+            --output "/tmp/f1b-r2-h1-${SHARD_ID}.json" \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT" \
+            2> >(tee "/tmp/f1b-r2-h1-core-${SHARD_ID}.log" >&2)
+
+      - name: Verify scientific-process OpenBLAS core
+        run: |
+          python - "$SHARD_ID" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          from cognitive_epistemic_model.calibration.f1b_r2_homogeneous_paired_lineage import (
+              validate_h1_runtime_cores,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+          )
+
+          shard = sys.argv[1]
+          log_path = Path(f"/tmp/f1b-r2-h1-core-{shard}.log")
+          cores = parse_openblas_verbose_cores(
+              log_path.read_text(encoding="utf-8", errors="replace")
+          )
+          validate_h1_runtime_cores(cores)
+          Path(f"/tmp/f1b-r2-h1-core-{shard}.json").write_text(
+              json.dumps(
+                  {
+                      "shard_id": shard,
+                      "OPENBLAS_CORETYPE": "Haswell",
+                      "reported_cores": list(cores),
+                      "all_cores_qualified": True,
+                  },
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          print("H1_RUNTIME_CORES=" + json.dumps(list(cores)))
+          PY
+
+      - name: Verify shard scientific counts
+        run: |
+          python - "$SHARD_ID" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          shard = sys.argv[1]
+          data = json.loads(
+              Path(f"/tmp/f1b-r2-h1-{shard}.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+          assert data["execution_replicate_count"] == 2
+          assert data["unique_dataset_count"] == 78
+          assert data["restriction_run_count"] == 150
+          assert data["snapshot_count"] == 450
+          assert data["pair_comparison_count"] == 450
+          assert data["fit_failure_count"] == 0
+          print(
+              "H1_SHARD="
+              + json.dumps(
+                  {
+                      "shard_id": shard,
+                      "replicates": data["execution_replicate_indices"],
+                      "unique_dataset_count": data["unique_dataset_count"],
+                      "restriction_run_count": data["restriction_run_count"],
+                      "snapshot_count": data["snapshot_count"],
+                      "pair_comparison_count": data["pair_comparison_count"],
+                      "fit_failure_count": data["fit_failure_count"],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload H1 shard
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-${{ matrix.shard_id }}
+          path: |
+            /tmp/f1b-r2-h1-${{ matrix.shard_id }}.json
+            /tmp/f1b-r2-h1-h0-${{ matrix.shard_id }}.json
+            /tmp/f1b-r2-h1-core-${{ matrix.shard_id }}.json
+            /tmp/f1b-r2-h1-core-${{ matrix.shard_id }}.log
+          if-no-files-found: error
+
+  h1_combine:
+    name: H1 combine homogeneous paired source
+    needs: h1_generate
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download all homogeneous generation shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: f1b-r2-homogeneous-h1-R*
+          path: /tmp/parts
+          merge-multiple: true
+
+      - name: Combine with unchanged scientific combiner
+        run: |
+          python scripts/combine_f1b_r2_kl_v2_paired_bootstrap_partitions.py \
+            --partition /tmp/parts/f1b-r2-h1-R00_01.json \
+            --partition /tmp/parts/f1b-r2-h1-R02_03.json \
+            --partition /tmp/parts/f1b-r2-h1-R04_05.json \
+            --partition /tmp/parts/f1b-r2-h1-R06_07.json \
+            --partition /tmp/parts/f1b-r2-h1-R08_09.json \
+            --output /tmp/f1b-r2-homogeneous-h1-combined.json
+
+      - name: Verify complete H1 source and create lineage wrapper
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          import subprocess
+
+          source_path = Path("/tmp/f1b-r2-homogeneous-h1-combined.json")
+          source = json.loads(source_path.read_text(encoding="utf-8"))
+
+          assert source["execution_replicate_indices"] == list(range(10))
+          assert source["execution_replicate_count"] == 10
+          assert source["unique_dataset_count"] == 390
+          assert source["restriction_run_count"] == 750
+          assert source["snapshot_count"] == 2250
+          assert source["pair_comparison_count"] == 2250
+          assert source["fit_failure_count"] == 0
+
+          wrapper = {
+              "lineage_id": "F1B.R2.HOMOGENEOUS_PAIRED_SOURCE.LINEAGE.V1",
+              "status": "NON_AUTHORITATIVE_H1_HOMOGENEOUS_SOURCE_GENERATED",
+              "authoritative": False,
+              "issue": 234,
+              "execution_head": subprocess.check_output(
+                  ["git", "rev-parse", "HEAD"], text=True
+              ).strip(),
+              "candidate_environment": {
+                  "OPENBLAS_CORETYPE": "Haswell",
+              },
+              "scientific_characterization_identity_changed": False,
+              "scientific_dataset_identity_changed": False,
+              "seed_identity_changed": False,
+              "scientific_source_commit": source["provenance"]["source_commit"],
+              "combined_source": {
+                  "path": source_path.name,
+                  "size_bytes": source_path.stat().st_size,
+                  "sha256": hashlib.sha256(
+                      source_path.read_bytes()
+                  ).hexdigest(),
+                  "unique_dataset_count": source["unique_dataset_count"],
+                  "restriction_run_count": source["restriction_run_count"],
+                  "snapshot_count": source["snapshot_count"],
+                  "pair_comparison_count": source["pair_comparison_count"],
+                  "fit_failure_count": source["fit_failure_count"],
+              },
+              "generation_shards": source["provenance"][
+                  "partition_files"
+              ],
+              "boundary": {
+                  "historical_source_rewritten": False,
+                  "historical_stage_b_inherited": False,
+                  "new_draw_index_ge_199_generated": False,
+                  "stage_c2_authorized": False,
+                  "power_validated": False,
+                  "human_n_frozen": False,
+                  "participant_recruitment_allowed": False,
+                  "runtime_f1b_change_allowed": False,
+              },
+          }
+          Path("/tmp/f1b-r2-homogeneous-h1-wrapper.json").write_text(
+              json.dumps(wrapper, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          print(
+              "H1_COMBINED="
+              + json.dumps(
+                  {
+                      "source_sha256": wrapper["combined_source"]["sha256"],
+                      "source_size_bytes": wrapper["combined_source"][
+                          "size_bytes"
+                      ],
+                      "restriction_run_count": source[
+                          "restriction_run_count"
+                      ],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload H1 combined source
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: |
+            /tmp/f1b-r2-homogeneous-h1-combined.json
+            /tmp/f1b-r2-homogeneous-h1-wrapper.json
+          if-no-files-found: error
+
+  h1_replay:
+    name: H1 independent replay qualification
+    needs: h1_combine
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Verify H0 environment and provenance
+        run: |
+          python scripts/verify_f1b_r2_homogeneous_paired_lineage.py \
+            --output /tmp/f1b-r2-h1-replay-h0.json
+
+      - name: Download generated homogeneous source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/source
+
+      - name: Independently replay predeclared 16-stream subset
+        shell: bash
+        run: |
+          set -o pipefail
+          python - \
+            /tmp/source/f1b-r2-homogeneous-h1-combined.json \
+            /tmp/f1b-r2-h1-replay-result.json \
+            2> >(tee /tmp/f1b-r2-h1-replay-core.log >&2) <<'PY'
+          from __future__ import annotations
+
+          import json
+          from pathlib import Path
+          import sys
+
+          from cognitive_epistemic_model.calibration import (
+              f1b_r2_paired_bootstrap_characterization as paired_characterization,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_kl_controlled_departures import (
+              generate_kl_controlled_departure_design,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_paired_bootstrap_characterization import (
+              dataset_fingerprint,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_resampling_risk_continuation import (
+              build_departure_case_map,
+              regenerate_bootstrap_attempt_statistics,
+              regenerate_dataset_for_run,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_resampling_risk_replay import (
+              canonical_attempt_sequence_sha256,
+          )
+
+          source_path = Path(sys.argv[1])
+          output_path = Path(sys.argv[2])
+          source = json.loads(source_path.read_text(encoding="utf-8"))
+
+          def load(path: str) -> dict:
+              return json.loads(Path(path).read_text(encoding="utf-8"))
+
+          paired_config = load(
+              "model/benchmarks/f1b_r2_kl_v2_paired_bootstrap_draw_stability.json"
+          )
+          v2_config = load(
+              "model/benchmarks/f1b_r2_kl_controlled_departure_design_v2.json"
+          )
+          review_config = load(
+              "model/benchmarks/f1b_r2_distance_definition_review.json"
+          )
+          historical_config = load(
+              "model/benchmarks/f1b_r2_controlled_departure_design.json"
+          )
+          departure_cases = build_departure_case_map(
+              v2_config,
+              review_config,
+              historical_config,
+          )
+
+          target_replicates = (0, 7, 8, 9)
+          groups = {}
+          for run in source["restriction_runs"]:
+              replicate = int(run["evaluation_replicate"])
+              if replicate not in target_replicates:
+                  continue
+              key = (
+                  replicate,
+                  str(run["identity_type"]),
+                  str(run["restriction"]),
+              )
+              groups.setdefault(key, []).append(run)
+
+          expected_keys = {
+              (replicate, identity_type, restriction)
+              for replicate in target_replicates
+              for identity_type in ("NULL", "DEPARTURE")
+              for restriction in (
+                  "ADD_RESTRICTION",
+                  "CBD_COMPLEMENT_RESTRICTION",
+              )
+          }
+          if set(groups) != expected_keys:
+              missing = sorted(expected_keys - set(groups))
+              extra = sorted(set(groups) - expected_keys)
+              raise ValueError(
+                  f"validation grouping mismatch missing={missing} extra={extra}"
+              )
+
+          selected = [
+              sorted(groups[key], key=lambda row: str(row["run_id"]))[0]
+              for key in sorted(expected_keys)
+          ]
+          if len(selected) != 16:
+              raise ValueError("H1 replay must select exactly 16 streams")
+
+          rows = []
+          for run in selected:
+              dataset = regenerate_dataset_for_run(
+                  run,
+                  paired_config=paired_config,
+                  departure_cases=departure_cases,
+              )
+              regenerated_dataset_sha = dataset_fingerprint(dataset)
+              regenerated_observed, regenerated_attempts = (
+                  regenerate_bootstrap_attempt_statistics(
+                      run,
+                      dataset,
+                      paired_config=paired_config,
+                      draw_indices=range(199),
+                  )
+              )
+              retained_attempt_sha = canonical_attempt_sequence_sha256(
+                  run["bootstrap_attempt_statistics"]
+              )
+              regenerated_attempt_sha = canonical_attempt_sequence_sha256(
+                  regenerated_attempts
+              )
+              dataset_exact = (
+                  regenerated_dataset_sha == str(run["dataset_sha256"])
+              )
+              observed_exact = (
+                  float(regenerated_observed)
+                  == float(run["observed_statistic"])
+              )
+              attempt_exact = regenerated_attempt_sha == retained_attempt_sha
+              rows.append(
+                  {
+                      "run_id": str(run["run_id"]),
+                      "evaluation_replicate": int(
+                          run["evaluation_replicate"]
+                      ),
+                      "identity_type": str(run["identity_type"]),
+                      "restriction": str(run["restriction"]),
+                      "dataset_fingerprint_exact": dataset_exact,
+                      "observed_statistic_exact": observed_exact,
+                      "observed_statistic_absolute_delta": abs(
+                          float(regenerated_observed)
+                          - float(run["observed_statistic"])
+                      ),
+                      "attempt_sequence_sha256_exact": attempt_exact,
+                      "retained_attempt_sequence_sha256": retained_attempt_sha,
+                      "regenerated_attempt_sequence_sha256": (
+                          regenerated_attempt_sha
+                      ),
+                      "qualification_pass": (
+                          dataset_exact and observed_exact and attempt_exact
+                      ),
+                  }
+              )
+
+          pass_count = sum(bool(row["qualification_pass"]) for row in rows)
+          result = {
+              "lineage_id": "F1B.R2.HOMOGENEOUS_PAIRED_SOURCE.LINEAGE.V1",
+              "status": "NON_AUTHORITATIVE_H1_INDEPENDENT_REPLAY_RESULT",
+              "authoritative": False,
+              "issue": 234,
+              "selection_rule": (
+                  "LEXICOGRAPHIC_FIRST_BY_REPLICATE_IDENTITY_TYPE_RESTRICTION"
+              ),
+              "target_replicates": list(target_replicates),
+              "selected_stream_count": len(rows),
+              "qualification_pass_count": pass_count,
+              "qualification_failure_count": len(rows) - pass_count,
+              "all_exact": pass_count == 16,
+              "rows": rows,
+              "boundary": {
+                  "new_draw_index_ge_199_generated": False,
+                  "historical_stage_b_inherited": False,
+                  "stage_c2_authorized": False,
+              },
+          }
+          output_path.write_text(
+              json.dumps(result, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          if not result["all_exact"]:
+              raise RuntimeError(
+                  f"H1 independent replay failed: {pass_count}/16"
+              )
+          print("H1_REPLAY=" + json.dumps({"pass_count": pass_count}))
+          PY
+
+      - name: Verify replay scientific-process OpenBLAS core
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          from cognitive_epistemic_model.calibration.f1b_r2_homogeneous_paired_lineage import (
+              validate_h1_runtime_cores,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+          )
+
+          text = Path("/tmp/f1b-r2-h1-replay-core.log").read_text(
+              encoding="utf-8",
+              errors="replace",
+          )
+          cores = parse_openblas_verbose_cores(text)
+          validate_h1_runtime_cores(cores)
+          Path("/tmp/f1b-r2-h1-replay-core.json").write_text(
+              json.dumps(
+                  {
+                      "reported_cores": list(cores),
+                      "all_cores_qualified": True,
+                  },
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Upload H1 replay evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-replay
+          path: |
+            /tmp/f1b-r2-h1-replay-result.json
+            /tmp/f1b-r2-h1-replay-h0.json
+            /tmp/f1b-r2-h1-replay-core.json
+            /tmp/f1b-r2-h1-replay-core.log
+          if-no-files-found: error
+
+  historical_compare:
+    name: H1 historical-source comparison
+    needs: h1_combine
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Download new homogeneous source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/new
+
+      - name: Download retained heterogeneous source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-kl-v2-paired-combined-recovered
+          path: /tmp/old
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36340881516
+
+      - name: Compare sources without tuning
+        run: |
+          python - <<'PY'
+          import json
+          from collections import defaultdict
+          from pathlib import Path
+
+          old = json.loads(
+              Path(
+                  "/tmp/old/f1b-r2-kl-v2-paired-combined.json"
+              ).read_text(encoding="utf-8")
+          )
+          new = json.loads(
+              Path(
+                  "/tmp/new/f1b-r2-homogeneous-h1-combined.json"
+              ).read_text(encoding="utf-8")
+          )
+
+          old_map = {
+              str(row["run_id"]): row
+              for row in old["restriction_runs"]
+          }
+          new_map = {
+              str(row["run_id"]): row
+              for row in new["restriction_runs"]
+          }
+          if set(old_map) != set(new_map):
+              raise ValueError("historical/new restriction run IDs differ")
+          if len(old_map) != 750:
+              raise ValueError("comparison requires exactly 750 runs")
+
+          rows = []
+          for run_id in sorted(old_map):
+              a = old_map[run_id]
+              b = new_map[run_id]
+              dataset_exact = str(a["dataset_sha256"]) == str(
+                  b["dataset_sha256"]
+              )
+              observed_delta = abs(
+                  float(a["observed_statistic"])
+                  - float(b["observed_statistic"])
+              )
+              observed_exact = observed_delta == 0.0
+              attempt_exact = (
+                  a["bootstrap_attempt_statistics"]
+                  == b["bootstrap_attempt_statistics"]
+              )
+              rows.append(
+                  {
+                      "run_id": run_id,
+                      "evaluation_replicate": int(
+                          b["evaluation_replicate"]
+                      ),
+                      "restriction": str(b["restriction"]),
+                      "role": str(b["role"]),
+                      "identity_type": str(b["identity_type"]),
+                      "axis": b["axis"],
+                      "sign": b["sign"],
+                      "anchor_id": b["anchor_id"],
+                      "target_mean_bernoulli_kl": b[
+                          "target_mean_bernoulli_kl"
+                      ],
+                      "dataset_fingerprint_exact": dataset_exact,
+                      "observed_statistic_exact": observed_exact,
+                      "observed_statistic_absolute_delta": observed_delta,
+                      "attempt_sequence_exact": attempt_exact,
+                  }
+              )
+
+          def summarize(items):
+              return {
+                  "count": len(items),
+                  "dataset_exact_count": sum(
+                      bool(x["dataset_fingerprint_exact"]) for x in items
+                  ),
+                  "observed_exact_count": sum(
+                      bool(x["observed_statistic_exact"]) for x in items
+                  ),
+                  "attempt_sequence_exact_count": sum(
+                      bool(x["attempt_sequence_exact"]) for x in items
+                  ),
+                  "max_observed_statistic_absolute_delta": max(
+                      (
+                          float(x["observed_statistic_absolute_delta"])
+                          for x in items
+                      ),
+                      default=0.0,
+                  ),
+              }
+
+          dimensions = (
+              "evaluation_replicate",
+              "restriction",
+              "role",
+              "identity_type",
+              "axis",
+              "sign",
+              "anchor_id",
+              "target_mean_bernoulli_kl",
+          )
+          by_dimension = {}
+          for dimension in dimensions:
+              groups = defaultdict(list)
+              for row in rows:
+                  groups[str(row[dimension])].append(row)
+              by_dimension[dimension] = {
+                  key: summarize(value)
+                  for key, value in sorted(groups.items())
+              }
+
+          result = {
+              "comparison_id": (
+                  "F1B.R2.HOMOGENEOUS_PAIRED_SOURCE.HISTORICAL_COMPARISON.V1"
+              ),
+              "authoritative": False,
+              "issue": 234,
+              "acceptance_criterion": False,
+              "overall": summarize(rows),
+              "by_dimension": by_dimension,
+              "rows": rows,
+              "interpretation_boundary": (
+                  "Historical-source equality is diagnostic sensitivity "
+                  "evidence only and is not used to tune or accept the "
+                  "homogeneous lineage."
+              ),
+          }
+          Path("/tmp/f1b-r2-h1-historical-comparison.json").write_text(
+              json.dumps(result, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          print(
+              "H1_HISTORICAL_COMPARISON="
+              + json.dumps(result["overall"], sort_keys=True)
+          )
+          PY
+
+      - name: Upload historical comparison
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-historical-comparison
+          path: /tmp/f1b-r2-h1-historical-comparison.json
+          if-no-files-found: error
