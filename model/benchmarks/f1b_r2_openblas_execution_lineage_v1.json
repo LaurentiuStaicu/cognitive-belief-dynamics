@@ -1,0 +1,83 @@
+{
+  "qualification_id": "F1B.R2.OPENBLAS_EXECUTION_LINEAGE.V1",
+  "status": "NON_AUTHORITATIVE_OPENBLAS_EXECUTION_LINEAGE_QUALIFICATION",
+  "issue": 227,
+  "baseline_main_commit": "324851f8c326b81ccc38cb05870e47294cfddedc",
+  "scientific_source_commit": "ff63e6f72af54b78070a0d74c514805401602943",
+  "diagnostic_parent_issue": 223,
+  "diagnostic_final_run_id": 36387676699,
+  "candidate_environment": {
+    "variable": "OPENBLAS_CORETYPE",
+    "value": "Haswell",
+    "must_be_set_before_python_start": true,
+    "runtime_core_confirmation_required": true,
+    "runtime_probe": "OPENBLAS_VERBOSE=2_OR_EQUIVALENT_OPENBLAS_API"
+  },
+  "frozen_dependency_lock": {
+    "path": "requirements/ci-py312-linux.lock.txt",
+    "git_blob_sha": "9bbc5e31949c3e9b3c6679075388c66316030e79"
+  },
+  "retained_c1_v1": {
+    "path": "model/results/f1b_r2_continuation_c1_failed_2026-09-27.json",
+    "sha256": "016a5c6d76ca17bca666a3133715e36523a7d217eb9b8d2e67ba63772b9d9c5a",
+    "status": "FAILED_RETAINED",
+    "eligible_streams": 224,
+    "exact_passes": 120,
+    "failures": 104
+  },
+  "protected_scientific_file_git_blob_sha": {
+    "src/cognitive_epistemic_model/calibration/f1b_r2_paired_bootstrap_characterization.py": "3f23fc9bfc87d9ff45e83f11a529e3f0793969f4",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_restriction_recovery.py": "09291cc220aec5e1a557cdd697cb1257af2f233c",
+    "src/cognitive_epistemic_model/calibration/f1b_prehuman_recovery.py": "6b78dec5183e7f8ef8a2d4257c1a23f016a161a2",
+    "src/cognitive_epistemic_model/calibration/f1b_hierarchical_recovery.py": "89899e90fec5bdf9ced3e052aec1aa7ef2b49d73",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_kl_controlled_departures.py": "e7e5233f4ab7427500835cb6484c1dd961abb54a"
+  },
+  "q0_environment_gate": {
+    "expected_runtime_core": "Haswell",
+    "require_all_reported_openblas_cores_equal": true,
+    "retain_python_numpy_scipy_platform_cpu_and_thread_identity": true
+  },
+  "q1_sentinels": {
+    "labels": [
+      "EXACT_PASS_CONTROL",
+      "EXACT_OBSERVED_HASH_FAILURE",
+      "WITHIN_TOLERANCE_HASH_FAILURE",
+      "OUTSIDE_TOLERANCE_HASH_FAILURE"
+    ],
+    "require_exact_dataset_fingerprint": true,
+    "require_exact_observed_statistic": true,
+    "require_exact_first_199_attempt_sequence_sha256": true,
+    "multiple_independent_runners_required": true
+  },
+  "q2_full_replay": {
+    "required_stream_count": 224,
+    "minimum_draw_index": 0,
+    "maximum_draw_index": 198,
+    "observed_statistic_absolute_tolerance": 1e-10,
+    "report_exact_observed_statistic_equality_separately": true,
+    "require_exact_dataset_fingerprint": true,
+    "require_exact_first_199_attempt_sequence_sha256": true,
+    "new_draw_index_ge_199_authorized": false
+  },
+  "q3_decision": {
+    "rewrite_failed_c1_v1": false,
+    "new_versioned_continuation_lineage_required_after_q2_pass": true,
+    "formal_c1_required_before_stage_c2": true
+  },
+  "boundary": {
+    "scientific_fitter_change_allowed": false,
+    "optimizer_settings_change_allowed": false,
+    "fit_start_change_allowed": false,
+    "package_version_change_allowed": false,
+    "seed_change_allowed": false,
+    "draw_order_change_allowed": false,
+    "attempt_canonicalization_change_allowed": false,
+    "c1_tolerance_change_allowed": false,
+    "stage_c2_authorized": false,
+    "power_validated": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
