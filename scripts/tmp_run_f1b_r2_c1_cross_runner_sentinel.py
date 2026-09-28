@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -34,6 +35,7 @@ def main() -> int:
     paired_source_path = Path(sys.argv[2])
     output_path = Path(sys.argv[3])
     replica = int(sys.argv[4])
+    intervention = sys.argv[5] if len(sys.argv) > 5 else "BASE"
 
     if sha256(paired_source_path) != PAIRED_SHA256:
         raise ValueError("paired source SHA-256 mismatch")
@@ -118,6 +120,17 @@ def main() -> int:
         "authoritative": False,
         "sentinel": sentinel,
         "replica": replica,
+        "intervention": {
+            "name": intervention,
+            "NPY_DISABLE_CPU_FEATURES": os.environ.get(
+                "NPY_DISABLE_CPU_FEATURES"
+            ),
+            "OPENBLAS_CORETYPE": os.environ.get("OPENBLAS_CORETYPE"),
+            "OPENBLAS_NUM_THREADS": os.environ.get(
+                "OPENBLAS_NUM_THREADS"
+            ),
+            "OMP_NUM_THREADS": os.environ.get("OMP_NUM_THREADS"),
+        },
         "run_id": run_id,
         "execution_path": "UNINSTRUMENTED_STAGE_C1_REGENERATION_FUNCTION",
         "retained_observed_statistic": retained_observed,
@@ -152,6 +165,7 @@ def main() -> int:
             {
                 "sentinel": sentinel,
                 "replica": replica,
+                "intervention": intervention,
                 "cpu_model": result["environment"]["cpu_model"],
                 "observed_exact": result[
                     "observed_statistic_exact_match"
