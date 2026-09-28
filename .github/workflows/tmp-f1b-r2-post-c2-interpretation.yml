@@ -1,0 +1,138 @@
+name: TEMP F1b R2 post-C2 scientific interpretation
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  characterize:
+    name: Post-C2 three-outcome characterization
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download retained homogeneous H2 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-stage-b-h2
+          path: /tmp/h2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36406702153
+
+      - name: Download retained homogeneous C2 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-c2-combined
+          path: /tmp/c2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36416797671
+
+      - name: Build retained three-outcome characterization
+        run: |
+          python scripts/run_f1b_r2_post_c2_scientific_interpretation.py \
+            --h2-raw /tmp/h2/f1b-r2-homogeneous-stage-b-h2.json \
+            --c2-raw /tmp/c2/f1b-r2-homogeneous-c2-combined.json \
+            --output /tmp/f1b-r2-post-c2-scientific-interpretation.json
+
+      - name: Verify frozen characterization result
+        run: |
+          python - <<'PY'
+          import json
+          from collections import Counter
+          from pathlib import Path
+
+          path = Path("/tmp/f1b-r2-post-c2-scientific-interpretation.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+
+          assert data["status"] == (
+              "NON_AUTHORITATIVE_POST_C2_CHARACTERIZATION_COMPLETE"
+          )
+          assert data["authoritative"] is False
+          assert data["issue"] == 249
+
+          summary = data["global_summary"]
+          assert summary["run_count"] == 750
+          assert summary["reject_count"] == 246
+          assert summary["not_reject_count"] == 481
+          assert summary["unresolved_count"] == 23
+          assert summary["reject_proportion"] == 246 / 750
+          assert summary["not_reject_proportion"] == 481 / 750
+          assert summary["unresolved_proportion"] == 23 / 750
+          assert summary["reject_proportion_bounds_with_unresolved"] == [
+              246 / 750,
+              269 / 750,
+          ]
+
+          rows = data["rows"]
+          assert len(rows) == 750
+          stages = Counter(row["source_stage"] for row in rows)
+          assert stages == {"H2": 526, "C2": 224}
+
+          unresolved = data["unresolved_at_cap"]
+          assert unresolved["count"] == 23
+          assert unresolved["run_ids_sha256"] == (
+              "673ac85475800b4e032469fbeae8ead7083e6cd90fee209f7e0c451162b13217"
+          )
+          assert len(unresolved["rows"]) == 23
+
+          roles = {row["role"] for row in data["role_semantic_summary"]}
+          assert roles == {
+              "ADD_DEPARTURE_DIAGNOSTIC",
+              "ADD_NULL_FALSE_REJECTION",
+              "ADD_SPECIFICITY_NEGATIVE_CONTROL",
+              "CBD_DEPARTURE_DETECTION",
+              "CBD_NULL_FALSE_REJECTION",
+          }
+
+          assert data["interpretation_boundary"] == {
+              "c2_rerun_performed": False,
+              "c2_cap_extended": False,
+              "c2_outcome_reclassified": False,
+              "unresolved_dropped_from_primary_denominator": False,
+              "inferential_power_claim_made": False,
+              "authoritative_core_grid_frozen": False,
+              "human_n_frozen": False,
+              "participant_recruitment_authorized": False,
+              "runtime_f1b_authorized": False,
+          }
+
+          print(
+              "POST_C2_CHARACTERIZATION="
+              + json.dumps(
+                  {
+                      "global_summary": summary,
+                      "source_stage_counts": dict(stages),
+                      "unresolved_run_ids_sha256": unresolved[
+                          "run_ids_sha256"
+                      ],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload retained characterization evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-post-c2-scientific-interpretation
+          path: /tmp/f1b-r2-post-c2-scientific-interpretation.json
+          if-no-files-found: error
