@@ -1,0 +1,147 @@
+{
+  "bridge_id": "F1B.R2.S4.M2_PREFIX_BRIDGE.V1",
+  "status": "NON_AUTHORITATIVE_S4_M2_PREFIX_BRIDGE_DESIGN",
+  "issue": 259,
+  "baseline_main_commit": "6f9bfead547affba3473768a627d28fcf2cf7914",
+  "h1_source": {
+    "workflow_run_id": 36401867007,
+    "artifact_id": 10961527329,
+    "artifact_name": "f1b-r2-homogeneous-h1-combined",
+    "json_name": "f1b-r2-homogeneous-h1-combined.json",
+    "json_sha256": "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e"
+  },
+  "m1_source": {
+    "workflow_run_id": 36439940794,
+    "artifact_id": 10979254047,
+    "artifact_name": "f1b-r2-m1-combined",
+    "json_name": "f1b-r2-m1-combined.json",
+    "json_sha256": "dda3978acbf13ae9dba4d548ae8355413b29c8cac24ad86d5b8905de56d81042",
+    "json_size_bytes": 5667170,
+    "scientific_run_count": 840,
+    "method_row_count": 3360,
+    "prefix_attempts": 199
+  },
+  "m2_source": {
+    "workflow_run_id": 36450594439,
+    "artifact_id": 10987519941,
+    "artifact_name": "f1b-r2-m2-combined",
+    "json_name": "f1b-r2-m2-combined.json",
+    "json_sha256": "b9034afd6b6837c8433e0d42fd90911a7b560e18225de7d551f559330742c808",
+    "json_size_bytes": 6432851,
+    "row_identity_sha256": "b21ee68fd61a0f1364c0722e73ff472119075ae32ee380021b8a671df76c4707",
+    "scientific_run_count": 840,
+    "method_row_count": 3360,
+    "eligible_methods": [
+      "POPULATION",
+      "HIERARCHICAL_0.5X",
+      "HIERARCHICAL_1X",
+      "HIERARCHICAL_2X"
+    ]
+  },
+  "s4_matrix_source": {
+    "workflow_run_id": 36463026247,
+    "artifact_id": 10988228984,
+    "artifact_name": "f1b-r2-s4-broad-scientific-matrix",
+    "json_name": "f1b-r2-s4-broad-scientific-matrix.json",
+    "json_sha256": "f0691a0dc153f2ee1463f5115feeff448b49e7d2fb7accd6568a0fb8c43a5f01",
+    "json_size_bytes": 16787637,
+    "scientific_run_count": 15000,
+    "scientific_run_ids_sha256": "851e7336387901ca15d2486ed8efc19cd090ffac869b760352106a3f455f2b43"
+  },
+  "overlap": {
+    "expected_scientific_run_count": 840,
+    "expected_method_row_count": 3360,
+    "departure_replicate_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "null_replicate_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "expected_departure_scientific_runs": 720,
+    "expected_null_scientific_runs": 120,
+    "expected_status_counts": {
+      "SEQUENTIAL_RESOLVED_AT_PREFIX": 2402,
+      "SEQUENTIAL_RESOLVED": 834,
+      "SEQUENTIAL_UNRESOLVED_AT_CAP": 124,
+      "BOOTSTRAP_REFIT_FAILURE_UNRESOLVED": 0
+    }
+  },
+  "broad_consequence": {
+    "total_scientific_runs": 15000,
+    "total_method_rows": 60000,
+    "imported_scientific_runs_if_bridge_passes": 840,
+    "imported_method_rows_if_bridge_passes": 3360,
+    "new_scientific_runs_if_bridge_passes": 14160,
+    "new_method_executions_if_bridge_passes": 56640,
+    "wave0_total_scientific_runs": 3750,
+    "wave0_imported_scientific_runs": 840,
+    "wave0_new_scientific_runs": 2910,
+    "wave0_new_method_executions": 11640,
+    "wave1_new_method_executions": 15000,
+    "wave2_new_method_executions": 15000,
+    "wave3_new_method_executions": 15000
+  },
+  "protected_file_git_blob_sha": {
+    "model/benchmarks/f1b_r2_s4_method_binding_v1.json": "6503241df48fe62b3f3898d03dc28628f02fc2ca",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_s4_method_binding.py": "fabf14ed35a3bf663d5157ab37e01768fba92dfd",
+    "model/benchmarks/f1b_r2_paired_method_m1_screen_v1.json": "7a5e6b76055971c74cdd5ca0f1552887a31daaaf",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_paired_method_m1_screen.py": "b3f1771f2852a59985ddc711049e902c80a14e22",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_paired_bootstrap_characterization.py": "3f23fc9bfc87d9ff45e83f11a529e3f0793969f4",
+    "model/benchmarks/f1b_r2_kl_v2_paired_bootstrap_draw_stability.json": "e29e675a4d5c7696293cfbdf9c5d96ca431b237d",
+    "model/benchmarks/f1b_r2_kl_controlled_departure_design_v2.json": "f0d4f1ad31e004c154f5ff34786d9a99d7456ac4",
+    "model/benchmarks/f1b_r2_distance_definition_review.json": "c9738ec2a7ba140c92e77124b256a4c7078b2ec5",
+    "model/benchmarks/f1b_r2_controlled_departure_design.json": "d01b885e5a197fa6bc527a2ae7e73f37a4bee082",
+    "model/benchmarks/f1b_r2_paired_method_m2_sequential_resolution_v1.json": "26cc15358575dfec9bc53e063f8445737074b2a3"
+  },
+  "import_rules": {
+    "scientific_run_membership_required": true,
+    "dataset_identity_required": true,
+    "deterministic_dataset_sha256_required": true,
+    "exact_method_set_required": true,
+    "bootstrap_base_seed_required": true,
+    "m1_attempt_digest_required": true,
+    "m1_prefix_exact_required": true,
+    "observed_statistic_exact_required": true,
+    "m2_terminal_evidence_required": true,
+    "new_refit_failure_count_must_be_zero": true,
+    "failed_bridge_row_recomputed_not_dropped": true
+  },
+  "boundary": {
+    "m1_rewritten": false,
+    "m2_rewritten": false,
+    "s4_matrix_rewritten": false,
+    "imported_rows_changed": false,
+    "broad_estimand_changed": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "broad_execution_performed": false,
+    "power_validated": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "version_bumped": false
+  }
+}
