@@ -1,0 +1,148 @@
+{
+  "result_id": "F1B.R2.HOMOGENEOUS_TERMINAL_PARTITION.RESULT.2026-09-28",
+  "status": "NON_AUTHORITATIVE_HOMOGENEOUS_TERMINAL_PARTITION_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 250,
+  "execution": {
+    "temporary_execution_pr": 257,
+    "workflow_run_id": 36431385526,
+    "workflow_run_number": 1,
+    "execution_pr_head": "ccb57e97066c4ce79f52f2026e80ccd0ab8c92a2",
+    "qualified_main_baseline": "14e2b7916a0289bbd215192e7a78c38562fb29db",
+    "artifact_id": 10973182815,
+    "artifact_name": "f1b-r2-homogeneous-terminal-partition",
+    "artifact_zip_sha256": "be5582e49b9ad80dd7eb61f3e251db5605f82c06cdb068479e920cca3b16a611",
+    "result_json_sha256": "40e6a70bfb2630517186712e5db12225a1dd08ffab2344e2eaef856a8b0623ac",
+    "result_json_size_bytes": 1231594
+  },
+  "provenance": {
+    "h2_artifact_id": 10962483226,
+    "h2_raw_sha256": "f0f32d92e46748148f020a4e0d47d2c63e27f6ab1aa36253346e15c4dfaf01e7",
+    "c2_artifact_id": 10968522362,
+    "c2_raw_sha256": "03009d7b586502f500062d67792f048e768fe737670823b2e033cb82c59a867a",
+    "unresolved_at_cap_run_ids_sha256": "673ac85475800b4e032469fbeae8ead7083e6cd90fee209f7e0c451162b13217"
+  },
+  "terminal_partition": {
+    "total_run_count": 750,
+    "terminal_decision_count": 727,
+    "unresolved_at_cap_count": 23,
+    "bootstrap_refit_failure_count": 0,
+    "source_stage_counts": {
+      "H2_STAGE_B": 526,
+      "C2_CONTINUATION": 224
+    },
+    "interpretation_decision": "READY_FOR_NEXT_RECOVERY_POWER_CHARACTERIZATION"
+  },
+  "global_summary": {
+    "reject_count": 246,
+    "not_reject_count": 481,
+    "unresolved_at_cap_count": 23,
+    "expected_direction_count": 384,
+    "opposite_direction_count": 343,
+    "reject_resolved_only_proportion": 0.33837689133425036,
+    "reject_total_denominator_bounds": [
+      0.328,
+      0.3586666666666667
+    ],
+    "expected_direction_resolved_only_proportion": 0.5281980742778541,
+    "expected_direction_total_denominator_bounds": [
+      0.512,
+      0.5426666666666666
+    ]
+  },
+  "role_summary": {
+    "ADD_NULL_FALSE_REJECTION": {
+      "run_count": 10,
+      "resolved_count": 10,
+      "reject_count": 0,
+      "not_reject_count": 10,
+      "unresolved_at_cap_count": 0,
+      "expected_direction_total_denominator_bounds": [
+        1,
+        1
+      ]
+    },
+    "CBD_NULL_FALSE_REJECTION": {
+      "run_count": 20,
+      "resolved_count": 20,
+      "reject_count": 0,
+      "not_reject_count": 20,
+      "unresolved_at_cap_count": 0,
+      "expected_direction_total_denominator_bounds": [
+        1,
+        1
+      ]
+    },
+    "ADD_SPECIFICITY_NEGATIVE_CONTROL": {
+      "run_count": 120,
+      "resolved_count": 118,
+      "reject_count": 5,
+      "not_reject_count": 113,
+      "unresolved_at_cap_count": 2,
+      "expected_direction_total_denominator_bounds": [
+        0.9416666666666667,
+        0.9583333333333334
+      ]
+    },
+    "ADD_DEPARTURE_DIAGNOSTIC": {
+      "run_count": 240,
+      "resolved_count": 233,
+      "reject_count": 137,
+      "not_reject_count": 96,
+      "unresolved_at_cap_count": 7,
+      "expected_direction_total_denominator_bounds": [
+        0.5708333333333333,
+        0.6
+      ]
+    },
+    "CBD_DEPARTURE_DETECTION": {
+      "run_count": 360,
+      "resolved_count": 346,
+      "reject_count": 104,
+      "not_reject_count": 242,
+      "unresolved_at_cap_count": 14,
+      "expected_direction_total_denominator_bounds": [
+        0.28888888888888886,
+        0.3277777777777778
+      ]
+    }
+  },
+  "unresolved_boundary_distance_summary": {
+    "count": 23,
+    "distance_above_lower_boundary": {
+      "minimum": 16,
+      "median": 83,
+      "maximum": 181
+    },
+    "distance_below_upper_boundary": {
+      "minimum": 5,
+      "median": 103,
+      "maximum": 170
+    },
+    "decision_imputed_from_boundary_proximity": false
+  },
+  "interpretation": {
+    "terminal_partition_integrity_pass": true,
+    "all_five_role_semantics_valid": true,
+    "every_role_has_at_least_one_resolved_decision": true,
+    "unresolved_retained_without_imputation": true,
+    "descriptive_bounds_computable_for_every_role": true,
+    "ready_for_next_recovery_power_characterization": true,
+    "inferential_power_validated": false,
+    "evaluation_replicate_adequacy_determined": false,
+    "next_gate": "S4_S5_REPLICATION_ADEQUACY_AND_HIERARCHICAL_RECOVERY_CHARACTERIZATION"
+  },
+  "boundary": {
+    "new_bootstrap_draws_generated": false,
+    "c2_rerun_performed": false,
+    "c2_cap_extended": false,
+    "unresolved_imputed": false,
+    "scientific_model_changed": false,
+    "controller_changed": false,
+    "power_claim_made": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_authorized": false,
+    "runtime_f1b_authorized": false
+  }
+}
