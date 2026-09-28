@@ -1,0 +1,431 @@
+{
+  "qualification_id": "F1B.R2.OPENBLAS_EXECUTION_LINEAGE.V1",
+  "status": "NON_AUTHORITATIVE_OPENBLAS_Q1_SENTINEL_RESULT_RETAINED",
+  "authoritative": false,
+  "issue": 227,
+  "temporary_execution_pr": 229,
+  "workflow_run_id": 36391781169,
+  "execution_head": "2766ccdad7fa92943f60d5c79ca5d0b1314d6641",
+  "qualified_main_baseline": "0723d33a74dbdb0479faca9fa61124f95bf546bc",
+  "candidate_environment": {
+    "OPENBLAS_CORETYPE": "Haswell"
+  },
+  "software_versions": [
+    [
+      "3.12.14",
+      "2.5.3",
+      "1.18.1"
+    ]
+  ],
+  "cpu_models": [
+    "AMD EPYC 7763 64-Core Processor",
+    "AMD EPYC 9V74 80-Core Processor",
+    "INTEL(R) XEON(R) PLATINUM 8573C",
+    "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz"
+  ],
+  "sentinel_count": 4,
+  "replicas_per_sentinel": 4,
+  "execution_count": 16,
+  "pass_count": 16,
+  "fail_count": 0,
+  "all_q0_runtime_cores_haswell": true,
+  "all_scientific_process_cores_haswell": true,
+  "all_dataset_exact": true,
+  "all_observed_exact": true,
+  "all_attempt_sequences_exact": true,
+  "all_first_divergent_draw_null": true,
+  "sentinels": {
+    "EXACT_OBSERVED_HASH_FAILURE": {
+      "run_id": "F1B.R2.KL_V2.PAIRED_BOOTSTRAP_DRAW_STABILITY.2026-09-27|V2|F1B.R2.KL_CONTROLLED_DEPARTURE.V2__CBD_ANCHOR_2__COMPLEMENT_RELATION_VIOLATION__PLUS__KL_0.001|REPLICATE=1|RESTRICTION=ADD_RESTRICTION",
+      "dataset_sha256": "d9f1698ebac5bf652cf13cdb319c40fa3a54d35d80ad495e0d6feda3e0db6fa0",
+      "observed_statistic": 3.3597416786615213,
+      "attempt_sequence_sha256": "53c5fb94f1aa539b9f3dda3a0adba2629fc5de971e21f5f95d681ccffe0c70f2"
+    },
+    "EXACT_PASS_CONTROL": {
+      "run_id": "F1B.R2.KL_V2.PAIRED_BOOTSTRAP_DRAW_STABILITY.2026-09-27|NULL|CBD_NULL_ANCHOR_1|REPLICATE=5|RESTRICTION=CBD_COMPLEMENT_RESTRICTION",
+      "dataset_sha256": "63347efc3d5ef68dab78636e9b99376f4275daf02742f6a93c724bc880115227",
+      "observed_statistic": 2.566879938915008,
+      "attempt_sequence_sha256": "f538fdc7a39fd64e163bf2f849e8dd1d71c4c06984518d711ab63152e180f940"
+    },
+    "OUTSIDE_TOLERANCE_HASH_FAILURE": {
+      "run_id": "F1B.R2.KL_V2.PAIRED_BOOTSTRAP_DRAW_STABILITY.2026-09-27|V2|F1B.R2.KL_CONTROLLED_DEPARTURE.V2__CBD_ADD_INTERSECTION_ANCHOR_1__STANDALONE_ACCURACY_MAIN_EFFECT__MINUS__KL_0.003|REPLICATE=1|RESTRICTION=CBD_COMPLEMENT_RESTRICTION",
+      "dataset_sha256": "324b75c927a33984bca394b621d10b247d3ae63cb968ac323abe1fc31b0ccf3d",
+      "observed_statistic": 5.127358088554956,
+      "attempt_sequence_sha256": "bdfaf938bbcb21dac68d672de04e7fc28b86353a47bda284497762c8c54aa914"
+    },
+    "WITHIN_TOLERANCE_HASH_FAILURE": {
+      "run_id": "F1B.R2.KL_V2.PAIRED_BOOTSTRAP_DRAW_STABILITY.2026-09-27|NULL|CBD_NULL_ANCHOR_2|REPLICATE=1|RESTRICTION=CBD_COMPLEMENT_RESTRICTION",
+      "dataset_sha256": "01e4c4dde15089f4d9883eb0b05996b861a86dbebb777b8bab17462e29c67d05",
+      "observed_statistic": 2.657068411343289,
+      "attempt_sequence_sha256": "a94dbfe0a3ee66662add6c1dd446f832debb7ca77b0a868b954303d8119b8a80"
+    }
+  },
+  "executions": [
+    {
+      "sentinel": "EXACT_OBSERVED_HASH_FAILURE",
+      "replica": 0,
+      "artifact_id": 10955834359,
+      "artifact_name": "f1b-r2-openblas-q1-EXACT_OBSERVED_HASH_FAILURE-0",
+      "artifact_zip_sha256": "5dad9e8cd72c82145ff08a8faff8e63747470e34f373f19a2ccf06ffb3855faf",
+      "cpu_model": "AMD EPYC 7763 64-Core Processor",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "EXACT_OBSERVED_HASH_FAILURE",
+      "replica": 1,
+      "artifact_id": 10956482571,
+      "artifact_name": "f1b-r2-openblas-q1-EXACT_OBSERVED_HASH_FAILURE-1",
+      "artifact_zip_sha256": "b0f1c423547de156ed1d8d4c9d8757cc714dd104acc6e2ed3a6b1ad6233f7886",
+      "cpu_model": "AMD EPYC 7763 64-Core Processor",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "EXACT_OBSERVED_HASH_FAILURE",
+      "replica": 2,
+      "artifact_id": 10957035314,
+      "artifact_name": "f1b-r2-openblas-q1-EXACT_OBSERVED_HASH_FAILURE-2",
+      "artifact_zip_sha256": "12615d35c8c4ddd71d09974c9aafb7c95d1d445ba832ab7f917c187055b6a750",
+      "cpu_model": "AMD EPYC 7763 64-Core Processor",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "EXACT_OBSERVED_HASH_FAILURE",
+      "replica": 3,
+      "artifact_id": 10956573405,
+      "artifact_name": "f1b-r2-openblas-q1-EXACT_OBSERVED_HASH_FAILURE-3",
+      "artifact_zip_sha256": "f98aa35b3560d516a7336f8ca9e0333325e73f5d05f5ee649a81a681c8c67de7",
+      "cpu_model": "AMD EPYC 7763 64-Core Processor",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "EXACT_PASS_CONTROL",
+      "replica": 0,
+      "artifact_id": 10956254939,
+      "artifact_name": "f1b-r2-openblas-q1-EXACT_PASS_CONTROL-0",
+      "artifact_zip_sha256": "803414f057ca55fdb4386cdd1adf525c1c0b5bde94aa765ff260c9267f63541c",
+      "cpu_model": "INTEL(R) XEON(R) PLATINUM 8573C",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "EXACT_PASS_CONTROL",
+      "replica": 1,
+      "artifact_id": 10956503969,
+      "artifact_name": "f1b-r2-openblas-q1-EXACT_PASS_CONTROL-1",
+      "artifact_zip_sha256": "558be3cb1d93a53d66b2a4bd79a62d2908ec9256070052c62c285c193249d7e8",
+      "cpu_model": "AMD EPYC 7763 64-Core Processor",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "EXACT_PASS_CONTROL",
+      "replica": 2,
+      "artifact_id": 10956263593,
+      "artifact_name": "f1b-r2-openblas-q1-EXACT_PASS_CONTROL-2",
+      "artifact_zip_sha256": "1ae417dd1e5713363d28163eac1fbc0a8c50b00b5fdc227e3957a55e08084ba7",
+      "cpu_model": "AMD EPYC 7763 64-Core Processor",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "EXACT_PASS_CONTROL",
+      "replica": 3,
+      "artifact_id": 10956622667,
+      "artifact_name": "f1b-r2-openblas-q1-EXACT_PASS_CONTROL-3",
+      "artifact_zip_sha256": "44554e94b398f4f3b06934bb863a848917ad7225b12c6fc76ffe8ca5e12cdb89",
+      "cpu_model": "INTEL(R) XEON(R) PLATINUM 8573C",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "OUTSIDE_TOLERANCE_HASH_FAILURE",
+      "replica": 0,
+      "artifact_id": 10956632612,
+      "artifact_name": "f1b-r2-openblas-q1-OUTSIDE_TOLERANCE_HASH_FAILURE-0",
+      "artifact_zip_sha256": "8cb81847f408a24c66577e2c715c0513980bcc46bdfc36de675507a26f656566",
+      "cpu_model": "AMD EPYC 7763 64-Core Processor",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "OUTSIDE_TOLERANCE_HASH_FAILURE",
+      "replica": 1,
+      "artifact_id": 10955664354,
+      "artifact_name": "f1b-r2-openblas-q1-OUTSIDE_TOLERANCE_HASH_FAILURE-1",
+      "artifact_zip_sha256": "fd6763c2c1848a0ce8def45377fa170d702d35e00c235b4d811fc7ce13c98df7",
+      "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "OUTSIDE_TOLERANCE_HASH_FAILURE",
+      "replica": 2,
+      "artifact_id": 10956826088,
+      "artifact_name": "f1b-r2-openblas-q1-OUTSIDE_TOLERANCE_HASH_FAILURE-2",
+      "artifact_zip_sha256": "6198a9d86c00d31b8f551837292d0764cd623cc6d90da9a8c6143cf3e47ba0d5",
+      "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "OUTSIDE_TOLERANCE_HASH_FAILURE",
+      "replica": 3,
+      "artifact_id": 10956454141,
+      "artifact_name": "f1b-r2-openblas-q1-OUTSIDE_TOLERANCE_HASH_FAILURE-3",
+      "artifact_zip_sha256": "1b2fca944381858cec78f9b483663a6d33c0d4490a61598caca2c31a40be7044",
+      "cpu_model": "AMD EPYC 7763 64-Core Processor",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "WITHIN_TOLERANCE_HASH_FAILURE",
+      "replica": 0,
+      "artifact_id": 10956503942,
+      "artifact_name": "f1b-r2-openblas-q1-WITHIN_TOLERANCE_HASH_FAILURE-0",
+      "artifact_zip_sha256": "1afb869b3e5ab1f03c9f65359427a12f009c6fd3320a4c8f73a4fa18379a717b",
+      "cpu_model": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "WITHIN_TOLERANCE_HASH_FAILURE",
+      "replica": 1,
+      "artifact_id": 10956801417,
+      "artifact_name": "f1b-r2-openblas-q1-WITHIN_TOLERANCE_HASH_FAILURE-1",
+      "artifact_zip_sha256": "53f35c3f3b42bf3442060e3fbbbff3c02e689f1ae233c62ab704573e3736acba",
+      "cpu_model": "AMD EPYC 7763 64-Core Processor",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "WITHIN_TOLERANCE_HASH_FAILURE",
+      "replica": 2,
+      "artifact_id": 10956726015,
+      "artifact_name": "f1b-r2-openblas-q1-WITHIN_TOLERANCE_HASH_FAILURE-2",
+      "artifact_zip_sha256": "4e6c1e23059a51d4601c212f1488efd9a8795ba7f6f52b74a0c1619a9f1e4ca2",
+      "cpu_model": "INTEL(R) XEON(R) PLATINUM 8573C",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    },
+    {
+      "sentinel": "WITHIN_TOLERANCE_HASH_FAILURE",
+      "replica": 3,
+      "artifact_id": 10955864184,
+      "artifact_name": "f1b-r2-openblas-q1-WITHIN_TOLERANCE_HASH_FAILURE-3",
+      "artifact_zip_sha256": "2fbc668a21f655e800265a8c7e4365eb5fbd99ba6a5d523797320660feabc791",
+      "cpu_model": "AMD EPYC 7763 64-Core Processor",
+      "q0_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "scientific_process_reported_cores": [
+        "Haswell",
+        "Haswell"
+      ],
+      "dataset_exact_match": true,
+      "observed_exact_match": true,
+      "observed_absolute_delta": 0,
+      "attempt_sequence_exact_match": true,
+      "first_divergent_draw_index": null,
+      "qualification_pass": true
+    }
+  ],
+  "decision": {
+    "q1_pass": true,
+    "next_gate": "Q2_FULL_224_STREAM_LINEAGE_QUALIFICATION"
+  },
+  "boundary": {
+    "failed_c1_v1_rewritten": false,
+    "new_draw_index_ge_199_generated": false,
+    "scientific_fit_settings_changed": false,
+    "stage_c2_authorized": false,
+    "power_validated": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
