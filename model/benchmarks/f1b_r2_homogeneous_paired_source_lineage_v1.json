@@ -1,0 +1,186 @@
+{
+  "lineage_id": "F1B.R2.HOMOGENEOUS_PAIRED_SOURCE.LINEAGE.V1",
+  "status": "NON_AUTHORITATIVE_HOMOGENEOUS_PAIRED_SOURCE_REGENERATION_DESIGN",
+  "issue": 234,
+  "baseline_main_commit": "cb3d023b934f7896c9210f819d6b325cffb429ca",
+  "historical_scientific_source_commit": "6ad6be092fd3e6b9ec17c3935e19711710690beb",
+  "candidate_environment": {
+    "variable": "OPENBLAS_CORETYPE",
+    "value": "Haswell",
+    "must_be_set_before_python_start": true,
+    "runtime_core_confirmation_required": true,
+    "runtime_probe": "OPENBLAS_VERBOSE=2_OR_EQUIVALENT_OPENBLAS_API"
+  },
+  "frozen_dependency_lock": {
+    "path": "requirements/ci-py312-linux.lock.txt",
+    "git_blob_sha": "9bbc5e31949c3e9b3c6679075388c66316030e79"
+  },
+  "protected_scientific_file_git_blob_sha": {
+    "src/cognitive_epistemic_model/calibration/f1b_r2_paired_bootstrap_characterization.py": "3f23fc9bfc87d9ff45e83f11a529e3f0793969f4",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_restriction_recovery.py": "09291cc220aec5e1a557cdd697cb1257af2f233c",
+    "src/cognitive_epistemic_model/calibration/f1b_prehuman_recovery.py": "6b78dec5183e7f8ef8a2d4257c1a23f016a161a2",
+    "src/cognitive_epistemic_model/calibration/f1b_hierarchical_recovery.py": "89899e90fec5bdf9ced3e052aec1aa7ef2b49d73",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_kl_controlled_departures.py": "e7e5233f4ab7427500835cb6484c1dd961abb54a"
+  },
+  "protected_execution_file_git_blob_sha": {
+    "scripts/run_f1b_r2_kl_v2_paired_bootstrap.py": "12aae87f25feb34307f5636853207d2b8fffb545",
+    "scripts/combine_f1b_r2_kl_v2_paired_bootstrap_partitions.py": "972bbb2ff9f6ebd6d6348b84620c4ff872f2daa6"
+  },
+  "frozen_inputs": {
+    "paired_config": {
+      "path": "model/benchmarks/f1b_r2_kl_v2_paired_bootstrap_draw_stability.json",
+      "sha256": "7d0ad4292e17b99fa2a2b82c2ea7b842839fe0b2a68fcac5325564d3dd9a2eed"
+    },
+    "v2_config": {
+      "path": "model/benchmarks/f1b_r2_kl_controlled_departure_design_v2.json",
+      "sha256": "fb80f9976ef592b2dc8b1cbbbe566c19d755e449ff02b6278d1f1ce1b140ca8c"
+    },
+    "v2_qualification_result": {
+      "path": "model/results/f1b_r2_kl_controlled_departure_v2_qualification_2026-09-27.json",
+      "sha256": "4bc0017e5549fcf459336b2de442a95c479b9f0e3cc276057519473503e56758"
+    },
+    "review_config": {
+      "path": "model/benchmarks/f1b_r2_distance_definition_review.json",
+      "sha256": "a653b2024f8508a8395845143a45d57427882e11b3f2a16203ff6609b7a9696d"
+    },
+    "historical_departure_config": {
+      "path": "model/benchmarks/f1b_r2_controlled_departure_design.json",
+      "sha256": "e5603e0115d98abbb2df549671592fda14818abb5e990a0b5afad8641e5a2a1e"
+    }
+  },
+  "historical_paired_source": {
+    "artifact_id": 10938668225,
+    "exact_json_sha256": "b2727462b5bd09e5570090a42d7c90da8866e02100e0f4ccad551d8958a3d301",
+    "exact_json_size_bytes": 9013672,
+    "status": "RETAINED_NUMERICALLY_HETEROGENEOUS",
+    "inherit_as_future_source": false
+  },
+  "new_source_identity": {
+    "external_numerical_lineage_id": "F1B.R2.HOMOGENEOUS_PAIRED_SOURCE.LINEAGE.V1",
+    "scientific_characterization_id_changed": false,
+    "scientific_dataset_id_changed": false,
+    "seed_identity_changed": false,
+    "wrapper_metadata_required": true
+  },
+  "h1_full_source_regeneration": {
+    "evaluation_replicates": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "draw_grid": [
+      49,
+      99,
+      199
+    ],
+    "maximum_draw_index": 198,
+    "new_draw_index_ge_199_authorized": false,
+    "scientific_dataset_identity_changed": false,
+    "seed_derivation_changed": false,
+    "expected_unique_dataset_count": 390,
+    "expected_restriction_run_count": 750,
+    "expected_snapshot_count": 2250,
+    "expected_pair_comparison_count": 2250,
+    "expected_fit_failure_count": 0,
+    "shards": [
+      {
+        "shard_id": "R00_01",
+        "replicate_indices": [
+          0,
+          1
+        ]
+      },
+      {
+        "shard_id": "R02_03",
+        "replicate_indices": [
+          2,
+          3
+        ]
+      },
+      {
+        "shard_id": "R04_05",
+        "replicate_indices": [
+          4,
+          5
+        ]
+      },
+      {
+        "shard_id": "R06_07",
+        "replicate_indices": [
+          6,
+          7
+        ]
+      },
+      {
+        "shard_id": "R08_09",
+        "replicate_indices": [
+          8,
+          9
+        ]
+      }
+    ],
+    "runtime_core_must_be_confirmed_per_worker": true,
+    "new_versioned_artifact_required": true,
+    "historical_source_equality_required_for_acceptance": false
+  },
+  "h1_reproducibility_qualification": {
+    "independent_replay_required": true,
+    "selection_rule": "LEXICOGRAPHIC_FIRST_BY_REPLICATE_IDENTITY_TYPE_RESTRICTION",
+    "target_replicates": [
+      0,
+      7,
+      8,
+      9
+    ],
+    "identity_types": [
+      "NULL",
+      "DEPARTURE"
+    ],
+    "restrictions": [
+      "ADD_RESTRICTION",
+      "CBD_COMPLEMENT_RESTRICTION"
+    ],
+    "expected_validation_stream_count": 16,
+    "require_exact_dataset_fingerprint": true,
+    "require_exact_observed_statistic": true,
+    "require_exact_first_199_attempt_sequence_sha256": true,
+    "runtime_core_must_be_confirmed": true
+  },
+  "h2_stage_b_rebuild": {
+    "historical_stage_b_checkpoint_inheritance_allowed": false,
+    "controller_changed": false,
+    "alpha": 0.05,
+    "epsilon": 0.001,
+    "halfspend": 1000,
+    "spending_sequence": "epsilon*n/(1000+n)",
+    "maximum_retained_attempts": 199,
+    "historical_outcome_comparison_is_diagnostic_only": true
+  },
+  "boundary": {
+    "historical_paired_source_rewritten": false,
+    "historical_stage_b_rewritten": false,
+    "scientific_model_changed": false,
+    "scientific_fitter_changed": false,
+    "optimizer_settings_changed": false,
+    "fit_start_changed": false,
+    "package_versions_changed": false,
+    "random_effect_scales_changed": false,
+    "seed_derivation_changed": false,
+    "draw_order_changed": false,
+    "attempt_canonicalization_changed": false,
+    "new_draw_index_ge_199_authorized": false,
+    "stage_c2_authorized": false,
+    "power_validated": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
