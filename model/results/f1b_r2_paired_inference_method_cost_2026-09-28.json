@@ -1,0 +1,99 @@
+{
+  "result_id": "F1B.R2.PAIRED_INFERENCE_METHOD_COST.RESULT.2026-09-28",
+  "status": "NON_AUTHORITATIVE_PAIRED_METHOD_COST_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 259,
+  "execution": {
+    "temporary_execution_pr": 263,
+    "workflow_run_id": 36436783347,
+    "workflow_run_number": 1,
+    "execution_pr_head": "b0081a88d947b50940044e41412d49f8a6be6fb1",
+    "qualified_main_baseline": "58f7f21b7e04188d00141ab9e62e9f32b5acf2cf",
+    "artifact_id": 10975124614,
+    "artifact_name": "f1b-r2-paired-inference-method-cost",
+    "artifact_zip_sha256": "adfbe78bb715681a1c38ef529f61fa25138d2b92ae2f47a0212160d003497d51",
+    "result_json_sha256": "84be8c916b8d5b90f4163bb58c468e026ebb17a4d104ab537a51fe644fc9123a",
+    "result_json_size_bytes": 24170,
+    "runtime_openblas_cores": [
+      "Haswell",
+      "Haswell"
+    ]
+  },
+  "frozen_design": {
+    "evaluation_replicate": 0,
+    "unique_dataset_count": 3,
+    "restriction_run_count": 4,
+    "inference_methods": [
+      "POPULATION",
+      "HIERARCHICAL_0.5X",
+      "HIERARCHICAL_1X",
+      "HIERARCHICAL_2X"
+    ],
+    "method_execution_count": 16,
+    "bootstrap_attempts_per_execution": 199,
+    "minimum_successful_attempts": 180,
+    "missingness": 0
+  },
+  "acceptance": {
+    "operational_failure_count": 0,
+    "all_hierarchical_1x_h1_prefixes_exact": true,
+    "all_variants_have_796_of_796_successful_refits": true,
+    "all_variants_calibration_failure_count_zero": true,
+    "cost_gate_pass": true
+  },
+  "cost": {
+    "preparation_seconds": 74.330648618,
+    "method_totals": {
+      "POPULATION": {
+        "attempted_bootstrap_draws": 796,
+        "successful_bootstrap_draws": 796,
+        "bootstrap_fit_failures": 0,
+        "calibration_failure_count": 0,
+        "total_elapsed_seconds": 9.700318811000017,
+        "seconds_per_attempted_bootstrap_draw": 0.012186330164572885
+      },
+      "HIERARCHICAL_0.5X": {
+        "attempted_bootstrap_draws": 796,
+        "successful_bootstrap_draws": 796,
+        "bootstrap_fit_failures": 0,
+        "calibration_failure_count": 0,
+        "total_elapsed_seconds": 15.230507288000013,
+        "seconds_per_attempted_bootstrap_draw": 0.019133803125628155
+      },
+      "HIERARCHICAL_1X": {
+        "attempted_bootstrap_draws": 796,
+        "successful_bootstrap_draws": 796,
+        "bootstrap_fit_failures": 0,
+        "calibration_failure_count": 0,
+        "total_elapsed_seconds": 15.061898646000003,
+        "seconds_per_attempted_bootstrap_draw": 0.018921983223618093
+      },
+      "HIERARCHICAL_2X": {
+        "attempted_bootstrap_draws": 796,
+        "successful_bootstrap_draws": 796,
+        "bootstrap_fit_failures": 0,
+        "calibration_failure_count": 0,
+        "total_elapsed_seconds": 16.65959178899999,
+        "seconds_per_attempted_bootstrap_draw": 0.02092913541331657
+      }
+    },
+    "interpretation": "OPERATIONAL_COST_PROFILE_ONLY_NOT_METHOD_SELECTION"
+  },
+  "decision": {
+    "all_four_inference_variants_operationally_eligible_for_prospective_paired_characterization": true,
+    "population_method_selected": false,
+    "hierarchical_method_selected": false,
+    "next_gate": "PROSPECTIVE_PAIRED_METHOD_CHARACTERIZATION_DESIGN_REQUIRED"
+  },
+  "scientific_boundary": {
+    "smoke_decisions_interpreted": false,
+    "method_selected": false,
+    "power_validated": false,
+    "missingness_015_characterized": false,
+    "evaluation_replicates_expanded": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
