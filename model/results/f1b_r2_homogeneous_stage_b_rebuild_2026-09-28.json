@@ -1,0 +1,104 @@
+{
+  "result_id": "F1B.R2.HOMOGENEOUS_STAGE_B_REBUILD.RESULT.2026-09-28",
+  "status": "NON_AUTHORITATIVE_HOMOGENEOUS_STAGE_B_REBUILD_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 234,
+  "source_lineage": {
+    "lineage_id": "F1B.R2.HOMOGENEOUS_PAIRED_SOURCE.LINEAGE.V1",
+    "h1_result_path": "model/results/f1b_r2_homogeneous_paired_h1_qualification_2026-09-28.json",
+    "artifact_id": 10961527329,
+    "combined_json_sha256": "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e",
+    "combined_json_size_bytes": 9013549
+  },
+  "execution": {
+    "temporary_execution_pr": 239,
+    "workflow_run_id": 36406702153,
+    "execution_pr_head": "3cc463ce66d40f92770c60ab186da172e29f6d1c",
+    "qualified_main_baseline": "5566decc986c5d54f7155eb6a6827cf88261089b",
+    "result_artifact_id": 10962483226,
+    "result_artifact_name": "f1b-r2-homogeneous-stage-b-h2",
+    "artifact_zip_sha256": "ba02c513503623296879d16661da9575ee3c8fcdecb50464612157558e7571f7",
+    "raw_replay_json_sha256": "f0f32d92e46748148f020a4e0d47d2c63e27f6ab1aa36253346e15c4dfaf01e7",
+    "raw_replay_json_size_bytes": 1804832,
+    "historical_comparison_json_sha256": "96abf4208108a224a51ac65e1f55f44b35432cf7637ee9607b1af8120d5c43cb"
+  },
+  "controller": {
+    "controller_id": "F1B.R2.RESAMPLING_RISK_CONTROLLER.V1",
+    "alpha": 0.05,
+    "epsilon": 0.001,
+    "halfspend": 1000,
+    "max_attempts": 199,
+    "controller_changed": false
+  },
+  "integrity": {
+    "restriction_run_count": 750,
+    "bootstrap_refit_failure_count": 0,
+    "stream_checkpoint_count": 750,
+    "homogeneous_stream_checkpoints_sha256": "9f554b3a94464782194f0921dc13718fce995e58e2e15159cb2461b3fbb3ded2",
+    "unresolved_run_count": 224,
+    "unresolved_run_ids_sha256": "d2db2c97ad48544c082cdffd086c022a28c6d0c75690b36a0cd0b2b381c4ebac",
+    "new_bootstrap_attempts_generated": false,
+    "new_draw_index_ge_199_generated": false
+  },
+  "global_summary": {
+    "run_count": 750,
+    "resolved_by_49_count": 326,
+    "resolved_by_99_count": 372,
+    "resolved_by_199_count": 526,
+    "unresolved_at_199_count": 224,
+    "sequential_reject_count": 119,
+    "sequential_not_reject_count": 407,
+    "sequential_vs_fixed_199_disagreement_count": 0,
+    "stopping_distribution": {
+      "resolved_count": 526,
+      "minimum": 5,
+      "median": 22.0,
+      "maximum": 189
+    }
+  },
+  "historical_comparison": {
+    "historical_raw_replay_artifact_id": 10938984164,
+    "historical_raw_replay_json_sha256": "47d9321432208f56ad5ecc3077547601122196373d54c40a4c02bde91218635b",
+    "historical_stream_checkpoints_sha256": "2bf8fad40c6bf233184ff3d738faf0c68194fcdc7b3ff9a18b518324df13daf3",
+    "dataset_fingerprint_exact_count": 750,
+    "observed_statistic_exact_count": 601,
+    "attempt_sequence_sha256_exact_count": 600,
+    "stopping_n_exact_count": 750,
+    "changed_numerical_stream_count": 150,
+    "decision_transition_counts": {
+      "NOT_REJECT_P_GT_ALPHA -> NOT_REJECT_P_GT_ALPHA": 407,
+      "REJECT_P_LE_ALPHA -> REJECT_P_LE_ALPHA": 119,
+      "UNRESOLVED -> UNRESOLVED": 224
+    },
+    "unresolved_sets": {
+      "historical_count": 224,
+      "homogeneous_count": 224,
+      "intersection_count": 224,
+      "historical_only_count": 0,
+      "homogeneous_only_count": 0,
+      "canonical_run_ids_sha256_both": "d2db2c97ad48544c082cdffd086c022a28c6d0c75690b36a0cd0b2b381c4ebac"
+    },
+    "interpretation": "The identical Stage-B partition is an independently reproduced outcome under the homogeneous H1 source. Historical stream checkpoints are not inherited because 150 attempt trajectories and therefore the checkpoint digest differ."
+  },
+  "decision": {
+    "h2_stage_b_rebuild_pass": true,
+    "homogeneous_stage_b_partition_retained": true,
+    "historical_stage_b_inherited": false,
+    "historical_unresolved_ids_happen_to_match": true,
+    "historical_stream_checkpoints_may_be_reused": false,
+    "next_gate": "NEW_VERSIONED_HOMOGENEOUS_C1_EXACT_REPLAY_CONTRACT_REQUIRED"
+  },
+  "boundary": {
+    "historical_paired_source_rewritten": false,
+    "historical_stage_b_rewritten": false,
+    "controller_changed": false,
+    "new_bootstrap_attempt_generated": false,
+    "new_draw_index_ge_199_generated": false,
+    "stage_c2_authorized": false,
+    "power_validated": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
