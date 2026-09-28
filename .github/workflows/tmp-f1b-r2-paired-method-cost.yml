@@ -1,0 +1,467 @@
+name: TEMP F1b R2 paired inference-method cost
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  cost:
+    name: Paired population-hierarchical 199-draw cost characterization
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download retained homogeneous H1 source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/h1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36401867007
+
+      - name: Execute frozen 199-draw paired cost characterization
+        shell: bash
+        run: |
+          set -o pipefail
+          python - \
+            /tmp/h1/f1b-r2-homogeneous-h1-combined.json \
+            /tmp/f1b-r2-paired-method-cost.json \
+            2> >(tee /tmp/f1b-r2-paired-method-cost-core.log >&2) <<'PY'
+          from __future__ import annotations
+
+          import hashlib
+          import json
+          from pathlib import Path
+          import sys
+          import time
+
+          import numpy as np
+
+          from cognitive_epistemic_model.calibration import (
+              f1b_r2_paired_bootstrap_characterization as paired_characterization,
+          )
+          from cognitive_epistemic_model.calibration.f1b_hierarchical_recovery import (
+              RandomEffectScales,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_paired_bootstrap_characterization import (
+              dataset_fingerprint,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_population_restriction_recovery import (
+              bootstrap_population_restriction_test_prefix_snapshots,
+              population_bootstrap_seed_sequence,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_resampling_risk_continuation import (
+              build_departure_case_map,
+              regenerate_dataset_for_run,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_resampling_risk_replay import (
+              canonical_attempt_sequence_sha256,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_restriction_recovery import (
+              R2Restriction,
+              bootstrap_restriction_test_prefix_snapshots,
+          )
+
+          EXPECTED_H1_SHA256 = (
+              "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e"
+          )
+          DRAW_COUNT = 199
+          MIN_SUCCESSFUL = 180
+
+          source_path = Path(sys.argv[1])
+          output_path = Path(sys.argv[2])
+          if hashlib.sha256(source_path.read_bytes()).hexdigest() != EXPECTED_H1_SHA256:
+              raise ValueError("H1 source SHA-256 mismatch")
+
+          def load(path: str) -> dict:
+              return json.loads(Path(path).read_text(encoding="utf-8"))
+
+          preparation_started = time.perf_counter()
+          source = load(str(source_path))
+          paired_config = load(
+              "model/benchmarks/f1b_r2_kl_v2_paired_bootstrap_draw_stability.json"
+          )
+          v2_config = load(
+              "model/benchmarks/f1b_r2_kl_controlled_departure_design_v2.json"
+          )
+          review_config = load(
+              "model/benchmarks/f1b_r2_distance_definition_review.json"
+          )
+          historical_config = load(
+              "model/benchmarks/f1b_r2_controlled_departure_design.json"
+          )
+          departure_cases = build_departure_case_map(
+              v2_config,
+              review_config,
+              historical_config,
+          )
+          base_scales = paired_characterization._scales(
+              paired_config,
+              generator=False,
+          )
+
+          candidates = []
+          for run in source["restriction_runs"]:
+              if int(run["evaluation_replicate"]) != 0:
+                  continue
+              role = str(run["role"])
+              if (
+                  role == "ADD_NULL_FALSE_REJECTION"
+                  and str(run["restriction"]) == "ADD_RESTRICTION"
+              ):
+                  candidates.append(run)
+                  continue
+              if (
+                  role == "CBD_NULL_FALSE_REJECTION"
+                  and str(run["restriction"]) == "CBD_COMPLEMENT_RESTRICTION"
+                  and str(run["anchor_id"]) == "CBD_ANCHOR_1"
+              ):
+                  candidates.append(run)
+                  continue
+              if (
+                  str(run["axis"]) == "STANDALONE_ACCURACY_MAIN_EFFECT"
+                  and str(run["anchor_id"]) == "CBD_ADD_INTERSECTION_ANCHOR_1"
+                  and int(run["sign"]) == 1
+                  and float(run["target_mean_bernoulli_kl"]) == 0.002
+              ):
+                  candidates.append(run)
+
+          selected = sorted(candidates, key=lambda row: str(row["run_id"]))
+          if len(selected) != 4:
+              raise ValueError(f"expected 4 restriction runs, got {len(selected)}")
+          if len({str(row["dataset_sha256"]) for row in selected}) != 3:
+              raise ValueError("expected exactly 3 unique datasets")
+
+          prepared = []
+          for run in selected:
+              dataset = regenerate_dataset_for_run(
+                  run,
+                  paired_config=paired_config,
+                  departure_cases=departure_cases,
+              )
+              regenerated_sha = dataset_fingerprint(dataset)
+              if regenerated_sha != str(run["dataset_sha256"]):
+                  raise ValueError(f"dataset fingerprint mismatch for {run['run_id']}")
+              prepared.append((run, dataset))
+          preparation_seconds = time.perf_counter() - preparation_started
+
+          def scaled_scales(multiplier: float) -> RandomEffectScales:
+              return RandomEffectScales(
+                  participant_intercept_sd=(
+                      base_scales.participant_intercept_sd * multiplier
+                  ),
+                  item_intercept_sd=base_scales.item_intercept_sd * multiplier,
+                  participant_slope_sd=(
+                      base_scales.participant_slope_sd * multiplier
+                  ),
+                  item_slope_sd=base_scales.item_slope_sd * multiplier,
+              )
+
+          methods = (
+              ("POPULATION", None),
+              ("HIERARCHICAL_0.5X", 0.5),
+              ("HIERARCHICAL_1X", 1.0),
+              ("HIERARCHICAL_2X", 2.0),
+          )
+
+          rows = []
+          method_elapsed = {name: 0.0 for name, _ in methods}
+          for run, dataset in prepared:
+              restriction = R2Restriction(str(run["restriction"]))
+              base_seed = int(run["bootstrap_stream_seed"])
+              restriction_index = 1 if restriction is R2Restriction.ADD else 2
+
+              hierarchical_seed_state = np.random.SeedSequence(
+                  [base_seed, restriction_index, 0]
+              ).generate_state(8)
+              population_seed_state = population_bootstrap_seed_sequence(
+                  seed=base_seed,
+                  restriction=restriction,
+                  draw_index=0,
+              ).generate_state(8)
+              if np.array_equal(hierarchical_seed_state, population_seed_state):
+                  raise ValueError("population/hierarchical bootstrap namespaces collided")
+
+              retained_attempts = tuple(run["bootstrap_attempt_statistics"][:DRAW_COUNT])
+              if len(retained_attempts) != DRAW_COUNT:
+                  raise ValueError("retained H1 prefix is not 199 attempts")
+              retained_h1_sha = canonical_attempt_sequence_sha256(retained_attempts)
+
+              for method_name, multiplier in methods:
+                  started = time.perf_counter()
+                  if method_name == "POPULATION":
+                      result = bootstrap_population_restriction_test_prefix_snapshots(
+                          dataset,
+                          restriction,
+                          draw_counts=(DRAW_COUNT,),
+                          minimum_successful_draws_by_count={
+                              DRAW_COUNT: MIN_SUCCESSFUL
+                          },
+                          seed=base_seed,
+                          alpha=0.05,
+                      )
+                  else:
+                      result = bootstrap_restriction_test_prefix_snapshots(
+                          dataset,
+                          restriction,
+                          scales=scaled_scales(float(multiplier)),
+                          draw_counts=(DRAW_COUNT,),
+                          minimum_successful_draws_by_count={
+                              DRAW_COUNT: MIN_SUCCESSFUL
+                          },
+                          seed=base_seed,
+                          alpha=0.05,
+                      )
+                  elapsed = time.perf_counter() - started
+                  method_elapsed[method_name] += elapsed
+
+                  snapshot = result.snapshots[0]
+                  attempt_sha = canonical_attempt_sequence_sha256(
+                      result.bootstrap_attempt_statistics
+                  )
+                  h1_prefix_exact = (
+                      attempt_sha == retained_h1_sha
+                      if method_name == "HIERARCHICAL_1X"
+                      else None
+                  )
+                  if method_name == "HIERARCHICAL_1X" and not h1_prefix_exact:
+                      raise ValueError(
+                          f"HIERARCHICAL_1X H1 prefix mismatch for {run['run_id']}"
+                      )
+
+                  rows.append(
+                      {
+                          "run_id": str(run["run_id"]),
+                          "dataset_sha256": str(run["dataset_sha256"]),
+                          "identity_type": str(run["identity_type"]),
+                          "restriction": str(run["restriction"]),
+                          "role": str(run["role"]),
+                          "anchor_id": run["anchor_id"],
+                          "axis": run["axis"],
+                          "sign": run["sign"],
+                          "target_mean_bernoulli_kl": run[
+                              "target_mean_bernoulli_kl"
+                          ],
+                          "evaluation_replicate": 0,
+                          "inference_method": method_name,
+                          "fit_scale_multiplier": multiplier,
+                          "bootstrap_base_seed": base_seed,
+                          "bootstrap_attempt_sequence_sha256": attempt_sha,
+                          "h1_retained_attempt_sequence_sha256": (
+                              retained_h1_sha
+                              if method_name == "HIERARCHICAL_1X"
+                              else None
+                          ),
+                          "h1_prefix_exact": h1_prefix_exact,
+                          "observed_statistic": float(result.observed_statistic),
+                          "bootstrap_draws_requested": DRAW_COUNT,
+                          "bootstrap_draws_successful": int(
+                              snapshot.bootstrap_draws_successful
+                          ),
+                          "bootstrap_fit_failures": int(
+                              snapshot.bootstrap_fit_failures
+                          ),
+                          "bootstrap_calibration_failure": bool(
+                              snapshot.bootstrap_calibration_failure
+                          ),
+                          "p_value_smoke_only": (
+                              None
+                              if snapshot.p_value is None
+                              else float(snapshot.p_value)
+                          ),
+                          "rejected_smoke_only": snapshot.rejected,
+                          "held_out_participant_delta": float(
+                              result.held_out_participant_delta
+                          ),
+                          "held_out_item_delta": float(
+                              result.held_out_item_delta
+                          ),
+                          "elapsed_seconds": elapsed,
+                      }
+                  )
+
+          if len(rows) != 16:
+              raise ValueError(f"expected 16 method executions, got {len(rows)}")
+
+          operational_failures = [
+              row
+              for row in rows
+              if int(row["bootstrap_draws_successful"]) < MIN_SUCCESSFUL
+              or bool(row["bootstrap_calibration_failure"])
+          ]
+
+          aggregates = {}
+          for method_name, _ in methods:
+              method_rows = [
+                  row for row in rows if row["inference_method"] == method_name
+              ]
+              aggregates[method_name] = {
+                  "restriction_run_count": len(method_rows),
+                  "total_elapsed_seconds": method_elapsed[method_name],
+                  "attempted_bootstrap_draws": DRAW_COUNT * len(method_rows),
+                  "successful_bootstrap_draws": sum(
+                      int(row["bootstrap_draws_successful"])
+                      for row in method_rows
+                  ),
+                  "bootstrap_fit_failures": sum(
+                      int(row["bootstrap_fit_failures"])
+                      for row in method_rows
+                  ),
+                  "calibration_failure_count": sum(
+                      bool(row["bootstrap_calibration_failure"])
+                      for row in method_rows
+                  ),
+                  "seconds_per_attempted_bootstrap_draw": (
+                      method_elapsed[method_name]
+                      / (DRAW_COUNT * len(method_rows))
+                  ),
+              }
+
+          result = {
+              "characterization_id": "F1B.R2.PAIRED_INFERENCE_METHOD_COST.V1",
+              "status": "NON_AUTHORITATIVE_PAIRED_METHOD_COST_COMPLETE",
+              "authoritative": False,
+              "issue": 259,
+              "source_artifact_id": 10961527329,
+              "source_json_sha256": EXPECTED_H1_SHA256,
+              "evaluation_replicate": 0,
+              "unique_dataset_count": 3,
+              "restriction_run_count": 4,
+              "inference_methods": [name for name, _ in methods],
+              "method_execution_count": 16,
+              "bootstrap_attempts_per_execution": DRAW_COUNT,
+              "minimum_successful_attempts": MIN_SUCCESSFUL,
+              "preparation_seconds": preparation_seconds,
+              "aggregates": aggregates,
+              "operational_failure_count": len(operational_failures),
+              "all_hierarchical_1x_h1_prefixes_exact": all(
+                  row["h1_prefix_exact"] is True
+                  for row in rows
+                  if row["inference_method"] == "HIERARCHICAL_1X"
+              ),
+              "rows": rows,
+              "boundary": {
+                  "smoke_decisions_interpreted_scientifically": False,
+                  "method_selected": False,
+                  "power_validated": False,
+                  "missingness_015_characterized": False,
+                  "evaluation_replicates_expanded": False,
+                  "authoritative_core_grid_frozen": False,
+                  "human_n_frozen": False,
+                  "participant_recruitment_allowed": False,
+                  "runtime_f1b_change_allowed": False,
+              },
+          }
+          output_path.write_text(
+              json.dumps(result, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          print(
+              "PAIRED_METHOD_COST="
+              + json.dumps(
+                  {
+                      "preparation_seconds": preparation_seconds,
+                      "operational_failure_count": len(operational_failures),
+                      "all_hierarchical_1x_h1_prefixes_exact": result[
+                          "all_hierarchical_1x_h1_prefixes_exact"
+                      ],
+                      "aggregates": aggregates,
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Verify scientific-process OpenBLAS core
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          from cognitive_epistemic_model.calibration.f1b_r2_homogeneous_paired_lineage import (
+              validate_h1_runtime_cores,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+          )
+
+          text = Path("/tmp/f1b-r2-paired-method-cost-core.log").read_text(
+              encoding="utf-8",
+              errors="replace",
+          )
+          cores = parse_openblas_verbose_cores(text)
+          validate_h1_runtime_cores(cores)
+          Path("/tmp/f1b-r2-paired-method-cost-core.json").write_text(
+              json.dumps(
+                  {
+                      "reported_cores": list(cores),
+                      "all_cores_qualified": True,
+                  },
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          print("PAIRED_METHOD_COST_CORES=" + json.dumps(list(cores)))
+          PY
+
+      - name: Enforce operational cost gate
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(
+              Path("/tmp/f1b-r2-paired-method-cost.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+          assert data["method_execution_count"] == 16
+          assert data["bootstrap_attempts_per_execution"] == 199
+          assert data["minimum_successful_attempts"] == 180
+          assert data["all_hierarchical_1x_h1_prefixes_exact"] is True
+          assert data["operational_failure_count"] == 0
+          assert set(data["aggregates"]) == {
+              "POPULATION",
+              "HIERARCHICAL_0.5X",
+              "HIERARCHICAL_1X",
+              "HIERARCHICAL_2X",
+          }
+          assert all(
+              value["restriction_run_count"] == 4
+              and value["attempted_bootstrap_draws"] == 796
+              and value["calibration_failure_count"] == 0
+              for value in data["aggregates"].values()
+          )
+          PY
+
+      - name: Upload paired cost evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-paired-inference-method-cost
+          path: |
+            /tmp/f1b-r2-paired-method-cost.json
+            /tmp/f1b-r2-paired-method-cost-core.json
+            /tmp/f1b-r2-paired-method-cost-core.log
+          if-no-files-found: error
