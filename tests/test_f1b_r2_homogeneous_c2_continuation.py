@@ -3,15 +3,20 @@ from __future__ import annotations
 from copy import deepcopy
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
+
+import cognitive_epistemic_model.calibration.f1b_r2_homogeneous_c2_continuation as c2_module
 
 from cognitive_epistemic_model.calibration.f1b_r2_homogeneous_c1_exact_replay import (
     canonical_json_sha256,
 )
 from cognitive_epistemic_model.calibration.f1b_r2_homogeneous_c2_continuation import (
+    annotate_partition_runtime_cores,
     bind_c2_targets,
     combine_c2_partitions,
+    continue_target_stream,
     validate_c2_environment,
     validate_c2_runtime_cores,
     validate_homogeneous_c2_config,
@@ -165,6 +170,9 @@ def _synthetic_binding_inputs(config: dict) -> tuple[dict, dict, dict, dict]:
                 "fit_failure": False,
                 "bootstrap_attempt_statistics": attempts,
                 "dataset_sha256": f"dataset-{index}",
+                "dataset_id": f"dataset-id-{index}",
+                "bootstrap_stream_seed": index + 1000,
+                "observed_statistic": 1.0,
             }
         )
         from cognitive_epistemic_model.calibration.f1b_r2_resampling_risk_replay import (
@@ -196,6 +204,13 @@ def _synthetic_binding_inputs(config: dict) -> tuple[dict, dict, dict, dict]:
                 "failure_n": None,
                 "stopping_n": None if is_unresolved else 10,
                 "boundary_hit": None if is_unresolved else "UPPER",
+                "dataset_sha256": f"dataset-{index}",
+                "bootstrap_stream_seed": index + 1000,
+                "observed_statistic": 1.0,
+                "attempt_sequence_sha256": attempt_hash,
+                "full_prefix_sum_199": 0,
+                "terminal_lower": -1 if is_unresolved else 0,
+                "terminal_upper": 2 if is_unresolved else 1,
             }
         )
 
@@ -235,6 +250,9 @@ def _synthetic_binding_inputs(config: dict) -> tuple[dict, dict, dict, dict]:
                 "attempt_sequence_sha256_match": True,
                 "bootstrap_refit_failure_free": True,
                 "retained_attempt_sequence_sha256": checkpoint_map[
+                    run_id
+                ]["attempt_sequence_sha256"],
+                "regenerated_attempt_sequence_sha256": checkpoint_map[
                     run_id
                 ]["attempt_sequence_sha256"],
             }
@@ -311,6 +329,11 @@ def test_c2_combiner_requires_all_16_shards_and_224_unique_targets() -> None:
     for index, run_id in enumerate(run_ids):
         partitions[index % 16]["rows"].append(
             _synthetic_c2_row(run_id, index)
+        )
+    for partition in partitions:
+        annotate_partition_runtime_cores(
+            partition,
+            ("Haswell", "Haswell"),
         )
 
     combined = combine_c2_partitions(partitions, config)
