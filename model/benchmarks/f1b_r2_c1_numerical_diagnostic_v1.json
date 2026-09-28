@@ -1,0 +1,56 @@
+{
+  "baseline_main_commit": "229b005c50b4349b3d4a83892af80a9b8d1af8b4",
+  "boundary": {
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "new_draw_index_ge_199_authorized": false,
+    "optimizer_settings_change_allowed": false,
+    "package_change_as_remediation_allowed": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "seed_change_allowed": false,
+    "stage_c1_gate_changed": false,
+    "stage_c2_authorized": false,
+    "tolerance_change_allowed": false
+  },
+  "diagnostic_id": "F1B.R2.STAGE_C1.NUMERICAL_DIAGNOSTIC.V1",
+  "execution": {
+    "fresh_process_comparison_required": true,
+    "maximum_draw_index": 198,
+    "minimum_draw_index": 0,
+    "same_process_repeats": 2,
+    "separate_runner_comparison_deferred_until_same_environment_characterized": true,
+    "stop_after_first_divergent_draw": true
+  },
+  "issue": 223,
+  "paired_source": {
+    "artifact_id": 10938668225,
+    "sha256": "b2727462b5bd09e5570090a42d7c90da8866e02100e0f4ccad551d8958a3d301"
+  },
+  "protected_scientific_file_git_blob_sha": {
+    "src/cognitive_epistemic_model/calibration/f1b_hierarchical_recovery.py": "89899e90fec5bdf9ced3e052aec1aa7ef2b49d73",
+    "src/cognitive_epistemic_model/calibration/f1b_prehuman_recovery.py": "6b78dec5183e7f8ef8a2d4257c1a23f016a161a2",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_kl_controlled_departures.py": "e7e5233f4ab7427500835cb6484c1dd961abb54a",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_paired_bootstrap_characterization.py": "3f23fc9bfc87d9ff45e83f11a529e3f0793969f4",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_restriction_recovery.py": "09291cc220aec5e1a557cdd697cb1257af2f233c"
+  },
+  "retained_c1_result": {
+    "eligible_count": 224,
+    "failure_count": 104,
+    "pass_count": 120,
+    "path": "model/results/f1b_r2_continuation_c1_failed_2026-09-27.json",
+    "sha256": "016a5c6d76ca17bca666a3133715e36523a7d217eb9b8d2e67ba63772b9d9c5a"
+  },
+  "scientific_source_commit": "ff63e6f72af54b78070a0d74c514805401602943",
+  "sentinel_selection": {
+    "method": "LEXICOGRAPHIC_FIRST_WITHIN_PREDECLARED_DIAGNOSTIC_STRATUM",
+    "observed_statistic_absolute_tolerance": 1e-10,
+    "strata": [
+      "EXACT_PASS_CONTROL",
+      "EXACT_OBSERVED_HASH_FAILURE",
+      "WITHIN_TOLERANCE_HASH_FAILURE",
+      "OUTSIDE_TOLERANCE_HASH_FAILURE"
+    ]
+  },
+  "status": "NON_AUTHORITATIVE_STAGE_C1_NUMERICAL_DIAGNOSTIC_DESIGN"
+}
