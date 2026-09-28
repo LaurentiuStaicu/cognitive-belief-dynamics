@@ -1,0 +1,99 @@
+name: TEMP F1b R2 S4 method binding
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  bind:
+    name: Bind retained M2 methods to retained S4 matrix
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Build exact S4 method binding
+        run: |
+          python scripts/build_f1b_r2_s4_method_binding.py \
+            --output /tmp/f1b-r2-s4-method-binding.json
+
+      - name: Enforce bound execution identity
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(
+              Path("/tmp/f1b-r2-s4-method-binding.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+          assert data["status"] == (
+              "NON_AUTHORITATIVE_S4_METHOD_BINDING_COMPLETE"
+          )
+          assert data["eligible_methods"] == [
+              "POPULATION",
+              "HIERARCHICAL_0.5X",
+              "HIERARCHICAL_1X",
+              "HIERARCHICAL_2X",
+          ]
+          assert data["method_count"] == 4
+          assert data["scientific_run_count"] == 15000
+          assert data["method_execution_count"] == 60000
+          assert data["scientific_run_ids_sha256"] == (
+              "851e7336387901ca15d2486ed8efc19cd090ffac869b760352106a3f455f2b43"
+          )
+          assert data["m2_combined_row_identity_sha256"] == (
+              "b21ee68fd61a0f1364c0722e73ff472119075ae32ee380021b8a671df76c4707"
+          )
+          assert data["maximum_worst_case_component_mcse"] == 0.05
+          assert data["hierarchical_scale_sensitivity_retained"] is True
+          assert data["method_selected"] is False
+          assert data["broad_characterization_authorized"] is True
+          assert data["power_validated"] is False
+          assert data["release_0_2_0_blocker_closed"] is False
+          assert all(value is False for value in data["boundary"].values())
+
+          print(
+              "S4_METHOD_BINDING="
+              + json.dumps(
+                  {
+                      "eligible_methods": data["eligible_methods"],
+                      "scientific_run_count": data["scientific_run_count"],
+                      "method_execution_count": data["method_execution_count"],
+                      "scientific_run_ids_sha256": data[
+                          "scientific_run_ids_sha256"
+                      ],
+                      "m2_combined_row_identity_sha256": data[
+                          "m2_combined_row_identity_sha256"
+                      ],
+                      "maximum_worst_case_component_mcse": data[
+                          "maximum_worst_case_component_mcse"
+                      ],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload S4 method-binding evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-s4-method-binding
+          path: /tmp/f1b-r2-s4-method-binding.json
+          if-no-files-found: error
