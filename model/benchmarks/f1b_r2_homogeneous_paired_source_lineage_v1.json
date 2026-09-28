@@ -63,8 +63,23 @@
     "wrapper_metadata_required": true
   },
   "h1_full_source_regeneration": {
-    "evaluation_replicates": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    "draw_grid": [49, 99, 199],
+    "evaluation_replicates": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "draw_grid": [
+      49,
+      99,
+      199
+    ],
     "maximum_draw_index": 198,
     "new_draw_index_ge_199_authorized": false,
     "scientific_dataset_identity_changed": false,
@@ -75,11 +90,41 @@
     "expected_pair_comparison_count": 2250,
     "expected_fit_failure_count": 0,
     "shards": [
-      {"shard_id": "R00_01", "replicate_indices": [0, 1]},
-      {"shard_id": "R02_03", "replicate_indices": [2, 3]},
-      {"shard_id": "R04_05", "replicate_indices": [4, 5]},
-      {"shard_id": "R06_07", "replicate_indices": [6, 7]},
-      {"shard_id": "R08_09", "replicate_indices": [8, 9]}
+      {
+        "shard_id": "R00_01",
+        "replicate_indices": [
+          0,
+          1
+        ]
+      },
+      {
+        "shard_id": "R02_03",
+        "replicate_indices": [
+          2,
+          3
+        ]
+      },
+      {
+        "shard_id": "R04_05",
+        "replicate_indices": [
+          4,
+          5
+        ]
+      },
+      {
+        "shard_id": "R06_07",
+        "replicate_indices": [
+          6,
+          7
+        ]
+      },
+      {
+        "shard_id": "R08_09",
+        "replicate_indices": [
+          8,
+          9
+        ]
+      }
     ],
     "runtime_core_must_be_confirmed_per_worker": true,
     "new_versioned_artifact_required": true,
@@ -87,9 +132,22 @@
   },
   "h1_reproducibility_qualification": {
     "independent_replay_required": true,
-    "required_replicates_to_span": [0, 7, 8, 9],
-    "must_span_null_and_departure": true,
-    "must_span_both_restrictions": true,
+    "selection_rule": "LEXICOGRAPHIC_FIRST_BY_REPLICATE_IDENTITY_TYPE_RESTRICTION",
+    "target_replicates": [
+      0,
+      7,
+      8,
+      9
+    ],
+    "identity_types": [
+      "NULL",
+      "DEPARTURE"
+    ],
+    "restrictions": [
+      "ADD_RESTRICTION",
+      "CBD_COMPLEMENT_RESTRICTION"
+    ],
+    "expected_validation_stream_count": 16,
     "require_exact_dataset_fingerprint": true,
     "require_exact_observed_statistic": true,
     "require_exact_first_199_attempt_sequence_sha256": true,
