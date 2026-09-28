@@ -1,0 +1,277 @@
+name: TEMP F1b R2 M2 sequential resolution
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  m2_shard:
+    name: M2 shard ${{ matrix.shard_index }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard_index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+      SHARD_COUNT: "80"
+      SHARD_INDEX: ${{ matrix.shard_index }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download retained homogeneous H1 source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/h1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36401867007
+
+      - name: Download retained M1 combined source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-m1-combined
+          path: /tmp/m1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36439940794
+
+      - name: Execute M2 shard
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/run_f1b_r2_paired_method_m2_shard.py \
+            --h1-source /tmp/h1/f1b-r2-homogeneous-h1-combined.json \
+            --m1-source /tmp/m1/f1b-r2-m1-combined.json \
+            --shard-index "$SHARD_INDEX" \
+            --shard-count "$SHARD_COUNT" \
+            --output "/tmp/f1b-r2-m2-shard-${SHARD_INDEX}.json" \
+            2> >(tee "/tmp/f1b-r2-m2-core-${SHARD_INDEX}.log" >&2)
+
+      - name: Verify scientific-process OpenBLAS core
+        run: |
+          python - "$SHARD_INDEX" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_paired_method_m2_sequential_resolution import (
+              validate_m2_runtime_cores,
+          )
+
+          shard = int(sys.argv[1])
+          text = Path(f"/tmp/f1b-r2-m2-core-{shard}.log").read_text(
+              encoding="utf-8",
+              errors="replace",
+          )
+          cores = parse_openblas_verbose_cores(text)
+          validate_m2_runtime_cores(cores)
+          Path(f"/tmp/f1b-r2-m2-core-{shard}.json").write_text(
+              json.dumps(
+                  {
+                      "shard_index": shard,
+                      "reported_cores": list(cores),
+                      "all_cores_qualified": True,
+                  },
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          print("M2_CORES=" + json.dumps(list(cores)))
+          PY
+
+      - name: Check M2 shard contract
+        run: |
+          python - "$SHARD_INDEX" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          shard = int(sys.argv[1])
+          data = json.loads(
+              Path(f"/tmp/f1b-r2-m2-shard-{shard}.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+          assert data["shard_index"] == shard
+          assert data["shard_count"] == 80
+          assert data["method_row_count"] == (
+              4 * data["selected_scientific_run_count"]
+          )
+          assert all(value is False for value in data["boundary"].values())
+          assert all(
+              row["m1_prefix_exact"] is True
+              for row in data["rows"]
+          )
+          print(
+              "M2_SHARD="
+              + json.dumps(
+                  {
+                      "shard_index": shard,
+                      "scientific_runs": data[
+                          "selected_scientific_run_count"
+                      ],
+                      "method_rows": data["method_row_count"],
+                      "elapsed_seconds": data["elapsed_seconds"],
+                      "continued_streams": sum(
+                          bool(row["continued_beyond_199"])
+                          for row in data["rows"]
+                      ),
+                      "resolved_streams": sum(
+                          row["decision"] is not None
+                          for row in data["rows"]
+                      ),
+                      "refit_failures": sum(
+                          row["status"]
+                          == "BOOTSTRAP_REFIT_FAILURE_UNRESOLVED"
+                          for row in data["rows"]
+                      ),
+                      "unresolved_at_cap": sum(
+                          row["status"] == "SEQUENTIAL_UNRESOLVED_AT_CAP"
+                          for row in data["rows"]
+                      ),
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload M2 shard
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-m2-shard-${{ matrix.shard_index }}
+          path: |
+            /tmp/f1b-r2-m2-shard-${{ matrix.shard_index }}.json
+            /tmp/f1b-r2-m2-core-${{ matrix.shard_index }}.json
+            /tmp/f1b-r2-m2-core-${{ matrix.shard_index }}.log
+          if-no-files-found: error
+
+  m2_combine:
+    name: M2 combine and evaluate
+    needs: m2_shard
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download all M2 shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: f1b-r2-m2-shard-*
+          path: /tmp/parts
+          merge-multiple: true
+
+      - name: Combine and apply frozen M2 eligibility
+        shell: bash
+        run: |
+          args=()
+          for f in /tmp/parts/f1b-r2-m2-shard-*.json; do
+            args+=(--partition "$f")
+          done
+          python scripts/combine_f1b_r2_paired_method_m2.py \
+            "${args[@]}" \
+            --output /tmp/f1b-r2-m2-combined.json
+
+      - name: Verify M2 combined contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(
+              Path("/tmp/f1b-r2-m2-combined.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+          assert data["partition_count"] == 80
+          assert data["scientific_run_count"] == 840
+          assert data["method_execution_count"] == 3360
+          assert len(data["method_results"]) == 4
+          assert set(data["eligible_methods"]).issubset(
+              {
+                  "POPULATION",
+                  "HIERARCHICAL_0.5X",
+                  "HIERARCHICAL_1X",
+                  "HIERARCHICAL_2X",
+              }
+          )
+          assert data["overall_decision"] in {
+              "M2_HAS_ELIGIBLE_METHODS",
+              "M2_NO_ELIGIBLE_METHOD_INFERENCE_REDESIGN_REQUIRED",
+          }
+          assert all(value is False for value in data["boundary"].values())
+          print(
+              "M2_COMBINED="
+              + json.dumps(
+                  {
+                      "overall_decision": data["overall_decision"],
+                      "eligible_methods": data["eligible_methods"],
+                      "method_results": [
+                          {
+                              "method": row["inference_method"],
+                              "decision": row["decision_state"],
+                              "resolved_count": row["resolved_count"],
+                              "refit_failure_count": row[
+                                  "refit_failure_count"
+                              ],
+                              "unresolved_at_cap_count": row[
+                                  "unresolved_at_cap_count"
+                              ],
+                              "overall_resolution_rate": row[
+                                  "overall_resolution_rate"
+                              ],
+                              "overall_refit_failure_rate": row[
+                                  "overall_refit_failure_rate"
+                              ],
+                              "checks": row["checks"],
+                          }
+                          for row in data["method_results"]
+                      ],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload M2 combined evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-m2-combined
+          path: /tmp/f1b-r2-m2-combined.json
+          if-no-files-found: error
