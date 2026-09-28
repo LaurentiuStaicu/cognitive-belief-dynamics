@@ -47,7 +47,7 @@ def validate_terminal_partition_config(config: dict) -> None:
     if int(terminal["expected_total_run_count"]) != EXPECTED_TOTAL:
         raise ValueError("terminal total-run count changed")
     if int(terminal["expected_terminal_decision_count"]) != (
-        EXPECTED_TERMINAL_DECISIONS
+        (EXPECTED_H2_RESOLVED + EXPECTED_C2_RESOLVED)
     ):
         raise ValueError("terminal decision count changed")
     if int(terminal["expected_unresolved_at_cap_count"]) != (
