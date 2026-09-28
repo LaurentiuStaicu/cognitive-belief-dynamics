@@ -11,11 +11,9 @@ INTERPRETATION_STATUS = (
     "NON_AUTHORITATIVE_TERMINAL_PARTITION_INTERPRETATION_DESIGN"
 )
 EXPECTED_TOTAL = 750
-EXPECTED_TERMINAL_DECISIONS = 727
 EXPECTED_H2_RESOLVED = 526
 EXPECTED_C2_TARGETS = 224
 EXPECTED_C2_RESOLVED = 201
-EXPECTED_TERMINAL_DECISIONS = EXPECTED_H2_RESOLVED + EXPECTED_C2_RESOLVED
 EXPECTED_UNRESOLVED_AT_CAP = 23
 
 EXPECTED_ROLES = {
@@ -363,7 +361,7 @@ def compose_terminal_partition(
     ]
     if len(terminal_rows) != EXPECTED_TOTAL:
         raise ValueError("terminal partition count mismatch")
-    if len(decisions) != EXPECTED_TERMINAL_DECISIONS:
+    if len(decisions) != (EXPECTED_H2_RESOLVED + EXPECTED_C2_RESOLVED):
         raise ValueError("terminal decision count mismatch")
     if len(unresolved) != EXPECTED_UNRESOLVED_AT_CAP:
         raise ValueError("terminal unresolved-at-cap count mismatch")
