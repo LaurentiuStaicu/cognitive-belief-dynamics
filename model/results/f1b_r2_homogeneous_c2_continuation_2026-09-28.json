@@ -1,0 +1,387 @@
+{
+  "result_id": "F1B.R2.HOMOGENEOUS_C2_CONTINUATION.RESULT.2026-09-28",
+  "status": "NON_AUTHORITATIVE_HOMOGENEOUS_C2_CONTINUATION_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 245,
+  "source_lineage": {
+    "h1_lineage_id": "F1B.R2.HOMOGENEOUS_PAIRED_SOURCE.LINEAGE.V1",
+    "h1_artifact_id": 10961527329,
+    "h1_combined_json_sha256": "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e",
+    "h2_artifact_id": 10962483226,
+    "h2_raw_replay_json_sha256": "f0f32d92e46748148f020a4e0d47d2c63e27f6ab1aa36253346e15c4dfaf01e7",
+    "h2_unresolved_run_ids_sha256": "d2db2c97ad48544c082cdffd086c022a28c6d0c75690b36a0cd0b2b381c4ebac",
+    "h2_stream_checkpoints_sha256": "9f554b3a94464782194f0921dc13718fce995e58e2e15159cb2461b3fbb3ded2",
+    "c1_retained_result_path": "model/results/f1b_r2_homogeneous_c1_exact_replay_2026-09-28.json",
+    "c1_retained_result_git_blob_sha": "bbcac59937966b41f265ab50fe04b19ee0bfb8cf",
+    "c1_execution_artifact_id": 10965746901,
+    "c1_combined_json_sha256": "823d6fedf14d371d0d58822e3176ff8abe80b5d41575f4d11214d963a5df64c9"
+  },
+  "execution": {
+    "temporary_execution_pr": 247,
+    "workflow_run_id": 36416797671,
+    "workflow_run_number": 1,
+    "execution_pr_head": "b42344485b75f73afb5d21d18f3fcf2510de5dd7",
+    "qualified_main_baseline": "ea1a1a34f39c0aae7c6afe70b00683c9aa0e42ad",
+    "candidate_environment": {
+      "OPENBLAS_CORETYPE": "Haswell",
+      "all_scientific_workers_runtime_confirmed_only": "Haswell"
+    },
+    "combined_artifact": {
+      "artifact_id": 10968522362,
+      "artifact_name": "f1b-r2-homogeneous-c2-combined",
+      "artifact_zip_sha256": "6862d7270b580f9428e8465447df33034ddd2a764075db62daed5f85579dfaa3",
+      "combined_json_sha256": "03009d7b586502f500062d67792f048e768fe737670823b2e033cb82c59a867a",
+      "combined_json_size_bytes": 644933
+    },
+    "shards": [
+      {
+        "shard_index": 0,
+        "continued_run_count": 10,
+        "resolved_count": 9,
+        "unresolved_at_cap_count": 1,
+        "new_attempt_count": 19494,
+        "new_successful_fit_count": 19494,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10968014345,
+        "artifact_zip_sha256": "3df9258e213e433552fee75afc37f23ef84358d21dab239c77b47b4ad485cf3f",
+        "partition_json_sha256": "4979463f3c25e9a436d803bee53c094e53f9a4a70d838a02df1948f597c44334"
+      },
+      {
+        "shard_index": 1,
+        "continued_run_count": 19,
+        "resolved_count": 18,
+        "unresolved_at_cap_count": 1,
+        "new_attempt_count": 15056,
+        "new_successful_fit_count": 15056,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10968254163,
+        "artifact_zip_sha256": "c39ae8108ea4abde860ffbe82baaf07bd20a11931906e212be2ebc14d68bdab6",
+        "partition_json_sha256": "844aa14c53d9ad97d02e9e21559103079e6dee8378626aa69a03fb1160f5713f"
+      },
+      {
+        "shard_index": 2,
+        "continued_run_count": 9,
+        "resolved_count": 6,
+        "unresolved_at_cap_count": 3,
+        "new_attempt_count": 34003,
+        "new_successful_fit_count": 34003,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10969180098,
+        "artifact_zip_sha256": "7f9fd556db627a445dd1faa76ba4892b0bdab615920ddf8350cc104be60be501",
+        "partition_json_sha256": "e2a070a1d9723285abad3b08dd91e3e2afb8e2a1d335c88674368196433f5fcb"
+      },
+      {
+        "shard_index": 3,
+        "continued_run_count": 19,
+        "resolved_count": 19,
+        "unresolved_at_cap_count": 0,
+        "new_attempt_count": 30186,
+        "new_successful_fit_count": 30186,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10967594138,
+        "artifact_zip_sha256": "8e279075b1d418fbdcbc8e0b22250dc4c8332697ebff6d8ae326e4748ffd8ab2",
+        "partition_json_sha256": "14dcc122e18fd27e5490aebc4640209466dfc2bd1f86c18d1f21a97959520b75"
+      },
+      {
+        "shard_index": 4,
+        "continued_run_count": 9,
+        "resolved_count": 8,
+        "unresolved_at_cap_count": 1,
+        "new_attempt_count": 20661,
+        "new_successful_fit_count": 20661,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10967823215,
+        "artifact_zip_sha256": "e51234c0f5ed219345d4ff26660dca56287b9607ee1c882ae503cdab192a36ad",
+        "partition_json_sha256": "feed0caf1ce55655f52c02b090afe9867492eec1144991d7556c8f1ec359a965"
+      },
+      {
+        "shard_index": 5,
+        "continued_run_count": 17,
+        "resolved_count": 17,
+        "unresolved_at_cap_count": 0,
+        "new_attempt_count": 9663,
+        "new_successful_fit_count": 9663,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10967963712,
+        "artifact_zip_sha256": "a4d9cdfb254c4537208a87956c5aabc667a349c5e4fee1e712ae6df20d1f7666",
+        "partition_json_sha256": "2fd6042e972a3ce34d784d72b40f994d5b85986cd1f34c236859a0595aa34811"
+      },
+      {
+        "shard_index": 6,
+        "continued_run_count": 20,
+        "resolved_count": 17,
+        "unresolved_at_cap_count": 3,
+        "new_attempt_count": 42952,
+        "new_successful_fit_count": 42952,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10968857064,
+        "artifact_zip_sha256": "e51642f83c8e79a6f757a834b2553d85fc25541ec80f5ce929ec859f6b62691b",
+        "partition_json_sha256": "7744f100ba417448cc5b96dffb2f380786a4c42ca3c036f147abeb054da27eae"
+      },
+      {
+        "shard_index": 7,
+        "continued_run_count": 16,
+        "resolved_count": 14,
+        "unresolved_at_cap_count": 2,
+        "new_attempt_count": 33216,
+        "new_successful_fit_count": 33216,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10968476992,
+        "artifact_zip_sha256": "88df53d9f1b82e9b312f92b82da40bffdbe85d903a0fe474f8a0d1c6d5ebe3d7",
+        "partition_json_sha256": "63104b9cb9f6e6289a936b74325d572608444e4ce339d6f41d984fa9ef951887"
+      },
+      {
+        "shard_index": 8,
+        "continued_run_count": 11,
+        "resolved_count": 11,
+        "unresolved_at_cap_count": 0,
+        "new_attempt_count": 7574,
+        "new_successful_fit_count": 7574,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10967533584,
+        "artifact_zip_sha256": "4ed785b40d4b63b46ef391e8db2ddcb5bab3af923ffb23210fed47b66c211fbf",
+        "partition_json_sha256": "6d1bfb6bc07f33501cecac409e9b734e360405b4cba5135b2f97abe2c2db31c2"
+      },
+      {
+        "shard_index": 9,
+        "continued_run_count": 12,
+        "resolved_count": 12,
+        "unresolved_at_cap_count": 0,
+        "new_attempt_count": 5453,
+        "new_successful_fit_count": 5453,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10968342758,
+        "artifact_zip_sha256": "813c612eead949bf4c701ad02ee831273ce30b25ef2a4a4dab75989e568cd58d",
+        "partition_json_sha256": "842346c3e1f47923ed11774da5051f6094e90e1f20c92afa37210e151d484efe"
+      },
+      {
+        "shard_index": 10,
+        "continued_run_count": 12,
+        "resolved_count": 11,
+        "unresolved_at_cap_count": 1,
+        "new_attempt_count": 28704,
+        "new_successful_fit_count": 28704,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10968800896,
+        "artifact_zip_sha256": "417e984705918fbabdef9854a3d08da781004b384d70203b891888271d92de19",
+        "partition_json_sha256": "e34c0bb7585dd954c2fff8240e41a0a8d28491e75f9988f020ff01a46869700d"
+      },
+      {
+        "shard_index": 11,
+        "continued_run_count": 10,
+        "resolved_count": 9,
+        "unresolved_at_cap_count": 1,
+        "new_attempt_count": 19599,
+        "new_successful_fit_count": 19599,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10968960172,
+        "artifact_zip_sha256": "bb0abbe1b47e6a00f635019c283c88665c8bd4a0a195e2fb228607b1483d3e73",
+        "partition_json_sha256": "fe663179ea9b25f74258ee54bc08dae87812223282def73a5462f4b457d66748"
+      },
+      {
+        "shard_index": 12,
+        "continued_run_count": 12,
+        "resolved_count": 11,
+        "unresolved_at_cap_count": 1,
+        "new_attempt_count": 15645,
+        "new_successful_fit_count": 15645,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10967232875,
+        "artifact_zip_sha256": "87c45f8b3ca38631d8312913db3da322dd7e647f0ae0ee48765c9be82b7deffc",
+        "partition_json_sha256": "99517430ced280a3ae6a481799d1bd47911359f00d9a320b6200e74d3ef9a947"
+      },
+      {
+        "shard_index": 13,
+        "continued_run_count": 13,
+        "resolved_count": 8,
+        "unresolved_at_cap_count": 5,
+        "new_attempt_count": 53736,
+        "new_successful_fit_count": 53736,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10968756681,
+        "artifact_zip_sha256": "c5429b7d6dc5ad6cb916b158aa8f83139e6838a1fdcaa20b19a7a55cf70cce70",
+        "partition_json_sha256": "721dc5ac80e7e7181b50c4ab8d655861b63f6d2189c83e2d4e57fc3274dd4127"
+      },
+      {
+        "shard_index": 14,
+        "continued_run_count": 18,
+        "resolved_count": 15,
+        "unresolved_at_cap_count": 3,
+        "new_attempt_count": 48136,
+        "new_successful_fit_count": 48136,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10969325067,
+        "artifact_zip_sha256": "f6d811fe445065662cf82dfa1cad2080c80a5cac01a331a129b085f0f94d43a1",
+        "partition_json_sha256": "7bb688f286fd2c1401cc23250890e2ce097b33e282d6f81dbbecb1b523969a32"
+      },
+      {
+        "shard_index": 15,
+        "continued_run_count": 17,
+        "resolved_count": 16,
+        "unresolved_at_cap_count": 1,
+        "new_attempt_count": 17523,
+        "new_successful_fit_count": 17523,
+        "refit_failure_count": 0,
+        "runtime_openblas_cores": [
+          "Haswell",
+          "Haswell"
+        ],
+        "artifact_id": 10967727813,
+        "artifact_zip_sha256": "e6d002afe133496524ef620df2506c8bb8254ac5717be1e0df3c50a4b6d50908",
+        "partition_json_sha256": "2ccdaf5b6446989855237c420a215f2149e1cd4e94d22c8927fb2916c6fd1c89"
+      }
+    ]
+  },
+  "controller": {
+    "alpha": 0.05,
+    "epsilon": 0.001,
+    "halfspend": 1000,
+    "prior_total_attempts": 199,
+    "first_new_draw_index": 199,
+    "maximum_new_draw_index": 9999,
+    "maximum_total_attempts": 10000,
+    "controller_changed": false
+  },
+  "target_set": {
+    "target_stream_count": 224,
+    "target_run_ids_sha256": "d2db2c97ad48544c082cdffd086c022a28c6d0c75690b36a0cd0b2b381c4ebac",
+    "h2_resolved_streams_extended": 0,
+    "exact_dataset_fingerprint_count": 224,
+    "exact_observed_statistic_count": 224,
+    "maximum_observed_statistic_absolute_delta": 0,
+    "first_new_draw_index_all_streams": 199
+  },
+  "result": {
+    "continued_stream_count": 224,
+    "newly_resolved_count": 201,
+    "newly_reject_count": 127,
+    "newly_not_reject_count": 74,
+    "bootstrap_refit_failure_unresolved_count": 0,
+    "unresolved_at_cap_count": 23,
+    "unresolved_at_cap_run_ids_sha256": "673ac85475800b4e032469fbeae8ead7083e6cd90fee209f7e0c451162b13217",
+    "total_new_bootstrap_fits_attempted": 401601,
+    "total_successful_new_bootstrap_fits": 401601,
+    "stopping_distribution": {
+      "resolved_count": 201,
+      "minimum": 202,
+      "median": 519,
+      "maximum": 8529
+    }
+  },
+  "reporting_checkpoints": {
+    "199": {
+      "cumulative_newly_resolved_count": 0,
+      "active_or_unresolved_count": 224,
+      "cumulative_bootstrap_refit_failure_count": 0
+    },
+    "499": {
+      "cumulative_newly_resolved_count": 98,
+      "active_or_unresolved_count": 126,
+      "cumulative_bootstrap_refit_failure_count": 0
+    },
+    "999": {
+      "cumulative_newly_resolved_count": 144,
+      "active_or_unresolved_count": 80,
+      "cumulative_bootstrap_refit_failure_count": 0
+    },
+    "1999": {
+      "cumulative_newly_resolved_count": 172,
+      "active_or_unresolved_count": 52,
+      "cumulative_bootstrap_refit_failure_count": 0
+    },
+    "4999": {
+      "cumulative_newly_resolved_count": 194,
+      "active_or_unresolved_count": 30,
+      "cumulative_bootstrap_refit_failure_count": 0
+    },
+    "10000": {
+      "cumulative_newly_resolved_count": 201,
+      "active_or_unresolved_count": 23,
+      "cumulative_bootstrap_refit_failure_count": 0
+    }
+  },
+  "decision": {
+    "homogeneous_c2_execution_complete": true,
+    "c2_target_set_exact": true,
+    "all_scientific_workers_runtime_confirmed_haswell": true,
+    "first_new_draw_index_199_generated_only_after_merged_gate": true,
+    "unresolved_at_cap_retained_as_unresolved": true,
+    "fixed_bootstrap_draw_count_selected": false,
+    "power_validated": false,
+    "next_gate": "SEPARATE_SCIENTIFIC_INTERPRETATION_GATE_REQUIRED"
+  },
+  "boundary": {
+    "historical_c2_inherited": false,
+    "controller_changed": false,
+    "scientific_model_changed": false,
+    "scientific_fitter_changed": false,
+    "package_versions_changed": false,
+    "seed_derivation_changed": false,
+    "draw_order_changed": false,
+    "attempt_canonicalization_changed": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
