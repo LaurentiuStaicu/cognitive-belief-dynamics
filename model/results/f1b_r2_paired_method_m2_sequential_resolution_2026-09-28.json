@@ -1,0 +1,337 @@
+{
+  "result_id": "F1B.R2.PAIRED_METHOD_M2_SEQUENTIAL_RESOLUTION.RESULT.2026-09-28",
+  "status": "NON_AUTHORITATIVE_PAIRED_METHOD_M2_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 259,
+  "execution": {
+    "temporary_execution_pr": 271,
+    "workflow_run_id": 36450594439,
+    "workflow_run_number": 2,
+    "execution_pr_head": "2a7fe2490e4a738a5b5db079d106b1d4c169b732",
+    "qualified_main_baseline": "e599fb9baf9bf13db4ed6635c66cded599a42a03",
+    "partition_count": 80,
+    "all_partition_jobs_success": true,
+    "all_scientific_workers_runtime_confirmed_haswell": true,
+    "artifact_id": 10987519941,
+    "artifact_name": "f1b-r2-m2-combined",
+    "artifact_zip_sha256": "4023ffe01d0891ea0045248f35f0b0f1c8d3265f7a702251203c753b1752e313",
+    "combined_json_sha256": "b9034afd6b6837c8433e0d42fd90911a7b560e18225de7d551f559330742c808",
+    "combined_json_size_bytes": 6432851,
+    "combined_row_identity_sha256": "b21ee68fd61a0f1364c0722e73ff472119075ae32ee380021b8a671df76c4707"
+  },
+  "source": {
+    "m1_workflow_run_id": 36439940794,
+    "m1_artifact_id": 10979254047,
+    "m1_combined_json_sha256": "dda3978acbf13ae9dba4d548ae8355413b29c8cac24ad86d5b8905de56d81042",
+    "m1_scientific_run_count": 840,
+    "m1_method_execution_count": 3360,
+    "m1_prefix_attempts": 199,
+    "h1_artifact_id": 10961527329,
+    "h1_combined_json_sha256": "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e"
+  },
+  "controller": {
+    "controller_id": "F1B.R2.RESAMPLING_RISK_CONTROLLER.V1",
+    "alpha": 0.05,
+    "epsilon": 0.001,
+    "halfspend": 1000,
+    "probability_tolerance": 1e-12,
+    "prior_total_attempts": 199,
+    "first_new_draw_index": 199,
+    "maximum_new_draw_index": 9999,
+    "maximum_total_attempts": 10000,
+    "stop_on_boundary": true,
+    "stop_on_first_new_refit_failure": true
+  },
+  "matrix": {
+    "scientific_run_count": 840,
+    "method_execution_count": 3360,
+    "missingness_regimes": [
+      0,
+      0.15
+    ],
+    "method_count": 4
+  },
+  "overall_decision": "M2_HAS_ELIGIBLE_METHODS",
+  "eligible_methods": [
+    "POPULATION",
+    "HIERARCHICAL_0.5X",
+    "HIERARCHICAL_1X",
+    "HIERARCHICAL_2X"
+  ],
+  "method_results": [
+    {
+      "inference_method": "POPULATION",
+      "decision_state": "M2_ELIGIBLE",
+      "resolved_count": 808,
+      "unresolved_at_cap_count": 32,
+      "refit_failure_count": 0,
+      "reject_count": 295,
+      "not_reject_count": 513,
+      "overall_resolution_rate": 0.9619047619047619,
+      "overall_refit_failure_rate": 0,
+      "expected_direction_count": 487,
+      "expected_direction_total_denominator_bounds": [
+        0.5797619047619048,
+        0.6178571428571429
+      ],
+      "stopping_n": {
+        "minimum": 199,
+        "median": 199,
+        "maximum": 9186
+      },
+      "minimum_role_missingness_resolution_rate": 0.9,
+      "all_frozen_checks_pass": true
+    },
+    {
+      "inference_method": "HIERARCHICAL_0.5X",
+      "decision_state": "M2_ELIGIBLE",
+      "resolved_count": 793,
+      "unresolved_at_cap_count": 47,
+      "refit_failure_count": 0,
+      "reject_count": 269,
+      "not_reject_count": 524,
+      "overall_resolution_rate": 0.944047619047619,
+      "overall_refit_failure_rate": 0,
+      "expected_direction_count": 471,
+      "expected_direction_total_denominator_bounds": [
+        0.5607142857142857,
+        0.6166666666666667
+      ],
+      "stopping_n": {
+        "minimum": 199,
+        "median": 199,
+        "maximum": 9156
+      },
+      "minimum_role_missingness_resolution_rate": 0.9,
+      "all_frozen_checks_pass": true
+    },
+    {
+      "inference_method": "HIERARCHICAL_1X",
+      "decision_state": "M2_ELIGIBLE",
+      "resolved_count": 819,
+      "unresolved_at_cap_count": 21,
+      "refit_failure_count": 0,
+      "reject_count": 245,
+      "not_reject_count": 574,
+      "overall_resolution_rate": 0.975,
+      "overall_refit_failure_rate": 0,
+      "expected_direction_count": 455,
+      "expected_direction_total_denominator_bounds": [
+        0.5416666666666666,
+        0.5666666666666667
+      ],
+      "stopping_n": {
+        "minimum": 199,
+        "median": 199,
+        "maximum": 9513
+      },
+      "minimum_role_missingness_resolution_rate": 0.95,
+      "all_frozen_checks_pass": true
+    },
+    {
+      "inference_method": "HIERARCHICAL_2X",
+      "decision_state": "M2_ELIGIBLE",
+      "resolved_count": 816,
+      "unresolved_at_cap_count": 24,
+      "refit_failure_count": 0,
+      "reject_count": 150,
+      "not_reject_count": 666,
+      "overall_resolution_rate": 0.9714285714285714,
+      "overall_refit_failure_rate": 0,
+      "expected_direction_count": 375,
+      "expected_direction_total_denominator_bounds": [
+        0.44642857142857145,
+        0.475
+      ],
+      "stopping_n": {
+        "minimum": 199,
+        "median": 199,
+        "maximum": 9647
+      },
+      "minimum_role_missingness_resolution_rate": 0.95,
+      "all_frozen_checks_pass": true
+    }
+  ],
+  "pairwise_decision_concordance": [
+    {
+      "left": "POPULATION",
+      "right": "HIERARCHICAL_0.5X",
+      "both_resolved_count": 782,
+      "either_unresolved_count": 58,
+      "decision_concordance_among_both_resolved": 1
+    },
+    {
+      "left": "POPULATION",
+      "right": "HIERARCHICAL_1X",
+      "both_resolved_count": 787,
+      "either_unresolved_count": 53,
+      "decision_concordance_among_both_resolved": 0.963151207115629
+    },
+    {
+      "left": "POPULATION",
+      "right": "HIERARCHICAL_2X",
+      "both_resolved_count": 784,
+      "either_unresolved_count": 56,
+      "decision_concordance_among_both_resolved": 0.8456632653061225
+    },
+    {
+      "left": "HIERARCHICAL_0.5X",
+      "right": "HIERARCHICAL_1X",
+      "both_resolved_count": 772,
+      "either_unresolved_count": 68,
+      "decision_concordance_among_both_resolved": 0.9961139896373057
+    },
+    {
+      "left": "HIERARCHICAL_0.5X",
+      "right": "HIERARCHICAL_2X",
+      "both_resolved_count": 769,
+      "either_unresolved_count": 71,
+      "decision_concordance_among_both_resolved": 0.8764629388816645
+    },
+    {
+      "left": "HIERARCHICAL_1X",
+      "right": "HIERARCHICAL_2X",
+      "both_resolved_count": 795,
+      "either_unresolved_count": 45,
+      "decision_concordance_among_both_resolved": 0.9106918238993711
+    }
+  ],
+  "hierarchical_scale_sensitivity": [
+    {
+      "role": "ADD_SPECIFICITY_NEGATIVE_CONTROL",
+      "kl": null,
+      "missingness": 0,
+      "bounds": {
+        "HIERARCHICAL_0.5X": [
+          0.9,
+          0.9333333333333333
+        ],
+        "HIERARCHICAL_1X": [
+          0.9333333333333333,
+          0.9333333333333333
+        ],
+        "HIERARCHICAL_2X": [
+          0.9833333333333333,
+          0.9833333333333333
+        ]
+      }
+    },
+    {
+      "role": "CBD_DEPARTURE_DETECTION",
+      "kl": 0.003,
+      "missingness": 0,
+      "bounds": {
+        "HIERARCHICAL_0.5X": [
+          0.5,
+          0.5833333333333334
+        ],
+        "HIERARCHICAL_1X": [
+          0.5,
+          0.5
+        ],
+        "HIERARCHICAL_2X": [
+          0.23333333333333334,
+          0.31666666666666665
+        ]
+      }
+    },
+    {
+      "role": "ADD_DEPARTURE_DIAGNOSTIC",
+      "kl": 0.003,
+      "missingness": 0,
+      "bounds": {
+        "HIERARCHICAL_0.5X": [
+          0.675,
+          0.675
+        ],
+        "HIERARCHICAL_1X": [
+          0.625,
+          0.675
+        ],
+        "HIERARCHICAL_2X": [
+          0.55,
+          0.575
+        ]
+      }
+    },
+    {
+      "role": "ADD_SPECIFICITY_NEGATIVE_CONTROL",
+      "kl": null,
+      "missingness": 0.15,
+      "bounds": {
+        "HIERARCHICAL_0.5X": [
+          0.8833333333333333,
+          0.9333333333333333
+        ],
+        "HIERARCHICAL_1X": [
+          0.9333333333333333,
+          0.9333333333333333
+        ],
+        "HIERARCHICAL_2X": [
+          0.9666666666666667,
+          0.9666666666666667
+        ]
+      }
+    },
+    {
+      "role": "CBD_DEPARTURE_DETECTION",
+      "kl": 0.003,
+      "missingness": 0.15,
+      "bounds": {
+        "HIERARCHICAL_0.5X": [
+          0.4666666666666667,
+          0.6
+        ],
+        "HIERARCHICAL_1X": [
+          0.43333333333333335,
+          0.4666666666666667
+        ],
+        "HIERARCHICAL_2X": [
+          0.25,
+          0.3333333333333333
+        ]
+      }
+    },
+    {
+      "role": "ADD_DEPARTURE_DIAGNOSTIC",
+      "kl": 0.003,
+      "missingness": 0.15,
+      "bounds": {
+        "HIERARCHICAL_0.5X": [
+          0.675,
+          0.7
+        ],
+        "HIERARCHICAL_1X": [
+          0.625,
+          0.675
+        ],
+        "HIERARCHICAL_2X": [
+          0.55,
+          0.55
+        ]
+      }
+    }
+  ],
+  "interpretation": {
+    "all_four_methods_m2_eligible": true,
+    "no_method_selected": true,
+    "hierarchical_scale_sensitivity_retained": true,
+    "broad_s4_methods_must_equal_eligible_methods": true,
+    "broad_s4_method_count": 4,
+    "broad_s4_scientific_run_count": 15000,
+    "broad_s4_method_execution_count": 60000,
+    "power_validated": false,
+    "next_gate": "BIND_M2_ELIGIBLE_METHODS_TO_RETAINED_S4_MATRIX"
+  },
+  "boundary": {
+    "m1_result_rewritten": false,
+    "controller_changed": false,
+    "method_selected": false,
+    "power_validated": false,
+    "broad_n_eval_100_executed": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
