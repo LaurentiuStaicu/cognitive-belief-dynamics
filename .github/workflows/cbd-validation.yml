@@ -78,7 +78,7 @@ jobs:
           cemodel demo
 
   execute_f1b_r2_c1_cross_runner_sentinel:
-    name: C1 isolation ${{ matrix.intervention }} (replica ${{ matrix.replica }})
+    name: C1 OpenBLAS core correlation (replica ${{ matrix.replica }})
     needs: validate
     runs-on: ubuntu-latest
     permissions:
@@ -87,16 +87,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        intervention:
-          - NUMPY_X86_V3
-          - OPENBLAS_HASWELL
-          - SINGLE_THREAD
-        replica: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        replica: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     env:
       CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
       SENTINEL: "OUTSIDE_TOLERANCE_HASH_FAILURE"
       REPLICA: ${{ matrix.replica }}
-      INTERVENTION: ${{ matrix.intervention }}
+      OPENBLAS_VERBOSE: "2"
 
     steps:
       - name: Check out repository
@@ -121,35 +117,18 @@ jobs:
           repository: ${{ github.repository }}
           run-id: 36340881516
 
-      - name: Execute controlled isolation sentinel
-        shell: bash
+      - name: Execute unchanged sentinel with OpenBLAS core logging
         run: |
-          case "$INTERVENTION" in
-            NUMPY_X86_V3)
-              export NPY_DISABLE_CPU_FEATURES="X86_V4"
-              ;;
-            OPENBLAS_HASWELL)
-              export OPENBLAS_CORETYPE="Haswell"
-              ;;
-            SINGLE_THREAD)
-              export OPENBLAS_NUM_THREADS="1"
-              export OMP_NUM_THREADS="1"
-              ;;
-            *)
-              echo "Unknown intervention: $INTERVENTION" >&2
-              exit 2
-              ;;
-          esac
           python scripts/tmp_run_f1b_r2_c1_cross_runner_sentinel.py \
             "$SENTINEL" \
             /tmp/source/f1b-r2-kl-v2-paired-combined.json \
-            "/tmp/f1b-r2-c1-isolation-${INTERVENTION}-${REPLICA}.json" \
+            "/tmp/f1b-r2-c1-core-correlation-${REPLICA}.json" \
             "$REPLICA" \
-            "$INTERVENTION"
+            "BASE_OPENBLAS_VERBOSE"
 
-      - name: Upload isolation result
+      - name: Upload core-correlation result
         uses: actions/upload-artifact@v4
         with:
-          name: f1b-r2-c1-isolation-${{ matrix.intervention }}-${{ matrix.replica }}
-          path: /tmp/f1b-r2-c1-isolation-${{ matrix.intervention }}-${{ matrix.replica }}.json
+          name: f1b-r2-c1-core-correlation-${{ matrix.replica }}
+          path: /tmp/f1b-r2-c1-core-correlation-${{ matrix.replica }}.json
           if-no-files-found: error
