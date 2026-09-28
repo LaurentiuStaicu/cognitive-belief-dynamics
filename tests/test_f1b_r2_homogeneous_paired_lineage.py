@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -113,3 +114,13 @@ def test_config_protects_existing_scientific_and_execution_paths() -> None:
         "scripts/combine_f1b_r2_kl_v2_paired_bootstrap_partitions.py",
     }
     assert config["historical_paired_source"]["inherit_as_future_source"] is False
+
+
+def test_frozen_input_sha256_values_match_repository_files() -> None:
+    config = load_config()
+    for label, spec in config["frozen_inputs"].items():
+        path = ROOT / spec["path"]
+        actual = hashlib.sha256(path.read_bytes()).hexdigest()
+        assert actual == spec["sha256"], (
+            f"{label} SHA-256 changed: {actual} != {spec['sha256']}"
+        )
