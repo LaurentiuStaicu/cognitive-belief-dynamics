@@ -1,0 +1,438 @@
+name: TEMP F1b R2 paired inference-method smoke
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  smoke:
+    name: Paired population-vs-hierarchical restriction smoke
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download retained homogeneous H1 source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/h1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36401867007
+
+      - name: Execute paired smoke on exact retained datasets
+        shell: bash
+        run: |
+          set -o pipefail
+          python - \
+            /tmp/h1/f1b-r2-homogeneous-h1-combined.json \
+            /tmp/f1b-r2-paired-method-smoke.json \
+            2> >(tee /tmp/f1b-r2-paired-method-smoke-core.log >&2) <<'PY'
+          from __future__ import annotations
+
+          import hashlib
+          import json
+          from pathlib import Path
+          import sys
+          import time
+
+          import numpy as np
+
+          from cognitive_epistemic_model.calibration import (
+              f1b_r2_paired_bootstrap_characterization as paired_characterization,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_paired_bootstrap_characterization import (
+              dataset_fingerprint,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_population_restriction_recovery import (
+              bootstrap_population_restriction_test,
+              population_bootstrap_seed_sequence,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_resampling_risk_continuation import (
+              build_departure_case_map,
+              regenerate_dataset_for_run,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_resampling_risk_replay import (
+              canonical_attempt_sequence_sha256,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_restriction_recovery import (
+              R2Restriction,
+              bootstrap_restriction_test,
+          )
+
+          EXPECTED_H1_SHA256 = (
+              "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e"
+          )
+
+          source_path = Path(sys.argv[1])
+          output_path = Path(sys.argv[2])
+          if hashlib.sha256(source_path.read_bytes()).hexdigest() != (
+              EXPECTED_H1_SHA256
+          ):
+              raise ValueError("H1 source SHA-256 mismatch")
+
+          def load(path: str) -> dict:
+              return json.loads(Path(path).read_text(encoding="utf-8"))
+
+          source = load(str(source_path))
+          paired_config = load(
+              "model/benchmarks/f1b_r2_kl_v2_paired_bootstrap_draw_stability.json"
+          )
+          v2_config = load(
+              "model/benchmarks/f1b_r2_kl_controlled_departure_design_v2.json"
+          )
+          review_config = load(
+              "model/benchmarks/f1b_r2_distance_definition_review.json"
+          )
+          historical_config = load(
+              "model/benchmarks/f1b_r2_controlled_departure_design.json"
+          )
+          departure_cases = build_departure_case_map(
+              v2_config,
+              review_config,
+              historical_config,
+          )
+          scales = paired_characterization._scales(
+              paired_config,
+              generator=False,
+          )
+
+          candidates = []
+          for run in source["restriction_runs"]:
+              if int(run["evaluation_replicate"]) != 0:
+                  continue
+              role = str(run["role"])
+              if (
+                  role == "ADD_NULL_FALSE_REJECTION"
+                  and str(run["restriction"]) == "ADD_RESTRICTION"
+              ):
+                  candidates.append(run)
+                  continue
+              if (
+                  role == "CBD_NULL_FALSE_REJECTION"
+                  and str(run["restriction"])
+                  == "CBD_COMPLEMENT_RESTRICTION"
+                  and str(run["anchor_id"]) == "CBD_ANCHOR_1"
+              ):
+                  candidates.append(run)
+                  continue
+              if (
+                  str(run["axis"])
+                  == "STANDALONE_ACCURACY_MAIN_EFFECT"
+                  and str(run["anchor_id"])
+                  == "CBD_ADD_INTERSECTION_ANCHOR_1"
+                  and int(run["sign"]) == 1
+                  and float(run["target_mean_bernoulli_kl"]) == 0.002
+              ):
+                  candidates.append(run)
+
+          selected = sorted(candidates, key=lambda row: str(row["run_id"]))
+          if len(selected) != 4:
+              raise ValueError(
+                  f"paired smoke expected 4 restriction runs, got {len(selected)}"
+              )
+          if len({str(row["dataset_sha256"]) for row in selected}) != 3:
+              raise ValueError("paired smoke expected exactly 3 unique datasets")
+
+          rows = []
+          for run in selected:
+              restriction = R2Restriction(str(run["restriction"]))
+              dataset = regenerate_dataset_for_run(
+                  run,
+                  paired_config=paired_config,
+                  departure_cases=departure_cases,
+              )
+              regenerated_sha = dataset_fingerprint(dataset)
+              retained_sha = str(run["dataset_sha256"])
+              if regenerated_sha != retained_sha:
+                  raise ValueError(
+                      f"dataset fingerprint mismatch for {run['run_id']}"
+                  )
+
+              base_seed = int(run["bootstrap_stream_seed"])
+              restriction_index = (
+                  1 if restriction is R2Restriction.ADD else 2
+              )
+              hierarchical_seed_state = np.random.SeedSequence(
+                  [base_seed, restriction_index, 0]
+              ).generate_state(8)
+              population_seed_state = population_bootstrap_seed_sequence(
+                  seed=base_seed,
+                  restriction=restriction,
+                  draw_index=0,
+              ).generate_state(8)
+              namespace_distinct = not np.array_equal(
+                  hierarchical_seed_state,
+                  population_seed_state,
+              )
+              if not namespace_distinct:
+                  raise ValueError("population/hierarchical namespaces collided")
+
+              started = time.perf_counter()
+              hierarchical = bootstrap_restriction_test(
+                  dataset,
+                  restriction,
+                  scales=scales,
+                  bootstrap_draws=5,
+                  minimum_successful_draws=5,
+                  seed=base_seed,
+                  alpha=0.05,
+              )
+              hierarchical_seconds = time.perf_counter() - started
+
+              retained_prefix = tuple(
+                  run["bootstrap_attempt_statistics"][:5]
+              )
+              retained_prefix_sha = canonical_attempt_sequence_sha256(
+                  retained_prefix
+              )
+              hierarchical_prefix_sha = canonical_attempt_sequence_sha256(
+                  hierarchical.bootstrap_statistics
+              )
+              if hierarchical_prefix_sha != retained_prefix_sha:
+                  raise ValueError(
+                      f"hierarchical H1 prefix mismatch for {run['run_id']}"
+                  )
+
+              started = time.perf_counter()
+              population = bootstrap_population_restriction_test(
+                  dataset,
+                  restriction,
+                  bootstrap_draws=5,
+                  minimum_successful_draws=5,
+                  seed=base_seed,
+                  alpha=0.05,
+              )
+              population_seconds = time.perf_counter() - started
+
+              if hierarchical.bootstrap_draws_successful != 5:
+                  raise ValueError("hierarchical smoke bootstrap was incomplete")
+              if population.bootstrap_draws_successful != 5:
+                  raise ValueError("population smoke bootstrap was incomplete")
+
+              common = {
+                  "run_id": str(run["run_id"]),
+                  "dataset_sha256": retained_sha,
+                  "regenerated_dataset_sha256": regenerated_sha,
+                  "dataset_fingerprint_exact": True,
+                  "identity_type": str(run["identity_type"]),
+                  "restriction": str(run["restriction"]),
+                  "role": str(run["role"]),
+                  "anchor_id": run["anchor_id"],
+                  "axis": run["axis"],
+                  "sign": run["sign"],
+                  "target_mean_bernoulli_kl": run[
+                      "target_mean_bernoulli_kl"
+                  ],
+                  "evaluation_replicate": int(
+                      run["evaluation_replicate"]
+                  ),
+                  "bootstrap_base_seed": base_seed,
+                  "bootstrap_namespace_distinct": namespace_distinct,
+              }
+
+              rows.append(
+                  {
+                      **common,
+                      "inference_method": "HIERARCHICAL_1X",
+                      "observed_statistic": float(
+                          hierarchical.observed_statistic
+                      ),
+                      "bootstrap_attempt_sequence_sha256": (
+                          hierarchical_prefix_sha
+                      ),
+                      "h1_retained_prefix_sha256": retained_prefix_sha,
+                      "h1_prefix_exact": True,
+                      "bootstrap_draws_requested": 5,
+                      "bootstrap_draws_successful": int(
+                          hierarchical.bootstrap_draws_successful
+                      ),
+                      "bootstrap_fit_failures": int(
+                          hierarchical.bootstrap_fit_failures
+                      ),
+                      "p_value_smoke_only": float(hierarchical.p_value),
+                      "rejected_smoke_only": bool(hierarchical.rejected),
+                      "held_out_participant_delta": float(
+                          hierarchical.held_out_participant_delta
+                      ),
+                      "held_out_item_delta": float(
+                          hierarchical.held_out_item_delta
+                      ),
+                      "elapsed_seconds": hierarchical_seconds,
+                  }
+              )
+              rows.append(
+                  {
+                      **common,
+                      "inference_method": "POPULATION",
+                      "observed_statistic": float(
+                          population.observed_statistic
+                      ),
+                      "bootstrap_attempt_sequence_sha256": (
+                          canonical_attempt_sequence_sha256(
+                              population.bootstrap_statistics
+                          )
+                      ),
+                      "h1_retained_prefix_sha256": None,
+                      "h1_prefix_exact": None,
+                      "bootstrap_draws_requested": 5,
+                      "bootstrap_draws_successful": int(
+                          population.bootstrap_draws_successful
+                      ),
+                      "bootstrap_fit_failures": int(
+                          population.bootstrap_fit_failures
+                      ),
+                      "p_value_smoke_only": float(population.p_value),
+                      "rejected_smoke_only": bool(population.rejected),
+                      "held_out_participant_delta": float(
+                          population.held_out_participant_delta
+                      ),
+                      "held_out_item_delta": float(
+                          population.held_out_item_delta
+                      ),
+                      "elapsed_seconds": population_seconds,
+                  }
+              )
+
+          if len(rows) != 8:
+              raise ValueError(f"expected 8 method executions, got {len(rows)}")
+          if any(
+              int(row["bootstrap_fit_failures"]) != 0
+              or int(row["bootstrap_draws_successful"]) != 5
+              for row in rows
+          ):
+              raise ValueError("paired smoke contains bootstrap failure")
+          if any(
+              not np.isfinite(float(row["observed_statistic"]))
+              or not np.isfinite(float(row["p_value_smoke_only"]))
+              or not np.isfinite(float(row["held_out_participant_delta"]))
+              or not np.isfinite(float(row["held_out_item_delta"]))
+              or not np.isfinite(float(row["elapsed_seconds"]))
+              for row in rows
+          ):
+              raise ValueError("paired smoke contains non-finite output")
+
+          result = {
+              "smoke_id": "F1B.R2.PAIRED_INFERENCE_METHOD_SMOKE.V1",
+              "status": "NON_AUTHORITATIVE_PAIRED_METHOD_SMOKE_COMPLETE",
+              "authoritative": False,
+              "issue": 259,
+              "source_artifact_id": 10961527329,
+              "source_json_sha256": EXPECTED_H1_SHA256,
+              "evaluation_replicate": 0,
+              "unique_dataset_count": 3,
+              "restriction_run_count": 4,
+              "inference_method_count": 2,
+              "method_execution_count": 8,
+              "bootstrap_draws_per_execution": 5,
+              "all_dataset_fingerprints_exact": True,
+              "all_hierarchical_h1_prefixes_exact": True,
+              "all_bootstrap_namespaces_distinct": True,
+              "all_bootstrap_refits_successful": True,
+              "rows": rows,
+              "boundary": {
+                  "scientific_interpretation_of_smoke_decisions": False,
+                  "method_selected": False,
+                  "power_validated": False,
+                  "evaluation_replicates_frozen": False,
+                  "missingness_015_characterized": False,
+                  "hierarchical_scale_sensitivity_characterized": False,
+                  "authoritative_core_grid_frozen": False,
+                  "human_n_frozen": False,
+                  "participant_recruitment_allowed": False,
+                  "runtime_f1b_change_allowed": False,
+              },
+          }
+          output_path.write_text(
+              json.dumps(result, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          print(
+              "PAIRED_METHOD_SMOKE="
+              + json.dumps(
+                  {
+                      "unique_dataset_count": 3,
+                      "restriction_run_count": 4,
+                      "method_execution_count": 8,
+                      "all_dataset_fingerprints_exact": True,
+                      "all_hierarchical_h1_prefixes_exact": True,
+                      "all_bootstrap_namespaces_distinct": True,
+                      "all_bootstrap_refits_successful": True,
+                      "population_elapsed_seconds": sum(
+                          row["elapsed_seconds"]
+                          for row in rows
+                          if row["inference_method"] == "POPULATION"
+                      ),
+                      "hierarchical_elapsed_seconds": sum(
+                          row["elapsed_seconds"]
+                          for row in rows
+                          if row["inference_method"] == "HIERARCHICAL_1X"
+                      ),
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Verify scientific-process OpenBLAS core
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          from cognitive_epistemic_model.calibration.f1b_r2_homogeneous_paired_lineage import (
+              validate_h1_runtime_cores,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+          )
+
+          text = Path("/tmp/f1b-r2-paired-method-smoke-core.log").read_text(
+              encoding="utf-8",
+              errors="replace",
+          )
+          cores = parse_openblas_verbose_cores(text)
+          validate_h1_runtime_cores(cores)
+          Path("/tmp/f1b-r2-paired-method-smoke-core.json").write_text(
+              json.dumps(
+                  {
+                      "reported_cores": list(cores),
+                      "all_cores_qualified": True,
+                  },
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          print("PAIRED_METHOD_SMOKE_CORES=" + json.dumps(list(cores)))
+          PY
+
+      - name: Upload paired smoke evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-paired-inference-method-smoke
+          path: |
+            /tmp/f1b-r2-paired-method-smoke.json
+            /tmp/f1b-r2-paired-method-smoke-core.json
+            /tmp/f1b-r2-paired-method-smoke-core.log
+          if-no-files-found: error
