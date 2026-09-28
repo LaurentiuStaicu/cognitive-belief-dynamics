@@ -1,0 +1,281 @@
+name: TEMP F1b R2 homogeneous C1 exact replay
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  c1_shard:
+    name: Homogeneous C1 shard ${{ matrix.shard_index }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard_index: [0, 1, 2, 3, 4, 5, 6, 7]
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+      SHARD_INDEX: ${{ matrix.shard_index }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download qualified homogeneous H1 source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/h1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36401867007
+
+      - name: Download homogeneous H2 Stage-B raw replay
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-stage-b-h2
+          path: /tmp/h2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36406702153
+
+      - name: Execute homogeneous C1 retained-prefix replay
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/run_f1b_r2_homogeneous_c1_qualification.py \
+            --paired-source /tmp/h1/f1b-r2-homogeneous-h1-combined.json \
+            --stage-b-raw /tmp/h2/f1b-r2-homogeneous-stage-b-h2.json \
+            --shard-index "$SHARD_INDEX" \
+            --output "/tmp/f1b-r2-homogeneous-c1-${SHARD_INDEX}.json" \
+            2> >(tee "/tmp/f1b-r2-homogeneous-c1-core-${SHARD_INDEX}.log" >&2)
+
+      - name: Verify scientific-process OpenBLAS core
+        run: |
+          python - "$SHARD_INDEX" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          from cognitive_epistemic_model.calibration.f1b_r2_homogeneous_c1_exact_replay import (
+              validate_c1_runtime_cores,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+          )
+
+          shard = int(sys.argv[1])
+          log_path = Path(
+              f"/tmp/f1b-r2-homogeneous-c1-core-{shard}.log"
+          )
+          cores = parse_openblas_verbose_cores(
+              log_path.read_text(encoding="utf-8", errors="replace")
+          )
+          validate_c1_runtime_cores(cores)
+          Path(
+              f"/tmp/f1b-r2-homogeneous-c1-core-{shard}.json"
+          ).write_text(
+              json.dumps(
+                  {
+                      "shard_index": shard,
+                      "OPENBLAS_CORETYPE": "Haswell",
+                      "reported_cores": list(cores),
+                      "all_cores_qualified": True,
+                  },
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          print("HOMOGENEOUS_C1_CORES=" + json.dumps(list(cores)))
+          PY
+
+      - name: Summarize C1 shard
+        run: |
+          python - "$SHARD_INDEX" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          shard = int(sys.argv[1])
+          data = json.loads(
+              Path(
+                  f"/tmp/f1b-r2-homogeneous-c1-{shard}.json"
+              ).read_text(encoding="utf-8")
+          )
+          print(
+              "HOMOGENEOUS_C1_SHARD="
+              + json.dumps(
+                  {
+                      "shard_index": shard,
+                      "qualified_run_count": data[
+                          "qualified_run_count"
+                      ],
+                      "base_qualification_pass_count": data[
+                          "qualification_pass_count"
+                      ],
+                      "homogeneous_c1_pass_count": data[
+                          "homogeneous_c1_pass_count"
+                      ],
+                      "exact_observed_statistic_count": data[
+                          "exact_observed_statistic_count"
+                      ],
+                      "bootstrap_refit_failure_free_count": data[
+                          "bootstrap_refit_failure_free_count"
+                      ],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload C1 shard evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-c1-shard-${{ matrix.shard_index }}
+          path: |
+            /tmp/f1b-r2-homogeneous-c1-${{ matrix.shard_index }}.json
+            /tmp/f1b-r2-homogeneous-c1-core-${{ matrix.shard_index }}.json
+            /tmp/f1b-r2-homogeneous-c1-core-${{ matrix.shard_index }}.log
+          if-no-files-found: warn
+
+      - name: Enforce exact shard qualification
+        run: |
+          python - "$SHARD_INDEX" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          shard = int(sys.argv[1])
+          data = json.loads(
+              Path(
+                  f"/tmp/f1b-r2-homogeneous-c1-{shard}.json"
+              ).read_text(encoding="utf-8")
+          )
+          count = int(data["qualified_run_count"])
+          assert data["all_selected_runs_pass"] is True
+          assert int(data["homogeneous_c1_pass_count"]) == count
+          assert int(data["bootstrap_refit_failure_free_count"]) == count
+          assert all(
+              bool(row["dataset_fingerprint_match"])
+              and bool(row["observed_statistic_match"])
+              and bool(row["attempt_sequence_sha256_match"])
+              and bool(row["bootstrap_refit_failure_free"])
+              for row in data["rows"]
+          )
+          PY
+
+  c1_combine:
+    name: Homogeneous C1 combine 224 streams
+    needs: c1_shard
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download all C1 shard evidence
+        uses: actions/download-artifact@v4
+        with:
+          pattern: f1b-r2-homogeneous-c1-shard-*
+          path: /tmp/parts
+          merge-multiple: true
+
+      - name: Combine homogeneous C1 partitions
+        run: |
+          python scripts/combine_f1b_r2_homogeneous_c1_qualification.py \
+            --partition /tmp/parts/f1b-r2-homogeneous-c1-0.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c1-1.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c1-2.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c1-3.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c1-4.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c1-5.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c1-6.json \
+            --partition /tmp/parts/f1b-r2-homogeneous-c1-7.json \
+            --output /tmp/f1b-r2-homogeneous-c1-combined.json
+
+      - name: Enforce 224-of-224 homogeneous C1 gate
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(
+              Path(
+                  "/tmp/f1b-r2-homogeneous-c1-combined.json"
+              ).read_text(encoding="utf-8")
+          )
+          summary = {
+              "eligible_unresolved_run_count": data[
+                  "eligible_unresolved_run_count"
+              ],
+              "qualified_run_count": data["qualified_run_count"],
+              "qualification_pass_count": data[
+                  "qualification_pass_count"
+              ],
+              "qualification_failure_count": data[
+                  "qualification_failure_count"
+              ],
+              "exact_observed_statistic_count": data[
+                  "exact_observed_statistic_count"
+              ],
+              "nonzero_observed_statistic_delta_count": data[
+                  "nonzero_observed_statistic_delta_count"
+              ],
+              "maximum_observed_statistic_absolute_delta": data[
+                  "maximum_observed_statistic_absolute_delta"
+              ],
+              "bootstrap_refit_failure_free_count": data[
+                  "bootstrap_refit_failure_free_count"
+              ],
+              "gate_pass": data["gate_pass"],
+              "next_gate": data["next_gate"],
+          }
+          print(
+              "HOMOGENEOUS_C1_COMBINED="
+              + json.dumps(summary, sort_keys=True)
+          )
+          assert data["eligible_unresolved_run_count"] == 224
+          assert data["qualified_run_count"] == 224
+          assert data["qualification_pass_count"] == 224
+          assert data["qualification_failure_count"] == 0
+          assert data["bootstrap_refit_failure_free_count"] == 224
+          assert data["gate_pass"] is True
+          assert data["boundary"]["new_draw_index_ge_199_generated"] is False
+          assert data["boundary"]["stage_c2_authorized"] is False
+          PY
+
+      - name: Upload combined C1 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-c1-combined
+          path: /tmp/f1b-r2-homogeneous-c1-combined.json
+          if-no-files-found: error
