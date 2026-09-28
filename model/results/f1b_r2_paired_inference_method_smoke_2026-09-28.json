@@ -1,0 +1,61 @@
+{
+  "result_id": "F1B.R2.PAIRED_INFERENCE_METHOD_SMOKE.RESULT.2026-09-28",
+  "status": "NON_AUTHORITATIVE_PAIRED_METHOD_SMOKE_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 259,
+  "execution": {
+    "temporary_execution_pr": 261,
+    "workflow_run_id": 36434187974,
+    "workflow_run_number": 1,
+    "execution_pr_head": "a590a8f297a0880f60ef2763d34a4b6e7b409f96",
+    "qualified_main_baseline": "f7ca4bda2daa796e7743c2d178dddfc77c8d813a",
+    "artifact_id": 10974922344,
+    "artifact_name": "f1b-r2-paired-inference-method-smoke",
+    "artifact_zip_sha256": "74728e67310be4ad553b53f2804ad266dc480ff8168f2ed9f6d62f9f839e7fb2",
+    "result_json_sha256": "22c9f5e8b566e14cfeb365d4618c7bb852b6551224559f14d136aa314b46dfc7",
+    "result_json_size_bytes": 12911,
+    "runtime_openblas_cores": [
+      "Haswell",
+      "Haswell"
+    ]
+  },
+  "frozen_design": {
+    "evaluation_replicate": 0,
+    "unique_dataset_count": 3,
+    "restriction_run_count": 4,
+    "inference_methods": [
+      "HIERARCHICAL_1X",
+      "POPULATION"
+    ],
+    "method_execution_count": 8,
+    "bootstrap_draws_per_execution": 5,
+    "bootstrap_draws_role": "EXECUTION_AND_COST_SMOKE_ONLY"
+  },
+  "acceptance": {
+    "all_dataset_fingerprints_exact": true,
+    "all_hierarchical_h1_prefixes_exact": true,
+    "all_bootstrap_namespaces_distinct": true,
+    "all_bootstrap_refits_successful": true,
+    "all_required_outputs_finite": true,
+    "smoke_pass": true
+  },
+  "cost": {
+    "hierarchical_elapsed_seconds": 1.042645475000029,
+    "population_elapsed_seconds": 0.6759479699999815,
+    "population_to_hierarchical_ratio": 0.6482894316576194,
+    "interpretation": "SMOKE_ONLY_NOT_METHOD_SELECTION"
+  },
+  "scientific_boundary": {
+    "smoke_decisions_interpreted": false,
+    "method_selected": false,
+    "power_validated": false,
+    "evaluation_replicates_frozen": false,
+    "missingness_015_characterized": false,
+    "hierarchical_scale_sensitivity_characterized": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  },
+  "next_gate": "PROSPECTIVE_PAIRED_METHOD_CHARACTERIZATION_DESIGN_REQUIRED"
+}
