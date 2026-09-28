@@ -1,0 +1,234 @@
+{
+  "result_id": "F1B.R2.PAIRED_METHOD_M1_SCREEN.RESULT.2026-09-28",
+  "status": "NON_AUTHORITATIVE_PAIRED_METHOD_M1_SCREEN_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 259,
+  "execution": {
+    "temporary_execution_pr": 266,
+    "workflow_run_id": 36439940794,
+    "execution_pr_head": "4500ca5faca0a4d9355ae1e8ea44db4da3495448",
+    "qualified_main_baseline": "54566e16bb64538ea6ab6205858b1194b5a2d510",
+    "shard_count": 20,
+    "successful_shard_count": 20,
+    "artifact_id": 10979254047,
+    "artifact_name": "f1b-r2-m1-combined",
+    "artifact_zip_sha256": "d419d54197e84b0ad41c24aedde7ef2f41ff4eee09e9e071a8405176b05ff054",
+    "combined_json_sha256": "dda3978acbf13ae9dba4d548ae8355413b29c8cac24ad86d5b8905de56d81042",
+    "combined_json_size_bytes": 5667170,
+    "standard_cbd_validation_run": 595,
+    "standard_cbd_validation_pass": true
+  },
+  "frozen_design": {
+    "scientific_restriction_runs": 840,
+    "method_executions": 3360,
+    "missingness_regimes": [
+      0,
+      0.15
+    ],
+    "departure_cells": 72,
+    "departure_replicates_per_cell_per_missingness": 5,
+    "null_replicates_per_identity_per_missingness": 20,
+    "bootstrap_attempts_per_execution": 199,
+    "minimum_successful_bootstrap_refits": 180,
+    "continuation_beyond_draw_198": false
+  },
+  "overall": {
+    "decision": "M1_HAS_ELIGIBLE_METHODS",
+    "eligible_methods": [
+      "POPULATION",
+      "HIERARCHICAL_0.5X",
+      "HIERARCHICAL_1X",
+      "HIERARCHICAL_2X"
+    ],
+    "hierarchical_scale_sensitive": true,
+    "all_methods_operational_failure_rate": 0
+  },
+  "method_results": [
+    {
+      "inference_method": "POPULATION",
+      "decision_state": "M1_ELIGIBLE",
+      "overall_failure_rate": 0,
+      "checks": {
+        "operational_pass": true,
+        "null_pass": true,
+        "specificity_pass": true,
+        "signal_pass": true,
+        "missingness_pass": true
+      },
+      "null_false_reject_rate": {
+        "missingness_0": 0.1,
+        "missingness_015": 0.08333333333333333
+      },
+      "add_specificity_false_reject_rate": {
+        "missingness_0": 0.11666666666666667,
+        "missingness_015": 0.15
+      },
+      "strong_expected_direction_rate": {
+        "CBD_DEPARTURE_DETECTION": {
+          "missingness_0": 0.55,
+          "missingness_015": 0.5333333333333333
+        },
+        "ADD_DEPARTURE_DIAGNOSTIC": {
+          "missingness_0": 0.675,
+          "missingness_015": 0.725
+        }
+      }
+    },
+    {
+      "inference_method": "HIERARCHICAL_0.5X",
+      "decision_state": "M1_ELIGIBLE",
+      "overall_failure_rate": 0,
+      "checks": {
+        "operational_pass": true,
+        "null_pass": true,
+        "specificity_pass": true,
+        "signal_pass": true,
+        "missingness_pass": true
+      },
+      "null_false_reject_rate": {
+        "missingness_0": 0.1,
+        "missingness_015": 0.06666666666666667
+      },
+      "add_specificity_false_reject_rate": {
+        "missingness_0": 0.08333333333333333,
+        "missingness_015": 0.1
+      },
+      "strong_expected_direction_rate": {
+        "CBD_DEPARTURE_DETECTION": {
+          "missingness_0": 0.5666666666666667,
+          "missingness_015": 0.5666666666666667
+        },
+        "ADD_DEPARTURE_DIAGNOSTIC": {
+          "missingness_0": 0.675,
+          "missingness_015": 0.675
+        }
+      }
+    },
+    {
+      "inference_method": "HIERARCHICAL_1X",
+      "decision_state": "M1_ELIGIBLE",
+      "overall_failure_rate": 0,
+      "checks": {
+        "operational_pass": true,
+        "null_pass": true,
+        "specificity_pass": true,
+        "signal_pass": true,
+        "missingness_pass": true
+      },
+      "null_false_reject_rate": {
+        "missingness_0": 0.05,
+        "missingness_015": 0.06666666666666667
+      },
+      "add_specificity_false_reject_rate": {
+        "missingness_0": 0.05,
+        "missingness_015": 0.06666666666666667
+      },
+      "strong_expected_direction_rate": {
+        "CBD_DEPARTURE_DETECTION": {
+          "missingness_0": 0.5,
+          "missingness_015": 0.5166666666666667
+        },
+        "ADD_DEPARTURE_DIAGNOSTIC": {
+          "missingness_0": 0.675,
+          "missingness_015": 0.65
+        }
+      }
+    },
+    {
+      "inference_method": "HIERARCHICAL_2X",
+      "decision_state": "M1_ELIGIBLE",
+      "overall_failure_rate": 0,
+      "checks": {
+        "operational_pass": true,
+        "null_pass": true,
+        "specificity_pass": true,
+        "signal_pass": true,
+        "missingness_pass": true
+      },
+      "null_false_reject_rate": {
+        "missingness_0": 0.016666666666666666,
+        "missingness_015": 0.016666666666666666
+      },
+      "add_specificity_false_reject_rate": {
+        "missingness_0": 0.016666666666666666,
+        "missingness_015": 0.03333333333333333
+      },
+      "strong_expected_direction_rate": {
+        "CBD_DEPARTURE_DETECTION": {
+          "missingness_0": 0.25,
+          "missingness_015": 0.2833333333333333
+        },
+        "ADD_DEPARTURE_DIAGNOSTIC": {
+          "missingness_0": 0.575,
+          "missingness_015": 0.55
+        }
+      }
+    }
+  ],
+  "hierarchical_scale_sensitivity": [
+    {
+      "role": "ADD_SPECIFICITY_NEGATIVE_CONTROL",
+      "missingness_rate": 0,
+      "max_minus_min": 0.06666666666666665
+    },
+    {
+      "role": "CBD_DEPARTURE_DETECTION",
+      "target_mean_bernoulli_kl": 0.003,
+      "missingness_rate": 0,
+      "max_minus_min": 0.31666666666666665,
+      "rates": {
+        "0.5X": 0.5666666666666667,
+        "1X": 0.5,
+        "2X": 0.25
+      }
+    },
+    {
+      "role": "ADD_DEPARTURE_DIAGNOSTIC",
+      "target_mean_bernoulli_kl": 0.003,
+      "missingness_rate": 0,
+      "max_minus_min": 0.10000000000000009
+    },
+    {
+      "role": "ADD_SPECIFICITY_NEGATIVE_CONTROL",
+      "missingness_rate": 0.15,
+      "max_minus_min": 0.06666666666666665
+    },
+    {
+      "role": "CBD_DEPARTURE_DETECTION",
+      "target_mean_bernoulli_kl": 0.003,
+      "missingness_rate": 0.15,
+      "max_minus_min": 0.2833333333333333,
+      "rates": {
+        "0.5X": 0.5666666666666667,
+        "1X": 0.5166666666666667,
+        "2X": 0.2833333333333333
+      }
+    },
+    {
+      "role": "ADD_DEPARTURE_DIAGNOSTIC",
+      "target_mean_bernoulli_kl": 0.003,
+      "missingness_rate": 0.15,
+      "max_minus_min": 0.125
+    }
+  ],
+  "interpretation": {
+    "all_four_methods_remain_m1_eligible": true,
+    "no_single_method_selected": true,
+    "hierarchical_scale_sensitivity_requires_retention_in_m2": true,
+    "m1_fixed_199_rates_are_not_terminal_sequential_outcomes": true,
+    "next_stage": "M2_SEQUENTIAL_RESOLUTION_CHARACTERIZATION",
+    "m2_method_set_bound_to_m1_eligible_methods": true,
+    "power_validated": false,
+    "broad_n_eval_100_per_cell_not_executed": true
+  },
+  "boundary": {
+    "method_selected": false,
+    "power_validated": false,
+    "c2_rewritten": false,
+    "m1_decisions_relabelled_as_terminal": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false
+  }
+}
