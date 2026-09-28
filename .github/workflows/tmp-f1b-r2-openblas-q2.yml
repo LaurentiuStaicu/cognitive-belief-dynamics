@@ -1,0 +1,310 @@
+name: TEMP F1b R2 OpenBLAS Q2
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  q2_shard:
+    name: Q2 full replay shard ${{ matrix.shard_index }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard_index: [0, 1, 2, 3, 4, 5, 6, 7]
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+      SCIENTIFIC_SOURCE_COMMIT: "ff63e6f72af54b78070a0d74c514805401602943"
+      SHARD_INDEX: ${{ matrix.shard_index }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Verify Q0 execution lineage
+        run: |
+          python scripts/verify_f1b_r2_openblas_lineage.py \
+            --output "/tmp/f1b-r2-q2-q0-${SHARD_INDEX}.json"
+
+      - name: Verify retained Q1 prerequisite
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(
+              Path(
+                  "model/results/"
+                  "f1b_r2_openblas_q1_qualification_2026-09-28.json"
+              ).read_text(encoding="utf-8")
+          )
+          assert data["decision"]["q1_pass"] is True
+          assert data["pass_count"] == 16
+          assert data["fail_count"] == 0
+          assert data["candidate_environment"]["OPENBLAS_CORETYPE"] == "Haswell"
+          PY
+
+      - name: Download exact retained paired source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-kl-v2-paired-combined-recovered
+          path: /tmp/source
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36340881516
+
+      - name: Replay full retained Stage-C1 shard under qualified core
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/run_f1b_r2_resampling_risk_continuation_qualification.py \
+            --paired-source /tmp/source/f1b-r2-kl-v2-paired-combined.json \
+            --shard-index "$SHARD_INDEX" \
+            --output "/tmp/f1b-r2-openblas-q2-shard-${SHARD_INDEX}.json" \
+            --source-commit "$SCIENTIFIC_SOURCE_COMMIT" \
+            2> >(tee "/tmp/f1b-r2-openblas-q2-core-${SHARD_INDEX}.log" >&2)
+
+      - name: Verify scientific-process OpenBLAS core
+        run: |
+          python - "$SHARD_INDEX" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+              validate_runtime_cores,
+          )
+
+          shard = int(sys.argv[1])
+          log_path = Path(f"/tmp/f1b-r2-openblas-q2-core-{shard}.log")
+          cores = parse_openblas_verbose_cores(
+              log_path.read_text(encoding="utf-8", errors="replace")
+          )
+          validate_runtime_cores(cores)
+          Path(
+              f"/tmp/f1b-r2-openblas-q2-core-{shard}.json"
+          ).write_text(
+              json.dumps(
+                  {
+                      "shard_index": shard,
+                      "reported_cores": list(cores),
+                      "all_cores_qualified": True,
+                  },
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          print("Q2_OPENBLAS_CORES=" + json.dumps(list(cores)))
+          PY
+
+      - name: Summarize Q2 shard
+        run: |
+          python - "$SHARD_INDEX" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+
+          shard = int(sys.argv[1])
+          data = json.loads(
+              Path(
+                  f"/tmp/f1b-r2-openblas-q2-shard-{shard}.json"
+              ).read_text(encoding="utf-8")
+          )
+          exact_observed = sum(
+              float(row["regenerated_observed_statistic"])
+              == float(row["retained_observed_statistic"])
+              for row in data["rows"]
+          )
+          print(
+              "F1B_R2_OPENBLAS_Q2_SHARD="
+              + json.dumps(
+                  {
+                      "shard_index": shard,
+                      "qualified_run_count": data["qualified_run_count"],
+                      "qualification_pass_count": data[
+                          "qualification_pass_count"
+                      ],
+                      "exact_observed_count": exact_observed,
+                      "all_selected_runs_pass": data[
+                          "all_selected_runs_pass"
+                      ],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload Q2 shard evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-openblas-q2-shard-${{ matrix.shard_index }}
+          path: |
+            /tmp/f1b-r2-q2-q0-${{ matrix.shard_index }}.json
+            /tmp/f1b-r2-openblas-q2-shard-${{ matrix.shard_index }}.json
+            /tmp/f1b-r2-openblas-q2-core-${{ matrix.shard_index }}.json
+            /tmp/f1b-r2-openblas-q2-core-${{ matrix.shard_index }}.log
+          if-no-files-found: warn
+
+      - name: Enforce exact Q2 shard reproduction
+        run: |
+          python - "$SHARD_INDEX" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+          shard = int(sys.argv[1])
+          data = json.loads(
+              Path(
+                  f"/tmp/f1b-r2-openblas-q2-shard-{shard}.json"
+              ).read_text(encoding="utf-8")
+          )
+          assert data["all_selected_runs_pass"], {
+              "shard_index": shard,
+              "qualified_run_count": data["qualified_run_count"],
+              "qualification_pass_count": data["qualification_pass_count"],
+              "failures": [
+                  row["run_id"]
+                  for row in data["rows"]
+                  if not row["qualification_pass"]
+              ],
+          }
+          PY
+
+  q2_combine:
+    name: Q2 full 224-stream combine
+    needs: q2_shard
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen execution environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download all Q2 shard evidence
+        uses: actions/download-artifact@v4
+        with:
+          pattern: f1b-r2-openblas-q2-shard-*
+          path: /tmp/parts
+          merge-multiple: true
+
+      - name: Combine unchanged Stage-C1 qualification results
+        run: |
+          python scripts/combine_f1b_r2_resampling_risk_continuation_qualification.py \
+            --partition /tmp/parts/f1b-r2-openblas-q2-shard-0.json \
+            --partition /tmp/parts/f1b-r2-openblas-q2-shard-1.json \
+            --partition /tmp/parts/f1b-r2-openblas-q2-shard-2.json \
+            --partition /tmp/parts/f1b-r2-openblas-q2-shard-3.json \
+            --partition /tmp/parts/f1b-r2-openblas-q2-shard-4.json \
+            --partition /tmp/parts/f1b-r2-openblas-q2-shard-5.json \
+            --partition /tmp/parts/f1b-r2-openblas-q2-shard-6.json \
+            --partition /tmp/parts/f1b-r2-openblas-q2-shard-7.json \
+            --output /tmp/f1b-r2-openblas-q2-combined-c1.json
+
+      - name: Create Q2 lineage qualification wrapper
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          combined_path = Path("/tmp/f1b-r2-openblas-q2-combined-c1.json")
+          combined = json.loads(combined_path.read_text(encoding="utf-8"))
+          rows = combined["rows"]
+          exact_observed_count = sum(
+              float(row["regenerated_observed_statistic"])
+              == float(row["retained_observed_statistic"])
+              for row in rows
+          )
+          wrapper = {
+              "qualification_id": "F1B.R2.OPENBLAS_EXECUTION_LINEAGE.V1",
+              "status": "NON_AUTHORITATIVE_OPENBLAS_Q2_FULL_REPLAY_RESULT",
+              "authoritative": False,
+              "issue": 227,
+              "candidate_environment": {
+                  "OPENBLAS_CORETYPE": "Haswell",
+              },
+              "eligible_stream_count": 224,
+              "qualified_stream_count": combined["qualified_run_count"],
+              "qualification_pass_count": combined[
+                  "qualification_pass_count"
+              ],
+              "qualification_failure_count": combined[
+                  "qualification_failure_count"
+              ],
+              "exact_observed_statistic_count": exact_observed_count,
+              "all_observed_statistics_exact": exact_observed_count == 224,
+              "all_attempt_sequence_hashes_exact": all(
+                  bool(row["attempt_sequence_sha256_match"])
+                  for row in rows
+              ),
+              "all_dataset_fingerprints_exact": all(
+                  bool(row["dataset_fingerprint_match"])
+                  for row in rows
+              ),
+              "q2_pass": (
+                  combined["qualified_run_count"] == 224
+                  and combined["qualification_pass_count"] == 224
+                  and combined["qualification_failure_count"] == 0
+                  and combined["gate_pass"] is True
+              ),
+              "inherited_c1_combiner_next_gate": combined["next_gate"],
+              "decision_next_gate": (
+                  "Q3_VERSIONED_CONTINUATION_LINEAGE_DECISION"
+              ),
+              "boundary": {
+                  "failed_c1_v1_rewritten": False,
+                  "new_draw_index_ge_199_generated": False,
+                  "scientific_fit_settings_changed": False,
+                  "stage_c2_authorized": False,
+                  "power_validated": False,
+                  "human_n_frozen": False,
+                  "participant_recruitment_allowed": False,
+                  "runtime_f1b_change_allowed": False,
+              },
+          }
+          assert wrapper["q2_pass"] is True
+          Path("/tmp/f1b-r2-openblas-q2-result.json").write_text(
+              json.dumps(wrapper, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          print(
+              "F1B_R2_OPENBLAS_Q2_COMBINED="
+              + json.dumps(wrapper, sort_keys=True)
+          )
+          PY
+
+      - name: Upload Q2 combined evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-openblas-q2-combined
+          path: |
+            /tmp/f1b-r2-openblas-q2-combined-c1.json
+            /tmp/f1b-r2-openblas-q2-result.json
+          if-no-files-found: error
