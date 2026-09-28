@@ -88,12 +88,14 @@ Before entering the new-draw loop, the runner verifies:
 
 1. frozen dependency lock;
 2. five protected scientific file blobs;
-3. resampling-risk controller/replay file blobs;
-4. historical continuation helper and homogeneous C1 binding file blobs;
-5. retained H1/H2/C1 repository-result blobs;
-6. exact H1/H2/C1 Actions artifact SHA-256 values and byte sizes;
-7. frozen paired/KL-v2/review/historical-design SHA-256 values;
-8. H2 checkpoint and unresolved-set canonical hashes.
+3. the frozen resampling-risk controller config Git blob;
+4. resampling-risk controller/replay file blobs;
+5. historical continuation helper, homogeneous C1 binding, and OpenBLAS-lineage file blobs;
+6. retained H1/H2/C1 repository-result blobs;
+7. exact H1/H2/C1 Actions artifact SHA-256 values and byte sizes;
+8. frozen paired/KL-v2/review/historical-design SHA-256 values;
+9. H2 checkpoint and unresolved-set canonical hashes;
+10. H1/H2 equality of dataset fingerprint, bootstrap stream seed, observed statistic, and first-199 attempt hash for every target.
 
 The target set is then derived independently from H2.
 
@@ -202,7 +204,7 @@ C2 retains:
 - failure n/draw index where applicable;
 - terminal n/sum/boundaries;
 - checkpoint states;
-- runtime OpenBLAS identity at execution-wrapper level.
+- runtime OpenBLAS identity copied into every per-stream row after the scientific worker's actual core report is verified.
 
 ## Aggregate provenance
 
@@ -245,6 +247,7 @@ That workflow must:
 - run 16 deterministic shards;
 - capture `OPENBLAS_VERBOSE=2`;
 - verify every scientific worker reports only `Haswell`;
+- annotate the shard and every per-stream row with those verified runtime cores before combination;
 - upload every shard and combined result;
 - close the temporary PR unmerged.
 
