@@ -1,0 +1,63 @@
+{
+  "result_id": "F1B.R2.S4.METHOD_BINDING.RESULT.2026-09-28",
+  "status": "NON_AUTHORITATIVE_S4_METHOD_BINDING_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 259,
+  "execution": {
+    "temporary_execution_pr": 279,
+    "workflow_run_id": 36467231113,
+    "workflow_run_number": 1,
+    "execution_pr_head": "cd9dbeea7641915f38a2f3b4309ec1dd73b4fbbd",
+    "qualified_main_baseline": "6f9bfead547affba3473768a627d28fcf2cf7914",
+    "artifact_id": 10990660300,
+    "artifact_name": "f1b-r2-s4-method-binding",
+    "artifact_zip_sha256": "e8f954a9598d0cef67f2e4e24343000ec5cee709fa75e8a0c9590f657b33166e",
+    "binding_json_sha256": "5dacc358d97ed38807991bf7bfd77be26bfd766a95627645e6bdf212de96402a",
+    "binding_json_size_bytes": 1814
+  },
+  "retained_sources": {
+    "m2_artifact_id": 10987519941,
+    "m2_combined_json_sha256": "b9034afd6b6837c8433e0d42fd90911a7b560e18225de7d551f559330742c808",
+    "m2_combined_row_identity_sha256": "b21ee68fd61a0f1364c0722e73ff472119075ae32ee380021b8a671df76c4707",
+    "s4_matrix_artifact_id": 10988228984,
+    "s4_manifest_json_sha256": "f0691a0dc153f2ee1463f5115feeff448b49e7d2fb7accd6568a0fb8c43a5f01",
+    "s4_scientific_run_ids_sha256": "851e7336387901ca15d2486ed8efc19cd090ffac869b760352106a3f455f2b43"
+  },
+  "bound_execution": {
+    "eligible_methods": [
+      "POPULATION",
+      "HIERARCHICAL_0.5X",
+      "HIERARCHICAL_1X",
+      "HIERARCHICAL_2X"
+    ],
+    "method_count": 4,
+    "scientific_run_count": 15000,
+    "method_execution_count": 60000,
+    "maximum_worst_case_component_mcse": 0.05,
+    "hierarchical_scale_sensitivity_retained": true,
+    "method_selected": false,
+    "broad_characterization_authorized": true
+  },
+  "next_gate": {
+    "id": "M2_TO_S4_PREFIX_BRIDGE",
+    "purpose": "Validate exact reuse eligibility of the 840 M2 scientific runs / 3360 method rows inside the S4 broad matrix before broad execution.",
+    "broad_execution_started": false
+  },
+  "release": {
+    "target_next_release": "0.2.0",
+    "release_issue": 277,
+    "release_blocker_closed": false,
+    "blocker": "S4 broad characterization must be executed, retained and scientifically interpreted."
+  },
+  "boundary": {
+    "broad_execution_performed": false,
+    "power_validated": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "authoritative_core_grid_frozen": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "version_bumped": false
+  }
+}
