@@ -357,3 +357,206 @@ def test_c2_tests_do_not_authorize_execution_in_contract() -> None:
     config = load_config()
     assert config["stage_c2"]["execution_requires_merged_gate"] is True
     assert config["boundary"]["stage_c2_executed"] is False
+
+
+def test_c2_binding_rejects_h1_h2_stream_seed_drift() -> None:
+    config, paired_source, raw_h2, c1_combined = (
+        _synthetic_binding_inputs(load_config())
+    )
+    target = raw_h2["stream_checkpoints"][0]
+    target["bootstrap_stream_seed"] += 1
+    config["stage_b_lineage"]["stream_checkpoints_sha256"] = (
+        canonical_json_sha256(
+            sorted(
+                raw_h2["stream_checkpoints"],
+                key=lambda row: str(row["run_id"]),
+            )
+        )
+    )
+    with pytest.raises(ValueError, match="stream-seed mismatch"):
+        bind_c2_targets(
+            paired_source,
+            raw_h2,
+            c1_combined,
+            config,
+        )
+
+
+def _single_target_for_continuation() -> dict:
+    from cognitive_epistemic_model.calibration.f1b_r2_resampling_risk_replay import (
+        canonical_attempt_sequence_sha256,
+    )
+
+    attempts = [0.0] * 199
+    attempt_hash = canonical_attempt_sequence_sha256(attempts)
+    run = {
+        "run_id": "run-target",
+        "dataset_id": "dataset-id",
+        "dataset_sha256": "dataset-sha",
+        "bootstrap_stream_seed": 12345,
+        "observed_statistic": 1.0,
+        "bootstrap_attempt_statistics": attempts,
+        "restriction": "ADD_RESTRICTION",
+        "identity": "identity",
+        "identity_type": "NULL",
+        "role": "role",
+        "anchor_id": "anchor",
+        "axis": None,
+        "sign": None,
+        "target_mean_bernoulli_kl": 0.0,
+        "evaluation_replicate": 0,
+    }
+    return {
+        "run_id": "run-target",
+        "source_run": run,
+        "checkpoint": {
+            "run_id": "run-target",
+            "dataset_sha256": "dataset-sha",
+            "bootstrap_stream_seed": 12345,
+            "observed_statistic": 1.0,
+            "attempt_sequence_sha256": attempt_hash,
+        },
+        "h2_replay_row": {
+            "run_id": "run-target",
+            "decision": None,
+            "status": "SEQUENTIAL_UNRESOLVED",
+            "terminal_n": 199,
+            "terminal_sum": 0,
+            "full_prefix_sum_199": 0,
+            "terminal_lower": -1,
+            "terminal_upper": 2,
+            "failure_n": None,
+            "stopping_n": None,
+            "boundary_hit": None,
+        },
+        "c1_row": {
+            "retained_attempt_sequence_sha256": attempt_hash,
+        },
+    }
+
+
+class _SyntheticBoundaries:
+    def row(self, n: int):
+        if int(n) == 199:
+            return SimpleNamespace(lower=-1, upper=2)
+        return SimpleNamespace(lower=0, upper=2)
+
+
+def test_c2_stream_stops_immediately_on_first_boundary(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls = {"fit": 0, "simulate": 0}
+
+    monkeypatch.setattr(
+        c2_module,
+        "regenerate_dataset_for_run",
+        lambda *args, **kwargs: object(),
+    )
+    monkeypatch.setattr(
+        c2_module,
+        "dataset_fingerprint",
+        lambda dataset: "dataset-sha",
+    )
+    monkeypatch.setattr(
+        c2_module,
+        "_scales",
+        lambda *args, **kwargs: object(),
+    )
+
+    def fake_fit(*args, **kwargs):
+        calls["fit"] += 1
+        if calls["fit"] == 1:
+            return SimpleNamespace(statistic=1.0, restricted=object())
+        if calls["fit"] == 2:
+            return SimpleNamespace(statistic=0.0, restricted=object())
+        raise AssertionError("C2 requested a fit after terminal boundary")
+
+    def fake_simulate(*args, **kwargs):
+        calls["simulate"] += 1
+        if calls["simulate"] > 1:
+            raise AssertionError("C2 generated a draw after terminal boundary")
+        return object()
+
+    monkeypatch.setattr(c2_module, "fit_restriction_pair", fake_fit)
+    monkeypatch.setattr(
+        c2_module,
+        "simulate_exact_design_under_restriction",
+        fake_simulate,
+    )
+
+    result = continue_target_stream(
+        _single_target_for_continuation(),
+        paired_config={},
+        departure_cases={},
+        boundaries=_SyntheticBoundaries(),
+        config=load_config(),
+    )
+
+    assert result["status"] == "SEQUENTIAL_DECISION"
+    assert result["decision"] == "REJECT_P_LE_ALPHA"
+    assert result["boundary_hit"] == "LOWER"
+    assert result["stopping_n"] == 200
+    assert result["last_new_draw_index"] == 199
+    assert result["new_attempt_count"] == 1
+    assert result["new_successful_fit_count"] == 1
+    assert calls == {"fit": 2, "simulate": 1}
+
+
+def test_c2_stream_stops_immediately_on_first_refit_failure(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls = {"fit": 0, "simulate": 0}
+
+    monkeypatch.setattr(
+        c2_module,
+        "regenerate_dataset_for_run",
+        lambda *args, **kwargs: object(),
+    )
+    monkeypatch.setattr(
+        c2_module,
+        "dataset_fingerprint",
+        lambda dataset: "dataset-sha",
+    )
+    monkeypatch.setattr(
+        c2_module,
+        "_scales",
+        lambda *args, **kwargs: object(),
+    )
+
+    def fake_fit(*args, **kwargs):
+        calls["fit"] += 1
+        if calls["fit"] == 1:
+            return SimpleNamespace(statistic=1.0, restricted=object())
+        if calls["fit"] == 2:
+            raise RuntimeError("synthetic bootstrap refit failure")
+        raise AssertionError("C2 requested a fit after refit failure")
+
+    def fake_simulate(*args, **kwargs):
+        calls["simulate"] += 1
+        if calls["simulate"] > 1:
+            raise AssertionError("C2 generated a draw after refit failure")
+        return object()
+
+    monkeypatch.setattr(c2_module, "fit_restriction_pair", fake_fit)
+    monkeypatch.setattr(
+        c2_module,
+        "simulate_exact_design_under_restriction",
+        fake_simulate,
+    )
+
+    result = continue_target_stream(
+        _single_target_for_continuation(),
+        paired_config={},
+        departure_cases={},
+        boundaries=_SyntheticBoundaries(),
+        config=load_config(),
+    )
+
+    assert result["status"] == "BOOTSTRAP_REFIT_FAILURE_UNRESOLVED"
+    assert result["decision"] is None
+    assert result["failure_n"] == 200
+    assert result["failure_draw_index"] == 199
+    assert result["last_new_draw_index"] == 199
+    assert result["new_attempt_count"] == 1
+    assert result["new_successful_fit_count"] == 0
+    assert calls == {"fit": 2, "simulate": 1}
