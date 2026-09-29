@@ -95,3 +95,9 @@ def test_w0_boundary_cannot_be_weakened() -> None:
     config["boundary"]["power_validated"] = True
     with pytest.raises(ValueError, match="boundary"):
         w0.validate_w0_config(config)
+
+
+def test_raw_m2_status_binding_is_exact() -> None:
+    assert w0.EXPECTED_RAW_M2_STATUS == (
+        "NON_AUTHORITATIVE_PAIRED_METHOD_M2_COMBINED_RESULT"
+    )
