@@ -17,6 +17,7 @@ STATUS = "NON_AUTHORITATIVE_S4_ALL_NEW_WAVE_EXECUTION_DESIGN"
 EXPECTED_WAVES = {
     "W1": {
         "predecessor_wave_id": "W0",
+        "predecessor_status": "NON_AUTHORITATIVE_S4_W0_COMBINED_COMPLETE_RETAINED",
         "replicate_start": 25,
         "replicate_end": 49,
         "scientific_run_ids_sha256": (
@@ -32,6 +33,7 @@ EXPECTED_WAVES = {
     },
     "W2": {
         "predecessor_wave_id": "W1",
+        "predecessor_status": "NON_AUTHORITATIVE_S4_W1_COMBINED_COMPLETE_RETAINED",
         "replicate_start": 50,
         "replicate_end": 74,
         "scientific_run_ids_sha256": (
@@ -47,6 +49,7 @@ EXPECTED_WAVES = {
     },
     "W3": {
         "predecessor_wave_id": "W2",
+        "predecessor_status": "NON_AUTHORITATIVE_S4_W2_COMBINED_COMPLETE_RETAINED",
         "replicate_start": 75,
         "replicate_end": 99,
         "scientific_run_ids_sha256": (
@@ -183,6 +186,8 @@ def validate_all_new_wave_config(config: dict) -> None:
     predecessor = config["retained_sources"]["predecessor_result"]
     if str(predecessor["wave_id"]) != expected["predecessor_wave_id"]:
         raise ValueError("S4 all-new-wave retained predecessor changed")
+    if str(predecessor["required_status"]) != expected["predecessor_status"]:
+        raise ValueError("S4 all-new-wave retained predecessor status changed")
     if predecessor["next_wave_authorized_after_retention"] is not True:
         raise ValueError("S4 all-new-wave predecessor authorization changed")
 
