@@ -1,0 +1,164 @@
+name: TEMP F1b R2 S4 new-executor equivalence
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  equivalence:
+    name: Replay 12 retained M2 rows through S4 executor
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download retained homogeneous H1 source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/h1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36401867007
+
+      - name: Download retained M2 combined source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-m2-combined
+          path: /tmp/m2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36450594439
+
+      - name: Download retained S4 matrix manifest
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-s4-broad-scientific-matrix
+          path: /tmp/s4
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36463026247
+
+      - name: Execute exact 12-row equivalence replay
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/run_f1b_r2_s4_new_executor_equivalence.py \
+            --h1-source /tmp/h1/f1b-r2-homogeneous-h1-combined.json \
+            --m2-source /tmp/m2/f1b-r2-m2-combined.json \
+            --s4-manifest /tmp/s4/f1b-r2-s4-broad-scientific-matrix.json \
+            --output /tmp/f1b-r2-s4-new-executor-equivalence.json \
+            2> >(tee /tmp/f1b-r2-s4-new-executor-equivalence-core.log >&2)
+
+      - name: Verify scientific-process OpenBLAS core
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_paired_method_m2_sequential_resolution import (
+              validate_m2_runtime_cores,
+          )
+
+          text = Path(
+              "/tmp/f1b-r2-s4-new-executor-equivalence-core.log"
+          ).read_text(encoding="utf-8", errors="replace")
+          cores = parse_openblas_verbose_cores(text)
+          validate_m2_runtime_cores(cores)
+          Path(
+              "/tmp/f1b-r2-s4-new-executor-equivalence-core.json"
+          ).write_text(
+              json.dumps(
+                  {
+                      "reported_cores": list(cores),
+                      "all_cores_qualified": True,
+                  },
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          print("S4_EQUIVALENCE_CORES=" + json.dumps(list(cores)))
+          PY
+
+      - name: Enforce exact equivalence contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(
+              Path(
+                  "/tmp/f1b-r2-s4-new-executor-equivalence.json"
+              ).read_text(encoding="utf-8")
+          )
+          assert data["status"] == (
+              "NON_AUTHORITATIVE_S4_NEW_EXECUTOR_EQUIVALENCE_COMPLETE"
+          )
+          assert data["selected_row_count"] == 12
+          assert data["unique_scientific_run_count"] == 7
+          assert data["selected_row_identity_sha256"] == (
+              "41062e2bf501799a41b78d412b33551685045b98b9a67c9d50a9a26131c16b36"
+          )
+          assert data["exact_match_count"] == 12
+          assert data["mismatch_count"] == 0
+          assert all(row["exact_match"] is True for row in data["pairs"])
+          assert data["broad_executor_authorized_after_retention"] is True
+          assert data["broad_execution_started"] is False
+          assert data["scientific_interpretation_authorized"] is False
+          assert data["release_0_2_0_blocker_closed"] is False
+          assert all(value is False for value in data["boundary"].values())
+
+          print(
+              "S4_EXECUTOR_EQUIVALENCE="
+              + json.dumps(
+                  {
+                      "selected_row_count": data["selected_row_count"],
+                      "unique_scientific_run_count": data[
+                          "unique_scientific_run_count"
+                      ],
+                      "selection_sha256": data[
+                          "selected_row_identity_sha256"
+                      ],
+                      "reproduced_evidence_sha256": data[
+                          "reproduced_evidence_sha256"
+                      ],
+                      "exact_match_count": data["exact_match_count"],
+                      "elapsed_seconds": data["elapsed_seconds"],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload equivalence evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-s4-new-executor-equivalence
+          path: |
+            /tmp/f1b-r2-s4-new-executor-equivalence.json
+            /tmp/f1b-r2-s4-new-executor-equivalence-core.json
+            /tmp/f1b-r2-s4-new-executor-equivalence-core.log
+          if-no-files-found: error
