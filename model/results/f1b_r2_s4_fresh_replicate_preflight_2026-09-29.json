@@ -1,0 +1,146 @@
+{
+  "result_id": "F1B.R2.S4.FRESH_REPLICATE_PREFLIGHT.RESULT.2026-09-29",
+  "status": "NON_AUTHORITATIVE_S4_FRESH_REPLICATE_PREFLIGHT_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 259,
+  "execution": {
+    "temporary_execution_pr": 294,
+    "workflow_run_id": 36538099199,
+    "workflow_run_number": 1,
+    "execution_pr_head": "d93f8bdd963f3b69c22a81887ae6e3a3d58fe705",
+    "qualified_main_baseline": "64c36e7208595b5ffd30d1c743b7bf4acd4455d2",
+    "artifact_id": 11019688175,
+    "artifact_name": "f1b-r2-s4-fresh-replicate-preflight",
+    "artifact_zip_sha256": "69d405dd5fcc34cdbf8d38d7e8a2ec870eae531342a0b104527558d774b4f13a",
+    "selection_json_sha256": "c602f7582238c34691cbae8bd2019c5f6d5ca606439779600a43ac552c1459e9",
+    "result_json_sha256": "288f0be87a9ba43fd18234d2832535215cbecfbf87c9de7c66f0bae42045cf3b",
+    "core_json_sha256": "a79fd356c00dc9ad04eb27a7ded4d939ce0f80accbcf2285fab0992ff9419b8b",
+    "core_log_sha256": "18dd8de98d3cc40e16f905c7087571de7803bbdadc0b4b3b8fcae064fc4be53c"
+  },
+  "selection": {
+    "scientific_run_count": 18,
+    "method_row_count": 72,
+    "scientific_run_ids_sha256": "d55ce620877a7b64a8ce37312025756482ff287456b62811f6a5b8249197666e",
+    "method_row_ids_sha256": "be00d6689e29d5af959baa747a72254f449ec4d4dd20cd070460dac71f7a0a21",
+    "fresh_departure_replicate": 5,
+    "fresh_null_replicate": 20,
+    "missingness_regimes": [
+      0,
+      0.15
+    ],
+    "method_order": [
+      "POPULATION",
+      "HIERARCHICAL_0.5X",
+      "HIERARCHICAL_1X",
+      "HIERARCHICAL_2X"
+    ]
+  },
+  "result_summary": {
+    "structural_preflight_pass": true,
+    "status_counts": {
+      "SEQUENTIAL_RESOLVED_AT_PREFIX": 67,
+      "SEQUENTIAL_RESOLVED": 5
+    },
+    "decision_counts": {
+      "NOT_REJECT_P_GT_ALPHA": 61,
+      "REJECT_P_LE_ALPHA": 11
+    },
+    "terminal_n_summary": {
+      "minimum": 199,
+      "median": 199,
+      "maximum": 3359
+    },
+    "elapsed_seconds": 626.1860697889999,
+    "numerical_lineage": [
+      "Haswell",
+      "Haswell"
+    ]
+  },
+  "method_summaries": {
+    "POPULATION": {
+      "row_count": 18,
+      "status_counts": {
+        "SEQUENTIAL_RESOLVED_AT_PREFIX": 17,
+        "SEQUENTIAL_RESOLVED": 1
+      },
+      "decision_counts": {
+        "NOT_REJECT_P_GT_ALPHA": 15,
+        "REJECT_P_LE_ALPHA": 3
+      },
+      "elapsed_seconds": 93.70485778900007
+    },
+    "HIERARCHICAL_0.5X": {
+      "row_count": 18,
+      "status_counts": {
+        "SEQUENTIAL_RESOLVED_AT_PREFIX": 17,
+        "SEQUENTIAL_RESOLVED": 1
+      },
+      "decision_counts": {
+        "NOT_REJECT_P_GT_ALPHA": 15,
+        "REJECT_P_LE_ALPHA": 3
+      },
+      "elapsed_seconds": 133.9024475530001
+    },
+    "HIERARCHICAL_1X": {
+      "row_count": 18,
+      "status_counts": {
+        "SEQUENTIAL_RESOLVED_AT_PREFIX": 17,
+        "SEQUENTIAL_RESOLVED": 1
+      },
+      "decision_counts": {
+        "NOT_REJECT_P_GT_ALPHA": 15,
+        "REJECT_P_LE_ALPHA": 3
+      },
+      "elapsed_seconds": 135.99574758000003
+    },
+    "HIERARCHICAL_2X": {
+      "row_count": 18,
+      "status_counts": {
+        "SEQUENTIAL_RESOLVED_AT_PREFIX": 16,
+        "SEQUENTIAL_RESOLVED": 2
+      },
+      "decision_counts": {
+        "NOT_REJECT_P_GT_ALPHA": 16,
+        "REJECT_P_LE_ALPHA": 2
+      },
+      "elapsed_seconds": 262.5827297330002
+    }
+  },
+  "interpretation": {
+    "scientific_outcome_is_acceptance_criterion": false,
+    "fresh_executor_path_qualified": true,
+    "all_five_scientific_roles_covered": true,
+    "all_three_null_identities_covered": true,
+    "both_departure_signs_covered": true,
+    "both_missingness_regimes_covered": true,
+    "all_four_methods_covered": true,
+    "w0_authorized_after_retention": true,
+    "broad_execution_started": false,
+    "scientific_interpretation_authorized": false,
+    "power_validated": false,
+    "method_selected": false
+  },
+  "next_gate": {
+    "id": "S4_W0_BROAD_EXECUTION",
+    "authorization": "AFTER_THIS_RESULT_IS_RETAINED_ON_MAIN",
+    "purpose": "Execute only W0 under the frozen 250-shard topology, combining 3360 imported M2 method rows with 11640 new method executions.",
+    "w1_w2_w3_authorized": false
+  },
+  "release": {
+    "target_next_release": "0.2.0",
+    "release_issue": 277,
+    "release_blocker_closed": false,
+    "blocker": "S4 broad characterization must complete all four waves, be retained, and be scientifically interpreted."
+  },
+  "boundary": {
+    "broad_execution_started": false,
+    "scientific_interpretation_authorized": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "power_validated": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "version_bumped": false
+  }
+}
