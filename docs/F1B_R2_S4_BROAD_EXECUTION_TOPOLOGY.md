@@ -63,6 +63,18 @@ Imported W0 evidence remains attached to the same scientific-run shard.
 
 No method-specific sharding is allowed.
 
+The complete frozen wave/shard assignment has canonical SHA-256:
+
+`7d37f2384c1003490a4b6e7a091f8648ed61e72241f964d3ce0336229f63dbce`
+
+Verified scientific-run counts per shard are:
+- W0: 5..29;
+- W1: 5..27;
+- W2: 6..27;
+- W3: 4..27.
+
+Thus all 1,000 frozen shards are non-empty.
+
 ## Wave completeness
 
 A wave is complete only if:
