@@ -1,0 +1,146 @@
+{
+  "preflight_id": "F1B.R2.S4.FRESH_REPLICATE_PREFLIGHT.V1",
+  "status": "NON_AUTHORITATIVE_S4_FRESH_REPLICATE_PREFLIGHT_DESIGN",
+  "issue": 259,
+  "baseline_main_commit": "f72917c05b22540a685ba582a4b64177babd6f64",
+  "retained_sources": {
+    "s4_matrix": {
+      "artifact_id": 10988228984,
+      "artifact_name": "f1b-r2-s4-broad-scientific-matrix",
+      "workflow_run_id": 36463026247,
+      "manifest_json_sha256": "f0691a0dc153f2ee1463f5115feeff448b49e7d2fb7accd6568a0fb8c43a5f01",
+      "scientific_run_ids_sha256": "851e7336387901ca15d2486ed8efc19cd090ffac869b760352106a3f455f2b43",
+      "scientific_run_count": 15000
+    },
+    "topology": {
+      "result_path": "model/results/f1b_r2_s4_broad_execution_topology_2026-09-29.json",
+      "result_git_blob_sha": "ddc5f266b259ccea3542ceedf316d222fc30632e"
+    }
+  },
+  "prerequisite": {
+    "retained_executor_equivalence_required_before_execution": true,
+    "exact_equivalence_row_count": 12,
+    "exact_equivalence_match_count": 12,
+    "broad_executor_authorized_required": true,
+    "gate_may_be_implemented_before_equivalence_retention": true,
+    "preflight_execution_before_equivalence_retention": false
+  },
+  "selection": {
+    "methods": [
+      "POPULATION",
+      "HIERARCHICAL_0.5X",
+      "HIERARCHICAL_1X",
+      "HIERARCHICAL_2X"
+    ],
+    "null": {
+      "identities": [
+        "ADD_NULL",
+        "CBD_NULL_ANCHOR_1",
+        "CBD_NULL_ANCHOR_2"
+      ],
+      "evaluation_replicate": 20,
+      "missingness": [
+        0,
+        0.15
+      ]
+    },
+    "departure": {
+      "roles": [
+        "ADD_SPECIFICITY_NEGATIVE_CONTROL",
+        "ADD_DEPARTURE_DIAGNOSTIC",
+        "CBD_DEPARTURE_DETECTION"
+      ],
+      "signs": [
+        -1,
+        1
+      ],
+      "evaluation_replicate": 5,
+      "missingness": [
+        0,
+        0.15
+      ],
+      "cell_choice": "LEXICOGRAPHICALLY_SMALLEST_SCIENTIFIC_RUN_ID_PER_ROLE_SIGN_MISSINGNESS"
+    },
+    "expected_scientific_run_count": 18,
+    "expected_method_row_count": 72,
+    "expected_scientific_run_ids_sha256": "d55ce620877a7b64a8ce37312025756482ff287456b62811f6a5b8249197666e",
+    "expected_method_row_ids_sha256": "be00d6689e29d5af959baa747a72254f449ec4d4dd20cd070460dac71f7a0a21",
+    "all_selected_runs_outside_m2_prefix": true
+  },
+  "coverage": {
+    "expected_roles": [
+      "ADD_DEPARTURE_DIAGNOSTIC",
+      "ADD_NULL_FALSE_REJECTION",
+      "ADD_SPECIFICITY_NEGATIVE_CONTROL",
+      "CBD_DEPARTURE_DETECTION",
+      "CBD_NULL_FALSE_REJECTION"
+    ],
+    "expected_null_identities": [
+      "ADD_NULL",
+      "CBD_NULL_ANCHOR_1",
+      "CBD_NULL_ANCHOR_2"
+    ],
+    "expected_restrictions": [
+      "ADD_RESTRICTION",
+      "CBD_COMPLEMENT_RESTRICTION"
+    ],
+    "expected_missingness": [
+      0,
+      0.15
+    ],
+    "expected_departure_signs": [
+      -1,
+      1
+    ],
+    "expected_identity_types": [
+      "DEPARTURE",
+      "NULL"
+    ],
+    "expected_method_count": 4
+  },
+  "execution_contract": {
+    "numerical_lineage_variable": "OPENBLAS_CORETYPE",
+    "numerical_lineage_value": "Haswell",
+    "runtime_core_confirmation_required": true,
+    "prefix_attempts": 199,
+    "first_new_draw_index": 199,
+    "maximum_total_attempts": 10000,
+    "stop_on_first_prefix_refit_failure": true,
+    "no_replacement_replicates": true,
+    "all_methods_same_scientific_dataset": true,
+    "all_methods_same_missingness_mask": true,
+    "allowed_terminal_states": [
+      "SEQUENTIAL_RESOLVED_AT_PREFIX",
+      "SEQUENTIAL_RESOLVED",
+      "SEQUENTIAL_UNRESOLVED_AT_CAP",
+      "BOOTSTRAP_REFIT_FAILURE_UNRESOLVED",
+      "PREFIX_EXECUTION_FAILURE_UNRESOLVED"
+    ],
+    "scientific_outcome_is_not_acceptance_criterion": true
+  },
+  "protected_file_git_blob_sha": {
+    "src/cognitive_epistemic_model/calibration/f1b_r2_s4_broad_executor.py": "ab1eb088c8551733909d3f1fb7acdb8c59e7da44",
+    "model/benchmarks/f1b_r2_s4_new_executor_equivalence_v1.json": "2450a843271a6de245047b078a0f527486999507",
+    "model/results/f1b_r2_s4_broad_execution_topology_2026-09-29.json": "ddc5f266b259ccea3542ceedf316d222fc30632e",
+    "model/results/f1b_r2_s4_broad_scientific_matrix_2026-09-28.json": "6d411d4d961cc3039f7a501e869af868bb3619de",
+    "model/benchmarks/f1b_r2_s4_broad_execution_topology_v1.json": "2894c635f51c55fc0e0a283c9de804065c4f6735"
+  },
+  "release": {
+    "target_next_release": "0.2.0",
+    "release_issue": 277,
+    "release_blocker_closed": false
+  },
+  "boundary": {
+    "executor_equivalence_assumed": false,
+    "preflight_executed": false,
+    "broad_execution_started": false,
+    "scientific_interpretation_authorized": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "power_validated": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "version_bumped": false
+  }
+}
