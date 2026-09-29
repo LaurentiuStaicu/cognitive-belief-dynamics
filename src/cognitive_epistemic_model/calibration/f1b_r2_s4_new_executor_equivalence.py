@@ -36,6 +36,13 @@ def canonical_json_sha256(value: Any) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def equivalence_row_identity(row: dict) -> str:
+    return (
+        f"{row['inference_method']}|{row['status']}|"
+        f"{row['scientific_run_id']}"
+    )
+
+
 def validate_equivalence_config(config: dict) -> None:
     if config["equivalence_id"] != EQUIVALENCE_ID:
         raise ValueError("S4 equivalence identity changed")
@@ -175,9 +182,7 @@ def select_equivalence_rows(
                 key=lambda value: str(value["scientific_run_id"]),
             )
             selected.append(row)
-            identity_strings.append(
-                f"{method_id}|{status}|{row['scientific_run_id']}"
-            )
+            identity_strings.append(equivalence_row_identity(row))
 
     if len(selected) != 12:
         raise ValueError("S4 equivalence did not select exactly 12 rows")
@@ -229,14 +234,7 @@ def build_equivalence_result(
         )
 
     pair_identity_sha256 = canonical_json_sha256(
-        [
-            [
-                row["inference_method"],
-                row["status"],
-                row["scientific_run_id"],
-            ]
-            for row in pairs
-        ]
+        [equivalence_row_identity(row) for row in pairs]
     )
     if pair_identity_sha256 != EXPECTED_SELECTION_SHA256:
         raise ValueError("S4 equivalence output selection digest changed")
