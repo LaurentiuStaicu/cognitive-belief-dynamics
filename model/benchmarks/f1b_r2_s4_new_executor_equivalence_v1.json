@@ -1,0 +1,119 @@
+{
+  "equivalence_id": "F1B.R2.S4.NEW_EXECUTOR_EQUIVALENCE.V1",
+  "status": "NON_AUTHORITATIVE_S4_NEW_EXECUTOR_EQUIVALENCE_DESIGN",
+  "issue": 259,
+  "lineage_commit": "7a84a81eb1bd01c323cb2e530f38329a52a64d70",
+  "retained_sources": {
+    "h1": {
+      "artifact_id": 10961527329,
+      "artifact_name": "f1b-r2-homogeneous-h1-combined",
+      "workflow_run_id": 36401867007,
+      "json_sha256": "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e"
+    },
+    "m2": {
+      "artifact_id": 10987519941,
+      "artifact_name": "f1b-r2-m2-combined",
+      "workflow_run_id": 36450594439,
+      "json_sha256": "b9034afd6b6837c8433e0d42fd90911a7b560e18225de7d551f559330742c808",
+      "row_identity_sha256": "b21ee68fd61a0f1364c0722e73ff472119075ae32ee380021b8a671df76c4707",
+      "scientific_run_count": 840,
+      "method_row_count": 3360
+    },
+    "s4_matrix": {
+      "artifact_id": 10988228984,
+      "artifact_name": "f1b-r2-s4-broad-scientific-matrix",
+      "workflow_run_id": 36463026247,
+      "manifest_json_sha256": "f0691a0dc153f2ee1463f5115feeff448b49e7d2fb7accd6568a0fb8c43a5f01",
+      "scientific_run_ids_sha256": "851e7336387901ca15d2486ed8efc19cd090ffac869b760352106a3f455f2b43"
+    }
+  },
+  "selection": {
+    "methods": [
+      "POPULATION",
+      "HIERARCHICAL_0.5X",
+      "HIERARCHICAL_1X",
+      "HIERARCHICAL_2X"
+    ],
+    "statuses": [
+      "SEQUENTIAL_RESOLVED_AT_PREFIX",
+      "SEQUENTIAL_RESOLVED",
+      "SEQUENTIAL_UNRESOLVED_AT_CAP"
+    ],
+    "rule": "LEXICOGRAPHICALLY_SMALLEST_SCIENTIFIC_RUN_ID_PER_METHOD_STATUS",
+    "expected_row_count": 12,
+    "expected_unique_scientific_run_count": 7,
+    "selected_row_identity_sha256": "41062e2bf501799a41b78d412b33551685045b98b9a67c9d50a9a26131c16b36"
+  },
+  "numerical_lineage": {
+    "environment_variable": "OPENBLAS_CORETYPE",
+    "required_value": "Haswell",
+    "must_be_set_before_python_start": true,
+    "runtime_confirmation_required": true,
+    "fallback_allowed": false
+  },
+  "executor_contract": {
+    "prefix_attempts": 199,
+    "stop_on_first_prefix_refit_failure": true,
+    "prefix_execution_failure_state": "PREFIX_EXECUTION_FAILURE_UNRESOLVED",
+    "prefix_refit_failure_state": "BOOTSTRAP_REFIT_FAILURE_UNRESOLVED",
+    "controller_id": "F1B.R2.RESAMPLING_RISK_CONTROLLER.V1",
+    "first_new_draw_index": 199,
+    "maximum_total_attempts": 10000,
+    "exact_retained_m2_equality_required": true
+  },
+  "exact_equality_fields": [
+    "dataset_sha256",
+    "inference_method",
+    "bootstrap_base_seed",
+    "prefix_attempt_sequence_sha256",
+    "observed_statistic",
+    "prefix_sum_199",
+    "prefix_decision",
+    "prefix_boundary_hit",
+    "continued_beyond_199",
+    "first_new_draw_index",
+    "new_attempt_count",
+    "new_successful_attempt_count",
+    "new_refit_failure_count",
+    "new_attempt_sequence_sha256",
+    "status",
+    "decision",
+    "boundary_hit",
+    "terminal_n",
+    "terminal_sum",
+    "failure_n"
+  ],
+  "protected_file_git_blob_sha": {
+    "src/cognitive_epistemic_model/calibration/f1b_r2_s4_broad_executor.py": "ab1eb088c8551733909d3f1fb7acdb8c59e7da44",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_paired_method_m2_sequential_resolution.py": "2b3b49944051eef8f725f50195f91c1dda2a2549",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_paired_method_m1_screen.py": "b3f1771f2852a59985ddc711049e902c80a14e22",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_restriction_recovery.py": "09291cc220aec5e1a557cdd697cb1257af2f233c",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_population_restriction_recovery.py": "6f520d8d804d579a1865dd415fb213b69199539d",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_paired_bootstrap_characterization.py": "3f23fc9bfc87d9ff45e83f11a529e3f0793969f4",
+    "model/benchmarks/f1b_r2_paired_method_m1_screen_v1.json": "7a5e6b76055971c74cdd5ca0f1552887a31daaaf",
+    "model/benchmarks/f1b_r2_paired_method_m2_sequential_resolution_v1.json": "26cc15358575dfec9bc53e063f8445737074b2a3",
+    "model/benchmarks/f1b_r2_s4_broad_scientific_matrix_v1.json": "d54fcf8cbf222a124a6c69644815923408b5058b",
+    "model/benchmarks/f1b_r2_kl_v2_paired_bootstrap_draw_stability.json": "e29e675a4d5c7696293cfbdf9c5d96ca431b237d",
+    "model/benchmarks/f1b_r2_kl_controlled_departure_design_v2.json": "f0d4f1ad31e004c154f5ff34786d9a99d7456ac4",
+    "model/benchmarks/f1b_r2_distance_definition_review.json": "c9738ec2a7ba140c92e77124b256a4c7078b2ec5",
+    "model/benchmarks/f1b_r2_controlled_departure_design.json": "d01b885e5a197fa6bc527a2ae7e73f37a4bee082",
+    "model/results/f1b_r2_s4_broad_execution_topology_2026-09-29.json": "ddc5f266b259ccea3542ceedf316d222fc30632e"
+  },
+  "release": {
+    "target_next_release": "0.2.0",
+    "release_issue": 277,
+    "release_blocker_closed": false
+  },
+  "boundary": {
+    "new_scientific_replicates_generated": false,
+    "retained_m2_rows_changed": false,
+    "broad_execution_started": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "power_validated": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "version_bumped": false
+  }
+}
