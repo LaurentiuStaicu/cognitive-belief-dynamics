@@ -24,6 +24,15 @@
       "s4_matrix_artifact_id": 10988228984,
       "s4_matrix_artifact_name": "f1b-r2-s4-broad-scientific-matrix",
       "s4_manifest_json_sha256": "f0691a0dc153f2ee1463f5115feeff448b49e7d2fb7accd6568a0fb8c43a5f01"
+    },
+    "preflight_result": {
+      "path": "model/results/f1b_r2_s4_w1_shard11_preflight_2026-09-29.json",
+      "git_blob_sha": "4dc28d64ef81c2070467dc197064e9b4f37173e7",
+      "required_status": "NON_AUTHORITATIVE_S4_W1_SHARD11_PREFLIGHT_COMPLETE_RETAINED",
+      "preflight_pass": true,
+      "full_w1_authorized_after_retention": true,
+      "retention_pr": 309,
+      "retention_merge_commit": "482e38e86c996fae9c56ba4a8af2584c88db5547"
     }
   },
   "wave": {
@@ -95,8 +104,8 @@
     "predecessor_retained": true,
     "wave_execution_authorized": true,
     "full_wave_requires_preflight_retention": true,
-    "preflight_retained": false,
-    "full_wave_execution_authorized": false,
+    "preflight_retained": true,
+    "full_wave_execution_authorized": true,
     "w2_authorized": false,
     "w3_authorized": false
   },
