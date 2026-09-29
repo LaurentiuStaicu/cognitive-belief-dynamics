@@ -198,8 +198,14 @@ def validate_all_new_wave_config(config: dict) -> None:
         raise ValueError("S4 all-new-wave is not authorized")
     if authorization["full_wave_requires_preflight_retention"] is not True:
         raise ValueError("S4 all-new-wave preflight gate weakened")
-    if wave_id == "W1" and authorization["preflight_retained"] is not False:
-        raise ValueError("S4 W1 preflight cannot be pre-retained in gate config")
+    preflight_retained = bool(authorization["preflight_retained"])
+    full_wave_authorized = bool(
+        authorization["full_wave_execution_authorized"]
+    )
+    if full_wave_authorized != preflight_retained:
+        raise ValueError(
+            "S4 W1 full-wave authorization must match retained preflight"
+        )
     if wave_id != "W1":
         raise ValueError(
             "S4 W2/W3 execution requires a later retained predecessor config"
@@ -362,8 +368,12 @@ def build_all_new_wave_plan(s4_manifest: dict, config: dict) -> dict:
         "shard_plan_sha256": canonical_json_sha256(digest_plan),
         "shard_plan": shard_plan,
         "preflight_shard_index": int(preflight["shard_index"]),
-        "preflight_retained": False,
-        "full_wave_execution_authorized": False,
+        "preflight_retained": bool(
+            config["authorization"]["preflight_retained"]
+        ),
+        "full_wave_execution_authorized": bool(
+            config["authorization"]["full_wave_execution_authorized"]
+        ),
         "scientific_interpretation_authorized": False,
         "method_selected": False,
         "power_validated": False,
