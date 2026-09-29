@@ -1,0 +1,116 @@
+{
+  "result_id": "F1B.R2.S4.BROAD_EXECUTION_TOPOLOGY.RESULT.2026-09-29",
+  "status": "NON_AUTHORITATIVE_S4_BROAD_EXECUTION_TOPOLOGY_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 259,
+  "execution": {
+    "temporary_execution_pr": 285,
+    "workflow_run_id": 36528991962,
+    "workflow_run_number": 1,
+    "execution_pr_head": "dc07747856c2e6db2d4d66754dd1b883aec27383",
+    "qualified_main_baseline": "d5a5e4e93a5df91a9785be405e9833ed3ae05b5c",
+    "artifact_id": 11016235168,
+    "artifact_name": "f1b-r2-s4-broad-execution-topology",
+    "artifact_zip_sha256": "d6bdb313545ca33ca09e48379b1bb7d4f7c8d7fc790f86f15cd83c9b1f2d5a6b",
+    "topology_json_sha256": "31121be6270423489828d4544bece75f9264aff2c7bfcd8e703e6a10d4f7fa69",
+    "topology_json_size_bytes": 255623
+  },
+  "topology": {
+    "wave_count": 4,
+    "shard_count_per_wave": 250,
+    "total_shard_count": 1000,
+    "scientific_run_count": 15000,
+    "method_row_count": 60000,
+    "imported_scientific_run_count": 840,
+    "imported_method_row_count": 3360,
+    "new_scientific_run_count": 14160,
+    "new_method_execution_count": 56640,
+    "scientific_run_ids_sha256": "851e7336387901ca15d2486ed8efc19cd090ffac869b760352106a3f455f2b43",
+    "assignment_rows_sha256": "7d37f2384c1003490a4b6e7a091f8648ed61e72241f964d3ce0336229f63dbce",
+    "per_wave_summary": [
+      {
+        "wave_id": "W0",
+        "shard_count": 250,
+        "scientific_run_count": 3750,
+        "imported_scientific_run_count": 840,
+        "new_scientific_run_count": 2910,
+        "imported_method_row_count": 3360,
+        "new_method_execution_count": 11640,
+        "minimum_scientific_runs_per_shard": 5,
+        "maximum_scientific_runs_per_shard": 29
+      },
+      {
+        "wave_id": "W1",
+        "shard_count": 250,
+        "scientific_run_count": 3750,
+        "imported_scientific_run_count": 0,
+        "new_scientific_run_count": 3750,
+        "imported_method_row_count": 0,
+        "new_method_execution_count": 15000,
+        "minimum_scientific_runs_per_shard": 5,
+        "maximum_scientific_runs_per_shard": 27
+      },
+      {
+        "wave_id": "W2",
+        "shard_count": 250,
+        "scientific_run_count": 3750,
+        "imported_scientific_run_count": 0,
+        "new_scientific_run_count": 3750,
+        "imported_method_row_count": 0,
+        "new_method_execution_count": 15000,
+        "minimum_scientific_runs_per_shard": 6,
+        "maximum_scientific_runs_per_shard": 27
+      },
+      {
+        "wave_id": "W3",
+        "shard_count": 250,
+        "scientific_run_count": 3750,
+        "imported_scientific_run_count": 0,
+        "new_scientific_run_count": 3750,
+        "imported_method_row_count": 0,
+        "new_method_execution_count": 15000,
+        "minimum_scientific_runs_per_shard": 4,
+        "maximum_scientific_runs_per_shard": 27
+      }
+    ]
+  },
+  "operational_cost_check": {
+    "source_stage": "M2_SEQUENTIAL_RESOLUTION",
+    "observed_m2_scientific_runs_per_shard_range": [
+      4,
+      21
+    ],
+    "observed_m2_median_seconds_per_scientific_run": 102.07692307692308,
+    "observed_m2_p95_seconds_per_scientific_run": 217.9090909090909,
+    "observed_m2_slowest_seconds_per_scientific_run": 251.75,
+    "estimated_largest_29_run_shard_p95_minutes": 105.32272727272726,
+    "estimated_largest_29_run_shard_slowest_observed_rate_minutes": 121.67916666666666,
+    "github_default_job_timeout_minutes": 360,
+    "sharding_redesign_required": false
+  },
+  "next_gate": {
+    "id": "S4_NEW_EXECUTOR_EQUIVALENCE",
+    "required_rows": 12,
+    "selection_rule": "Lexicographically smallest retained M2 scientific_run_id for each of 4 methods × 3 M2 terminal status classes.",
+    "broad_execution_started": false
+  },
+  "release": {
+    "target_next_release": "0.2.0",
+    "release_issue": 277,
+    "release_blocker_closed": false,
+    "blocker": "S4 broad characterization must be executed, retained and scientifically interpreted."
+  },
+  "boundary": {
+    "scientific_matrix_rewritten": false,
+    "prefix_bridge_rewritten": false,
+    "method_binding_rewritten": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "broad_execution_performed": false,
+    "power_validated": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "version_bumped": false
+  }
+}
