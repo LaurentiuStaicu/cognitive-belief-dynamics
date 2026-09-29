@@ -1,0 +1,119 @@
+{
+  "result_id": "F1B.R2.S4.W1.SHARD11.PREFLIGHT.RESULT.2026-09-29",
+  "status": "NON_AUTHORITATIVE_S4_W1_SHARD11_PREFLIGHT_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 259,
+  "execution": {
+    "temporary_execution_pr": 308,
+    "temporary_execution_pr_merged": false,
+    "workflow_run_id": 36592144220,
+    "workflow_run_attempt": 1,
+    "execution_head": "7ecd804994f584c85363b6dc3121aa9e57d29a33",
+    "workflow_merge_sha": "d7f175317f4868f6d5c8e8e4bc22cfd0a72297c8",
+    "qualified_main_baseline": "65b59e6dbfbe74d3841b19639f944ebe023053b8",
+    "all_job_steps_success": true,
+    "artifact_id": 11045603524,
+    "artifact_name": "f1b-r2-s4-w1-shard11-preflight",
+    "artifact_zip_sha256": "bc1393d3e8fdc57aa6ee4c9f39879673ef8b3052b08e03219001f9af0562499f",
+    "artifact_size_bytes": 30977,
+    "plan_json_sha256": "a80193e8cbdb151efd4c07b4c8a1e71b8c7749adc54016267297ba4d28e0d169",
+    "plan_json_size_bytes": 108880,
+    "result_json_sha256": "4a7e12f690f26c2d678573b5b1cd84b689cbc9184e27f7761d77d2ce1b2f70ef",
+    "result_json_size_bytes": 118909,
+    "core_log_sha256": "18dd8de98d3cc40e16f905c7087571de7803bbdadc0b4b3b8fcae064fc4be53c",
+    "core_log_size_bytes": 28,
+    "evidence_json_sha256": "ddc17fa82f0570bb93f9a8c7e4c6065b927c71e94d04e1ce2ecab11b4303cac1",
+    "evidence_json_size_bytes": 1511
+  },
+  "protected_sources": {
+    "model/benchmarks/f1b_r2_s4_w1_execution_v1.json": "d3aa34e2e92eb88056b0cc7cfdb0510ee2270073",
+    "model/results/f1b_r2_s4_w0_combined_2026-09-29.json": "d8aa5b48a91b6242c3a0d4455c4d2278c30642e1",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_s4_all_new_wave.py": "741fa367ac54d6b3154ea3a6a61efadf82f58a05",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_s4_all_new_wave_shard.py": "e3c6e6f6f4e3770d0c8f2f9ee348a4e082bd3597",
+    "src/cognitive_epistemic_model/calibration/f1b_r2_s4_broad_executor.py": "ab1eb088c8551733909d3f1fb7acdb8c59e7da44",
+    "scripts/build_f1b_r2_s4_all_new_wave_plan.py": "3b9432fa9f0ca56e156e35369a2d43b8f9df073d",
+    "scripts/run_f1b_r2_s4_all_new_wave_shard.py": "914aeee9cb2ab672cbc1d5cb35d4ebc15cb3506f"
+  },
+  "retained_inputs": {
+    "h1_workflow_run_id": 36401867007,
+    "h1_artifact_id": 10961527329,
+    "h1_combined_json_sha256": "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e",
+    "s4_matrix_workflow_run_id": 36463026247,
+    "s4_matrix_artifact_id": 10988228984,
+    "s4_manifest_json_sha256": "f0691a0dc153f2ee1463f5115feeff448b49e7d2fb7accd6568a0fb8c43a5f01"
+  },
+  "wave_plan": {
+    "wave_id": "W1",
+    "replicate_start": 25,
+    "replicate_end": 49,
+    "scientific_run_count": 3750,
+    "method_row_count": 15000,
+    "imported_scientific_run_count": 0,
+    "imported_method_row_count": 0,
+    "new_scientific_run_count": 3750,
+    "new_method_execution_count": 15000,
+    "scientific_run_ids_sha256": "42a1803705c0c4f7efbfae0983a7c57f20036c76cd933c99af3fcd4e3cd9087c",
+    "method_row_ids_sha256": "2191e0aceb072c20bca90dab1b6db3ed8bffef997bf2ead8ec2ace2ac4a81957",
+    "shard_plan_sha256": "36d294a165ec1e8a8baffac70516ce7fceab149998079b534998503f3f578175",
+    "shard_count": 250
+  },
+  "preflight": {
+    "shard_index": 11,
+    "scientific_run_count": 15,
+    "method_row_count": 60,
+    "imported_scientific_run_count": 0,
+    "imported_method_row_count": 0,
+    "new_scientific_run_count": 15,
+    "new_method_execution_count": 60,
+    "scientific_run_ids_sha256": "da11844e3c88b0f2dd95c039efb1f7f0ba398d3d48518d4c136a039c084e25a2",
+    "method_row_ids_sha256": "a6917767655c652a0977e8455f069db50e95fa6f91d9a7fd9de7d48bdb6f99da",
+    "evidence_origin_counts": {
+      "S4_NEW_EXECUTION": 60
+    },
+    "status_counts": {
+      "SEQUENTIAL_RESOLVED": 13,
+      "SEQUENTIAL_RESOLVED_AT_PREFIX": 44,
+      "SEQUENTIAL_UNRESOLVED_AT_CAP": 3
+    },
+    "decision_counts": {
+      "NOT_REJECT_P_GT_ALPHA": 28,
+      "REJECT_P_LE_ALPHA": 29
+    },
+    "reported_cores": [
+      "Haswell",
+      "Haswell"
+    ],
+    "preflight_pass": true
+  },
+  "interpretation": {
+    "scientific_outcome_is_not_acceptance_criterion": true,
+    "structural_provenance_preflight_pass": true,
+    "preflight_retained_after_merge": true,
+    "full_w1_authorized_after_this_retention_merge": true,
+    "scientific_interpretation_authorized": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "power_validated": false,
+    "next_gate": "W1_FULL_WAVE_EXECUTION"
+  },
+  "boundary": {
+    "full_w1_executed": false,
+    "w2_authorized": false,
+    "w2_executed": false,
+    "w3_authorized": false,
+    "w3_executed": false,
+    "scientific_interpretation_authorized": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "power_validated": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "version_bumped": false
+  },
+  "release": {
+    "target_next_release": "0.2.0",
+    "release_issue": 277,
+    "release_blocker_closed": false
+  }
+}
