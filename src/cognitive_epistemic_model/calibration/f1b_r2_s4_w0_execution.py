@@ -10,6 +10,7 @@ from .f1b_r2_paired_method_m2_sequential_resolution import stable_shard
 
 GATE_ID = "F1B.R2.S4.W0.EXECUTION_GATE.V1"
 STATUS = "NON_AUTHORITATIVE_S4_W0_EXECUTION_DESIGN"
+EXPECTED_RAW_M2_STATUS = "NON_AUTHORITATIVE_PAIRED_METHOD_M2_COMBINED_RESULT"
 EXPECTED_METHODS = (
     "POPULATION",
     "HIERARCHICAL_0.5X",
@@ -146,9 +147,7 @@ def build_w0_plan(
         raise ValueError("S4 W0 raw manifest status changed")
     if int(s4_manifest["scientific_run_count"]) != 15000:
         raise ValueError("S4 W0 raw manifest count changed")
-    if m2_combined["status"] != (
-        "NON_AUTHORITATIVE_PAIRED_METHOD_M2_SEQUENTIAL_RESOLUTION_COMPLETE"
-    ):
+    if m2_combined["status"] != EXPECTED_RAW_M2_STATUS:
         raise ValueError("S4 W0 M2 raw status changed")
 
     rows = [
@@ -257,9 +256,13 @@ def build_w0_plan(
         )
 
     counts = [row["scientific_run_count"] for row in shard_plan]
-    if min(counts) != int(config["shards"]["minimum_scientific_runs_per_shard"]):
+    if min(counts) != int(
+        config["shards"]["minimum_scientific_runs_per_shard"]
+    ):
         raise ValueError("S4 W0 minimum shard load changed")
-    if max(counts) != int(config["shards"]["maximum_scientific_runs_per_shard"]):
+    if max(counts) != int(
+        config["shards"]["maximum_scientific_runs_per_shard"]
+    ):
         raise ValueError("S4 W0 maximum shard load changed")
 
     digest_plan = [
@@ -271,7 +274,9 @@ def build_w0_plan(
             ],
             "new_scientific_run_count": row["new_scientific_run_count"],
             "imported_method_row_count": row["imported_method_row_count"],
-            "new_method_execution_count": row["new_method_execution_count"],
+            "new_method_execution_count": row[
+                "new_method_execution_count"
+            ],
         }
         for row in shard_plan
     ]
@@ -295,7 +300,9 @@ def build_w0_plan(
         "scientific_run_ids_sha256": config["wave"][
             "scientific_run_ids_sha256"
         ],
-        "method_row_ids_sha256": config["wave"]["method_row_ids_sha256"],
+        "method_row_ids_sha256": config["wave"][
+            "method_row_ids_sha256"
+        ],
         "imported_method_row_ids_sha256": config["wave"][
             "imported_method_row_ids_sha256"
         ],
