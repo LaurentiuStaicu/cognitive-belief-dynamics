@@ -194,7 +194,26 @@
     "imported_rows_remain_with_scientific_run_shard": true,
     "expected_matrix_jobs_per_wave": 250,
     "github_actions_matrix_max_jobs": 256,
-    "wave_combine_job_is_not_matrix_member": true
+    "wave_combine_job_is_not_matrix_member": true,
+    "expected_assignment_rows_sha256": "7d37f2384c1003490a4b6e7a091f8648ed61e72241f964d3ce0336229f63dbce",
+    "expected_scientific_runs_per_shard_range": {
+      "W0": [
+        5,
+        29
+      ],
+      "W1": [
+        5,
+        27
+      ],
+      "W2": [
+        6,
+        27
+      ],
+      "W3": [
+        4,
+        27
+      ]
+    }
   },
   "wave_output_contract": {
     "every_wave_requires_exact_250_shard_artifacts": true,
