@@ -1,0 +1,123 @@
+name: TEMP F1b R2 S4 W0 execution plan
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  plan:
+    name: Build retained-bound W0 execution plan
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download retained S4 scientific matrix
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-s4-broad-scientific-matrix
+          path: /tmp/s4
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36463026247
+
+      - name: Download retained M2 combined evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-m2-combined
+          path: /tmp/m2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36450594439
+
+      - name: Build exact W0 plan
+        run: |
+          python scripts/build_f1b_r2_s4_w0_execution_plan.py \
+            --s4-manifest /tmp/s4/f1b-r2-s4-broad-scientific-matrix.json \
+            --m2-combined /tmp/m2/f1b-r2-m2-combined.json \
+            --output /tmp/f1b-r2-s4-w0-execution-plan.json
+
+      - name: Enforce W0 plan contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(
+              Path("/tmp/f1b-r2-s4-w0-execution-plan.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+          assert data["status"] == (
+              "NON_AUTHORITATIVE_S4_W0_EXECUTION_PLAN_COMPLETE"
+          )
+          assert data["execution_authorized"] is True
+          assert data["wave_id"] == "W0"
+          assert data["scientific_run_count"] == 3750
+          assert data["method_row_count"] == 15000
+          assert data["imported_scientific_run_count"] == 840
+          assert data["imported_method_row_count"] == 3360
+          assert data["new_scientific_run_count"] == 2910
+          assert data["new_method_execution_count"] == 11640
+          assert data["scientific_run_ids_sha256"] == (
+              "7f49bc6a67508566d2143d699af8d10d1721f571c1981035cdf1aef39dad8419"
+          )
+          assert data["method_row_ids_sha256"] == (
+              "7a936f191cdcd58e3988db43b43dbb166a2ca18033a8c5a9913f4efee2ef8b6c"
+          )
+          assert data["imported_method_row_ids_sha256"] == (
+              "d9d42ed4437199375c593110f555502d26a6660e81e045b9e1b105e8a1434537"
+          )
+          assert data["new_method_row_ids_sha256"] == (
+              "dad1b46e6028a4f0a415e8c65b5442aab44eb867e446c1ecb80ab637ee033fd5"
+          )
+          assert data["shard_count"] == 250
+          assert data["shard_plan_sha256"] == (
+              "1e248f24362eb9cdf1a9a81d7088120ed64e4333cfc711e2848d6e3e6c531f45"
+          )
+          assert len(data["shard_plan"]) == 250
+          assert min(row["scientific_run_count"] for row in data["shard_plan"]) == 5
+          assert max(row["scientific_run_count"] for row in data["shard_plan"]) == 29
+          assert data["scientific_interpretation_authorized"] is False
+          assert data["w1_authorized"] is False
+          assert data["release_0_2_0_blocker_closed"] is False
+          assert all(value is False for value in data["boundary"].values())
+
+          print(
+              "S4_W0_PLAN="
+              + json.dumps(
+                  {
+                      "scientific_run_count": data["scientific_run_count"],
+                      "method_row_count": data["method_row_count"],
+                      "imported_method_row_count": data["imported_method_row_count"],
+                      "new_method_execution_count": data["new_method_execution_count"],
+                      "shard_count": data["shard_count"],
+                      "shard_plan_sha256": data["shard_plan_sha256"],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload W0 plan evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-s4-w0-execution-plan
+          path: /tmp/f1b-r2-s4-w0-execution-plan.json
+          if-no-files-found: error
