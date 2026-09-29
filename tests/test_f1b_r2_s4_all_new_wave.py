@@ -61,7 +61,7 @@ def test_w1_rejects_premature_w2_relabel() -> None:
     )
     config["shards"]["minimum_scientific_runs_per_shard"] = 6
     config["retained_sources"]["predecessor_result"]["wave_id"] = "W1"
-    with pytest.raises(ValueError, match="later retained predecessor"):
+    with pytest.raises(ValueError, match="predecessor status"):
         wave.validate_all_new_wave_config(config)
 
 
