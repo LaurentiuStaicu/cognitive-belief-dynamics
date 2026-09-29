@@ -32,6 +32,17 @@ def test_repository_topology_contract_is_frozen() -> None:
     topology.validate_topology_config(config)
     assert config["wave_partition"]["wave_count"] == 4
     assert config["shard_partition"]["shard_count_per_wave"] == 250
+    assert config["shard_partition"]["expected_assignment_rows_sha256"] == (
+        "7d37f2384c1003490a4b6e7a091f8648ed61e72241f964d3ce0336229f63dbce"
+    )
+    assert config["shard_partition"][
+        "expected_scientific_runs_per_shard_range"
+    ] == {
+        "W0": [5, 29],
+        "W1": [5, 27],
+        "W2": [6, 27],
+        "W3": [4, 27],
+    }
     assert config["final_combine"]["total_scientific_run_count"] == 15000
     assert config["final_combine"]["total_method_row_count"] == 60000
     assert (
