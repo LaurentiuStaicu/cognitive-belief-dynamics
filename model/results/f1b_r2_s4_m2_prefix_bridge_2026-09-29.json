@@ -1,0 +1,111 @@
+{
+  "result_id": "F1B.R2.S4.M2_PREFIX_BRIDGE.RESULT.2026-09-29",
+  "status": "NON_AUTHORITATIVE_S4_M2_PREFIX_BRIDGE_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 259,
+  "execution": {
+    "temporary_execution_pr": 282,
+    "workflow_run_id": 36469185960,
+    "workflow_run_number": 1,
+    "execution_pr_head": "a823574ff944587be7d78a4c01aa8e9754bce1e7",
+    "qualified_main_baseline": "f3d3f951c765586aa51547e3139e0631f8c8c793",
+    "artifact_id": 10991217073,
+    "artifact_name": "f1b-r2-s4-m2-prefix-bridge",
+    "artifact_zip_sha256": "e2a2ef2ddffef5a8936445e6f91564ddda160d9fa53704e280b147b1c72dd1c7",
+    "bridge_json_sha256": "2a820cfc038076e83597be7b33f96274e1a2e4e71f012abe8d638de5e85b7e9f",
+    "bridge_json_size_bytes": 2180
+  },
+  "retained_sources": {
+    "h1_artifact_id": 10961527329,
+    "h1_json_sha256": "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e",
+    "m1_artifact_id": 10979254047,
+    "m1_json_sha256": "dda3978acbf13ae9dba4d548ae8355413b29c8cac24ad86d5b8905de56d81042",
+    "m2_artifact_id": 10987519941,
+    "m2_json_sha256": "b9034afd6b6837c8433e0d42fd90911a7b560e18225de7d551f559330742c808",
+    "s4_matrix_artifact_id": 10988228984,
+    "s4_manifest_sha256": "f0691a0dc153f2ee1463f5115feeff448b49e7d2fb7accd6568a0fb8c43a5f01"
+  },
+  "import_identity": {
+    "imported_scientific_run_count": 840,
+    "imported_method_row_count": 3360,
+    "imported_departure_scientific_run_count": 720,
+    "imported_null_scientific_run_count": 120,
+    "imported_scientific_run_ids_sha256": "9b3efdf5ba42fa13135d2098af8769a561d51faf7a5279dc2718d9d965e22c4a",
+    "imported_method_row_ids_sha256": "d9d42ed4437199375c593110f555502d26a6660e81e045b9e1b105e8a1434537",
+    "departure_replicate_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "null_replicate_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "prefix_import_authorized": true
+  },
+  "terminal_status_counts": {
+    "SEQUENTIAL_RESOLVED_AT_PREFIX": 2402,
+    "SEQUENTIAL_RESOLVED": 834,
+    "SEQUENTIAL_UNRESOLVED_AT_CAP": 124,
+    "BOOTSTRAP_REFIT_FAILURE_UNRESOLVED": 0
+  },
+  "broad_consequence": {
+    "total_scientific_runs": 15000,
+    "total_method_rows": 60000,
+    "imported_scientific_runs": 840,
+    "imported_method_rows": 3360,
+    "new_scientific_runs": 14160,
+    "new_method_executions": 56640,
+    "wave0_new_method_executions": 11640,
+    "wave1_new_method_executions": 15000,
+    "wave2_new_method_executions": 15000,
+    "wave3_new_method_executions": 15000,
+    "broad_estimand_changed": false
+  },
+  "next_gate": {
+    "id": "S4_BROAD_EXECUTION_TOPOLOGY",
+    "purpose": "Freeze deterministic four-wave / 250-shard-per-wave broad execution and final combine before launching any broad method execution.",
+    "broad_execution_started": false
+  },
+  "release": {
+    "target_next_release": "0.2.0",
+    "release_issue": 277,
+    "release_blocker_closed": false,
+    "blocker": "S4 broad characterization must be executed, retained and scientifically interpreted."
+  },
+  "boundary": {
+    "m1_rewritten": false,
+    "m2_rewritten": false,
+    "s4_matrix_rewritten": false,
+    "imported_rows_changed": false,
+    "broad_estimand_changed": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "broad_execution_performed": false,
+    "power_validated": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "version_bumped": false
+  }
+}
