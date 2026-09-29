@@ -31,6 +31,11 @@ def test_repository_w1_contract_is_frozen() -> None:
         "36d294a165ec1e8a8baffac70516ce7fceab149998079b534998503f3f578175"
     )
     assert config["preflight"]["shard_index"] == 11
+    assert config["authorization"]["preflight_retained"] is True
+    assert config["authorization"]["full_wave_execution_authorized"] is True
+    assert config["retained_sources"]["preflight_result"]["git_blob_sha"] == (
+        "4dc28d64ef81c2070467dc197064e9b4f37173e7"
+    )
 
 
 def test_w1_rejects_w0_membership() -> None:
@@ -93,16 +98,16 @@ def test_w1_rejects_early_interpretation() -> None:
         wave.validate_all_new_wave_config(config)
 
 
-def test_w1_rejects_preflight_shortcut() -> None:
+def test_w1_rejects_lost_preflight_retention() -> None:
     config = deepcopy(load_config())
-    config["authorization"]["preflight_retained"] = True
+    config["authorization"]["preflight_retained"] = False
     with pytest.raises(ValueError, match="authorization must match"):
         wave.validate_all_new_wave_config(config)
 
 
-def test_w1_rejects_full_wave_before_preflight_retention() -> None:
+def test_w1_rejects_full_wave_deauthorization_mismatch() -> None:
     config = deepcopy(load_config())
-    config["authorization"]["full_wave_execution_authorized"] = True
+    config["authorization"]["full_wave_execution_authorized"] = False
     with pytest.raises(ValueError, match="authorization must match"):
         wave.validate_all_new_wave_config(config)
 
