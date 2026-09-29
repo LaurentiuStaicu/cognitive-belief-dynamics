@@ -175,3 +175,70 @@ def test_new_executor_observed_fit_failure_is_unresolved(
     assert row["prefix_execution_failure"] is True
     assert row["terminal_n"] == 0
     assert row["decision"] is None
+
+
+def test_equivalence_result_uses_same_canonical_identity_as_selection(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    config = deepcopy(load_config())
+    retained_rows = []
+    reproduced_rows = []
+
+    statuses = (
+        "SEQUENTIAL_RESOLVED_AT_PREFIX",
+        "SEQUENTIAL_RESOLVED",
+        "SEQUENTIAL_UNRESOLVED_AT_CAP",
+    )
+    methods = (
+        "POPULATION",
+        "HIERARCHICAL_0.5X",
+        "HIERARCHICAL_1X",
+        "HIERARCHICAL_2X",
+    )
+    for method in methods:
+        for status in statuses:
+            run_id = f"RUN|{method}|{status}"
+            retained_rows.append(
+                {
+                    "inference_method": method,
+                    "status": status,
+                    "scientific_run_id": run_id,
+                    "dataset_sha256": "dataset-sha",
+                    "bootstrap_base_seed": 123,
+                    "regenerated_m1_attempt_sequence_sha256": "prefix-sha",
+                    "new_attempt_sequence_sha256": None,
+                    "terminal_n": 199,
+                    "decision": "NOT_REJECT_P_GT_ALPHA",
+                    "boundary_hit": "UPPER",
+                    "terminal_sum": 10,
+                    "failure_n": None,
+                }
+            )
+            reproduced_rows.append({})
+
+    digest = equivalence.canonical_json_sha256(
+        [
+            equivalence.equivalence_row_identity(row)
+            for row in retained_rows
+        ]
+    )
+    monkeypatch.setattr(
+        equivalence,
+        "EXPECTED_SELECTION_SHA256",
+        digest,
+    )
+    config["selection"]["selected_row_identity_sha256"] = digest
+    monkeypatch.setattr(
+        equivalence,
+        "compare_new_row_to_retained_m2",
+        lambda reproduced, retained: None,
+    )
+
+    result = equivalence.build_equivalence_result(
+        selected_retained_rows=retained_rows,
+        reproduced_rows=reproduced_rows,
+        config=config,
+    )
+    assert result["selected_row_identity_sha256"] == digest
+    assert result["exact_match_count"] == 12
+    assert result["mismatch_count"] == 0
