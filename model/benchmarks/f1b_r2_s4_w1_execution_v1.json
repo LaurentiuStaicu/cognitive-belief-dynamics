@@ -96,6 +96,7 @@
     "wave_execution_authorized": true,
     "full_wave_requires_preflight_retention": true,
     "preflight_retained": false,
+    "full_wave_execution_authorized": false,
     "w2_authorized": false,
     "w3_authorized": false
   },
