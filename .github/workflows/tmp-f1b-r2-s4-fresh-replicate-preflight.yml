@@ -1,0 +1,195 @@
+name: TEMP F1b R2 S4 fresh-replicate preflight
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  preflight:
+    name: Execute 18-run / 72-row fresh S4 preflight
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download retained homogeneous H1 source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/h1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36401867007
+
+      - name: Download retained S4 scientific matrix manifest
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-s4-broad-scientific-matrix
+          path: /tmp/s4
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36463026247
+
+      - name: Build retained-bound fresh selection
+        run: |
+          python scripts/build_f1b_r2_s4_fresh_preflight_selection.py \
+            --s4-manifest /tmp/s4/f1b-r2-s4-broad-scientific-matrix.json \
+            --output /tmp/f1b-r2-s4-fresh-preflight-selection.json
+
+      - name: Execute fresh numerical preflight
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/tmp_run_f1b_r2_s4_fresh_preflight.py \
+            --h1-source /tmp/h1/f1b-r2-homogeneous-h1-combined.json \
+            --s4-manifest /tmp/s4/f1b-r2-s4-broad-scientific-matrix.json \
+            --selection /tmp/f1b-r2-s4-fresh-preflight-selection.json \
+            --output /tmp/f1b-r2-s4-fresh-preflight-result.json \
+            2> >(tee /tmp/f1b-r2-s4-fresh-preflight-core.log >&2)
+
+      - name: Verify scientific-process OpenBLAS core
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_paired_method_m2_sequential_resolution import (
+              validate_m2_runtime_cores,
+          )
+
+          text = Path(
+              "/tmp/f1b-r2-s4-fresh-preflight-core.log"
+          ).read_text(encoding="utf-8", errors="replace")
+          cores = parse_openblas_verbose_cores(text)
+          validate_m2_runtime_cores(cores)
+          Path(
+              "/tmp/f1b-r2-s4-fresh-preflight-core.json"
+          ).write_text(
+              json.dumps(
+                  {
+                      "reported_cores": list(cores),
+                      "all_cores_qualified": True,
+                  },
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          print("S4_FRESH_PREFLIGHT_CORES=" + json.dumps(list(cores)))
+          PY
+
+      - name: Enforce structural fresh-preflight contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          result = json.loads(
+              Path(
+                  "/tmp/f1b-r2-s4-fresh-preflight-result.json"
+              ).read_text(encoding="utf-8")
+          )
+          selection = json.loads(
+              Path(
+                  "/tmp/f1b-r2-s4-fresh-preflight-selection.json"
+              ).read_text(encoding="utf-8")
+          )
+
+          assert selection["execution_authorized"] is True
+          assert selection[
+              "executor_equivalence_retained_and_verified"
+          ] is True
+          assert selection["scientific_run_count"] == 18
+          assert selection["method_row_count"] == 72
+
+          assert result["status"] == (
+              "NON_AUTHORITATIVE_S4_FRESH_REPLICATE_PREFLIGHT_COMPLETE"
+          )
+          assert result["authoritative"] is False
+          assert result["scientific_run_count"] == 18
+          assert result["method_row_count"] == 72
+          assert result["scientific_run_ids_sha256"] == (
+              "d55ce620877a7b64a8ce37312025756482ff287456b62811f6a5b8249197666e"
+          )
+          assert result["method_row_ids_sha256"] == (
+              "be00d6689e29d5af959baa747a72254f449ec4d4dd20cd070460dac71f7a0a21"
+          )
+          assert result["eligible_methods"] == [
+              "POPULATION",
+              "HIERARCHICAL_0.5X",
+              "HIERARCHICAL_1X",
+              "HIERARCHICAL_2X",
+          ]
+          assert result["structural_preflight_pass"] is True
+          assert result[
+              "scientific_outcome_is_not_acceptance_criterion"
+          ] is True
+          assert result["w0_authorized_after_retention"] is True
+          assert result["broad_execution_started"] is False
+          assert result["scientific_interpretation_authorized"] is False
+          assert result["release_0_2_0_blocker_closed"] is False
+          assert all(value is False for value in result["boundary"].values())
+          assert len(result["rows"]) == 72
+
+          allowed = {
+              "SEQUENTIAL_RESOLVED_AT_PREFIX",
+              "SEQUENTIAL_RESOLVED",
+              "SEQUENTIAL_UNRESOLVED_AT_CAP",
+              "BOOTSTRAP_REFIT_FAILURE_UNRESOLVED",
+              "PREFIX_EXECUTION_FAILURE_UNRESOLVED",
+          }
+          assert set(result["status_counts"]).issubset(allowed)
+
+          print(
+              "S4_FRESH_PREFLIGHT="
+              + json.dumps(
+                  {
+                      "scientific_run_count": result[
+                          "scientific_run_count"
+                      ],
+                      "method_row_count": result["method_row_count"],
+                      "status_counts": result["status_counts"],
+                      "decision_counts": result["decision_counts"],
+                      "terminal_n_summary": result[
+                          "terminal_n_summary"
+                      ],
+                      "elapsed_seconds": result["elapsed_seconds"],
+                      "method_summaries": result["method_summaries"],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload fresh-preflight evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-s4-fresh-replicate-preflight
+          path: |
+            /tmp/f1b-r2-s4-fresh-preflight-selection.json
+            /tmp/f1b-r2-s4-fresh-preflight-result.json
+            /tmp/f1b-r2-s4-fresh-preflight-core.json
+            /tmp/f1b-r2-s4-fresh-preflight-core.log
+          if-no-files-found: error
