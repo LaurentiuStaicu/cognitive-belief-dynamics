@@ -1,0 +1,124 @@
+{
+  "gate_id": "F1B.R2.S4.ALL_NEW_WAVE.EXECUTION_GATE.V1",
+  "status": "NON_AUTHORITATIVE_S4_ALL_NEW_WAVE_EXECUTION_DESIGN",
+  "issue": 259,
+  "retained_sources": {
+    "w0_retention": {
+      "path": "model/results/f1b_r2_s4_w0_combined_2026-09-29.json",
+      "git_blob_sha": "d8aa5b48a91b6242c3a0d4455c4d2278c30642e1",
+      "merge_commit": "ec3d2f2054de3f1c91cde8db8fb118421cf61258",
+      "status": "NON_AUTHORITATIVE_S4_W0_COMBINED_COMPLETE_RETAINED",
+      "w1_authorized_after_retention": true
+    },
+    "topology_result": {
+      "path": "model/results/f1b_r2_s4_broad_execution_topology_2026-09-29.json",
+      "git_blob_sha": "ddc5f266b259ccea3542ceedf316d222fc30632e",
+      "assignment_rows_sha256": "7d37f2384c1003490a4b6e7a091f8648ed61e72241f964d3ce0336229f63dbce"
+    },
+    "broad_executor": {
+      "path": "src/cognitive_epistemic_model/calibration/f1b_r2_s4_broad_executor.py",
+      "git_blob_sha": "ab1eb088c8551733909d3f1fb7acdb8c59e7da44"
+    },
+    "s4_matrix_result": {
+      "path": "model/results/f1b_r2_s4_broad_scientific_matrix_2026-09-28.json",
+      "git_blob_sha": "6d411d4d961cc3039f7a501e869af868bb3619de",
+      "scientific_run_count": 15000,
+      "scientific_run_ids_sha256": "851e7336387901ca15d2486ed8efc19cd090ffac869b760352106a3f455f2b43"
+    },
+    "raw_sources": {
+      "h1_workflow_run_id": 36401867007,
+      "h1_artifact_id": 10961527329,
+      "h1_artifact_name": "f1b-r2-homogeneous-h1-combined",
+      "h1_json_sha256": "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e",
+      "s4_matrix_workflow_run_id": 36463026247,
+      "s4_matrix_artifact_id": 10988228984,
+      "s4_matrix_artifact_name": "f1b-r2-s4-broad-scientific-matrix",
+      "s4_manifest_json_sha256": "f0691a0dc153f2ee1463f5115feeff448b49e7d2fb7accd6568a0fb8c43a5f01"
+    }
+  },
+  "authorized_wave_ids": ["W1"],
+  "waves": {
+    "W1": {
+      "replicate_start": 25,
+      "replicate_end": 49,
+      "scientific_run_count": 3750,
+      "method_row_count": 15000,
+      "scientific_run_ids_sha256": "42a1803705c0c4f7efbfae0983a7c57f20036c76cd933c99af3fcd4e3cd9087c",
+      "method_row_ids_sha256": "2191e0aceb072c20bca90dab1b6db3ed8bffef997bf2ead8ec2ace2ac4a81957",
+      "shard_plan_sha256": "36d294a165ec1e8a8baffac70516ce7fceab149998079b534998503f3f578175",
+      "minimum_scientific_runs_per_shard": 5,
+      "maximum_scientific_runs_per_shard": 27,
+      "next_wave_id": "W2"
+    },
+    "W2": {
+      "replicate_start": 50,
+      "replicate_end": 74,
+      "scientific_run_count": 3750,
+      "method_row_count": 15000,
+      "scientific_run_ids_sha256": "a24dea39afdb03b91784248755d9ddad94466bbab8391044308eeeb8c9eff617",
+      "method_row_ids_sha256": "a338bd644ee62a474cf417aa0396a0ff2df4a310618e63ffb644c8f5f3cc8ba2",
+      "shard_plan_sha256": "399b4feecc51731f4691ca7168eb61625834cc1dc74e2fb66d3f6fe23ffe2475",
+      "minimum_scientific_runs_per_shard": 6,
+      "maximum_scientific_runs_per_shard": 27,
+      "next_wave_id": "W3"
+    },
+    "W3": {
+      "replicate_start": 75,
+      "replicate_end": 99,
+      "scientific_run_count": 3750,
+      "method_row_count": 15000,
+      "scientific_run_ids_sha256": "e0b7126a2342a65427a03f1a45d42990093e89f2c3ab0eeb661544b5548ff3ce",
+      "method_row_ids_sha256": "81ed9d1c0ea527da9d1501c5652e529e87f50e73c7eb3a2b876fad0d02393998",
+      "shard_plan_sha256": "d27bce0c8c17022644bcaaa6f0bb4b2be19239cf8074ab54ae75c982feb058e2",
+      "minimum_scientific_runs_per_shard": 4,
+      "maximum_scientific_runs_per_shard": 27,
+      "next_wave_id": null
+    }
+  },
+  "execution": {
+    "shard_count": 250,
+    "matrix_indices": "0..249",
+    "fail_fast": false,
+    "max_parallel": 20,
+    "imported_evidence_allowed": false,
+    "evidence_origin": "S4_NEW_EXECUTION",
+    "all_four_methods_same_scientific_run_same_shard": true,
+    "new_rows_use_broad_executor": true,
+    "numerical_lineage": "Haswell",
+    "sequential_prefix_attempts": 199,
+    "sequential_max_total_attempts": 10000,
+    "stop_on_first_refit_failure": true,
+    "wave_combine_requires_all_250_shards": true,
+    "scientific_interpretation_after_wave": false
+  },
+  "w1_preflight": {
+    "selection_rule": "smallest W1 shard index with exactly 15 scientific runs",
+    "wave_id": "W1",
+    "shard_index": 11,
+    "scientific_run_count": 15,
+    "method_row_count": 60,
+    "scientific_run_ids_sha256": "da11844e3c88b0f2dd95c039efb1f7f0ba398d3d48518d4c136a039c084e25a2",
+    "method_row_ids_sha256": "a6917767655c652a0977e8455f069db50e95fa6f91d9a7fd9de7d48bdb6f99da",
+    "full_w1_authorized_after_preflight_retention": true
+  },
+  "release": {
+    "target_next_release": "0.2.0",
+    "release_issue": 277,
+    "release_blocker_closed": false
+  },
+  "boundary": {
+    "w1_executed": false,
+    "w2_authorized": false,
+    "w2_executed": false,
+    "w3_authorized": false,
+    "w3_executed": false,
+    "scientific_interpretation_authorized": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "power_validated": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "version_bumped": false
+  }
+}
