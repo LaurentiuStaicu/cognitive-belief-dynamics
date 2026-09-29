@@ -1,0 +1,122 @@
+{
+  "gate_id": "F1B.R2.S4.ALL_NEW_WAVE.EXECUTION_GATE.V1",
+  "status": "NON_AUTHORITATIVE_S4_ALL_NEW_WAVE_EXECUTION_DESIGN",
+  "issue": 259,
+  "retained_sources": {
+    "predecessor_result": {
+      "wave_id": "W0",
+      "path": "model/results/f1b_r2_s4_w0_combined_2026-09-29.json",
+      "git_blob_sha": "d8aa5b48a91b6242c3a0d4455c4d2278c30642e1",
+      "required_status": "NON_AUTHORITATIVE_S4_W0_COMBINED_COMPLETE_RETAINED",
+      "next_wave_authorized_after_retention": true
+    },
+    "topology_result": {
+      "path": "model/results/f1b_r2_s4_broad_execution_topology_2026-09-29.json",
+      "git_blob_sha": "ddc5f266b259ccea3542ceedf316d222fc30632e",
+      "assignment_rows_sha256": "7d37f2384c1003490a4b6e7a091f8648ed61e72241f964d3ce0336229f63dbce"
+    },
+    "raw_sources": {
+      "h1_workflow_run_id": 36401867007,
+      "h1_artifact_id": 10961527329,
+      "h1_artifact_name": "f1b-r2-homogeneous-h1-combined",
+      "h1_json_sha256": "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e",
+      "s4_matrix_workflow_run_id": 36463026247,
+      "s4_matrix_artifact_id": 10988228984,
+      "s4_matrix_artifact_name": "f1b-r2-s4-broad-scientific-matrix",
+      "s4_manifest_json_sha256": "f0691a0dc153f2ee1463f5115feeff448b49e7d2fb7accd6568a0fb8c43a5f01"
+    }
+  },
+  "wave": {
+    "wave_id": "W1",
+    "predecessor_wave_id": "W0",
+    "next_wave_id": "W2",
+    "replicate_start": 25,
+    "replicate_end": 49,
+    "scientific_run_count": 3750,
+    "method_row_count": 15000,
+    "imported_scientific_run_count": 0,
+    "imported_method_row_count": 0,
+    "new_scientific_run_count": 3750,
+    "new_method_execution_count": 15000,
+    "scientific_run_ids_sha256": "42a1803705c0c4f7efbfae0983a7c57f20036c76cd933c99af3fcd4e3cd9087c",
+    "method_row_ids_sha256": "2191e0aceb072c20bca90dab1b6db3ed8bffef997bf2ead8ec2ace2ac4a81957",
+    "shard_plan_sha256": "36d294a165ec1e8a8baffac70516ce7fceab149998079b534998503f3f578175"
+  },
+  "methods": [
+    "POPULATION",
+    "HIERARCHICAL_0.5X",
+    "HIERARCHICAL_1X",
+    "HIERARCHICAL_2X"
+  ],
+  "shards": {
+    "shard_count": 250,
+    "assignment_algorithm": "SHA256_FIRST_8_BYTES_BIG_ENDIAN_MODULO",
+    "minimum_scientific_runs_per_shard": 5,
+    "maximum_scientific_runs_per_shard": 27,
+    "fail_fast": false,
+    "max_parallel": 20,
+    "all_four_methods_same_scientific_run_same_shard": true
+  },
+  "execution": {
+    "imports_forbidden": true,
+    "evidence_origin": "S4_NEW_EXECUTION",
+    "new_rows_use_shared_broad_executor": true,
+    "shared_broad_executor_git_blob_sha": "ab1eb088c8551733909d3f1fb7acdb8c59e7da44",
+    "numerical_lineage": "Haswell",
+    "sequential_prefix_attempts": 199,
+    "sequential_max_total_attempts": 10000,
+    "stop_on_first_refit_failure": true,
+    "scientific_interpretation_after_wave": false
+  },
+  "preflight": {
+    "selection_rule": "Smallest W1 shard index with exactly 15 scientific runs.",
+    "shard_index": 11,
+    "scientific_run_count": 15,
+    "method_row_count": 60,
+    "new_scientific_run_count": 15,
+    "new_method_execution_count": 60,
+    "scientific_run_ids_sha256": "da11844e3c88b0f2dd95c039efb1f7f0ba398d3d48518d4c136a039c084e25a2",
+    "method_row_ids_sha256": "a6917767655c652a0977e8455f069db50e95fa6f91d9a7fd9de7d48bdb6f99da"
+  },
+  "wave_combine": {
+    "exact_scientific_run_count": 3750,
+    "exact_method_row_count": 15000,
+    "exact_imported_method_row_count": 0,
+    "exact_new_method_row_count": 15000,
+    "retain_unresolved_in_denominators": true,
+    "retain_refit_failures_in_denominators": true,
+    "duplicate_scientific_run_ids_forbidden": true,
+    "duplicate_method_row_ids_forbidden": true,
+    "missing_method_rows_forbidden": true,
+    "method_selection_forbidden": true,
+    "next_wave_authorization_after_retention": true
+  },
+  "authorization": {
+    "predecessor_retained": true,
+    "wave_execution_authorized": true,
+    "full_wave_requires_preflight_retention": true,
+    "preflight_retained": false,
+    "w2_authorized": false,
+    "w3_authorized": false
+  },
+  "release": {
+    "target_next_release": "0.2.0",
+    "release_issue": 277,
+    "release_blocker_closed": false
+  },
+  "boundary": {
+    "full_w1_executed": false,
+    "w2_authorized": false,
+    "w2_executed": false,
+    "w3_authorized": false,
+    "w3_executed": false,
+    "scientific_interpretation_authorized": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "power_validated": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "version_bumped": false
+  }
+}
