@@ -1,0 +1,152 @@
+name: TEMP F1b R2 S4 broad execution topology
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  topology:
+    name: Build deterministic S4 broad execution topology
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download exact retained S4 matrix manifest
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-s4-broad-scientific-matrix
+          path: /tmp/s4
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36463026247
+
+      - name: Build exact S4 topology
+        run: |
+          python scripts/build_f1b_r2_s4_broad_execution_topology.py \
+            --s4-manifest /tmp/s4/f1b-r2-s4-broad-scientific-matrix.json \
+            --output /tmp/f1b-r2-s4-broad-execution-topology.json
+
+      - name: Enforce topology contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(
+              Path("/tmp/f1b-r2-s4-broad-execution-topology.json").read_text(
+                  encoding="utf-8"
+              )
+          )
+
+          assert data["status"] == (
+              "NON_AUTHORITATIVE_S4_BROAD_EXECUTION_TOPOLOGY_COMPLETE"
+          )
+          assert data["wave_count"] == 4
+          assert data["shard_count_per_wave"] == 250
+          assert data["total_shard_count"] == 1000
+          assert data["scientific_run_count"] == 15000
+          assert data["method_row_count"] == 60000
+          assert data["imported_scientific_run_count"] == 840
+          assert data["imported_method_row_count"] == 3360
+          assert data["new_scientific_run_count"] == 14160
+          assert data["new_method_execution_count"] == 56640
+          assert data["scientific_run_ids_sha256"] == (
+              "851e7336387901ca15d2486ed8efc19cd090ffac869b760352106a3f455f2b43"
+          )
+          assert data["assignment_rows_sha256"] == (
+              "7d37f2384c1003490a4b6e7a091f8648ed61e72241f964d3ce0336229f63dbce"
+          )
+          assert len(data["shard_plan"]) == 1000
+          assert data["per_wave_summary"] == [
+              {
+                  "wave_id": "W0",
+                  "shard_count": 250,
+                  "scientific_run_count": 3750,
+                  "imported_scientific_run_count": 840,
+                  "new_scientific_run_count": 2910,
+                  "imported_method_row_count": 3360,
+                  "new_method_execution_count": 11640,
+                  "minimum_scientific_runs_per_shard": 5,
+                  "maximum_scientific_runs_per_shard": 29,
+              },
+              {
+                  "wave_id": "W1",
+                  "shard_count": 250,
+                  "scientific_run_count": 3750,
+                  "imported_scientific_run_count": 0,
+                  "new_scientific_run_count": 3750,
+                  "imported_method_row_count": 0,
+                  "new_method_execution_count": 15000,
+                  "minimum_scientific_runs_per_shard": 5,
+                  "maximum_scientific_runs_per_shard": 27,
+              },
+              {
+                  "wave_id": "W2",
+                  "shard_count": 250,
+                  "scientific_run_count": 3750,
+                  "imported_scientific_run_count": 0,
+                  "new_scientific_run_count": 3750,
+                  "imported_method_row_count": 0,
+                  "new_method_execution_count": 15000,
+                  "minimum_scientific_runs_per_shard": 6,
+                  "maximum_scientific_runs_per_shard": 27,
+              },
+              {
+                  "wave_id": "W3",
+                  "shard_count": 250,
+                  "scientific_run_count": 3750,
+                  "imported_scientific_run_count": 0,
+                  "new_scientific_run_count": 3750,
+                  "imported_method_row_count": 0,
+                  "new_method_execution_count": 15000,
+                  "minimum_scientific_runs_per_shard": 4,
+                  "maximum_scientific_runs_per_shard": 27,
+              },
+          ]
+          assert data["broad_execution_authorized_after_topology_retention"] is True
+          assert data["scientific_interpretation_authorized"] is False
+          assert data["release_0_2_0_blocker_closed"] is False
+          assert all(value is False for value in data["boundary"].values())
+
+          print(
+              "S4_TOPOLOGY="
+              + json.dumps(
+                  {
+                      "wave_count": data["wave_count"],
+                      "total_shard_count": data["total_shard_count"],
+                      "new_method_execution_count": data[
+                          "new_method_execution_count"
+                      ],
+                      "assignment_rows_sha256": data[
+                          "assignment_rows_sha256"
+                      ],
+                      "per_wave_summary": data["per_wave_summary"],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload S4 topology evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-s4-broad-execution-topology
+          path: /tmp/f1b-r2-s4-broad-execution-topology.json
+          if-no-files-found: error
