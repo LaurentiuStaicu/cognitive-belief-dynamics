@@ -25,6 +25,19 @@ EXPECTED_NULL_IDENTITIES = (
     "CBD_NULL_ANCHOR_1",
     "CBD_NULL_ANCHOR_2",
 )
+EXPECTED_RUN_DIGEST = (
+    "d55ce620877a7b64a8ce37312025756482ff287456b62811f6a5b8249197666e"
+)
+EXPECTED_METHOD_DIGEST = (
+    "be00d6689e29d5af959baa747a72254f449ec4d4dd20cd070460dac71f7a0a21"
+)
+EXPECTED_TERMINAL_STATES = (
+    "SEQUENTIAL_RESOLVED_AT_PREFIX",
+    "SEQUENTIAL_RESOLVED",
+    "SEQUENTIAL_UNRESOLVED_AT_CAP",
+    "BOOTSTRAP_REFIT_FAILURE_UNRESOLVED",
+    "PREFIX_EXECUTION_FAILURE_UNRESOLVED",
+)
 
 
 def canonical_json_sha256(value: Any) -> str:
@@ -97,6 +110,10 @@ def validate_preflight_config(config: dict) -> None:
         raise ValueError("S4 fresh-preflight scientific-run count changed")
     if int(selection["expected_method_row_count"]) != 72:
         raise ValueError("S4 fresh-preflight method-row count changed")
+    if selection["expected_scientific_run_ids_sha256"] != EXPECTED_RUN_DIGEST:
+        raise ValueError("S4 fresh-preflight run digest changed")
+    if selection["expected_method_row_ids_sha256"] != EXPECTED_METHOD_DIGEST:
+        raise ValueError("S4 fresh-preflight method digest changed")
     if selection["all_selected_runs_outside_m2_prefix"] is not True:
         raise ValueError("S4 fresh-preflight must stay outside M2 prefix")
 
@@ -140,6 +157,8 @@ def validate_preflight_config(config: dict) -> None:
         raise ValueError("S4 fresh-preflight dataset pairing weakened")
     if execution["all_methods_same_missingness_mask"] is not True:
         raise ValueError("S4 fresh-preflight missingness pairing weakened")
+    if tuple(execution["allowed_terminal_states"]) != EXPECTED_TERMINAL_STATES:
+        raise ValueError("S4 fresh-preflight terminal-state set changed")
     if execution["scientific_outcome_is_not_acceptance_criterion"] is not True:
         raise ValueError("S4 fresh-preflight scientific outcome became gate")
 
