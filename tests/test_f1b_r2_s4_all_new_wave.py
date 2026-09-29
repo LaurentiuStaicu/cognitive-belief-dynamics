@@ -96,7 +96,14 @@ def test_w1_rejects_early_interpretation() -> None:
 def test_w1_rejects_preflight_shortcut() -> None:
     config = deepcopy(load_config())
     config["authorization"]["preflight_retained"] = True
-    with pytest.raises(ValueError, match="pre-retained"):
+    with pytest.raises(ValueError, match="authorization must match"):
+        wave.validate_all_new_wave_config(config)
+
+
+def test_w1_rejects_full_wave_before_preflight_retention() -> None:
+    config = deepcopy(load_config())
+    config["authorization"]["full_wave_execution_authorized"] = True
+    with pytest.raises(ValueError, match="authorization must match"):
         wave.validate_all_new_wave_config(config)
 
 
