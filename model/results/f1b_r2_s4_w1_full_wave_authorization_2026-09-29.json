@@ -1,0 +1,77 @@
+{
+  "result_id": "F1B.R2.S4.W1.FULL_WAVE.AUTHORIZATION.RESULT.2026-09-29",
+  "status": "NON_AUTHORITATIVE_S4_W1_FULL_WAVE_AUTHORIZATION_RETAINED",
+  "authoritative": false,
+  "issue": 259,
+  "authorization_pr": 310,
+  "qualified_main_baseline": "482e38e86c996fae9c56ba4a8af2584c88db5547",
+  "predecessor": {
+    "retention_pr": 309,
+    "retention_merge_commit": "482e38e86c996fae9c56ba4a8af2584c88db5547",
+    "path": "model/results/f1b_r2_s4_w1_shard11_preflight_2026-09-29.json",
+    "git_blob_sha": "4dc28d64ef81c2070467dc197064e9b4f37173e7",
+    "required_status": "NON_AUTHORITATIVE_S4_W1_SHARD11_PREFLIGHT_COMPLETE_RETAINED",
+    "preflight_pass": true
+  },
+  "config_change": {
+    "path": "model/benchmarks/f1b_r2_s4_w1_execution_v1.json",
+    "prior_git_blob_sha": "d3aa34e2e92eb88056b0cc7cfdb0510ee2270073",
+    "authorized_git_blob_sha": "47e025f001bd5d28094eef7fd9ba36adff72ee93",
+    "preflight_retained": true,
+    "full_wave_execution_authorized": true
+  },
+  "test_change": {
+    "path": "tests/test_f1b_r2_s4_all_new_wave.py",
+    "prior_git_blob_sha": "e8e5934e0f4c46b4947b4021b5f418fa3c279543",
+    "authorized_git_blob_sha": "a34863625af1382a9369d498b42825731318a004",
+    "authorization_mismatch_remains_fail_closed": true
+  },
+  "frozen_wave": {
+    "wave_id": "W1",
+    "replicate_start": 25,
+    "replicate_end": 49,
+    "scientific_run_count": 3750,
+    "method_row_count": 15000,
+    "imported_scientific_run_count": 0,
+    "imported_method_row_count": 0,
+    "new_scientific_run_count": 3750,
+    "new_method_execution_count": 15000,
+    "shard_count": 250,
+    "scientific_run_ids_sha256": "42a1803705c0c4f7efbfae0983a7c57f20036c76cd933c99af3fcd4e3cd9087c",
+    "method_row_ids_sha256": "2191e0aceb072c20bca90dab1b6db3ed8bffef997bf2ead8ec2ace2ac4a81957",
+    "shard_plan_sha256": "36d294a165ec1e8a8baffac70516ce7fceab149998079b534998503f3f578175",
+    "methods": [
+      "POPULATION",
+      "HIERARCHICAL_0.5X",
+      "HIERARCHICAL_1X",
+      "HIERARCHICAL_2X"
+    ],
+    "numerical_lineage": "Haswell",
+    "sequential_prefix_attempts": 199,
+    "sequential_max_total_attempts": 10000
+  },
+  "interpretation": {
+    "authorization_is_operational_only": true,
+    "scientific_interpretation_authorized": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "power_validated": false,
+    "next_gate": "W1_FULL_WAVE_EXECUTION"
+  },
+  "boundary": {
+    "full_w1_executed": false,
+    "w2_authorized": false,
+    "w2_executed": false,
+    "w3_authorized": false,
+    "w3_executed": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "version_bumped": false
+  },
+  "release": {
+    "target_next_release": "0.2.0",
+    "release_issue": 277,
+    "release_blocker_closed": false
+  }
+}
