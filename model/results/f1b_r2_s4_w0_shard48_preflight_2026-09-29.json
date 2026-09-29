@@ -1,0 +1,91 @@
+{
+  "result_id": "F1B.R2.S4.W0.SHARD48.PREFLIGHT.RESULT.2026-09-29",
+  "status": "NON_AUTHORITATIVE_S4_W0_SHARD48_PREFLIGHT_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 259,
+  "execution": {
+    "temporary_execution_pr": 303,
+    "workflow_run_id": 36546677350,
+    "workflow_run_number": 1,
+    "execution_pr_head": "0b91b8106b598abf5e8266285bc9cf42eaad1fff",
+    "qualified_main_baseline": "5a02b796157d99636d5a3c2a3dd4c2aa6f732d43",
+    "artifact_id": 11023527802,
+    "artifact_name": "f1b-r2-s4-w0-shard-48-preflight",
+    "artifact_zip_sha256": "a10f19ed8ce48a5955d7630d1f802c640c8768cb09d6b3d0bd74054c1519bf92",
+    "selection_json_sha256": "a562e140462704f9340dea876ab56f1c34a493a60b3c7f71f856b2fb8808ef5b",
+    "result_json_sha256": "c1616a0587950d9d0f4c7c7e74f328a6f6dd18d38e02db3a3574155c37b967ef",
+    "core_json_sha256": "a79fd356c00dc9ad04eb27a7ded4d939ce0f80accbcf2285fab0992ff9419b8b",
+    "core_log_sha256": "18dd8de98d3cc40e16f905c7087571de7803bbdadc0b4b3b8fcae064fc4be53c"
+  },
+  "selection": {
+    "selection_rule": "Smallest W0 shard index with exactly 15 scientific runs, 5 imported scientific runs and 10 new scientific runs.",
+    "shard_index": 48,
+    "scientific_run_count": 15,
+    "imported_scientific_run_count": 5,
+    "new_scientific_run_count": 10,
+    "method_row_count": 60,
+    "imported_method_row_count": 20,
+    "new_method_execution_count": 40,
+    "scientific_run_ids_sha256": "bbdc9422c791bad7736dc2d617e7e6e921b2afe9797caff95b4aa2055ba2a99e",
+    "method_row_ids_sha256": "20183113e595791603b0b2bbecd741230826085d732a4560d5fb1df98c1a9a4e"
+  },
+  "provenance": {
+    "h1_source_sha256": "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e",
+    "s4_manifest_sha256": "f0691a0dc153f2ee1463f5115feeff448b49e7d2fb7accd6568a0fb8c43a5f01",
+    "m2_combined_sha256": "b9034afd6b6837c8433e0d42fd90911a7b560e18225de7d551f559330742c808",
+    "w0_plan_sha256": "c51c5c84aca91e70563c6fc486242e48a4a6b16db2ec05fa5b73b52b618c78f2",
+    "numerical_lineage": "Haswell"
+  },
+  "observed_terminal_summary": {
+    "status_counts": {
+      "SEQUENTIAL_RESOLVED_AT_PREFIX": 52,
+      "SEQUENTIAL_RESOLVED": 7,
+      "SEQUENTIAL_UNRESOLVED_AT_CAP": 1
+    },
+    "decision_counts": {
+      "NOT_REJECT_P_GT_ALPHA": 46,
+      "REJECT_P_LE_ALPHA": 13
+    },
+    "unresolved_rows_retained_in_denominator": true,
+    "refit_failure_count": 0,
+    "prefix_execution_failure_count": 0,
+    "scientific_outcome_is_acceptance_criterion": false
+  },
+  "interpretation": {
+    "production_runner_preflight_pass": true,
+    "full_w0_authorized_after_retention": true,
+    "scientific_interpretation_authorized": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "power_validated": false
+  },
+  "next_gate": {
+    "id": "S4_W0_FULL_WAVE_EXECUTION",
+    "authorization": "AFTER_THIS_RESULT_IS_RETAINED_ON_MAIN",
+    "shard_count": 250,
+    "scientific_run_count": 3750,
+    "method_row_count": 15000,
+    "imported_method_row_count": 3360,
+    "new_method_execution_count": 11640,
+    "fail_fast": false,
+    "max_parallel": 20,
+    "w1_authorized": false
+  },
+  "release": {
+    "target_next_release": "0.2.0",
+    "release_issue": 277,
+    "release_blocker_closed": false
+  },
+  "boundary": {
+    "full_w0_started": false,
+    "w1_authorized": false,
+    "scientific_interpretation_authorized": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "power_validated": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "version_bumped": false
+  }
+}
