@@ -1,0 +1,343 @@
+name: TEMP F1b R2 S4 W1 shard-11 preflight
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  preflight:
+    name: W1 shard 11 integration preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+      EXECUTION_HEAD: ${{ github.event.pull_request.head.sha }}
+      QUALIFIED_MAIN_BASELINE: 65b59e6dbfbe74d3841b19639f944ebe023053b8
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Verify retained authorization and protected blobs
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          expected_blobs = {
+              "model/benchmarks/f1b_r2_s4_w1_execution_v1.json":
+                  "d3aa34e2e92eb88056b0cc7cfdb0510ee2270073",
+              "model/results/f1b_r2_s4_w0_combined_2026-09-29.json":
+                  "d8aa5b48a91b6242c3a0d4455c4d2278c30642e1",
+              "src/cognitive_epistemic_model/calibration/f1b_r2_s4_all_new_wave.py":
+                  "741fa367ac54d6b3154ea3a6a61efadf82f58a05",
+              "src/cognitive_epistemic_model/calibration/f1b_r2_s4_all_new_wave_shard.py":
+                  "e3c6e6f6f4e3770d0c8f2f9ee348a4e082bd3597",
+              "src/cognitive_epistemic_model/calibration/f1b_r2_s4_broad_executor.py":
+                  "ab1eb088c8551733909d3f1fb7acdb8c59e7da44",
+              "scripts/build_f1b_r2_s4_all_new_wave_plan.py":
+                  "3b9432fa9f0ca56e156e35369a2d43b8f9df073d",
+              "scripts/run_f1b_r2_s4_all_new_wave_shard.py":
+                  "914aeee9cb2ab672cbc1d5cb35d4ebc15cb3506f",
+          }
+          for path, expected in expected_blobs.items():
+              actual = subprocess.check_output(
+                  ["git", "hash-object", path],
+                  text=True,
+              ).strip()
+              if actual != expected:
+                  raise SystemExit(
+                      f"protected blob changed: {path}: {actual} != {expected}"
+                  )
+
+          config = json.loads(
+              Path(
+                  "model/benchmarks/f1b_r2_s4_w1_execution_v1.json"
+              ).read_text(encoding="utf-8")
+          )
+          assert config["wave"]["wave_id"] == "W1"
+          assert config["wave"]["replicate_start"] == 25
+          assert config["wave"]["replicate_end"] == 49
+          assert config["wave"]["scientific_run_count"] == 3750
+          assert config["wave"]["method_row_count"] == 15000
+          assert config["wave"]["imported_method_row_count"] == 0
+          assert config["wave"]["new_method_execution_count"] == 15000
+          assert config["wave"]["scientific_run_ids_sha256"] == (
+              "42a1803705c0c4f7efbfae0983a7c57f20036c76cd933c99af3fcd4e3cd9087c"
+          )
+          assert config["wave"]["method_row_ids_sha256"] == (
+              "2191e0aceb072c20bca90dab1b6db3ed8bffef997bf2ead8ec2ace2ac4a81957"
+          )
+          assert config["wave"]["shard_plan_sha256"] == (
+              "36d294a165ec1e8a8baffac70516ce7fceab149998079b534998503f3f578175"
+          )
+          assert config["preflight"]["shard_index"] == 11
+          assert config["preflight"]["scientific_run_count"] == 15
+          assert config["preflight"]["method_row_count"] == 60
+          assert config["preflight"]["scientific_run_ids_sha256"] == (
+              "da11844e3c88b0f2dd95c039efb1f7f0ba398d3d48518d4c136a039c084e25a2"
+          )
+          assert config["preflight"]["method_row_ids_sha256"] == (
+              "a6917767655c652a0977e8455f069db50e95fa6f91d9a7fd9de7d48bdb6f99da"
+          )
+          assert config["authorization"]["predecessor_retained"] is True
+          assert config["authorization"]["wave_execution_authorized"] is True
+          assert config["authorization"]["preflight_retained"] is False
+          assert (
+              config["authorization"]["full_wave_execution_authorized"]
+              is False
+          )
+
+          retained = json.loads(
+              Path(
+                  "model/results/f1b_r2_s4_w0_combined_2026-09-29.json"
+              ).read_text(encoding="utf-8")
+          )
+          assert retained["status"] == (
+              "NON_AUTHORITATIVE_S4_W0_COMBINED_COMPLETE_RETAINED"
+          )
+          assert retained["interpretation"]["w0_retained_after_merge"] is True
+          assert retained["interpretation"][
+              "w1_authorized_after_this_retention_merge"
+          ] is True
+          assert retained["interpretation"][
+              "scientific_interpretation_authorized"
+          ] is False
+          PY
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download retained homogeneous H1 source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/h1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36401867007
+
+      - name: Download retained S4 scientific matrix
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-s4-broad-scientific-matrix
+          path: /tmp/s4
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36463026247
+
+      - name: Verify retained raw inputs
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+
+          expected = {
+              Path("/tmp/h1/f1b-r2-homogeneous-h1-combined.json"):
+                  "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e",
+              Path("/tmp/s4/f1b-r2-s4-broad-scientific-matrix.json"):
+                  "f0691a0dc153f2ee1463f5115feeff448b49e7d2fb7accd6568a0fb8c43a5f01",
+          }
+          for path, wanted in expected.items():
+              actual = hashlib.sha256(path.read_bytes()).hexdigest()
+              if actual != wanted:
+                  raise SystemExit(
+                      f"retained input hash changed: {path}: "
+                      f"{actual} != {wanted}"
+                  )
+          PY
+
+      - name: Build and verify exact W1 plan
+        run: |
+          mkdir -p /tmp/w1-preflight
+          python scripts/build_f1b_r2_s4_all_new_wave_plan.py             --s4-manifest /tmp/s4/f1b-r2-s4-broad-scientific-matrix.json             --output /tmp/w1-preflight/f1b-r2-s4-w1-plan.json
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          plan = json.loads(
+              Path(
+                  "/tmp/w1-preflight/f1b-r2-s4-w1-plan.json"
+              ).read_text(encoding="utf-8")
+          )
+          assert plan["status"] == (
+              "NON_AUTHORITATIVE_S4_W1_EXECUTION_PLAN_COMPLETE"
+          )
+          assert plan["wave_id"] == "W1"
+          assert plan["scientific_run_count"] == 3750
+          assert plan["method_row_count"] == 15000
+          assert plan["imported_method_row_count"] == 0
+          assert plan["new_method_execution_count"] == 15000
+          assert plan["shard_count"] == 250
+          assert plan["scientific_run_ids_sha256"] == (
+              "42a1803705c0c4f7efbfae0983a7c57f20036c76cd933c99af3fcd4e3cd9087c"
+          )
+          assert plan["method_row_ids_sha256"] == (
+              "2191e0aceb072c20bca90dab1b6db3ed8bffef997bf2ead8ec2ace2ac4a81957"
+          )
+          assert plan["shard_plan_sha256"] == (
+              "36d294a165ec1e8a8baffac70516ce7fceab149998079b534998503f3f578175"
+          )
+          assert plan["preflight_shard_index"] == 11
+          assert plan["preflight_retained"] is False
+          assert plan["full_wave_execution_authorized"] is False
+
+          row = {
+              int(item["shard_index"]): item for item in plan["shard_plan"]
+          }[11]
+          assert row["scientific_run_count"] == 15
+          assert row["imported_scientific_run_count"] == 0
+          assert row["new_scientific_run_count"] == 15
+          assert row["imported_method_row_count"] == 0
+          assert row["new_method_execution_count"] == 60
+          assert row["scientific_run_ids_sha256"] == (
+              "da11844e3c88b0f2dd95c039efb1f7f0ba398d3d48518d4c136a039c084e25a2"
+          )
+          assert row["method_row_ids_sha256"] == (
+              "a6917767655c652a0977e8455f069db50e95fa6f91d9a7fd9de7d48bdb6f99da"
+          )
+          PY
+
+      - name: Execute W1 shard-11 preflight
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/run_f1b_r2_s4_all_new_wave_shard.py             --h1-source /tmp/h1/f1b-r2-homogeneous-h1-combined.json             --s4-manifest /tmp/s4/f1b-r2-s4-broad-scientific-matrix.json             --wave-plan /tmp/w1-preflight/f1b-r2-s4-w1-plan.json             --shard-index 11             --output /tmp/w1-preflight/f1b-r2-s4-w1-shard-011.json             2> >(tee /tmp/w1-preflight/f1b-r2-s4-w1-shard-011-core.log >&2)
+
+      - name: Verify W1 shard-11 result and Haswell lineage
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_paired_method_m2_sequential_resolution import (
+              validate_m2_runtime_cores,
+          )
+
+          root = Path("/tmp/w1-preflight")
+          result_path = root / "f1b-r2-s4-w1-shard-011.json"
+          plan_path = root / "f1b-r2-s4-w1-plan.json"
+          core_path = root / "f1b-r2-s4-w1-shard-011-core.log"
+
+          result = json.loads(result_path.read_text(encoding="utf-8"))
+          assert result["status"] == (
+              "NON_AUTHORITATIVE_S4_W1_SHARD_COMPLETE"
+          )
+          assert result["authoritative"] is False
+          assert result["wave_id"] == "W1"
+          assert result["shard_index"] == 11
+          assert result["scientific_run_count"] == 15
+          assert result["method_row_count"] == 60
+          assert result["imported_scientific_run_count"] == 0
+          assert result["imported_method_row_count"] == 0
+          assert result["new_scientific_run_count"] == 15
+          assert result["new_method_execution_count"] == 60
+          assert result["scientific_run_ids_sha256"] == (
+              "da11844e3c88b0f2dd95c039efb1f7f0ba398d3d48518d4c136a039c084e25a2"
+          )
+          assert result["method_row_ids_sha256"] == (
+              "a6917767655c652a0977e8455f069db50e95fa6f91d9a7fd9de7d48bdb6f99da"
+          )
+          assert result["evidence_origin_counts"] == {
+              "S4_NEW_EXECUTION": 60
+          }
+          assert result["scientific_interpretation_authorized"] is False
+          assert result["method_selected"] is False
+          assert result["power_validated"] is False
+
+          cores = parse_openblas_verbose_cores(
+              core_path.read_text(encoding="utf-8", errors="replace")
+          )
+          validate_m2_runtime_cores(cores)
+
+          evidence = {
+              "status": (
+                  "NON_AUTHORITATIVE_S4_W1_SHARD11_PREFLIGHT_EVIDENCE"
+              ),
+              "authoritative": False,
+              "issue": 259,
+              "workflow_run_id": int(os.environ["GITHUB_RUN_ID"]),
+              "workflow_merge_sha": os.environ["GITHUB_SHA"],
+              "execution_head": os.environ["EXECUTION_HEAD"],
+              "qualified_main_baseline": os.environ[
+                  "QUALIFIED_MAIN_BASELINE"
+              ],
+              "wave_id": "W1",
+              "shard_index": 11,
+              "scientific_run_count": 15,
+              "method_row_count": 60,
+              "imported_method_row_count": 0,
+              "new_method_execution_count": 60,
+              "scientific_run_ids_sha256": result[
+                  "scientific_run_ids_sha256"
+              ],
+              "method_row_ids_sha256": result["method_row_ids_sha256"],
+              "plan_json_sha256": hashlib.sha256(
+                  plan_path.read_bytes()
+              ).hexdigest(),
+              "result_json_sha256": hashlib.sha256(
+                  result_path.read_bytes()
+              ).hexdigest(),
+              "status_counts": result["status_counts"],
+              "decision_counts": result["decision_counts"],
+              "evidence_origin_counts": result["evidence_origin_counts"],
+              "reported_cores": list(cores),
+              "scientific_outcome_is_not_acceptance_criterion": True,
+              "preflight_pass": True,
+              "scientific_interpretation_authorized": False,
+              "method_selected": False,
+              "power_validated": False,
+              "full_w1_authorized_after_retention": True,
+              "release_0_2_0_blocker_closed": False,
+          }
+          (root / "f1b-r2-s4-w1-shard11-preflight-evidence.json").write_text(
+              json.dumps(evidence, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          print(
+              "W1_SHARD11_PREFLIGHT="
+              + json.dumps(
+                  {
+                      "status_counts": result["status_counts"],
+                      "decision_counts": result["decision_counts"],
+                      "result_json_sha256": evidence[
+                          "result_json_sha256"
+                      ],
+                      "plan_json_sha256": evidence["plan_json_sha256"],
+                      "reported_cores": list(cores),
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload W1 shard-11 preflight evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-s4-w1-shard11-preflight
+          path: |
+            /tmp/w1-preflight/f1b-r2-s4-w1-plan.json
+            /tmp/w1-preflight/f1b-r2-s4-w1-shard-011.json
+            /tmp/w1-preflight/f1b-r2-s4-w1-shard-011-core.log
+            /tmp/w1-preflight/f1b-r2-s4-w1-shard11-preflight-evidence.json
+          if-no-files-found: error
+          retention-days: 7
