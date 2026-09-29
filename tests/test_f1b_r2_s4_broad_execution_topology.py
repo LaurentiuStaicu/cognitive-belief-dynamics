@@ -67,7 +67,7 @@ def test_topology_reuses_m2_stable_shard_exactly() -> None:
         "SYNTHETIC|REPLICATE=42|RESTRICTION=ADD_RESTRICTION"
         "|MISSINGNESS=0.15"
     )
-    assert stable_shard(run_id, 250) == stable_shard(run_id, 250)
+    assert stable_shard(run_id, 250) == 151
 
 
 def test_prefix_membership_rules_are_frozen() -> None:
