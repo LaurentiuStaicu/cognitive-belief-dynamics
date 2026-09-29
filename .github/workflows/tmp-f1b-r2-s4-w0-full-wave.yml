@@ -1,0 +1,500 @@
+name: TEMP F1b R2 S4 W0 full wave
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  prepare:
+    name: Freeze retained W0 inputs and matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Verify retained authorization and protected blobs
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          expected_blobs = {
+              "model/results/f1b_r2_s4_w0_shard48_preflight_2026-09-29.json":
+                  "824226591e3b815fac0e7ad7622688691ebf7fc9",
+              "model/results/f1b_r2_s4_w0_execution_plan_2026-09-29.json":
+                  "7a16590cef633e1aa3bfc6590f791aaba3445fc3",
+              "scripts/run_f1b_r2_s4_w0_shard.py":
+                  "97d73a92a098757dee01ff11fd04635b18b2a7ea",
+              "scripts/combine_f1b_r2_s4_w0.py":
+                  "5bdcdb6bf941ca89fc0516cd151541c052627483",
+          }
+          for path, expected in expected_blobs.items():
+              actual = subprocess.check_output(
+                  ["git", "hash-object", path],
+                  text=True,
+              ).strip()
+              if actual != expected:
+                  raise SystemExit(
+                      f"protected blob changed: {path}: {actual} != {expected}"
+                  )
+
+          retained = json.loads(
+              Path(
+                  "model/results/"
+                  "f1b_r2_s4_w0_shard48_preflight_2026-09-29.json"
+              ).read_text(encoding="utf-8")
+          )
+          assert retained["status"] == (
+              "NON_AUTHORITATIVE_S4_W0_SHARD48_PREFLIGHT_COMPLETE_RETAINED"
+          )
+          assert retained["interpretation"][
+              "production_runner_preflight_pass"
+          ] is True
+          assert retained["interpretation"][
+              "full_w0_authorized_after_retention"
+          ] is True
+          assert retained["selection"]["shard_index"] == 48
+          assert retained["execution"]["workflow_run_id"] == 36546677350
+          assert retained["execution"]["artifact_id"] == 11023527802
+
+          boundary = retained["boundary"]
+          assert boundary["full_w0_started"] is False
+          assert boundary["w1_authorized"] is False
+          assert boundary["scientific_interpretation_authorized"] is False
+          assert boundary["method_selected"] is False
+          assert boundary["scale_selected"] is False
+          assert boundary["power_validated"] is False
+
+          plan_retained = json.loads(
+              Path(
+                  "model/results/"
+                  "f1b_r2_s4_w0_execution_plan_2026-09-29.json"
+              ).read_text(encoding="utf-8")
+          )
+          assert plan_retained["status"] == (
+              "NON_AUTHORITATIVE_S4_W0_EXECUTION_PLAN_COMPLETE_RETAINED"
+          )
+          assert plan_retained["plan"]["shard_count"] == 250
+          assert plan_retained["plan"]["scientific_run_count"] == 3750
+          assert plan_retained["plan"]["method_row_count"] == 15000
+          PY
+
+      - name: Download retained homogeneous H1 source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/h1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36401867007
+
+      - name: Download retained S4 scientific matrix
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-s4-broad-scientific-matrix
+          path: /tmp/s4
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36463026247
+
+      - name: Download retained M2 combined evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-m2-combined
+          path: /tmp/m2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36450594439
+
+      - name: Download retained W0 execution plan
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-s4-w0-execution-plan
+          path: /tmp/w0
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36545789907
+
+      - name: Verify and package exact retained inputs
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import shutil
+          from pathlib import Path
+
+          sources = [
+              (
+                  Path("/tmp/h1/f1b-r2-homogeneous-h1-combined.json"),
+                  "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e",
+                  "h1.json",
+              ),
+              (
+                  Path("/tmp/s4/f1b-r2-s4-broad-scientific-matrix.json"),
+                  "f0691a0dc153f2ee1463f5115feeff448b49e7d2fb7accd6568a0fb8c43a5f01",
+                  "s4.json",
+              ),
+              (
+                  Path("/tmp/m2/f1b-r2-m2-combined.json"),
+                  "b9034afd6b6837c8433e0d42fd90911a7b560e18225de7d551f559330742c808",
+                  "m2.json",
+              ),
+              (
+                  Path("/tmp/w0/f1b-r2-s4-w0-execution-plan.json"),
+                  "c51c5c84aca91e70563c6fc486242e48a4a6b16db2ec05fa5b73b52b618c78f2",
+                  "w0-plan.json",
+              ),
+          ]
+          out = Path("/tmp/w0-inputs")
+          out.mkdir(parents=True, exist_ok=True)
+          for path, expected, target in sources:
+              actual = hashlib.sha256(path.read_bytes()).hexdigest()
+              if actual != expected:
+                  raise SystemExit(
+                      f"retained input hash changed: {path}: "
+                      f"{actual} != {expected}"
+                  )
+              shutil.copyfile(path, out / target)
+
+          plan = json.loads((out / "w0-plan.json").read_text(encoding="utf-8"))
+          assert plan["status"] == (
+              "NON_AUTHORITATIVE_S4_W0_EXECUTION_PLAN_COMPLETE"
+          )
+          assert plan["execution_authorized"] is True
+          assert plan["wave_id"] == "W0"
+          assert plan["scientific_run_count"] == 3750
+          assert plan["method_row_count"] == 15000
+          assert plan["imported_method_row_count"] == 3360
+          assert plan["new_method_execution_count"] == 11640
+          assert plan["shard_count"] == 250
+          assert len(plan["shard_plan"]) == 250
+          assert {int(row["shard_index"]) for row in plan["shard_plan"]} == set(
+              range(250)
+          )
+          assert plan["shard_plan_sha256"] == (
+              "1e248f24362eb9cdf1a9a81d7088120ed64e4333cfc711e2848d6e3e6c531f45"
+          )
+          PY
+
+      - name: Build exact 0..249 matrix
+        id: matrix
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          print(
+              "matrix="
+              + json.dumps(
+                  {"shard": list(range(250))},
+                  separators=(",", ":"),
+              )
+          )
+          PY
+
+      - name: Upload frozen W0 inputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-s4-w0-inputs
+          path: /tmp/w0-inputs
+          if-no-files-found: error
+          retention-days: 7
+
+  shard:
+    name: W0 shard ${{ matrix.shard }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download frozen W0 inputs
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-s4-w0-inputs
+          path: /tmp/w0-inputs
+
+      - name: Execute production shard
+        shell: bash
+        run: |
+          set -o pipefail
+          printf -v PAD "%03d" "${{ matrix.shard }}"
+          mkdir -p /tmp/w0-shard
+          python scripts/run_f1b_r2_s4_w0_shard.py \
+            --h1-source /tmp/w0-inputs/h1.json \
+            --s4-manifest /tmp/w0-inputs/s4.json \
+            --m2-combined /tmp/w0-inputs/m2.json \
+            --w0-plan /tmp/w0-inputs/w0-plan.json \
+            --shard-index "${{ matrix.shard }}" \
+            --output "/tmp/w0-shard/f1b-r2-s4-w0-shard-${PAD}.json" \
+            2> >(tee "/tmp/w0-shard/f1b-r2-s4-w0-shard-${PAD}-core.log" >&2)
+
+      - name: Verify production shard and Haswell lineage
+        run: |
+          printf -v PAD "%03d" "${{ matrix.shard }}"
+          export PAD
+          export SHARD_INDEX="${{ matrix.shard }}"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_paired_method_m2_sequential_resolution import (
+              validate_m2_runtime_cores,
+          )
+
+          shard_index = int(os.environ["SHARD_INDEX"])
+          pad = os.environ["PAD"]
+          result_path = Path(
+              f"/tmp/w0-shard/f1b-r2-s4-w0-shard-{pad}.json"
+          )
+          core_path = Path(
+              f"/tmp/w0-shard/f1b-r2-s4-w0-shard-{pad}-core.log"
+          )
+          result = json.loads(result_path.read_text(encoding="utf-8"))
+          plan = json.loads(
+              Path("/tmp/w0-inputs/w0-plan.json").read_text(encoding="utf-8")
+          )
+          expected = {
+              int(row["shard_index"]): row for row in plan["shard_plan"]
+          }[shard_index]
+
+          assert result["status"] == "NON_AUTHORITATIVE_S4_W0_SHARD_COMPLETE"
+          assert result["authoritative"] is False
+          assert result["wave_id"] == "W0"
+          assert result["shard_index"] == shard_index
+          assert result["scientific_run_count"] == int(
+              expected["scientific_run_count"]
+          )
+          assert result["imported_scientific_run_count"] == int(
+              expected["imported_scientific_run_count"]
+          )
+          assert result["new_scientific_run_count"] == int(
+              expected["new_scientific_run_count"]
+          )
+          assert result["imported_method_row_count"] == int(
+              expected["imported_method_row_count"]
+          )
+          assert result["new_method_execution_count"] == int(
+              expected["new_method_execution_count"]
+          )
+          assert result["method_row_count"] == (
+              4 * int(expected["scientific_run_count"])
+          )
+          assert result["scientific_run_ids_sha256"] == (
+              expected["scientific_run_ids_sha256"]
+          )
+          assert result["scientific_interpretation_authorized"] is False
+          assert result["method_selected"] is False
+          assert result["power_validated"] is False
+
+          cores = parse_openblas_verbose_cores(
+              core_path.read_text(encoding="utf-8", errors="replace")
+          )
+          validate_m2_runtime_cores(cores)
+          print(
+              "S4_W0_SHARD="
+              + json.dumps(
+                  {
+                      "shard_index": shard_index,
+                      "scientific_run_count": result["scientific_run_count"],
+                      "method_row_count": result["method_row_count"],
+                      "status_counts": result["status_counts"],
+                      "decision_counts": result["decision_counts"],
+                      "reported_cores": list(cores),
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload transient shard result
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-s4-w0-shard-${{ matrix.shard }}
+          path: /tmp/w0-shard/f1b-r2-s4-w0-shard-*.json
+          if-no-files-found: error
+          retention-days: 7
+
+  combine:
+    name: Combine exact W0 wave
+    needs:
+      - prepare
+      - shard
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download frozen W0 inputs
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-s4-w0-inputs
+          path: /tmp/w0-inputs
+
+      - name: Download all 250 shard results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: f1b-r2-s4-w0-shard-*
+          path: /tmp/w0-shards
+          merge-multiple: false
+
+      - name: Combine exact W0
+        run: |
+          python scripts/combine_f1b_r2_s4_w0.py \
+            --shard-root /tmp/w0-shards \
+            --w0-plan /tmp/w0-inputs/w0-plan.json \
+            --output /tmp/f1b-r2-s4-w0-combined.json
+
+      - name: Enforce combined W0 contract
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path("/tmp/f1b-r2-s4-w0-combined.json")
+          result = json.loads(path.read_text(encoding="utf-8"))
+
+          assert result["status"] == "NON_AUTHORITATIVE_S4_W0_COMBINED_COMPLETE"
+          assert result["authoritative"] is False
+          assert result["issue"] == 259
+          assert result["wave_id"] == "W0"
+          assert result["shard_count"] == 250
+          assert result["scientific_run_count"] == 3750
+          assert result["method_row_count"] == 15000
+          assert result["imported_scientific_run_count"] == 840
+          assert result["imported_method_row_count"] == 3360
+          assert result["new_scientific_run_count"] == 2910
+          assert result["new_method_execution_count"] == 11640
+          assert result["scientific_run_ids_sha256"] == (
+              "7f49bc6a67508566d2143d699af8d10d1721f571c1981035cdf1aef39dad8419"
+          )
+          assert result["method_row_ids_sha256"] == (
+              "7a936f191cdcd58e3988db43b43dbb166a2ca18033a8c5a9913f4efee2ef8b6c"
+          )
+          assert result["imported_method_row_ids_sha256"] == (
+              "d9d42ed4437199375c593110f555502d26a6660e81e045b9e1b105e8a1434537"
+          )
+          assert result["new_method_row_ids_sha256"] == (
+              "dad1b46e6028a4f0a415e8c65b5442aab44eb867e446c1ecb80ab637ee033fd5"
+          )
+          assert result["evidence_origin_counts"] == {
+              "RETAINED_M2_IMPORT": 3360,
+              "S4_NEW_EXECUTION": 11640,
+          }
+          assert len(result["rows"]) == 15000
+          assert result["scientific_interpretation_authorized"] is False
+          assert result["method_selected"] is False
+          assert result["power_validated"] is False
+          assert result["w1_authorized_after_retention"] is True
+          assert result["release_0_2_0_blocker_closed"] is False
+
+          result_sha = hashlib.sha256(path.read_bytes()).hexdigest()
+          evidence = {
+              "status": "NON_AUTHORITATIVE_S4_W0_COMBINED_EVIDENCE",
+              "workflow_run_id": int(os.environ["GITHUB_RUN_ID"]),
+              "execution_head": os.environ["GITHUB_SHA"],
+              "combined_result_sha256": result_sha,
+              "shard_count": result["shard_count"],
+              "scientific_run_count": result["scientific_run_count"],
+              "method_row_count": result["method_row_count"],
+              "scientific_run_ids_sha256": result[
+                  "scientific_run_ids_sha256"
+              ],
+              "method_row_ids_sha256": result["method_row_ids_sha256"],
+              "imported_method_row_ids_sha256": result[
+                  "imported_method_row_ids_sha256"
+              ],
+              "new_method_row_ids_sha256": result[
+                  "new_method_row_ids_sha256"
+              ],
+              "shard_identity_digest_sha256": result[
+                  "shard_identity_digest_sha256"
+              ],
+              "row_content_sha256": result["row_content_sha256"],
+              "status_counts": result["status_counts"],
+              "decision_counts": result["decision_counts"],
+              "evidence_origin_counts": result["evidence_origin_counts"],
+              "scientific_outcome_is_not_acceptance_criterion": True,
+              "scientific_interpretation_authorized": False,
+              "method_selected": False,
+              "power_validated": False,
+              "w1_authorized_after_retention": True,
+              "release_0_2_0_blocker_closed": False,
+          }
+          Path("/tmp/f1b-r2-s4-w0-combined-evidence.json").write_text(
+              json.dumps(evidence, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+
+          print(
+              "S4_W0_COMBINED="
+              + json.dumps(
+                  {
+                      "status_counts": result["status_counts"],
+                      "decision_counts": result["decision_counts"],
+                      "evidence_origin_counts": result[
+                          "evidence_origin_counts"
+                      ],
+                      "shard_identity_digest_sha256": result[
+                          "shard_identity_digest_sha256"
+                      ],
+                      "row_content_sha256": result["row_content_sha256"],
+                      "combined_result_sha256": result_sha,
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload retained-candidate W0 combined evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-s4-w0-combined
+          path: |
+            /tmp/f1b-r2-s4-w0-combined.json
+            /tmp/f1b-r2-s4-w0-combined-evidence.json
+          if-no-files-found: error
