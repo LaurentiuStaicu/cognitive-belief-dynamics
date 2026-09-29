@@ -1,0 +1,68 @@
+{
+  "result_id": "F1B.R2.S4.W0.EXECUTION_PLAN.RESULT.2026-09-29",
+  "status": "NON_AUTHORITATIVE_S4_W0_EXECUTION_PLAN_COMPLETE_RETAINED",
+  "authoritative": false,
+  "issue": 259,
+  "execution": {
+    "temporary_execution_pr": 301,
+    "workflow_run_id": 36545789907,
+    "workflow_run_number": 2,
+    "execution_pr_head": "510ee77096463d495d8e1e2dfb011a5b98f35309",
+    "qualified_main_baseline": "2b5c479810dfa3ab408f817226e8ce3aab94a1e0",
+    "artifact_id": 11022700618,
+    "artifact_name": "f1b-r2-s4-w0-execution-plan",
+    "artifact_zip_sha256": "42362b49bdc22e60b63cf00d2de35b9813544a7d5f6dd94a26b9468c69b469a8"
+  },
+  "plan": {
+    "wave_id": "W0",
+    "scientific_run_count": 3750,
+    "method_row_count": 15000,
+    "imported_scientific_run_count": 840,
+    "imported_method_row_count": 3360,
+    "new_scientific_run_count": 2910,
+    "new_method_execution_count": 11640,
+    "shard_count": 250,
+    "minimum_scientific_runs_per_shard": 5,
+    "maximum_scientific_runs_per_shard": 29,
+    "scientific_run_ids_sha256": "7f49bc6a67508566d2143d699af8d10d1721f571c1981035cdf1aef39dad8419",
+    "method_row_ids_sha256": "7a936f191cdcd58e3988db43b43dbb166a2ca18033a8c5a9913f4efee2ef8b6c",
+    "imported_method_row_ids_sha256": "d9d42ed4437199375c593110f555502d26a6660e81e045b9e1b105e8a1434537",
+    "new_method_row_ids_sha256": "dad1b46e6028a4f0a415e8c65b5442aab44eb867e446c1ecb80ab637ee033fd5",
+    "shard_plan_sha256": "1e248f24362eb9cdf1a9a81d7088120ed64e4333cfc711e2848d6e3e6c531f45"
+  },
+  "interpretation": {
+    "plan_contract_passed": true,
+    "broad_execution_started": false,
+    "scientific_interpretation_authorized": false,
+    "method_selected": false,
+    "scale_selected": false,
+    "power_validated": false
+  },
+  "next_gate": {
+    "id": "S4_W0_SHARD_48_INTEGRATION_PREFLIGHT",
+    "selection_rule": "Smallest W0 shard index with exactly 15 scientific runs, 5 imported scientific runs and 10 new scientific runs.",
+    "shard_index": 48,
+    "scientific_run_count": 15,
+    "imported_scientific_run_count": 5,
+    "new_scientific_run_count": 10,
+    "method_row_count": 60,
+    "imported_method_row_count": 20,
+    "new_method_execution_count": 40,
+    "full_w0_authorized": false
+  },
+  "release": {
+    "target_next_release": "0.2.0",
+    "release_issue": 277,
+    "release_blocker_closed": false,
+    "blocker": "S4 broad characterization must complete W0-W3, be retained, combined and scientifically interpreted."
+  },
+  "boundary": {
+    "w0_plan_retained_after_merge": true,
+    "w0_numerical_execution_started": false,
+    "w1_authorized": false,
+    "human_n_frozen": false,
+    "participant_recruitment_allowed": false,
+    "runtime_f1b_change_allowed": false,
+    "version_bumped": false
+  }
+}
