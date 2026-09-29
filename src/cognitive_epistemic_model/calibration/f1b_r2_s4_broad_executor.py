@@ -7,12 +7,13 @@ from .f1b_r2_paired_method_m1_screen import (
     M1ScientificSpec,
     bootstrap_seed_for,
     dataset_id_for,
-    run_method_prefix,
     validate_m1_config,
 )
 from .f1b_r2_paired_method_m2_sequential_resolution import (
     EXPECTED_METHODS_M2,
+    NOT_REJECT,
     REFIT_FAILURE,
+    REJECT,
     UNRESOLVED_AT_CAP,
     _method_observed_fit,
     _new_draw_statistic,
@@ -130,16 +131,15 @@ def run_new_stream(
         base_seed=base_seed,
     )
 
-    regenerated = run_method_prefix(
-        dataset,
-        spec=spec,
-        replicate=int(replicate),
-        method_id=method_id,
-        paired_config=paired_config,
-        config=m1_config,
-    )
-
-    if regenerated["fit_failure"]:
+    restriction = R2Restriction(str(spec.restriction))
+    try:
+        observed_pair, scales = _method_observed_fit(
+            dataset,
+            restriction=restriction,
+            method_id=method_id,
+            paired_config=paired_config,
+        )
+    except (RuntimeError, ValueError, np.linalg.LinAlgError):
         return {
             **base,
             "prefix_attempt_sequence_sha256": None,
@@ -160,117 +160,57 @@ def run_new_stream(
             "status": PREFIX_EXECUTION_FAILURE,
             "decision": None,
             "boundary_hit": None,
-            "terminal_n": None,
-            "terminal_sum": None,
+            "terminal_n": 0,
+            "terminal_sum": 0,
             "failure_n": None,
         }
 
-    attempts = list(regenerated["bootstrap_attempt_statistics"])
-    observed = regenerated["observed_statistic"]
-    if observed is None:
-        raise ValueError("S4 prefix lacks observed statistic")
+    observed = float(observed_pair.statistic)
+    attempts: list[float | None] = []
+    partial_sum = 0
+    for draw_index in range(199):
+        try:
+            statistic = _new_draw_statistic(
+                dataset,
+                restriction=restriction,
+                method_id=method_id,
+                observed_pair=observed_pair,
+                scales=scales,
+                base_seed=int(base_seed),
+                draw_index=draw_index,
+            )
+        except (RuntimeError, ValueError, np.linalg.LinAlgError):
+            attempts.append(None)
+            return {
+                **base,
+                "prefix_attempt_sequence_sha256": (
+                    canonical_attempt_sequence_sha256(attempts)
+                ),
+                "prefix_attempt_count": len(attempts),
+                "prefix_successful_attempt_count": len(attempts) - 1,
+                "prefix_refit_failure_count": 1,
+                "prefix_execution_failure": False,
+                "observed_statistic": observed,
+                "prefix_sum_199": None,
+                "prefix_decision": None,
+                "prefix_boundary_hit": None,
+                "continued_beyond_199": False,
+                "first_new_draw_index": None,
+                "new_attempt_count": 0,
+                "new_successful_attempt_count": 0,
+                "new_refit_failure_count": 0,
+                "new_attempt_sequence_sha256": None,
+                "status": REFIT_FAILURE,
+                "decision": None,
+                "boundary_hit": None,
+                "terminal_n": draw_index + 1,
+                "terminal_sum": int(partial_sum),
+                "failure_n": draw_index + 1,
+            }
 
-    if len(attempts) != 199:
-        return {
-            **base,
-            "prefix_attempt_sequence_sha256": (
-                None
-                if not attempts
-                else canonical_attempt_sequence_sha256(attempts)
-            ),
-            "prefix_attempt_count": len(attempts),
-            "prefix_successful_attempt_count": sum(
-                value is not None for value in attempts
-            ),
-            "prefix_refit_failure_count": sum(
-                value is None for value in attempts
-            ),
-            "prefix_execution_failure": True,
-            "observed_statistic": float(observed),
-            "prefix_sum_199": None,
-            "prefix_decision": None,
-            "prefix_boundary_hit": None,
-            "continued_beyond_199": False,
-            "first_new_draw_index": None,
-            "new_attempt_count": 0,
-            "new_successful_attempt_count": 0,
-            "new_refit_failure_count": 0,
-            "new_attempt_sequence_sha256": None,
-            "status": PREFIX_EXECUTION_FAILURE,
-            "decision": None,
-            "boundary_hit": None,
-            "terminal_n": None,
-            "terminal_sum": None,
-            "failure_n": None,
-        }
-
-    if any(value is None for value in attempts):
-        first_failure_index = next(
-            index for index, value in enumerate(attempts)
-            if value is None
-        )
-        used = attempts[: first_failure_index + 1]
-        terminal_sum = sum(
-            int(float(value) >= float(observed))
-            for value in used
-            if value is not None
-        )
-        return {
-            **base,
-            "prefix_attempt_sequence_sha256": (
-                canonical_attempt_sequence_sha256(used)
-            ),
-            "prefix_attempt_count": len(used),
-            "prefix_successful_attempt_count": sum(
-                value is not None for value in used
-            ),
-            "prefix_refit_failure_count": 1,
-            "prefix_execution_failure": False,
-            "observed_statistic": float(observed),
-            "prefix_sum_199": None,
-            "prefix_decision": None,
-            "prefix_boundary_hit": None,
-            "continued_beyond_199": False,
-            "first_new_draw_index": None,
-            "new_attempt_count": 0,
-            "new_successful_attempt_count": 0,
-            "new_refit_failure_count": 0,
-            "new_attempt_sequence_sha256": None,
-            "status": REFIT_FAILURE,
-            "decision": None,
-            "boundary_hit": None,
-            "terminal_n": first_failure_index + 1,
-            "terminal_sum": int(terminal_sum),
-            "failure_n": first_failure_index + 1,
-        }
-
-    if regenerated["bootstrap_calibration_failure"]:
-        return {
-            **base,
-            "prefix_attempt_sequence_sha256": (
-                canonical_attempt_sequence_sha256(attempts)
-            ),
-            "prefix_attempt_count": 199,
-            "prefix_successful_attempt_count": 199,
-            "prefix_refit_failure_count": 0,
-            "prefix_execution_failure": True,
-            "observed_statistic": float(observed),
-            "prefix_sum_199": None,
-            "prefix_decision": None,
-            "prefix_boundary_hit": None,
-            "continued_beyond_199": False,
-            "first_new_draw_index": None,
-            "new_attempt_count": 0,
-            "new_successful_attempt_count": 0,
-            "new_refit_failure_count": 0,
-            "new_attempt_sequence_sha256": None,
-            "status": PREFIX_EXECUTION_FAILURE,
-            "decision": None,
-            "boundary_hit": None,
-            "terminal_n": 199,
-            "terminal_sum": None,
-            "failure_n": None,
-        }
+        value = float(statistic)
+        attempts.append(value)
+        partial_sum += int(value >= observed)
 
     prefix_hash = canonical_attempt_sequence_sha256(attempts)
     prefix = _prefix_state(
@@ -291,16 +231,6 @@ def run_new_stream(
     new_attempts: list[float | None] = []
 
     if decision is None:
-        restriction = R2Restriction(str(spec.restriction))
-        observed_pair, scales = _method_observed_fit(
-            dataset,
-            restriction=restriction,
-            method_id=method_id,
-            paired_config=paired_config,
-        )
-        if float(observed_pair.statistic) != float(observed):
-            raise ValueError("S4 continuation observed fit mismatch")
-
         for draw_index in range(
             int(m2_config["controller"]["first_new_draw_index"]),
             int(m2_config["controller"]["maximum_new_draw_index"]) + 1,
@@ -327,13 +257,13 @@ def run_new_stream(
             partial_sum += int(float(statistic) >= float(observed))
             boundary = boundaries.row(total_n)
             if partial_sum <= int(boundary.lower):
-                decision = "REJECT_P_LE_ALPHA"
+                decision = REJECT
                 boundary_hit = "LOWER"
                 status = "SEQUENTIAL_RESOLVED"
                 terminal_n = total_n
                 break
             if partial_sum >= int(boundary.upper):
-                decision = "NOT_REJECT_P_GT_ALPHA"
+                decision = NOT_REJECT
                 boundary_hit = "UPPER"
                 status = "SEQUENTIAL_RESOLVED"
                 terminal_n = total_n
