@@ -98,6 +98,18 @@ def validate_topology_config(config: dict) -> None:
         raise ValueError("S4 topology GitHub matrix limit changed")
     if shard["wave_combine_job_is_not_matrix_member"] is not True:
         raise ValueError("S4 topology wave combine placement changed")
+    if shard["expected_assignment_rows_sha256"] != (
+        "7d37f2384c1003490a4b6e7a091f8648ed61e72241f964d3ce0336229f63dbce"
+    ):
+        raise ValueError("S4 topology assignment digest changed")
+    expected_ranges = {
+        "W0": [5, 29],
+        "W1": [5, 27],
+        "W2": [6, 27],
+        "W3": [4, 27],
+    }
+    if shard["expected_scientific_runs_per_shard_range"] != expected_ranges:
+        raise ValueError("S4 topology expected shard ranges changed")
 
     combine = config["final_combine"]
     if tuple(combine["required_wave_ids"]) != ("W0", "W1", "W2", "W3"):
@@ -228,6 +240,12 @@ def build_topology_manifest(
             f"|IMPORTED={int(imported)}"
         )
 
+    assignment_digest = canonical_json_sha256(sorted(assignment_rows))
+    if assignment_digest != str(
+        config["shard_partition"]["expected_assignment_rows_sha256"]
+    ):
+        raise ValueError("S4 topology assignment digest mismatch")
+
     expected_wave_counts = {f"W{i}": 3750 for i in range(4)}
     if dict(wave_counts) != expected_wave_counts:
         raise ValueError("S4 topology wave coverage changed")
@@ -267,8 +285,7 @@ def build_topology_manifest(
     per_wave_summary = []
     for wave_id in ("W0", "W1", "W2", "W3"):
         subset = [row for row in shard_plan if row["wave_id"] == wave_id]
-        per_wave_summary.append(
-            {
+        summary = {
                 "wave_id": wave_id,
                 "shard_count": len(subset),
                 "scientific_run_count": sum(
@@ -289,11 +306,19 @@ def build_topology_manifest(
                 "minimum_scientific_runs_per_shard": min(
                     row["scientific_run_count"] for row in subset
                 ),
-                "maximum_scientific_runs_per_shard": max(
-                    row["scientific_run_count"] for row in subset
-                ),
-            }
-        )
+            "maximum_scientific_runs_per_shard": max(
+                row["scientific_run_count"] for row in subset
+            ),
+        }
+        expected_range = config["shard_partition"][
+            "expected_scientific_runs_per_shard_range"
+        ][wave_id]
+        if [
+            summary["minimum_scientific_runs_per_shard"],
+            summary["maximum_scientific_runs_per_shard"],
+        ] != expected_range:
+            raise ValueError("S4 topology shard range mismatch")
+        per_wave_summary.append(summary)
 
     return {
         "topology_id": config["topology_id"],
@@ -310,9 +335,7 @@ def build_topology_manifest(
         "new_scientific_run_count": 14160,
         "new_method_execution_count": 56640,
         "scientific_run_ids_sha256": canonical_json_sha256(sorted(run_ids)),
-        "assignment_rows_sha256": canonical_json_sha256(
-            sorted(assignment_rows)
-        ),
+        "assignment_rows_sha256": assignment_digest,
         "per_wave_summary": per_wave_summary,
         "shard_plan": shard_plan,
         "broad_execution_authorized_after_topology_retention": True,
