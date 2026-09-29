@@ -1,0 +1,331 @@
+name: TEMP F1b R2 S4 W0 shard-48 integration preflight
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  preflight:
+    name: Execute production W0 shard 48
+    runs-on: ubuntu-latest
+    env:
+      CBD_CI_CONSTRAINTS: ${{ github.workspace }}/requirements/ci-py312-linux.lock.txt
+      OPENBLAS_CORETYPE: Haswell
+      OPENBLAS_VERBOSE: "2"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install "pip==26.2.1"
+          python -m pip install -c requirements/ci-py312-linux.lock.txt .
+
+      - name: Download retained homogeneous H1 source
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-homogeneous-h1-combined
+          path: /tmp/h1
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36401867007
+
+      - name: Download retained S4 scientific matrix
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-s4-broad-scientific-matrix
+          path: /tmp/s4
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36463026247
+
+      - name: Download retained M2 combined evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-m2-combined
+          path: /tmp/m2
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36450594439
+
+      - name: Download retained W0 execution plan
+        uses: actions/download-artifact@v4
+        with:
+          name: f1b-r2-s4-w0-execution-plan
+          path: /tmp/w0
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36545789907
+
+      - name: Verify retained W0 plan and freeze shard 48
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          plan_path = Path("/tmp/w0/f1b-r2-s4-w0-execution-plan.json")
+          plan = json.loads(plan_path.read_text(encoding="utf-8"))
+          retained = json.loads(
+              Path(
+                  "model/results/f1b_r2_s4_w0_execution_plan_2026-09-29.json"
+              ).read_text(encoding="utf-8")
+          )
+
+          assert retained["status"] == (
+              "NON_AUTHORITATIVE_S4_W0_EXECUTION_PLAN_COMPLETE_RETAINED"
+          )
+          assert retained["execution"]["workflow_run_id"] == 36545789907
+          assert retained["execution"]["artifact_id"] == 11022700618
+          assert plan["status"] == (
+              "NON_AUTHORITATIVE_S4_W0_EXECUTION_PLAN_COMPLETE"
+          )
+          assert plan["execution_authorized"] is True
+          assert plan["wave_id"] == "W0"
+          assert plan["scientific_run_count"] == 3750
+          assert plan["method_row_count"] == 15000
+          assert plan["shard_count"] == 250
+          assert plan["shard_plan_sha256"] == retained["plan"][
+              "shard_plan_sha256"
+          ]
+
+          candidates = [
+              row
+              for row in plan["shard_plan"]
+              if int(row["scientific_run_count"]) == 15
+              and int(row["imported_scientific_run_count"]) == 5
+              and int(row["new_scientific_run_count"]) == 10
+          ]
+          assert candidates
+          selected = min(candidates, key=lambda row: int(row["shard_index"]))
+          assert int(selected["shard_index"]) == 48
+          assert int(selected["imported_method_row_count"]) == 20
+          assert int(selected["new_method_execution_count"]) == 40
+
+          selection = {
+              "status": "NON_AUTHORITATIVE_S4_W0_SHARD48_SELECTION_FROZEN",
+              "selection_rule": (
+                  "smallest shard index with exactly 15 scientific runs, "
+                  "5 imported scientific runs and 10 new scientific runs"
+              ),
+              "selected_shard": selected,
+              "w0_plan_run_id": 36545789907,
+              "w0_plan_artifact_id": 11022700618,
+              "w0_plan_shard_plan_sha256": plan["shard_plan_sha256"],
+          }
+          Path(
+              "/tmp/f1b-r2-s4-w0-shard-48-selection.json"
+          ).write_text(
+              json.dumps(selection, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          print("S4_W0_SHARD48_SELECTION=" + json.dumps(selected, sort_keys=True))
+          PY
+
+      - name: Execute production W0 shard 48
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/run_f1b_r2_s4_w0_shard.py \
+            --h1-source /tmp/h1/f1b-r2-homogeneous-h1-combined.json \
+            --s4-manifest /tmp/s4/f1b-r2-s4-broad-scientific-matrix.json \
+            --m2-combined /tmp/m2/f1b-r2-m2-combined.json \
+            --w0-plan /tmp/w0/f1b-r2-s4-w0-execution-plan.json \
+            --shard-index 48 \
+            --output /tmp/f1b-r2-s4-w0-shard-048.json \
+            2> >(tee /tmp/f1b-r2-s4-w0-shard-048-core.log >&2)
+
+      - name: Verify scientific-process OpenBLAS core
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          from cognitive_epistemic_model.calibration.f1b_r2_openblas_lineage import (
+              parse_openblas_verbose_cores,
+          )
+          from cognitive_epistemic_model.calibration.f1b_r2_paired_method_m2_sequential_resolution import (
+              validate_m2_runtime_cores,
+          )
+
+          text = Path(
+              "/tmp/f1b-r2-s4-w0-shard-048-core.log"
+          ).read_text(encoding="utf-8", errors="replace")
+          cores = parse_openblas_verbose_cores(text)
+          validate_m2_runtime_cores(cores)
+          Path(
+              "/tmp/f1b-r2-s4-w0-shard-048-core.json"
+          ).write_text(
+              json.dumps(
+                  {
+                      "reported_cores": list(cores),
+                      "all_cores_qualified": True,
+                  },
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          print("S4_W0_SHARD48_CORES=" + json.dumps(list(cores)))
+          PY
+
+      - name: Enforce shard-48 structural and provenance contract
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from collections import defaultdict
+          from pathlib import Path
+
+          def load(path):
+              return json.loads(Path(path).read_text(encoding="utf-8"))
+
+          def sha256(path):
+              return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+          plan_path = "/tmp/w0/f1b-r2-s4-w0-execution-plan.json"
+          plan = load(plan_path)
+          selection = load("/tmp/f1b-r2-s4-w0-shard-48-selection.json")
+          result = load("/tmp/f1b-r2-s4-w0-shard-048.json")
+          expected = selection["selected_shard"]
+
+          assert int(expected["shard_index"]) == 48
+          assert result["status"] == "NON_AUTHORITATIVE_S4_W0_SHARD_COMPLETE"
+          assert result["authoritative"] is False
+          assert result["wave_id"] == "W0"
+          assert result["shard_index"] == 48
+          assert result["scientific_run_count"] == 15
+          assert result["method_row_count"] == 60
+          assert result["imported_scientific_run_count"] == 5
+          assert result["new_scientific_run_count"] == 10
+          assert result["imported_method_row_count"] == 20
+          assert result["new_method_execution_count"] == 40
+          assert result["scientific_run_ids_sha256"] == (
+              expected["scientific_run_ids_sha256"]
+          )
+
+          assert result["evidence_origin_counts"] == {
+              "RETAINED_M2_IMPORT": 20,
+              "S4_NEW_EXECUTION": 40,
+          }
+          assert len(result["rows"]) == 60
+
+          expected_methods = {
+              "POPULATION",
+              "HIERARCHICAL_0.5X",
+              "HIERARCHICAL_1X",
+              "HIERARCHICAL_2X",
+          }
+          grouped = defaultdict(list)
+          for row in result["rows"]:
+              grouped[str(row["scientific_run_id"])].append(row)
+          assert len(grouped) == 15
+          for rows in grouped.values():
+              assert len(rows) == 4
+              assert {str(row["inference_method"]) for row in rows} == (
+                  expected_methods
+              )
+              assert len({str(row["dataset_sha256"]) for row in rows}) == 1
+
+          allowed_statuses = {
+              "SEQUENTIAL_RESOLVED_AT_PREFIX",
+              "SEQUENTIAL_RESOLVED",
+              "SEQUENTIAL_UNRESOLVED_AT_CAP",
+              "BOOTSTRAP_REFIT_FAILURE_UNRESOLVED",
+              "PREFIX_EXECUTION_FAILURE_UNRESOLVED",
+          }
+          assert set(result["status_counts"]).issubset(allowed_statuses)
+
+          provenance = result["provenance"]
+          assert provenance["w0_plan_sha256"] == sha256(plan_path)
+          assert provenance["h1_source_sha256"] == (
+              "618b52162e98d25d41ac9cc7a6411ccfbf3c95775412a46b759e1514e90ed37e"
+          )
+          assert provenance["s4_manifest_sha256"] == (
+              "f0691a0dc153f2ee1463f5115feeff448b49e7d2fb7accd6568a0fb8c43a5f01"
+          )
+          assert provenance["m2_combined_sha256"] == (
+              "b9034afd6b6837c8433e0d42fd90911a7b560e18225de7d551f559330742c808"
+          )
+
+          assert result["scientific_interpretation_authorized"] is False
+          assert result["method_selected"] is False
+          assert result["power_validated"] is False
+
+          manifest = {
+              "status": "NON_AUTHORITATIVE_S4_W0_SHARD48_PREFLIGHT_EVIDENCE",
+              "shard_index": 48,
+              "selection_sha256": sha256(
+                  "/tmp/f1b-r2-s4-w0-shard-48-selection.json"
+              ),
+              "result_sha256": sha256(
+                  "/tmp/f1b-r2-s4-w0-shard-048.json"
+              ),
+              "core_json_sha256": sha256(
+                  "/tmp/f1b-r2-s4-w0-shard-048-core.json"
+              ),
+              "core_log_sha256": sha256(
+                  "/tmp/f1b-r2-s4-w0-shard-048-core.log"
+              ),
+              "scientific_run_ids_sha256": result[
+                  "scientific_run_ids_sha256"
+              ],
+              "method_row_ids_sha256": result["method_row_ids_sha256"],
+              "status_counts": result["status_counts"],
+              "decision_counts": result["decision_counts"],
+              "scientific_outcome_is_not_acceptance_criterion": True,
+              "full_w0_authorized_after_retention": True,
+              "scientific_interpretation_authorized": False,
+              "method_selected": False,
+              "power_validated": False,
+          }
+          Path(
+              "/tmp/f1b-r2-s4-w0-shard-48-preflight-evidence.json"
+          ).write_text(
+              json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+
+          print(
+              "S4_W0_SHARD48_PREFLIGHT="
+              + json.dumps(
+                  {
+                      "scientific_run_count": result["scientific_run_count"],
+                      "method_row_count": result["method_row_count"],
+                      "evidence_origin_counts": result[
+                          "evidence_origin_counts"
+                      ],
+                      "status_counts": result["status_counts"],
+                      "decision_counts": result["decision_counts"],
+                      "scientific_run_ids_sha256": result[
+                          "scientific_run_ids_sha256"
+                      ],
+                      "method_row_ids_sha256": result[
+                          "method_row_ids_sha256"
+                      ],
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
+
+      - name: Upload shard-48 preflight evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1b-r2-s4-w0-shard-48-preflight
+          path: |
+            /tmp/f1b-r2-s4-w0-shard-48-selection.json
+            /tmp/f1b-r2-s4-w0-shard-048.json
+            /tmp/f1b-r2-s4-w0-shard-048-core.json
+            /tmp/f1b-r2-s4-w0-shard-048-core.log
+            /tmp/f1b-r2-s4-w0-shard-48-preflight-evidence.json
+          if-no-files-found: error
