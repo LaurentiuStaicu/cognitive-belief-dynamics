@@ -311,6 +311,9 @@ def build_all_new_wave_plan(s4_manifest: dict, config: dict) -> dict:
         raise ValueError("S4 all-new-wave raw manifest status changed")
     if int(s4_manifest["scientific_run_count"]) != 15000:
         raise ValueError("S4 all-new-wave raw manifest count changed")
+    manifest_rows = s4_manifest.get("rows")
+    if not isinstance(manifest_rows, list) or len(manifest_rows) != 15000:
+        raise ValueError("S4 all-new-wave raw manifest rows changed")
 
     wave = config["wave"]
     wave_id = str(wave["wave_id"])
@@ -319,7 +322,7 @@ def build_all_new_wave_plan(s4_manifest: dict, config: dict) -> dict:
 
     rows = [
         row
-        for row in s4_manifest["rows"]
+        for row in manifest_rows
         if start <= int(row["evaluation_replicate"]) <= end
     ]
     if len(rows) != 3750:
