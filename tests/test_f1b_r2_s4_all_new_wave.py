@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import hashlib
 import json
 from pathlib import Path
 
@@ -157,6 +158,12 @@ def test_repository_w2_contract_is_frozen() -> None:
     assert predecessor["required_status"] == (
         "NON_AUTHORITATIVE_S4_W1_COMBINED_COMPLETE_RETAINED"
     )
+    retained_path = ROOT / predecessor["path"]
+    retained_bytes = retained_path.read_bytes()
+    git_blob = hashlib.sha1(
+        f"blob {len(retained_bytes)}\\0".encode("ascii") + retained_bytes
+    ).hexdigest()
+    assert git_blob == predecessor["git_blob_sha"]
     assert "preflight" not in config
     assert "preflight_result" not in config["retained_sources"]
     assert config["authorization"]["full_wave_requires_preflight_retention"] is False
@@ -297,12 +304,19 @@ def test_w2_plan_builder_has_no_w1_preflight_dependency(
     config = deepcopy(load_w2_config())
     rows = [
         {
-            "scientific_run_id": f"S4-W2-SYNTHETIC-{index:04d}",
-            "evaluation_replicate": 50 + (index % 25),
+            "scientific_run_id": (
+                f"S4-W2-SYNTHETIC-R{replicate:02d}-CELL={cell:03d}"
+            ),
+            "evaluation_replicate": replicate,
         }
-        for index in range(3750)
+        for replicate in range(100)
+        for cell in range(150)
     ]
-    run_ids = sorted(str(row["scientific_run_id"]) for row in rows)
+    run_ids = sorted(
+        str(row["scientific_run_id"])
+        for row in rows
+        if 50 <= int(row["evaluation_replicate"]) <= 74
+    )
     method_ids = sorted(
         wave.method_row_id(run_id, method)
         for run_id in run_ids
