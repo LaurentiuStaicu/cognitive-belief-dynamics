@@ -201,8 +201,8 @@ jobs:
           assert plan["status"] == "NON_AUTHORITATIVE_S4_W2_EXECUTION_PLAN_COMPLETE"
           assert plan["authoritative"] is False
           assert plan["wave_id"] == "W2"
-          assert plan["replicate_start"] == 25
-          assert plan["replicate_end"] == 49
+          assert plan["replicate_start"] == 50
+          assert plan["replicate_end"] == 74
           assert plan["scientific_run_count"] == 3750
           assert plan["method_row_count"] == 15000
           assert plan["imported_scientific_run_count"] == 0
