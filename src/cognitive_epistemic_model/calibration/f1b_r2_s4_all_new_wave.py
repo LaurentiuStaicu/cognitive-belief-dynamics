@@ -65,6 +65,17 @@ EXPECTED_WAVES = {
     },
 }
 
+EXPECTED_RETAINED_PREDECESSORS = {
+    "W1": {
+        "path": "model/results/f1b_r2_s4_w0_combined_2026-09-29.json",
+        "git_blob_sha": "d8aa5b48a91b6242c3a0d4455c4d2278c30642e1",
+    },
+    "W2": {
+        "path": "model/results/f1b_r2_s4_w1_combined_2026-09-30.json",
+        "git_blob_sha": "7302806c2630b8d24a84f20885a543274badcd33",
+    },
+}
+
 
 def canonical_json_sha256(value: Any) -> str:
     payload = json.dumps(
@@ -188,6 +199,13 @@ def validate_all_new_wave_config(config: dict) -> None:
         raise ValueError("S4 all-new-wave retained predecessor changed")
     if str(predecessor["required_status"]) != expected["predecessor_status"]:
         raise ValueError("S4 all-new-wave retained predecessor status changed")
+    if wave_id == "W3":
+        raise ValueError("S4 W3 execution requires a retained W2 predecessor config")
+    expected_predecessor = EXPECTED_RETAINED_PREDECESSORS[wave_id]
+    if str(predecessor.get("path")) != expected_predecessor["path"]:
+        raise ValueError("S4 all-new-wave retained predecessor path changed")
+    if str(predecessor.get("git_blob_sha")) != expected_predecessor["git_blob_sha"]:
+        raise ValueError("S4 all-new-wave retained predecessor blob changed")
     if predecessor["next_wave_authorized_after_retention"] is not True:
         raise ValueError("S4 all-new-wave predecessor authorization changed")
 
@@ -196,20 +214,37 @@ def validate_all_new_wave_config(config: dict) -> None:
         raise ValueError("S4 all-new-wave predecessor is not retained")
     if authorization["wave_execution_authorized"] is not True:
         raise ValueError("S4 all-new-wave is not authorized")
-    if authorization["full_wave_requires_preflight_retention"] is not True:
-        raise ValueError("S4 all-new-wave preflight gate weakened")
-    preflight_retained = bool(authorization["preflight_retained"])
-    full_wave_authorized = bool(
-        authorization["full_wave_execution_authorized"]
-    )
-    if full_wave_authorized != preflight_retained:
-        raise ValueError(
-            "S4 W1 full-wave authorization must match retained preflight"
+
+    if wave_id == "W1":
+        if authorization["full_wave_requires_preflight_retention"] is not True:
+            raise ValueError("S4 W1 preflight gate weakened")
+        preflight_retained = bool(authorization["preflight_retained"])
+        full_wave_authorized = bool(
+            authorization["full_wave_execution_authorized"]
         )
-    if wave_id != "W1":
-        raise ValueError(
-            "S4 W2/W3 execution requires a later retained predecessor config"
-        )
+        if full_wave_authorized != preflight_retained:
+            raise ValueError(
+                "S4 W1 full-wave authorization must match retained preflight"
+            )
+        if authorization["w2_authorized"] is not False:
+            raise ValueError("S4 W1 cannot authorize W2 before retention")
+        if authorization["w3_authorized"] is not False:
+            raise ValueError("S4 W1 cannot authorize W3")
+    elif wave_id == "W2":
+        if "preflight" in config:
+            raise ValueError("S4 W2 must not depend on a W1-style preflight")
+        if "preflight_result" in config["retained_sources"]:
+            raise ValueError("S4 W2 must not retain a W1 preflight dependency")
+        if authorization["full_wave_requires_preflight_retention"] is not False:
+            raise ValueError("S4 W2 must not require a new preflight")
+        if authorization["preflight_retained"] is not False:
+            raise ValueError("S4 W2 preflight flag must remain false")
+        if authorization["full_wave_execution_authorized"] is not True:
+            raise ValueError("S4 W2 full-wave execution is not authorized")
+        if authorization["w2_authorized"] is not True:
+            raise ValueError("S4 W2 authorization flag is not retained")
+        if authorization["w3_authorized"] is not False:
+            raise ValueError("S4 W2 cannot authorize W3 before retention")
 
     combine = config["wave_combine"]
     if int(combine["exact_scientific_run_count"]) != 3750:
@@ -231,8 +266,31 @@ def validate_all_new_wave_config(config: dict) -> None:
 
     if config["release"]["release_blocker_closed"] is not False:
         raise ValueError("S4 all-new-wave cannot close v0.2.0 blocker")
-    if any(bool(value) for value in config["boundary"].values()):
-        raise ValueError("S4 all-new-wave boundary was weakened")
+
+    boundary = config["boundary"]
+    if wave_id == "W1":
+        if any(bool(value) for value in boundary.values()):
+            raise ValueError("S4 all-new-wave boundary was weakened")
+    elif wave_id == "W2":
+        if boundary["full_w1_executed"] is not True:
+            raise ValueError("S4 W2 predecessor completion was not retained")
+        if boundary["w2_authorized"] is not True:
+            raise ValueError("S4 W2 boundary authorization is missing")
+        forbidden = (
+            "w2_executed",
+            "w3_authorized",
+            "w3_executed",
+            "scientific_interpretation_authorized",
+            "method_selected",
+            "scale_selected",
+            "power_validated",
+            "human_n_frozen",
+            "participant_recruitment_allowed",
+            "runtime_f1b_change_allowed",
+            "version_bumped",
+        )
+        if any(bool(boundary[key]) for key in forbidden):
+            raise ValueError("S4 W2 boundary was weakened")
 
 
 def build_all_new_wave_plan(s4_manifest: dict, config: dict) -> dict:
@@ -336,19 +394,27 @@ def build_all_new_wave_plan(s4_manifest: dict, config: dict) -> dict:
     ):
         raise ValueError("S4 all-new-wave shard-plan digest changed")
 
-    preflight = config["preflight"]
-    selected = shard_plan[int(preflight["shard_index"])]
-    for key in (
-        "scientific_run_count",
-        "new_scientific_run_count",
-        "new_method_execution_count",
-        "scientific_run_ids_sha256",
-        "method_row_ids_sha256",
-    ):
-        if selected[key] != preflight[key]:
-            raise ValueError(f"S4 W1 preflight identity changed: {key}")
+    preflight_output: dict[str, Any] = {}
+    if wave_id == "W1":
+        preflight = config["preflight"]
+        selected = shard_plan[int(preflight["shard_index"])]
+        for key in (
+            "scientific_run_count",
+            "new_scientific_run_count",
+            "new_method_execution_count",
+            "scientific_run_ids_sha256",
+            "method_row_ids_sha256",
+        ):
+            if selected[key] != preflight[key]:
+                raise ValueError(f"S4 W1 preflight identity changed: {key}")
+        preflight_output = {
+            "preflight_shard_index": int(preflight["shard_index"]),
+            "preflight_retained": bool(
+                config["authorization"]["preflight_retained"]
+            ),
+        }
 
-    return {
+    result = {
         "gate_id": config["gate_id"],
         "status": plan_status(wave_id),
         "authoritative": False,
@@ -367,10 +433,6 @@ def build_all_new_wave_plan(s4_manifest: dict, config: dict) -> dict:
         "shard_count": 250,
         "shard_plan_sha256": canonical_json_sha256(digest_plan),
         "shard_plan": shard_plan,
-        "preflight_shard_index": int(preflight["shard_index"]),
-        "preflight_retained": bool(
-            config["authorization"]["preflight_retained"]
-        ),
         "full_wave_execution_authorized": bool(
             config["authorization"]["full_wave_execution_authorized"]
         ),
@@ -379,3 +441,5 @@ def build_all_new_wave_plan(s4_manifest: dict, config: dict) -> dict:
         "power_validated": False,
         "release_0_2_0_blocker_closed": False,
     }
+    result.update(preflight_output)
+    return result
