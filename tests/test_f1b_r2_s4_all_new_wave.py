@@ -161,7 +161,9 @@ def test_repository_w2_contract_is_frozen() -> None:
     retained_path = ROOT / predecessor["path"]
     retained_bytes = retained_path.read_bytes()
     git_blob = hashlib.sha1(
-        f"blob {len(retained_bytes)}\\0".encode("ascii") + retained_bytes
+        f"blob {len(retained_bytes)}".encode("ascii")
+        + bytes((0,))
+        + retained_bytes
     ).hexdigest()
     assert git_blob == predecessor["git_blob_sha"]
     assert "preflight" not in config
