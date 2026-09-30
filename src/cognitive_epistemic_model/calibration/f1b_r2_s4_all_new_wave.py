@@ -183,6 +183,10 @@ def validate_all_new_wave_config(config: dict) -> None:
         raise ValueError("S4 all-new-wave evidence origin changed")
     if execution["new_rows_use_shared_broad_executor"] is not True:
         raise ValueError("S4 all-new-wave shared executor binding weakened")
+    if execution["shared_broad_executor_git_blob_sha"] != (
+        "ab1eb088c8551733909d3f1fb7acdb8c59e7da44"
+    ):
+        raise ValueError("S4 all-new-wave shared executor blob changed")
     if execution["numerical_lineage"] != "Haswell":
         raise ValueError("S4 all-new-wave numerical lineage changed")
     if int(execution["sequential_prefix_attempts"]) != 199:
@@ -194,7 +198,12 @@ def validate_all_new_wave_config(config: dict) -> None:
     if execution["scientific_interpretation_after_wave"] is not False:
         raise ValueError("S4 all-new-wave cannot authorize interpretation")
 
-    predecessor = config["retained_sources"]["predecessor_result"]
+    retained_sources = config.get("retained_sources")
+    if not isinstance(retained_sources, dict):
+        raise ValueError("S4 all-new-wave retained sources are missing")
+    predecessor = retained_sources.get("predecessor_result")
+    if not isinstance(predecessor, dict):
+        raise ValueError("S4 all-new-wave retained predecessor is missing")
     if str(predecessor["wave_id"]) != expected["predecessor_wave_id"]:
         raise ValueError("S4 all-new-wave retained predecessor changed")
     if str(predecessor["required_status"]) != expected["predecessor_status"]:
