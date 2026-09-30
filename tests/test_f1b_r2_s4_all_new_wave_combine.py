@@ -50,3 +50,15 @@ def test_w1_status_constants_are_frozen() -> None:
     assert wave.combined_status("W1") == (
         "NON_AUTHORITATIVE_S4_W1_COMBINED_COMPLETE"
     )
+
+
+def test_w2_status_constants_are_frozen() -> None:
+    assert wave.plan_status("W2") == (
+        "NON_AUTHORITATIVE_S4_W2_EXECUTION_PLAN_COMPLETE"
+    )
+    assert wave.shard_status("W2") == (
+        "NON_AUTHORITATIVE_S4_W2_SHARD_COMPLETE"
+    )
+    assert wave.combined_status("W2") == (
+        "NON_AUTHORITATIVE_S4_W2_COMBINED_COMPLETE"
+    )
